@@ -2,6 +2,7 @@
 //
 
 #include "stdafx.h"
+#include "NativeMenus/SearchableMenu.h"
 #include "TrafficMonitor.h"
 #include "PluginManagerDlg.h"
 #include "FilePathHelper.h"
@@ -230,7 +231,7 @@ void CPluginManagerDlg::OnNMRClickList1(NMHDR* pNMHDR, LRESULT* pResult)
 
     CPoint point1;	//定义一个用于确定光标位置的位置
     GetCursorPos(&point1);	//获取当前光标的位置，以便使得菜单可以跟随光标
-    pContextMenu->TrackPopupMenu(TPM_LEFTALIGN | TPM_RIGHTBUTTON, point1.x, point1.y, this); //在指定位置显示弹出菜单
+    NativeMenus::Track(pContextMenu, TPM_LEFTALIGN | TPM_RIGHTBUTTON, point1.x, point1.y, this); //在指定位置显示弹出菜单
 
     *pResult = 0;
 }

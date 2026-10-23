@@ -29,3 +29,7 @@ Full RegexBuddy engine/version parity and the adjacent complete regex workbench 
 ## Integration handoff
 
 Implementation owns NativeMenus and the eight consumer cpp files only. The integrating owner registers new compilation/header files in the vcxproj and filters, updates shared documentation, and connects broader theme/language preferences. No resource ID or shared NativeMaterial edits are required. A separate reviewer must approve this handoff before implementation.
+
+## Independent review amendments
+
+Independent native-interface reviewer approved this bounded implementation on 2026-10-23 with the following conditions: caller ownership of HMENU; TrackPopupMenu return versus notification semantics and cancel zero; balanced enter/init/uninit/exit notifications; fresh level initialization and command identity/enabled/submenu validation immediately before dispatch; mutation cancels or rebuilds instead of executing a stale row. Focus returns only within the original valid owner without taking foreground from another application. Preserve native edit caret and IME composition keys. Use LBS_HASSTRINGS with explicit accessible names, states and default actions, invalidated with HWND lifetime. Bound width and height to the monitor work area, scale/wrap rows, preserve separate check/icon columns, and respond to DPI changes. Unreadable owner-drawn labels use the original native menu route and remain an explicit visual acceptance gap. Plain search does not satisfy the adjacent complete regex-workbench requirement.

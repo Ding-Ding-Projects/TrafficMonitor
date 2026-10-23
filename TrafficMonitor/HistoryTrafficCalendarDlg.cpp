@@ -2,6 +2,7 @@
 //
 
 #include "stdafx.h"
+#include "NativeMenus/SearchableMenu.h"
 #include "TrafficMonitor.h"
 #include "HistoryTrafficCalendarDlg.h"
 #include "afxdialogex.h"
@@ -514,7 +515,7 @@ void CHistoryTrafficCalendarDlg::OnBnClickedMenuButton()
         point.y = rect.bottom;
         CMenu* pMenu = m_menu.GetSubMenu(1);
         if (pMenu != NULL)
-            pMenu->TrackPopupMenu(TPM_LEFTALIGN | TPM_RIGHTBUTTON, point.x, point.y, this);
+            NativeMenus::Track(pMenu, TPM_LEFTALIGN | TPM_RIGHTBUTTON, point.x, point.y, this);
     }
 }
 

@@ -1,0 +1,4 @@
+<ItemGroup>
+  <ClInclude Include="NativeMenus\SearchableMenu.h" />
+  <ClCompile Include="NativeMenus\SearchableMenu.cpp" />
+</ItemGroup>

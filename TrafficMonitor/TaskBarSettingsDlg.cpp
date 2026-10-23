@@ -2,6 +2,7 @@
 //
 
 #include "stdafx.h"
+#include "NativeMenus/SearchableMenu.h"
 #include "TrafficMonitor.h"
 #include "TaskBarSettingsDlg.h"
 #include "afxdialogex.h"
@@ -756,7 +757,7 @@ void CTaskBarSettingsDlg::OnBnClickedDefaultStyleButton()
         pBtn->GetWindowRect(rect);
         point.x = rect.left;
         point.y = rect.bottom;
-        m_default_style_menu.TrackPopupMenu(TPM_LEFTALIGN | TPM_RIGHTBUTTON, point.x, point.y, this);
+        NativeMenus::Track(&m_default_style_menu, TPM_LEFTALIGN | TPM_RIGHTBUTTON, point.x, point.y, this);
     }
 }
 

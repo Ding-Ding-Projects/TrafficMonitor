@@ -2,6 +2,7 @@
 //
 
 #include "stdafx.h"
+#include "NativeMenus/SearchableMenu.h"
 #include "TrafficMonitor.h"
 #include "HistoryTrafficListDlg.h"
 #include "afxdialogex.h"
@@ -287,7 +288,7 @@ BOOL CHistoryTrafficListDlg::OnNotify(WPARAM wParam, LPARAM lParam, LRESULT* pRe
 			pHeader->SendMessage(HDM_HITTEST, 0, (LPARAM)&info);
 			CMenu * pMenu = m_menu.GetSubMenu(0);
 			GetCursorPos(&point);
-			pMenu->TrackPopupMenu(TPM_RIGHTBUTTON, point.x, point.y, this);
+			NativeMenus::Track(pMenu, TPM_RIGHTBUTTON, point.x, point.y, this);
 		}
 	}
 	return CTabDlg::OnNotify(wParam, lParam, pResult);

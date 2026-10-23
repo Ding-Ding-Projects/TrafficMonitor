@@ -2,6 +2,7 @@
 //
 
 #include "stdafx.h"
+#include "NativeMenus/SearchableMenu.h"
 #include "TrafficMonitor.h"
 #include "TaskBarDlg.h"
 #include "afxdialogex.h"
@@ -1117,7 +1118,7 @@ void CTaskBarDlg::OnRButtonUp(UINT nFlags, CPoint point)
         //更新插件子菜单
         theApp.UpdatePluginMenu(&theApp.m_taskbar_menu_plugin_sub_menu, plugin, 2);
         //弹出菜单
-        pMenu->TrackPopupMenu(TPM_LEFTALIGN | TPM_RIGHTBUTTON, point1.x, point1.y, this);
+        NativeMenus::Track(pMenu, TPM_LEFTALIGN | TPM_RIGHTBUTTON, point1.x, point1.y, this);
     }
     CDialogEx::OnRButtonUp(nFlags, point1);
 }
