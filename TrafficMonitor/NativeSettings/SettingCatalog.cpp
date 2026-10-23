@@ -18,21 +18,6 @@ namespace NativeSettings
         if (number) to.*number=from.*number;
         if (trafficUnits) to.trafficUnit=from.trafficUnit;
     }
-    bool ParseNumber(const std::wstring& text,int minimum,int maximum,int step,int& value)
-    {
-        if(text.empty() || maximum<0 || step<1) return false;
-        int parsed=0;
-        for(const auto c:text)
-        {
-            if(c<L'0'||c>L'9')return false;
-            const int digit=c-L'0';
-            if(parsed>(maximum-digit)/10 || digit>maximum)return false;
-            parsed=parsed*10+digit;
-            if(parsed>maximum)return false;
-        }
-        if(parsed<minimum || parsed%step)return false;
-        value=parsed; return true;
-    }
     const wchar_t* GroupName(int group,bool chinese)
     {
         static const wchar_t* en[]={L"Monitoring",L"Floating monitor",L"Taskbar",L"Notifications",L"All groups"};

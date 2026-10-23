@@ -1,5 +1,6 @@
 #pragma once
 #include "Settings.h"
+#include "DraftValidation.h"
 #include <vector>
 #include <string>
 
@@ -25,6 +26,4 @@ namespace NativeSettings
     const std::vector<Setting>& Catalog();
     const wchar_t* GroupName(int group, bool chinese);
     std::wstring FormatValue(const Setting&, const Values&, bool chinese);
-    // Strict decimal parsing rejects overflow, signs, whitespace and trailing input.
-    bool ParseNumber(const std::wstring&, int minimum, int maximum, int step, int& value);
 }

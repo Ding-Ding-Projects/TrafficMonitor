@@ -999,6 +999,7 @@
   <ItemGroup>
     <ClInclude Include="NativeSettings\Settings.h" />
     <ClInclude Include="NativeSettings\SettingCatalog.h" />
+    <ClInclude Include="NativeSettings\DraftValidation.h" />
     <ClInclude Include="NativeSettings\SettingsViewport.h" />
     <ClCompile Include="NativeSettings\SettingCatalog.cpp" />
     <ClInclude Include="NativeMaterial\SettingsControls.h" />

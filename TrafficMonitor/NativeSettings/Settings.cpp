@@ -65,7 +65,7 @@ namespace
         void Note(const CString& text){m_note.SetWindowText(text);}
         int m_page{},m_contentHeight{},m_viewHeight{};UINT m_dpi{96};
         bool m_chinese{},m_loading{},m_dirty{},m_layout{};
-        unsigned long long m_ownerGeneration{};HWND m_lastFocus{};
+        EditorBinding m_binding;HWND m_lastFocus{};
         std::wstring m_reveal;Values m_values;
         std::function<void(const Values&)> m_apply;
         NativeMaterial::Appearance m_appearance{NativeMaterial::Appearance::Light};
@@ -235,7 +235,7 @@ namespace
     void Editor::EnsureVisible(Row& r)
     {if(!r.visible)return;auto& offset=m_searches[m_page].scroll;int next=offset;if(r.top<offset)next=r.top;else if(r.top+r.height>offset+m_viewHeight)next=r.height>m_viewHeight?r.top:r.top+r.height-m_viewHeight;if(next!=offset){offset=next;Layout();}}
     void Editor::SwitchGroup(int group)
-    {if(group<0||group>Discovery)return;m_regexEditor.Close();++m_ownerGeneration;m_reveal.clear();m_page=group;m_loading=true;m_search.SetWindowText(m_searches[group].filter.options.query.c_str());m_loading=false;Layout();m_search.SetFocus();}
+    {if(group<0||group>Discovery)return;m_regexEditor.Close();m_binding.Invalidate();m_reveal.clear();m_page=group;m_loading=true;m_search.SetWindowText(m_searches[group].filter.options.query.c_str());m_loading=false;Layout();m_search.SetFocus();}
     void Editor::Reveal(const std::wstring& id)
     {auto* r=Find(id);if(!r)return;SwitchGroup(r->setting->group);m_reveal=id;Layout();EnsureVisible(*r);if(r->setting->number&&r->number.IsWindowEnabled())r->number.SetFocus();else if(r->check.GetSafeHwnd()&&r->check.IsWindowEnabled())r->check.SetFocus();else r->details.SetFocus();}
     void Editor::OpenSelected(){const int at=m_results.GetCurSel();if(at==LB_ERR)return;auto* s=static_cast<Setting*>(m_results.GetItemDataPtr(at));if(s)Reveal(s->id);}
@@ -247,8 +247,8 @@ namespace
         Values candidate=m_values;
         for(const auto& r:m_rows)
         {
-            const auto& s=*r->setting;if(!s.Available()||!s.number)continue;CString text;r->number.GetWindowText(text);int value{};
-            if(!ParseNumber(text.GetString(),s.minimum,s.maximum,s.step,value)||(s.trafficUnits&&candidate.trafficUnit!=0&&candidate.trafficUnit!=1))
+            const auto& s=*r->setting;if(!s.number)continue;CString text;r->number.GetWindowText(text);int value=candidate.*s.number;
+            if(!ReadNumberDraft(text.GetString(),s.minimum,s.maximum,s.step,s.Available(),value)||(s.trafficUnits&&!ValidTrafficUnit(candidate.trafficUnit,s.Available())))
             {Reveal(s.id);CString message;message.Format(T(L"%s: enter a whole value from %d to %d, step %d, with a valid unit. Nothing was applied.",L"%s：請輸入 %d 至 %d 嘅整數，步距 %d，同有效單位。尚未套用任何更改。"),T(s.english,s.chinese).GetString(),s.minimum,s.maximum,s.step);Note(message);return;}candidate.*s.number=value;
         }
         if(candidate.automaticRestart!=NativeUpdate::AutomaticRestartEnabled()&&!NativeUpdate::SaveAutomaticRestart(candidate.automaticRestart))
@@ -256,7 +256,7 @@ namespace
         m_apply(candidate);Reload();Note(T(L"Submitted to the existing settings consumer; current values reloaded. This is not configuration-file readback proof and does not send a test notification.",L"已交畀原有設定流程處理，再載入目前數值。呢個結果未證明設定檔讀回成功，亦唔會發出測試通知。"));
     }
     bool Editor::CanDiscard(){return !m_dirty||MessageBox(T(L"Discard unapplied settings changes?",L"捨棄未套用嘅設定修改？"),T(L"Settings",L"設定"),MB_YESNO|MB_ICONQUESTION|MB_DEFBUTTON2)==IDYES;}
-    void Editor::OnCancel(){if(CanDiscard()){m_regexEditor.Close();++m_ownerGeneration;EndDialog(IDCANCEL);}}
+    void Editor::OnCancel(){if(CanDiscard()){m_regexEditor.Close();m_binding.Invalidate();EndDialog(IDCANCEL);}}
     Row* Editor::Target(HWND window,CPoint point)
     {
         for(auto& r:m_rows)if(r->visible)
@@ -279,7 +279,7 @@ namespace
     BOOL Editor::OnCommand(WPARAM w,LPARAM l)
     {
         const UINT id=LOWORD(w),code=HIWORD(w);if(m_loading)return CDialog::OnCommand(w,l);
-        if(id==Search&&code==EN_CHANGE){m_regexEditor.Close();++m_ownerGeneration;m_reveal.clear();CString text;m_search.GetWindowText(text);m_searches[m_page].filter.options.query=text.GetString();m_searches[m_page].scroll=0;Layout();return TRUE;}
+        if(id==Search&&code==EN_CHANGE){m_regexEditor.Close();m_binding.Invalidate();m_reveal.clear();CString text;m_search.GetWindowText(text);m_searches[m_page].filter.options.query=text.GetString();m_searches[m_page].scroll=0;Layout();return TRUE;}
         if(id==Results&&code==LBN_DBLCLK){OpenSelected();return TRUE;}
         if(id>=FirstRow&&id<FirstRow+m_rows.size()*8)
         {
@@ -299,16 +299,17 @@ namespace
         {
         case Regex:
         {
-            const int group=m_page;const auto generation=++m_ownerGeneration;
+            // Reopening focuses the existing editor and retains its original callbacks.
+            const int group=m_page;const auto generation=m_binding.Open(m_regexEditor.IsOpen());
             m_regexEditor.Open(m_hWnd,m_search.GetSafeHwnd(),m_searches[group].filter.options,
-                [this,group,generation]{return m_page==group&&m_ownerGeneration==generation?Subjects():std::vector<std::wstring>{};},
-                [this,group,generation](const NativeRegex::Options& options){if(m_page!=group||m_ownerGeneration!=generation)return;m_searches[group].filter.options=options;m_loading=true;m_search.SetWindowText(options.query.c_str());m_loading=false;m_reveal.clear();Layout();},m_chinese,m_appearance);return TRUE;
+                [this,group,generation]{return m_page==group&&m_binding.Accepts(generation)?Subjects():std::vector<std::wstring>{};},
+                [this,group,generation](const NativeRegex::Options& options){if(m_page!=group||!m_binding.Accepts(generation))return;m_searches[group].filter.options=options;m_loading=true;m_search.SetWindowText(options.query.c_str());m_loading=false;m_reveal.clear();Layout();},m_chinese,m_appearance);return TRUE;
         }
-        case Clear:m_regexEditor.Close();++m_ownerGeneration;m_searches[m_page].filter.options.regex=false;m_searches[m_page].filter.options.query.clear();m_loading=true;m_search.SetWindowText(L"");m_loading=false;m_reveal.clear();Layout();m_search.SetFocus();return TRUE;
+        case Clear:m_regexEditor.Close();m_binding.Invalidate();m_searches[m_page].filter.options.regex=false;m_searches[m_page].filter.options.query.clear();m_loading=true;m_search.SetWindowText(L"");m_loading=false;m_reveal.clear();Layout();m_search.SetFocus();return TRUE;
         case Apply:ApplyDraft();return TRUE;case Revert:Reload();return TRUE;case Reset:ResetPage();return TRUE;case OpenResult:OpenSelected();return TRUE;
         case ReturnFilter:m_reveal.clear();Layout();m_search.SetFocus();return TRUE;
-        case Legacy:if(CanDiscard()){m_regexEditor.Close();++m_ownerGeneration;EndDialog(IDRETRY);}return TRUE;
-        case Theme:m_regexEditor.Close();++m_ownerGeneration;m_appearance=m_appearance==NativeMaterial::Appearance::Light?NativeMaterial::Appearance::Dark:NativeMaterial::Appearance::Light;SetTheme();return TRUE;
+        case Legacy:if(CanDiscard()){m_regexEditor.Close();m_binding.Invalidate();EndDialog(IDRETRY);}return TRUE;
+        case Theme:m_regexEditor.Close();m_binding.Invalidate();m_appearance=m_appearance==NativeMaterial::Appearance::Light?NativeMaterial::Appearance::Dark:NativeMaterial::Appearance::Light;SetTheme();return TRUE;
         default:return CDialog::OnCommand(w,l);
         }
     }
