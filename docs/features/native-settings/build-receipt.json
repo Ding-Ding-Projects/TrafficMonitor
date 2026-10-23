@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "93b32abc6acb80e13cbc5826d2cb873d9d083d47",
+  "command": "build-installer.bat -Version 1.0.9002",
+  "exitCode": 0,
+  "compilerWarnings": 78,
+  "compilerErrors": 0,
+  "nativeBuildSeconds": 9.56,
+  "binarySha256": "FE872BFF1F5A05ABB55EEBB31E4B00890AC1B29139FFDE5C4CCA0D931BB1268F",
+  "assets": [
+    {
+      "name": "Setup.exe",
+      "bytes": 8363008,
+      "sha256": "62D77950EABBD17047B469B294C3136CAC8C0A1E3914193476F41DEA9F860104"
+    },
+    {
+      "name": "TrafficMonitor-1.0.9002-full.nupkg",
+      "bytes": 7483009,
+      "sha256": "7F214488452AB7631113F9FEA84745FA1AC97B3292E5DC7DE1F301F9381E426A"
+    },
+    {
+      "name": "RELEASES",
+      "bytes": 254,
+      "sha256": "86AD7482DDFE6F75F068DE567FAD4D5CB5AAF63E3037838C7D485F01DB72E858"
+    },
+    {
+      "name": "SHA256SUMS.txt",
+      "bytes": 460,
+      "sha256": "173A033CCDEF1CED9B7440CF73924C90AF578159DD7793382F14A96A012ED435"
+    }
+  ],
+  "installed": false,
+  "published": false,
+  "runtimeVerified": false,
+  "newTestsRun": false,
+  "newReviewsRun": false,
+  "newScreenshotsProduced": false,
+  "scope": "Native task-oriented settings only"
+}

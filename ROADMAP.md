@@ -57,7 +57,7 @@ with historical originals retained separately.
 
 ## Native task-oriented settings
 
-- [ ] Compile and package the new task-oriented settings editor with real existing consumers.
+- [x] Compile and package the task-oriented settings editor at 93b32abc; build-installer.bat -Version 1.0.9002 exited 0. This is build proof only.
 - [ ] Deliver and verify its draft/apply/revert/reset, persistence and recovery behavior when runtime checks resume.
 - [ ] Finish remaining legacy settings, full adjacent regex, language modes and accessibility acceptance.
 

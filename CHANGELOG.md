@@ -5,8 +5,7 @@
 The settings entrypoint now provides real Monitoring, Floating monitor and Taskbar draft controls,
 plain group search, Apply, Revert and page-default drafts. Apply retains the existing consumer and
 configuration save path. All settings (legacy) keeps the complete original dialog available.
-See [settings behavior and limits](docs/features/native-settings/README.md). Compilation and
-packaging are pending for this candidate. No new tests, reviews, audits or screenshots run in this
+See [settings behavior and limits](docs/features/native-settings/README.md). The exact root build-installer.bat -Version 1.0.9002 at 93b32abc6acb80e13cbc5826d2cb873d9d083d47 exited 0, with 78 warnings and zero errors in its 9.56-second native build. The [local build receipt](docs/features/native-settings/build-receipt.json) binds those bytes to that source. Later documentation/inventory commits require their own release producer; the local candidate is not installed or published. No new tests, reviews, audits or screenshots run in this
 expedited pass; full regex, localization, accessibility and remaining conversion stay unfinished.
 
 The previous normal release [1.0.17](https://github.com/Ding-Ding-Projects/TrafficMonitor/releases/tag/v1.0.17-run39938393354-1)
