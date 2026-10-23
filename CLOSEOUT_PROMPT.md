@@ -6,7 +6,7 @@ Accepted normal 1.0.36/source f795 and all four jobs are verified. Actual matchi
 
 Companion actual 9024 production/runtime source 421ac841a7825b682f0a67928be117c6b21c6ea4, SHA-256 8c84df5e042b31c3270ed130ae6d1a403f6e8dac80463bc01a7ac6a12e3e663d. Exact root entrypoint exit 0; 40 tests passed; one-file launch, labels/navigation/preferences and bounded 96-DPI matrix/persistence proved. Independent review approved useful partial integration. Higher scales, full keyboard/accessibility, uninspected images and exact integrated production/release remain unfinished. Preserve its original source binding, not this later documentation revision.
 
-Two representative timestamped raw images have prepared strict promotion inputs, not final promotion approval. Root owns exact-byte staging, inventory/README links, final validator and second visual inspection. Native 9022 images lack actual capture times and stay unpromoted. Earlier README/images and handoff records are retained in docs/history with exact source provenance.
+Two representative timestamped raw images passed the final strict validator on their exact producing source 421ac841a7825b682f0a67928be117c6b21c6ea4, then received a second visual inspection. Their exact bytes, public inventory and README links are integrated without relabeling them as evidence of a later source. Native 9022 images lack actual capture times and stay unpromoted. Earlier README/images and handoff records are retained in docs/history with exact source provenance.
 
 Wiki master 07ffa538ea230fc2cc4facbfcbd160bf82212612 has the exact prepared source f795 natural35 article bytes, SHA-256 65f75d1e2db40aa235bd6c1040f4da6522826bd0d300165976ddd3f4d2160880. Live wiki interaction remains unverified.
 

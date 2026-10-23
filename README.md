@@ -42,8 +42,18 @@ Use `build.bat --site` for the complete article/wiki website. Article production
 
 ## Current and historical images
 
-Current rebuilt-native-interface image promotion remains pending complete timestamp/source receipts. Earlier taskbar and upstream interface images are historical and are preserved with their provenance in the [README and image archive](docs/history/README-before-offline-companion.md). No historical image is relabeled as evidence for a newer build. Reviewed documentation-companion images remain pending promotion against their exact producing source. Their raw bytes and private receipts are retained; no later source is substituted to make validation pass.
+Current rebuilt-native-interface image promotion remains pending complete timestamp/source receipts. Earlier taskbar and upstream interface images are historical and are preserved with their provenance in the [README and image archive](docs/history/README-before-offline-companion.md). No historical image is relabeled as evidence for a newer build. Two reviewed documentation-companion images below passed strict promotion at their actual producing source. They remain candidate evidence, not proof of a later build or complete feature acceptance.
 
 ## Upstream and licence
 
 TrafficMonitor originates from [zhongyang219/TrafficMonitor](https://github.com/zhongyang219/TrafficMonitor). This fork retains the [original licence](LICENSE) and upstream attribution. The complete earlier introduction, usage, skins, plugins, related links and image presentation remain available in the [historical README archive](docs/history/README-before-offline-companion.md); current operational guidance is organized in the documentation linked above.
+
+## Source-bound offline reader images
+
+These exact raw images show local documentation candidate 1.0.9024 built from 421ac841a7825b682f0a67928be117c6b21c6ea4, not a later release. The inventory retains actual UTC capture times, original hashes and the bounded 96-DPI state. Higher scales and full keyboard/accessibility remain unverified. The minimum image shows the header and heading; lower content continues by normal vertical scrolling.
+
+![Offline documentation candidate 1.0.9024 showing English bundled-release labels and the external-link explanation at 1164 by 781](evidence/ui/docs-companion-9024/home-en-light.png)
+
+![Offline documentation candidate 1.0.9024 showing a wrapped bilingual snapshot header and Downloads heading at 624 by 441](evidence/ui/docs-companion-9024/downloads-bilingual-minimum.png)
+
+[Source/hash/state inventory](evidence/ui/docs-companion-9024/inventory.json).
