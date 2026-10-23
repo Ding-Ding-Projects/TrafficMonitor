@@ -2501,13 +2501,23 @@ LRESULT CTrafficMonitorDlg::OnSilentUpdatePulse(WPARAM, LPARAM)
     for (const auto& dialog : CBaseDialog::AllUniqueHandels())
         if (::IsWindow(dialog.second)) return 0;
 
-    struct WindowState { HWND main; HWND taskbar; bool busy; } state{
-        m_hWnd, IsTaskbarWndValid() ? m_tBarDlg->GetSafeHwnd() : nullptr, false };
+    struct WindowState { HWND main; HWND taskbar; HWND mainTooltip; HWND taskbarTooltip; bool busy; } state{
+        m_hWnd, IsTaskbarWndValid() ? m_tBarDlg->GetSafeHwnd() : nullptr,
+        m_tool_tips.GetSafeHwnd(), IsTaskbarWndValid() ? m_tBarDlg->m_tool_tips.GetSafeHwnd() : nullptr, false };
     const BOOL enumerated = ::EnumThreadWindows(::GetCurrentThreadId(), [](HWND window, LPARAM parameter) -> BOOL
     {
         auto& current = *reinterpret_cast<WindowState*>(parameter);
         if (window != current.main && window != current.taskbar && ::IsWindowVisible(window))
-            current.busy = true;
+        {
+            // Only our two passive status tooltips are exempt, never arbitrary tool windows.
+            const HWND expectedOwner = window == current.mainTooltip ? current.main
+                : window == current.taskbarTooltip ? current.taskbar : nullptr;
+            wchar_t className[32]{};
+            const bool passiveTooltip = expectedOwner && ::GetWindow(window, GW_OWNER) == expectedOwner
+                && ::GetClassNameW(window, className, _countof(className)) > 0
+                && wcscmp(className, L"tooltips_class32") == 0;
+            if (!passiveTooltip) current.busy = true;
+        }
         return TRUE;
     }, reinterpret_cast<LPARAM>(&state));
     if (!enumerated || state.busy) return 0;

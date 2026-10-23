@@ -113,3 +113,7 @@ reported two LNK4199 warnings, zero errors and elapsed 15.28 seconds. The
 This is local production evidence only, not publication, installation or automatic-update
 acceptance. No tests, reviews, audits, runtime checks or screenshots ran. Full Stage 2,
 automatic cadence, restart deferral and recovery remain unfinished.
+
+## Passive status tooltip restart boundary
+
+The existing visible-window restart check also classified the application-owned passive status tooltip as busy. Existing installed metadata records a visible taskbar tooltip, which demonstrates this classification mismatch but does not establish the cause of every previous update delay. The caller now excludes only the exact main/taskbar tooltip handles when their owner and tooltips_class32 class both match. Ordinary workspace, modeless editor, menu, draft, mouse capture and move/size deferrals remain unchanged. No new runtime observations, tests, reviews or screenshots were performed; automatic restart remains unverified.

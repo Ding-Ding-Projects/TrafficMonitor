@@ -332,3 +332,7 @@ The coordinating task pushed and fetched supported wiki refs/heads/master at bb9
 ## Published wiki provenance static production
 
 Metadata/content source db77a8cb3c9c136f1c2702aa823224521bfdeadf records the fetched wiki repair proof. The refreshed complete manifest was committed at a973e897efe8dd042a3a6209d0feaa6af01dbd3f before exact build.bat --site from a clean pinned producer. Production exited 0: 194 complete articles (166 repository and 28 inherited wiki), 1570 history records and zero unavailable local images. Receipt: docs/features/search/native-wiki-publication-site-build-receipt.json. Native union source remains faa0e8c302fc09e927ad7141415640f782f3dd8a. This metadata/static-only continuation does not imply deployment, live wiki UI verification or native runtime acceptance. Prior independent and combined receipts remain unchanged.
+
+## Passive status tooltip restart boundary
+
+The existing visible-window restart check also classified the application-owned passive status tooltip as busy. Existing installed metadata records a visible taskbar tooltip, which demonstrates this classification mismatch but does not establish the cause of every previous update delay. The caller now excludes only the exact main/taskbar tooltip handles when their owner and tooltips_class32 class both match. Ordinary workspace, modeless editor, menu, draft, mouse capture and move/size deferrals remain unchanged. No new runtime observations, tests, reviews or screenshots were performed; automatic restart remains unverified.
