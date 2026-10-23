@@ -230,3 +230,5 @@ The modeless search workbench now provides explicit named local expression stora
 The silent updater retains validated already-installed staging without blocking later release discovery and records bounded fixed-stage helper launch/results. Automatic restart remains unverified; see the [update guide](docs/features/installation/silent-updates.md).
 
 The verified manual installation baseline is package 1.0.25; automatic restart remains unresolved. The updater wiki stored guide now matches source 99708ed at wiki master 0ab91b5; live wiki interaction remains unverified. See the [current updater record](docs/features/installation/silent-updates.md#verified-manual-package-1025-baseline).
+
+Package 1.0.26 is the verified manual installation baseline. Normal startup retained the obsolete 1.0.24 staging with all five files unchanged and resumed Idle release metadata state. Automatic restart remains unresolved; see the [update record](docs/features/installation/silent-updates.md#verified-manual-package-1026-and-natural-staging-retirement).
