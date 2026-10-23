@@ -1,0 +1,604 @@
+{
+  "entries": [
+    {
+      "sha": "1c46b9b80d1fd385b1080c992842715cc2d0c5b7",
+      "date": "2025-01-08T11:06:45+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/1c46b9b80d1fd385b1080c992842715cc2d0c5b7",
+      "summary": "Merge pull request #1582 from BombaxCeiba/windows_web_experience_detector|merge",
+      "lineage": "upstream",
+      "originalSubject": "Merge pull request #1582 from BombaxCeiba/windows_web_experience_detector",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "b58791f9e56f5165b97476757cb9946c13254c36",
+      "date": "2025-01-08T11:07:22+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/b58791f9e56f5165b97476757cb9946c13254c36",
+      "summary": "Merge pull request #1656 from BombaxCeiba/fix_unexpected_d3d10_1_device_recreation|merge",
+      "lineage": "upstream",
+      "originalSubject": "Merge pull request #1656 from BombaxCeiba/fix_unexpected_d3d10_1_device_recreation",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "008cbf905dfc50f73eaa1c583b81719942955deb",
+      "date": "2025-01-08T11:07:43+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/008cbf905dfc50f73eaa1c583b81719942955deb",
+      "summary": "Merge pull request #1783 from mhqschen/master|merge",
+      "lineage": "upstream",
+      "originalSubject": "Merge pull request #1783 from mhqschen/master",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "791f5fc87402e9274adc7998ce670ca17ed9bd38",
+      "date": "2025-01-08T11:58:21+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/791f5fc87402e9274adc7998ce670ca17ed9bd38",
+      "summary": "Update CI workflows|maintenance",
+      "lineage": "upstream",
+      "originalSubject": "ci更新",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "7e30d8f064bcff373c6b09a4cf0a429ec9ee4af8",
+      "date": "2025-01-08T12:06:52+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/7e30d8f064bcff373c6b09a4cf0a429ec9ee4af8",
+      "summary": "Update CI workflows|maintenance",
+      "lineage": "upstream",
+      "originalSubject": "ci更新",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "019cbb652310a55064cda9960e2175bb94530f0b",
+      "date": "2025-01-08T15:08:40+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/019cbb652310a55064cda9960e2175bb94530f0b",
+      "summary": "Slow trackpad-gesture scrolling in the options dialog|fix",
+      "lineage": "upstream",
+      "originalSubject": "修正选项设置对话框中使用触摸板手势滚动过快的问题",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "fa5c43a983d989b31cb8f62b77757a78051c11d4",
+      "date": "2025-01-10T11:17:32+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/fa5c43a983d989b31cb8f62b77757a78051c11d4",
+      "summary": "Merge pull request #1891 from wisdommen/patch-1|merge",
+      "lineage": "upstream",
+      "originalSubject": "Merge pull request #1891 from wisdommen/patch-1",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "30be03c8c2c5f50567d57409067aea424105f3ce",
+      "date": "2025-01-11T21:54:37+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/30be03c8c2c5f50567d57409067aea424105f3ce",
+      "summary": "Add transparent PNG backgrounds to the main window|feature",
+      "lineage": "upstream",
+      "originalSubject": "主窗口新增png格式透明背景图片的支持",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "729009d08052a443782496629d000c6d123c5a58",
+      "date": "2025-01-12T12:05:04+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/729009d08052a443782496629d000c6d123c5a58",
+      "summary": "Prevent blank main-window content after changing skins|fix",
+      "lineage": "upstream",
+      "originalSubject": "修正更换皮肤后主窗口会有一段时间显示空白的问题",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "443a90844b53372a1ea34b9eca49b560bf9f262e",
+      "date": "2025-01-12T18:21:44+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/443a90844b53372a1ea34b9eca49b560bf9f262e",
+      "summary": "Convert selected skin backgrounds to PNG to reduce edge aliasing|maintenance",
+      "lineage": "upstream",
+      "originalSubject": "将部分皮肤的背景图片改成png格式，以解决边缘有锯齿的问题",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "7190fc8ad0dc835af311423bfca5256fd03078af",
+      "date": "2025-01-12T20:24:26+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/7190fc8ad0dc835af311423bfca5256fd03078af",
+      "summary": "Update the background image for skin 01|maintenance",
+      "lineage": "upstream",
+      "originalSubject": "更新皮肤01的背景图片",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "990e32a9551c211e868e77d132df9c54361574af",
+      "date": "2025-01-12T20:24:35+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/990e32a9551c211e868e77d132df9c54361574af",
+      "summary": "Fix ignored multi-line and background options in the GDI+ DrawWindowText helper|fix",
+      "lineage": "upstream",
+      "originalSubject": "修正使用GDI+的DrawWindowText函数中参数multi_line和draw_back_ground无效的问题",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "0c5e86e8126f3eaa3f3b15970a9f8c92a3a5e10e",
+      "date": "2025-01-13T11:38:18+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/0c5e86e8126f3eaa3f3b15970a9f8c92a3a5e10e",
+      "summary": "Fix incorrect opacity after changing skins|fix",
+      "lineage": "upstream",
+      "originalSubject": "修正更换皮肤时不透明度不正常的问题",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "4ef0022f87f095d1fe901af33a0044661981d251",
+      "date": "2025-01-14T14:48:53+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/4ef0022f87f095d1fe901af33a0044661981d251",
+      "summary": "Fix GDI-drawn plugin text becoming transparent over a PNG background|fix",
+      "lineage": "upstream",
+      "originalSubject": "修正主窗口使用png背景时，插件项目自绘使用GDI绘制的文本变成透明的问题",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "040596f1f27dbb500ecd2ffa69b003f089c5e31b",
+      "date": "2025-01-15T17:08:08+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/040596f1f27dbb500ecd2ffa69b003f089c5e31b",
+      "summary": "Switch skins automatically with the Windows light or dark theme|feature",
+      "lineage": "upstream",
+      "originalSubject": "新增根据Windows深浅色模式自动切换皮肤的功能",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "a481974d73d106999bddfbb80c9ca45f17f7ce9e",
+      "date": "2025-01-16T11:50:17+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/a481974d73d106999bddfbb80c9ca45f17f7ce9e",
+      "summary": "Update LibreHardwareMonitorLib to 0.9.4|maintenance",
+      "lineage": "upstream",
+      "originalSubject": "LibreHardwareMonitorLib.dll更新到0.9.4版本",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "8d7631705da3c5971f6984ca98de892f722d9a3d",
+      "date": "2025-01-16T11:58:30+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/8d7631705da3c5971f6984ca98de892f722d9a3d",
+      "summary": "Fix CPU-frequency readings in main-window tooltips|fix",
+      "lineage": "upstream",
+      "originalSubject": "修正主窗口鼠标提示中CPU频率显示不正确的问题",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "e28f24cc32ef16fc00ea240b3533ca5d4312a38e",
+      "date": "2025-01-16T14:53:17+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/e28f24cc32ef16fc00ea240b3533ca5d4312a38e",
+      "summary": "Fix undefined behavior in the edit-distance algorithm (#1883)|fix",
+      "lineage": "upstream",
+      "originalSubject": "修正编辑距离算法代码存在未定义行为的问题 #1883",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "4ee5fc360f0cf5370037aa171f56d09d547640c7",
+      "date": "2025-01-16T17:14:09+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/4ee5fc360f0cf5370037aa171f56d09d547640c7",
+      "summary": "Add hardware-monitoring-based CPU utilization and expose it in General settings|feature",
+      "lineage": "upstream",
+      "originalSubject": "CPU利用率获取方式新增通过硬件监控模块获取，选项设置-常规设置-CPU利用率中增加相应的选项",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "e3a2f0204e518ee8ebf74e7e41c5cfd932ca68ff",
+      "date": "2025-01-17T12:51:41+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/e3a2f0204e518ee8ebf74e7e41c5cfd932ca68ff",
+      "summary": "Update the README|documentation",
+      "lineage": "upstream",
+      "originalSubject": "readme更新",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "178dab0cd8499003d7152a112a799f3dce2c8957",
+      "date": "2025-01-17T17:46:57+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/178dab0cd8499003d7152a112a799f3dce2c8957",
+      "summary": "Show usage graphs for plugin items in the taskbar (#1077)|feature",
+      "lineage": "upstream",
+      "originalSubject": "新增在任务栏中的插件项目中显示资源占用图的功能 #1077",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "fe1d505d5582f435b4960bf8baf5d03d03a09627",
+      "date": "2025-01-18T12:26:19+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/fe1d505d5582f435b4960bf8baf5d03d03a09627",
+      "summary": "Fix plugin display text from skin files not taking effect (#1813)|fix",
+      "lineage": "upstream",
+      "originalSubject": "修正皮肤文件中插件项目的显示文本无效的问题 #1813",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "4bdc15044909535deeaa2a3fe06a6ce02ed40b4b",
+      "date": "2025-01-18T15:48:06+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/4bdc15044909535deeaa2a3fe06a6ce02ed40b4b",
+      "summary": "Prevent taskbar overlap with Windows 11 widgets when docked on the right|fix",
+      "lineage": "upstream",
+      "originalSubject": "修正win11下，当任务栏窗口显示在右侧时，会和系统小组件重叠的问题",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "ee3fd751c8866830acb8479ddb5e7d7abe5e8c82",
+      "date": "2025-01-18T16:52:49+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/ee3fd751c8866830acb8479ddb5e7d7abe5e8c82",
+      "summary": "Update the acknowledgements|maintenance",
+      "lineage": "upstream",
+      "originalSubject": "鸣谢名单更新",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "44b4b946f4149cacb340ab5659bb725cc07d1d49",
+      "date": "2025-01-18T17:22:12+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/44b4b946f4149cacb340ab5659bb725cc07d1d49",
+      "summary": "Fix empty space beside widgets on centered Windows 11 taskbars|fix",
+      "lineage": "upstream",
+      "originalSubject": "修正win11任务栏居中时如果显示了小组件右侧还留有空白的问题",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "d2e88e559736fe95be641fc8fdadae1e0b0b8778",
+      "date": "2025-01-18T20:39:22+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/d2e88e559736fe95be641fc8fdadae1e0b0b8778",
+      "summary": "Disable incompatible taskbar-position options when Windows 11 taskbar alignment is left|fix",
+      "lineage": "upstream",
+      "originalSubject": "win11下当任务栏设置为靠左时，禁用“任务栏窗口靠近图标而不是任务栏的两侧”选项和“任务栏窗口显示在任务栏的左侧”选项",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "df2290d9079c3d2acb377463924fc4c42629c8c5",
+      "date": "2025-01-18T22:23:50+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/df2290d9079c3d2acb377463924fc4c42629c8c5",
+      "summary": "Show today's total traffic in the main and taskbar windows (#1174)|feature",
+      "lineage": "upstream",
+      "originalSubject": "主窗口和任务栏窗口中新增今日总流量的显示 #1174",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "705f3760e19a632736b7bfaf37b169dbdbbd598b",
+      "date": "2025-01-19T10:49:28+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/705f3760e19a632736b7bfaf37b169dbdbbd598b",
+      "summary": "Change sample-plugin item IDs to avoid conflict with the date-and-time plugin|fix",
+      "lineage": "upstream",
+      "originalSubject": "修改示例插件中显示项目的ID，以避免和时间日期插件冲突",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "de360bddac69306ab8a6e9bd1e07693b0f0f46df",
+      "date": "2025-01-19T11:41:08+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/de360bddac69306ab8a6e9bd1e07693b0f0f46df",
+      "summary": "Add an option to use colorful emoji in the taskbar window|feature",
+      "lineage": "upstream",
+      "originalSubject": "任务栏窗口设置中新增“使用彩色emoji”的选项",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "e1abbbdef4527ddb33e9d32f8b8b2b12e06b03af",
+      "date": "2025-01-19T12:14:25+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/e1abbbdef4527ddb33e9d32f8b8b2b12e06b03af",
+      "summary": "Raise the maximum temperature-notification threshold to 120 degrees (#1814)|maintenance",
+      "lineage": "upstream",
+      "originalSubject": "常规设置中的温度通知上限改为120度 #1814",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "32af6b5428717ab1f09a2a00c088ae563ead1dbc",
+      "date": "2025-01-19T16:26:28+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/32af6b5428717ab1f09a2a00c088ae563ead1dbc",
+      "summary": "Hide the notification-area icon again after showing a notification when it is configured as hidden|fix",
+      "lineage": "upstream",
+      "originalSubject": "如果隐藏了通知区图标，弹出通知后重新隐藏 #1814 #1812 #1811",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "6dde63e4ca8fd53dbec12633f24e6d59b8e2cfc6",
+      "date": "2025-01-20T10:38:09+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/6dde63e4ca8fd53dbec12633f24e6d59b8e2cfc6",
+      "summary": "Merge pull request #1703 from ekxs0109/master|merge",
+      "lineage": "upstream",
+      "originalSubject": "Merge pull request #1703 from ekxs0109/master",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "04f4bb396b36bbf7d3f0b48770778dc03f039145",
+      "date": "2025-01-20T11:07:24+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/04f4bb396b36bbf7d3f0b48770778dc03f039145",
+      "summary": "Use C++20 for the ARM64EC configuration|maintenance",
+      "lineage": "upstream",
+      "originalSubject": "ARM64EC的配置改为C++20",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "655bc9c9281670fbf3883b780142e5f980970334",
+      "date": "2025-01-20T12:06:32+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/655bc9c9281670fbf3883b780142e5f980970334",
+      "summary": "Show CPU frequency in the Lite edition and fix ARM64EC frequency readings|feature",
+      "lineage": "upstream",
+      "originalSubject": "新增Lite版显示频率的功能，修正ARM64EC显示CPU频率不正常的问题",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "3da2c8573b73b1ce6af92c31faa05c2b9f1db66a",
+      "date": "2025-01-20T16:41:02+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/3da2c8573b73b1ce6af92c31faa05c2b9f1db66a",
+      "summary": "Add CPU frequency to the Lite edition's text-display settings|fix",
+      "lineage": "upstream",
+      "originalSubject": "修正lite版中“显示文本设置”对话框中没有“CPU频率”一项的问题",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "c08ef1121c09660cf20151672826faff3f9b67b5",
+      "date": "2025-01-20T18:43:36+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/c08ef1121c09660cf20151672826faff3f9b67b5",
+      "summary": "Use IFileDialog for file selection (#1582)|maintenance",
+      "lineage": "upstream",
+      "originalSubject": "打开对话框改成使用IFileDialog #1582",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "785cf0739823177c0d34a4e5b03ee051627d7c1b",
+      "date": "2025-01-20T19:58:53+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/785cf0739823177c0d34a4e5b03ee051627d7c1b",
+      "summary": "Allow choosing batch files for the main and taskbar windows' Open Application double-click action|feature",
+      "lineage": "upstream",
+      "originalSubject": "主窗口和任务栏窗口“双击动作”-“打开指定应用程序”支持选择批处理文件",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "6c05177894c860f8e966670e53d97c7329b291f8",
+      "date": "2025-01-20T21:25:11+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/6c05177894c860f8e966670e53d97c7329b291f8",
+      "summary": "Set default text colors for taskbar presets 2 and 3|maintenance",
+      "lineage": "upstream",
+      "originalSubject": "为任务栏设置-预设方案中的方案2和方案3增加默认的文本颜色",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "994ecce6aadd4006b54fcb37599898c1fcf689f3",
+      "date": "2025-01-20T21:47:10+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/994ecce6aadd4006b54fcb37599898c1fcf689f3",
+      "summary": "Add a disabled-plugin icon in the plugin manager|feature",
+      "lineage": "upstream",
+      "originalSubject": "新增一个已禁用插件的图标，插件管理对话框中已禁用插件显示为已禁用图标",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "fce61fdbd04e0ed7b6aaeab9526725db98bec32b",
+      "date": "2025-01-20T23:08:50+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/fce61fdbd04e0ed7b6aaeab9526725db98bec32b",
+      "summary": "Add plugin commands and icons to the plugin-manager context menu|feature",
+      "lineage": "upstream",
+      "originalSubject": "插件管理界面右键菜单中增加插件命令，增加图标",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "322c0029dca8af1f2a9c0878d3f29d5aee7955e6",
+      "date": "2025-01-21T00:01:25+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/322c0029dca8af1f2a9c0878d3f29d5aee7955e6",
+      "summary": "Clear stale plugin commands when switching from a command-enabled plugin to a disabled plugin|fix",
+      "lineage": "upstream",
+      "originalSubject": "修正插件管理对话框中右击有命令的插件再右击禁用的插件时，右键菜单中的命令没有清除的问题",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "37a7bbef4038f32b2fee01fb19577852ebfff823",
+      "date": "2025-01-21T00:11:09+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/37a7bbef4038f32b2fee01fb19577852ebfff823",
+      "summary": "Add icons to plugin-manager buttons|maintenance",
+      "lineage": "upstream",
+      "originalSubject": "插件管理对话框中的按钮增加图标",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "5bc001e94e6fafe81305b7820ece34500aebe035",
+      "date": "2025-01-21T10:36:46+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/5bc001e94e6fafe81305b7820ece34500aebe035",
+      "summary": "Support ARM64EC builds in update checks|feature",
+      "lineage": "upstream",
+      "originalSubject": "检查更新功能支持arm64ec版本",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "91e410ec6b42f11e2b1a8527c24f7ffdfb0eb34f",
+      "date": "2025-01-21T10:55:32+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/91e410ec6b42f11e2b1a8527c24f7ffdfb0eb34f",
+      "summary": "Make Details the default action in the plugin-manager context menu|maintenance",
+      "lineage": "upstream",
+      "originalSubject": "插件管理对话框右键菜单“详细信息”一项设为默认项",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "f0516d8097469f9de721826b9a9334e329a36ff3",
+      "date": "2025-01-21T11:13:45+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/f0516d8097469f9de721826b9a9334e329a36ff3",
+      "summary": "Refresh the information shown on the crash dialog|maintenance",
+      "lineage": "upstream",
+      "originalSubject": "崩溃界面显示的信息更新",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "9a17cf106b77e45deeb85093a3724a39063d6684",
+      "date": "2025-01-21T11:22:38+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/9a17cf106b77e45deeb85093a3724a39063d6684",
+      "summary": "Update the version number|release",
+      "lineage": "upstream",
+      "originalSubject": "版本号更新",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "f7147ea238bccbe1a06086fc31c53a0baf5927cb",
+      "date": "2025-01-21T17:50:34+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/f7147ea238bccbe1a06086fc31c53a0baf5927cb",
+      "summary": "Update version information, README, and changelog|release",
+      "lineage": "upstream",
+      "originalSubject": "更新version.info；更新readme；更新更新日志",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "b6f8ef085f590f0f6f1d43ac5ed9e4d658be1656",
+      "date": "2025-01-21T20:26:30+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/b6f8ef085f590f0f6f1d43ac5ed9e4d658be1656",
+      "summary": "Update the changelog|release",
+      "lineage": "upstream",
+      "originalSubject": "更新日志更新",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "6ad9a8320bf80ed45adf311e10ca6f5f20771140",
+      "date": "2025-01-21T20:28:08+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/6ad9a8320bf80ed45adf311e10ca6f5f20771140",
+      "summary": "Enable the left-taskbar-position setting when Windows 11 taskbar is restored by StartAllBack|fix",
+      "lineage": "upstream",
+      "originalSubject": "修正Win11下使用startallback改为旧版任务栏时，任务栏窗口设置中“任务栏窗口显示在任务栏左侧”的选项仍然被禁用的问题",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "1e59b35ed866658cab47fab181b16abca3fa9bb0",
+      "date": "2025-01-22T15:14:20+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/1e59b35ed866658cab47fab181b16abca3fa9bb0",
+      "summary": "Fix taskbar-window positioning when the taskbar has no icons (#1913)|fix",
+      "lineage": "upstream",
+      "originalSubject": "修正当任务栏上没有任何图标时任务栏窗口的位置不正确的问题 #1913",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "4734ffd1634f4f5e86bbd34e2be4bb3380177acc",
+      "date": "2025-01-22T15:44:56+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/4734ffd1634f4f5e86bbd34e2be4bb3380177acc",
+      "summary": "Revert the earlier fix for taskbar-window overlap with widgets|revert",
+      "lineage": "upstream",
+      "originalSubject": "回退之前修正任务栏窗口与小组件重叠问题的提交",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "102d0397252e3fc2850d06acfdd2afbd082a6a3c",
+      "date": "2025-01-22T17:36:15+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/102d0397252e3fc2850d06acfdd2afbd082a6a3c",
+      "summary": "Add a horizontal taskbar-window offset setting|feature",
+      "lineage": "upstream",
+      "originalSubject": "任务栏窗口设置中增加水平偏移的选项",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "30087f674cb9fce3e824d4f7bfcb371987bc197a",
+      "date": "2025-01-22T17:43:23+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/30087f674cb9fce3e824d4f7bfcb371987bc197a",
+      "summary": "Initialize WinRT only on Windows 11|fix",
+      "lineage": "upstream",
+      "originalSubject": "仅在Windows11下执行winrt的初始化",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "31fae2c1aa640a2a29134849755f3561aceb8b71",
+      "date": "2025-01-22T18:01:08+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/31fae2c1aa640a2a29134849755f3561aceb8b71",
+      "summary": "Restrict horizontal and vertical taskbar offsets to Windows 11|fix",
+      "lineage": "upstream",
+      "originalSubject": "任务栏窗口水平偏移选项和垂直偏移选项仅用于Win11",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "b4ccbcfab5699749ccdf3fd8ba3f94378c5e54b7",
+      "date": "2025-01-22T18:13:56+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/b4ccbcfab5699749ccdf3fd8ba3f94378c5e54b7",
+      "summary": "Apply taskbar data-width changes immediately from the taskbar settings dialog (#1916)|fix",
+      "lineage": "upstream",
+      "originalSubject": "修正任务栏窗口设置中点击“应用”时网速数据宽度不生效的问题 #1916",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "25a7ca75f4dc8ddbc45bb864191fbe8fd9320a8a",
+      "date": "2025-01-22T18:29:10+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/25a7ca75f4dc8ddbc45bb864191fbe8fd9320a8a",
+      "summary": "Prefer PDH for CPU-frequency readings|maintenance",
+      "lineage": "upstream",
+      "originalSubject": "CPU频率优先使用PDH获取",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "5f18357fb74c5eb78f49f1971155302565d9f2e9",
+      "date": "2025-01-25T17:22:47+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/5f18357fb74c5eb78f49f1971155302565d9f2e9",
+      "summary": "Move Windows 11 taskbar settings into a separate dialog and add an option to avoid right-side widget overlap|feature",
+      "lineage": "upstream",
+      "originalSubject": "任务栏设置中win11相关设置移动到单独的对话框中；增加避免与右侧小组件重叠的选项",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "497541b734f9c7e2f24ffb8b24a4c6e04ef77041",
+      "date": "2025-01-28T17:35:49+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/497541b734f9c7e2f24ffb8b24a4c6e04ef77041",
+      "summary": "Prevent child windows from staying topmost when the main window is configured as always on top|fix",
+      "lineage": "upstream",
+      "originalSubject": "主窗口设置了总是置顶时，以主窗口为父窗口弹出的窗口不再置顶",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "a8c488deff8378ebbe8619e00e045727029df2ef",
+      "date": "2025-01-30T15:52:47+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/a8c488deff8378ebbe8619e00e045727029df2ef",
+      "summary": "Keep CPU-utilization retrieval settings when hardware monitoring is disabled|fix",
+      "lineage": "upstream",
+      "originalSubject": "修正未启用硬件监控中的CPU监控时，CPU使用率获取方式改成使用性能计数器后，会改回基于CPU使用时间的问题",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "0ae70e8d1098cc1baf0de6b63c9e371d3522b669",
+      "date": "2025-02-01T19:38:30+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/0ae70e8d1098cc1baf0de6b63c9e371d3522b669",
+      "summary": "Fix garbled text in the acknowledgements dialog|fix",
+      "lineage": "upstream",
+      "originalSubject": "修正鸣谢界面有乱码的问题",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    }
+  ]
+}
