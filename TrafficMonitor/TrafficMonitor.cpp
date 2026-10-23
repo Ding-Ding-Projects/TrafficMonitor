@@ -15,6 +15,7 @@
 #include "SkinManager.h"
 #include "SettingsHelper.h"
 #include "InstallerLifecycle.h"
+#include "NativeUpdate/SilentUpdater.h"
 #ifndef DISABLE_WINDOWS_WEB_EXPERIENCE_DETECTOR
 #include "winrt/base.h"
 #endif
@@ -631,6 +632,11 @@ void CTrafficMonitorApp::CheckUpdate(bool message)
 
 void CTrafficMonitorApp::CheckUpdateInThread(bool message)
 {
+    if (m_installed_mode)
+    {
+        NativeUpdate::RequestCheck();
+        return;
+    }
     AfxBeginThread(CheckUpdateThreadFunc, (LPVOID)message);
 }
 
@@ -964,6 +970,11 @@ BOOL CTrafficMonitorApp::InitInstance()
         m_installer_callback = true;
         return FALSE;
     }
+    if (NativeUpdate::HandleHelper(m_installer_exit_code))
+    {
+        m_installer_callback = true;
+        return FALSE;
+    }
     m_installed_mode = InstallerLifecycle::IsManaged();
     //替换掉对话框程序的默认类名
     WNDCLASS wc;
@@ -1065,6 +1076,16 @@ BOOL CTrafficMonitorApp::InitInstance()
         }
     }
 
+    // Apply already-validated staged updates only after winning the instance mutex.
+    // Explicit automatic-check opt-out also prevents an unattended staged apply.
+    if (m_installed_mode && ini.GetBool(L"general", L"check_update_when_start", true)
+        && NativeUpdate::ApplyPendingOnLaunch())
+    {
+        m_installer_callback = true;
+        m_installer_exit_code = 0;
+        return FALSE;
+    }
+
     //初始化GDI+
     Gdiplus::GdiplusStartupInput gdiplusStartupInput;
     GdiplusStartup(&m_gdiplusToken, &gdiplusStartupInput, NULL);
@@ -1115,7 +1136,7 @@ BOOL CTrafficMonitorApp::InitInstance()
     //SetRegistryKey(_T("应用程序向导生成的本地应用程序"));        //暂不使用注册表保存数据
 
     //启动时检查更新
-    if (m_general_data.check_update_when_start)
+    if (!m_installed_mode && m_general_data.check_update_when_start)
     {
         CheckUpdateInThread(false);
     }
@@ -1437,6 +1458,7 @@ void CTrafficMonitorApp::OnUpdateLog()
 
 int CTrafficMonitorApp::ExitInstance()
 {
+    NativeUpdate::Stop();
     if (m_installer_callback)
         return m_installer_exit_code;
     // 释放GDI+
