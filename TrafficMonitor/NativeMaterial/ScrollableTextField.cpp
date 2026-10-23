@@ -36,7 +36,7 @@ namespace NativeMaterial
         TEXTMETRIC metric{};
         dc.GetTextMetrics(&metric);
         if (previous) dc.SelectObject(previous);
-        const int page = (std::max)(1, format.Height() / (std::max)(1L, metric.tmHeight));
+        const int page = (std::max)(1, format.Height() / (std::max)(1, static_cast<int>(metric.tmHeight)));
         m_rail.SetMetrics(GetLineCount(), page, GetFirstVisibleLine());
         if (!(GetStyle() & WS_VISIBLE)) m_rail.ShowWindow(SW_HIDE);
         m_rail.EnableWindow(IsWindowEnabled());
