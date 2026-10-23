@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "command": "build.bat --site",
+  "exitCode": 0,
+  "sourceCommit": "366cad2ca75b3a1ce6fce43486c7236a996896f4",
+  "contentSource": "92dc095751faacb195b7e71423eb66f13d6e3cf5",
+  "inputState": "No nonignored changes at producer start; producer source remained unchanged through completion.",
+  "manifestSha256": "d708924d4091eb70ff307d6d48cd8a75bd5097bbdec4fa09cbf2ac77595905fa",
+  "counts": {
+    "repositoryMarkdownArticles": 166,
+    "wikiMarkdownArticles": 28,
+    "wikiAssets": 75,
+    "wikiTrackedFiles": 103,
+    "articles": 194
+  },
+  "countExplanation": "The new docs/wiki/pending/Silent-updates.md is a repository-markdown article with a published wiki source URL. The 28 inherited wiki articles retain their distinct provenance.",
+  "nativePackageSource": "265f048da7cb7534cb151519d003c67218a73048",
+  "publishedWikiCommit": "3d7cfa6917e08d5b387add90c09c187830116cb7",
+  "productionReceipt": {
+    "schemaVersion": 1,
+    "sourceCommit": "366cad2ca75b3a1ce6fce43486c7236a996896f4",
+    "contentSource": "92dc095751faacb195b7e71423eb66f13d6e3cf5",
+    "wikiSource": {
+      "repository": "https://github.com/zhongyang219/TrafficMonitor.wiki.git",
+      "commit": "cf35274094fe2ffb040ca1f29d6ce73c713d93a2"
+    },
+    "releaseMetadataSHA256": "37e33d17df24ad8a8e1cbb935a1dffd2844b8de4ec0c5f0f14f6e13538e62e0f",
+    "releaseTag": "v1.0.15-run39912330939-1",
+    "releaseSource": "3f573fc0031ef6b6cb123dfbc80c05c33a5063db",
+    "articleCount": 194,
+    "historyCount": 1552,
+    "base": "/TrafficMonitor/",
+    "unresolvedAssets": []
+  },
+  "staticPublished": false,
+  "runtime": "UNVERIFIED: no tests, review, runtime interaction or screenshots were performed.",
+  "outputs": [
+    {
+      "path": "docs/site/dist/index.html",
+      "size": 4911,
+      "sha256": "be0bb45a50ad16d4a35dc9ce754a313b3cd757a44588c98cebff58740c67d41d"
+    },
+    {
+      "path": "docs/site/dist/articles/source-docs-features-search-readme/index.html",
+      "size": 4275,
+      "sha256": "e2541fe5342d9cf0ac7d0dd222297b0c961dd738b6e7d191755732a7e3e809f3"
+    },
+    {
+      "path": "docs/site/dist/articles/source-docs-features-search-native-workbench/index.html",
+      "size": 10432,
+      "sha256": "7ed79ff53e811cd4f63a66b1b54bdfc37dd6d545555574b1d2422bee7629fb0e"
+    },
+    {
+      "path": "docs/site/dist/articles/source-docs-wiki-pending-silent-updates/index.html",
+      "size": 10735,
+      "sha256": "94b54f74bd77f881069484b9c1b9441d6cdddb3cfb03250d5e06027299a25a38"
+    },
+    {
+      "path": "docs/site/dist/build-receipt.json",
+      "size": 611,
+      "sha256": "9cc38fc7a154a34e34d6aa4f007ab75fa94ade028534ee95887afb0fdca374b2"
+    }
+  ]
+}

@@ -72,3 +72,24 @@ that state, while live UI verification remains unavailable. The complete combine
 will be regenerated and committed before pinned static production. Native package source
 remains 265f048da7cb7534cb151519d003c67218a73048. No product changes, tests, reviews,
 runtime interaction or screenshots were performed in this integration step.
+
+## Combined static production result
+
+The resolved merge is 92dc095751faacb195b7e71423eb66f13d6e3cf5. The regenerated
+manifest was committed at 366cad2ca75b3a1ce6fce43486c7236a996896f4 before exact
+root build.bat --site, with no nonignored changes at producer start. Production
+exited 0: 194 complete articles, 1,552 history records and zero unavailable local
+images. Content is bound to 92dc095751faacb195b7e71423eb66f13d6e3cf5. Counts are
+166 repository articles plus 28 inherited wiki articles; Silent-updates.md is a
+tracked repository mirror with its published wiki source URL, not a new inherited
+wiki snapshot page. Both regex guides and the full silent-update wiki article
+were produced. Hashes and the exact production receipt are retained in
+docs/features/search/native-union-site-build-receipt.json. The earlier independent
+receipts remain historical and unchanged. Native package source remains
+265f048da7cb7534cb151519d003c67218a73048. This later receipt/handoff commit does
+not relabel any producer. No product code, tests, reviews, runtime interaction,
+screenshots, release, installation, push or deletion occurred in this integration
+lane. Static deployment and live interaction remain unverified here. Full native
+conversion, all required features, full regex parity, modeless presentation,
+localization and accessibility acceptance remain unfinished. The coordinating
+task owns the next remote preservation and main integration.
