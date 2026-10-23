@@ -1,3 +1,9 @@
+## Latest native delivery state
+
+Main application remains FIRST, documentation-website implementation LAST. Native Settings discovery/Notifications implementation is active on ai/feature/20261023-native-settings-discovery in the reused isolated native setup checkout. Design0d4720f997747ca1530e259279be8c01362c07b9 is preserved remotely; final independent architecture constraints are being recorded before implementation. Preserve explicit notification defaults/ranges, actual consumers, disabled values, stable row identity, independent searches and restart deferral. No new documentation-website implementation is running.
+
+Accepted native1.0.37/source c84 is actually installed with exact released bytes and bounded data preservation; receipt docs/features/installation/accepted37-installed-state.json explicitly records post-publication/post-replacement observation. It does not prove the complete prior manual-free interval or GUI acceptance. Integrated validator c79 passed153 local regressions and still reports1499 baseline gaps. Goal remains active and unfinished; no cleanup started.
+
 ## Validator integration state
 
 Preserved validator e647d839d30887fb786cb8fd53068348b8f774f0 adds the independent local 110-ID acceptance checker, bounded image decoding and focused negative regressions. Full local153 passed, independent final6 passed. Product remains incomplete with1499 baseline gaps. This integration does not prove runtime or feature completion. Main native application priority remains first, documentation-website implementation last.

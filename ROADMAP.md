@@ -6,7 +6,8 @@
 - [x] Separate diagnostic incomplete output from strict acceptance; preserve 1499 baseline acceptance gaps.
 - [x] Reject malformed PNG bytes and reversed optional palette/transparency order; preserve baseline red and final 153-check green evidence.
 - [x] Complete independent post-repair review, including six final focused cases at e647d839d30887fb786cb8fd53068348b8f774f0.
-- [ ] Verify integrated source publication. Full product implementation, genuine execution/provenance and complete interaction evidence remain unfinished.
+- [x] Verify integrated validator source publication at c79d49dbee6467d591676b575fb6b2dd615224a6 and153 local integrated regressions.
+- [ ] Complete full product implementation, genuine execution/provenance and complete interaction evidence.
 
 
 ## Current delivery priority, 2026-10-23

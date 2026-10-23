@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "scope": "Post-publication accepted 1.0.37 installed-state verification; not continuous natural-transition observation.",
+  "observationUTC": "2026-10-23T17:58:23.554979+00:00",
+  "releaseTag": "v1.0.37-run39997609125-1",
+  "releaseSource": "c84c8d77d8506af69b3cd5c0c84d651298d33f9f",
+  "publishedUTC": "2026-10-23T17:50:03Z",
+  "normalRelease": true,
+  "releaseAssetCount": 8,
+  "prior36TerminalUTC": "2026-10-23T17:17:51.872435+00:00",
+  "prior36Source": "f795e86b309cb72f80e030fe7c802ea9c44b4fd2",
+  "singleMatchingNativeProcess": true,
+  "installedVersion": "1.0.37",
+  "installedManifestSource": "c84c8d77d8506af69b3cd5c0c84d651298d33f9f",
+  "installedExecutableSHA256": "ab9da19259bcbc573fc5ae19ca56568b1c63df9c2414d3a93ee5c7f6e8ace10f",
+  "matchesReleasedNativeExecutable": true,
+  "matchesReleasedManifest": true,
+  "identityStableDuringRead": true,
+  "old36ProcessAbsent": true,
+  "attemptCount": 1,
+  "recordedApplyExitCode": 0,
+  "recordedReadinessResult": 0,
+  "recordedStableLauncherResult": 0,
+  "pendingAbsent": true,
+  "appliedStagingRetained": true,
+  "nativeFeedSHA1NameSizeVerified": true,
+  "downloadedNativeAssets": [
+    {
+      "name": "TrafficMonitor-1.0.37-full.nupkg",
+      "bytes": 7606133,
+      "sha256": "00845cc758d550ccfc4e70de6a59e0f3400ca7bcfab95ffde4c34ce30fa9f019"
+    },
+    {
+      "name": "RELEASES",
+      "bytes": 81,
+      "sha256": "bdc5482376ecda128527ec00a057740f11d9443b3d2a2a9079ed9bee36bc095f"
+    },
+    {
+      "name": "SHA256SUMS.txt",
+      "bytes": 253,
+      "sha256": "560ac93462cd8ba06930ec9fe725aba53666d1e566d377806ba2a7ddc8eeee37"
+    }
+  ],
+  "configBytesUnchangedSince36Terminal": true,
+  "startupMatchesInherited36Baseline": true,
+  "historyComparison": {
+    "historicalRecordsUnchanged": true,
+    "currentTrafficRecordRetained": true,
+    "currentTrafficCountersNondecreasing": true,
+    "recordCountPreserved": true,
+    "historyBytesEqual": false,
+    "counterFieldCountPreserved": true
+  },
+  "interpretation": "Current installed bytes, manifest, retained staging and updater journals are consistent with successful application through the native helper. This lane did not observe the complete prior transition or establish a manual-free interval before observation.",
+  "unverified": [
+    "GUI readiness, appearance, interaction and layout",
+    "Repeated long-term reliability",
+    "Continuous observation of the entire 36-to37 transition",
+    "Documentation companion runtime"
+  ],
+  "actions": "Only read-only process, file, registry, release metadata and authorized native-package download operations; no update/check/lifecycle trigger, preference or staging edit, installation or host-state change.",
+  "stagedTrust": {
+    "packageMatchesRelease": true,
+    "feedMatchesRelease": true,
+    "stagedReleaseSourceMatches": true,
+    "admissionStatus": "ahead",
+    "acceptedMainAdmissionValid": true
+  },
+  "observationTiming": "The installed-state snapshot was taken after release publication and after replacement had already occurred. It is not a prepublication baseline or continuous observation of the complete update interval.",
+  "manualFreePriorIntervalEstablished": false,
+  "guiAcceptanceEstablished": false,
+  "dataComparisonLimit": "Configuration bytes and startup registration match the inherited verified 1.0.36 baseline. Historical traffic records and record count are unchanged; the current record is retained and its counters advanced without regression. Traffic history bytes changed legitimately during monitoring.",
+  "evidenceBoundary": "Private process identities, host paths and raw data snapshots are retained separately. This public projection excludes process IDs, process creation identities and host paths.",
+  "statusReporting": "Authenticated per-session status reporting was unavailable in this observation lane."
+}
