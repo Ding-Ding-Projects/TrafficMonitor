@@ -285,7 +285,7 @@ namespace NativeDashboard
             y+=rowHeight+Px(8);
             const int statusHeight=(std::max)(Px(20),measure(m_status,width));
             place(m_status,left,y,width,statusHeight);y+=statusHeight+Px(10);
-            m_bodyTop=y;m_bodyHeight=(std::max)(Px(80),client.bottom-y-Px(16));
+            m_bodyTop=y;m_bodyHeight=(std::max)(Px(80),int(client.bottom)-y-Px(16));
             place(m_viewport,nav,y,client.right-nav,m_bodyHeight);
             const int innerWidth=width,innerLeft=inset;
             int contentY=0;
