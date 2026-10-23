@@ -1,5 +1,7 @@
 [Documentation website](https://ding-ding-projects.github.io/TrafficMonitor/)
 
+Current updater outcome: the corrected installed 1.0.28 client naturally updated to normal package 1.0.29 with exact source/executable bytes, one successful helper/Squirrel/launcher handoff, preserved configuration/startup and retained traffic history. This is one genuine automatic transition; negative, busy/modal, visual and repeated-cadence acceptance remain unrun. See the [current evidence boundaries](docs/features/installation/silent-updates.md#current-updater-outcome). Older version paragraphs below are historical.
+
 **English | [简体中文](./README_zh-CN.md)**
 
 

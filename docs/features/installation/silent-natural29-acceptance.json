@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "scope": "One genuine natural automatic update on the matching existing installation; metadata-only observation, not a test suite or visual acceptance.",
+  "clientSource": "ebf95b99a4bd95c2e741e9099eaa5d2f2538d67b",
+  "clientVersion": "1.0.28",
+  "releaseTag": "v1.0.29-run39970237810-1",
+  "releaseSource": "50288f54a16fb2b0e92464127bd7de8481567a54",
+  "releaseIsDraft": false,
+  "releaseIsPrerelease": false,
+  "publishedUTC": "2026-10-23T14:35:38Z",
+  "baselineUTC": "2026-10-23T14:23:25.952947Z",
+  "firstNewProcessSnapshotUTC": "2026-10-23T14:38:30.691627Z",
+  "deadlineUTC": "2026-10-23T14:45:38Z",
+  "installedVersion": "1.0.29",
+  "installedExecutableSHA256": "129f47fb6e05d398113b0034bf5f484317d8b58094ef35e16b1b146dfdb44bba",
+  "matchesReleasedExecutable": true,
+  "oldProcessExited": true,
+  "singleNewProcessReadyMetadata": true,
+  "mainHidden": true,
+  "taskbarVisible": true,
+  "attemptCount": 1,
+  "squirrelExitCode": 0,
+  "helperLaunch": {
+    "stage": "created",
+    "result": 0
+  },
+  "helperFinal": {
+    "stage": "stable-launcher",
+    "result": 0,
+    "fileModifiedUTC": "2026-10-23T14:38:08.403841Z"
+  },
+  "backgroundFinal": {
+    "stage": "release-metadata",
+    "phase": 1,
+    "error": 0,
+    "http_status": 0
+  },
+  "appliedStagingRetained": true,
+  "activePendingAbsent": true,
+  "configBytesPreserved": true,
+  "startupPreserved": true,
+  "historicalRecordsUnchanged": true,
+  "currentTrafficRecordRetained": true,
+  "currentTrafficCountersNondecreasing": true,
+  "historyAssessment": "Legitimate monitoring/graceful-save writes advanced current counters; no earlier record loss or counter regression was observed.",
+  "manualActionsDuringWindow": false,
+  "unrun": [
+    "offline/corrupt metadata or package/cancellation/rollback",
+    "busy editor/modal/draft/menu deferral",
+    "visual layout/localization/accessibility",
+    "multiple future periodic updates"
+  ],
+  "evidenceOrigin": "Assigned natural metadata collector, preserved prepublication data/startup baseline, independent gh release/tag/download readback, exact installed manifest/executable, native fixed result files."
+}

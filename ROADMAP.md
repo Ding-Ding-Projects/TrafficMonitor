@@ -114,9 +114,14 @@ with historical originals retained separately.
 ## Automatic close-message correction
 
 - [x] Correct the observed pulse/default-close message mismatch and produce native package 1.0.9016.
-- [ ] Observe a real accepted automatic update after this correction, including preservation, helper completion and relaunch.
+- [x] Observe one real accepted automatic update after the final synchronous correction: 1.0.28 to 1.0.29, exact bytes, helper completion, relaunch and preservation.
 
 ## Synchronous automatic-close candidate
 
 - [x] Refine close dispatch to synchronous WM_CLOSE and produce local native 1.0.9017.
-- [ ] Observe automatic handoff and relaunch on a later real accepted update.
+- [x] Observe automatic handoff and relaunch for the real accepted 1.0.28 to 1.0.29 transition.
+
+## Remaining automatic update acceptance
+
+- [ ] Verify offline/corrupt input/cancellation/rollback paths in an authorized acceptance pass.
+- [ ] Verify busy editor/modal/draft/menu deferral, visual/accessibility/localization and multiple future cadence cycles.
