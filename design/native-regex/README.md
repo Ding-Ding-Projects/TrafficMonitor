@@ -45,3 +45,10 @@ the existing automatic-update restart deferral, without updater backend changes.
 
 Runtime proof, focus/DPI/theme/language matrices and full RegexBuddy parity remain unfinished.
 No tests, independent review, audits, GUI interaction or screenshots are authorized in this pass.
+## Named local expressions continuation
+
+Add a compact saved-expression section above the pattern editor: a labelled native dropdown, explicit Load, a name field, Save new, Rename, Delete and Recover backup. Keyboard tab order follows these actions. Selecting a record alone never changes the draft. Load validates the whole selected record and engine syntax before replacing draft pattern/mode/flags/operation/replacement; Apply still validates the current owner corpus separately. Each owner keeps its own accepted filter and draft.
+
+Save records only an explicitly named snapshot, never sample subjects, corpus, results or implicit history. Names are unique under ordinal case-insensitive comparison. Save never silently overwrites. Rename/delete require an unchanged selected record; concurrent changes require reload. All storage operations run asynchronously, serialized across processes through an exclusive local file handle, with bounded complete reads and atomic replace. Existing configuration-directory selection preserves installed AppData and portable semantics. A strict versioned UTF-16LE format binds schema and bounded-NFA engine version; malformed, unsupported and duplicate records reject the whole file. The previous valid file remains a recovery backup. Recovery is explicit and never applies a search.
+
+Bounds: 64 records, 96 UTF-16 units per nonblank name, 256 pattern units, 4096 replacement units and 1 MiB per file. Supplementary Unicode is lossless; malformed surrogate pairs and embedded NUL are rejected. Import/export compatibility, descriptions, parameters, sample storage, other engines and full collection parity remain unfinished. No tests, independent review, runtime interaction or screenshots are authorized; native and static production will be source-bound separately.
