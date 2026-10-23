@@ -169,7 +169,8 @@ def render(surface, size, lang, theme, state="initial"):
         bottom=h-(114 if lang=="bilingual" else 80)
         top=sy+ch+24;view=bottom-top
         content=70+2*ch+(160 if w>=880 else 226)+16
-        offset=70+2*ch+(126 if state=="results" else 0) if state in ("subject","results") else 0
+        requested_offset=70+2*ch+(126 if state=="results" else 0) if state in ("subject","results") else 0
+        offset=min(max(0,requested_offset),max(0,content-view))
         out.append(f'<defs><clipPath id="body"><rect x="0" y="{top}" width="{w-16}" height="{view}"/></clipPath></defs><g clip-path="url(#body)"><g transform="translate(0 {-offset})">')
         yy=top+22
         for i,(en,zh) in enumerate([("Test","測試"),("Replace","取代"),("Explain","解說"),("Library","資料庫")]):
