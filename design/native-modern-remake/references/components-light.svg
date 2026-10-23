@@ -14,11 +14,11 @@
 <text x="732" y="151" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" fill="#17212F">\bEthernet\b</text>
 <text x="720" y="194" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" fill="#526174">Invalid / 無效</text>
 <text x="32" y="242" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="18" fill="#17212F">Action hierarchy / 操作層級</text>
-<rect x="32" y="264" width="172" height="44" rx="6" fill="#245FC8" stroke="#D5DEE8" stroke-width="1"/>
+<rect x="32" y="264" width="172" height="44" rx="12" fill="#245FC8" stroke="#D5DEE8" stroke-width="1"/>
 <text x="44" y="291" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" fill="#FFFFFF">Apply / 套用</text>
-<rect x="222" y="264" width="240" height="44" rx="6" fill="#DCE8FF" stroke="#D5DEE8" stroke-width="1"/>
+<rect x="222" y="264" width="240" height="44" rx="12" fill="#DCE8FF" stroke="#D5DEE8" stroke-width="1"/>
 <text x="234" y="291" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" fill="#17212F">Use saved / 用已儲存值</text>
-<rect x="480" y="264" width="172" height="44" rx="6" fill="#FFFFFF" stroke="#D5DEE8" stroke-width="1"/>
+<rect x="480" y="264" width="172" height="44" rx="12" fill="#FFFFFF" stroke="#D5DEE8" stroke-width="1"/>
 <text x="492" y="291" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" fill="#17212F">Cancel / 取消</text>
 <text x="700" y="291" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" fill="#245FC8">Reset / 重設</text>
 <text x="32" y="346" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="18" fill="#17212F">Selection and range / 選擇與數值</text>

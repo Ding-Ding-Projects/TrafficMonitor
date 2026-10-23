@@ -174,7 +174,7 @@ def components(theme):
         x=32+i*344;r(x,104,320,64,stroke=color,sw=2 if i else 1);t(x+12,124,"Pattern / 模式",12,"muted");t(x+12,151,r"\bEthernet\b");t(x,194,label,12,"muted")
     t(32,242,"Action hierarchy / 操作層級",18)
     for x,label,fill,ink in [(32,"Apply / 套用","accent","ink"),(222,"Use saved / 用已儲存值","selected","text"),(480,"Cancel / 取消","panel","text")]:
-        r(x,264,172 if x!=222 else 240,44,fill);t(x+12,291,label,14,ink)
+        r(x,264,172 if x!=222 else 240,44,fill,radius=12);t(x+12,291,label,14,ink)
     t(700,291,"Reset / 重設",14,"accent");t(32,346,"Selection and range / 選擇與數值",18)
     r(32,370,20,20,"accent","accent",3);t(35,386,"✓",14,"ink");t(64,386,"Show taskbar monitor / 顯示工作列監察")
     r(490,366,44,26,"accent","accent",13);r(514,369,20,20,"ink","ink",10);t(548,385,"Enabled / 已啟用")

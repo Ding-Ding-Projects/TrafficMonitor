@@ -18,9 +18,17 @@ Recommended coherent milestones: shared visual components and Settings; workspac
 
 Original resource-based Options tabs, traffic-history dialogs, plugin manager and plugin-owned dialogs, adapter/resource pickers, notification/message dialogs, tray/taskbar and floating monitoring presentation remain real existing surfaces. The workspace may route to them but that does not modernize them. Preserve all commands and data while recording each route's current visual state. A claim that the entire native application was remade requires a separately reviewed extension covering these surfaces, not merely the five shared owners. Startup/updater/native OS consent surfaces retain their supported lifecycle and identity.
 
+The user's full-remake request makes the remaining application-owned surfaces mandatory subsequent milestones, not optional exemptions: original Options and all its tabs; traffic history and details; plugin manager; About/version and diagnostic details; adapter/resource pickers; application-owned notifications, confirmations and validation dialogs; and compact floating/taskbar presentation. Inventory actual reachable dialogs and every existing control before each milestone. Plugin-owned third-party windows and OS-owned consent are distinct ownership boundaries: preserve their identity and behavior, disclose them explicitly and do not claim their appearance was changed. The first five-owner milestone cannot close the full request.
+
+## Window frame decision
+
+Keep the real resizable Win32 window frame and native caption buttons, system menu, snapping, drag/resize hit testing and accessibility. Set supported DWM light/dark caption attributes from effective appearance; align caption color with the shared canvas where the host supports it. The design SVGs depict client areas only, so they are not evidence of titlebar styling. Do not paint duplicate fake caption buttons or remove standard window semantics. Record the actual supported DWM behavior per host; an unsupported caption-color attribute is a named OS boundary for review, not a claim of full custom chrome. All application-owned client controls and scrollbars remain subject to the replacement registry. Owner-drawn nonclient scrollbars are replaced with accessible client rails, not merely recolored through DWM.
+
 ## Verification and evidence
 
 Build and package only through root build.bat and build-installer.bat. The existing standalone storage checks have 23 passing cases; the additional production serialization console target remains unverified because its real Common.cpp linkage has unresolved symbols. No invented stubs or repeated unchanged linker attempts. Actual wizard initialization, serialization and restart must be exercised in the built application.
+
+The expanded serialization target never executed: its build route exited 2 during linking. Having calls to production functions in its source is not execution evidence. Preserve that exact limitation until a real target or the actual application proves the behavior.
 
 First reproduce the rejected Interface count/filter/font defects against the old package if further evidence is necessary, then compare the new exact tuple. Obtain native child rectangles, font/DPI information, scroll ranges, focus/provider state and genuine rendered screenshots. Generic browser computed-style counters cannot be claimed for MFC. Retain raw receipts and explicitly report any unsupported generic promotion schema.
 
