@@ -19,6 +19,15 @@ main/visible taskbar by metadata only. This does not verify automatic timing or 
 See [silent update behavior and evidence limits](docs/features/installation/silent-updates.md).
 The earlier local settings package remains historical compile/package evidence. Native
 MFC conversion and all 110 applicable required features remain unfinished.
+## Silent updater feed repair candidate
+
+The updater accepts Squirrel uppercase SHA-1 spelling with unchanged exact integrity and
+accepted-main checks, and retains bounded local stage/phase/numeric result diagnostics.
+Local source `f63e8a456befcd2f6d726712182f6e2a01e9cc11` compiled and packaged through
+`build-installer.bat -Version 1.0.9007`, exit 0, two linker warnings and zero errors.
+See the [repair evidence and limits](docs/features/installation/silent-updates.md#feed-spelling-repair-and-local-diagnostics).
+No runtime or automatic-update acceptance is claimed; full Stage 2 remains unfinished.
+
 ## Native network workspace candidate
 
 The explicit main-window action now opens a modeless native network workspace with real immutable
