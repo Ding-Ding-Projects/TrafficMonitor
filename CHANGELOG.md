@@ -1,4 +1,4 @@
-# Fork changes
+﻿# Fork changes
 
 ## Native task-oriented settings candidate
 
@@ -46,3 +46,9 @@ Runtime installation and update acceptance remain separate from source and build
 - Download and validate full packages quietly, defer cooperative restart through active editors, and retain next-launch apply.
 - Add a persisted automatic-restart preference; preserve the existing automatic-check opt-out.
 - Runtime update and recovery acceptance remain unverified in the current compile/package-only scope.
+
+## Unreleased native search workbench
+
+- Add independent native pattern editing and bounded asynchronous filtering to workspace, Settings and context-menu searches.
+- Add search, literal replacement and split previews, syntax insertion and match-span navigation.
+- Retain explicit unsupported syntax, parity gaps and deferred runtime evidence.

@@ -1,5 +1,6 @@
 ﻿#include "stdafx.h"
 #include "SearchableMenu.h"
+#include "../NativeRegex/Workbench.h"
 #include "../TrafficMonitor.h"
 #include <commctrl.h>
 #include <dwmapi.h>
@@ -18,7 +19,7 @@ namespace NativeMenus
 {
 namespace
 {
-constexpr UINT EditId = 51001, ListId = 51002, BackId = 51003;
+constexpr UINT EditId = 51001, ListId = 51002, BackId = 51003, RegexId = 51004;
 constexpr UINT AccessibleInvokeMessage = WM_APP + 0x431;
 struct Item
 {
@@ -36,6 +37,7 @@ struct Level
     std::wstring query;
     int selected{};
     std::vector<Item> items;
+    std::shared_ptr<NativeRegex::Filter> filter{std::make_shared<NativeRegex::Filter>()};
 };
 
 std::wstring VisibleText(const std::wstring& input)
@@ -148,8 +150,8 @@ private:
 class Popup
 {
 public:
-    HWND window{}, owner{}, edit{}, list{}, back{}, empty{}, previousFocus{};
-    bool done{}, composing{}, rebuilding{}, restoreFocus{}, compatibility{};
+    HWND window{}, owner{}, edit{}, list{}, back{}, empty{}, regex{}, previousFocus{};
+    bool done{}, composing{}, rebuilding{}, restoreFocus{}, compatibility{}, editingRegex{}, chinese{};
     UINT command{}, dpi{96};
     HFONT font{}, boldFont{};
     HBRUSH background{};
@@ -203,7 +205,7 @@ public:
         if (boldFont) DeleteObject(boldFont);
         font = CreateFontW(-Px(14),0,0,0,FW_NORMAL,FALSE,FALSE,FALSE,DEFAULT_CHARSET,OUT_DEFAULT_PRECIS,CLIP_DEFAULT_PRECIS,CLEARTYPE_QUALITY,DEFAULT_PITCH,L"Segoe UI");
         boldFont = CreateFontW(-Px(14),0,0,0,FW_SEMIBOLD,FALSE,FALSE,FALSE,DEFAULT_CHARSET,OUT_DEFAULT_PRECIS,CLIP_DEFAULT_PRECIS,CLEARTYPE_QUALITY,DEFAULT_PITCH,L"Segoe UI");
-        for (HWND control : { edit, list, back, empty }) SendMessageW(control, WM_SETFONT, reinterpret_cast<WPARAM>(font), TRUE);
+        for (HWND control : { edit, list, back, empty, regex }) SendMessageW(control, WM_SETFONT, reinterpret_cast<WPARAM>(font), TRUE);
     }
     void Layout()
     {
@@ -217,7 +219,8 @@ public:
         const int padding = Px(12), backWidth = levels.size() > 1 ? Px(64) : 0;
         ShowWindow(back, backWidth ? SW_SHOW : SW_HIDE);
         MoveWindow(back,padding,padding,backWidth,Px(44),TRUE);
-        MoveWindow(edit,padding+backWidth,padding,(std::max)(1,width-padding*2-backWidth),Px(44),TRUE);
+        MoveWindow(edit,padding+backWidth,padding,(std::max)(1,width-padding*2-backWidth-Px(88)),Px(44),TRUE);
+        MoveWindow(regex,width-padding-Px(80),padding,Px(80),Px(44),TRUE);
         MoveWindow(list,padding,Px(68),(std::max)(1,width-padding*2),(std::max)(1,height-Px(80)),TRUE);
         MoveWindow(empty,padding+Px(12),Px(80),(std::max)(1,width-padding*2-Px(24)),Px(64),TRUE);
         MeasureRows();
@@ -250,22 +253,37 @@ public:
         int length = GetWindowTextLengthW(edit);
         std::vector<wchar_t> query(length+1); GetWindowTextW(edit,query.data(),length+1);
         levels.back().query = query.data();
+        auto& filter=*levels.back().filter;
+        filter.options.query=query.data();std::vector<std::wstring> subjects;
+        for(const auto& item:levels.back().items)subjects.push_back(item.label+L" "+item.shortcut);
+        filter.Request(subjects);
         std::wstring needle = query.data();
         SendMessageW(list,WM_SETREDRAW,FALSE,0); SendMessageW(list,LB_RESETCONTENT,0,0); visible.clear();
         const auto& items = levels.back().items;
         for (size_t i=0;i<items.size();++i)
         {
             std::wstring haystack = items[i].label + L" " + items[i].shortcut;
-            if (!needle.empty() && (items[i].Separator() || FindNLSStringEx(LOCALE_NAME_USER_DEFAULT,FIND_FROMSTART|NORM_IGNORECASE,
-                haystack.c_str(),static_cast<int>(haystack.size()),needle.c_str(),static_cast<int>(needle.size()),nullptr,nullptr,nullptr,0)<0)) continue;
+            if (!filter.Visible(i) || (!needle.empty() && items[i].Separator())) continue;
             visible.push_back(i);
             SendMessageW(list,LB_ADDSTRING,0,reinterpret_cast<LPARAM>(items[i].label.c_str()));
         }
         SendMessageW(list,LB_SETCURSEL,visible.empty() ? -1 : 0,0);
+        SetWindowTextW(empty,filter.status.empty()?emptyText.c_str():filter.status.c_str());
         ShowWindow(empty,visible.empty()?SW_SHOW:SW_HIDE);
         MeasureRows();
         SendMessageW(list,WM_SETREDRAW,TRUE,0); InvalidateRect(list,nullptr,TRUE);
         NotifyWinEvent(EVENT_OBJECT_REORDER,list,OBJID_CLIENT,CHILDID_SELF);
+    }
+    void EditRegex()
+    {
+        if(levels.empty())return;
+        auto filter=levels.back().filter;std::vector<std::wstring> subjects;
+        for(const auto& item:levels.back().items)subjects.push_back(item.label+L" "+item.shortcut);
+        editingRegex=true;
+        bool accepted=NativeRegex::Edit(window,edit,filter->options,subjects,chinese);
+        editingRegex=false;
+        if(accepted && IsWindow(window) && !levels.empty() && levels.back().filter==filter)
+        {rebuilding=true;SetWindowTextW(edit,filter->options.query.c_str());rebuilding=false;Filter();}
     }
     void Open(HMENU menu, UINT position)
     {
@@ -344,8 +362,8 @@ public:
         if (inList && message.wParam==VK_RIGHT) { const int r=static_cast<int>(SendMessageW(list,LB_GETCURSEL,0,0)); if(Row(r) && Row(r)->submenu) Activate(r); return true; }
         if (message.wParam==VK_TAB)
         {
-            HWND next = inEdit ? list : (inList && levels.size()>1 ? back : edit);
-            if (GetKeyState(VK_SHIFT)<0) next = inEdit ? (levels.size()>1 ? back : list) : (inList ? edit : list);
+            HWND next = inEdit ? regex : (message.hwnd==regex ? list : (inList && levels.size()>1 ? back : edit));
+            if (GetKeyState(VK_SHIFT)<0) next = inEdit ? (levels.size()>1 ? back : list) : (message.hwnd==regex ? edit : (inList ? regex : list));
             SetFocus(next); return true;
         }
         return false;
@@ -419,10 +437,12 @@ public:
         if(!self) return DefWindowProcW(hwnd,message,w,l);
         switch(message)
         {
-        case AccessibleInvokeMessage: self->ExecuteInvocation(w); return 0;
+        case AccessibleInvokeMessage: if(!self->editingRegex)self->ExecuteInvocation(w);return 0;
+        case WM_TIMER: if(w==1 && !self->levels.empty() && self->levels.back().filter->Poll())self->Filter();return 0;
         case WM_COMMAND:
             if(LOWORD(w)==EditId && HIWORD(w)==EN_CHANGE) self->Filter();
             if(LOWORD(w)==BackId && HIWORD(w)==BN_CLICKED) self->Back();
+            if(LOWORD(w)==RegexId && HIWORD(w)==BN_CLICKED) self->EditRegex();
             return 0;
         case WM_DRAWITEM: self->Draw(*reinterpret_cast<DRAWITEMSTRUCT*>(l)); return TRUE;
         case WM_MEASUREITEM: reinterpret_cast<MEASUREITEMSTRUCT*>(l)->itemHeight=self->rowHeight; return TRUE;
@@ -430,7 +450,7 @@ public:
             SetTextColor(reinterpret_cast<HDC>(w),self->ink); SetBkColor(reinterpret_cast<HDC>(w),self->surface); return reinterpret_cast<LRESULT>(self->background);
         case WM_ERASEBKGND:
             { RECT rect; GetClientRect(hwnd,&rect); FillRect(reinterpret_cast<HDC>(w),&rect,self->background); return TRUE; }
-        case WM_ACTIVATE: if(LOWORD(w)==WA_INACTIVE) self->done=true; return 0;
+        case WM_ACTIVATE: if(LOWORD(w)==WA_INACTIVE && !self->editingRegex) self->done=true; return 0;
         case WM_CLOSE: self->done=true; return 0;
         case WM_DPICHANGED: self->dpi=HIWORD(w); self->Fonts(); self->Layout(); return 0;
         case WM_SETTINGCHANGE: case WM_THEMECHANGED: self->Colors(); InvalidateRect(hwnd,nullptr,TRUE); return 0;
@@ -442,7 +462,7 @@ public:
     {
         LANGID language=theApp.m_general_data.language.language_id;
         if(!language) language=GetUserDefaultUILanguage();
-        const bool chinese=PRIMARYLANGID(language)==LANG_CHINESE;
+        chinese=PRIMARYLANGID(language)==LANG_CHINESE;
         searchText=chinese ? L"搜尋選單" : L"Search menu";
         backText=chinese ? L"返回" : L"Back";
         emptyText=chinese ? L"沒有符合的指令" : L"No matching commands";
@@ -461,7 +481,9 @@ public:
         edit=CreateWindowExW(WS_EX_CLIENTEDGE,L"EDIT",L"",WS_CHILD|WS_VISIBLE|WS_TABSTOP|ES_AUTOHSCROLL,0,0,1,1,window,reinterpret_cast<HMENU>(static_cast<UINT_PTR>(EditId)),cls.hInstance,nullptr);
         list=CreateWindowExW(0,L"LISTBOX",searchText.c_str(),WS_CHILD|WS_VISIBLE|WS_TABSTOP|WS_VSCROLL|LBS_NOTIFY|LBS_OWNERDRAWVARIABLE|LBS_HASSTRINGS|LBS_NOINTEGRALHEIGHT,0,0,1,1,window,reinterpret_cast<HMENU>(static_cast<UINT_PTR>(ListId)),cls.hInstance,nullptr);
         empty=CreateWindowExW(0,L"STATIC",emptyText.c_str(),WS_CHILD|SS_LEFT,0,0,1,1,window,nullptr,cls.hInstance,nullptr);
-        if(!edit || !list || !back || !empty) return false;
+        regex=CreateWindowExW(0,L"BUTTON",chinese?L"正規式":L"Regex",WS_CHILD|WS_VISIBLE|WS_TABSTOP|BS_PUSHBUTTON,0,0,1,1,window,reinterpret_cast<HMENU>(static_cast<UINT_PTR>(RegexId)),cls.hInstance,nullptr);
+        if(!edit || !list || !back || !empty || !regex) return false;
+        SetTimer(window,1,40,nullptr);
         SendMessageW(edit,EM_SETCUEBANNER,TRUE,reinterpret_cast<LPARAM>(searchText.c_str()));
         SendMessageW(edit,EM_SETLIMITTEXT,512,0);
         IAccPropServices* properties{};

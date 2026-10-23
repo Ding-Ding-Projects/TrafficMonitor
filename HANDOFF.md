@@ -1,4 +1,4 @@
-# TrafficMonitor implementation handoff
+﻿# TrafficMonitor implementation handoff
 
 ## Native task-oriented settings candidate
 
@@ -191,3 +191,7 @@ taskbar monitor from metadata only. This implementation lane did not repeat that
 or runtime check. The automatic updater is still a source/build candidate; installation
 1.0.18 does not prove its new automatic behavior. The parent read back main at
 fa08759cc4dc78811903aa259988aa2224880ad1 before this candidate's integration.
+
+## Native regex workbench candidate
+
+The source candidate adds a bounded native NFA engine, an owned native pattern editor, and independent asynchronous search consumers in workspace, Settings and context-menu levels. See docs/features/search/native-workbench.md and native-regex-parity.json. No tests, review, audits, runtime interaction or screenshots were run under the selected expedited mode. Build/package status is pending. No release, installation or full parity is claimed. The parent task owns integration, remote preservation and release.

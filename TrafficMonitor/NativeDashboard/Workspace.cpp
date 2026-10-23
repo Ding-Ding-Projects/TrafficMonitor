@@ -5,6 +5,7 @@
 #include "../NativeDashboardController.h"
 #include "../NativeMaterial/Controls.h"
 #include "../NativeMenus/SearchableMenu.h"
+#include "../NativeRegex/Workbench.h"
 #include "../TrafficMonitor.h"
 #include <afxcmn.h>
 #include <imm.h>
@@ -18,7 +19,7 @@ namespace NativeDashboard
     {
         constexpr UINT SnapshotMessage = WM_APP + 0x452;
         enum ControlId : UINT { HistoryId = 52001, PluginsId, SettingsId, FloatingId, ThemeId,
-            PauseId, RefreshId, SearchId, ClearId, TabsId, AdaptersId, SamplesId, DetailsId, StatusId, SummaryId };
+            PauseId, RefreshId, SearchId, ClearId, TabsId, AdaptersId, SamplesId, DetailsId, StatusId, SummaryId, RegexId };
         class Workspace;
         std::map<HWND, Workspace*> windows;
         COLORREF Color(const D2D1_COLOR_F& value)
@@ -40,6 +41,7 @@ namespace NativeDashboard
             afx_msg void OnGetMinMaxInfo(MINMAXINFO* info);
             afx_msg void OnClose();
             afx_msg void OnDestroy();
+            afx_msg void OnTimer(UINT_PTR id) { if(id==0x4E92 && m_model.PollFilter()) RefreshRows(); else CWnd::OnTimer(id); }
             afx_msg LRESULT OnSnapshot(WPARAM generation, LPARAM);
             afx_msg LRESULT OnDpi(WPARAM dpi, LPARAM bounds);
             afx_msg HBRUSH OnCtlColor(CDC* dc, CWnd*, UINT);
@@ -73,7 +75,7 @@ namespace NativeDashboard
             NativeMaterial::Appearance m_appearance{ NativeMaterial::Appearance::Light };
             CFont m_font;
             CBrush m_background;
-            NativeMaterial::Button m_history, m_plugins, m_settings, m_floatButton, m_theme, m_pause, m_refresh, m_clear;
+            NativeMaterial::Button m_history, m_plugins, m_settings, m_floatButton, m_theme, m_pause, m_refresh, m_clear, m_regex;
             CEdit m_search, m_details;
             CStatic m_status, m_summary;
             CTabCtrl m_tabs;
@@ -81,6 +83,7 @@ namespace NativeDashboard
         };
         BEGIN_MESSAGE_MAP(Workspace, CWnd)
             ON_WM_CREATE()
+            ON_WM_TIMER()
             ON_WM_PAINT()
             ON_WM_ERASEBKGND()
             ON_WM_SIZE()
@@ -129,6 +132,7 @@ namespace NativeDashboard
                 || !m_theme.Create(T(L"Switch appearance", L"切換外觀"), initial, this, ThemeId)
                 || !m_pause.Create(T(L"Pause display", L"暫停顯示"), initial, this, PauseId)
                 || !m_refresh.Create(T(L"Restart samples", L"重新採樣"), initial, this, RefreshId)
+                || !m_regex.Create(T(L"Regex", L"正規式"), initial, this, RegexId)
                 || !m_clear.Create(T(L"Clear", L"清除"), initial, this, ClearId)) return -1;
             const DWORD child = WS_CHILD | WS_VISIBLE | WS_TABSTOP;
             if (!m_search.CreateEx(WS_EX_CLIENTEDGE, L"EDIT", L"", child | ES_AUTOHSCROLL, initial, this, SearchId)
@@ -157,7 +161,7 @@ namespace NativeDashboard
             m_samples.InsertColumn(1, T(L"Receiving", L"接收"), LVCFMT_LEFT, 160);
             m_samples.InsertColumn(2, T(L"Sending", L"傳送"), LVCFMT_LEFT, 160);
             m_samples.InsertColumn(3, T(L"State", L"狀態"), LVCFMT_LEFT, 240);
-            SetFonts(); ApplyTheme(); Layout(); Start();
+            SetFonts(); ApplyTheme(); Layout(); Start(); SetTimer(0x4E92,40,nullptr);
             return 0;
         }
         void Workspace::SetFonts()
@@ -177,7 +181,7 @@ namespace NativeDashboard
         {
             const auto palette = NativeMaterial::Palette::Resolve(m_appearance);
             m_background.DeleteObject(); m_background.CreateSolidBrush(Color(palette.surface));
-            for (auto* button : {&m_history, &m_plugins, &m_settings, &m_floatButton, &m_theme, &m_pause, &m_refresh, &m_clear}) button->SetAppearance(m_appearance);
+            for (auto* button : {&m_history, &m_plugins, &m_settings, &m_floatButton, &m_theme, &m_pause, &m_refresh, &m_clear, &m_regex}) button->SetAppearance(m_appearance);
             for (auto* list : {&m_adapters, &m_samples})
             {
                 list->SetBkColor(Color(palette.container)); list->SetTextBkColor(Color(palette.container)); list->SetTextColor(Color(palette.onSurface));
@@ -193,7 +197,7 @@ namespace NativeDashboard
             place(m_history, 24, 76, 104, 40); place(m_plugins, 140, 76, 104, 40); place(m_settings, 256, 76, 104, 40);
             place(m_floatButton, 372, 76, 198, 40); place(m_theme, 582, 76, width - 606, 40);
             place(m_pause, 24, 128, 140, 40); place(m_refresh, 176, 128, 150, 40);
-            place(m_search, 342, 130, width - 462, 36); place(m_clear, width - 108, 128, 84, 40);
+            place(m_search, 342, 130, width - 554, 36); place(m_regex,width-200,128,84,40); place(m_clear, width - 108, 128, 84, 40);
             place(m_status, 24, 171, width - 48, 17);
             const int tabY = (std::max)(404, (std::min)(440, height - 164));
             place(m_tabs, 24, tabY, width - 48, height - tabY - 20);
@@ -235,6 +239,7 @@ namespace NativeDashboard
                 else status.Format(T(L"%zu adapters shown · observation %llu · %s", L"顯示 %zu 個介面 · 觀察 %llu · %s"), m_model.Rows().size(), snapshot.sequence,
                     m_model.Paused() ? T(L"Display paused; collection continues", L"顯示已暫停；採樣繼續").GetString() : T(L"Live display", L"即時顯示").GetString());
             }
+            if(!m_model.search.status.empty()) status+=L" | "+CString(m_model.search.status.c_str());
             m_status.SetWindowText(status);
             const auto* selected = m_model.Selected();
             std::wstring summary = m_chinese ? L"所選介面：" : L"Selected adapter: ";
@@ -315,7 +320,11 @@ namespace NativeDashboard
                 m_model.SetPaused(!m_model.Paused()); m_pause.SetLabel(m_model.Paused() ? T(L"Resume display", L"恢復顯示") : T(L"Pause display", L"暫停顯示")); RefreshRows(); return TRUE;
             case RefreshId:
                 m_controller.Stop(); m_model.Reset(); m_pause.SetLabel(T(L"Pause display", L"暫停顯示")); RefreshRows(); Start(); return TRUE;
-            case ClearId: m_search.SetWindowText(L""); m_search.SetFocus(); return TRUE;
+            case RegexId:
+                if(NativeRegex::Edit(m_hWnd,m_search.GetSafeHwnd(),m_model.search.options,m_model.SearchSubjects(),m_chinese,m_appearance))
+                { m_search.SetWindowText(m_model.search.options.query.c_str());m_model.Refilter(); }
+                return TRUE;
+            case ClearId: m_model.search.options.regex=false; m_search.SetWindowText(L""); m_search.SetFocus(); return TRUE;
             default: return CWnd::OnCommand(wparam, lparam);
             }
         }

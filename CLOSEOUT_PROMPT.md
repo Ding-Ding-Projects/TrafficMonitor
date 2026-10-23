@@ -1,4 +1,4 @@
-# Silent update implementation handoff
+﻿# Silent update implementation handoff
 
 The latest combined backend, cooperative UI and native settings candidate is
 3e6f8c72fe40a363de70c7ee5e27772ca86b9c6b. It additionally admits release source only
@@ -20,3 +20,7 @@ stable updater/launcher exit 0, executable SHA-256
 19776bfd7c6995b0eb3ca49a9d5ac99488afb72ce25658b4aeda28aa94ab8642,
 post-save data and startup preserved, hidden main/visible taskbar by metadata only.
 This implementation lane did not repeat or independently verify that action.
+
+## Native regex continuation
+
+Continue the native regex staged unit from this branch. Engine and native editor source plus workspace, Settings and context-menu integrations are implemented but not runtime verified. Build/package status is pending. Preserve the existing updater and menu lifecycle. Full RegexBuddy parity, modeless anchored presentation, complete localization/accessibility and all runtime checks remain unfinished. No tests, review, runtime interaction or screenshots are authorized in the selected expedited mode. The coordinating task owns integration, remote preservation and release.

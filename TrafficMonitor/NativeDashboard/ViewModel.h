@@ -1,5 +1,6 @@
-#pragma once
+﻿#pragma once
 #include "../NativeMonitoringSnapshot.h"
+#include "../NativeRegex/Engine.h"
 
 namespace NativeDashboard
 {
@@ -11,6 +12,10 @@ namespace NativeDashboard
         void Reset();
         void Filter(const std::wstring& query);
         void Select(std::size_t visibleRow);
+        NativeRegex::Filter search;
+        std::vector<std::wstring> SearchSubjects() const;
+        bool PollFilter();
+        void Refilter() { Rebuild(); }
         const NativeMonitoring::AdapterSnapshot* Selected() const;
         const NativeMonitoring::AdapterSnapshot* Row(std::size_t visibleRow) const;
         const std::shared_ptr<const NativeMonitoring::Snapshot>& Displayed() const { return m_displayed; }

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="资源文件">
@@ -1004,5 +1004,11 @@
     <ClInclude Include="NativeUpdate\Json.h" />
     <ClCompile Include="NativeUpdate\SilentUpdater.cpp" />
     <ClCompile Include="NativeUpdate\Transport.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="NativeRegex\Engine.h" />
+    <ClCompile Include="NativeRegex\Engine.cpp"></ClCompile>
+    <ClInclude Include="NativeRegex\Workbench.h" />
+    <ClCompile Include="NativeRegex\Workbench.cpp"></ClCompile>
   </ItemGroup>
 </Project>

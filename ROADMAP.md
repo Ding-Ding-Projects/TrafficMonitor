@@ -1,4 +1,4 @@
-# TrafficMonitor delivery roadmap
+﻿# TrafficMonitor delivery roadmap
 
 ## Installer and release foundation
 
@@ -71,3 +71,9 @@ with historical originals retained separately.
 - [ ] Verify update, failure, cancellation, recovery, draft deferral and data preservation when runtime checks are authorized again.
 
 - [x] Restrict accepted-channel admission to release commits contained in an exact resolved main SHA, retain bounded offline records, and compile/package source 3e6f8c72fe40a363de70c7ee5e27772ca86b9c6b as local-only 1.0.9005, exit 0.
+
+## Native regex staged unit
+
+- [ ] Verify native workspace, Settings and menu pattern Apply/Cancel, invalid input, cancellation and independent state. Source implementation added; runtime verification deferred.
+- [ ] Complete every topic in the native RegexBuddy parity ledger, including captures, engine comparison, debugger, saved collections, GREP and automation.
+- [ ] Verify anchored modeless presentation, bilingual mode, accessibility, minimum layouts and the complete DPI/theme/language matrix.

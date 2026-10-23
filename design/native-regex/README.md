@@ -1,10 +1,10 @@
-# Native regular-expression workbench
+﻿# Native regular-expression workbench
 
 Source baseline: `77435775e46ca78de13859a9e4f2a15732e53415`.
 
 The native workspace, Settings search and each context-menu level own independent search state. A persistent adjacent Regex button opens a native editor anchored to that search. The editor has pattern, literal/regex mode, ASCII case option, subject, literal replacement, construction tokens, search/replace/split previews, match selection and an explicit Apply/Cancel footer. Apply commits only a successfully evaluated draft; Cancel and Escape preserve the accepted owner filter and return focus.
 
-Use the existing native Material palette and button component, native edit/list controls, visible keyboard labels, logical tab order and per-monitor DPI layout. Intended client minimum: 720 by 600 logical pixels. English and Traditional Chinese use the existing language selection. Bilingual mode and the full appearance/customization contract remain unfinished.
+Use the existing native Material palette and button component, native edit/list controls, visible keyboard labels, logical tab order and per-monitor DPI layout. Intended client minimum: 640 by 400 logical pixels, with a vertically scrollable 700-pixel content area. English and Traditional Chinese use the existing language selection. Bilingual mode and the full appearance/customization contract remain unfinished.
 
 ## Execution boundary
 

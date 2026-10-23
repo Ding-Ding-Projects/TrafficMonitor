@@ -2,6 +2,7 @@
 #include "Settings.h"
 #include "../NativeUpdate/SilentUpdater.h"
 #include "../NativeMaterial/Controls.h"
+#include "../NativeRegex/Workbench.h"
 #include "../NativeMaterial/SettingsControls.h"
 #include <array>
 #include <cwctype>
@@ -14,7 +15,7 @@ namespace NativeSettings
     {
         unsigned activeEditors{};
         struct EditorLifetime { EditorLifetime() { ++activeEditors; } ~EditorLifetime() { --activeEditors; } };
-        enum : UINT { PageMonitor=54001, PageFloating, PageTaskbar, Search, Clear, Apply, Revert, Reset, Legacy, Interval, Theme, FirstCheck=54100 };
+        enum : UINT { PageMonitor=54001, PageFloating, PageTaskbar, Search, Clear, Apply, Revert, Reset, Legacy, Interval, Theme, Regex, FirstCheck=54100 };
         std::wstring Fold(std::wstring value) { for(auto& c:value) c=static_cast<wchar_t>(std::towlower(c)); return value; }
         class Editor final : public CDialog
         {
@@ -27,7 +28,7 @@ namespace NativeSettings
             void OnOK() override { ApplyDraft(); }
             BOOL PreTranslateMessage(MSG*) override;
             afx_msg void OnPaint();
-            afx_msg void OnTimer(UINT_PTR id) { if(id==0x4E91) UpdateInfo(); else CDialog::OnTimer(id); }
+            afx_msg void OnTimer(UINT_PTR id) { if(id==0x4E92){if(m_filter.Poll())Layout();}else if(id==0x4E91) UpdateInfo(); else CDialog::OnTimer(id); }
             afx_msg BOOL OnEraseBkgnd(CDC*) { return TRUE; }
             afx_msg void OnSize(UINT,int,int) { Layout(); }
             afx_msg void OnGetMinMaxInfo(MINMAXINFO* info);
@@ -50,7 +51,9 @@ namespace NativeSettings
             CFont m_font; CBrush m_background;
             CStatic m_title,m_note,m_intervalLabel,m_results,m_updateInfo;
             CEdit m_search,m_interval;
-            NativeMaterial::Button m_monitor,m_floating,m_taskbar,m_clear,m_applyButton,m_revert,m_reset,m_legacy,m_theme;
+            NativeRegex::Filter m_filter;
+            std::vector<std::wstring> Subjects() const;
+            NativeMaterial::Button m_monitor,m_floating,m_taskbar,m_clear,m_applyButton,m_revert,m_reset,m_legacy,m_theme,m_regex;
             std::vector<Entry> m_entries;
         };
         BEGIN_MESSAGE_MAP(Editor,CDialog)
@@ -82,7 +85,8 @@ namespace NativeSettings
             m_note.Create(L"",child,box,this); m_results.Create(L"",child,box,this);
             m_intervalLabel.Create(T(L"Sample interval (200-30000 ms, in steps of 100)",L"採樣間隔（200-30000 毫秒，每次 100）"),child,box,this);
             m_search.CreateEx(WS_EX_CLIENTEDGE,L"EDIT",L"",child|WS_TABSTOP|ES_AUTOHSCROLL,box,this,Search);
-            m_search.SetLimitText(256); m_search.SendMessage(EM_SETCUEBANNER,TRUE,reinterpret_cast<LPARAM>(m_chinese?L"搜尋目前設定組別":L"Search this settings group"));
+            m_search.SetLimitText(256);
+            m_regex.Create(T(L"Regex",L"正規式"),box,this,Regex); m_search.SendMessage(EM_SETCUEBANNER,TRUE,reinterpret_cast<LPARAM>(m_chinese?L"搜尋目前設定組別":L"Search this settings group"));
             m_interval.CreateEx(WS_EX_CLIENTEDGE,L"EDIT",L"",child|WS_TABSTOP|ES_NUMBER|ES_AUTOHSCROLL,box,this,Interval); m_interval.SetLimitText(5);
             m_monitor.Create(T(L"Monitoring",L"監察"),box,this,PageMonitor); m_floating.Create(T(L"Floating monitor",L"浮動監察器"),box,this,PageFloating);
             m_taskbar.Create(T(L"Taskbar",L"工作列"),box,this,PageTaskbar); m_theme.Create(T(L"Appearance",L"外觀"),box,this,Theme);
@@ -107,7 +111,7 @@ namespace NativeSettings
             SetFonts(); SetTheme(); Reload();
             RECT size{0,0,Px(800),Px(680)}; AdjustWindowRectEx(&size,GetStyle(),FALSE,GetExStyle());
             SetWindowPos(nullptr,0,0,size.right-size.left,size.bottom-size.top,SWP_NOMOVE|SWP_NOZORDER); CenterWindow(); Layout();
-            SetTimer(0x4E91,2000,nullptr); UpdateInfo();
+            SetTimer(0x4E92,40,nullptr);SetTimer(0x4E91,2000,nullptr); UpdateInfo();
             m_search.SetFocus(); return FALSE;
         }
         void Editor::SetFonts()
@@ -124,7 +128,7 @@ namespace NativeSettings
         {
             const auto c=NativeMaterial::Palette::Resolve(m_appearance);
             m_background.DeleteObject(); m_background.CreateSolidBrush(RGB(BYTE(c.surface.r*255),BYTE(c.surface.g*255),BYTE(c.surface.b*255)));
-            for(auto* button:{&m_monitor,&m_floating,&m_taskbar,&m_clear,&m_applyButton,&m_revert,&m_reset,&m_legacy,&m_theme})button->SetAppearance(m_appearance);
+            for(auto* button:{&m_monitor,&m_floating,&m_taskbar,&m_clear,&m_applyButton,&m_revert,&m_reset,&m_legacy,&m_theme,&m_regex})button->SetAppearance(m_appearance);
             for(auto& entry:m_entries)entry.control->SetAppearance(m_appearance);
             RedrawWindow(nullptr,nullptr,RDW_INVALIDATE|RDW_ALLCHILDREN);
         }
@@ -136,6 +140,8 @@ namespace NativeSettings
             m_loading=false; m_dirty=false;
             Note(T(L"Current values loaded. Apply saves changes. All settings retains the remaining controls.",L"已載入目前數值。套用後儲存更改；其餘控制項仍在所有設定內。")); Layout();
         }
+        std::vector<std::wstring> Editor::Subjects() const
+        {std::vector<std::wstring> values{L"Sample interval milliseconds 採樣間隔毫秒"};for(const auto& e:m_entries)values.push_back(std::wstring(e.english)+L" "+e.chinese);return values;}
         void Editor::Layout()
         {
             if(!m_search.GetSafeHwnd())return;
@@ -143,20 +149,21 @@ namespace NativeSettings
             auto place=[&](CWnd& child,int x,int y,int w,int h){child.MoveWindow(Px(x),Px(y),Px((std::max)(1,w)),Px(h));};
             place(m_title,24,16,width-48,32);
             place(m_monitor,24,58,152,40);place(m_floating,188,58,180,40);place(m_taskbar,380,58,152,40);place(m_theme,544,58,width-568,40);
-            place(m_search,24,112,width-156,36);place(m_clear,width-120,110,96,40);
-            CString query; m_search.GetWindowText(query); const auto folded=Fold(query.GetString());
+            place(m_search,24,112,width-264,36);place(m_regex,width-228,110,96,40);place(m_clear,width-120,110,96,40);
+            CString query; m_search.GetWindowText(query); m_filter.options.query=query.GetString();m_filter.Request(Subjects());
             int y=164,count=0;
-            auto matches=[&](const wchar_t* en,const wchar_t* zh){return folded.empty()||Fold(std::wstring(en)+L" "+zh).find(folded)!=std::wstring::npos;};
-            const bool showInterval=m_page==0&&matches(L"Sample interval milliseconds",L"採樣間隔毫秒");
+            size_t row=0;
+            const bool showInterval=m_page==0&&m_filter.Visible(0);
             m_intervalLabel.ShowWindow(showInterval?SW_SHOW:SW_HIDE);m_interval.ShowWindow(showInterval?SW_SHOW:SW_HIDE);
             if(showInterval){place(m_intervalLabel,24,y,width-232,48);place(m_interval,width-184,y,160,36);y+=60;++count;}
             for(auto& entry:m_entries)
             {
-                bool show=entry.page==m_page&&matches(entry.english,entry.chinese);entry.control->ShowWindow(show?SW_SHOW:SW_HIDE);
+                ++row;bool show=entry.page==m_page&&m_filter.Visible(row);entry.control->ShowWindow(show?SW_SHOW:SW_HIDE);
                 if(show){place(*entry.control,24,y,width-48,48);y+=56;++count;}
             }
             CString results; results.Format(T(L"%d controls shown in this group",L"本組顯示 %d 個控制項"),count);
             if(!count)results=T(L"No settings match this search. Clear to show the group.",L"沒有符合搜尋的設定。清除後顯示本組。");
+            if(!m_filter.status.empty())results+=L" | "+CString(m_filter.status.c_str());
             m_results.SetWindowText(results); place(m_results,24,y+4,width-48,26);
             place(m_note,24,height-112,width-48,48);
             place(m_applyButton,24,height-52,96,40);place(m_revert,132,height-52,96,40);place(m_reset,240,height-52,180,40);place(m_legacy,432,height-52,width-456,40);
@@ -223,7 +230,9 @@ namespace NativeSettings
             switch(id)
             {
             case PageMonitor:case PageFloating:case PageTaskbar:m_page=id-PageMonitor;Layout();return TRUE;
-            case Clear:m_search.SetWindowText(L"");m_search.SetFocus();return TRUE;
+            case Regex:
+                if(NativeRegex::Edit(m_hWnd,m_search.GetSafeHwnd(),m_filter.options,Subjects(),m_chinese,m_appearance)){m_search.SetWindowText(m_filter.options.query.c_str());Layout();}return TRUE;
+            case Clear:m_filter.options.regex=false;m_search.SetWindowText(L"");m_search.SetFocus();return TRUE;
             case Apply:ApplyDraft();return TRUE;
             case Revert:Reload();return TRUE;
             case Reset:ResetPage();return TRUE;

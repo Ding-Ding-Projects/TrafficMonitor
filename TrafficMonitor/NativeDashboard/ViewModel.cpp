@@ -1,4 +1,4 @@
-#include "../stdafx.h"
+﻿#include "../stdafx.h"
 #include "ViewModel.h"
 #include <cwctype>
 
@@ -31,15 +31,21 @@ namespace NativeDashboard
     {
         m_latest.reset(); m_displayed.reset(); m_rows.clear(); m_paused = false;
     }
-    void ViewModel::Filter(const std::wstring& query) { m_query = Fold(query); Rebuild(); }
+    void ViewModel::Filter(const std::wstring& query) { search.options.query=query; Rebuild(); }
+    std::vector<std::wstring> ViewModel::SearchSubjects() const
+    {
+        std::vector<std::wstring> result;if(m_displayed)for(const auto& row:m_displayed->adapters)result.push_back(row.alias+L" "+row.description);return result;
+    }
+    bool ViewModel::PollFilter(){if(!search.Poll())return false;Rebuild();return true;}
     void ViewModel::Rebuild()
     {
         m_rows.clear();
         if (!m_displayed) return;
+        search.Request(SearchSubjects());
         for (std::size_t i = 0; i < m_displayed->adapters.size(); ++i)
         {
             const auto& row = m_displayed->adapters[i];
-            if (m_query.empty() || Fold(row.alias + L" " + row.description).find(m_query) != std::wstring::npos)
+            if (search.Visible(i))
                 m_rows.push_back(i);
         }
         if (!m_selectedOnce && !m_rows.empty())

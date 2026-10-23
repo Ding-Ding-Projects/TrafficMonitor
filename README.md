@@ -1,4 +1,4 @@
-[Documentation website](https://ding-ding-projects.github.io/TrafficMonitor/)
+﻿[Documentation website](https://ding-ding-projects.github.io/TrafficMonitor/)
 
 **English | [简体中文](./README_zh-CN.md)**
 
@@ -195,3 +195,7 @@ The domain `www.trafficmonitor.cn` has **no relation** to the author. TrafficMon
 * [GitHub page (github.com/zhongyang219/TrafficMonitor)](https://github.com/zhongyang219/TrafficMonitor)
 * [Gitee page (gitee.com/zhongyang219/TrafficMonitor)](https://gitee.com/zhongyang219/TrafficMonitor)
 * [Author's Baidu Netdisk shared link](https://pan.baidu.com/s/15PMt7s-ASpyDwtS__4cUhg) Extraction code: `ou0m`
+
+## Native search workbench candidate
+
+The native workspace, Settings and context menus now have adjacent pattern workbench entrypoints with bounded background NFA evaluation. [Behavior and unfinished parity](docs/features/search/native-workbench.md) distinguish this source candidate from full RegexBuddy delivery. Runtime and visual verification were not run in the expedited pass.
