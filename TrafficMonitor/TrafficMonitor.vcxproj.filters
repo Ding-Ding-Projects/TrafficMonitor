@@ -1044,4 +1044,6 @@
     <ClInclude Include="NativeMaterial\Panel.h" />
     <ClCompile Include="NativeMaterial\Panel.cpp" />
   </ItemGroup>
+  <ItemGroup><ClInclude Include="NativeMaterial\ScrollableTextField.h" /><ClCompile Include="NativeMaterial\ScrollableTextField.cpp" /></ItemGroup>
+  <ItemGroup><ClInclude Include="NativeMaterial\SearchSelector.h" /><ClCompile Include="NativeMaterial\SearchSelector.cpp" /></ItemGroup>
 </Project>

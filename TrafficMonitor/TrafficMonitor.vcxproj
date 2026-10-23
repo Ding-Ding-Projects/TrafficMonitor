@@ -1150,4 +1150,6 @@
     <ClInclude Include="NativeMaterial\Panel.h" />
     <ClCompile Include="NativeMaterial\Panel.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
   </ItemGroup>
+  <ItemGroup><ClInclude Include="NativeMaterial\ScrollableTextField.h" /><ClCompile Include="NativeMaterial\ScrollableTextField.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile></ItemGroup>
+  <ItemGroup><ClInclude Include="NativeMaterial\SearchSelector.h" /><ClCompile Include="NativeMaterial\SearchSelector.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile></ItemGroup>
 </Project>

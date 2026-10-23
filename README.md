@@ -2,7 +2,7 @@
 
 A native C++/MFC network monitor for Windows, with a compact taskbar display, tray access and a floating monitor. This fork delivers the maintained x64 edition, preserves upstream attribution and supports the existing optional plugin interfaces.
 
-[Documentation website](https://ding-ding-projects.github.io/TrafficMonitor/) · [Native 1.0.43 release](https://github.com/Ding-Ding-Projects/TrafficMonitor/releases/tag/v1.0.43-run40003469175-1) · [Installation](docs/features/installation/README.md) · [Changelog](CHANGELOG.md) · [Required-feature status](docs/features/required-features/README.md) · [简体中文](README_zh-CN.md)
+[Documentation website](https://ding-ding-projects.github.io/TrafficMonitor/) · [Native 1.0.47 release](https://github.com/Ding-Ding-Projects/TrafficMonitor/releases/tag/v1.0.47-run40017259830-1) · [Installation](docs/features/installation/README.md) · [Changelog](CHANGELOG.md) · [Required-feature status](docs/features/required-features/README.md) · [简体中文](README_zh-CN.md)
 
 ## Install and start monitoring
 
@@ -12,7 +12,7 @@ Startup and shortcuts use the stable installation launcher. Uninstall removes on
 
 ## Silent updates and verified boundaries
 
-The latest separately verified accepted installation is **1.0.45**, source `f5e8acf98dceefccb350e5ed02aa02908ae36c1c`, with exact released executable/manifest bytes and preserved configuration/startup/history. Its [post-publication receipt](docs/features/installation/accepted45-installed-state.json) is separate from the genuine natural transition below. The new component candidate is not yet a verified integrated release.
+The latest separately verified accepted installation is **1.0.47**, source `eb2b515930776e568a8420f2d04a87830227162b`, with exact released executable/manifest bytes and preserved configuration/startup/history. Its [post-publication receipt](docs/features/installation/accepted47-installed-state.json) is separate from the genuine natural transition below. All four1.0.47 delivery jobs succeeded. The subsequent workbench replacement retains its separate candidate verification boundary.
 
 A genuine bounded update moved naturally from **1.0.42 to 1.0.43**, source `575c871e0b6a52667bce1b77f69d62634e457455`. A real prepublication baseline and nine bounded observations verified matching released executable bytes, one successful apply, readiness and stable-launcher results, preserved configuration/startup and unchanged historical traffic records. No manual check, close, apply or launch occurred during that observation. All jobs in release workflow 40003469175 succeeded. See the [source-bound receipt](docs/features/installation/silent-natural43-acceptance.json). This proves one observed transition, not full GUI acceptance, negative production paths or long-term reliability. Earlier observations below retain their original scope.
 
@@ -26,7 +26,7 @@ See [natural35 evidence](docs/features/installation/silent-natural35-acceptance.
 
 The current visuals are not accepted as the finished redesign. A full native remake is in progress, including shared styled controls and scrollbars, coherent navigation, readable forms and every existing workflow. The first five shared surfaces and the remaining application-owned dialogs all remain in scope. The first shared component and Settings correction unit has independent source and actual-pixel review. Its selectors, search/edit-action menus, custom rails, draft-preserving language refresh and semantic navigation have bounded runtime evidence. Design references remain authored proposals, not product screenshots. Main application work takes priority over further documentation-website implementation.
 
-The native monitoring backend, taskbar integration, tray and plugin interfaces remain. The new network workspace, task-oriented settings and resumable four-step setup are useful partial implementations. Setup opens through the explicit workspace action, with save/resume and acknowledged partial operations; ordinary sign-in monitoring remains unobtrusive. Language and appearance now use shared stable native preferences; complete five-consumer runtime acceptance remains pending.
+The native monitoring backend, taskbar integration, tray and plugin interfaces remain. The new network workspace, task-oriented settings and resumable four-step setup are useful partial implementations. Setup opens through the explicit workspace action, with save/resume and acknowledged partial operations; ordinary sign-in monitoring remains unobtrusive. Language and appearance use shared stable native preferences with bounded cold-restart and five-consumer observations. Complete language/theme/accessibility coverage remains unfinished.
 
 Bounded setup checks cover light theme at actual 96 DPI, three languages, save/resume, Keep-current completion and selected accessibility consumers. Choice expansion, complete keyboard/accessibility behavior, the full theme/scale matrix, full regex-builder parity and the broader required-feature inventory remain unfinished. The indexed 110-item ledger is an obligation inventory, not proof that 110 features shipped.
 
@@ -71,3 +71,7 @@ These exact raw images show local documentation candidate 1.0.9024 built from 42
 ![Offline documentation candidate 1.0.9024 showing a wrapped bilingual snapshot header and Downloads heading at 624 by 441](evidence/ui/docs-companion-9024/downloads-bilingual-minimum.png)
 
 [Source/hash/state inventory](evidence/ui/docs-companion-9024/inventory.json).
+
+### Work with patterns in task-focused views
+
+The native workbench now separates Test, Replace, Explain and Library. A fixed pattern/options area and Apply/Cancel actions surround an independently scrolling task body. Styled native editing controls, selectable results, searchable expression selection and client scroll rails replace the previous stock control chrome. Source691 and local1.0.9040 have independent source/visual review and current-binary result selection, explicit Load, Apply/Cancel, forward-Tab and scrolling observations. Higher display scales, full keyboard/UIA/IME, formal image promotion and complete RegexBuddy parity remain unfinished. See [behavior and bounded evidence](docs/features/search/native-workbench.md#modern-native-workbench).

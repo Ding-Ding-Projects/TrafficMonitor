@@ -7,3 +7,5 @@
 These engines have different semantics. Native NFA v1 must never be represented as the browser ECMAScript engine or as full RegexBuddy parity. This category has no HTTP API; a Postman collection is not applicable.
 
 - [Save and reuse named native expressions](native-collections.md)
+
+- [Use the modern native task views and understand current verification limits](native-workbench.md#modern-native-workbench)

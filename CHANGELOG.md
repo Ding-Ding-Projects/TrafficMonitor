@@ -1,5 +1,9 @@
 # Fork changes
 
+## Native regex workbench component replacement
+
+Replace stock workbench chrome with four persistent task views, styled native editors, selectable results, a searchable expression selector and client scroll rails. Retain engine, storage and owner Apply/Cancel behavior. Correct panel ownership, compact-height reachability, wheel handling, heading scale and panel/button background composition. Independent source/visual review and current9040 consumer observations support this bounded unit; the full accessibility/DPI matrix and complete regex parity remain unfinished.
+
 ## Menu regex activation correction
 
 Keep an owned menu regex editor open when global foreground information is unavailable. The popup checks its own UI thread active window before deciding that activation moved outside. Existing non-null outside activation and cancellation remain unchanged. Local1.0.9034 reproduced premature closure; exact-root1.0.9035 retained the editor and exercised preview, Apply, Cancel, reopen and outside dismissal. Independent recorded-evidence review accepted this bounded correction. Cross-process activation, IME and full visual acceptance remain unverified.

@@ -227,5 +227,6 @@ with historical originals retained separately.
 
 - [x] Correct and independently review null-foreground menu regex lifetime with red9034/green9035 bounded observations.
 - [x] Verify normal1.0.46 release and matching installed executable, saved settings, startup and history.
-- [ ] Replace remaining workbench stock fields, dropdown, result list and generic scrollbars with accessible native shared components.
+- [x] Implement and independently review the workbench visual/native-control replacement, with current9040 consumer observations.
+- [ ] Complete accessibility/provider, physical reverse traversal and the full language/theme/DPI acceptance of the replacement workbench.
 - [ ] Convert workspace/setup and every remaining owned legacy surface, then verify full language/theme/DPI and keyboard behavior.

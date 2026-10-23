@@ -1,4 +1,4 @@
-﻿# Native search pattern workbench
+# Native search pattern workbench
 
 Choose **Regex** immediately beside the native workspace, Settings or context-menu search. Each dialog or menu level owns its own query, literal/regex mode, ASCII case option, validation and accepted rows. Plain text is the default. The editor is positioned beside the originating search and returns focus there. It is an owned modeless native tool window: the originating search remains usable, reopening focuses the existing editor, and moving the search reanchors the editor within the monitor work area.
 
@@ -58,3 +58,31 @@ Exact root `build-installer.bat -Version 1.0.9008`, including `build.bat`, passe
 ## Named local expressions
 
 The modeless editor now includes explicit local Save new, select/Load draft, Rename, Delete, Refresh and Recover backup controls. See [collection behavior, storage and limits](native-collections.md). Loading affects only the draft; Apply retains current-corpus validation. Full collection compatibility and runtime acceptance remain unfinished.
+
+## Modern native workbench
+
+The workbench groups real tasks into Test, Replace, Explain and Library. The pattern and Options controls remain fixed, as do Apply and Cancel. Each task retains its own outer scroll position and editing state. Subject and read-only output controls keep the native editing model and use client scroll rails with reserved text-format space. The result list retains selection. The saved-expression selector opens a searchable native menu; selecting a name does not silently load or apply it.
+
+Partial wheel deltas accumulate according to the operating-system line/page setting. Disabling the field clears the remainder; read-only output can still scroll. End and drag use the native first-visible-line state. Fitting content hides unnecessary rails. Commands and colors pass through the actual panel/viewport parents, with nested-dialog traversal retained. Panel buttons can receive an explicit parent surface color; the shared default remains unchanged for other owners. Normal layout uses a24-pixel semibold heading and separate bilingual secondary line. Compact height omits the repeated explanatory heading and keeps fixed navigation and actions.
+
+### Source-bound verification
+
+Independent source and actual-image review accepted the bounded unit at691522b852ef425e2d99a2e0d3dd5779ff144e8a. Exact-root build-installer.bat -Version1.0.9040 exited0 with two linker warnings and zero errors. Full package SHA-256:f7d7e289104d45816af72100343ae4dda7b3ca6f986c0c81b2d2a7e61ae8fab8. Executable SHA-256:1c9aae65974e98a7c2a630ce14a8bf04532aefa605d5d92f3f5fdd1e14f3be75. Package bytes, embedded executable and source/version manifest were independently checked.
+
+The48-action visual pass observed partial wheel input -60,-60,+120 move native first-visible-line0,0,3,0. Disabled wheel retained0; read-only output moved0to3. End and drag reached48of60. Six genuine96-DPI images cover English-light normal Test/Replace and bilingual-dark normal/minimum states. Earlier9036 blank-body,9038 obscured rail/minimum-body and9039 wheel/background states remain rejected historical evidence.
+
+A separate44-action pass reused the unchanged9040 binary. Selecting the second result highlighted UTF-16 span[21,29]. After saving an Ethernet expression and changing the draft to Wi-Fi, selecting the saved name retained Wi-Fi; explicit Load restored Ethernet. Apply changed the owning query to Ethernet; subsequent Cancel retained it. At640x400 bilingual-dark, forward Tab reached the nested Test, Replace, Library and Options actions. Focused action buttons fitted within the108-pixel body; taller controls were top-anchored. Explain Home/PageDown/End exposed its remaining English and Cantonese capability text.
+
+Both fixtures and observer helpers closed normally. Data/history and startup comparisons passed, and the stable launcher restored accepted1.0.47. These are candidate-specific observations, not proof of a later integrated executable. The most recent consumer run ended2026-10-23T20:36:08.067563Z.
+
+### Limits and recovery
+
+The supported message-based Shift+Tab combination advanced forward. Native previous-control traversal worked separately, but physical Shift+Tab and its focus reveal remain unverified; no product defect is inferred from the transport limit. Full keyboard/UIA/provider coverage, clipboard/IME, high contrast, all languages/themes/scales and formal native image promotion remain unfinished. The minimum layout has provisional reachability, not full ergonomic acceptance. Raw images are not represented as a completed layout matrix. Complete RegexBuddy parity remains unfinished, and unsupported engine syntax must remain explicit.
+
+All drafts, expression persistence, execution bounds, current-corpus Apply validation, Cancel semantics and updater deferral retain their existing contracts. No remote search or payload transmission is introduced. Other native owners and application-owned legacy dialogs remain in scope. Documentation-website completion remains after the main application.
+
+### 廣東話說明
+
+工作台分成測試、取代、說明同收藏四個實際工作。表示式、選項同套用／取消固定保留，內容區各自捲動。文字輸入保留原生編輯、選取同唯讀行為，改用有預留文字空間嘅客戶區捲動條。選收藏名稱唔等於載入，載入亦唔等於套用。
+
+9040有來源綁定建置、獨立程式碼及實際圖像審查，亦有目前位元組嘅結果反白、載入、套用／取消、正向Tab同捲動觀察。最小雙語版面只證明有限度可到達操作，未代表完整人體工學或無障礙驗收。實體Shift+Tab、輸入法、剪貼簿、高對比、完整語言／主題／縮放矩陣同完整RegexBuddy功能仍未完成。舊失敗畫面照保留，唔會當成新版本證據。

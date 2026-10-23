@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <afxwin.h>
 #include <afxcmn.h>
 #include <memory>
@@ -15,6 +15,7 @@ namespace NativeMaterial
         BOOL Create(const CString& label, const RECT& bounds, CWnd* parent, UINT id);
         void SetAppearance(Appearance appearance);
         void SetLabel(const CString& label);
+        void SetSurfaceColor(COLORREF color){m_surfaceColor=color;m_customSurface=true;if(m_hWnd)Invalidate();}
         void SetVariant(ButtonVariant value){m_variant=value;if(m_hWnd)Invalidate();}
     protected:
         afx_msg void OnPaint();
@@ -43,7 +44,8 @@ namespace NativeMaterial
         HRESULT m_attachResult{E_PENDING}, m_drawResult{E_PENDING}, m_printResult{E_PENDING};
         Appearance m_appearance{ Appearance::Light };
         ButtonVariant m_variant{ButtonVariant::Primary};
-        bool m_pressed{}, m_hover{};
+        bool m_pressed{}, m_hover{}, m_customSurface{};
+        COLORREF m_surfaceColor{};
         std::shared_ptr<ButtonAccess> m_access;
     };
 
