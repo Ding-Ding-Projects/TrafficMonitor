@@ -24,3 +24,19 @@ This implementation lane did not repeat or independently verify that action.
 ## Native regex continuation
 
 Continue the native regex staged unit from this branch. Engine and native editor source plus workspace, Settings and context-menu integrations are implemented but not runtime verified. Exact root `build-installer.bat -Version 1.0.9006`, including root `build.bat`, passed with exit 0 at `265f048da7cb7534cb151519d003c67218a73048`: 114 warnings, zero errors, 36.61 seconds. Hashes and sizes are in `docs/features/search/native-build-receipt.json`. Later receipt/documentation commits do not relabel that producer source. Preserve the existing updater and menu lifecycle. Full RegexBuddy parity, modeless anchored presentation, complete localization/accessibility and all runtime checks remain unfinished. No tests, review, runtime interaction or screenshots are authorized in the selected expedited mode. The coordinating task owns integration, remote preservation and release.
+
+## Complete native regex documentation production
+
+The content generator refreshed docs/site-content/manifest.json from exact source
+119d46bf0207e58c0f160eb41da4e19f837049c9. It contains 165 repository Markdown
+articles, 28 wiki articles (193 total), 75 wiki assets and 103 wiki tracked files.
+Exact root build.bat --site exited 0 and produced 193 complete articles,
+1,544 history records and zero unavailable local images. Both native regex guides
+have full generated article pages. The source-bound manifest/output hashes and
+production receipt are recorded in docs/features/search/native-site-build-receipt.json.
+The generated manifest was the sole modified tracked input during production;
+this closeout addition and receipt were written afterward. No deployment, tests,
+review, runtime interaction or screenshots were performed. Native package source
+remains 265f048da7cb7534cb151519d003c67218a73048. The coordinating task must merge
+the independently prepared updater documentation and regenerate the combined
+manifest at convergence, without replacing either article inventory.

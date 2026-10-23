@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "command": "build.bat --site",
+  "exitCode": 0,
+  "inputHead": "119d46bf0207e58c0f160eb41da4e19f837049c9",
+  "manifestSource": "119d46bf0207e58c0f160eb41da4e19f837049c9",
+  "manifestSha256": "13d6998c6211b703767750741dfc08adf20031b93dc6a60dffe20206af990e8b",
+  "inputState": "The manifest was generated from the exact input HEAD immediately before production and was the sole modified tracked input. This receipt and closeout update were written after production.",
+  "nativePackageSource": "265f048da7cb7534cb151519d003c67218a73048",
+  "counts": {
+    "repositoryMarkdownArticles": 165,
+    "wikiMarkdownArticles": 28,
+    "wikiAssets": 75,
+    "wikiTrackedFiles": 103,
+    "articles": 193
+  },
+  "productionReceipt": {
+    "schemaVersion": 1,
+    "sourceCommit": "119d46bf0207e58c0f160eb41da4e19f837049c9",
+    "contentSource": "119d46bf0207e58c0f160eb41da4e19f837049c9",
+    "wikiSource": {
+      "repository": "https://github.com/zhongyang219/TrafficMonitor.wiki.git",
+      "commit": "cf35274094fe2ffb040ca1f29d6ce73c713d93a2"
+    },
+    "releaseMetadataSHA256": "37e33d17df24ad8a8e1cbb935a1dffd2844b8de4ec0c5f0f14f6e13538e62e0f",
+    "releaseTag": "v1.0.15-run39912330939-1",
+    "releaseSource": "3f573fc0031ef6b6cb123dfbc80c05c33a5063db",
+    "articleCount": 193,
+    "historyCount": 1544,
+    "base": "/TrafficMonitor/",
+    "unresolvedAssets": []
+  },
+  "published": false,
+  "runtime": "NOT RUN: expedited mode excludes runtime interaction, tests, review and screenshots.",
+  "outputs": [
+    {
+      "path": "docs/site/dist/index.html",
+      "size": 4911,
+      "sha256": "e190db80da750ad63505c7faf238faec0b9470b33c0bd267a010f60eb09551ce"
+    },
+    {
+      "path": "docs/site/dist/articles/source-docs-features-search-readme/index.html",
+      "size": 4275,
+      "sha256": "3dfc80885daa84262aafa44b153deffde8eec34e7b22e61467c6a216363598d6"
+    },
+    {
+      "path": "docs/site/dist/articles/source-docs-features-search-native-workbench/index.html",
+      "size": 10432,
+      "sha256": "bc147dde11f70a2e894dc09b205190305cdd63815beb772af7e5d64d6273122c"
+    },
+    {
+      "path": "docs/site/dist/build-receipt.json",
+      "size": 611,
+      "sha256": "576db08fdd8f9138f41a033029e4ade5bb8f7a894430bfcbe57c6b7c4f98d7ea"
+    }
+  ]
+}
