@@ -1,5 +1,7 @@
 ﻿#include "Theme.h"
 #include <cmath>
+#include <dwmapi.h>
+#pragma comment(lib, "dwmapi.lib")
 
 #pragma comment(lib, "d2d1.lib")
 #pragma comment(lib, "dwrite.lib")
@@ -36,6 +38,28 @@ namespace NativeMaterial
             D2D1::ColorF(0x17212f), D2D1::ColorF(0x526174),
             D2D1::ColorF(0x245fc8), D2D1::ColorF(0xffffff),
             D2D1::ColorF(0xd5dee8), D2D1::ColorF(0xa62a35), false };
+    }
+
+    HRESULT ApplyNativeFrameAppearance(HWND window, Appearance appearance)
+    {
+        if (!IsWindow(window)) return E_INVALIDARG;
+        const auto palette = Palette::Resolve(appearance);
+        const BOOL dark = !palette.highContrast && appearance == Appearance::Dark;
+        // Attributes 20 and 34..36 are supported on modern Windows. Older hosts
+        // reject unsupported attributes and continue using their native frame.
+        const HRESULT modeResult = DwmSetWindowAttribute(window, 20, &dark, sizeof(dark));
+        const auto rgb = [](D2D1_COLOR_F value) {
+            return RGB(BYTE(value.r * 255), BYTE(value.g * 255), BYTE(value.b * 255));
+        };
+        const COLORREF defaultColor = 0xffffffff;
+        const COLORREF caption = palette.highContrast ? defaultColor : rgb(palette.surface);
+        const COLORREF text = palette.highContrast ? defaultColor : rgb(palette.onSurface);
+        const COLORREF border = palette.highContrast ? defaultColor : rgb(palette.outline);
+        DwmSetWindowAttribute(window, 35, &caption, sizeof(caption));
+        DwmSetWindowAttribute(window, 36, &text, sizeof(text));
+        DwmSetWindowAttribute(window, 34, &border, sizeof(border));
+        RedrawWindow(window, nullptr, nullptr, RDW_FRAME | RDW_INVALIDATE);
+        return modeResult;
     }
 
     HRESULT Canvas::Attach(HWND window, float dpi)

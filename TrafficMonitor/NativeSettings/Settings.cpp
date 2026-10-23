@@ -169,6 +169,7 @@ namespace
     }
     void Editor::SetTheme()
     {
+        NativeMaterial::ApplyNativeFrameAppearance(m_hWnd, m_appearance);
         const auto c=NativeMaterial::Palette::Resolve(m_appearance);m_background.DeleteObject();m_background.CreateSolidBrush(RGB(BYTE(c.surface.r*255),BYTE(c.surface.g*255),BYTE(c.surface.b*255)));
         m_navigation.SetAppearance(m_appearance);m_results.SetAppearance(m_appearance);m_body.SetAppearance(m_appearance);m_search.SetAppearance(m_appearance);m_revert.SetVariant(NativeMaterial::ButtonVariant::Tonal);m_reset.SetVariant(NativeMaterial::ButtonVariant::Text);m_clear.SetVariant(NativeMaterial::ButtonVariant::Text);m_regex.SetVariant(NativeMaterial::ButtonVariant::Outlined);m_legacy.SetVariant(NativeMaterial::ButtonVariant::Text);for(auto* b:{&m_clear,&m_applyButton,&m_revert,&m_reset,&m_legacy,&m_theme,&m_regex,&m_open,&m_return})b->SetAppearance(m_appearance);
         for(auto& r:m_rows){if(r->check.GetSafeHwnd())r->check.SetAppearance(m_appearance);r->details.SetAppearance(m_appearance);if(r->setting->number){r->unit.SetAppearance(m_appearance);r->number.SetAppearance(m_appearance);}r->details.SetVariant(NativeMaterial::ButtonVariant::Text);}RedrawWindow(nullptr,nullptr,RDW_INVALIDATE|RDW_ALLCHILDREN);
