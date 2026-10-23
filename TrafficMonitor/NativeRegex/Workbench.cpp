@@ -113,7 +113,7 @@ namespace
         RECT origin{};if(!::GetWindowRect(anchor,&origin)||EqualRect(&origin,&previousAnchor))return;previousAnchor=origin;
         RECT bounds{};GetWindowRect(&bounds);const int width=bounds.right-bounds.left,height=bounds.bottom-bounds.top;
         MONITORINFO monitor{sizeof(monitor)};if(!GetMonitorInfoW(MonitorFromWindow(anchor,MONITOR_DEFAULTTONEAREST),&monitor))return;
-        int x=origin.left,y=origin.bottom;
+        LONG x=origin.left,y=origin.bottom;
         if(y+height>monitor.rcWork.bottom && origin.top-height>=monitor.rcWork.top)y=origin.top-height;
         x=(std::max)(monitor.rcWork.left,(std::min)(x,monitor.rcWork.right-width));
         y=(std::max)(monitor.rcWork.top,(std::min)(y,monitor.rcWork.bottom-height));
