@@ -1,4 +1,4 @@
-﻿# Fork changes
+# Fork changes
 
 ## Native task-oriented settings candidate
 
@@ -78,3 +78,8 @@ Runtime installation and update acceptance remain separate from source and build
 - Runtime automatic-update acceptance remains unverified.
 
 - The supported package writer emits and reads back explicit strict BOM-free UTF-8 RELEASES before public checksum generation, retaining Squirrel row text and package bytes. Prior BOM-prefixed feeds remain supported.
+
+## Pending updater handoff correction
+
+- Preserve and retire fully validated already-installed staging before discovering later releases; never apply a downgrade.
+- Retain fixed helper stages and numeric launch/exit results instead of discarding early handoff failures. Automatic restart remains unverified.

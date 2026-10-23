@@ -150,3 +150,33 @@ for prior valid BOM-prefixed feeds remains. The local 1.0.9012 receipt precedes 
 writer correction; its bytes remain historical. Production 1.0.9013 completed as recorded below.
 
 Exact build-installer.bat -Version 1.0.9013 at 58ff5b8226a9da38307a1b3ec3956e0a4ed35119 exited 0, with two LNK4199 warnings, zero errors and native elapsed 3.84 seconds. The supported writer completed its strict BOM-free UTF-8 readback before checksums. Source-bound receipt: docs/features/installation/silent-feed-writer-build.json. This is local production only, not automatic staging, restart, release or installed-update proof.
+
+## Preserved stale staging and helper handoff diagnostics
+
+A manually completed supported update can leave its already-installed package in
+`native-update/pending`. Previously the newer-version requirement rejected that
+valid package before the worker could discover subsequent releases. The worker now
+revalidates all retained metadata, accepted-main admission, feed and package hashes
+first. When its version is equal to or older than the current package, it atomically
+retains that directory under a unique `retained-<version>-<tick>` name and continues
+normal discovery. Only this retirement path accepts a non-newer version; helper
+application still requires a strictly newer release. Nothing is deleted or downgraded.
+
+`native-update/helper-status.ini` records separate `launch` and `helper` sections
+with fixed `stage` and numeric `result` fields. Launch failures retain their Windows
+result before handle cleanup, including attribute/preparation and process creation.
+The helper records entry, parent identity, parent exit, pending validation, Squirrel
+application and stable-launcher stages. Its final numeric result preserves the last
+operation stage, including early rejection and exceptions. `259` means the last
+recorded operation was in progress, not a heartbeat. Process creation success is not
+proof of helper entry, successful application or restart. These best-effort records
+contain no URLs, payload data, credentials or arbitrary exception text.
+
+Existing installed evidence showed a correctly hashed staged package remaining Ready
+for ten minutes with attempt count 1 and no process transition. That record does not
+distinguish launch failure, loader failure or UI deferral. The prior implementation
+discarded process creation errors and early helper outcomes, so the exact original
+handoff cause remains unverified. This correction fixes stale-package discovery and
+retains missing diagnostics; it does not claim automatic-restart acceptance.
+No tests, reviews, audits, runtime quality checks, interface interaction or screenshots
+were performed in this expedited correction.

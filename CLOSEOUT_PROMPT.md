@@ -40,3 +40,6 @@ Rolling progress and required handoff remain on https://github.com/Ding-Ding-Pro
 - Preserve every recoverable nonignored change on its owning branch and remote. Retain active, unfinished and ownership/ancestry-uncertain worktrees. Any future deletion requires a current verified archive, separate preservation of ignored private announcement images, exact ownership and remote ancestry proof. The earlier archive predates these newer units and cannot stand in for that proof.
 
 No full-goal completion, comprehensive runtime/visual acceptance, fresh-environment installation, real subsequent sign-in or new cleanup is claimed. Status Hub session binding remains unavailable. Account allowance was verified at 44% remaining and the battery at 94%, charging; neither preservation threshold was active. Recheck live state before the next independent batch. Continue the existing active goal without inventing a replacement or marking unfinished work complete.
+## Current updater lane
+
+Continue the bounded updater correction: validated already-installed staging is retained before subsequent discovery, and fixed helper launch/stage/results are persisted. Original host handoff cause remains unverified. Installer production 1.0.9015 and source-bound documentation production are pending. Do not infer automatic restart acceptance from compile/package results.

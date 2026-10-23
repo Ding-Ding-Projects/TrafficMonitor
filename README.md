@@ -1,4 +1,4 @@
-﻿[Documentation website](https://ding-ding-projects.github.io/TrafficMonitor/)
+[Documentation website](https://ding-ding-projects.github.io/TrafficMonitor/)
 
 **English | [简体中文](./README_zh-CN.md)**
 
@@ -226,3 +226,5 @@ The native regex editor now has an owned modeless presentation in source, keepin
 ### Named native expressions
 
 The modeless search workbench now provides explicit named local expression storage and reuse, with separate draft loading and owner Apply. See [collection behavior and limits](docs/features/search/native-collections.md). Runtime persistence, keyboard/display acceptance and full RegexBuddy compatibility remain unverified.
+
+The silent updater retains validated already-installed staging without blocking later release discovery and records bounded fixed-stage helper launch/results. Automatic restart remains unverified; see the [update guide](docs/features/installation/silent-updates.md).

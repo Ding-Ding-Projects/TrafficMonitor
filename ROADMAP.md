@@ -1,4 +1,4 @@
-﻿# TrafficMonitor delivery roadmap
+# TrafficMonitor delivery roadmap
 
 ## Installer and release foundation
 
@@ -105,3 +105,8 @@ with historical originals retained separately.
 - [ ] Verify automatic update behavior when runtime checks are authorized.
 
 - [x] Produce local 1.0.9013 at 58ff5b8226a9da38307a1b3ec3956e0a4ed35119 with explicit BOM-free UTF-8 RELEASES encoding and production readback, exit 0.
+
+## Updater handoff correction
+
+- [ ] Produce the stale-staging correction and bounded helper diagnostics through the supported installer entrypoint.
+- [ ] Verify automatic handoff, helper loading, safe restart and recovery in an authorized runtime acceptance pass.

@@ -85,7 +85,7 @@ namespace NativeUpdate
             if(value.type!=Json::Number||value.value.empty()||value.value.find_first_not_of("0123456789")!=std::string::npos)throw std::runtime_error("integer");
             size_t end{};auto number=std::stoull(value.value,&end);if(end!=value.value.size())throw std::runtime_error("integer trailing");return number;
         }
-        Release ParseRelease(const std::vector<unsigned char>& bytes,const std::string& current)
+        Release ParseRelease(const std::vector<unsigned char>& bytes,const std::string& current,bool requireNewer=true)
         {
             Release result;result.metadata=Reader(Text(bytes)).parse();auto& json=result.metadata;
             if(json.at("draft").flag()||json.at("prerelease").flag())throw std::runtime_error("release channel");
@@ -94,7 +94,7 @@ namespace NativeUpdate
             if(result.tag.empty()||result.tag[0]!='v')throw std::runtime_error("tag");
             auto split=result.tag.find("-run");if(split==std::string::npos)throw std::runtime_error("tag channel");
             result.version=result.tag.substr(1,split-1);Version version(result.version),installed(current);
-            if(!(version.numbers>installed.numbers))throw std::runtime_error("not newer");
+            if(requireNewer&&!(version.numbers>installed.numbers))throw std::runtime_error("not newer");
             auto suffix=result.tag.substr(split+4);
             auto dash=suffix.find('-');if(dash==std::string::npos||dash==0||dash==suffix.size()-1||suffix.find_first_not_of("0123456789-")!=std::string::npos||suffix.find('-',dash+1)!=std::string::npos)throw std::runtime_error("run tag");
             result.source=json.at("target_commitish").text();if(!Hex(result.source,40))throw std::runtime_error("source");
@@ -163,11 +163,11 @@ namespace NativeUpdate
                 ||comparison.at("merge_base_commit").at("sha").text()!=release.source)
                 throw std::runtime_error("release outside accepted main channel");
         }
-        Release Pending(const fs::path& root)
+        Release Pending(const fs::path& root,bool requireNewer=true)
         {
             auto pending=Staging(root)/L"pending";
             if(!PlainDirectory(pending))throw std::runtime_error("pending directory");
-            auto release=ParseRelease(Read(pending/L"release.json",MetadataLimit),CurrentVersion());
+            auto release=ParseRelease(Read(pending/L"release.json",MetadataLimit),CurrentVersion(),requireNewer);
             ValidateAdmission(release,Read(pending/L"main-source.json",65536),Read(pending/L"main-admission.json",MetadataLimit));
             auto releases=Read(pending/L"RELEASES",65536),package=Read(pending/Wide(release.package),PackageLimit);
             ValidateFeed(release,releases,package);return release;
@@ -194,11 +194,22 @@ namespace NativeUpdate
             state->stage=L"pending";
             if(fs::exists(Staging(root)/L"pending"))
             {
-                auto pending=Pending(root);
-                auto attempts=Staging(root)/(Wide(pending.version)+L".attempts.ini");
-                if(GetPrivateProfileIntW(L"update",L"attempts",0,attempts.c_str())>=2)
-                    Publish(state,Phase::Failed,Wide(pending.version),GetPrivateProfileIntW(L"update",L"last_exit_code",ERROR_RETRY,attempts.c_str()));
-                else Publish(state,Phase::Ready,Wide(pending.version));return;
+                auto pending=Pending(root,false);
+                if(Version(pending.version).numbers<=Version(CurrentVersion()).numbers)
+                {
+                    // Preserve fully validated stale staging after a supported external
+                    // update. It must not block discovery or become a downgrade candidate.
+                    state->stage=L"retire-installed-pending";
+                    auto retained=Staging(root)/(L"retained-"+Wide(pending.version)+L"-"+std::to_wstring(GetTickCount64()));
+                    if(!MoveFileExW((Staging(root)/L"pending").c_str(),retained.c_str(),MOVEFILE_WRITE_THROUGH))throw TransportError("retain pending",GetLastError());
+                }
+                else
+                {
+                    auto attempts=Staging(root)/(Wide(pending.version)+L".attempts.ini");
+                    if(GetPrivateProfileIntW(L"update",L"attempts",0,attempts.c_str())>=2)
+                        Publish(state,Phase::Failed,Wide(pending.version),GetPrivateProfileIntW(L"update",L"last_exit_code",ERROR_RETRY,attempts.c_str()));
+                    else Publish(state,Phase::Ready,Wide(pending.version));return;
+                }
             }
             state->stage=L"release-metadata";Publish(state,Phase::Checking);
             auto deadline=GetTickCount64()+120000;
@@ -264,6 +275,19 @@ namespace NativeUpdate
             else if(WaitForSingleObject(process.hProcess,timeout)==WAIT_OBJECT_0) {if(!GetExitCodeProcess(process.hProcess,&result))result=GetLastError();}
             CloseHandle(process.hProcess);return result;
         }
+        void HelperDiagnostic(const fs::path& root,const wchar_t* section,const wchar_t* stage,DWORD result)
+        {
+            // Fixed stages and numeric codes only. This file records the last operation,
+            // not a heartbeat, and cannot affect admission or process identity checks.
+            try
+            {
+                auto file=Staging(root)/L"helper-status.ini";
+                auto attributes=GetFileAttributesW(file.c_str());
+                if(attributes!=INVALID_FILE_ATTRIBUTES&&(attributes&(FILE_ATTRIBUTE_REPARSE_POINT|FILE_ATTRIBUTE_DIRECTORY)))return;
+                if(stage)WritePrivateProfileStringW(section,L"stage",stage,file.c_str());
+                WritePrivateProfileStringW(section,L"result",std::to_wstring(result).c_str(),file.c_str());
+            }catch(...){}
+        }
         bool SpawnHelper()
         {
             auto root=Root();auto staging=Staging(root);
@@ -273,10 +297,10 @@ namespace NativeUpdate
             // Attempts survive application restarts and are bounded per immutable version.
             auto attemptsFile=staging/(Wide(release.version)+L".attempts.ini");
             int attempts=GetPrivateProfileIntW(L"update",L"attempts",0,attemptsFile.c_str());
-            if(attempts>=2)return false;
-            FILETIME creation{},exit{},kernel{},user{};if(!GetProcessTimes(GetCurrentProcess(),&creation,&exit,&kernel,&user))return false;
+            if(attempts>=2){HelperDiagnostic(root,L"launch",L"attempt-limit",ERROR_RETRY);return false;}
+            FILETIME creation{},exit{},kernel{},user{};if(!GetProcessTimes(GetCurrentProcess(),&creation,&exit,&kernel,&user)){HelperDiagnostic(root,L"launch",L"parent-times",GetLastError());return false;}
             HANDLE identity=OpenProcess(SYNCHRONIZE|PROCESS_QUERY_LIMITED_INFORMATION,TRUE,GetCurrentProcessId());
-            if(!identity)return false;
+            if(!identity){HelperDiagnostic(root,L"launch",L"parent-handle",GetLastError());return false;}
             std::wstring arguments=L"--native-update-helper "+std::to_wstring(GetCurrentProcessId())+L" "+std::to_wstring(FileTimeValue(creation))+L" "+std::to_wstring(reinterpret_cast<ULONG_PTR>(identity));
             // The helper keeps the old version's application-local runtime available until
             // Squirrel finishes. No shell, elevation or credential-bearing URL is involved.
@@ -291,27 +315,33 @@ namespace NativeUpdate
             STARTUPINFOEXW start{};start.StartupInfo.cb=sizeof(start);start.StartupInfo.dwFlags=STARTF_USESHOWWINDOW;start.StartupInfo.wShowWindow=SW_HIDE;start.lpAttributeList=attributes;
             PROCESS_INFORMATION process{};
             std::wstring text=L"\""+executable.wstring()+L"\" "+arguments;std::vector<wchar_t> command(text.begin(),text.end());command.push_back(0);
-            if(fs::exists(attemptsFile)&&(GetFileAttributesW(attemptsFile.c_str())&FILE_ATTRIBUTE_REPARSE_POINT))ready=false;
+            if(fs::exists(attemptsFile)&&(GetFileAttributesW(attemptsFile.c_str())&(FILE_ATTRIBUTE_REPARSE_POINT|FILE_ATTRIBUTE_DIRECTORY))){SetLastError(ERROR_ACCESS_DENIED);ready=false;}
             if(ready)ready=WritePrivateProfileStringW(L"update",L"attempts",std::to_wstring(attempts+1).c_str(),attemptsFile.c_str())!=FALSE;
+            DWORD preparation=ready?ERROR_SUCCESS:GetLastError();
             bool launched=ready&&CreateProcessW(executable.c_str(),command.data(),nullptr,nullptr,TRUE,CREATE_NO_WINDOW|EXTENDED_STARTUPINFO_PRESENT,nullptr,executable.parent_path().c_str(),&start.StartupInfo,&process);
+            DWORD launchResult=launched?ERROR_SUCCESS:(ready?GetLastError():preparation);
             if(initialized)DeleteProcThreadAttributeList(attributes);CloseHandle(identity);
+            HelperDiagnostic(root,L"launch",launched?L"created":L"create-process",launchResult);
             if(launched){CloseHandle(process.hThread);CloseHandle(process.hProcess);}return launched;
         }
         int RunHelper(DWORD pid,unsigned long long expectedCreation,HANDLE old)
         {
             auto root=Root();auto staging=Staging(root);
+            HelperDiagnostic(root,L"helper",L"entry",STILL_ACTIVE);
             auto rootText=root.wstring();
             std::vector<unsigned char> identityBytes(reinterpret_cast<const unsigned char*>(rootText.data()),reinterpret_cast<const unsigned char*>(rootText.data()+rootText.size()));
             std::wstring mutexName=L"Local\\TrafficMonitor.NativeUpdate."+Wide(Digest(identityBytes));
             HANDLE mutex=CreateMutexW(nullptr,TRUE,mutexName.c_str());
             if(!mutex||GetLastError()==ERROR_ALREADY_EXISTS){if(mutex)CloseHandle(mutex);return ERROR_BUSY;}
             struct Close {HANDLE value;~Close(){if(value)CloseHandle(value);}} mutexOwner{mutex};
+            HelperDiagnostic(root,L"helper",L"parent-identity",STILL_ACTIVE);
             if(!old||GetProcessId(old)!=pid)return ERROR_INVALID_HANDLE;Close oldOwner{old};
             FILETIME creation{},exit{},kernel{},user{};
             if(!GetProcessTimes(old,&creation,&exit,&kernel,&user)||FileTimeValue(creation)!=expectedCreation)return ERROR_INVALID_DATA;
             wchar_t image[32768]{};DWORD length=32768;
             const auto executable=fs::path(InstallerLifecycle::ModuleDirectory())/L"TrafficMonitor.exe";
             if(!QueryFullProcessImageNameW(old,0,image,&length)||_wcsicmp(image,executable.c_str()))return ERROR_INVALID_DATA;
+            HelperDiagnostic(root,L"helper",L"parent-exit",STILL_ACTIVE);
             if(WaitForSingleObject(old,120000)!=WAIT_OBJECT_0)return ERROR_TIMEOUT;
             struct Recovery
             {
@@ -323,9 +353,11 @@ namespace NativeUpdate
             HANDLE application=CreateMutexW(nullptr,TRUE,L"TrafficMonitor-1419J3XLKL1w8OZc");
             if(!application||GetLastError()==ERROR_ALREADY_EXISTS){if(application)CloseHandle(application);recovery.launch=false;return ERROR_BUSY;}
             Close applicationOwner{application};
+            HelperDiagnostic(root,L"helper",L"pending-validation",STILL_ACTIVE);
             auto release=Pending(root);auto attemptsFile=staging/(Wide(release.version)+L".attempts.ini");
             int attempts=GetPrivateProfileIntW(L"update",L"attempts",0,attemptsFile.c_str());
             if(attempts<1||attempts>2)return ERROR_RETRY;
+            HelperDiagnostic(root,L"helper",L"squirrel-update",STILL_ACTIVE);
             DWORD result=Child(root/L"Update.exe",L"--update \""+(staging/L"pending").wstring()+L"\" --silent",180000);
             WritePrivateProfileStringW(L"update",L"last_exit_code",std::to_wstring(result).c_str(),attemptsFile.c_str());
             // Never overlap a still-running updater after timeout or kill a child.
@@ -344,6 +376,7 @@ namespace NativeUpdate
             // an unsuccessful update. Failed attempts are never reported as success.
             ReleaseMutex(application);CloseHandle(application);applicationOwner.value=nullptr;
             recovery.launch=false;
+            HelperDiagnostic(root,L"helper",L"stable-launcher",STILL_ACTIVE);
             DWORD launch=Child(root/L"Update.exe",L"--processStart TrafficMonitor.exe",15000);
             return result==ERROR_SUCCESS?launch:result;
         }
@@ -422,6 +455,7 @@ namespace NativeUpdate
                     {auto pid=std::stoull(pidText);if(pid&&pid<=MAXDWORD&&pid!=GetCurrentProcessId())exitCode=RunHelper(static_cast<DWORD>(pid),std::stoull(timeText),reinterpret_cast<HANDLE>(static_cast<ULONG_PTR>(std::stoull(handleText))));}
                 }
             }catch(...){exitCode=ERROR_INVALID_DATA;}
+            try{HelperDiagnostic(Root(),L"helper",nullptr,static_cast<DWORD>(exitCode));}catch(...){}
         }
         LocalFree(arguments);return helper;
     }
