@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "command": "build.bat --site",
+  "exitCode": 0,
+  "sourceCommit": "6477783173f50b3e021c36a2a4b1f8a5a85c7db1",
+  "contentSource": "bfbf6d89598b681debd26b5d1253a410424515fc",
+  "inputState": "Clean fixed source and tracked manifest unchanged throughout final production.",
+  "manifestSha256": "1578f70b33eaa9c3a51f6a3f4bb90925e959ab4a823a7e5b02d5e7b7a40f4098",
+  "counts": {
+    "repositoryMarkdownArticles": 168,
+    "wikiMarkdownArticles": 28,
+    "wikiAssets": 75,
+    "wikiTrackedFiles": 103,
+    "articles": 196
+  },
+  "productionReceipt": {
+    "schemaVersion": 1,
+    "sourceCommit": "6477783173f50b3e021c36a2a4b1f8a5a85c7db1",
+    "contentSource": "bfbf6d89598b681debd26b5d1253a410424515fc",
+    "wikiSource": {
+      "repository": "https://github.com/zhongyang219/TrafficMonitor.wiki.git",
+      "commit": "cf35274094fe2ffb040ca1f29d6ce73c713d93a2"
+    },
+    "releaseMetadataSHA256": "37e33d17df24ad8a8e1cbb935a1dffd2844b8de4ec0c5f0f14f6e13538e62e0f",
+    "releaseTag": "v1.0.15-run39912330939-1",
+    "releaseSource": "3f573fc0031ef6b6cb123dfbc80c05c33a5063db",
+    "articleCount": 196,
+    "historyCount": 1627,
+    "base": "/TrafficMonitor/",
+    "unresolvedAssets": []
+  },
+  "buildOutput": "Built 196 complete articles; 1627 history records; 0 unavailable local images.",
+  "wikiStoredProof": {
+    "commit": "90834942e562c1e9828b5a406b6df46a546ae8fa",
+    "sourceCommit": "91cebecd4974f745751fbfd23aceeec39fbe9d68",
+    "silentUpdatesSHA256": "76fed5052f49af2e8824464c472b12a72ada3a3433497a59fb6fa95e8c360a39",
+    "maintainedGuides": 7,
+    "publicationLanguageFindings": 0,
+    "liveInteraction": "unverified"
+  },
+  "acceptanceReceipt": "docs/features/installation/silent-natural29-acceptance.json",
+  "verificationScope": "Final static production only; no native build, tests, reviews, audits, UI quality work, screenshots, installation or deployment. One genuine natural28-to29 transition is separately proven; negative/modal/visual/repeated-cycle acceptance remains unrun.",
+  "outputs": [
+    {
+      "path": "docs/site/dist/index.html",
+      "bytes": 4911,
+      "sha256": "318164e81ce91a1d1b0a40ce31c01b745bca8c7d7d0ef4b21da384323ef19120"
+    },
+    {
+      "path": "docs/site/dist/articles/source-docs-features-installation-silent-updates/index.html",
+      "bytes": 31869,
+      "sha256": "3294ac6f1fe1e6c454b0e8616ca6c1efc3017716eaa875fb10aa202e04a3e91d"
+    },
+    {
+      "path": "docs/site/dist/articles/source-docs-wiki-pending-silent-updates/index.html",
+      "bytes": 26993,
+      "sha256": "d637915d09b00c45214b3dd899058f2fed5178259c520e5fc97f9df3c47bdb5a"
+    },
+    {
+      "path": "docs/site/dist/articles/source-handoff/index.html",
+      "bytes": 70470,
+      "sha256": "50f9f1e4b4b6edccf9ff06e8d84a8280110c2ad3daf7994875c711ed47f93499"
+    },
+    {
+      "path": "docs/site/dist/build-receipt.json",
+      "bytes": 611,
+      "sha256": "c39eed01ce99c59f0f8085a1d89df604b8f3869e6828d271f0051641606127fb"
+    }
+  ]
+}
