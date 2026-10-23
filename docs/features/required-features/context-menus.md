@@ -6,6 +6,8 @@ Requirement ID: `context-menus`. Status: **UNFINISHED**. Phase: **P2**.
 
 Every user-facing application and GitHub Pages, and every rendered element within it, provides a target-specific right-click context menu plus accessible keyboard and touch equivalents, including **Edit appearance…** and **Lock this element…**. Every context menu and every dropdown opens with a keyboard-focusable filter field and its own anchored regex builder, however short the menu, filtering locally without reordering meaning, hiding a destructive item while its shortcut stays live, or changing any action. Focus lands in the filter on open where the platform allows, arrows move, Enter activates, Escape clears and then closes, focus returns to the opener, and screen readers hear the result count.
 
+Every right-click/context menu is an independently inventoried Material Design 3 surface with its own search bar, adjacent complete regex builder/workbench, keyboard path and actual action results. Search must preserve target identity, permitted actions, focus return and query state. Inventory each contextual surface explicitly; no small-menu exemption is accepted.
+
 ## Current evidence and limits
 
 No complete source, localization, semantic test, built-interaction and evidence set has been established.
@@ -40,7 +42,7 @@ Dependencies: `language`, `accessibility-sizing`, `progress-recovery`
 | localization | UNFINISHED | English, Hong Kong Cantonese and bilingual UI, both independent tone extremes, keyboard and screen-reader text on every applicable surface. Repository-only rows use appropriate source/record evidence rather than invented localized controls. |
 | persistence | UNFINISHED | Declare state schemas, storage, migration, reset and privacy ownership; verify restart/reload, interrupted writes and invalid stored state. Individually explain genuinely stateless boundaries. |
 | focusedTests | UNFINISHED | Feature-specific semantic success, invalid-input, cancellation, offline, permission and privacy cases for the real consumer; repository-only requirements verify source and stored provider readback. |
-| negativeRegression | UNFINISHED | Remove each asserted implementation registration, article, localized resource, persistence path, semantic test, built interaction or evidence item independently and require rejection; restore and require success. An independent fixed expected list must catch total disappearance. |
+| negativeRegression | UNFINISHED | Inventory every context menu and every current presentation reference; remove one required search/workbench route or rebuilt screenshot as applicable and require rejection.  Remove each asserted implementation registration, article, localized resource, persistence path, semantic test, built interaction or evidence item independently and require rejection; restore and require success. An independent fixed expected list must catch total disappearance. |
 | builtInteraction | UNFINISHED | Exercise the actual source/version/hash-bound build on each applicable surface, including actions, results and persistent state. A design preview, static example or source scan supplies no runtime proof. |
 | screenshots | UNFINISHED | Retain genuine inspected privacy-reviewed action states with exact source/build hashes, dimensions, scale, theme, language, screen and route. Nonvisual repository rows use exact source/provider receipts, never invented images. |
 
