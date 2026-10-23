@@ -540,6 +540,13 @@ void CTrafficMonitorApp::DPIFromWindow(CWnd* pWnd)
 
 void CTrafficMonitorApp::CheckUpdate(bool message)
 {
+    // Managed installations must not offer upstream portable archives as updates.
+    if (m_installed_mode)
+    {
+        if (message)
+            ShellExecuteW(nullptr, L"open", L"https://github.com/Ding-Ding-Projects/TrafficMonitor/releases/latest", nullptr, nullptr, SW_SHOWNORMAL);
+        return;
+    }
     if (m_checking_update)      //如果还在检查更新，则直接返回
         return;
     CFlagLocker update_locker(m_checking_update);

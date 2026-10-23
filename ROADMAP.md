@@ -14,15 +14,20 @@
 Releases 1.0.3 and 1.0.4 passed current-host installation and update checks. The current taskbar
 monitor is attached to Explorer with its main window hidden. Subsequent sign-in, Explorer restart,
 fresh-host prerequisite acquisition and cancellation remain separately unverified.
-Local publication hooks and the hosted publication job pass; branch-protection enforcement is
-not yet established.
+Local publication hooks and the hosted publication job pass. The strict `publication-language`
+required check is configured; administrators retain bypass permission.
 
 ## Native interface and required features, after the first delivery
 
 - [ ] Design and review a native MFC Material Design 3 component system.
 - [ ] Convert the complete owned interface while preserving monitoring and plugins.
-- [ ] Inventory every required feature and its applicability by delivered surface.
+- [x] Inventory every required feature and its applicability by delivered surface.
 - [ ] Implement and verify all applicable features, documentation, and companions.
 - [ ] Publish complete documentation and genuine current build evidence.
 
 Unchecked items are unfinished; source implementation alone does not establish runtime acceptance.
+
+The [110-item inventory](docs/features/required-features/README.md) records implementation and
+proof separately. Context menus require the new visual system, action search and a full regex
+workbench. Current presentation screenshots must be replaced with genuine rebuilt evidence,
+with historical originals retained separately.

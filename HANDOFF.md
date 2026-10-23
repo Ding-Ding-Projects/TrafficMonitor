@@ -42,5 +42,12 @@ Subsequent sign-in, real Explorer restart, fresh-host prerequisite acquisition a
 not claimed. No host restart, sign-out or Explorer restart was performed.
 Full-tree local publication checks now pass with exact inherited literal exceptions and reviewed
 legacy decoding. A staged-content negative probe was rejected. The hosted publication job passed
-before its dependent packaging job. Protected-branch enforcement has not yet been established.
-The native interface redesign and wider required-feature implementation have not begun.
+before its dependent packaging job. The strict `publication-language` required check is configured
+on `main`; administrator bypass remains enabled and must not be described as absolute protection.
+The native interface design is under independent review. The complete 110-item applicability
+inventory is recorded under `docs/features/required-features/`; implementation remains unfinished.
+
+Managed installation update checks now avoid the upstream portable archive feed. A manual check
+opens this fork's release page; background checks return without contacting the upstream feed.
+This is update-source containment, not an implemented automatic Squirrel update interface.
+Compilation and installed interaction of this change remain pending its next build.
