@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "7e560bfefa61952339f534b72a794bd6b93f4181",
+  "command": "build-installer.bat -Version 1.0.9001",
+  "exitCode": 0,
+  "compilerWarnings": 2,
+  "compilerErrors": 0,
+  "incrementalBuildSeconds": 6.07,
+  "previousFullBuild": {
+    "sourceCommit": "f5d626e63369d32805dd9b30f11b5940a8151b95",
+    "command": "build.bat --silent",
+    "exitCode": 0,
+    "warnings": 114,
+    "errors": 0,
+    "seconds": 24.36
+  },
+  "binarySha256": "A25CBB4E98E385413B95B368BD7E673350D0DA520036ECF95230409FB432D584",
+  "assets": [
+    {
+      "name": "Setup.exe",
+      "bytes": 8352768,
+      "sha256": "79604704B92FD662D2E1C8ACEF03AECCA39206FB1DB49BC864D63DD2E970E4B0"
+    },
+    {
+      "name": "TrafficMonitor-1.0.9001-full.nupkg",
+      "bytes": 7472556,
+      "sha256": "8207842235E905DA7BC13CD6B3DA8F29CB741192AAC5264F30EC216D327D8EE1"
+    }
+  ],
+  "installed": false,
+  "published": false,
+  "runtimeVerified": false,
+  "newTestsRun": false,
+  "newReviewsRun": false,
+  "newScreenshotsProduced": false,
+  "scope": "Native observational network workspace only"
+}

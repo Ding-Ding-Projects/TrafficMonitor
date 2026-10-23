@@ -11,7 +11,7 @@ Plugins and Settings commands remain reachable; the previous floating-window tog
 workspace button. Startup does not open the workspace or change hidden-main/taskbar/tray defaults.
 See [workspace behavior and limits](docs/features/native-dashboard/README.md).
 
-The first exact root build.bat --silent run at f5d626e63369d32805dd9b30f11b5940a8151b95 passed with exit 0, 114 warnings and zero errors in 24.36 seconds. The follow-up explicitly marks the new Chinese source files as UTF-8 for the native compiler; its package result is pending. The selected expedited mode excludes new tests,
+The exact root build-installer.bat -Version 1.0.9001 run at 7e560bfefa61952339f534b72a794bd6b93f4181 passed with exit 0. Its incremental native build reported 2 warnings and zero errors in 6.07 seconds. The preceding full native build passed with 114 warnings and zero errors. The local package is not installed or published. See the [source-bound build receipt](docs/features/native-dashboard/build-receipt.json). The selected expedited mode excludes new tests,
 reviews, audits and screenshots. No new runtime, accessibility or visual acceptance is claimed. Current workspace screenshots were not produced in this pass; the dated taskbar image below is historical evidence for that existing display only.
 Native tables and partial English/Chinese chrome do not satisfy full custom table or language
 acceptance. Full regex parity, onboarding and all other unfinished requirements remain open.

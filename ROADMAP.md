@@ -49,7 +49,8 @@ with historical originals retained separately.
 
 ## Native network workspace candidate
 
-- [ ] Compile and package the implemented observational native workspace, then deliver through the normal release route.
+- [x] Compile and package the observational native workspace locally at 7e560bf; build-installer.bat -Version 1.0.9001 exited 0. This is build proof only.
+- [ ] Integrate and publish the native workspace through the normal release route.
 - [ ] Verify the new workspace at runtime when testing is enabled again; no new tests, reviews or screenshots run in the current expedited mode.
 - [ ] Complete custom UIA table behavior, full language modes, adjacent full regex workbench and practical onboarding. The partial workspace does not close these requirements.
 
