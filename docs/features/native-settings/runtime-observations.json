@@ -1,0 +1,150 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "30e300938a8502e9c2a1e8b35bb568b51ed7b716",
+  "packageVersion": "1.0.9026",
+  "executableSha256": "cd165ab1651c162579b922c407df14da6ab2412c8a08a015bb07074cf58a5a50",
+  "packageSha256": "136928557c9d0d71488255774c5f0d877956f687e58402f5a837de75f472035e",
+  "route": "persistent Lowlevel winio binding on a named hidden desktop",
+  "captureMethod": "PrintWindow",
+  "languageSelection": "zh-HK; native Chinese branch",
+  "observations": [
+    {
+      "actionSequence": 3,
+      "state": "01-cantonese-fixed",
+      "startedAt": "2026-10-23T18:21:03.6152010Z",
+      "completedAt": "2026-10-23T18:21:04.4309930Z",
+      "rawSha256": "32b8395c80807bb408c7172f61d93f88f43dd7610dd6bb18f0974a696973d997",
+      "windowPixels": [
+        876,
+        759
+      ],
+      "dpi": 96,
+      "promotion": "pending-native-receipt-contract"
+    },
+    {
+      "actionSequence": 5,
+      "state": "02-notifications-fixed",
+      "startedAt": "2026-10-23T18:21:04.9364850Z",
+      "completedAt": "2026-10-23T18:21:05.7633990Z",
+      "rawSha256": "4e160a81e53214c67afe134e125a9cb37d212a8cebd7fb9e6f1bf2deb33b262a",
+      "windowPixels": [
+        876,
+        759
+      ],
+      "dpi": 96,
+      "promotion": "pending-native-receipt-contract"
+    },
+    {
+      "actionSequence": 8,
+      "state": "03-cantonese-menukey",
+      "startedAt": "2026-10-23T18:21:15.2470710Z",
+      "completedAt": "2026-10-23T18:21:15.3203270Z",
+      "rawSha256": "f7fb90b94acf13de5ecfba6bd7dae5575323b6b272a028186df83bc9c8f31233",
+      "windowPixels": [
+        440,
+        560
+      ],
+      "dpi": 96,
+      "promotion": "pending-native-receipt-contract"
+    },
+    {
+      "actionSequence": 10,
+      "state": "04-memory-explanation",
+      "startedAt": "2026-10-23T18:21:15.7437990Z",
+      "completedAt": "2026-10-23T18:21:16.5570840Z",
+      "rawSha256": "9625e668a45afe88cd2aee954cf2593d0e2d61b69e059477a48312ce9c569228",
+      "windowPixels": [
+        876,
+        759
+      ],
+      "dpi": 96,
+      "promotion": "pending-native-receipt-contract"
+    },
+    {
+      "actionSequence": 12,
+      "state": "05-cantonese-minimum-light",
+      "startedAt": "2026-10-23T18:21:17.1639510Z",
+      "completedAt": "2026-10-23T18:21:17.9646300Z",
+      "rawSha256": "6f5da8f8be3bafc5d82125e91c884bccc0d34148742a6aadb897bf3b72a1c8ba",
+      "windowPixels": [
+        776,
+        679
+      ],
+      "dpi": 96,
+      "promotion": "pending-native-receipt-contract"
+    },
+    {
+      "actionSequence": 14,
+      "state": "06-cantonese-minimum-dark",
+      "startedAt": "2026-10-23T18:21:18.5154480Z",
+      "completedAt": "2026-10-23T18:21:19.2069160Z",
+      "rawSha256": "6d6fce101ad2b7deff35d873b6a423ad526f16fa5ca2466c2b1456d301620d88",
+      "windowPixels": [
+        776,
+        679
+      ],
+      "dpi": 96,
+      "promotion": "pending-native-receipt-contract"
+    },
+    {
+      "actionSequence": 31,
+      "state": "11-filter-default",
+      "startedAt": "2026-10-23T18:21:46.0480890Z",
+      "completedAt": "2026-10-23T18:21:46.1298280Z",
+      "rawSha256": "cca733ad6b6cf88ac45ee88867d30850f7324cd66e8083c6d7a35c7d4aa0468c",
+      "windowPixels": [
+        440,
+        560
+      ],
+      "dpi": 96,
+      "promotion": "pending-native-receipt-contract"
+    },
+    {
+      "actionSequence": 33,
+      "state": "12-default-80",
+      "startedAt": "2026-10-23T18:21:51.6107410Z",
+      "completedAt": "2026-10-23T18:21:52.3209000Z",
+      "rawSha256": "faca17804b4d9aaf8bfb40c589c9c0dbb8d3a8cf38e095e8cd22c5f6357f0894",
+      "windowPixels": [
+        776,
+        679
+      ],
+      "dpi": 96,
+      "promotion": "pending-native-receipt-contract"
+    },
+    {
+      "actionSequence": 37,
+      "state": "13-filter-revert",
+      "startedAt": "2026-10-23T18:21:53.1896540Z",
+      "completedAt": "2026-10-23T18:21:53.2617810Z",
+      "rawSha256": "bf902d272fd7e799f833735701dd4e85ec7d5dc96a527792c44dac9219b526cf",
+      "windowPixels": [
+        440,
+        560
+      ],
+      "dpi": 96,
+      "promotion": "pending-native-receipt-contract"
+    },
+    {
+      "actionSequence": 39,
+      "state": "14-revert-81",
+      "startedAt": "2026-10-23T18:21:58.1395830Z",
+      "completedAt": "2026-10-23T18:21:58.7273090Z",
+      "rawSha256": "24376a4f2888a434e2a1403aab314da18ac14c90a5108e6ffeb38ac753d2da8e",
+      "windowPixels": [
+        776,
+        679
+      ],
+      "dpi": 96,
+      "promotion": "pending-native-receipt-contract"
+    }
+  ],
+  "scope": "Focused native settings observations; not a complete visual, accessibility, regex-parity or required-feature acceptance verdict.",
+  "limitations": [
+    "No browser diagnostic counters collected; strict generic screenshot promotion pending.",
+    "No real 125%, 150% or 200% display-scale observations.",
+    "No complete bilingual mode.",
+    "Hardware modifier-key and screen-reader behavior unverified.",
+    "No automatic-restart persistence fault injection."
+  ]
+}
