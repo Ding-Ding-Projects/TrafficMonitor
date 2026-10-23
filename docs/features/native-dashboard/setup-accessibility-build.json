@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "7a28ffa042c2e02ec3ae582db373d0e93c6e647b",
+  "command": "build-installer.bat -Version 1.0.9022",
+  "exitCode": 0,
+  "nativeBuild": {
+    "warnings": 2,
+    "seconds": 9.32,
+    "errors": 0
+  },
+  "outputs": [
+    {
+      "path": "artifacts/releases/Setup.exe",
+      "bytes": 8485888,
+      "sha256": "f3d4dc72186095449825eadde4afaa656fd043f5d21908996f9ee7978cde20fc"
+    },
+    {
+      "path": "artifacts/releases/TrafficMonitor-1.0.9022-full.nupkg",
+      "bytes": 7605756,
+      "sha256": "4694d0471ba9c4107da5a902e86fe23d8263f53c5be7489eebf6561cef878cc4"
+    },
+    {
+      "path": "artifacts/releases/RELEASES",
+      "bytes": 586,
+      "sha256": "389c9502598e3965cf92181ba6af608af1e2024cd1a770d1a2b3e81d730ae37a"
+    },
+    {
+      "path": "Bin/x64/Release (lite)/TrafficMonitor.exe",
+      "bytes": 2364416,
+      "sha256": "4f5c3b7712d9da4efdea8467043d2319df27600fe3ab02429caac2bc2244bb0d"
+    }
+  ],
+  "runtime": "Bounded light 96 DPI setup, save/resume, Keep current Apply, Network completion and RangeValue verification passed. Choice expansion and full matrix pending.",
+  "release": "Local package only, not installed into accepted channel."
+}
