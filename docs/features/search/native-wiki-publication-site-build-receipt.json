@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "command": "build.bat --site",
+  "exitCode": 0,
+  "sourceCommit": "a973e897efe8dd042a3a6209d0feaa6af01dbd3f",
+  "contentSource": "db77a8cb3c9c136f1c2702aa823224521bfdeadf",
+  "inputState": "No nonignored changes at producer start; source and manifest remained unchanged through completion.",
+  "manifestSha256": "36e33345a5b4c85ca5af162b77e805efef28c16dd77e9b74e2e0f86e20add614",
+  "counts": {
+    "repositoryMarkdownArticles": 166,
+    "wikiMarkdownArticles": 28,
+    "wikiAssets": 75,
+    "wikiTrackedFiles": 103,
+    "articles": 194
+  },
+  "nativePackageSource": "faa0e8c302fc09e927ad7141415640f782f3dd8a",
+  "productionReceipt": {
+    "schemaVersion": 1,
+    "sourceCommit": "a973e897efe8dd042a3a6209d0feaa6af01dbd3f",
+    "contentSource": "db77a8cb3c9c136f1c2702aa823224521bfdeadf",
+    "wikiSource": {
+      "repository": "https://github.com/zhongyang219/TrafficMonitor.wiki.git",
+      "commit": "cf35274094fe2ffb040ca1f29d6ce73c713d93a2"
+    },
+    "releaseMetadataSHA256": "37e33d17df24ad8a8e1cbb935a1dffd2844b8de4ec0c5f0f14f6e13538e62e0f",
+    "releaseTag": "v1.0.15-run39912330939-1",
+    "releaseSource": "3f573fc0031ef6b6cb123dfbc80c05c33a5063db",
+    "articleCount": 194,
+    "historyCount": 1570,
+    "base": "/TrafficMonitor/",
+    "unresolvedAssets": []
+  },
+  "published": false,
+  "runtime": "UNVERIFIED: no tests, reviews, runtime interaction or screenshots were performed.",
+  "outputs": [
+    {
+      "path": "docs/site/dist/index.html",
+      "size": 4911,
+      "sha256": "adb9eabaeebbf2e84719ff64e9f5466a3ef553e968c2d57726a4651d1ac1fddb"
+    },
+    {
+      "path": "docs/site/dist/articles/source-docs-features-search-native-workbench/index.html",
+      "size": 12672,
+      "sha256": "9685091d5f9146af8988693f0be541cb9b2b790a2e214ce6e0c8e5ca96cfad34"
+    },
+    {
+      "path": "docs/site/dist/build-receipt.json",
+      "size": 611,
+      "sha256": "ce1480c58b4f17e25507fc53e78d1db0551893e1c01b43d2e7c937f6928e3a30"
+    }
+  ],
+  "wikiRepairPublication": "Stored source verified at bb937c4a46a42dcffb7d4a3eaa4df6b91e520c63; live wiki UI unverified.",
+  "warning": "npm reported whatwg-encoding@3.1.1 deprecation."
+}
