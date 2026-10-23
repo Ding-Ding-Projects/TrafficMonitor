@@ -197,6 +197,7 @@ namespace
         resultsLabel.SetWindowText(T(L"Matches",L"符合結果"));
         outputLabel.SetWindowText(T(L"Preview output (read only)",L"預覽輸出，只供閱讀"));
         savedList.SetPrompt(T(L"Choose a saved expression",L"選取已儲存表示式"));
+        viewport.SetWindowText(T(L"Workbench task",L"工作台內容"));
         viewport.SetScrollName(T(L"Scroll workbench task",L"捲動工作台內容"));
         for(const auto& entry:messages)if(::IsWindow(entry.first))::SetWindowTextW(entry.first,T(entry.second.first.c_str(),entry.second.second.c_str()));
     }
@@ -284,8 +285,11 @@ namespace
             return (std::max)(minimum,MulDiv(text.Height(),96,dpi));
         };
         auto move=[&](CWnd& control,int x,int y,int w,int h){control.MoveWindow(Px(x),Px(y),Px(w),Px(h));};
-        int y=16;
-        int h=measure(heading,width-40,24);move(heading,20,y,width-40,h);y+=h+12;
+        const bool compact=height<600;
+        int y=compact?8:16;
+        heading.ShowWindow(compact?SW_HIDE:SW_SHOW);
+        int h=0;
+        if(!compact){h=measure(heading,width-40,24);move(heading,20,y,width-40,h);y+=h+12;}
         h=measure(patternLabel,width-40,20);move(patternLabel,20,y,width-40,h);y+=h+6;
         const int buttonHeight=(std::max)(44,measure(options,100,20)+20);
         move(pattern,20,y,width-172,buttonHeight);move(options,width-140,y,120,buttonHeight);y+=buttonHeight+10;
@@ -297,10 +301,10 @@ namespace
             pages[index].SetVariant(index==page?NativeMaterial::ButtonVariant::Tonal:NativeMaterial::ButtonVariant::Text);
             move(pages[index],20+index*(tabWidth+8),y,tabWidth,tabHeight);
         }
-        y+=tabHeight+12;
+        y+=tabHeight+(compact?6:12);
         const int actionHeight=(std::max)(44,measure(apply,180,20)+16);
         const int noteHeight=measure(note,width-40,20);
-        const int footer=noteHeight+actionHeight+28;
+        const int footer=noteHeight+actionHeight+(compact?20:28);
         move(note,20,height-footer+8,width-40,noteHeight);
         move(cancel,width-360,height-actionHeight-12,140,actionHeight);
         move(apply,width-208,height-actionHeight-12,188,actionHeight);
@@ -317,7 +321,7 @@ namespace
         };
         auto row=[&](std::initializer_list<NativeMaterial::Button*> controls)
         {
-            const int cell=(available-8*(static_cast<int>(controls.size())-1))/static_cast<int>(controls.size());
+            const int cell=(std::min)(260,(available-8*(static_cast<int>(controls.size())-1))/static_cast<int>(controls.size()));
             int rowHeight=44;for(auto* button:controls)rowHeight=(std::max)(rowHeight,measure(*button,cell-24,20)+20);
             int x=left;for(auto* button:controls){boxes.push_back({button,x,cursor,cell,rowHeight});x+=cell+8;}cursor+=rowHeight+12;
         };
