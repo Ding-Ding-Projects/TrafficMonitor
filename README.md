@@ -1,19 +1,20 @@
-**简体中文 | [English](./README_en-us.md)**
+**English | [简体中文](./README_zh-CN.md)**
 
-## 此分支先完成安裝及發佈
+## This fork: installer delivery first
 
-此原生 x64 分支位於 [Ding-Ding-Projects/TrafficMonitor](https://github.com/Ding-Ding-Projects/TrafficMonitor)。
-未簽署的 Squirrel.Windows 安裝包包含配套 CRT/MFC 執行庫。首次安裝預設登入自動啟動、
-顯示工作列監察及隱藏主懸浮視窗；更新保留已有設定。
-請參閱 [安裝說明](docs/features/installation/README.md)、[編譯說明](docs/build/README.md)
-及 [驗證進度](HANDOFF.md)。原生介面重製和其他必要功能會在安裝基礎完成後進行。
-以下保留上游文件及作者資訊。
+This is the maintained x64 fork at [Ding-Ding-Projects/TrafficMonitor](https://github.com/Ding-Ding-Projects/TrafficMonitor).
+Its unsigned Squirrel.Windows installer includes matching CRT/MFC runtime files. Fresh installed
+defaults enable login startup and the taskbar display while hiding the main floating window;
+saved settings survive updates. See [installation details](docs/features/installation/README.md),
+[build instructions](docs/build/README.md), and [current verification](HANDOFF.md).
+The native interface redesign and broader required features follow the installer foundation.
+Upstream documentation and attribution are retained below.
 
-![已附加到目前 Explorer 工作列的真實監察畫面](evidence/installer/1.0.4/taskbar-current-desktop.png)
+![Installed monitor attached to the current Explorer taskbar](evidence/installer/1.0.4/taskbar-current-desktop.png)
 
-此 1.0.4 真實畫面已配合 Explorer 附加及隱藏主視窗驗證。
-[驗證記錄](evidence/installer/1.0.4/runtime.json) 列明安裝、更新及自動啟動結果。
-較早的隔離桌面證據保留於 [證據封存索引](evidence/installer/README.md)。
+This genuine 1.0.4 capture accompanies verified Explorer attachment and a hidden main window.
+The [receipt](evidence/installer/1.0.4/runtime.json) records installation, update and startup evidence.
+Earlier isolated-desktop evidence is retained in the [evidence archive](evidence/installer/README.md).
 
 [![Badge](https://img.shields.io/badge/link-996.icu-%23FF4D5B.svg?style=flat-square)](https://996.icu/#/en_US)
 [![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg?style=flat-square)](https://github.com/996icu/996.ICU/blob/master/LICENSE)
@@ -22,140 +23,147 @@
 
 <a href="https://hellogithub.com/repository/5ef48af2b2794d4798b17d6539ec7305" target="_blank"><img src="https://api.hellogithub.com/v1/widgets/recommend.svg?rid=5ef48af2b2794d4798b17d6539ec7305&claim_uid=CeVqou2T1dIvfQP" alt="Featured｜HelloGitHub" style="width: 250px; height: 54px;" width="250" height="54" /></a>
 
-# TrafficMonitor 简介
+# TrafficMonitor Introduction
 
-Traffic Monitor是一款用于Windows平台的网速监控悬浮窗软件，可以显示当前网速、CPU及内存利用率，支持嵌入到任务栏显示，支持更换皮肤、历史流量统计等功能。
+TrafficMonitor is a network monitoring software with floating window feature for Windows. It displays the current internet speed and CPU and RAM usage. There are also other capabilities like an embedded display in the taksbar, changeable display skins, and historical traffic statistics.
 
-# 相关链接：
+# Related Links
 
-请[点击此处](https://github.com/zhongyang219/TrafficMonitor/releases/latest)下载TrafficMonitor的最新版本。
+Please [click here](https://github.com/zhongyang219/TrafficMonitor/releases/latest) to download the latest version of TrafficMonitor.
 
-备用链接：[百度网盘下载](https://pan.baidu.com/s/15PMt7s-ASpyDwtS__4cUhg) 提取码：`ou0m`
+Alternate link: Download from [Baidu Netdisk](https://pan.baidu.com/s/15PMt7s-ASpyDwtS__4cUhg). Access code: `ou0m`
 
-国内用户如果遇到Github下载缓慢的问题，可以[点击此处](https://gitee.com/zhongyang219/TrafficMonitor)转到此项目在Gitee上的页面。
+You can find the project page on Gitee by [clicking here](https://gitee.com/zhongyang219/TrafficMonitor)
 
-如果遇到问题，请[点击此处](./Help.md)查看常见问题。
+If you encounter any problems, please [click here](./Help_en-us.md) for frequently asked questions.
 
-你也可以[点击此处](https://github.com/zhongyang219/TrafficMonitor/actions?query=workflow:"Release+CI")下载TrafficMonitor的预发行构建版本。
+You can also [click here](https://github.com/zhongyang219/TrafficMonitor/actions?query=workflow:"Release+CI") to download the pre-release build version of TrafficMonitor.
 
-从1.80版本开始，TrafficMonitor加入了温度监控功能，如果你不需要温度监控功能，并且在使用1.80以上版本中遇到了问题，建议下载不含温度监控的版本（Lite版本）。（在Release页面找到文件名包含`Lite`的版本。）
+For version 1.80 and later, the temperature monitoring function has been added. If the user does not need the temperature monitoring function and encounters problems with version 1.80 or later, it is recommended to download the earlier version without the temperature monitor (Lite version). (You can find the `Lite` version on the Release page.)
 
-TrafficMonitor依赖于Microsoft Visual C++ 运行环境，如果程序启动时提示“找不到MSVC*.dll”，请点击以下链接下载并安装Microsoft Visual C++ 运行环境。
+TrafficMonitor relies on the Microsoft Visual C++ operrating environment. If an error prompts "Cannot find MSVC*.dll" when the program starts, please click the link below to download and install the Microsoft Visual C++ operating environment.
 
-[最新支持的 Visual C++ 可再发行程序包下载 | Microsoft Docs](https://docs.microsoft.com/zh-CN/cpp/windows/latest-supported-vc-redist?view=msvc-170)
+[Download the latest supported version of Visual C++ Redistributable Package | Microsoft Docs](https://docs.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170)
 
-# 版本说明
+# Version description
 
-TrafficMonitor提供了标准版和Lite版两种版本可用。标准版包含了所有的功能，Lite版本则不包含温度监控、显卡利用率、硬盘利用率等硬件监控功能。标准版运行需要管理员权限，而Lite版本则不需要。
+There are two versions of TrafficMonitor, the standard version and the Lite version. The standard version includes all the functions, while the Lite version does not include hardware monitoring functions such as temperature monitoring, GPU usage, and hard disk usage. The standard version requires administrator privilege to run, while the Lite version does not.
 
-如果没有监控温度等硬件信息的需要，建议使用Lite版。
+If there is no need to monitor the temperature and other hardware information, it is recommended to use the Lite version.
 
-以下是两个版本功能对比。
+See below for the functions comparison of the two versions.
 
-| 功能                          | 标准版 | Lite版 |
-| ----------------------------- | ------ | ------ |
-| 网速监控                      | ✔      | ✔      |
-| CPU、内存利用率          | ✔      | ✔      |
-| CPU、显卡、硬盘、主板温度监控  | ✔      | ❌      |
-| CPU频率监控 | ✔ | ✔ |
-| 显卡利用率监控                | ✔      | ✔     |
-| 硬盘利用率监控                | ✔      | ✔     |
-| 网络详细信息                  | ✔      | ✔      |
-| 插件系统                      | ✔      | ✔      |
-| 主窗口更换皮肤                | ✔      | ✔      |
-| 需要管理员权限                | 是     | 否     |
+| Functions                                     | Standard Version | Lite Version |
+| --------------------------------------------- | ---------------- | ------------ |
+| Internet speed monitoring                     | ✔                | ✔            |
+| CPU and RAM usage monitoring                  | ✔                | ✔            |
+| CPU, GPU, hard disk, mother board temperature | ✔                | ❌            |
+| CPU frequency monitoring                      | ✔                | ✔            |
+| GPU usage monitoring                          | ✔                | ✔            |
+| Hard disk usage monitoring                    | ✔                | ✔            |
+| Network connection details                    | ✔                | ✔            |
+| Plug-in system                                | ✔                | ✔            |
+| Change the skin of the main window            | ✔                | ✔            |
+| Administrator privilege required              | Yes              | No           |
 
-注：从1.86版本开始，TrafficMonitor Lite版也提供了显卡和硬盘利用率监控功能，相比标准版仅少了温度监控功能。后续TrafficMonitor中的温度监控功能将不再维护，TrafficMonitor将不再提供标准版，仅提供Lite版。温度监控功能已经迁移到了[硬件监控插件](https://github.com/zhongyang219/TrafficMonitorPlugins/blob/main/download/plugin_download.md#%E7%A1%AC%E4%BB%B6%E7%9B%91%E6%8E%A7%E6%8F%92%E4%BB%B6)，如果需要使用温度监控功能，请下载硬件监控插件。
+Note: Since version 1.86, the TrafficMonitor Lite version also provides monitoring functions for GPU and hard disk usage. Compared to the standard version, it only lacks the temperature monitoring function. The temperature monitoring function in subsequent versions of TrafficMonitor will no longer be maintained. TrafficMonitor will no longer provide the standard version but only the Lite version. The temperature monitoring function has been moved to the [Hardware Monitor plugin](https://github.com/zhongyang219/TrafficMonitorPlugins/blob/main/download/plugin_download_en.md#hardware-monitor-plugin). If you need to use the temperature monitoring function, please download the Hardware Monitor plugin.
 
-# 主要特性
+# Main Features
 
-* 显示当前实现网络传输速率、CPU和内存占用率
-* 如果电脑有多个网卡，支持自动和手动选择网络连接
-* 查看网络详细信息
-* 支持嵌入到任务栏显示
-* 支持更换皮肤和自定义皮肤
-* 历史流量统计
-* 硬件信息监控
-* 插件系统
-# 使用说明
+* Displays current network transmission speed and CPU and RAM usage
+* If multiple network adapters are available, users can automatically or manually select networks to connect
+* Display network connection details
+* Support embedded display in taskbar
+* Support skin change and customizable skins
+* Historical traffic statistics
+* Hardware information monitoring
+* Plug-in system
 
-**[点击这里](https://github.com/zhongyang219/TrafficMonitor/wiki)转到Wiki页面查看关于TrafficMonitor的详细说明文档。**
+# Instructions for use
 
-# 截图
+**[Click here](https://github.com/zhongyang219/TrafficMonitor/wiki) to go to the Wiki page to view detailed documentation on TrafficMonitor (Only Available in Chinese).**
 
-主悬浮窗：
-![](./Screenshots/main1.png)
+# Screenshots
 
-右键菜单：
-![](./Screenshots/main.png)
+Main Floating Window:
+![](./Screenshots/en_us/main1.png)
+Right-Click Menu:
+![](./Screenshots/en_us/main.png)
+Taskbar Window
 
-任务栏窗口：
+![](./Screenshots/en_us/taskbar.png)
 
-![](./Screenshots/taskbar.PNG)
+Colorful Skins:
 
-多彩皮肤：
-<img src="./Screenshots/skins.PNG" style="zoom:80%;" />
+![](./Screenshots/skins.PNG)
 
-# 如何使用
-程序启动后在会在屏幕中显示一个显示网速的悬浮窗。在悬浮窗上点击鼠标右键可以弹出右键菜单。
+Change Skins:
 
-TrafficMonitor支持将信息显示到任务栏。但是TrafficMonitor默认只显示主窗口（悬浮窗），如果需要让它嵌入到任务栏显示，请在右键菜单中选择“显示任务栏窗口”命令。
+![](./Screenshots/en_us/selecte_skin.png)
 
-任务栏窗口支持自定义显示项目，默认情况下只显示网速，如果需要显示CPU和内存利用率等其他信息，请在任务栏窗口右键菜单中选择“显示设置”，在弹出的“显示设置”对话框中勾选需要显示的项目，如下图所示：
+Options:
 
-<img src="./Screenshots/taskbar_item_settings.png" style="zoom:80%;" />
+<img src="./Screenshots/en_us/option.jpg" style="zoom:80%;" />
 
-# 自定义皮肤
-<img src="./Screenshots/selecte_skin.png" style="zoom:80%;" />
+# How to Use
 
-在主窗口或通知区图标右键菜单上选择“其他功能”——“更换皮肤”可以打开更换皮肤界面。[点击此处](https://github.com/zhongyang219/TrafficMonitorSkin/blob/master/皮肤下载.md)可以下载更多皮肤。用户还可以根据自己的需要编辑自己的皮肤。
+As the program starts, a floating window showing network speed will appear on the screen. Right click on the floating window to open up the pop-up menu.
 
-皮肤文件放在程序所在目录的`skins`目录下，每个皮肤被放到单独的文件夹下，文件夹的名称就是皮肤的名称。
+TrafficMonitor can display information on the taskbar. However, the default setting for TrafficMonitor shows only the main window (floating window), in order to show embedded display on the taskbar, right click the window and select "Show Taskbar Window" in the pop-up menu.
 
-其中`background.bmp`和`background_l.bmp`是背景图片，`skin.ini`是皮肤的配置文件，可以通过`skin.ini`指定文本颜色、字体、皮肤作者、每个项目的大小和位置等信息。
+Users can customize displayed items on the embedded taskbar window. By default, only the network speed is displayed. In order to display CPU and RAM usage, or other informations, please select “Display Settings” in the right-click menu of the taskbar window, and check the items you want to display in the “Display Settings” dialog box, as shown below:
 
-从1.80版本开始增加了xml格式的皮肤配置文件`skin.xml`，只有xml格式的皮肤配置文件才支持温度和显卡使用率显示。
+<img src="./Screenshots/en_us/taskbar_item_settings.png" style="zoom:80%;" />
 
-从1.85版本开始增加了对png格式背景图片的支持，你可以使用png格式来制作带透明背景的皮肤，背景图片的文件名为`background.png`和`background_l.png`。
+# Customizable Skin
+<img src="./Screenshots/en_us/selecte_skin.png" style="zoom:80%;" />
 
-详细的皮肤制作教程请点击以下链接：
+You can select “Other Functions”-“Change Skin” on the right-click menu of the main window or notification area icon to open the interface of changing skin. Users can also download more skins and customize the skins [here](https://github.com/zhongyang219/TrafficMonitorSkin/blob/master/皮肤下载.md) according to their own needs.
+
+Skin files are stored under the `skins` directory within the directory where the app is located. Each skin is stored in its individual folder and the name of the folder is the name of the skin.
+
+Among the files, `background.bmp` and `background_l.bmp` are background pictures，`skin.ini` is the configuration document for the skin, users can customize text colors, fonts, skin creator, and the size and location of each items etc.
+
+Since version 1.80, an xml format of skin configuration file `skin.xml` has been added. Without the xml skin configuration document, TrafficMonitor will not be able to display temperature and GUP usage.
+
+Since version 1.85, support for background images in png format has been added, you can use the png format to create skins with transparent backgrounds. The file names of the background image files are `background.png` and `background_l.png`.
+
+Click the link below for detailed instruction on skin making:
 
 [皮肤制作教程 · zhongyang219/TrafficMonitor Wiki (github.com)](https://github.com/zhongyang219/TrafficMonitor/wiki/皮肤制作教程)
 
-# 选项设置
-<img src="./Screenshots/option.jpg" style="zoom:80%;" />
+# Configuring Options
+<img src="./Screenshots/en_us/option.jpg" style="zoom:80%;" /><br>
+Choosing "Options..." in the pop-up menu allows users to access the options configuration. In the dialog box of options configuration, the user can set the text color, text font, background color, net speed unit, and displayed text etc. for the main window and task window separately.
 
-在右键菜单选择“选项...”可以进入选项设置。在选项设置对话框中，可以单独设置主窗口和任务栏窗口的文本颜色、字体、背景颜色、网速单位、显示的文本等。
+In "Regular Configurations", users can change the settings on whether the program conducts auto-update and whether the program runs automatically when the computer starts up. Users can also configure when notifications need to be sent.
 
-在“常规设置”选项卡中，可以设置是否在程序时自动检查更新，以及是否需要在开机是自动运行。可以设置在什么时候需要发出消息通知。
+For version 1.72 and later, users can configure text colors for each item individually. Check the option to "Designate Colors for Each Items", click the color box on the right of "text colors" to prompt a pop-up dialog box for detailed color configuration where users can designate colors for each items inidividually.
 
-从1.72版本开始，支持每个项目文本颜色单独设置。勾选“指定每个项目的颜色”后，点击“文本颜色”右边的颜色框，会弹出详细颜色设置的对话框，可以在这里单独指定每个项目的颜色。
+# Plug-in system
 
-# 插件系统
+For version 1.82 and later, plug-in system has been added. The plug-in dll must be placed in the "plugins" directory, at the same level directory with "TrafficMonitor.exe". The plug-in should load automatically as the program starts up. Users can view and manage the loaded plugins in the pop-up menu "More Functions"-"Plugin Management".
 
-从1.82版本开始增加了插件系统，插件dll必须放在“TrafficMonitor.exe”同级目录的“plugins”目录下。程序启动后，插件会自动加载。你可以在右键菜单“更多功能”——“插件管理”中查看并管理已加载的插件。
+For instructions on how to develop the plugins for TrafficMonitor, please see [Plugin Development Guide · zhongyang219/TrafficMonitor Wiki (github.com)](https://github.com/zhongyang219/TrafficMonitor/wiki/Plugin-Development-Guide).
 
-关于如何开发TrafficMonitor的说明，请参见[插件开发指南 · zhongyang219/TrafficMonitor Wiki (github.com)](https://github.com/zhongyang219/TrafficMonitor/wiki/插件开发指南)。
+To download the TrafficMonitor plugins, please [click here](https://github.com/zhongyang219/TrafficMonitorPlugins/blob/main/download/plugin_download.md).
 
-要下载TrafficMonitor插件，请[点击这里](https://github.com/zhongyang219/TrafficMonitorPlugins/blob/main/download/plugin_download.md)。
+# About the hardware monitoring function
 
-# 关于硬件监控功能
+For version 1.80 or later, the hardware monitoring functions (including temperature, CPU frequency, and GPU usage monitoring) have been added to TrafficMonitor. It relies on the open source library [LibreHardwareMonitor](https://github.com/LibreHardwareMonitor/LibreHardwareMonitor). If you encounter issues using the temperature monitoring function, please [click here](./Help_en-us.md#13-about-the-temperature-monitoring-of-trafficmonitor).
 
-从1.80版本开始，TrafficMonitor加入了硬件监控功能（包括温度监控和显卡使用率监控、CPU频率监控），它使用了第三方开源库[LibreHardwareMonitor](https://github.com/LibreHardwareMonitor/LibreHardwareMonitor)。如果你在使用温度监控功能时遇到了问题，请[点击这里](./Help.md#13-关于trafficmonitor温度监控的问题)。
+It should also be noted that the temperature monitoring function is turned off by default. If users want to use the temperature monitoring function in TrafficMonitor, please go to ["Option Settings"-"General Settings"-"Hardware Monitoring"](https://github.com/zhongyang219/TrafficMonitor/wiki/选项设置#硬件监控) to enable it.
 
-需要注意的是，温度监控功能默认是关闭的，如果你要使用TrafficMonitor的温度监控功能，请到[“选项设置”-“常规设置”-“硬件监控”](https://github.com/zhongyang219/TrafficMonitor/wiki/选项设置#硬件监控)中开启。
+**Note: The hardware monitoring function (including temperature monitoring and GPU usage monitoring) may still have some issues, which might consume more CPU and RAM. According to the feedback from some users, turning on the temperature function causes issues such as program crashing and system crashing, etc. Please consider the above risks before turning on the hardware monitoring function. Otherwise, please do not use the hardware monitoring function.**
 
-**注意：硬件监控功能（包括温度监控和显卡使用率监控）可能存在一些问题，它可能会占用更多的CPU和内存。据部分用户反馈，开启温度功能后会导致程序崩溃和系统死机等问题，请在知晓以上风险后再决定开启硬件监控功能。否则，请不要使用硬件监控功能。**
+# Update log
 
-# 更新日志
+**[Click here to view the update log.](./UpdateLog/update_log_en-us.md)**
 
-**[点击此处查看更新日志](./UpdateLog/update_log.md)**
+# Disclaimer
 
-# 声明
+The domain `www.trafficmonitor.cn` has **no relation** to the author. TrafficMonitor currently does not have an official website. Any so-called "TrafficMonitor official site" is a pirated website. Please do not visit such sites, and do not download TrafficMonitor through them. TrafficMonitor is provided to users exclusively through the following channels:
 
-域名`www.trafficmonitor.cn`和作者本人**没有任何关系**，TrafficMonitor目前并没有官网，任何所谓的“TrafficMonitor官网”都是盗版网站，请不要访问此类网站，也不要通过此类网站下载TrafficMonitor。TrafficMonitor仅通过以下渠道向用户提供：
-
-* [GitHub页面（github.com/zhongyang219/TrafficMonitor）](https://github.com/zhongyang219/TrafficMonitor)
-* [Gitee页面（gitee.com/zhongyang219/TrafficMonitor）](https://gitee.com/zhongyang219/TrafficMonitor)
-* [作者本人的百度网盘共享链接](https://pan.baidu.com/s/15PMt7s-ASpyDwtS__4cUhg) 提取码：`ou0m`
-
+* [GitHub page (github.com/zhongyang219/TrafficMonitor)](https://github.com/zhongyang219/TrafficMonitor)
+* [Gitee page (gitee.com/zhongyang219/TrafficMonitor)](https://gitee.com/zhongyang219/TrafficMonitor)
+* [Author's Baidu Netdisk shared link](https://pan.baidu.com/s/15PMt7s-ASpyDwtS__4cUhg) Extraction code: `ou0m`
