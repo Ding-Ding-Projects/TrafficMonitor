@@ -13,7 +13,7 @@ if(release.isDraft!==false||release.isPrerelease!==false)throw Error('Download m
 const source=execFileSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'}).trim();
 await fs.mkdir(dist,{recursive:true});
 const context={base,release,source,manifest};
-async function page(route,title,body){const destination=path.join(dist,safeRelative(route?route.replace(/^\//,''):'index.html'));await fs.mkdir(path.dirname(destination),{recursive:true});await fs.writeFile(destination,shell(title,body,context));}
+async function page(route,title,body){const destination=path.join(dist,safeRelative(route?decodeURIComponent(route.replace(/^\//,'')):'index.html'));await fs.mkdir(path.dirname(destination),{recursive:true});await fs.writeFile(destination,shell(title,body,context));}
 await build({entryPoints:[path.join(here,'src/app.js')],bundle:true,format:'esm',outfile:path.join(dist,'app.js'),minify:true,legalComments:'linked'});
 await fs.copyFile(path.join(here,'src/style.css'),path.join(dist,'style.css'));
 await fs.writeFile(path.join(dist,'.nojekyll'),'');
@@ -34,3 +34,4 @@ for(const article of manifest.articles){const rendered=await content.render(arti
 await page('404.html','Page not found',`<h1>Page not found</h1><p>This address is not in this documentation snapshot.</p><a href="${base}docs/">Find an article</a>`);
 await fs.writeFile(path.join(dist,'build-receipt.json'),JSON.stringify({schemaVersion:1,sourceCommit:source,contentSource:manifest.sourceCommit,wikiSource:manifest.wikiSource,articleCount:manifest.articles.length,historyCount:entries.length,base,unresolvedAssets:content.unresolved},null,2));
 console.log(`Built ${manifest.articles.length} complete articles; ${entries.length} history records; ${content.unresolved.length} unavailable local images.`);
+

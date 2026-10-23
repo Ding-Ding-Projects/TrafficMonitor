@@ -62,7 +62,7 @@ export async function createContent(root,dist,manifest,base) {
  return {unresolved,async render(article){
   const markdown=article.provenanceKind==='repository-markdown' ? execFileSync('git',['show',`${manifest.sourceCommit}:${article.sourcePath}`],{cwd:root,encoding:'utf8',maxBuffer:8*1024*1024}) : await fs.readFile(path.join(root,article.sourcePath),'utf8');
   if(createHash('sha256').update(markdown).digest('hex')!==article.sourceSha256)throw Error('Content hash mismatch: '+article.id);
-  const document=new JSDOM(purifier.sanitize(marked.parse(markdown),{FORBID_TAGS:['style','iframe','form','input','button'],FORBID_ATTR:['style']})).window.document;
+  const document=new JSDOM(purifier.sanitize(marked.parse(markdown),{USE_PROFILES:{html:true},FORBID_TAGS:['style','iframe','form','input','button','video','audio','source','track','object','embed'],FORBID_ATTR:['style','srcset']})).window.document;
   const used=new Map();
   for(const h of document.querySelectorAll('h1,h2,h3,h4,h5,h6')){
    const slug=h.textContent.toLowerCase().replace(/[^\p{L}\p{N}_\s-]/gu,'').replace(/\s/g,'-');const n=used.get(slug)??0;used.set(slug,n+1);h.id=slug+(n?'-'+n:'');
@@ -77,6 +77,7 @@ export async function createContent(root,dist,manifest,base) {
   return {html:document.body.innerHTML,toc};
  }};
 }
+
 
 
 
