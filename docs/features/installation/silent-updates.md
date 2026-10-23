@@ -17,8 +17,9 @@ both automatic staging and next-launch application.
 
 Only normal `v<major>.<minor>.<patch>-run<run-id>-<attempt>` releases from the exact
 owning repository are admitted. Release metadata must identify a full source commit,
-and an owning-repository comparison must prove that commit is contained in `main`.
-The bounded comparison response is retained with staging for offline revalidation;
+and an owning-repository comparison must prove that commit is contained in an exact
+resolved `main` commit. The comparison URL, base and merge-base identities must match.
+The bounded branch and comparison responses are retained with staging for offline revalidation;
 a normal task-branch preservation release outside `main` is not an update candidate.
 Release metadata must also identify
 the expected full package, exact download URLs, uploaded assets, bounded lengths and
