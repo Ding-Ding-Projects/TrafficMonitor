@@ -127,7 +127,7 @@ namespace
     {
         LOGFONT font{};NONCLIENTMETRICS metrics{sizeof(metrics)};if(SystemParametersInfoW(SPI_GETNONCLIENTMETRICS,sizeof(metrics),&metrics,0))font=metrics.lfMessageFont;else wcscpy_s(font.lfFaceName,L"Segoe UI");font.lfHeight=-Px(14);
         HFONT next=CreateFontIndirectW(&font);if(!next)return;HFONT old=static_cast<HFONT>(m_font.Detach());m_font.Attach(next);
-        EnumChildWindows(m_hWnd,[](HWND child,LPARAM font)->BOOL{SendMessageW(child,WM_SETFONT,font,TRUE);return TRUE;},reinterpret_cast<LPARAM>(next));if(old)DeleteObject(old);
+        ::EnumChildWindows(m_hWnd,[](HWND child,LPARAM font)->BOOL{::SendMessageW(child,WM_SETFONT,font,TRUE);return TRUE;},reinterpret_cast<LPARAM>(next));if(old)DeleteObject(old);
     }
     void Editor::SetTheme()
     {
@@ -139,7 +139,7 @@ namespace
     {
         const auto& s=*r.setting;
         if(s.enabled){r.check.SetCheck(m_values.*s.enabled?BST_CHECKED:BST_UNCHECKED);r.check.EnableWindow(s.Available());r.check.Invalidate();}
-        if(s.number){r.number.SetWindowText(std::to_wstring(m_values.*s.number).c_str());r.number.EnableWindow(s.Available());if(s.trafficUnits)r.unit.SetLabel(m_values.trafficUnit==0?L"MB":m_values.trafficUnit==1?L"GB":T(L"Invalid unit",L"無效單位"));r.unit.EnableWindow(s.trafficUnits&&s.Available());}
+        if(s.number){r.number.SetWindowText(std::to_wstring(m_values.*s.number).c_str());r.number.EnableWindow(s.Available());if(s.trafficUnits)r.unit.SetLabel(m_values.trafficUnit==0?CString(L"MB"):m_values.trafficUnit==1?CString(L"GB"):T(L"Invalid unit",L"無效單位"));r.unit.EnableWindow(s.trafficUnits&&s.Available());}
         const Values defaults;CString text=T(L"Default: ",L"預設：")+CString(FormatValue(s,defaults,m_chinese).c_str());text+=T(L". Current source: configuration/default provenance unavailable.",L"。目前來源：未能區分設定檔同預設來源。");
         if(!s.Available())text=T(L"Temperature monitoring is unavailable in this build. Stored preferences are retained.",L"呢個版本未提供溫度監察；已儲存嘅偏好會保留。");r.defaults.SetWindowText(text);r.description.SetWindowText(T(s.explanation,s.chineseExplanation));
     }
@@ -173,7 +173,7 @@ namespace
             const auto& s=*m_rows[i]->setting;CString label=GroupName(s.group,m_chinese);label+=L" > ";label+=T(s.english,s.chinese);label+=L" : ";label+=DraftValue(*m_rows[i],m_chinese).c_str();
             const int at=m_results.AddString(label);if(at>=0){m_results.SetItemDataPtr(at,const_cast<Setting*>(&s));if(selected==s.id)m_results.SetCurSel(at);}
         }
-        if(m_results.GetCurSel()==LB_ERR&&m_results.GetCount())m_results.SetCurSel(0);m_results.SetRedraw(TRUE);m_results.Invalidate();NotifyWinEvent(EVENT_OBJECT_REORDER,m_results.GetSafeHwnd(),OBJID_CLIENT,CHILDID_SELF);
+        if(m_results.GetCurSel()==LB_ERR&&m_results.GetCount())m_results.SetCurSel(0);m_results.SetRedraw(TRUE);m_results.Invalidate();::NotifyWinEvent(EVENT_OBJECT_REORDER,m_results.GetSafeHwnd(),OBJID_CLIENT,CHILDID_SELF);
     }
     void Editor::Layout()
     {
@@ -268,7 +268,7 @@ namespace
     }
     void Editor::Menu(Row& row,CPoint point)
     {
-        const std::wstring identity=row.setting->id;EnsureVisible(row);if(point==CPoint(-1,-1)){CRect rect;row.details.GetWindowRect(rect);point=rect.BottomLeft();}
+        const std::wstring identity=row.setting->id;EnsureVisible(row);if(point==CPoint(-1,-1)){CRect rect;row.details.GetWindowRect(rect);point=CPoint(rect.left,rect.bottom);}
         CMenu menu;menu.CreatePopupMenu();menu.AppendMenu(MF_STRING,1,T(L"Show explanation",L"顯示解說"));const UINT flags=MF_STRING|(row.setting->Available()?0:MF_GRAYED);
         menu.AppendMenu(flags,2,T(L"Stage this setting's default",L"暫存呢項設定嘅預設值"));menu.AppendMenu(flags,3,T(L"Revert this setting to applied value",L"還原呢項設定至目前套用值"));
         const UINT selected=NativeMenus::Track(&menu,TPM_RETURNCMD|TPM_RIGHTBUTTON,point.x,point.y,this);auto* current=Find(identity);if(!current)return;
