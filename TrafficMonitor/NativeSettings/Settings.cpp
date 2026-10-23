@@ -76,7 +76,7 @@ namespace
         std::wstring m_reveal;Values m_values;
         std::function<void(const Values&)> m_apply;
         NativeMaterial::Appearance m_appearance{NativeMaterial::Appearance::Light};
-        CFont m_font;CBrush m_background;CStatic m_title,m_note,m_status,m_updateInfo;NativeMaterial::TextField m_search;
+        CFont m_font,m_headingFont;CBrush m_background;CStatic m_title,m_note,m_status,m_updateInfo;NativeMaterial::TextField m_search;
         SettingsViewport m_body;NativeMaterial::ResultList m_results;
         NativeMaterial::Navigation m_navigation;
         NativeMaterial::Button m_clear,m_applyButton,m_revert,m_reset,m_legacy,m_theme,m_regex,m_open,m_return;
@@ -101,7 +101,7 @@ namespace
         m_appearance=NativePreferences::EffectiveAppearance();
         SetWindowText(T(L"TrafficMonitor settings",L"TrafficMonitor 設定"));SetIcon(theApp.GetMenuIcon(IDI_SETTINGS),FALSE);
         const CRect box(0,0,100,40);const DWORD child=WS_CHILD|WS_VISIBLE;
-        m_title.Create(T(L"Settings for your monitoring workflow",L"監察工作設定"),child,box,this);m_note.Create(L"",child,box,this);m_status.Create(L"",child,box,this);
+        m_title.Create(T(L"Settings",L"設定"),child,box,this);m_note.Create(L"",child,box,this);m_status.Create(L"",child,box,this);
         m_theme.Create(T(L"Appearance",L"外觀"),box,this,Theme);
         m_navigation.Create(box,this,PageFirst,true);
         m_search.CreateEx(WS_EX_CLIENTEDGE,L"EDIT",L"",child|WS_TABSTOP|ES_AUTOHSCROLL,box,this,Search);m_search.SetLimitText(256);
@@ -114,7 +114,7 @@ namespace
         m_body.scroll=[this](UINT code,int pos){Scroll(code,pos);};m_body.background=[this]{return static_cast<HBRUSH>(m_background.GetSafeHandle());};
         m_updateInfo.Create(L"",child,box,&m_body);
         m_results.Create(box,&m_body,Results);
-        m_results.SetWindowText(T(L"Settings in all groups; select a result and choose Open",L"所有組別設定；選擇結果後按開啟"));
+        m_navigation.SetWindowText(T(L"Settings sections",L"設定分類"));m_body.SetScrollName(T(L"Scroll settings",L"捲動設定"));m_results.SetWindowText(T(L"Settings in all groups; select a result and choose Open",L"所有組別設定；選擇結果後按開啟"));
         size_t index=0;
         for(const auto& setting:Catalog())
         {
@@ -133,7 +133,7 @@ namespace
     }
     void Editor::Labels()
     {
-        SetWindowText(T(L"TrafficMonitor settings",L"TrafficMonitor 設定"));m_title.SetWindowText(T(L"Settings for your monitoring workflow",L"監察工作設定"));m_theme.SetLabel(NativePreferences::Text(NativePreferences::TextId::Interface));
+        SetWindowText(T(L"TrafficMonitor settings",L"TrafficMonitor 設定"));m_title.SetWindowText(T(L"Settings",L"設定"));m_theme.SetLabel(NativePreferences::Text(NativePreferences::TextId::Interface));
         m_loading=true;m_navigation.ResetContent();for(int i=0;i<6;++i)m_navigation.AddString(T(GroupName(i,false),GroupName(i,true)));m_navigation.SetCurSel(m_page);m_loading=false;
         m_clear.SetLabel(T(L"Clear",L"清除"));m_regex.SetLabel(T(L"Regex",L"正規式"));m_applyButton.SetLabel(T(L"Apply",L"套用"));m_revert.SetLabel(T(L"Revert",L"還原"));m_reset.SetLabel(T(L"Reset group draft",L"重設本組草稿"));m_legacy.SetLabel(T(L"All settings (legacy)",L"所有設定（舊版）"));m_open.SetLabel(T(L"Open selected setting",L"開啟所選設定"));m_return.SetLabel(T(L"Return to group filter",L"返回本組篩選"));
         const auto cue=T(L"Search labels, explanations and draft values",L"搜尋名稱、解說同草稿數值");m_search.SendMessage(EM_SETCUEBANNER,TRUE,reinterpret_cast<LPARAM>(cue.GetString()));
@@ -146,7 +146,7 @@ namespace
     {
         LOGFONT font{};NONCLIENTMETRICS metrics{sizeof(metrics)};if(SystemParametersInfoW(SPI_GETNONCLIENTMETRICS,sizeof(metrics),&metrics,0))font=metrics.lfMessageFont;else wcscpy_s(font.lfFaceName,L"Segoe UI");font.lfHeight=-Px(14);
         HFONT next=CreateFontIndirectW(&font);if(!next)return;HFONT old=static_cast<HFONT>(m_font.Detach());m_font.Attach(next);
-        ::EnumChildWindows(m_hWnd,[](HWND child,LPARAM font)->BOOL{::SendMessageW(child,WM_SETFONT,font,TRUE);return TRUE;},reinterpret_cast<LPARAM>(next));if(old)DeleteObject(old);m_interface.SetFont(&m_font);
+        ::EnumChildWindows(m_hWnd,[](HWND child,LPARAM font)->BOOL{::SendMessageW(child,WM_SETFONT,font,TRUE);return TRUE;},reinterpret_cast<LPARAM>(next));if(old)DeleteObject(old);m_interface.SetFont(&m_font);font.lfHeight=-Px(24);font.lfWeight=FW_SEMIBOLD;HFONT heading=CreateFontIndirectW(&font);if(heading){HFONT previous=static_cast<HFONT>(m_headingFont.Detach());m_headingFont.Attach(heading);m_title.SetFont(&m_headingFont);if(previous)DeleteObject(previous);}
     }
     void Editor::SetTheme()
     {
@@ -362,7 +362,7 @@ namespace
         return CDialog::PreTranslateMessage(msg);
     }
     void Editor::OnTimer(UINT_PTR id)
-    {if(id!=0x4E92){CDialog::OnTimer(id);return;}bool changed=false;for(auto& state:m_searches)changed=state.filter.Poll()||changed;if(changed)Layout();UpdateInfo();const HWND focus=::GetFocus();if(focus!=m_lastFocus){m_lastFocus=focus;if(auto* r=Target(focus,CPoint(-1,-1)))EnsureVisible(*r);}}
+    {if(id!=0x4E92){CDialog::OnTimer(id);return;}bool changed=false;for(auto& state:m_searches)changed=state.filter.Poll()||changed;if(changed)Layout();UpdateInfo();const HWND focus=::GetFocus();if(focus!=m_lastFocus){m_lastFocus=focus;if(auto* r=Target(focus,CPoint(-1,-1)))EnsureVisible(*r);else if(m_page==Interface&&focus&&::IsChild(m_body.GetSafeHwnd(),focus)&&::GetDlgCtrlID(focus)!=53998){CRect bounds;::GetWindowRect(focus,&bounds);m_body.ScreenToClient(bounds);int delta=0;if(bounds.top<0)delta=MulDiv(bounds.top,96,m_dpi);else if(bounds.bottom>Px(m_viewHeight))delta=MulDiv(bounds.bottom-Px(m_viewHeight),96,m_dpi);if(delta){m_searches[m_page].scroll+=delta;Layout();}}}}
     void Editor::OnPaint(){CPaintDC dc(this);CRect r;GetClientRect(r);dc.FillRect(r,&m_background);}
     HBRUSH Editor::OnCtlColor(CDC* dc,CWnd* window,UINT){if(auto* field=DYNAMIC_DOWNCAST(NativeMaterial::TextField,window))return field->Color(dc);const auto c=NativeMaterial::Palette::Resolve(m_appearance);dc->SetTextColor(RGB(BYTE(c.onSurface.r*255),BYTE(c.onSurface.g*255),BYTE(c.onSurface.b*255)));dc->SetBkColor(RGB(BYTE(c.surface.r*255),BYTE(c.surface.g*255),BYTE(c.surface.b*255)));return static_cast<HBRUSH>(m_background.GetSafeHandle());}
     void Editor::OnGetMinMaxInfo(MINMAXINFO* info){CDialog::OnGetMinMaxInfo(info);RECT r{0,0,Px(760),Px(640)};AdjustWindowRectEx(&r,GetStyle(),FALSE,GetExStyle());info->ptMinTrackSize={r.right-r.left,r.bottom-r.top};}

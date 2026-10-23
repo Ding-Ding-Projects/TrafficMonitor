@@ -1,5 +1,8 @@
-#include "../stdafx.h"
+﻿#include "../stdafx.h"
 #include "TextField.h"
+#include "../NativeMenus/SearchableMenu.h"
+#include "../NativePreferences/Text.h"
+#include <windowsx.h>
 namespace NativeMaterial
 {
     IMPLEMENT_DYNAMIC(TextField,CEdit)
@@ -19,7 +22,15 @@ namespace NativeMaterial
         if(message==WM_NCCALCSIZE){const auto result=CEdit::WindowProc(message,w,l);RECT* r=w?&reinterpret_cast<NCCALCSIZE_PARAMS*>(l)->rgrc[0]:reinterpret_cast<RECT*>(l);const int x=MulDiv(12,GetDpiForWindow(m_hWnd),96),y=MulDiv(8,GetDpiForWindow(m_hWnd),96);if(r->right-r->left>x*2&&r->bottom-r->top>y*2){r->left+=x;r->right-=x;r->top+=y;r->bottom-=y;}return result;}
         if(message==WM_NCPAINT){Frame();return 0;}
         if(message==WM_SETFOCUS||message==WM_KILLFOCUS){const auto result=CEdit::WindowProc(message,w,l);RedrawWindow(nullptr,nullptr,RDW_INVALIDATE|RDW_FRAME);return result;}
-        if(message==WM_CONTEXTMENU&&GetParent())return GetParent()->SendMessage(message,reinterpret_cast<WPARAM>(m_hWnd),l);
+        if(message==WM_CONTEXTMENU)
+        {
+            int first=0,last=0;GetSel(first,last);const bool selection=first!=last,editable=IsWindowEnabled()&&!(GetStyle()&ES_READONLY);CMenu menu;menu.CreatePopupMenu();
+            auto add=[&](UINT id,const wchar_t* en,const wchar_t* zh,bool enabled){menu.AppendMenu(MF_STRING|(enabled?0:MF_GRAYED),id,NativePreferences::Pair(en,zh));};
+            add(1,L"Undo",L"復原",editable&&CanUndo());add(2,L"Cut",L"剪下",editable&&selection);add(3,L"Copy",L"複製",selection);add(4,L"Paste",L"貼上",editable&&IsClipboardFormatAvailable(CF_UNICODETEXT));add(5,L"Delete",L"刪除",editable&&selection);add(6,L"Select all",L"全選",GetWindowTextLength()>0);
+            CPoint point(GET_X_LPARAM(l),GET_Y_LPARAM(l));if(point==CPoint(-1,-1)){CRect bounds;GetWindowRect(bounds);point=CPoint(bounds.left,bounds.bottom);}
+            const auto action=NativeMenus::Track(&menu,TPM_RETURNCMD|TPM_RIGHTBUTTON,point.x,point.y,this);
+            switch(action){case 1:Undo();break;case 2:Cut();break;case 3:Copy();break;case 4:Paste();break;case 5:Clear();break;case 6:SetSel(0,-1);break;default:break;}SetFocus();return 0;
+        }
         return CEdit::WindowProc(message,w,l);
     }
 }
