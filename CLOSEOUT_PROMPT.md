@@ -14,10 +14,20 @@ The bounded hidden-desktop portable 9029 run proved the Interface query `appeara
 
 The 96-DPI bilingual minimum view is rejected: the 24-pixel heading had a fixed 40-pixel box, cutting its second line; the multiline search hint was concatenated in a single-line edit; section grouping and help hierarchy did not match the approved design. The image named `settings-interface-en-normal.png` is rejected as mislabeled because it actually shows Floating monitor. The subsequent `settings-interface-en-normal-actual.png` is the actual Interface view. Raw evidence remains retained separately; no image promotion is claimed.
 
-The fixture closed normally. Existing installation 1.0.45 was restored through its stable launcher at 2026-10-23T19:25:46.560964Z, PID 15824, creation 2026-10-23T19:25:46.547496Z, executable SHA-256 `e7c58493da6cfc6953b1ead55b004b5acccec0f2402c8c85e5ae999e849a3f02`. Data and startup comparisons before restoration both passed. Process identity is historical evidence, never permission to reuse that PID.
+The fixture closed normally. Existing installation 1.0.45 was restored through its stable launcher at 2026-10-23T19:25:46.560964Z, executable SHA-256 `e7c58493da6cfc6953b1ead55b004b5acccec0f2402c8c85e5ae999e849a3f02`. Data and startup comparisons before restoration both passed. Detailed process identity remains in the private runtime receipt and must be rediscovered before another run.
 
 ## Next candidate
 
 Version 1.0.9030 is reserved. The current repair adds measured heading/search origins, compact localized search hints, correctly localized bilingual group counts, reusable section panels and explanatory text, and an explicit keyboard edit-menu route. Build, package and repeated identical runtime tuples remain pending for this source. Preserve source, index and refs throughout each producer and fixture. Rediscover current installation identity before any next run and restore it normally afterwards.
 
 The next work remains native Settings verification followed by workspace, setup, menus, regex and every inventoried legacy owned surface. Default scrollbar and native combo replacements outside this milestone remain unfinished. Preserve the preference storage, stale-draft, protected-schema and restart contracts. Documentation-site and companion implementation remains deferred. Main integration, publication and cleanup belong to the coordinating task.
+
+## 9030 bounded result
+
+The exact root installer entrypoint produced version 1.0.9030 at source `3971e1886c40cb157998d1be6a67f05508a94190`, from 2026-10-23T19:27:28.4087417Z to 2026-10-23T19:27:47.6894061Z, exit 0. Executable SHA-256: `1AE2352A1124D33403703ED6A244D0B2465B14E35CBFB1A81EE985BF1D21A80A`. Package SHA-256: `E46EFD93E1DA51A92A1212FD22AB3A723ED02C56A0EA630839385DEC8A21499D`.
+
+Real 96-DPI captures show the complete bilingual heading, compact search hint, translated group count and grouped preference sections. Home, Page Down, Page Up and End moved the body through bounded offsets 0, 236, 0 and 446; one downward wheel detent moved 96 units. End exposed the preview. These are narrow interaction results, not full accessibility or visual approval.
+
+The focused language selector remains partially outside the minimum viewport after language application; focus visibility after layout changes requires repair and an explicit settled-focus measurement. The edit-action popup still uses the older menu field/button rendering and remains part of the unfinished Settings workflow. NativeMenus needs the bounded shared-component update before this milestone can be accepted. The private drag driver reused its deadline variable and ended the fixture early after sending drag input; drag geometry and the all-groups sweep are unverified, not passed.
+
+The fixture closed normally and restored installation 1.0.45 at 2026-10-23T19:29:04.122401Z through the stable launcher. Data and startup comparisons passed, restoration returned zero, and the installed executable hash remained unchanged. Full process identity is retained only in the private receipt. No fixture remains active. Continue with focus visibility, menu component styling and readable formatting of touched component logic, then produce a newly reserved exact package and repeat the relevant tuples. Do not claim the full redesign complete.
