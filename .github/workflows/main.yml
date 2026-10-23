@@ -50,7 +50,14 @@ jobs:
           if ($release.isDraft -or $release.isPrerelease -or $release.assets.Count -lt 4) { throw 'Normal release asset verification failed' }
           $ref = gh api "repos/${{ github.repository }}/git/ref/tags/$env:RELEASE_TAG" | ConvertFrom-Json
           if ($ref.object.type -ne 'commit' -or $ref.object.sha -ne $sha) { throw 'Release tag source binding failed' }
-          Write-Host "Publication completed $([DateTime]::UtcNow.ToString('o'))"
+          $run = gh run view '${{ github.run_id }}' --json startedAt | ConvertFrom-Json
+          $started = [DateTime]::Parse($run.startedAt).ToUniversalTime()
+          $completed = [DateTime]::UtcNow
+          $duration = ($completed - $started).ToString('hh\:mm\:ss')
+          $body = "Native x64 Release (lite). Unsigned Squirrel.Windows installer with application-local CRT and MFC. Source: $sha`n`nWorkflow started: $($started.ToString('o'))`nWorkflow completed: $($completed.ToString('o'))`nWorkflow duration: $duration`n`nMeasured from the workflow run start through completed release publication and asset/source verification. Dim-sum catalogue selection is unavailable in this build; version-only title used."
+          $body | Set-Content artifacts/release-notes.md
+          gh release edit $env:RELEASE_TAG --notes-file artifacts/release-notes.md
+          if ($LASTEXITCODE -ne 0) { throw 'Release timing update failed' }
       - name: Collect safe run context
         if: ${{ always() }}
         continue-on-error: true
