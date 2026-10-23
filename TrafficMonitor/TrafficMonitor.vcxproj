@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug (lite)|ARM64EC">
@@ -1042,6 +1042,9 @@
     <Image Include="res\notify_preview.bmp" />
     <Image Include="res\notify_preview_light.bmp" />
     <Image Include="res\TrafficMonitor.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="NativeMenus\AccessibilityGuids.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
