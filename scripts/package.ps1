@@ -11,6 +11,28 @@ try {
     $payload = "$stage/lib/net45"
     New-Item -ItemType Directory -Force $payload,"$RepoRoot/artifacts/releases" | Out-Null
     Copy-Item "$RepoRoot/Bin/x64/Release (lite)/TrafficMonitor.exe" $payload
+    Add-Type -TypeDefinition @'
+using System;
+using System.Runtime.InteropServices;
+public static class SquirrelAwareness {
+    [DllImport("version.dll", CharSet=CharSet.Unicode, SetLastError=true)]
+    public static extern uint GetFileVersionInfoSize(string name, out uint handle);
+    [DllImport("version.dll", CharSet=CharSet.Unicode, SetLastError=true)]
+    public static extern bool GetFileVersionInfo(string name, uint handle, uint length, byte[] data);
+    [DllImport("version.dll", CharSet=CharSet.Unicode, SetLastError=true)]
+    public static extern bool VerQueryValue(byte[] data, string key, out IntPtr value, out uint length);
+}
+'@
+    [uint32]$handle = 0
+    $resourceSize = [SquirrelAwareness]::GetFileVersionInfoSize("$payload/TrafficMonitor.exe", [ref]$handle)
+    if ($resourceSize -lt 1 -or $resourceSize -gt 4096) { throw 'Squirrel awareness resource size must be within 1..4096 bytes' }
+    $resource = New-Object byte[] $resourceSize
+    if (![SquirrelAwareness]::GetFileVersionInfo("$payload/TrafficMonitor.exe", 0, $resourceSize, $resource)) { throw 'Native version resource read failed' }
+    [IntPtr]$value = [IntPtr]::Zero
+    [uint32]$valueLength = 0
+    if (![SquirrelAwareness]::VerQueryValue($resource, '\StringFileInfo\040904B0\SquirrelAwareVersion', [ref]$value, [ref]$valueLength) -or $value -eq [IntPtr]::Zero -or $valueLength -lt 1) {
+        throw 'Squirrel 2.0.1 requires native English 040904B0 SquirrelAwareVersion metadata'
+    }
     foreach ($directory in @('language','skins')) {
         if (Test-Path "$RepoRoot/TrafficMonitor/$directory") { Copy-Item "$RepoRoot/TrafficMonitor/$directory" $payload -Recurse }
     }
