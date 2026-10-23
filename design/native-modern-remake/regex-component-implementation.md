@@ -7,3 +7,9 @@ Native EDIT windows retain selection, caret, undo, clipboard, IME and read-only 
 The 1280 by 840 reference and 640 by 400 minimum guide layout. Test subject and results become stacked below 880 logical pixels. Labels and bilingual action heights are measured, and the task body preserves overflow reachability. Supported native frame colors retain caption, resizing and platform accessibility.
 
 This source checkpoint has not yet compiled or run. Exact package 1.0.9036, representative real interaction and images, independent review, full language/theme/DPI coverage, retained accessibility providers, clipboard and IME remain unverified. Engine and collection serialization semantics are unchanged. Complete RegexBuddy parity and other owned surfaces remain unfinished.
+
+## Compact height and native text scrolling
+
+Below 600 logical client pixels in height, the repeated explanatory heading is omitted; the native window title, pattern label, task navigation and fixed actions remain. The normal heading uses 24-pixel semibold type and a separate 14-pixel bilingual secondary line. Task body overflow is intentional and must remain keyboard/wheel reachable. This is not permission to claim the complete layout matrix from one scale.
+
+The multiline rail is an actual editor child, with its width reserved in the native formatting rectangle. Wheel routing accumulates partial deltas, respects the operating-system line/page preference, does nothing while disabled, and allows read-only output to scroll without editing. Buttons inside a section receive its current surface color by value; the shared default remains unchanged for other owners.

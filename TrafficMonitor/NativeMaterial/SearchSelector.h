@@ -10,6 +10,7 @@ namespace NativeMaterial
     public:
         BOOL Create(const RECT&, CWnd*, UINT);
         void SetAppearance(Appearance);
+        void SetSurfaceColor(COLORREF color){m_button.SetSurfaceColor(color);}
         void ResetContent();
         void AddString(const CString&);
         int GetCurSel() const { return m_selected; }

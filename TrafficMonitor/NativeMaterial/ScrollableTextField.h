@@ -13,6 +13,6 @@ namespace NativeMaterial
         LRESULT WindowProc(UINT, WPARAM, LPARAM) override;
     private:
         ScrollRail m_rail;
-        bool m_sync{};
+        bool m_sync{};int m_wheel{};
     };
 }

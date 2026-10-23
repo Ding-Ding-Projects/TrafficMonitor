@@ -49,6 +49,25 @@ namespace NativeMaterial
     }
     LRESULT ScrollableTextField::WindowProc(UINT message, WPARAM w, LPARAM l)
     {
+        if(message==WM_MOUSEWHEEL)
+        {
+            if(!IsWindowEnabled())return 0;
+            m_wheel+=static_cast<short>(HIWORD(w));
+            UINT lines=3;
+            SystemParametersInfoW(SPI_GETWHEELSCROLLLINES,0,&lines,0);
+            while(abs(m_wheel)>=WHEEL_DELTA)
+            {
+                const int direction=m_wheel>0?1:-1;
+                if(lines==WHEEL_PAGESCROLL)
+                    SendMessage(EM_SCROLL,direction>0?SB_PAGEUP:SB_PAGEDOWN,0);
+                else if(lines)
+                    LineScroll(-direction*static_cast<int>((std::min)(lines,static_cast<UINT>(INT_MAX))));
+                m_wheel-=direction*WHEEL_DELTA;
+            }
+            SyncScroll();
+            return 0;
+        }
+        if(message==WM_ENABLE&&!w)m_wheel=0;
         const auto result = TextField::WindowProc(message, w, l);
         switch (message)
         {

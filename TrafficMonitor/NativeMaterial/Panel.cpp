@@ -4,7 +4,16 @@ namespace NativeMaterial
 {
     namespace {COLORREF Rgb(D2D1_COLOR_F c){return RGB(BYTE(c.r*255),BYTE(c.g*255),BYTE(c.b*255));}}
     BOOL Panel::Create(CWnd* parent,UINT id){return CreateEx(WS_EX_CONTROLPARENT,AfxRegisterWndClass(0),L"",WS_CHILD|WS_VISIBLE|WS_CLIPCHILDREN,CRect(0,0,100,100),parent,id);}
-    void Panel::SetAppearance(Appearance value){m_appearance=value;const auto c=Palette::Resolve(value);m_fill.DeleteObject();m_fill.CreateSolidBrush(c.highContrast?GetSysColor(COLOR_WINDOW):value==Appearance::Dark?RGB(27,33,41):RGB(255,255,255));Invalidate();}
+    void Panel::SetAppearance(Appearance value)
+    {
+        m_appearance=value;
+        const auto colors=Palette::Resolve(value);
+        m_surfaceColor=colors.highContrast?GetSysColor(COLOR_WINDOW)
+            :value==Appearance::Dark?RGB(27,33,41):RGB(255,255,255);
+        m_fill.DeleteObject();
+        m_fill.CreateSolidBrush(m_surfaceColor);
+        Invalidate();
+    }
     LRESULT Panel::WindowProc(UINT message,WPARAM w,LPARAM l)
     {
         if(message==WM_SETFONT){m_font=reinterpret_cast<HFONT>(w);return 0;}if(message==WM_GETFONT)return reinterpret_cast<LRESULT>(m_font);

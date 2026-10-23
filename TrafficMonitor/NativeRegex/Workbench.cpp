@@ -81,7 +81,7 @@ namespace
         NativeMaterial::Button saveNew,loadSaved,renameSaved,deleteSaved,recoverSaved,refreshSaved;
         RECT previousAnchor{};
         UINT dpi{96};int scroll{};bool loading{true},applying{},ready{};
-        CFont font;CBrush background;
+        CFont font,headingFont;CBrush background;
         NativeMaterial::TextField pattern,replacement;
         NativeMaterial::ScrollableTextField subject,output;
         NativeMaterial::ResultList results;
@@ -94,7 +94,7 @@ namespace
         std::array<int,4> offsets{};
         bool optionsVisible{};
         void Theme();void RevealFocus();
-        CStatic heading,engine,patternLabel,subjectLabel,replacementLabel,note,help;
+        CStatic heading,headingSecondary,engine,patternLabel,subjectLabel,replacementLabel,note,help;
         NativeMaterial::Button mode,caseButton,run,replace,split,apply,cancel,any,digit,word,group,start,end;
         Session session;Result last;
     };
@@ -132,6 +132,7 @@ namespace
         deleteSaved.Create(T(L"Delete",L"刪除"),r,this,DeleteSaved);
         recoverSaved.Create(T(L"Recover backup",L"還原備份"),r,this,RecoverSaved);
         heading.Create(T(L"Build a filter for this search",L"建立此搜尋專用篩選"),child,r,this);
+        headingSecondary.Create(L"",child,r,this);
         engine.Create(L"TrafficMonitor bounded NFA v1 | UTF-16 | ASCII case folding | leftmost-longest",child,r,this);
         patternLabel.Create(T(L"&Pattern / literal query",L"表示式／文字 (&P)"),child,r,this);
         pattern.CreateEx(0,L"EDIT",draft.query.c_str(),child|WS_TABSTOP|ES_AUTOHSCROLL,r,this,Pattern);pattern.SetLimitText(256);
@@ -177,7 +178,9 @@ namespace
         renameSaved.SetLabel(T(L"Rename",L"重新命名"));
         deleteSaved.SetLabel(T(L"Delete",L"刪除"));
         recoverSaved.SetLabel(T(L"Recover backup",L"還原備份"));
-        heading.SetWindowText(T(L"Build a filter for this search",L"建立此搜尋專用篩選"));
+        const bool bilingual=NativePreferences::Current().values.language==NativePreferences::Language::Bilingual;
+        heading.SetWindowText(bilingual?L"Build a filter for this search":T(L"Build a filter for this search",L"建立此搜尋專用篩選"));
+        headingSecondary.SetWindowText(bilingual?L"建立此搜尋專用篩選":L"");
         patternLabel.SetWindowText(T(L"&Pattern / literal query",L"表示式／文字 (&P)"));
         any.SetLabel(T(L"Any .",L"任意 ."));
         help.SetWindowText(T(L"Supported: literals, . [a-z] [^a] \\d \\w \\s ^ $ | (?:...) ? * +. Escapes: \\n \\r \\t and punctuation. Dot excludes CR/LF. Groups do not capture. No lazy/count quantifiers, lookaround, backreferences, Unicode properties, other flavors or debugger. Full RegexBuddy parity is unfinished.",L"支援：文字、. [a-z] [^a] \\d \\w \\s ^ $ | (?:...) ? * +。跳脫：\\n \\r \\t 及標點。點號不包括換行。群組不擷取；暫不支援惰性／次數量詞、環視、反向參照、Unicode 屬性、其他引擎或偵錯。完整 RegexBuddy 功能仍未完成。"));
@@ -219,6 +222,9 @@ namespace
         results.SetAppearance(appearance);
         viewport.SetAppearance(appearance);
         panel.SetAppearance(appearance);
+        for(auto* button:{&mode,&caseButton,&run,&replace,&split,&any,&digit,&word,&group,&start,&end,&saveNew,&loadSaved,&renameSaved,&deleteSaved,&recoverSaved,&refreshSaved})
+            button->SetSurfaceColor(panel.SurfaceColor());
+        savedList.SetSurfaceColor(panel.SurfaceColor());
     }
     LRESULT Workbench::OnPreferences(WPARAM generation,LPARAM)
     {
@@ -257,6 +263,10 @@ namespace
     {
         HFONT old=static_cast<HFONT>(font.Detach());font.CreateFont(-Px(14),0,0,0,FW_NORMAL,FALSE,FALSE,FALSE,DEFAULT_CHARSET,OUT_DEFAULT_PRECIS,CLIP_DEFAULT_PRECIS,CLEARTYPE_QUALITY,DEFAULT_PITCH,L"Segoe UI");
         ::EnumChildWindows(m_hWnd,[](HWND child,LPARAM value)->BOOL{::SendMessageW(child,WM_SETFONT,value,TRUE);return TRUE;},reinterpret_cast<LPARAM>(font.GetSafeHandle()));
+        HFONT oldHeading=static_cast<HFONT>(headingFont.Detach());
+        headingFont.CreateFont(-Px(24),0,0,0,FW_SEMIBOLD,FALSE,FALSE,FALSE,DEFAULT_CHARSET,OUT_DEFAULT_PRECIS,CLIP_DEFAULT_PRECIS,CLEARTYPE_QUALITY,DEFAULT_PITCH,L"Segoe UI");
+        heading.SetFont(&headingFont);
+        if(oldHeading)DeleteObject(oldHeading);
         if(old)DeleteObject(old);
     }
     void Workbench::RevealFocus()
@@ -281,15 +291,24 @@ namespace
         {
             CString value;control.GetWindowText(value);
             CRect text(0,0,Px((std::max)(1,available)),0);
+            CFont* previousFont=control.GetFont()?dc.SelectObject(control.GetFont()):nullptr;
             dc.DrawText(value,text,DT_CALCRECT|DT_WORDBREAK|DT_NOPREFIX);
+            if(previousFont)dc.SelectObject(previousFont);
             return (std::max)(minimum,MulDiv(text.Height(),96,dpi));
         };
         auto move=[&](CWnd& control,int x,int y,int w,int h){control.MoveWindow(Px(x),Px(y),Px(w),Px(h));};
         const bool compact=height<600;
         int y=compact?8:16;
         heading.ShowWindow(compact?SW_HIDE:SW_SHOW);
+        const bool bilingual=NativePreferences::Current().values.language==NativePreferences::Language::Bilingual;
+        headingSecondary.ShowWindow(!compact&&bilingual?SW_SHOW:SW_HIDE);
         int h=0;
-        if(!compact){h=measure(heading,width-40,24);move(heading,20,y,width-40,h);y+=h+12;}
+        if(!compact)
+        {
+            h=measure(heading,width-40,28);move(heading,20,y,width-40,h);y+=h+2;
+            if(bilingual){h=measure(headingSecondary,width-40,20);move(headingSecondary,20,y,width-40,h);y+=h;}
+            y+=10;
+        }
         h=measure(patternLabel,width-40,20);move(patternLabel,20,y,width-40,h);y+=h+6;
         const int buttonHeight=(std::max)(44,measure(options,100,20)+20);
         move(pattern,20,y,width-172,buttonHeight);move(options,width-140,y,120,buttonHeight);y+=buttonHeight+10;

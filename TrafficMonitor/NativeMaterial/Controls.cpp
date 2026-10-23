@@ -289,7 +289,11 @@ namespace NativeMaterial
         if(SUCCEEDED(result))result=target->BindDC(dc,bounds);
         if(SUCCEEDED(result))
         {
-            target->BeginDraw();target->Clear(Palette::Resolve(m_appearance).surface);
+            target->BeginDraw();
+            const auto surface=m_customSurface
+                ?D2D1::ColorF(GetRValue(m_surfaceColor)/255.f,GetGValue(m_surfaceColor)/255.f,GetBValue(m_surfaceColor)/255.f)
+                :Palette::Resolve(m_appearance).surface;
+            target->Clear(surface);
             Draw(target.Get());result=target->EndDraw();
         }
         return result;
