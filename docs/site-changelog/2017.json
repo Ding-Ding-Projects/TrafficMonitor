@@ -1,0 +1,92 @@
+{
+  "entries": [
+    {
+      "sha": "7f29804208ea55ca336b1bee1a647fb98dce03b3",
+      "date": "2017-07-30T10:51:17+08:00",
+      "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/7f29804208ea55ca336b1bee1a647fb98dce03b3",
+      "summary": "Create the initial TrafficMonitor source tree.",
+      "category": "maintenance",
+      "lineage": "upstream",
+      "originalSubject": "Initial commit",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "885336cf8c3b962d6e3d7a2540f0ec3baa56e24c",
+      "date": "2017-07-30T19:45:48+08:00",
+      "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/885336cf8c3b962d6e3d7a2540f0ec3baa56e24c",
+      "summary": "Record release version 1.63.",
+      "category": "release",
+      "lineage": "upstream",
+      "originalSubject": "版本1.63",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "7d2aeff5a1e1a9d20b007794444db00a4851dc84",
+      "date": "2017-07-31T18:11:07+08:00",
+      "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/7d2aeff5a1e1a9d20b007794444db00a4851dc84",
+      "summary": "Set version 1.64 and use double-buffered taskbar rendering to prevent occasional colored blocks.",
+      "category": "fix",
+      "lineage": "upstream",
+      "originalSubject": "版本V1.64，任务栏窗口改用双缓冲绘图，解决了任务栏窗口有时会出现难道的色块的问题。",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "b8bab3020f95bac17f91a9753fa5f2d0caf4aabc",
+      "date": "2017-09-20T22:23:29+08:00",
+      "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/b8bab3020f95bac17f91a9753fa5f2d0caf4aabc",
+      "summary": "Record release version 1.64.",
+      "category": "release",
+      "lineage": "upstream",
+      "originalSubject": "V1.64",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "4044ba9f7f671e7130fd75fb6b44dbbe6260ee04",
+      "date": "2017-11-16T21:20:34+08:00",
+      "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/4044ba9f7f671e7130fd75fb6b44dbbe6260ee04",
+      "summary": "Release version 1.65: fix a duplicate-instance warning after the Windows 10 Fall Creators Update, add display-text settings, size the taskbar window to its text, and allow the floating window to hide during full-screen use.",
+      "category": "feature",
+      "lineage": "upstream",
+      "originalSubject": "V1.65：修正了更新Win10秋季创意者后开机启动时会弹出“已经有一个程序正在运行”的问题；增加了选项设置对话框，增加了显示文本设置；任务栏宽度不再固定，而是根据文本宽度自动调整；增加了全屏时隐藏悬浮窗的选项；其他细节方面的改进。",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "2b3e7837709dea59b6b2d61cebb4093ebdc5f643",
+      "date": "2017-12-20T23:17:46+08:00",
+      "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/2b3e7837709dea59b6b2d61cebb4093ebdc5f643",
+      "summary": "Refresh hover tips in real time, improve duplicate-instance handling, and improve taskbar embedding behavior.",
+      "category": "fix",
+      "lineage": "upstream",
+      "originalSubject": "新增鼠标悬浮提示会实时更新；优化关于启动时弹出“已经有一个程序正在运行”的信息的逻辑；优化了无法嵌入任务栏时的处理；",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "1a9716d458078e9a023508bdd82461bb0386ab03",
+      "date": "2017-12-28T22:17:25+08:00",
+      "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/1a9716d458078e9a023508bdd82461bb0386ab03",
+      "summary": "Add an INI setting for duplicate-instance warnings, disabled by default on Windows 10 after the Fall Creators Update.",
+      "category": "feature",
+      "lineage": "upstream",
+      "originalSubject": "增加通过ini文件设置是否允许程序重复启动时的提示信息，在Win10秋季创意者更新以后的版本中默认禁止这个提示信息。",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "63b17ec8e1bbc2ad3c333c9720ed5af5745a1476",
+      "date": "2017-12-31T17:58:08+08:00",
+      "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/63b17ec8e1bbc2ad3c333c9720ed5af5745a1476",
+      "summary": "Refresh hover tips in real time, improve duplicate-instance handling, retry failed taskbar embedding automatically, and add a chart indicator to the traffic-history dialog.",
+      "category": "feature",
+      "lineage": "upstream",
+      "originalSubject": "新增鼠标提示会实时更新；优化关于启动时弹出“已经有一个程序正在运行”的处理；增加无法嵌入任务栏时自动重试的处理；历史流量统计对话框中增加图形指示；",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    }
+  ]
+}

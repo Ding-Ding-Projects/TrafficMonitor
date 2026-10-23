@@ -4,287 +4,287 @@
       "sha": "04a9a136ae800c4b1c547cf09c1bf3688ac0265a",
       "date": "2026-10-23T00:41:21-04:00",
       "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/04a9a136ae800c4b1c547cf09c1bf3688ac0265a",
-      "summary": "Allow the portable build companion to be built independently.",
       "category": "feature",
       "lineage": "fork",
-      "summaryMethod": "translated-message",
       "verificationStatus": "not-asserted",
-      "originalSubject": "Mark portable build companion independently applicable"
+      "originalSubject": "Mark portable build companion independently applicable",
+      "originalMessage": "Mark portable build companion independently applicable\n\nThe scripts keep their repository duties; the build GUI must earn its own action, child-status and cancellation evidence. One checkbox cannot do two jobs while wearing a different hat.\n\n腳本照做腳本，建置介面要自己交出操作、退出狀態同取消證據。一格剔號唔可以換頂帽就當做齊兩份功課。\n\nCo-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>\n",
+      "summaryMethod": "verbatim-bilingual"
     },
     {
       "sha": "7985876128d78a4fc7d75dad6a8ba7157bb821ca",
       "date": "2026-10-23T00:41:36-04:00",
       "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/7985876128d78a4fc7d75dad6a8ba7157bb821ca",
-      "summary": "Check the activation results for managed release pages.",
       "category": "fix",
       "lineage": "fork",
-      "summaryMethod": "translated-message",
       "verificationStatus": "not-asserted",
-      "originalSubject": "Check managed release-page activation results"
+      "originalSubject": "Check managed release-page activation results",
+      "originalMessage": "Check managed release-page activation results\n\nInitialize COM on the update worker and report browser activation failure through the existing localized warning. Keep the checking latch around managed requests too: one browser trip is enough.\n\n更新工作線先初始化 COM，開唔到發佈頁會顯示現有本地化提示，唔再靜靜地冇咗件事。\n\nCo-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>\n",
+      "summaryMethod": "verbatim-bilingual"
     },
     {
       "sha": "5b6066feb4195037eef5f3562e9f133d0fcf8d8a",
       "date": "2026-10-23T00:38:34-04:00",
       "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/5b6066feb4195037eef5f3562e9f133d0fcf8d8a",
-      "summary": "Keep installed update checks on the fork's release channel.",
       "category": "fix",
       "lineage": "fork",
-      "summaryMethod": "translated-message",
       "verificationStatus": "not-asserted",
-      "originalSubject": "Keep installed update checks on the fork release channel"
+      "originalSubject": "Keep installed update checks on the fork release channel",
+      "originalMessage": "Keep installed update checks on the fork release channel\n\nManaged installations stop consulting the upstream portable archive feed. Manual checks open this fork release page; automatic updater UI remains unfinished. Portable mode keeps its existing route. The installer should not send its passenger to the wrong platform.\n\n安裝版唔再去上游便攜版搵更新，手動查詢返本分支發佈頁，免得搭錯月台。自動更新介面仍待完成。\n\nCo-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>\n",
+      "summaryMethod": "verbatim-bilingual"
     },
     {
       "sha": "ab993673421d3b1d3a88f57cabbe3c7f26973b86",
       "date": "2026-10-23T00:37:28-04:00",
       "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/ab993673421d3b1d3a88f57cabbe3c7f26973b86",
-      "summary": "Specify context-menu search behavior and replace the current screenshot.",
       "category": "documentation",
       "lineage": "fork",
-      "summaryMethod": "translated-message",
       "verificationStatus": "not-asserted",
-      "originalSubject": "Specify context-menu search and current screenshot replacement"
+      "originalSubject": "Specify context-menu search and current screenshot replacement",
+      "originalMessage": "Specify context-menu search and current screenshot replacement\n\nEvery context menu gets its own search and complete regex workbench. Historical pictures keep their dates; new controls must earn new screenshots instead of borrowing an old photograph.\n\n每個右鍵選單都要有搜尋同完整正則工作台。舊相留低做歷史，新介面要影真相，唔好借舊相扮新裝。\n\nCo-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>\n",
+      "summaryMethod": "verbatim-bilingual"
     },
     {
       "sha": "220fa9ac0c569a3bd755966a3310b430d7eba5d0",
       "date": "2026-10-23T00:37:05-04:00",
       "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/220fa9ac0c569a3bd755966a3310b430d7eba5d0",
-      "summary": "Document the complete applicability inventory for required features.",
       "category": "documentation",
       "lineage": "fork",
-      "summaryMethod": "translated-message",
       "verificationStatus": "not-asserted",
-      "originalSubject": "Document complete required-feature applicability inventory"
+      "originalSubject": "Document complete required-feature applicability inventory",
+      "originalMessage": "Document complete required-feature applicability inventory\n\nKeep all 110 requirements on the map, including the ones still waiting for their boots. Record independent surfaces, exact exclusions and missing proof without calling a list a finished product.\n\n完整列出110項要求、各個介面、適用邊界同未完成證據。清單負責照路，唔會扮成已經起好嘅大樓。\n\nCo-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>\n",
+      "summaryMethod": "verbatim-bilingual"
     },
     {
       "sha": "67079f1372be7ff83715e091b2b4f4550064981b",
       "date": "2026-10-23T00:36:09-04:00",
       "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/67079f1372be7ff83715e091b2b4f4550064981b",
-      "summary": "Make the primary README English-first.",
       "category": "documentation",
       "lineage": "fork",
-      "summaryMethod": "translated-message",
       "verificationStatus": "not-asserted",
-      "originalSubject": "Make the primary README English first"
+      "originalSubject": "Make the primary README English first",
+      "originalMessage": "Make the primary README English first\n\nKeep the Chinese guide one click away and retain the established English path. The language selector now sends readers to the right table.\n\n主頁先講英文，中文指南繼續一按就到，語言連結今次坐返啱枱。\n\nCo-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>\n",
+      "summaryMethod": "verbatim-bilingual"
     },
     {
       "sha": "47ace8a91966c818d9180ae4a3a0b1c6790eb4c2",
       "date": "2026-10-23T00:22:46-04:00",
       "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/47ace8a91966c818d9180ae4a3a0b1c6790eb4c2",
-      "summary": "Record verified Explorer taskbar attachment and update behavior.",
       "category": "documentation",
       "lineage": "fork",
-      "summaryMethod": "translated-message",
       "verificationStatus": "not-asserted",
-      "originalSubject": "Record verified Explorer taskbar and update behavior"
+      "originalSubject": "Record verified Explorer taskbar and update behavior",
+      "originalMessage": "Record verified Explorer taskbar and update behavior\n\nThe installed monitor is attached to Explorer with its main window hidden. Real updates preserve saved configuration and disabled startup, and uninstall removes owned startup while retaining data.\n\n工作列已附加，主視窗繼續收埋；更新保留設定，移除亦唔亂刪資料。\n\nCo-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>\n",
+      "summaryMethod": "verbatim-bilingual"
     },
     {
       "sha": "c1647e585e7975c9a2aae14677615eb2ef210949",
       "date": "2026-10-23T00:17:38-04:00",
       "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/c1647e585e7975c9a2aae14677615eb2ef210949",
-      "summary": "Enforce publication checks before creating a release.",
       "category": "maintenance",
       "lineage": "fork",
-      "summaryMethod": "translated-message",
       "verificationStatus": "not-asserted",
-      "originalSubject": "Enforce publication checks before release"
+      "originalSubject": "Enforce publication checks before release",
+      "originalMessage": "Enforce publication checks before release\n\nUse the same immutable external scanner for local hooks and hosted checks. Keep protected rule input out of public source, and block packaging until the check passes.\n\n本機同雲端用同一版檢查器，規則資料唔入公開來源；檢查通過先出安裝包。\n\nCo-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>\n",
+      "summaryMethod": "verbatim-bilingual"
     },
     {
       "sha": "5b859ee863e9334ff0c16465a0202ae6c12687d9",
       "date": "2026-10-23T00:11:50-04:00",
       "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/5b859ee863e9334ff0c16465a0202ae6c12687d9",
-      "summary": "Add a trusted local scanner entry point.",
       "category": "feature",
       "lineage": "fork",
-      "summaryMethod": "translated-message",
       "verificationStatus": "not-asserted",
-      "originalSubject": "Add trusted local scanner entrypoint"
+      "originalSubject": "Add trusted local scanner entrypoint",
+      "originalMessage": "Add trusted local scanner entrypoint\n\nKeep protected rule input in memory and reviewed policy outside the candidate repository.\n\n規則喺記憶體處理，審核記錄唔放候選來源入面。\n\nCo-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>\n",
+      "summaryMethod": "verbatim-bilingual"
     },
     {
       "sha": "0c652ebab9b7dff5c012910a62137a2d04feeb75",
       "date": "2026-10-23T00:11:14-04:00",
       "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/0c652ebab9b7dff5c012910a62137a2d04feeb75",
-      "summary": "Classify reviewed natural-language collisions accurately.",
       "category": "fix",
       "lineage": "fork",
-      "summaryMethod": "translated-message",
       "verificationStatus": "not-asserted",
-      "originalSubject": "Classify reviewed natural-language collisions accurately"
+      "originalSubject": "Classify reviewed natural-language collisions accurately",
+      "originalMessage": "Classify reviewed natural-language collisions accurately\n\nKeep inherited translations intact with exact line hashes; ordinary French is not a source-code identifier.\n\n法文原文保留，逐行雜湊審核，唔亂改翻譯。\n\nCo-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>\n",
+      "summaryMethod": "verbatim-bilingual"
     },
     {
       "sha": "02a61f1c56d6cc37d3c94399f74e1205ead661a9",
       "date": "2026-10-23T00:10:22-04:00",
       "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/02a61f1c56d6cc37d3c94399f74e1205ead661a9",
-      "summary": "Add a neutral publication scanner with reviewed legacy decoding.",
       "category": "feature",
       "lineage": "fork",
-      "summaryMethod": "translated-message",
       "verificationStatus": "not-asserted",
-      "originalSubject": "Add neutral publication scanner with reviewed legacy decoding"
+      "originalSubject": "Add neutral publication scanner with reviewed legacy decoding",
+      "originalMessage": "Add neutral publication scanner with reviewed legacy decoding\n\nValidate supported bitmap structure and exact reviewed legacy source bytes without shipping private rule data.\n\n舊編碼逐個雜湊核對，規則資料留喺受保護位置。\n\nCo-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>\n",
+      "summaryMethod": "verbatim-bilingual"
     },
     {
       "sha": "365402308d47c7a140bc03ab9a07116d3154e36d",
       "date": "2026-10-23T00:08:47-04:00",
       "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/365402308d47c7a140bc03ab9a07116d3154e36d",
-      "summary": "Record installed runtime and startup verification.",
       "category": "documentation",
       "lineage": "fork",
-      "summaryMethod": "translated-message",
       "verificationStatus": "not-asserted",
-      "originalSubject": "Record installed runtime and startup verification"
+      "originalSubject": "Record installed runtime and startup verification",
+      "originalMessage": "Record installed runtime and startup verification\n\nThe installer now brings its runtime files and actually receives its setup callback. Keep Explorer attachment and update acceptance explicitly pending.\n\n安裝包帶齊執行庫，回呼亦收到；未驗證嘅工作列附加同更新繼續列明。\n\nCo-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>\n",
+      "summaryMethod": "verbatim-bilingual"
     },
     {
       "sha": "6687d76d1dc2cfced6e7b2e145f2c39e43eb55a8",
       "date": "2026-10-22T23:59:10-04:00",
       "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/6687d76d1dc2cfced6e7b2e145f2c39e43eb55a8",
-      "summary": "Reject packages missing exact native Squirrel awareness metadata.",
       "category": "fix",
       "lineage": "fork",
-      "summaryMethod": "translated-message",
       "verificationStatus": "not-asserted",
-      "originalSubject": "Reject packages lacking exact native Squirrel awareness metadata"
+      "originalSubject": "Reject packages lacking exact native Squirrel awareness metadata",
+      "originalMessage": "Reject packages lacking exact native Squirrel awareness metadata\n\nCheck the actual version.dll API resource and the English 040904B0 SquirrelAwareVersion key within Squirrel 2.0.1's 4096-byte detection bound before packaging.\n\n識唔識安裝回呼，直接問原生資源，唔再靠估。\n\nCo-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>\n",
+      "summaryMethod": "verbatim-bilingual"
     },
     {
       "sha": "b54506269e63e620bb97d9c3e471cd0994564f1d",
       "date": "2026-10-22T23:59:14-04:00",
       "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/b54506269e63e620bb97d9c3e471cd0994564f1d",
-      "summary": "Expose installer awareness to the pinned Squirrel detector.",
       "category": "maintenance",
       "lineage": "fork",
-      "summaryMethod": "translated-message",
       "verificationStatus": "not-asserted",
-      "originalSubject": "Expose installer awareness to pinned Squirrel detector"
+      "originalSubject": "Expose installer awareness to pinned Squirrel detector",
+      "originalMessage": "Expose installer awareness to pinned Squirrel detector\n\n安裝器只睇指定英文版本欄，補返正確位置先會收到回呼。\n\nCo-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>\n",
+      "summaryMethod": "verbatim-bilingual"
     },
     {
       "sha": "166bc42c09e0c88b61f4d7019c7751a99b725d3c",
       "date": "2026-10-22T23:58:49-04:00",
       "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/166bc42c09e0c88b61f4d7019c7751a99b725d3c",
-      "summary": "Match the pinned Squirrel native awareness resource lookup.",
       "category": "fix",
       "lineage": "fork",
-      "summaryMethod": "translated-message",
       "verificationStatus": "not-asserted",
-      "originalSubject": "Match pinned Squirrel native awareness resource lookup"
+      "originalSubject": "Match pinned Squirrel native awareness resource lookup",
+      "originalMessage": "Match pinned Squirrel native awareness resource lookup\n\nAdd the fixed English version-resource block required by Squirrel.Windows 2.0.1 while retaining Chinese metadata. Add a binary probe for its exact key lookup and 4096-byte bound; the installer can now find the doorbell.\n\n保留中文版本資料，同時加入 Squirrel.Windows 2.0.1 固定查詢嘅英文區塊。檢查真實執行檔鍵值同 4096 位元組上限，安裝器終於搵到門鐘。\n\nCo-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>\n",
+      "summaryMethod": "verbatim-bilingual"
     },
     {
       "sha": "d35d6646926f6babbe99c58f046becf03364c229",
       "date": "2026-10-22T23:51:30-04:00",
       "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/d35d6646926f6babbe99c58f046becf03364c229",
-      "summary": "Wait for the Squirrel packaging process to finish.",
       "category": "fix",
       "lineage": "fork",
-      "summaryMethod": "translated-message",
       "verificationStatus": "not-asserted",
-      "originalSubject": "Wait for the Squirrel packaging process to finish"
+      "originalSubject": "Wait for the Squirrel packaging process to finish",
+      "originalMessage": "Wait for the Squirrel packaging process to finish\n\nWindows PowerShell does not synchronously wait for GUI-subsystem executables. Wait on the actual Squirrel process and inspect its exit status before checking outputs.\n\n安裝包未執完就驗收，梗係乜都未有。等真程序完成先計數。\n\nCo-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>\n",
+      "summaryMethod": "verbatim-bilingual"
     },
     {
       "sha": "bd48279ff703870b4002444e74c64eb8d22b114a",
       "date": "2026-10-22T23:50:03-04:00",
       "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/bd48279ff703870b4002444e74c64eb8d22b114a",
-      "summary": "Preserve stable shortcuts during updates.",
       "category": "fix",
       "lineage": "fork",
-      "summaryMethod": "translated-message",
       "verificationStatus": "not-asserted",
-      "originalSubject": "Preserve stable shortcuts during updates"
+      "originalSubject": "Preserve stable shortcuts during updates",
+      "originalMessage": "Preserve stable shortcuts during updates\n\n新版唔需要重建穩定捷徑，用戶刪咗嘅亦唔會偷偷返嚟。\n\nCo-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>\n",
+      "summaryMethod": "verbatim-bilingual"
     },
     {
       "sha": "5f1beef6c1e83238b2bc233dd3112b383796daa3",
       "date": "2026-10-22T23:49:32-04:00",
       "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/5f1beef6c1e83238b2bc233dd3112b383796daa3",
-      "summary": "Preserve stable shortcuts without unsupported updater flags.",
       "category": "fix",
       "lineage": "fork",
-      "summaryMethod": "translated-message",
       "verificationStatus": "not-asserted",
-      "originalSubject": "Preserve stable shortcuts without unsupported updater flags"
+      "originalSubject": "Preserve stable shortcuts without unsupported updater flags",
+      "originalMessage": "Preserve stable shortcuts without unsupported updater flags\n\nSquirrel 2.0.1 has no updateOnly switch. Existing shortcuts already use the stable launcher, so update callbacks leave them and user deletions alone.\n\nSquirrel 2.0.1 冇 updateOnly 選項。捷徑本身已用固定啟動器，更新唔使幫用戶執返佢刪咗嘅嘢。\n\nCo-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>\n",
+      "summaryMethod": "verbatim-bilingual"
     },
     {
       "sha": "c946b2f4419454c789c469ab682ebecd7c30773b",
       "date": "2026-10-22T23:47:18-04:00",
       "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/c946b2f4419454c789c469ab682ebecd7c30773b",
-      "summary": "Complete installer shortcut lifecycle and startup readback.",
       "category": "feature",
       "lineage": "fork",
-      "summaryMethod": "translated-message",
       "verificationStatus": "not-asserted",
-      "originalSubject": "Complete installer shortcut lifecycle and startup readback"
+      "originalSubject": "Complete installer shortcut lifecycle and startup readback",
+      "originalMessage": "Complete installer shortcut lifecycle and startup readback\n\n捷徑跟安裝版本行，開機設定寫完再讀返確認。\n\nCo-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>\n",
+      "summaryMethod": "verbatim-bilingual"
     },
     {
       "sha": "edb38585c1b6181f8c90289a81da8183a7080eb1",
       "date": "2026-10-22T23:46:33-04:00",
       "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/edb38585c1b6181f8c90289a81da8183a7080eb1",
-      "summary": "Record publication timing and resolve a native security module.",
       "category": "maintenance",
       "lineage": "fork",
-      "summaryMethod": "translated-message",
       "verificationStatus": "not-asserted",
-      "originalSubject": "Record publication timing and resolve native security module"
+      "originalSubject": "Record publication timing and resolve native security module",
+      "originalMessage": "Record publication timing and resolve native security module\n\nUse the Windows PowerShell module shipped with its executable. Measure workflow timing after release creation and source verification, so the stopwatch does not stop at the loading dock.\n\n計時要等發佈完成，唔好行到門口就收工。\n\nCo-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>\n",
+      "summaryMethod": "verbatim-bilingual"
     },
     {
       "sha": "5b952e5ce66c16cd1421fd23ad96b20e725b6fe2",
       "date": "2026-10-22T23:46:47-04:00",
       "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/5b952e5ce66c16cd1421fd23ad96b20e725b6fe2",
-      "summary": "Manage Squirrel shortcuts and verify startup persistence.",
       "category": "feature",
       "lineage": "fork",
-      "summaryMethod": "translated-message",
       "verificationStatus": "not-asserted",
-      "originalSubject": "Manage Squirrel shortcuts and verify startup persistence"
+      "originalSubject": "Manage Squirrel shortcuts and verify startup persistence",
+      "originalMessage": "Manage Squirrel shortcuts and verify startup persistence\n\nCreate shortcuts on install, refresh only existing shortcuts on update, and remove package shortcuts on uninstall. Bound the hidden updater child and preserve its real exit result; shortcuts no longer wait forever at the door.\n\n安裝建立捷徑，更新只整理現有捷徑，解除安裝移除套件捷徑。更新器有時限同真實結果，唔會喺門口等到天光。\n\nCo-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>\n",
+      "summaryMethod": "verbatim-bilingual"
     },
     {
       "sha": "563419e873e082116b094ac6718da3457a16a7f6",
       "date": "2026-10-22T23:46:21-04:00",
       "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/563419e873e082116b094ac6718da3457a16a7f6",
-      "summary": "Integrate the native installer build pipeline.",
       "category": "maintenance",
       "lineage": "fork",
-      "summaryMethod": "translated-message",
       "verificationStatus": "not-asserted",
-      "originalSubject": "Integrate native installer build pipeline"
+      "originalSubject": "Integrate native installer build pipeline",
+      "originalMessage": "Integrate native installer build pipeline\n\n原生編譯同安裝包有正式入口，未驗證嘅步驟繼續列明。\n\nCo-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>\n",
+      "summaryMethod": "verbatim-bilingual"
     },
     {
       "sha": "4b877d8c061a0b6aeeacb473eba93c6614cd6394",
       "date": "2026-10-22T23:46:21-04:00",
       "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/4b877d8c061a0b6aeeacb473eba93c6614cd6394",
-      "summary": "Integrate the installed startup lifecycle.",
       "category": "maintenance",
       "lineage": "fork",
-      "summaryMethod": "translated-message",
       "verificationStatus": "not-asserted",
-      "originalSubject": "Integrate installed startup lifecycle"
+      "originalSubject": "Integrate installed startup lifecycle",
+      "originalMessage": "Integrate installed startup lifecycle\n\n安裝回呼先處理，主視窗唔搶先出場。\n\nCo-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>\n",
+      "summaryMethod": "verbatim-bilingual"
     },
     {
       "sha": "695af1c2517754d9c413eed2432f9710f434ec47",
       "date": "2026-10-22T23:45:26-04:00",
       "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/695af1c2517754d9c413eed2432f9710f434ec47",
-      "summary": "Handle the native installer lifecycle and stable startup.",
       "category": "feature",
       "lineage": "fork",
-      "summaryMethod": "translated-message",
       "verificationStatus": "not-asserted",
-      "originalSubject": "Handle native installer lifecycle and stable startup"
+      "originalSubject": "Handle native installer lifecycle and stable startup",
+      "originalMessage": "Handle native installer lifecycle and stable startup\n\nKeep installed settings outside version folders and preserve startup choices across updates. The launcher now stays put while versions move house.\n\n安裝設定留喺版本目錄之外，更新唔再幫用戶擅自改開機選擇。版本搬屋，啟動器唔使跟住兜圈。\n\nCo-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>\n",
+      "summaryMethod": "verbatim-bilingual"
     },
     {
       "sha": "f195afdee361b647feec7e2215acb60ad864c7bb",
       "date": "2026-10-22T23:45:06-04:00",
       "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/f195afdee361b647feec7e2215acb60ad864c7bb",
-      "summary": "Build native x64 binaries and package genuine Squirrel releases.",
       "category": "release",
       "lineage": "fork",
-      "summaryMethod": "translated-message",
       "verificationStatus": "not-asserted",
-      "originalSubject": "Build native x64 and package genuine Squirrel releases"
+      "originalSubject": "Build native x64 and package genuine Squirrel releases",
+      "originalMessage": "Build native x64 and package genuine Squirrel releases\n\nGive the native build a front door and let Squirrel carry the runtime luggage. Outputs are source-bound; native installation acceptance remains unverified.\n\n原生編譯有正門，執行庫行李交畀安裝包。真正安裝驗證仍然未完成，唔會靠個檔名扮成功。\n\nCo-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>\n",
+      "summaryMethod": "verbatim-bilingual"
     },
     {
       "sha": "72d20253e8d295f2cabe8764d19c62c4b0a7131f",
       "date": "2026-10-22T23:41:52-04:00",
       "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/72d20253e8d295f2cabe8764d19c62c4b0a7131f",
-      "summary": "Document the installer-first delivery sequence.",
       "category": "documentation",
       "lineage": "fork",
-      "summaryMethod": "translated-message",
       "verificationStatus": "not-asserted",
-      "originalSubject": "Document installer-first delivery sequence"
+      "originalSubject": "Document installer-first delivery sequence",
+      "originalMessage": "Document installer-first delivery sequence\n\nKeep the release foundation ahead of the interface redesign; the checklist records evidence rather than optimism.\n\n先整好安裝同發佈，再執介面；清單記錄實際進度，唔靠估。\n\nCo-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>\n",
+      "summaryMethod": "verbatim-bilingual"
     }
   ]
 }
