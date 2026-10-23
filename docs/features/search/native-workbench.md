@@ -1,4 +1,4 @@
-# Native search pattern workbench
+﻿# Native search pattern workbench
 
 Choose **Regex** immediately beside the native workspace, Settings or context-menu search. Each dialog or menu level owns its own query, literal/regex mode, ASCII case option, validation and accepted rows. Plain text is the default. The editor is positioned beside the originating search and returns focus there. It is an owned modeless native tool window: the originating search remains usable, reopening focuses the existing editor, and moving the search reanchors the editor within the monitor work area.
 
@@ -46,7 +46,11 @@ The current corpus is fetched at Apply and compared again on completion. No engi
 execution bounds changed. The existing updater visible-window check continues to defer restart
 while this owned tool window is present; the updater backend was not modified.
 
-Version 1.0.9008 compilation/package evidence will be recorded separately. Earlier 1.0.9006
+Version 1.0.9008 compilation/package evidence is recorded separately. Earlier 1.0.9006
 receipts remain bound to their original source and do not verify the modeless continuation.
 No tests, reviews, audits, runtime interaction or screenshots ran. Modeless runtime acceptance,
 all focus/keyboard/accessibility/DPI/theme/language combinations and full parity remain unfinished.
+
+## Modeless package production result
+
+Exact root `build-installer.bat -Version 1.0.9008`, including `build.bat`, passed at `97a3cd2fb1866adb9bb412c8a7a421acf466ac1b` with exit 0, two linker warnings, zero errors and 9.18 seconds native compilation. Hashes and sizes are in `docs/features/search/native-modeless-build-receipt.json`. This is a local candidate, not an installed or published release. Later documentation commits do not relabel the producer.

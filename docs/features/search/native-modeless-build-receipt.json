@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "97a3cd2fb1866adb9bb412c8a7a421acf466ac1b",
+  "command": "build-installer.bat -Version 1.0.9008",
+  "includedBuildEntrypoint": "build.bat",
+  "exitCode": 0,
+  "configuration": "Release (lite)|x64",
+  "buildWarnings": 2,
+  "buildErrors": 0,
+  "buildElapsed": "00:00:09.18",
+  "version": "1.0.9008",
+  "published": false,
+  "installed": false,
+  "verification": "No tests, reviews, audits, runtime interaction or screenshots were performed. Modeless runtime acceptance and full parity remain unfinished.",
+  "artifacts": [
+    {
+      "path": "Bin/x64/Release (lite)/TrafficMonitor.exe",
+      "size": 2256384,
+      "sha256": "ecd31755c40e97b22b5e8c17b97b1d23dfc09f8b946cff57052d6c7e5387a2c7"
+    },
+    {
+      "path": "artifacts/releases/Setup.exe",
+      "size": 8442880,
+      "sha256": "f51b9c392d4bb59d592c154bf1935210bfbe8c758eb9c9d0ca1416da2e56e3d9"
+    },
+    {
+      "path": "artifacts/releases/TrafficMonitor-1.0.9008-full.nupkg",
+      "size": 7562471,
+      "sha256": "0f181ae0336ea412ac2273e2c555fce2f7e35ef888c1e491124cdbffa930bebc"
+    },
+    {
+      "path": "artifacts/releases/RELEASES",
+      "size": 254,
+      "sha256": "b95206915229ac5eabf4e3856cbc80752a359511792e49a9b76438a616da7d50"
+    },
+    {
+      "path": "artifacts/releases/SHA256SUMS.txt",
+      "size": 460,
+      "sha256": "eb2fb5149a7f7f5d25d83f6f06f31c438ae2e8d83e7749dae16025ccc59bf284"
+    }
+  ]
+}

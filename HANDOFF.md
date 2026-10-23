@@ -277,4 +277,8 @@ task owns the next remote preservation and main integration.
 
 ## Owned modeless regex continuation
 
-The editor lifetime is now caller-owned and modeless for workspace, Settings and each menu level. Owner edits/navigation close stale drafts; Apply validates the current corpus and rechecks it before transferring options. Menu keyboard translation and owned-group activation preserve its HMENU identity routing. The bounded engine and updater backend are unchanged. Native package 1.0.9008 is pending; older package receipts remain historical. No tests, review, audits, runtime interaction or screenshots ran. Full parity, localization/accessibility and modeless runtime acceptance remain unfinished.
+The editor lifetime is now caller-owned and modeless for workspace, Settings and each menu level. Owner edits/navigation close stale drafts; Apply validates the current corpus and rechecks it before transferring options. Menu keyboard translation and owned-group activation preserve its HMENU identity routing. The bounded engine and updater backend are unchanged. Native package 1.0.9008 has passed compilation and packaging; older package receipts remain historical. No tests, review, audits, runtime interaction or screenshots ran. Full parity, localization/accessibility and modeless runtime acceptance remain unfinished.
+
+## Modeless package production result
+
+Exact root `build-installer.bat -Version 1.0.9008`, including `build.bat`, passed at `97a3cd2fb1866adb9bb412c8a7a421acf466ac1b` with exit 0, two linker warnings, zero errors and 9.18 seconds native compilation. Hashes and sizes are in `docs/features/search/native-modeless-build-receipt.json`. This is a local candidate, not an installed or published release. Later documentation commits do not relabel the producer.

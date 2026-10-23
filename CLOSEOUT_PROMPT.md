@@ -96,4 +96,8 @@ task owns the next remote preservation and main integration.
 
 ## Current modeless regex continuation
 
-Source now replaces the modal decision with a caller-owned modeless native tool window across the three existing owners. Keep owner lifetime cancellation, fresh corpus validation, HMENU routing and updater restart deferral. The engine and updater backend are unchanged. Exact package 1.0.9008 is pending; prior 1.0.9006 remains bound to source 265f048da7cb7534cb151519d003c67218a73048. No tests, reviews, runtime quality checks or screenshots are authorized in this pass. Parent owns integration, push, release and accepted installation. Runtime acceptance, all display/accessibility modes and full RegexBuddy parity remain unfinished.
+Source now replaces the modal decision with a caller-owned modeless native tool window across the three existing owners. Keep owner lifetime cancellation, fresh corpus validation, HMENU routing and updater restart deferral. The engine and updater backend are unchanged. Exact package 1.0.9008 has passed compilation and packaging; prior 1.0.9006 remains bound to source 265f048da7cb7534cb151519d003c67218a73048. No tests, reviews, runtime quality checks or screenshots are authorized in this pass. Parent owns integration, push, release and accepted installation. Runtime acceptance, all display/accessibility modes and full RegexBuddy parity remain unfinished.
+
+## Modeless package production result
+
+Exact root `build-installer.bat -Version 1.0.9008`, including `build.bat`, passed at `97a3cd2fb1866adb9bb412c8a7a421acf466ac1b` with exit 0, two linker warnings, zero errors and 9.18 seconds native compilation. Hashes and sizes are in `docs/features/search/native-modeless-build-receipt.json`. This is a local candidate, not an installed or published release. Later documentation commits do not relabel the producer.
