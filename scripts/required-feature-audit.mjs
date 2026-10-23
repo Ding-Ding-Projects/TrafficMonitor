@@ -43,7 +43,7 @@ export function decodePng(bytes) {
       if(!width||!height||width>8192||height>8192||!depths[color]?.includes(depth)||body[10]!==0||body[11]!==0||interlace>1)fail();
       header={width,height,depth,color,interlace,channels:({0:1,2:3,3:1,4:2,6:4})[color]};
     }else if(kind==='PLTE'){
-      if(palette||idatStarted||header.color===0||header.color===4||!length||length%3||length>768||(header.color===3&&length/3>2**header.depth))fail();
+      if(palette||transparency||idatStarted||header.color===0||header.color===4||!length||length%3||length>768||(header.color===3&&length/3>2**header.depth))fail();
       palette=body;
     }else if(kind==='tRNS'){
       if(transparency||idatStarted||header.color===4||header.color===6||(header.color===0&&length!==2)||(header.color===2&&length!==6)||(header.color===3&&(!palette||!length||length>palette.length/3)))fail();

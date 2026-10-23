@@ -2,6 +2,8 @@
 
 ## Required-feature audit validator
 
+- [x] Reject reversed optional truecolor palette/transparency order and retain both valid variants; observe the preserved ordering baseline red and final 153-check suite green.
+
 - [x] Reproduce acceptance of malformed screenshot bytes on the preserved validator baseline.
 - [x] Require complete bounded PNG decoding and exact viewport dimensions; verify 150 final local regressions including real malformed-byte negatives and a tracked PNG positive.
 - [ ] Obtain independent review of the PNG repair before integration; real screenshot provenance and full runtime proof remain separately required.

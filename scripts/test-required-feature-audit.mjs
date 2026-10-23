@@ -6,6 +6,7 @@ import path from 'node:path';
 import {execFileSync,spawnSync} from 'node:child_process';
 import {fileURLToPath,pathToFileURL} from 'node:url';
 import {createHash} from 'node:crypto';
+import {deflateSync} from 'node:zlib';
 import {audit,REQUIRED_IDS,SURFACES,DIMENSIONS} from './required-feature-audit.mjs';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const original=JSON.parse(fs.readFileSync(path.join(root,'docs/features/required-features/inventory.json'),'utf8'));
@@ -29,9 +30,10 @@ async function imageRegressionChecks() {
   const temp=fs.mkdtempSync(path.join(os.tmpdir(),'trafficmonitor-png-audit-'));
   try {
     let check=audit;
-    if(process.argv.includes('--baseline-png')){
+    if(process.argv.includes('--baseline-png')||process.argv.includes('--baseline-png-order')){
       const legacy=path.join(temp,'baseline.mjs');
-      fs.writeFileSync(legacy,execFileSync('git',['show','070a6058d7fc6ac270e4b499510e0025ee87fc15:scripts/required-feature-audit.mjs'],{cwd:root}));
+      const revision=process.argv.includes('--baseline-png-order')?'917d00be84976312932211ae37c7009db7583c77':'070a6058d7fc6ac270e4b499510e0025ee87fc15';
+      fs.writeFileSync(legacy,execFileSync('git',['show',revision+':scripts/required-feature-audit.mjs'],{cwd:root}));
       check=(await import(pathToFileURL(legacy))).audit;
     }
     const fixture=path.join(temp,'repository');fs.mkdirSync(fixture);
@@ -45,6 +47,10 @@ async function imageRegressionChecks() {
     const genuine=execFileSync('git',['show','HEAD:TrafficMonitor/skins/默认皮肤2/background.png'],{cwd:root});
     const width=genuine.readUInt32BE(16),height=genuine.readUInt32BE(20);
     const crc=bytes=>{let n=0xffffffff;for(const byte of bytes){n^=byte;for(let i=0;i<8;i++)n=(n>>>1)^((n&1)?0xedb88320:0);}return (n^0xffffffff)>>>0;};
+    const chunk=(kind,body)=>{const head=Buffer.alloc(8),tail=Buffer.alloc(4);head.writeUInt32BE(body.length);head.write(kind,4,'ascii');tail.writeUInt32BE(crc(Buffer.concat([head.subarray(4),body])));return Buffer.concat([head,body,tail]);};
+    const ihdr=Buffer.alloc(13);ihdr.writeUInt32BE(1,0);ihdr.writeUInt32BE(1,4);ihdr[8]=8;ihdr[9]=2;
+    const plte=chunk('PLTE',Buffer.from([12,34,56])),trns=chunk('tRNS',Buffer.from([0,12,0,34,0,56]));
+    const colorPng=middle=>Buffer.concat([Buffer.from('89504e470d0a1a0a','hex'),chunk('IHDR',ihdr),...middle,chunk('IDAT',deflateSync(Buffer.from([0,12,34,56]))),chunk('IEND',Buffer.alloc(0))]);
     const corruptDeflate=Buffer.from(genuine);
     for(let offset=8;offset+12<=corruptDeflate.length;){
       const length=corruptDeflate.readUInt32BE(offset),kind=corruptDeflate.toString('ascii',offset+4,offset+8);
@@ -54,6 +60,9 @@ async function imageRegressionChecks() {
     const badCRC=Buffer.from(genuine);badCRC[badCRC.length-1]^=1;
     const inputs=[
       {name:'genuine project PNG',bytes:genuine,accept:true},
+      {name:'truecolor palette before transparency',bytes:colorPng([plte,trns]),accept:true,viewport:{width:1,height:1}},
+      {name:'truecolor transparency without palette',bytes:colorPng([trns]),accept:true,viewport:{width:1,height:1}},
+      {name:'truecolor palette after transparency',bytes:colorPng([trns,plte]),viewport:{width:1,height:1}},
       {name:'UTF-8 text named PNG',bytes:Buffer.from('This is text, not image pixels.')},
       {name:'zero byte PNG',bytes:Buffer.alloc(0)},
       {name:'signature only PNG',bytes:Buffer.from('89504e470d0a1a0a','hex')},
@@ -68,7 +77,7 @@ async function imageRegressionChecks() {
     for(const [i,input] of inputs.entries()){
       const imagePath='evidence/image-'+i+'.png',receiptPath='evidence/receipt-'+i+'.json';
       fs.writeFileSync(path.join(fixture,imagePath),input.bytes);
-      const receipt={sourceCommit:product,verified:true,featureId:'language',surface:'native-application',buildSHA256:'1'.repeat(64),state:'structural fixture only',route:'synthetic-local-test',language:'English',theme:'light',scale:1,viewport:{width:width+(input.wrongDimensions?1:0),height},privacyReviewed:true,pixelsInspected:true,imagePath,imageSHA256:input.wrongHash?'0'.repeat(64):hash(input.bytes)};
+      const receipt={sourceCommit:product,verified:true,featureId:'language',surface:'native-application',buildSHA256:'1'.repeat(64),state:'structural fixture only',route:'synthetic-local-test',language:'English',theme:'light',scale:1,viewport:input.viewport||{width:width+(input.wrongDimensions?1:0),height},privacyReviewed:true,pixelsInspected:true,imagePath,imageSHA256:input.wrongHash?'0'.repeat(64):hash(input.bytes)};
       fs.writeFileSync(path.join(fixture,receiptPath),JSON.stringify(receipt));
       input.receiptPath=receiptPath;input.receiptHash=hash(fs.readFileSync(path.join(fixture,receiptPath)));
     }
