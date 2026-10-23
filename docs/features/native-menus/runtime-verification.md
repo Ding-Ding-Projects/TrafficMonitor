@@ -52,3 +52,14 @@ The same executable was relaunched for a bounded diagnostic pass. On the actual 
 A retained real IAccessible object was then invoked after its popup was closed through WM_CLOSE. Direct default action returned `CO_E_OBJNOTCONNECTED` (`-2147220995`). The IDispatch call raised `DISP_E_EXCEPTION` (`-2147352567`). Neither call executed a command. This verifies the destroyed-provider rejection path, not the queued-action identity race, whose deterministic runtime mutation check remains unfinished.
 
 The candidate exited gracefully after this pass. Existing version 1.0.12 was restored and read back with its main window hidden, taskbar child visible, startup unchanged and saved configuration unchanged. No hidden candidate remains running.
+
+## Real queued-action identity checks
+
+Two bounded probes exercised the real accessible provider and actual opacity commands on the same candidate. Each posted 8,000 harmless WM_NULL messages to the owned popup, invoked the real accessible default action, then used synchronous control messages to establish a state change before queued delivery. No process injection, thread suspension or visible input was used.
+
+1. **Changed filter cancels stale action.** Queued the 100% command through direct IAccessible, returning S_OK. The popup still existed. Synchronously changed the search to `80%`, with successful text readback. After draining, the popup remained open. Reopening the opacity menu showed 80% still checked and 100% unchecked. The stale 100% action did not execute.
+2. **Changed selection does not redirect the action.** Queued 100% through direct IAccessible, returning S_OK. While the popup still existed, sent LB_SETCURSEL for zero-based row 1 (80%) and read back 1 through LB_GETCURSEL. After draining, the popup closed. Reopening showed 100% checked and 80% unchecked. The originally requested item executed despite the changed selection.
+
+The portable setting was returned to 80% afterwards through IDispatch. The candidate exited gracefully and the existing installation was restored again, with its main window hidden, taskbar child visible and startup/configuration unchanged.
+
+These observations supersede the earlier unverified state for these two particular queue scenarios. They do not prove remove/replace/disable/plugin-mutation races, posting failure, level-change races, or the intentionally reverted-build negative regression. Those cases remain unfinished, alongside focus, UI Automation, IME and broader consumer/layout coverage.
