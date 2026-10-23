@@ -75,3 +75,9 @@ article,.reading-preview{max-inline-size:72ch;line-height:1.7}
 :root[data-density=compact] .task-grid{gap:.65rem}
 .settings-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:1rem}
 .settings-grid>*{min-width:0;max-width:100%}.reading-preview{padding:1rem;border-inline-start:3px solid var(--md-sys-color-primary);margin-block:1rem}.collection-options{margin-block:.75rem}.collection-options summary{cursor:pointer;padding:.75rem;min-height:44px}.collection-options .filters{margin-block:.5rem}
+
+/* Nonblocking feedback stacks within the selected viewport corner. */
+#notice:not(:empty){left:auto;right:1rem;bottom:1rem;transform:none;padding:0;background:transparent;color:inherit;border-radius:0;width:min(420px,calc(100% - 2rem));max-height:min(50dvh,32rem);overflow:auto;display:flex;flex-direction:column;gap:.75rem;scrollbar-gutter:stable}
+#notice[data-corner=left]:not(:empty){left:1rem;right:auto}
+.feedback-card{flex:none;background:var(--md-sys-color-surface-container);color:var(--md-sys-color-on-surface);border:1px solid var(--md-sys-color-outline);border-radius:12px;padding:1rem;box-shadow:0 3px 10px #0003;overflow-wrap:anywhere}
+.feedback-card p{margin:0 0 .5rem}.feedback-card[data-severity=warning],.feedback-card[data-severity=error]{border-inline-start:4px solid var(--md-sys-color-primary)}

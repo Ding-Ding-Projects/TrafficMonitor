@@ -3,6 +3,7 @@ import {benefitFor} from './capabilities.mjs';
 // Existing controls have actual consumers. Planned records never imply that a
 // similarly named website preference implements the full requirement.
 const consumers={
+ notifications:{controls:['notification-corner','notification-duration','notification-preview','notification-warning','notification-reset'],consumer:'src/notifications.js and all shared notify callers',keys:['notifications'],reset:'notification-reset',recovery:'Invalid saved preferences use defaults; unavailable storage retains session choices and shows a persistent warning; message content is never persisted'},
  'collapse-filters':{controls:['reader-collapseFilters','reader-filter-reset'],consumer:'src/reader-preferences.js collection options on capability and history pages',keys:['reader-preferences.collapseFilters','filters-<route>-<index>'],reset:'reader-filter-reset',recovery:'Search remains visible; active filter count remains in the disclosure; missing storage uses the selected default'},
  exports:{controls:['reader-export','reader-import'],consumer:'src/reader-preferences.js bounded six-option JSON exchange',keys:['reader-preferences'],reset:'reader-reset',recovery:'Invalid or oversized imports and unavailable storage retain previous options; other formats and full settings exchange remain unfinished'},
  language:{controls:['language'],consumer:'src/app.js apply and src/locale.js',keys:['preferences.language'],reset:'reset-preferences',recovery:'English fallback when the stored mode is invalid'},

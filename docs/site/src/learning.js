@@ -3,7 +3,7 @@ import {bindRegexSearch} from './regex-search.js';
 export function setupLearning(base,notify){
  const key='learning-progress-v1',saved=storage.read(key,{});let progress=saved&&typeof saved==='object'&&!Array.isArray(saved)?saved:{};
  const workspace=document.querySelector('[data-learning-path]');
- const write=()=>{if(!storage.write(key,progress))notify('Reading progress is available for this visit only. Browser storage is unavailable.');};
+ const write=()=>{if(!storage.write(key,progress))notify('Reading progress is available for this visit only. Browser storage is unavailable.',{severity:'warning'});};
  for(const el of document.querySelectorAll('[data-path-progress]')){const p=progress[el.dataset.pathProgress];if(p?.read?.length)el.textContent=`${p.read.length} steps marked read`;}
  const resume=document.getElementById('resume-learning');
  const latest=Object.entries(progress).filter(([id,p])=>/^[a-z]+$/.test(id)&&p&&Number.isInteger(p.step)).sort((a,b)=>(b[1].updated??0)-(a[1].updated??0))[0];

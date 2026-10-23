@@ -1,3 +1,4 @@
+import {notificationSettings} from './lib/notification-settings.mjs';
 import fs from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import path from 'node:path';
@@ -36,7 +37,7 @@ for(const name of ['worker.mjs','evaluate.mjs','request.mjs'])await fs.copyFile(
 await fs.writeFile(path.join(dist,'.nojekyll'),'');
 await page('index.html','TrafficMonitor',home(context));
 await page('guide/index.html','Guided setup',guide(context));
-await page('settings/index.html','Reading preferences',`<section class="doc-search"><div class="search-row"><md-outlined-text-field id="settings-search" label="Search settings" type="search"></md-outlined-text-field><md-text-button id="settings-search-clear">Clear search</md-text-button></div><p id="settings-search-state" role="status"></p></section>`+settings(context)+readerSettings()+`<section class="panel"><h2>Reading and search recovery</h2><p>Clear visitor-owned progress or saved search queries without changing application settings or personal wording.</p><div class="actions"><md-outlined-button id="reading-progress-reset">Clear reading progress</md-outlined-button><md-outlined-button id="search-state-reset">Clear saved search queries</md-outlined-button></div><a href="${base}settings-contract.json">Complete control and consumer mapping</a></section>`);
+await page('settings/index.html','Reading preferences',`<section class="doc-search"><div class="search-row"><md-outlined-text-field id="settings-search" label="Search settings" type="search"></md-outlined-text-field><md-text-button id="settings-search-clear">Clear search</md-text-button></div><p id="settings-search-state" role="status"></p></section>`+settings(context)+readerSettings()+notificationSettings()+`<section class="panel"><h2>Reading and search recovery</h2><p>Clear visitor-owned progress or saved search queries without changing application settings or personal wording.</p><div class="actions"><md-outlined-button id="reading-progress-reset">Clear reading progress</md-outlined-button><md-outlined-button id="search-state-reset">Clear saved search queries</md-outlined-button></div><a href="${base}settings-contract.json">Complete control and consumer mapping</a></section>`);
 await page('downloads/index.html','Downloads and release status',releasePage(context));
 const {entries,manifest:history}=await collectHistory(root,source);
 await fs.writeFile(path.join(dist,'history.json'),JSON.stringify({entries,manifest:history}));
