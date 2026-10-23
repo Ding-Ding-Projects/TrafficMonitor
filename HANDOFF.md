@@ -74,3 +74,10 @@ The documentation home, JavaScript, stylesheet, article index, changelog and wik
 
 The current local documentation build passed with 172 articles, 1471 history records and zero unavailable local images. All 1387 upstream translations are present; 84 fork messages are included verbatim at source 7772ecf. Real browser interaction, complete Material Design 3 conversion, all required features and refreshed UI evidence remain unfinished.
 
+
+## Current-host build and accepted update, 2026-10-23
+
+Exact root build.bat acquired the missing verified MSVC v143/MFC/SDK components and completed at source 04310957228bf9d73bb909b5e6a45acc66b1754f with 114 warnings and zero errors. This is current-host acquisition proof, not a complete fresh-machine receipt. Release 1.0.12 was downloaded with all three payload hashes verified and applied through Update.exe. Configuration bytes and startup registration remained unchanged. The installed taskbar is attached to Shell_TrayWnd, visible, with its main window hidden. See evidence/installer/1.0.12/runtime.json.
+
+At source 113cc83, the corrected documentation build has 172 articles, 1476 history records and zero unavailable images. Real hidden-desktop settings checks covered 48 tuples across 320/1280 px, three language modes, two themes and four scales: zero full-page overflow and zero observed runtime errors. The earlier bilingual 430px overflow was observed, repaired and repeated. This remains narrow layout evidence, not full accessibility, regex, feature or Material Design 3 conformance.
+

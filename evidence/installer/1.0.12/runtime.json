@@ -1,0 +1,25 @@
+{
+  "previousVersion": "1.0.8",
+  "taskbarVisible": true,
+  "verifiedAtUTC": "2026-10-23T05:53:30.3914671Z",
+  "packageVersion": "1.0.12",
+  "limitations": [
+    "Subsequent sign-in not observed",
+    "Automatic Explorer restart recovery not observed",
+    "Complete native redesign unfinished"
+  ],
+  "installedExecutableSHA256": "3e7f0b9b9990b56fd907e63b1c9e058f0d5f45c793aae29a3850916c3b70a1f3",
+  "configurationPreserved": true,
+  "parentClasses": [
+    "Shell_TrayWnd",
+    "#32769"
+  ],
+  "updateExitCode": 0,
+  "mainWindowHidden": true,
+  "startupCommand": "Stable current-user Update.exe --processStart TrafficMonitor.exe",
+  "sourceCommit": "df61d710a4ac434dc08d10411e5a15916261891d",
+  "startupPreserved": true,
+  "captureTimestamp": "unavailable",
+  "attachedToExplorerTaskbar": true,
+  "schemaVersion": 1
+}

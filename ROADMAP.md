@@ -31,3 +31,14 @@ The [110-item inventory](docs/features/required-features/README.md) records impl
 proof separately. Context menus require the new visual system, action search and a full regex
 workbench. Current presentation screenshots must be replaced with genuine rebuilt evidence,
 with historical originals retained separately.
+
+## Documentation and current-host milestones
+
+- [x] Deploy the documentation home and verify exact About homepage readback.
+- [x] Translate all 1,387 upstream history entries and retain complete fork messages.
+- [x] Publish five prepared fork wiki pages and retain their source.
+- [x] Verify current-host native build dependency acquisition and accepted 1.0.12 update.
+- [x] Repair and repeat the settings page language/theme/scale overflow matrix.
+- [ ] Complete keyboard, accessibility and remaining documentation interaction acceptance.
+- [ ] Finish native components, live dashboard, setup, context menus and every remaining surface.
+
