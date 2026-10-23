@@ -69,7 +69,7 @@ namespace NativeMaterial
         d->FillSolidRect(r,rgb(c.container));CRect thumb=Thumb();CBrush brush(rgb(m_drag?c.primary:c.secondaryText));auto* old=d->SelectObject(&brush);auto* pen=d->SelectStockObject(NULL_PEN);d->RoundRect(thumb,CPoint(6,6));d->SelectObject(old);d->SelectObject(pen);if(GetFocus()==this||c.highContrast)d->DrawFocusRect(r);
     }
     void ScrollRail::Move(int position)
-    {const int next=(std::max)(0,(std::min)(position,(std::max)(0,m_content-m_page)));if(next!=m_position){m_position=next;{std::lock_guard<std::mutex> lock(m_access->mutex);m_access->position=next;}if(changed)changed(next);NotifyWinEvent(EVENT_OBJECT_VALUECHANGE,m_hWnd,OBJID_CLIENT,CHILDID_SELF);Invalidate(FALSE);}}
+    {const int next=(std::max)(0,(std::min)(position,(std::max)(0,m_content-m_page)));if(next!=m_position){m_position=next;{std::lock_guard<std::mutex> lock(m_access->mutex);m_access->position=next;}if(changed)changed(next);::NotifyWinEvent(EVENT_OBJECT_VALUECHANGE,m_hWnd,OBJID_CLIENT,CHILDID_SELF);Invalidate(FALSE);}}
     LRESULT ScrollRail::WindowProc(UINT message,WPARAM w,LPARAM l)
     {
         if(message==WM_PAINT){CPaintDC dc(this);Paint(dc);return 0;}if(message==WM_PRINTCLIENT){Paint(reinterpret_cast<HDC>(w));return 0;}if(message==WM_ERASEBKGND)return TRUE;
