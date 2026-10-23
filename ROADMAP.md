@@ -144,7 +144,7 @@ with historical originals retained separately.
 
 ## Native first-open setup
 
-- [ ] Compile and package the native first-open setup source candidate.
+- [x] Compile and package the native first-open setup source candidate at a500e6c through the exact root entrypoints, local version 1.0.9019, exit 0.
 - [ ] Verify first explicit open, resume, save-only close, changed/removed adapters, partial retries and actual startup/taskbar readback.
 - [ ] Verify English, Cantonese, bilingual, independent message-style levels, keyboard/accessibility and theme/DPI layouts from the built executable.
 - [ ] Complete remaining interface and search-builder obligations; this bounded wizard does not establish broad parity.

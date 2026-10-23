@@ -1,0 +1,42 @@
+{
+  "sourceCommit": "a500e6c6e53b5a5842dbd32d69635c0e8f1b972b",
+  "screenshots": "none",
+  "firstAttempt": {
+    "exitCode": 1,
+    "sourceCommit": "8b6322a40d1ef362f1cb3ed01ea680ae8fef398e",
+    "reason": "C2660 on unqualified NotifyWinEvent, corrected in the production source."
+  },
+  "outputs": [
+    {
+      "path": "artifacts/releases/Setup.exe",
+      "bytes": 8482304,
+      "sha256": "40ad5d29ae411f763d1a5b1e795690cd12f71b4eb33afafca8d2432f30630dc5"
+    },
+    {
+      "path": "artifacts/releases/TrafficMonitor-1.0.9019-full.nupkg",
+      "bytes": 7601944,
+      "sha256": "b6bba30e229bb590928c85a934f326e18c29482ac0c00e141a5e600ebcd3bc4d"
+    },
+    {
+      "path": "artifacts/releases/RELEASES",
+      "bytes": 83,
+      "sha256": "c6648cf6ce12ae313a387d7ac2ba922526e7b8b2c954a90fa53f3a1359bfab7c"
+    },
+    {
+      "path": "Bin/x64/Release (lite)/TrafficMonitor.exe",
+      "bytes": 2352640,
+      "sha256": "1d1555f69feaeb92e32bfb876900492cfa66dec5e68ef7c4ac71d70a1774fa1a"
+    }
+  ],
+  "release": "local package only",
+  "nativeBuild": {
+    "seconds": 23.64,
+    "errors": 0,
+    "warnings": 114
+  },
+  "command": "build-installer.bat -Version 1.0.9019",
+  "schemaVersion": 1,
+  "exitCode": 0,
+  "runtime": "unverified",
+  "runtimeBlocker": "The existing release instance owns the application singleton mutex. No second fixture was launched and the existing installation was not disturbed."
+}
