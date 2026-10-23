@@ -51,3 +51,19 @@ Managed installation update checks now avoid the upstream portable archive feed.
 opens this fork's release page; background checks return without contacting the upstream feed.
 This is update-source containment, not an implemented automatic Squirrel update interface.
 Compilation and installed interaction of this change remain pending its next build.
+
+## Subsequent installed update and documentation work
+
+Normal release `v1.0.8-run39901823689-1` is bound to
+`04a9a136ae800c4b1c547cf09c1bf3688ac0265a`; its publication and native packaging jobs passed.
+The downloaded installer is unsigned, and all three published package hashes matched.
+The supported updater upgraded the task-owned 1.0.4 installation to 1.0.8 after graceful closure.
+Saved configuration bytes and startup registration remained unchanged. The stable launcher started
+the updated executable with its main window hidden and its visible taskbar monitor attached beneath
+Explorer. See [current evidence](evidence/installer/1.0.8/runtime.json). Native compilation of the
+managed release-page correction passed in that build; the browser-launch interaction itself remains
+unverified. Automatic update UI and the full native redesign remain unfinished.
+
+The complete upstream wiki snapshot and 157-article route inventory are preserved locally in source.
+The documentation website renderer and complete translated changelog are being implemented.
+Workflow-based Pages hosting is configured, but no deployed documentation completion is claimed.

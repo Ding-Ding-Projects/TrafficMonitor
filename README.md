@@ -10,10 +10,10 @@ saved settings survive updates. See [installation details](docs/features/install
 The native interface redesign and broader required features follow the installer foundation.
 Upstream documentation and attribution are retained below.
 
-![Installed monitor attached to the current Explorer taskbar](evidence/installer/1.0.4/taskbar-current-desktop.png)
+![Installed monitor attached to the current Explorer taskbar](evidence/installer/1.0.8/taskbar-current-desktop.png)
 
-This genuine 1.0.4 capture accompanies verified Explorer attachment and a hidden main window.
-The [receipt](evidence/installer/1.0.4/runtime.json) records installation, update and startup evidence.
+This genuine 1.0.8 capture accompanies verified Explorer attachment and a hidden main window.
+The [receipt](evidence/installer/1.0.8/runtime.json) records installation, update and startup evidence.
 Earlier isolated-desktop evidence is retained in the [evidence archive](evidence/installer/README.md).
 
 [![Badge](https://img.shields.io/badge/link-996.icu-%23FF4D5B.svg?style=flat-square)](https://996.icu/#/en_US)

@@ -1,0 +1,37 @@
+{
+  "sourceCommit": "04a9a136ae800c4b1c547cf09c1bf3688ac0265a",
+  "packageVersion": "1.0.8",
+  "releaseTag": "v1.0.8-run39901823689-1",
+  "previousInstalledVersion": "1.0.4",
+  "route": "persistent-direct-cheap-entrypoint",
+  "backend": "python-ctypes",
+  "currentHostUpdateVerified": true,
+  "configurationBytesPreserved": true,
+  "startupRegistrationPreserved": true,
+  "updateExitCode": 0,
+  "installedExecutableSHA256": "d0200a6c83922c6fb56653a3cf75c255e4315957589df736868afc40e2d3b67a",
+  "mainWindowVisible": false,
+  "taskbarVisible": true,
+  "taskbarParentClasses": [
+    "Shell_TrayWnd",
+    "#32769"
+  ],
+  "stableLauncher": "Update.exe --processStart TrafficMonitor.exe",
+  "setupSignatureStatus": "NotSigned",
+  "releasePackageHashesVerified": true,
+  "image": "taskbar-current-desktop.png",
+  "imageSHA256": "3F3BC0DEF54BAC3681BA62F5E2AEEF5E630096CE7DDD602628D8CC60A077C162",
+  "imageWidth": 79,
+  "imageHeight": 32,
+  "captureTimestamp": "unavailable",
+  "inspectionUTC": "2026-10-23T05:02:26.7750353Z",
+  "privacyReview": "Inspected task-owned monitor rectangle only; no unrelated desktop pixels.",
+  "unverified": [
+    "subsequent interactive sign-in",
+    "automatic reattachment after Explorer restart",
+    "fresh-host prerequisite acquisition",
+    "installer cancellation",
+    "automatic update interface",
+    "manual release-page launch interaction"
+  ]
+}

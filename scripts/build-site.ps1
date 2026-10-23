@@ -16,7 +16,7 @@ try {
     try {
         $npm = Join-Path (Split-Path $nodePath) 'node_modules/npm/bin/npm-cli.js'
         if (!(Test-Path -LiteralPath "$RepoRoot/docs/site/package-lock.json")) { throw 'Documentation dependency lock is not yet available' }
-        & $nodePath $npm ci --prefix "$RepoRoot/docs/site" --ignore-scripts --no-audit --no-fund
+        & $nodePath $npm ci --prefix "$RepoRoot/docs/site" --include=dev --include=optional --ignore-scripts --no-audit --no-fund
         if ($LASTEXITCODE -ne 0) { throw "Documentation dependency installation failed with exit $LASTEXITCODE" }
         & $nodePath $entrypoint
         if ($LASTEXITCODE -ne 0) { throw "Documentation build failed with exit $LASTEXITCODE" }

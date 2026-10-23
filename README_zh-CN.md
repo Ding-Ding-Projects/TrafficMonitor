@@ -9,10 +9,10 @@
 及 [驗證進度](HANDOFF.md)。原生介面重製和其他必要功能會在安裝基礎完成後進行。
 以下保留上游文件及作者資訊。
 
-![已附加到目前 Explorer 工作列的真實監察畫面](evidence/installer/1.0.4/taskbar-current-desktop.png)
+![已附加到目前 Explorer 工作列的真實監察畫面](evidence/installer/1.0.8/taskbar-current-desktop.png)
 
-此 1.0.4 真實畫面已配合 Explorer 附加及隱藏主視窗驗證。
-[驗證記錄](evidence/installer/1.0.4/runtime.json) 列明安裝、更新及自動啟動結果。
+此 1.0.8 真實畫面已配合 Explorer 附加及隱藏主視窗驗證。
+[驗證記錄](evidence/installer/1.0.8/runtime.json) 列明安裝、更新及自動啟動結果。
 較早的隔離桌面證據保留於 [證據封存索引](evidence/installer/README.md)。
 
 [![Badge](https://img.shields.io/badge/link-996.icu-%23FF4D5B.svg?style=flat-square)](https://996.icu/#/en_US)
