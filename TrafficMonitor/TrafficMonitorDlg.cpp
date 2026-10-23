@@ -2227,34 +2227,102 @@ void CTrafficMonitorDlg::OnClose()
 }
 
 
+bool CTrafficMonitorDlg::SetupAdapterEligible(ULONG index)
+{
+    int matches = 0;
+    for (size_t i = 0; i < m_connections.size(); ++i)
+        if (GetConnectIfTable(static_cast<int>(i)).dwIndex == index) ++matches;
+    return matches == 1;
+}
+
+NativeDashboard::Setup::Selection CTrafficMonitorDlg::SetupSelection()
+{
+    using namespace NativeDashboard::Setup;
+    Selection result;
+    result.mode = theApp.m_cfg_data.m_select_all ? Mode::All : (theApp.m_cfg_data.m_auto_select ? Mode::Automatic : Mode::One);
+    if (result.mode == Mode::One && m_connection_selected >= 0 && m_connection_selected < static_cast<int>(m_connections.size()))
+    {
+        const auto current = GetConnectIfTable(m_connection_selected);
+        const auto discovered = Discover();
+        for (const auto& adapter : discovered.adapters)
+            if (adapter.index == current.dwIndex) result.guid = adapter.guid;
+    }
+    return result;
+}
+
+bool CTrafficMonitorDlg::ApplySetupSelection(const NativeDashboard::Setup::Selection& selection, std::uint64_t expectedEpoch)
+{
+    using namespace NativeDashboard::Setup;
+    const auto current = Discover();
+    if (current.error || current.epoch != expectedEpoch || (selection.mode == Mode::All && !current.allAllowed)) return false;
+    int resolved = -1;
+    if (selection.mode == Mode::One)
+    {
+        for (const auto& adapter : current.adapters)
+        {
+            if (adapter.guid != selection.guid) continue;
+            for (size_t i = 0; i < m_connections.size(); ++i)
+                if (GetConnectIfTable(static_cast<int>(i)).dwIndex == adapter.index)
+                {
+                    if (resolved != -1) return false;
+                    resolved = static_cast<int>(i);
+                }
+        }
+        if (resolved < 0) return false;
+    }
+    const auto before = SetupSelection();
+    if (before.mode != selection.mode || (selection.mode == Mode::One && before.guid != selection.guid))
+    {
+        if (selection.mode == Mode::Automatic) AutoSelect();
+        if (selection.mode == Mode::One)
+        {
+            m_connection_selected = resolved;
+            theApp.m_cfg_data.m_connection_name = GetConnection(resolved).description_2;
+            m_connection_name_preferd = theApp.m_cfg_data.m_connection_name;
+        }
+        theApp.m_cfg_data.m_auto_select = selection.mode == Mode::Automatic;
+        theApp.m_cfg_data.m_select_all = selection.mode == Mode::All;
+        m_connection_change_flag = true;
+    }
+    theApp.SaveConfig();
+    CIniHelper stored(theApp.m_config_path);
+    const auto after = SetupSelection();
+    return after.mode == selection.mode && (selection.mode != Mode::One || after.guid == selection.guid)
+        && stored.GetBool(L"connection", L"auto_select", !theApp.m_cfg_data.m_auto_select) == theApp.m_cfg_data.m_auto_select
+        && stored.GetBool(L"connection", L"select_all", !theApp.m_cfg_data.m_select_all) == theApp.m_cfg_data.m_select_all
+        && (selection.mode != Mode::One || stored.GetString(L"connection", L"connection_name", L"") == CCommon::StrToUnicode(theApp.m_cfg_data.m_connection_name.c_str()));
+}
+
+bool CTrafficMonitorDlg::SetSetupTaskbar(bool visible)
+{
+    if (theApp.m_cfg_data.m_show_task_bar_wnd != visible) OnShowTaskBarWnd();
+    else theApp.SaveConfig();
+    CIniHelper stored(theApp.m_config_path);
+    return theApp.m_cfg_data.m_show_task_bar_wnd == visible
+        && (m_tBarDlg != nullptr && ::IsWindow(m_tBarDlg->GetSafeHwnd())) == visible
+        && stored.GetBool(L"config", L"show_task_bar_wnd", !visible) == visible;
+}
+
 BOOL CTrafficMonitorDlg::OnCommand(WPARAM wParam, LPARAM lParam)
 {
     // TODO: 在此添加专用代码和/或调用基类
     UINT uMsg = LOWORD(wParam);
-    if (uMsg == ID_SELECT_ALL_CONNECTION)
+    if (uMsg == ID_SELECT_ALL_CONNECTION || uMsg == ID_SELETE_CONNECTION
+        || (uMsg > ID_SELECT_ALL_CONNECTION && uMsg <= ID_SELECT_ALL_CONNECTION + m_connections.size()))
     {
-        theApp.m_cfg_data.m_select_all = true;
-        theApp.m_cfg_data.m_auto_select = false;
-        m_connection_change_flag = true;
-    }
-    //选择了“选择网络连接”子菜单中项目时的处理
-    if (uMsg == ID_SELETE_CONNECTION)   //选择了“自动选择”菜单项
-    {
-        AutoSelect();
-        theApp.m_cfg_data.m_auto_select = true;
-        theApp.m_cfg_data.m_select_all = false;
-        theApp.SaveConfig();
-        m_connection_change_flag = true;
-    }
-    if (uMsg > ID_SELECT_ALL_CONNECTION && uMsg <= ID_SELECT_ALL_CONNECTION + m_connections.size()) //选择了一个网络连接
-    {
-        m_connection_selected = uMsg - ID_SELECT_ALL_CONNECTION - 1;
-        theApp.m_cfg_data.m_connection_name = GetConnection(m_connection_selected).description_2;
-        m_connection_name_preferd = theApp.m_cfg_data.m_connection_name;
-        theApp.m_cfg_data.m_auto_select = false;
-        theApp.m_cfg_data.m_select_all = false;
-        theApp.SaveConfig();
-        m_connection_change_flag = true;
+        using namespace NativeDashboard::Setup;
+        const auto discovery = Discover();
+        Selection requested;
+        if (uMsg == ID_SELECT_ALL_CONNECTION) requested.mode = Mode::All;
+        else if (uMsg != ID_SELETE_CONNECTION)
+        {
+            requested.mode = Mode::One;
+            const auto row = GetConnectIfTable(uMsg - ID_SELECT_ALL_CONNECTION - 1);
+            for (const auto& adapter : discovery.adapters)
+                if (adapter.index == row.dwIndex) requested.guid = adapter.guid;
+        }
+        ApplySetupSelection(requested, discovery.epoch);
+        return TRUE;
     }
 #ifdef DEBUG
     if (uMsg == ID_CMD_TEST)

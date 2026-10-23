@@ -2,6 +2,7 @@
 #include "Workspace.h"
 #include "ViewModel.h"
 #include "Presentation.h"
+#include "SetupFlow.h"
 #include "../NativeDashboardController.h"
 #include "../NativeMaterial/Controls.h"
 #include "../NativeMenus/SearchableMenu.h"
@@ -336,10 +337,12 @@ namespace NativeDashboard
             menu.AppendMenu(MF_STRING | (m_model.Selected() ? MF_ENABLED : MF_GRAYED), 1, T(L"Show adapter details", L"顯示網絡介面詳情"));
             menu.AppendMenu(MF_STRING, 2, m_model.Paused() ? T(L"Resume display", L"恢復顯示") : T(L"Pause display", L"暫停顯示"));
             menu.AppendMenu(MF_STRING, 3, T(L"Restart observational samples", L"重新收集觀察樣本"));
+            menu.AppendMenu(MF_STRING, 4, T(L"Resume setup", L"繼續設定"));
             const UINT command = NativeMenus::Track(&menu, TPM_RETURNCMD | TPM_RIGHTBUTTON, point.x, point.y, this);
             if (command == 1 && m_model.Selected()) { m_tabs.SetCurSel(2); ShowPage(); m_details.SetFocus(); }
             else if (command == 2) OnCommand(PauseId, 0);
             else if (command == 3) OnCommand(RefreshId, 0);
+            else if (command == 4 && ::IsWindow(m_owner)) Setup::Show(CWnd::FromHandle(m_owner), true);
         }
         BOOL Workspace::PreTranslateMessage(MSG* message)
         {
@@ -427,6 +430,7 @@ namespace NativeDashboard
     bool Open(CWnd* owner, DWORD intervalMilliseconds, std::function<void()> floatingMonitor)
     {
         if (!owner || !::IsWindow(owner->GetSafeHwnd())) return false;
+        if (!Setup::Show(owner)) return true;
         const HWND ownerHandle = owner->GetSafeHwnd();
         const auto found = windows.find(ownerHandle);
         if (found != windows.end() && ::IsWindow(found->second->GetSafeHwnd()))

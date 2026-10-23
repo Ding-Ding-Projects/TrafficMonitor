@@ -1078,6 +1078,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="NativeDashboard\Workspace.h" />
+    <ClInclude Include="NativeDashboard\SetupFlow.h" />
+    <ClInclude Include="NativeDashboard\SetupFlowText.h" />
+    <ClCompile Include="NativeDashboard\SetupFlow.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
     <ClCompile Include="NativeDashboard\Workspace.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
     <ClInclude Include="NativeDashboard\ViewModel.h" />
     <ClCompile Include="NativeDashboard\ViewModel.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>

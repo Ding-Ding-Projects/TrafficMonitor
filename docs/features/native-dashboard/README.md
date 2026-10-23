@@ -48,3 +48,7 @@ complete settings/dialog conversion and the remaining required features stay unf
 Discovery and worker failures are shown with their actual result codes. Closing detaches delivery
 and signals cancellation without joining discovery on the UI thread. Addresses stay in the local
 view; this module introduces no export, telemetry, network transmission or persisted address store.
+
+## First-open setup candidate
+
+See [native setup behavior and verification limits](setup.md). Its source is implemented; runtime acceptance remains pending.
