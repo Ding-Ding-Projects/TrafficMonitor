@@ -1,5 +1,13 @@
 # TrafficMonitor delivery roadmap
 
+## Native-first continuation, release 1.0.43
+
+- [x] Integrate bounded Settings discovery/Notifications and verify exact root checks and installer production at source575.
+- [x] Verify normal release43 and one natural matching installed42-to43 update with a prepublication baseline.
+- [ ] Complete shared native language/appearance preferences, conflict-aware setup resume and five consumers; isolated implementation is in progress.
+- [ ] Verify real shared-preference interaction, persistence, recovery, accessibility and supported layout matrix.
+- [ ] Finish remaining native conversion and applicable required features before resuming documentation-website implementation.
+
 ## Native Settings discovery and Notifications slice
 
 - [x] Implement stable setting identities, independent group discovery, temporary result reveal, a real scrolling child viewport and per-row draft actions.

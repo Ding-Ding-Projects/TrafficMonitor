@@ -1,5 +1,9 @@
 # Fork changes
 
+## Native 1.0.43 delivery and automatic update
+
+Source `575c871e0b6a52667bce1b77f69d62634e457455` integrates bounded Settings discovery and Notifications. Exact root verification passed46, rejected five disposable old-binding cases, then restored46; installer1.0.9027 exited0 with22warnings and0errors. Normal release43 and all release jobs succeeded. One natural42-to43 update preserved configuration, startup and historical records against a real prepublication baseline, without manual intervention. See [bounded receipt](docs/features/installation/silent-natural43-acceptance.json). Broader GUI, negative paths and long-term reliability remain unverified.
+
 ## Native Settings discovery and notifications
 
 Add independent group filters, all-group discovery, a clipped scrolling child viewport and searchable per-row explanation/default/revert actions. Notification drafts use existing configuration consumers and retain disabled/unavailable settings. Validate all numeric drafts before applying; reveal invalid fields without losing other drafts. Repair repeated-open regex callback ownership and UTF-8 source decoding. Local candidate1.0.9026 has source-bound build and bounded native interaction evidence; complete Settings, regex parity, global language/theme, full accessibility/DPI and image promotion remain unfinished.

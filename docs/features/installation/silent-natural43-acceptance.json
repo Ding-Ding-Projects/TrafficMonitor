@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "scope": "One read-only natural accepted 1.0.42 transition to the first normal release of the native Settings source.",
+  "baselineUTC": "2026-10-23T18:30:18.7877754Z",
+  "baselineBeforePublication": true,
+  "releaseTag": "v1.0.43-run40003469175-1",
+  "releaseSource": "575c871e0b6a52667bce1b77f69d62634e457455",
+  "publishedUTC": "2026-10-23T18:32:49Z",
+  "normalRelease": true,
+  "firstReplacementSnapshotUTC": "2026-10-23T18:37:43.990240+00:00",
+  "terminalUTC": "2026-10-23T18:38:16.301877+00:00",
+  "observationSamples": 9,
+  "observationDurationSeconds": 408.4569237000014,
+  "laneTimeBoundSeconds": 1800,
+  "movingBaseline": false,
+  "installedVersion": "1.0.43",
+  "installedExecutableSHA256": "2bd7c1760dcf6339f1453bd0fdbed42c4fdf9dc17a6843206200086c467b4731",
+  "matchesReleasedExecutable": true,
+  "installedManifestSourceMatches": true,
+  "sameReplacementIdentityAtFinalRead": true,
+  "singleReplacementNativeProcess": true,
+  "original42ProcessAbsent": true,
+  "attemptCount": 1,
+  "applyExitCode": 0,
+  "readiness": {
+    "stage": "exit-permitted",
+    "result": "0"
+  },
+  "helperTerminal": {
+    "stage": "stable-launcher",
+    "result": "0"
+  },
+  "startupPreserved": true,
+  "configBytesPreserved": true,
+  "historyComparison": {
+    "historicalRecordsUnchanged": true,
+    "currentTrafficRecordRetained": true,
+    "recordCountPreserved": true,
+    "counterFieldCountPreserved": true,
+    "currentCountersNondecreasing": true,
+    "historyBytesEqual": false
+  },
+  "appliedStagingRetained": true,
+  "pendingAbsent": true,
+  "stagedTrust": {
+    "packageMatchesRelease": true,
+    "feedMatchesRelease": true,
+    "stagedReleaseSourceMatches": true,
+    "acceptedMainAdmissionValid": true
+  },
+  "nativeFeedSHA1NameSizeVerified": true,
+  "assets": [
+    {
+      "name": "TrafficMonitor-1.0.43-full.nupkg",
+      "bytes": 7617630,
+      "sha256": "03060e77796fd3af7ce3d450d998b10fb594468e30fb3ec0d79b949dcba57af2"
+    },
+    {
+      "name": "RELEASES",
+      "bytes": 81,
+      "sha256": "804b4f53eb5e28e1b8119e67ee0461d179794ae18464d85657322cce527b61ee"
+    },
+    {
+      "name": "SHA256SUMS.txt",
+      "bytes": 253,
+      "sha256": "9069f3c29e043f9bd92d0479decfbe590403c7eedd5bd0f270aeb360f14b6bb5"
+    }
+  ],
+  "intervention": "No manual check/apply/close/launch, preference/staging/attempt edit, installation or host action occurred in this observation lane.",
+  "unverified": [
+    "GUI readiness, appearance, layout and complete interaction",
+    "Repeated long-term reliability",
+    "Documentation companion runtime"
+  ],
+  "statusReporting": "Authenticated per-session status binding unavailable."
+}
