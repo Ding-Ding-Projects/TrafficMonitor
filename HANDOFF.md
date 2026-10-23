@@ -336,3 +336,7 @@ Metadata/content source db77a8cb3c9c136f1c2702aa823224521bfdeadf records the fet
 ## Passive status tooltip restart boundary
 
 The existing visible-window restart check also classified the application-owned passive status tooltip as busy. Existing installed metadata records a visible taskbar tooltip, which demonstrates this classification mismatch but does not establish the cause of every previous update delay. The caller now excludes only the exact main/taskbar tooltip handles when their owner and tooltips_class32 class both match. Ordinary workspace, modeless editor, menu, draft, mouse capture and move/size deferrals remain unchanged. No new runtime observations, tests, reviews or screenshots were performed; automatic restart remains unverified.
+
+## Passive tooltip candidate production
+
+Exact build-installer.bat -Version 1.0.9010, including root build.bat, exited 0 at clean pinned source 5916a1293ba943162a4396629e7b81b0eef4a2bc, with 22 warnings, zero errors and 5.71 seconds native compilation. Hashes are in docs/features/installation/passive-tooltip-build-receipt.json. Prior native producers remain historical. No automatic-restart runtime result is claimed.

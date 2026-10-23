@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "5916a1293ba943162a4396629e7b81b0eef4a2bc",
+  "command": "build-installer.bat -Version 1.0.9010",
+  "includedBuildEntrypoint": "build.bat",
+  "exitCode": 0,
+  "configuration": "Release (lite)|x64",
+  "buildWarnings": 22,
+  "buildErrors": 0,
+  "buildElapsed": "00:00:05.71",
+  "version": "1.0.9010",
+  "published": false,
+  "installed": false,
+  "inputState": "No nonignored changes at producer start; source remained pinned through completion.",
+  "verification": "Compile/package only. Narrow owned passive tooltip restart exclusion. No tests, reviews, audits, runtime interaction or screenshots. Automatic restart and modeless acceptance remain unverified.",
+  "artifacts": [
+    {
+      "path": "Bin/x64/Release (lite)/TrafficMonitor.exe",
+      "size": 2259456,
+      "sha256": "3cea2118e0cd237d5e58a9cb3248da7df04126de03544b6c14b6901b431b1e0d"
+    },
+    {
+      "path": "artifacts/releases/Setup.exe",
+      "size": 8443904,
+      "sha256": "e3e1d62c825ba5323c484322bcc3a2e29cbac579532b0501945feffe46b5d651"
+    },
+    {
+      "path": "artifacts/releases/TrafficMonitor-1.0.9010-full.nupkg",
+      "size": 7563567,
+      "sha256": "6d311409631ddef662261c144bccac07b41ea0664cdb46a86abd0ea019e1648c"
+    },
+    {
+      "path": "artifacts/releases/RELEASES",
+      "size": 590,
+      "sha256": "663a3e44af252006b597efa71533d22e2d244b154d315fd43070b706cef99b9c"
+    },
+    {
+      "path": "artifacts/releases/SHA256SUMS.txt",
+      "size": 870,
+      "sha256": "3d295d98eb154e35b00bbde09c1c96d9b0614b6255cee2fbf265b79db4d3cfea"
+    }
+  ]
+}
