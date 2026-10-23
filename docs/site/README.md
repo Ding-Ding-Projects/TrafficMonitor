@@ -15,10 +15,11 @@ Run the repository root `build.bat --site`. It installs the locked dependencies 
 
 `@material/web` 2.5.0 supplies real registered filled, outlined and text buttons, outlined text fields, checkboxes and switches. esbuild bundles those implementations locally, retaining linked legal comments. `package-lock.json` pins exact transitive integrity. Native HTML provides document landmarks, links, selects, file inputs and dates. This is a hybrid document surface, not a claim that every HTML control is a Material component.
 
-marked 18.1.1 parses original Markdown. DOMPurify 3.4.17 with jsdom 30.1.3 sanitizes rendered markup before link processing. External images become explicit original-image links; no remote image asset is silently fetched as a current screenshot. Historical documentation is visibly labelled.
+marked 18.1.1 parses original Markdown. DOMPurify 3.4.17 with jsdom 26.1.0 sanitizes rendered markup before link processing. External images become explicit original-image links; no remote image asset is silently fetched as a current screenshot. Historical documentation is visibly labelled.
 
 ## Verification and remaining delivery
 
-Three focused Node tests passed for wording validation and path containment. The first exact `build.bat --site` attempt stopped in the shared download helper because `Get-FileHash` was unavailable. That entrypoint repair is owned separately. This source checkpoint has no successful rendered-build or browser-evidence claim.
+Three focused Node tests passed for wording validation and path containment. The first exact `build.bat --site` attempt stopped in the shared download helper because `Get-FileHash` was unavailable. That entrypoint repair is owned separately. After the shared helper repair, the exact entrypoint produced 157 complete articles and zero history records. One historical image source was unavailable and is recorded in build-receipt.json. Browser evidence remains unavailable. A subsequent dependency correction pins jsdom to the supported Node range.
 
 The complete history dataset, refreshed article inventory, deployment, internal link/anchor audit, keyboard and persistence drive, current screenshot promotion, full language coverage and normal/minimum theme/scale visual matrix remain acceptance work. Full regex-workbench parity and the broader required-feature inventory are explicitly unfinished. The current implementation offers plain-text search only and does not execute regular expressions or control the installed application.
+

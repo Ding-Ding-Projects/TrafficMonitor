@@ -11,6 +11,12 @@ export function safeRelative(value) {
  if(p.startsWith('../')||p==='..'||path.posix.isAbsolute(p)||p.includes(':')) throw Error('Path is outside the content root');
  return p;
 }
+export function isOwnedGithubUrl(url, trustedRefs=['main','master']) {
+ if(url.hostname!=='github.com')return false;
+ const parts=url.pathname.split('/');
+ if(!['Ding-Ding-Projects','zhongyang219'].includes(parts[1])||parts[2]!=='TrafficMonitor')return false;
+ return parts[3]==='wiki'||(parts[3]==='blob'&&trustedRefs.includes(parts[4]));
+}
 export async function createContent(root,dist,manifest,base) {
  const window=new JSDOM('').window, purifier=createDOMPurify(window);
  const byPath=new Map(manifest.articles.map(a=>[a.sourcePath.toLowerCase(),a]));
@@ -28,7 +34,7 @@ export async function createContent(root,dist,manifest,base) {
   if(match&&!image) return base+match.route.slice(1)+suffix;
   if(/^https?:/i.test(withoutHash)) {
    const u=new URL(withoutHash);
-   if(u.hostname==='github.com') {
+   if(isOwnedGithubUrl(u,['main','master',manifest.sourceCommit])) {
     const segments=u.pathname.split('/');
     const wikiIndex=segments.indexOf('wiki');
     if(wikiIndex>=0) match=aliases.get(decodeURIComponent(segments.slice(wikiIndex+1).join('/')).toLowerCase());
@@ -71,4 +77,6 @@ export async function createContent(root,dist,manifest,base) {
   return {html:document.body.innerHTML,toc};
  }};
 }
+
+
 
