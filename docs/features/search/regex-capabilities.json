@@ -1,0 +1,2183 @@
+{
+  "schemaVersion": 1,
+  "overallStatus": "UNFINISHED",
+  "scope": "Bounded local ECMAScript execution backend only. This inventory is not a claim of RegexBuddy parity or delivered interface behavior.",
+  "reference": {
+    "product": "RegexBuddy",
+    "version": null,
+    "versionStatus": "Not independently established from the reviewed online manual.",
+    "indexUrl": "https://www.regexbuddy.com/manual.html",
+    "reviewedAt": "2026-10-23",
+    "indexSha256": "6a9c2a360be6461219fd8ed37232a248d9b4abb262a52012175c030c37acb125",
+    "inventoryMethod": "All distinct manual HTML topic URLs linked by the official table of contents and keyword index, including topics found only in the keyword index. Each topic page was retrieved and hashed.",
+    "topicCount": 93,
+    "manualContentCopied": false,
+    "limitation": "This is the online user-guide topic inventory, not a claim to inventory every page in the separately published PDF syntax tutorial/reference. Syntax and reference expansion remain unfinished."
+  },
+  "engine": {
+    "name": "ECMAScript RegExp",
+    "binding": "Current browser module Worker, with runtime build string and feature probes returned by capabilities. JavaScript and Unicode engine versions are not exposed and remain unknown.",
+    "otherEngines": {
+      "status": "UNFINISHED",
+      "reason": "No PCRE, .NET, Python, Java or other engine is executed by this backend."
+    },
+    "operations": [
+      "capabilities",
+      "match",
+      "search",
+      "replace",
+      "split"
+    ],
+    "positions": "UTF-16 code-unit offsets, end-exclusive; unmatched captures and indices are null.",
+    "flags": "d g i m s u v y are recognized; runtime support is probed, duplicates and incompatible u/v combinations are rejected.",
+    "privacy": "No network, eval, payload logging or persistence in the module. The caller owns interface state.",
+    "workerAssets": [
+      "docs/site/src/regex-engine/worker.mjs",
+      "docs/site/src/regex-engine/evaluate.mjs",
+      "docs/site/src/regex-engine/request.mjs"
+    ],
+    "apiEntry": "docs/site/src/regex-engine/client.mjs",
+    "verification": {
+      "localNodeWorkerTests": "Passed; uses an explicitly identified Node adapter and does not establish browser-engine or interface proof.",
+      "builtBrowser": "UNVERIFIED",
+      "deployedBrowser": "UNVERIFIED"
+    },
+    "limitations": [
+      "No debugger execution trace or fabricated backtracking steps.",
+      "No other-engine execution, conversion or equivalence promise.",
+      "No byte-encoding or streaming-file execution.",
+      "No complete syntax explanation, code generation, templates, expression libraries or folder search supplied by this module.",
+      "Elapsed timeout includes Worker startup; the browser event loop must schedule the termination callback.",
+      "Worker termination bounds blocking of the caller; it is not a hard operating-system memory quota."
+    ]
+  },
+  "requiredFamilies": [
+    {
+      "id": "engine-selection-and-options",
+      "status": "UNFINISHED"
+    },
+    {
+      "id": "pattern-construction",
+      "status": "UNFINISHED"
+    },
+    {
+      "id": "replacement-construction",
+      "status": "UNFINISHED"
+    },
+    {
+      "id": "analysis-and-editing",
+      "status": "UNFINISHED"
+    },
+    {
+      "id": "engine-comparison-and-conversion",
+      "status": "UNFINISHED"
+    },
+    {
+      "id": "matching-and-test-data",
+      "status": "UNFINISHED"
+    },
+    {
+      "id": "debugging",
+      "status": "UNFINISHED"
+    },
+    {
+      "id": "benchmarking",
+      "status": "UNFINISHED"
+    },
+    {
+      "id": "code-generation-and-templates",
+      "status": "UNFINISHED"
+    },
+    {
+      "id": "saved-expressions-and-history",
+      "status": "UNFINISHED"
+    },
+    {
+      "id": "file-and-folder-search",
+      "status": "UNFINISHED"
+    },
+    {
+      "id": "integration-and-automation",
+      "status": "UNFINISHED"
+    },
+    {
+      "id": "preferences-accessibility-and-help",
+      "status": "UNFINISHED"
+    }
+  ],
+  "topics": [
+    {
+      "id": "index",
+      "title": "Introducing RegexBuddy",
+      "sourceUrl": "https://www.regexbuddy.com/manual/index.html",
+      "sourceSha256": "b4465c936f122a06de9f0998b585b46bf9d782d718eccd56a410c201d5ab2cd4",
+      "indexLabels": [
+        "Introducing RegexBuddy"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "gettingstarted",
+      "title": "Getting Started with RegexBuddy",
+      "sourceUrl": "https://www.regexbuddy.com/manual/gettingstarted.html",
+      "sourceSha256": "a8940266c63a620c0a9deebbddead5def118ba156d742d7f780a28fa7c54bf19",
+      "indexLabels": [
+        "Getting Started with RegexBuddy"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "application",
+      "title": "Select Your Application or Programming Language",
+      "sourceUrl": "https://www.regexbuddy.com/manual/application.html",
+      "sourceSha256": "0f5fe7f59ec09d13190cbb38906e7ec980349ff7817e49ef32c730d71130df38",
+      "indexLabels": [
+        "Application Selection",
+        "emulation",
+        "Helpful",
+        "More applications and languages",
+        "regex flavor",
+        "regex syntax",
+        "replacement flavor",
+        "split flavor",
+        "Strict",
+        "target application"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "purpose",
+      "title": "Define a Match, Replace, or Split Action",
+      "sourceUrl": "https://www.regexbuddy.com/manual/purpose.html",
+      "sourceSha256": "639d9325f8051fa363e3ec87092d196fab5d70642774d3a87dfa97ff82f23bf4",
+      "indexLabels": [
+        "Match, Replace, or Split",
+        "actions",
+        "find",
+        "search"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": "Real native ECMAScript match, search, replace and split operations are implemented with typed bounded results. Complete action controls and browser verification remain unfinished.",
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": true,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "options",
+      "title": "Set Regular Expression Options",
+      "sourceUrl": "https://www.regexbuddy.com/manual/options.html",
+      "sourceSha256": "6ea3965f778721bf1a7d70c0310aa60a434829f68cf24f693c4e1c7cbef1c7ff",
+      "indexLabels": [
+        "Set Regular Expression Options",
+        "\\R line break handling",
+        "add empty strings",
+        "add groups",
+        "advanced",
+        "allow zero-length matches",
+        "ASCII casefold",
+        "ASCII classes",
+        "awk",
+        "backslash letter",
+        "basic",
+        "case folding and character classes",
+        "case sensitivity",
+        "classic \\b",
+        "CR, LF, or CRLF",
+        "CRLF pairs only",
+        "default classes",
+        "default flavor",
+        "default line breaks",
+        "don’t add empty strings",
+        "don’t add groups",
+        "duplicate names",
+        "earliest match",
+        "egrep",
+        "extended",
+        "flavor",
+        "free-spacing […]",
+        "free-spacing mode",
+        "grep",
+        "line break handling",
+        "match direction",
+        "NUL only",
+        "quantifiers",
+        "regex doesn’t match line breaks",
+        "regex syntax only",
+        "Reset button",
+        "single-line mode",
+        "skip zero-length matches",
+        "Split ASCII/Unicode case",
+        "split capture",
+        "split empty",
+        "split limit",
+        "split with limit:",
+        "split without limit",
+        "string syntax",
+        "support string syntax",
+        "UAX#29 \\b",
+        "unicode casefold",
+        "unicode classes",
+        "unicode line breaks",
+        "word boundaries",
+        "zero-length matches"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": "Known ECMAScript flags are validated, unsupported runtime flags are reported, and current-worker capabilities are probed. Other engine options and parity are unfinished.",
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": true,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "inserttoken",
+      "title": "Insert a Regex Token",
+      "sourceUrl": "https://www.regexbuddy.com/manual/inserttoken.html",
+      "sourceSha256": "60f1e0b60a26afb778ddd9a99df615b98fe1fa98adde53102426cd147f4fa1ed",
+      "indexLabels": [
+        "Insert a Regex Token"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "inserttext",
+      "title": "Insert Literal Text",
+      "sourceUrl": "https://www.regexbuddy.com/manual/inserttext.html",
+      "sourceSha256": "864d7ce9468af0ff85f398d824a381c302223da03775921d786053fafcbeddfb",
+      "indexLabels": [
+        "Literal Text",
+        "special",
+        "metacharacters",
+        "reserved characters",
+        "special characters"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "insertnonprint",
+      "title": "Insert a Non-printable Character",
+      "sourceUrl": "https://www.regexbuddy.com/manual/insertnonprint.html",
+      "sourceSha256": "039de14a72199fc753d4b5b9029f112565015562fbfa08c2f9942973bf04fe9e",
+      "indexLabels": [
+        "Non-printable Character",
+        "any line break",
+        "ASCII",
+        "end of line",
+        "line terminator",
+        "non-printable characters",
+        "terminate lines"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "insertchar",
+      "title": "Insert a Character",
+      "sourceUrl": "https://www.regexbuddy.com/manual/insertchar.html",
+      "sourceSha256": "2b4435a3808f03dee8ef32b8d1586568bdb6d94e5c774ebe20f4d71777005cca",
+      "indexLabels": [
+        "Character",
+        "grapheme"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "insertshorthand",
+      "title": "Insert a Shorthand Character Class",
+      "sourceUrl": "https://www.regexbuddy.com/manual/insertshorthand.html",
+      "sourceSha256": "b4841c5801820186aa8efbd415bf4d782269552df48c8c64f49c6a76482e48e6",
+      "indexLabels": [
+        "Shorthand",
+        "shorthand",
+        "digit",
+        "hexadecimal digit",
+        "horizontal whitespace",
+        "lowercase letter",
+        "non-digit",
+        "shorthand character class",
+        "uppercase letter",
+        "vertical whitespace",
+        "whitespace character",
+        "word character",
+        "XML name"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "insertcharclass",
+      "title": "Insert a Regex Token to Match One Character out of Many Possible Characters",
+      "sourceUrl": "https://www.regexbuddy.com/manual/insertcharclass.html",
+      "sourceSha256": "63409d833ab1934fd09bf1283ac648234ed951a2e98ed4ec2696278cc5fa1c39",
+      "indexLabels": [
+        "Character Class",
+        "intersection",
+        "subtraction",
+        "intersected character class",
+        "other character class tokens",
+        "subtracted character class"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "insertposix",
+      "title": "Insert a Regex Token to Match One Character from Predefined POSIX Classes",
+      "sourceUrl": "https://www.regexbuddy.com/manual/insertposix.html",
+      "sourceSha256": "188c8d9290c3b7f93aef6d6147590f806bba5dad437d8aa66e2f2efb5b81fbb8",
+      "indexLabels": [
+        "POSIX Class",
+        "POSIX"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "insertunicode",
+      "title": "Insert a Unicode Property",
+      "sourceUrl": "https://www.regexbuddy.com/manual/insertunicode.html",
+      "sourceSha256": "f7401bf1aa5abd862ba6a641917f94994e52f7192a754ee8fc3468c1d5e34610",
+      "indexLabels": [
+        "Unicode Property",
+        "property"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "insertunicodecategory",
+      "title": "Insert a Unicode Category",
+      "sourceUrl": "https://www.regexbuddy.com/manual/insertunicodecategory.html",
+      "sourceSha256": "a7f33cbe4effdd5a4e93dfd766253a58bac3d51df2678082cc60541cfa41dd77",
+      "indexLabels": [
+        "Category",
+        "category"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "insertunicodescript",
+      "title": "Insert a Unicode Script",
+      "sourceUrl": "https://www.regexbuddy.com/manual/insertunicodescript.html",
+      "sourceSha256": "cb5defed578fd56c57f86bd4d027fe5bb786131305515757b2fd0c5013cdcd30",
+      "indexLabels": [
+        "Script",
+        "ISO 15924",
+        "script",
+        "script extensions",
+        "script extension"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "insertunicodeblock",
+      "title": "Insert a Unicode Block",
+      "sourceUrl": "https://www.regexbuddy.com/manual/insertunicodeblock.html",
+      "sourceSha256": "cffa9bec0a538fdf4cbc184e176c170c96dfe288336be47332ab5f1c2df00e78",
+      "indexLabels": [
+        "Block",
+        "block"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "insertunicodeproperty",
+      "title": "Insert a Binary Unicode Property",
+      "sourceUrl": "https://www.regexbuddy.com/manual/insertunicodeproperty.html",
+      "sourceSha256": "39acd0a3f6dd2e580e77abe2dd5c09cd5baae5878a1343d54c732fa741f2ad87",
+      "indexLabels": [
+        "Property",
+        "binary property"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "insertunicodeage",
+      "title": "Insert a Unicode Age",
+      "sourceUrl": "https://www.regexbuddy.com/manual/insertunicodeage.html",
+      "sourceSha256": "56500a5548971e63746a018e03799bd9354f8c3f70576802aecebe5b77eeb326",
+      "indexLabels": [
+        "Age",
+        "age"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "insertunicodebidiclass",
+      "title": "Insert a Unicode Bidi Class",
+      "sourceUrl": "https://www.regexbuddy.com/manual/insertunicodebidiclass.html",
+      "sourceSha256": "ce7128e1623f5b83a03719a1e962fb17969d9b6c670676e1dfd0d30ba9f61681",
+      "indexLabels": [
+        "Bidi Class",
+        "bidi class"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "insertunicodebidipairedbrackettype",
+      "title": "Insert a Unicode Bidi Paired Bracket Type",
+      "sourceUrl": "https://www.regexbuddy.com/manual/insertunicodebidipairedbrackettype.html",
+      "sourceSha256": "1805dda9e5cabe9f7c8ff8c7f9b5d98f2b94a5406001c053021fb6928edadde4",
+      "indexLabels": [
+        "Bidi Paired Bracket Type",
+        "bidi paired bracket type"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "insertunicodecanonicalcombiningclass",
+      "title": "Insert a Unicode Canonical combining Class",
+      "sourceUrl": "https://www.regexbuddy.com/manual/insertunicodecanonicalcombiningclass.html",
+      "sourceSha256": "1cc3a6de89739d81e2a2fcb21833522da62f2fb78a644b8a30c6964919168129",
+      "indexLabels": [
+        "Canonical combining Class",
+        "canonical combining class"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "insertunicodedecompositiontype",
+      "title": "Insert a Unicode Decomposition Type",
+      "sourceUrl": "https://www.regexbuddy.com/manual/insertunicodedecompositiontype.html",
+      "sourceSha256": "6b4200c88f22c908a266c8b5bf502c35921298833ac70223f9993b6d00fcad3a",
+      "indexLabels": [
+        "Decomposition Type",
+        "decomposition type"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "insertunicodeeastasianwidth",
+      "title": "Insert a Unicode Bidi Paired Bracket Type",
+      "sourceUrl": "https://www.regexbuddy.com/manual/insertunicodeeastasianwidth.html",
+      "sourceSha256": "9d5c25b4f13771f0976202bd96c0c4101dc1e75be4cf8064a8f293b98c7201bc",
+      "indexLabels": [
+        "Bidi Paired Bracket Type",
+        "East Asian width"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "insertunicodehangulsyllabletype",
+      "title": "Insert a Unicode Hangul Syllable Type",
+      "sourceUrl": "https://www.regexbuddy.com/manual/insertunicodehangulsyllabletype.html",
+      "sourceSha256": "8f0e629de9db5e63907747ca11ab4105787f8601d521195dc6b22cb58d59b16e",
+      "indexLabels": [
+        "Hangul Syllable Type",
+        "Hangul",
+        "jamo",
+        "Hangul syllable type"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "insertunicodeidentifierstatusortype",
+      "title": "Insert a Unicode Identifier Status or Type",
+      "sourceUrl": "https://www.regexbuddy.com/manual/insertunicodeidentifierstatusortype.html",
+      "sourceSha256": "e10d96abf724b2d878d6e867dff158fda6ea0a7ee7f96e74bdbbf59dc16e2d98",
+      "indexLabels": [
+        "Identifier Status or Type",
+        "identifier status",
+        "identifier type"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "insertunicodeindicpositionalcategory",
+      "title": "Insert a Unicode Indic Positional Category",
+      "sourceUrl": "https://www.regexbuddy.com/manual/insertunicodeindicpositionalcategory.html",
+      "sourceSha256": "a5c9135b774b461147976ab0c56f9a839652017ea388ace9db19904620d2bb8c",
+      "indexLabels": [
+        "Indic Positional Category",
+        "Indic positional category"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "insertunicodeindicsyllabiccategory",
+      "title": "Insert a Unicode Indic Syllabic Category",
+      "sourceUrl": "https://www.regexbuddy.com/manual/insertunicodeindicsyllabiccategory.html",
+      "sourceSha256": "424ca95e17dfbcf3c48eef1e472f01c397792b8ea31b042231e5f49a20ec6320",
+      "indexLabels": [
+        "Indic Syllabic Category",
+        "Indic syllabic category"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "insertunicodejoininggroup",
+      "title": "Insert a Unicode Joining Group",
+      "sourceUrl": "https://www.regexbuddy.com/manual/insertunicodejoininggroup.html",
+      "sourceSha256": "4d9de03f6bdff2ab311338586a44d8da47f55ce8194b81adb7f34126de8d449a",
+      "indexLabels": [
+        "Joining Group",
+        "joining group"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "insertunicodejoiningtype",
+      "title": "Insert a Unicode Joining Type",
+      "sourceUrl": "https://www.regexbuddy.com/manual/insertunicodejoiningtype.html",
+      "sourceSha256": "81004eb6bc58ee8a0ea16a7d741e4b31d4b2e739952a116630f8cbe327662b65",
+      "indexLabels": [
+        "Joining Type",
+        "joining type"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "insertunicodenfquickcheck",
+      "title": "Insert a Unicode Normalization Form Quick Check",
+      "sourceUrl": "https://www.regexbuddy.com/manual/insertunicodenfquickcheck.html",
+      "sourceSha256": "8e84eb9e6392f5cc6e4c67570424716ae6e28929042cdcc2b8fbf51703400a8f",
+      "indexLabels": [
+        "NF Quick Check",
+        "quick check"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "insertunicodenumeric",
+      "title": "Insert a Unicode Numeric Type or Value",
+      "sourceUrl": "https://www.regexbuddy.com/manual/insertunicodenumeric.html",
+      "sourceSha256": "20f9b8a57eee9056bc312f8e7547b0ca1cbd16be0ad7b746cfe828effba2cc6e",
+      "indexLabels": [
+        "Numeric Type or Value",
+        "numeric type",
+        "numeric value"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "insertunicodeverticalorientation",
+      "title": "Insert a Unicode Vertical Orientation",
+      "sourceUrl": "https://www.regexbuddy.com/manual/insertunicodeverticalorientation.html",
+      "sourceSha256": "5432f132d06462ffae6a2bcb09729bae83d675019123e5d5eb281b1eaeafab1b",
+      "indexLabels": [
+        "Vertical Orientation",
+        "vertical orientation"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "insertunicodegraphemeclusterbreak",
+      "title": "Insert a Unicode Grapheme Cluster Break Value",
+      "sourceUrl": "https://www.regexbuddy.com/manual/insertunicodegraphemeclusterbreak.html",
+      "sourceSha256": "97604de4db9e5c3ea9e045552c4378ecf7a617297e202c724cf0161a2778d13b",
+      "indexLabels": [
+        "Grapheme Cluster Break Value",
+        "grapheme cluster break"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "insertunicodewordbreak",
+      "title": "Insert a Unicode Word Break Value",
+      "sourceUrl": "https://www.regexbuddy.com/manual/insertunicodewordbreak.html",
+      "sourceSha256": "8b8d2fa06ebbe990940c206677a0cdc7e756d2c46117d5763d566c3b9d8c0b01",
+      "indexLabels": [
+        "Word Break Value",
+        "word break"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "insertunicodesentencebreak",
+      "title": "Insert a Unicode Sentence Break Value",
+      "sourceUrl": "https://www.regexbuddy.com/manual/insertunicodesentencebreak.html",
+      "sourceSha256": "ec5526488e18cfa7ecab86298e0b625124f7f8b872dac8a65fe611069a93d230",
+      "indexLabels": [
+        "Sentence Break Value",
+        "sentence break"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "insertunicodelinebreak",
+      "title": "Insert a Unicode Line Break Value",
+      "sourceUrl": "https://www.regexbuddy.com/manual/insertunicodelinebreak.html",
+      "sourceSha256": "33bbcbb74120f90257d368e45e2d3e1708dcd38dc0fa6e3d9dccbafd07d6f7e6",
+      "indexLabels": [
+        "Line Break Value",
+        "line break"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "insertrepeat",
+      "title": "Insert a Regex Token to Repeat Another Token",
+      "sourceUrl": "https://www.regexbuddy.com/manual/insertrepeat.html",
+      "sourceSha256": "1d9c7f78f3981b575fd85dbc0f9ebc9910f8a808fc12301385dbb4f9b8075cf0",
+      "indexLabels": [
+        "Quantifier",
+        "backtracking",
+        "greedy",
+        "lazy",
+        "maximum",
+        "minimum",
+        "possessive",
+        "quantifier",
+        "repetition",
+        "unlimited"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "insertanchors",
+      "title": "Insert a Regex Token to Match at a Certain Position",
+      "sourceUrl": "https://www.regexbuddy.com/manual/insertanchors.html",
+      "sourceSha256": "53897660f3b141f47f57eff8617222cde7499eb9bf8a4a6f39907a49b5e8e7ca",
+      "indexLabels": [
+        "Anchors",
+        "anchors",
+        "beginning of a line",
+        "beginning of a word",
+        "beginning of the string",
+        "end of a line",
+        "end of a word",
+        "end of the previous match",
+        "end of the string",
+        "end of the string or before the final line break",
+        "grapheme cluster boundary",
+        "line boundary",
+        "not a grapheme cluster boundary",
+        "not a line boundary",
+        "not a sentence boundary",
+        "not a word boundary (traditional)",
+        "not a word boundary (UAX #29)",
+        "position",
+        "sentence boundary",
+        "start of the match attempt",
+        "UAX #14",
+        "UAX #29",
+        "Unicode Annex 14",
+        "Unicode Annex 29",
+        "whole words only",
+        "word boundary (traditional)",
+        "word boundary (UAX #29)"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "insertalternation",
+      "title": "Insert a Regex Token to Match Different Alternatives",
+      "sourceUrl": "https://www.regexbuddy.com/manual/insertalternation.html",
+      "sourceSha256": "096c4bab522033a57e100d590ad99d85f5001bb3ac95b9368b1099d8a70246ff",
+      "indexLabels": [
+        "Alternation",
+        "alternation",
+        "choice",
+        "option",
+        "one regex or another",
+        "vertical bar"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "insertgroup",
+      "title": "Insert a Grouping Regex Token",
+      "sourceUrl": "https://www.regexbuddy.com/manual/insertgroup.html",
+      "sourceSha256": "c0a0e8ebec80cfb0b2f5f2b526530bacaeed0a5ea97481be13e181a8e2e44b31",
+      "indexLabels": [
+        "Group",
+        "atomic group",
+        "atomic",
+        "non-capturing",
+        "non-capturing group"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "insertcapture",
+      "title": "Insert a Capturing Group",
+      "sourceUrl": "https://www.regexbuddy.com/manual/insertcapture.html",
+      "sourceSha256": "4fd3d361a807469ce81e50e8408f3e10d1f3d572deabb90f91c7dc0322563d36",
+      "indexLabels": [
+        "Capturing Group",
+        "capturing group",
+        "capturing",
+        "named",
+        "numbered"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "insertbackref",
+      "title": "Insert a Backreference to a Capturing Group",
+      "sourceUrl": "https://www.regexbuddy.com/manual/insertbackref.html",
+      "sourceSha256": "81ad175d4e51b9f416a9ddd38d8927a6d6bd012ad887e99e5c75da0588371e21",
+      "indexLabels": [
+        "Backreference"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "insertrecurse",
+      "title": "Insert Regular Expression Recursion",
+      "sourceUrl": "https://www.regexbuddy.com/manual/insertrecurse.html",
+      "sourceSha256": "d3591b614c8801b8462b90211553eff0e67c65d23fb643a56d8f8c74aa85a0b7",
+      "indexLabels": [
+        "Recursion",
+        "balanced constructs",
+        "nested pairs",
+        "recursion"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "insertcall",
+      "title": "Insert a Subroutine Call to a Capturing Group",
+      "sourceUrl": "https://www.regexbuddy.com/manual/insertcall.html",
+      "sourceSha256": "947d8d56c9758194d482b8b4e64cc9032b1e572295bfb3437bc6881580a81d5f",
+      "indexLabels": [
+        "Subroutine Call",
+        "named subroutine call",
+        "numbered subroutine call",
+        "subroutine call"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "insertbalancing",
+      "title": "Insert a Balancing Group",
+      "sourceUrl": "https://www.regexbuddy.com/manual/insertbalancing.html",
+      "sourceSha256": "146512db33199554f9f3f9a0f2f29d71c86fdc0df56cedbd7cf2e4a6933bfab5",
+      "indexLabels": [
+        "Balancing Group"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "insertconditional",
+      "title": "Insert Conditional into the Regular Expression",
+      "sourceUrl": "https://www.regexbuddy.com/manual/insertconditional.html",
+      "sourceSha256": "20aad0cd58fc93143532e68e224b614373b8ed67ecc72cbce317a13d08535f34",
+      "indexLabels": [
+        "Conditional"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "insertlookaround",
+      "title": "Insert Lookaround",
+      "sourceUrl": "https://www.regexbuddy.com/manual/insertlookaround.html",
+      "sourceSha256": "500c63449a24d5e046d65e2b6146f5220eac3bbb16479f7cda88ddd56bad4d88",
+      "indexLabels": [
+        "Lookaround",
+        "lookaround"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "insertmode",
+      "title": "Insert a Regex Token to Change a Matching Mode",
+      "sourceUrl": "https://www.regexbuddy.com/manual/insertmode.html",
+      "sourceSha256": "cc0da061ed29993ade43afbe652bb5f6b00a3cf7045c43da89bea1da02f7aa1f",
+      "indexLabels": [
+        "Mode Modifier",
+        "... also in character classes",
+        "ASCII case folding",
+        "ASCII character classes",
+        "classic word boundaries",
+        "default case folding",
+        "default character classes",
+        "default line break handling",
+        "exact spacing syntax",
+        "free-spacing syntax",
+        "LF-only line break handling",
+        "POSIX Basic flavor",
+        "POSIX Extended flavor",
+        "treat regex as literal text",
+        "UAX #29 word boundaries",
+        "unicode case folding",
+        "unicode character classes"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "insertcomment",
+      "title": "Insert a Comment",
+      "sourceUrl": "https://www.regexbuddy.com/manual/insertcomment.html",
+      "sourceSha256": "7b72572bff232e4273d03e9b1cf9fc5025aa1e5a3fed5802e98eb1added5bddd",
+      "indexLabels": [
+        "Insert a Comment"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "insertregexmagic",
+      "title": "Using RegexMagic with RegexBuddy",
+      "sourceUrl": "https://www.regexbuddy.com/manual/insertregexmagic.html",
+      "sourceSha256": "4e331283dcebd694af9aa65ba695a23c3b2ac495273891bd581c31e0bfc17c16",
+      "indexLabels": [
+        "RegexMagic",
+        "generate regex",
+        "insert regex",
+        "regenerate regex"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "insertreplace",
+      "title": "Insert a Replacement Text Token",
+      "sourceUrl": "https://www.regexbuddy.com/manual/insertreplace.html",
+      "sourceSha256": "131b6ec4fa067ed1745e496f54398d48b626d98229f51ffdf70e227c53928a24",
+      "indexLabels": [
+        "Insert a Replacement Text Token"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "insertreplacechar",
+      "title": "Insert Specific Characters into The Replacement Text",
+      "sourceUrl": "https://www.regexbuddy.com/manual/insertreplacechar.html",
+      "sourceSha256": "d4a8687219ba89560e29c9a9cfd8de6254c8b4514dfe43ddf120735bb4404981",
+      "indexLabels": [
+        "Characters",
+        "backspace"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "insertreplacebackref",
+      "title": "Insert Backreference into the Replacement Text",
+      "sourceUrl": "https://www.regexbuddy.com/manual/insertreplacebackref.html",
+      "sourceSha256": "6cd9dbb5209f830d02fc71a61bc2fee420883db43fbaf119359f4126a281b545",
+      "indexLabels": [
+        "Backreference",
+        "last backreference",
+        "matched text"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": "Native ECMAScript numbered and named replacement references execute in the worker. Complete guided insertion and cross-engine behavior are unfinished.",
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": true,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "insertreplaceconditional",
+      "title": "Insert Conditional into the Replacement Text",
+      "sourceUrl": "https://www.regexbuddy.com/manual/insertreplaceconditional.html",
+      "sourceSha256": "105be9baa95f8ae171967b548a5e630b5556c8306bbb8606326bfa473a483ea3",
+      "indexLabels": [
+        "Conditional"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "insertreplacesubject",
+      "title": "Insert The Subject String into The Replacement Text",
+      "sourceUrl": "https://www.regexbuddy.com/manual/insertreplacesubject.html",
+      "sourceSha256": "c1a9f1c74656c2b741d29227a0bd754598f21151ccbda3a5b4f256d9f62ad192",
+      "indexLabels": [
+        "Subject"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": "Native ECMAScript subject prefix, suffix and full-match substitution execute with output limits. Complete guided insertion and cross-engine behavior are unfinished.",
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": true,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "create",
+      "title": "Analyze and Edit a Regex",
+      "sourceUrl": "https://www.regexbuddy.com/manual/create.html",
+      "sourceSha256": "2d9993e9cee61c818eecfc9d58d333c792cd137d15de06a4e4e404c2c59e3e18",
+      "indexLabels": [
+        "Analyze and Edit a Regex",
+        "all tips",
+        "explain token",
+        "key tips",
+        "no tips",
+        "regex structure",
+        "structure",
+        "tips",
+        "tree"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "compare",
+      "title": "Compare a Regex Between Multiple (Versions of) Applications",
+      "sourceUrl": "https://www.regexbuddy.com/manual/compare.html",
+      "sourceSha256": "66b5c6ffd86284063df1dc88c86d7a410bfa40f796d67217c1f9e081f84a1ffd",
+      "indexLabels": [
+        "Compare Applications",
+        "compare",
+        "diff"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "export",
+      "title": "Export The Analysis of a Regular Expression",
+      "sourceUrl": "https://www.regexbuddy.com/manual/export.html",
+      "sourceSha256": "1edb35d2874775f87b610cb75a7e1d161bb828c1964f61751cd04adbc652ed4a",
+      "indexLabels": [
+        "Export Regex Analysis",
+        "clipboard export",
+        "documentation",
+        "export",
+        "HTML export",
+        "image export",
+        "Markdown export",
+        "plain text export",
+        "save",
+        "teaching materials",
+        "web page export"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "convert",
+      "title": "Convert a Regex to Work with Another Application",
+      "sourceUrl": "https://www.regexbuddy.com/manual/convert.html",
+      "sourceSha256": "723860167c9aeafcc0eb4a6a17df0f99a320e843691f2f2b9b4a1c49ab8f66ae",
+      "indexLabels": [
+        "Convert From One App to Another",
+        "Accept Conversion",
+        "comments",
+        "Convert panel",
+        "ISO-8859 code pages",
+        "keep comments",
+        "strip comments",
+        "system code page",
+        "Windows code pages"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "test",
+      "title": "Testing Regex Actions",
+      "sourceUrl": "https://www.regexbuddy.com/manual/test.html",
+      "sourceSha256": "d5f806963afcf2cdf682482c569eca3cea4aa04f16a7f860b7e045d36e157cf8",
+      "indexLabels": [
+        "Testing Regex Actions",
+        "automatic line breaks",
+        "binary data",
+        "check",
+        "count matches",
+        "CRLF pair",
+        "Find First button",
+        "find next",
+        "Find Next button",
+        "hexadecimal",
+        "highlight",
+        "Highlight button",
+        "line by line",
+        "list all",
+        "List All button",
+        "mixed",
+        "n/a",
+        "Next button",
+        "non-participating groups",
+        "NULL",
+        "number of matches",
+        "open file",
+        "page break",
+        "page by page",
+        "paste subject",
+        "Previous button",
+        "replace all",
+        "Replace button",
+        "show non-participating groups",
+        "Split button",
+        "test",
+        "Test panel",
+        "text mode",
+        "update automatically",
+        "verify",
+        "whole file"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": "Match records include positional, optional and named captures; requested native indices are returned. Complete test workflow and browser verification remain unfinished.",
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": true,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "debug",
+      "title": "Debugging Regular Expressions",
+      "sourceUrl": "https://www.regexbuddy.com/manual/debug.html",
+      "sourceSha256": "7d54797e418d344cbdb225aefd30b5ec60be8deee614a569125dc2772b4f66f7",
+      "indexLabels": [
+        "Debugging Regular Expressions",
+        "collapse",
+        "Debug button",
+        "Debug panel",
+        "debugger",
+        "expand",
+        "fold",
+        "unfold"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "benchmark",
+      "title": "Benchmarking Regular Expressions",
+      "sourceUrl": "https://www.regexbuddy.com/manual/benchmark.html",
+      "sourceSha256": "90950735c7b71dc3dfdf01724d8da9760e03fbb9bc5c483595273edec42beb00",
+      "indexLabels": [
+        "Benchmarking Regular Expressions",
+        "benchmark",
+        "efficiency",
+        "optimization",
+        "sawtooth",
+        "stopwatch"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "use",
+      "title": "Generate Source Code to Use a Regex",
+      "sourceUrl": "https://www.regexbuddy.com/manual/use.html",
+      "sourceSha256": "e66fdbf0c652992b2a2ff77413b996ebaaad126d806a1d6c2652fcbe0728fc73",
+      "indexLabels": [
+        "Generate Source Code",
+        "code editor",
+        "code snippets",
+        "exception handling",
+        "handle exceptions",
+        "IDE",
+        "implementation",
+        "libraries",
+        "raise",
+        "source code",
+        "task",
+        "throw",
+        "use"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "usefunctions",
+      "title": "Available Functions in Source Code Snippets",
+      "sourceUrl": "https://www.regexbuddy.com/manual/usefunctions.html",
+      "sourceSha256": "4cc08db1f64c827ad4251543e4a71f0f0ee317688b6771cd1c23529e3465455d",
+      "indexLabels": [
+        "Available Functions",
+        "callback function",
+        "details of a match",
+        "entirely matching",
+        "match details",
+        "matching entirely",
+        "object with regex",
+        "regex object"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "useedit",
+      "title": "Source Code Template Editor",
+      "sourceUrl": "https://www.regexbuddy.com/manual/useedit.html",
+      "sourceSha256": "8bba57a37e098762f7ef8b4f08b827f13cfdc2f3b9a44cbab611fc62e75ab69d",
+      "indexLabels": [
+        "Source Code Template Editor",
+        "template"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "copypaste",
+      "title": "Copying and Pasting Regexes",
+      "sourceUrl": "https://www.regexbuddy.com/manual/copypaste.html",
+      "sourceSha256": "d237f97b73a485e8d386adba24562b3af156b3259affc2ad875103fd47bbb494",
+      "indexLabels": [
+        "Copying and Pasting Regexes",
+        "backslash",
+        "Basic",
+        "C",
+        "C++",
+        "C++11",
+        "char16_t",
+        "char32_t",
+        "char8_t",
+        "Chrome",
+        "copy",
+        "Ctrl+C",
+        "Ctrl+V",
+        "double quote",
+        "ECMA-262",
+        "ereg",
+        "F#",
+        "Google Sheets",
+        "Groovy",
+        "Java",
+        "LibreOffice Calc",
+        "MySQL",
+        "operator",
+        "Oxygene",
+        "Pascal",
+        "paste",
+        "Perl",
+        "PostgreSQL",
+        "PowerShell",
+        "preg",
+        "Prism",
+        "Python",
+        "quote",
+        "raw string",
+        "REALbasic",
+        "Ruby",
+        "Scala",
+        "send",
+        "single quote",
+        "spreadsheet formulas",
+        "SQL",
+        "Tcl",
+        "transfer",
+        "U",
+        "u",
+        "u8",
+        "verbatim string",
+        "XML",
+        "Xojo"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "library",
+      "title": "Storing Regexes in Libraries",
+      "sourceUrl": "https://www.regexbuddy.com/manual/library.html",
+      "sourceSha256": "2569bfe2624f10f637d5e8a4dceab7b414d30ef187738457448e7d04e27e1ce4",
+      "indexLabels": [
+        "Storing Regexes in Libraries",
+        "Add button",
+        "automatic save",
+        "description",
+        "modify libraries",
+        "read only",
+        "RegexBuddy Library file",
+        "reuse",
+        "Save As button",
+        "save libraries",
+        "save regexes",
+        "share regexes",
+        "store regexes"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "library-params",
+      "title": "Parameterized Library Regexes",
+      "sourceUrl": "https://www.regexbuddy.com/manual/library-params.html",
+      "sourceSha256": "4530d81f2d84b54f8abe2c7029f5361e6bb751c89f1b738aaf5c8a8011e3b4a5",
+      "indexLabels": [
+        "Parameterized Library Regexes",
+        "default value for parameters",
+        "parameters",
+        "parameterize a regex",
+        "regex template",
+        "regex variants",
+        "regex with parameters",
+        "template regex",
+        "variants of regexes"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "library-use",
+      "title": "Using a Regex from a Library",
+      "sourceUrl": "https://www.regexbuddy.com/manual/library-use.html",
+      "sourceSha256": "e7d848b77fbec2dd684c78c7e9d0b4be7b20f69c1da276b3b2d8fd2744da3640",
+      "indexLabels": [
+        "Using a Regex from a Library",
+        "Library panel",
+        "RegexBuddy5.rbl",
+        "Use button"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "greprxb",
+      "title": "GREP through Files and Folders",
+      "sourceUrl": "https://www.regexbuddy.com/manual/greprxb.html",
+      "sourceSha256": "5276c002abe622ffc1e81faa2e3b9e00f434daab9c31c21cbdf08f67d98ad60e",
+      "indexLabels": [
+        "GREP through Files and Folders",
+        "backup",
+        "Clear button",
+        "copy all searched files",
+        "copy only modified files",
+        "delete backup files",
+        "execute",
+        "Export button",
+        "file mask",
+        "folders",
+        "GREP button",
+        "GREP panel",
+        "hidden history",
+        "include binary files",
+        "invert mask",
+        "invert results",
+        "line-based",
+        "multi .bak",
+        "multi backup N of",
+        "no backups",
+        "preview",
+        "quick execute",
+        "same file name",
+        "Save button",
+        "save one file for each searched file",
+        "save results into a single file",
+        "single .bak",
+        "single .~??",
+        "target",
+        "undo GREP"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "history",
+      "title": "History: Experiment with Multiple Regular Expressions",
+      "sourceUrl": "https://www.regexbuddy.com/manual/history.html",
+      "sourceSha256": "745d056ef4da4e233b829c4970a4da1c2a8a227c02f90dbc712a9e2cc9df1ea9",
+      "indexLabels": [
+        "Work with Multiple Regexes"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "forum",
+      "title": "Share Experiences and Get Help on The User Forums",
+      "sourceUrl": "https://www.regexbuddy.com/manual/forum.html",
+      "sourceSha256": "7d0f776381e12ee76f5890d60cce8f02c3a3a8566094ba6f0356943384d85c25",
+      "indexLabels": [
+        "User Forum"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "forumfeeds",
+      "title": "Forum RSS Feeds",
+      "sourceUrl": "https://www.regexbuddy.com/manual/forumfeeds.html",
+      "sourceSha256": "40e3b967b10aa88f3461d083a12656d34134495e4e6ba6df75b7c1b32881b821",
+      "indexLabels": [
+        "Forum RSS Feeds",
+        "feeds",
+        "news feeds",
+        "RSS feeds"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "keyboard",
+      "title": "Keyboard Shortcuts",
+      "sourceUrl": "https://www.regexbuddy.com/manual/keyboard.html",
+      "sourceSha256": "2e24303bee476cb34898938313254d948c634e49c5316932524d6faed6dac4f7",
+      "indexLabels": [
+        "Keyboard Shortcuts"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "keyboardedit",
+      "title": "Editing Text with The Keyboard",
+      "sourceUrl": "https://www.regexbuddy.com/manual/keyboardedit.html",
+      "sourceSha256": "34b866a1e14dfa243cb2384468429fc57561a3e19b75f373dec9b095e466067c",
+      "indexLabels": [
+        "Editing Text with The Keyboard",
+        "shortcuts"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "view",
+      "title": "RegexBuddy’s Appearance",
+      "sourceUrl": "https://www.regexbuddy.com/manual/view.html",
+      "sourceSha256": "ea9479adac6dccf9a4fd1e98454a95bb7e1ea4a1b03eaba55dd57e452b7facbc",
+      "indexLabels": [
+        "RegexBuddy’s Appearance",
+        "black theme",
+        "dark theme",
+        "default layout",
+        "dual monitor layout",
+        "large icons",
+        "medium icons",
+        "panels",
+        "restore default layout",
+        "second monitor",
+        "side by side layout",
+        "side panels",
+        "small icons",
+        "themes",
+        "toolbars",
+        "white theme"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "preferences",
+      "title": "RegexBuddy Preferences",
+      "sourceUrl": "https://www.regexbuddy.com/manual/preferences.html",
+      "sourceSha256": "96d8aa7ee6bc7d2b9ab9c29b068e443c7eb285aa55eeef9452a095678fceac33",
+      "indexLabels": [
+        "RegexBuddy Preferences",
+        "configure RegexBuddy",
+        "preferences"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "prefseditors",
+      "title": "Editors Preferences",
+      "sourceUrl": "https://www.regexbuddy.com/manual/prefseditors.html",
+      "sourceSha256": "ff23a2f98d3ffa3815fb40c8e783068bd1f460d8bcc0f55ad5b78ad7718a5623",
+      "indexLabels": [
+        "Editors Preferences",
+        "font size",
+        "line breaks",
+        "show spaces",
+        "spaces",
+        "tabs",
+        "visualize spaces",
+        "wrap",
+        "zoom"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "prefsoperation",
+      "title": "Operation Preferences",
+      "sourceUrl": "https://www.regexbuddy.com/manual/prefsoperation.html",
+      "sourceSha256": "66a4d5b2dd28ea842b10c95dab686ffe22a14605d9042d6bcf88c92cfce85605",
+      "indexLabels": [
+        "Operation Preferences",
+        "preserve state",
+        "remember state",
+        "save state",
+        "state",
+        "statusbar",
+        "UCS-2",
+        "Unicode transformations",
+        "UTF-16"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "prefsgrep",
+      "title": "GREP Preferences",
+      "sourceUrl": "https://www.regexbuddy.com/manual/prefsgrep.html",
+      "sourceSha256": "79be1f4205a70d67ccac4a7ea1747f30e38c63ec152db1d428a1bdf223b88558",
+      "indexLabels": [
+        "GREP Preferences",
+        ".bak files",
+        "backup files",
+        "bak files",
+        "exclude files",
+        "exclude folders",
+        "exclude",
+        "hide",
+        "hidden",
+        "system",
+        "hidden files",
+        "hide files",
+        "hide folders",
+        "permanent exclusion",
+        "system files",
+        "working copy"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "prefstextlayout",
+      "title": "Text Layout Configuration",
+      "sourceUrl": "https://www.regexbuddy.com/manual/prefstextlayout.html",
+      "sourceSha256": "2284e041adb11f541637be77e30098f087d62f5d8efe5e6e1f1a2b97a5b07216",
+      "indexLabels": [
+        "Text Layout Configuration",
+        "add fonts",
+        "ASCII ligatures",
+        "bidirectional",
+        "Chinese",
+        "control characters",
+        "cursor",
+        "fallback fonts",
+        "Japanese",
+        "left-to-right scripts",
+        "ligatures",
+        "monospaced",
+        "proportionally spaced",
+        "right-to-left scripts",
+        "text layout",
+        "Unifont",
+        "word"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "prefstextlayoutfont",
+      "title": "Choose a Font",
+      "sourceUrl": "https://www.regexbuddy.com/manual/prefstextlayoutfont.html",
+      "sourceSha256": "b7ccb18f06d405090d61327f9288c08873b999fcd1eba65d17b0c4c80d09c616",
+      "indexLabels": [
+        "Choose a Font",
+        "last resort"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "prefstextlayoutcaret",
+      "title": "Text Cursor Configuration",
+      "sourceUrl": "https://www.regexbuddy.com/manual/prefstextlayoutcaret.html",
+      "sourceSha256": "97f98ba63619e2c63d0866fb06de001d8d18ab945883835cec136b0f1e9992c3",
+      "indexLabels": [
+        "Text Cursor Configuration",
+        "blinking",
+        "cursor configuration",
+        "flag",
+        "text cursor configuration"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "prefscolors",
+      "title": "Color Palettes",
+      "sourceUrl": "https://www.regexbuddy.com/manual/prefscolors.html",
+      "sourceSha256": "72b2b4520a6f50576bce08321247ae665a3be85e930e8c0734412a594b8ca105",
+      "indexLabels": [
+        "Color Palettes",
+        "bold",
+        "color palettes",
+        "colors",
+        "customize color palette",
+        "hue",
+        "italic",
+        "luminance",
+        "saturation",
+        "underline"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "prefscolorsregex",
+      "title": "Regex Colors",
+      "sourceUrl": "https://www.regexbuddy.com/manual/prefscolorsregex.html",
+      "sourceSha256": "c85753b6e866e1328861569d934f9d5c72b4ed3463f0f99bdbeae4593705548c",
+      "indexLabels": [
+        "Regex Colors"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "prefscolorstest",
+      "title": "Test Colors",
+      "sourceUrl": "https://www.regexbuddy.com/manual/prefscolorstest.html",
+      "sourceSha256": "687ddc65b2cb0bb784a4ad7185f3c7eb928d93fb209abe048f50e4e918c1bca5",
+      "indexLabels": [
+        "Test Colors"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "prefscolorsuse",
+      "title": "Use Colors",
+      "sourceUrl": "https://www.regexbuddy.com/manual/prefscolorsuse.html",
+      "sourceSha256": "ac2b4f91914ec26a19aefd647831f5f431e7a4ed6b131288db0877b13e32ba3d",
+      "indexLabels": [
+        "Use Colors"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "prefscolorsgrep",
+      "title": "GREP Colors",
+      "sourceUrl": "https://www.regexbuddy.com/manual/prefscolorsgrep.html",
+      "sourceSha256": "449d5dd3e6df679aabc15e752fc246128c4a541df56a1b9ba179296a1ea6894c",
+      "indexLabels": [
+        "GREP Colors"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "integration",
+      "title": "Integrate RegexBuddy with Other Software",
+      "sourceUrl": "https://www.regexbuddy.com/manual/integration.html",
+      "sourceSha256": "d61d9e2ae6e0c54b996da47b0abb135ae6467d60cd025bac14be4021c8338138",
+      "indexLabels": [
+        "Integration with Other Software",
+        "3rd party integration",
+        "API",
+        "application integration",
+        "command line",
+        "command line examples",
+        "integration with other tools",
+        "launch RegexBuddy",
+        "software integration",
+        "tool integration",
+        "Visual Studio",
+        "workflow"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "contact",
+      "title": "RegexBuddy Contact Information",
+      "sourceUrl": "https://www.regexbuddy.com/manual/contact.html",
+      "sourceSha256": "007d1f9e25071341dc9e272f980f970cde2c93c4c7844c22f4aa57842269c047",
+      "indexLabels": [
+        "RegexBuddy Contact Information"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "commandline",
+      "title": "RegexBuddy Command Line Parameters",
+      "sourceUrl": "https://www.regexbuddy.com/manual/commandline.html",
+      "sourceSha256": "ed4fa47380b546789910194718fa75e2f5679cd2f9ef05357be18dd4d3758391",
+      "indexLabels": [
+        ".rba files",
+        "Command Line Parameters",
+        "command line parameters",
+        "rba files"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "comautomation",
+      "title": "Integrating RegexBuddy Using COM Automation",
+      "sourceUrl": "https://www.regexbuddy.com/manual/comautomation.html",
+      "sourceSha256": "6870eefaa8c77581bf94ddd88bf0db65d2fe31edb42a6ede4f2480d95e5b7347",
+      "indexLabels": [
+        "COM Automation interface",
+        "type library"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    },
+    {
+      "id": "identifiers",
+      "title": "Identifiers for Applications, Flavors, and String Styles",
+      "sourceUrl": "https://www.regexbuddy.com/manual/identifiers.html",
+      "sourceSha256": "baf7c1f78b1b2e21569cb8d2decc82aaa31789cbf6365b452de2b8f3ff826c94",
+      "indexLabels": [
+        "identifiers"
+      ],
+      "status": "UNFINISHED",
+      "implementedBehavior": null,
+      "remainingWork": "Implement and verify the complete documented workflow for this topic, including engine-specific limits, relevant controls and negative cases.",
+      "verification": {
+        "sourceReview": true,
+        "localEngineTests": false,
+        "builtBrowser": false
+      }
+    }
+  ]
+}
