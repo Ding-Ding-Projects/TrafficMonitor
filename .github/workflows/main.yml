@@ -146,9 +146,6 @@ jobs:
           }
           if (@($release.assets | Where-Object name -like '*-full.nupkg').Count -ne 1) { throw 'Full package download is missing or ambiguous' }
           $metadata | Set-Content -Encoding utf8 docs/release-metadata.json
-      - name: Build complete static documentation
-        shell: cmd
-        run: call build.bat --site
       - name: Build portable offline documentation companion
         shell: cmd
         run: call build-installer.bat --docs-companion -Version 1.0.${{ github.run_number }}

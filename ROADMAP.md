@@ -154,6 +154,6 @@ with historical originals retained separately.
 
 ## Offline documentation companion
 
-- [ ] Build the current complete article/wiki inventory into a single portable documentation executable and verify production hashes.
+- [x] Build candidate c4231a8 complete article/wiki inventory into a single portable documentation executable and verify production hashes (199 articles, 337 bundled files; later revisions require their own receipt).
 - [ ] Verify real offline one-file launch, internal routes, search and preference persistence on the supported host.
 - [ ] Publish and read back the companion assets on the native source-bound normal release.
