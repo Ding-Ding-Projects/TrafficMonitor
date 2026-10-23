@@ -1,13 +1,14 @@
-#include "../stdafx.h"
+﻿#include "../stdafx.h"
 #include "ScrollRail.h"
 #include <UIAutomation.h>
 #include <atomic>
 #include <mutex>
 #include <cmath>
+#include <windowsx.h>
 namespace NativeMaterial
 {
     constexpr UINT SetScrollValue=WM_APP+0x529;
-    struct ScrollAccess { std::mutex mutex; HWND window{}; std::wstring name{L"Scroll"}; int maximum{},page{},position{}; };
+    struct ScrollAccess { std::mutex mutex; HWND window{}; std::wstring name{L"Scroll"}; int maximum{},page{},position{},step{32}; };
     class ScrollProvider final : public IRawElementProviderSimple, public IRangeValueProvider
     {
     public:
@@ -39,7 +40,7 @@ namespace NativeMaterial
         HRESULT STDMETHODCALLTYPE get_SmallChange(double* out) override{return Number(out,4);}
         HRESULT STDMETHODCALLTYPE get_IsReadOnly(BOOL* out) override{if(!out)return E_POINTER;*out=FALSE;return S_OK;}
     private:
-        HRESULT Number(double* out,int part){if(!out)return E_POINTER;std::lock_guard<std::mutex> lock(state->mutex);if(!state->window)return UIA_E_ELEMENTNOTAVAILABLE;*out=part==0?state->position:part==1?0:part==2?state->maximum:part==3?state->page:1;return S_OK;}
+        HRESULT Number(double* out,int part){if(!out)return E_POINTER;std::lock_guard<std::mutex> lock(state->mutex);if(!state->window)return UIA_E_ELEMENTNOTAVAILABLE;*out=part==0?state->position:part==1?0:part==2?state->maximum:part==3?state->page:state->step;return S_OK;}
         std::atomic<ULONG> refs{1};std::shared_ptr<ScrollAccess> state;
     };
     BOOL ScrollRail::Create(CWnd* parent,UINT id)
@@ -48,6 +49,7 @@ namespace NativeMaterial
         const BOOL ok=CreateEx(0,AfxRegisterWndClass(CS_HREDRAW|CS_VREDRAW,::LoadCursor(nullptr,IDC_ARROW)),L"Scroll",WS_CHILD|WS_TABSTOP,CRect(0,0,12,100),parent,id);
         if(ok)m_access->window=m_hWnd;return ok;
     }
+    void ScrollRail::SetStep(int step){m_step=(std::max)(1,step);if(m_access){std::lock_guard<std::mutex> lock(m_access->mutex);m_access->step=m_step;}}
     void ScrollRail::SetMetrics(int content,int page,int position)
     {
         m_content=(std::max)(0,content);m_page=(std::max)(0,page);m_position=(std::max)(0,(std::min)(position,(std::max)(0,m_content-m_page)));
@@ -81,8 +83,8 @@ namespace NativeMaterial
         if(message==WM_CAPTURECHANGED){m_drag=false;Invalidate();}
         if(message==WM_SETFOCUS||message==WM_KILLFOCUS)Invalidate();
         if(message==WM_GETDLGCODE)return DLGC_WANTARROWS;
-        if(message==WM_KEYDOWN){switch(w){case VK_UP:Move(m_position-32);break;case VK_DOWN:Move(m_position+32);break;case VK_PRIOR:Move(m_position-m_page);break;case VK_NEXT:Move(m_position+m_page);break;case VK_HOME:Move(0);break;case VK_END:Move(m_content);break;default:return CWnd::WindowProc(message,w,l);}return 0;}
-        if(message==WM_MOUSEWHEEL){m_wheel+=GET_WHEEL_DELTA_WPARAM(w);while(abs(m_wheel)>=WHEEL_DELTA){const int direction=m_wheel>0?1:-1;Move(m_position-direction*48);m_wheel-=direction*WHEEL_DELTA;}return TRUE;}
+        if(message==WM_KEYDOWN){switch(w){case VK_UP:Move(m_position-m_step);break;case VK_DOWN:Move(m_position+m_step);break;case VK_PRIOR:Move(m_position-m_page);break;case VK_NEXT:Move(m_position+m_page);break;case VK_HOME:Move(0);break;case VK_END:Move(m_content);break;default:return CWnd::WindowProc(message,w,l);}return 0;}
+        if(message==WM_MOUSEWHEEL){m_wheel+=GET_WHEEL_DELTA_WPARAM(w);while(abs(m_wheel)>=WHEEL_DELTA){const int direction=m_wheel>0?1:-1;Move(m_position-direction*m_step*3);m_wheel-=direction*WHEEL_DELTA;}return TRUE;}
         if(message==WM_NCDESTROY&&m_access){std::lock_guard<std::mutex> lock(m_access->mutex);m_access->window=nullptr;}
         return CWnd::WindowProc(message,w,l);
     }

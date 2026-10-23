@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "Theme.h"
 #include <afxwin.h>
 #include <functional>
@@ -12,6 +12,7 @@ namespace NativeMaterial
     public:
         BOOL Create(CWnd* parent, UINT id);
         void SetMetrics(int content, int page, int position);
+        void SetStep(int step);
         void SetAppearance(Appearance value) { m_appearance=value; if(m_hWnd)Invalidate(); }
         std::function<void(int)> changed;
     protected:
@@ -20,6 +21,7 @@ namespace NativeMaterial
         void Paint(HDC); CRect Thumb() const; void Move(int);
         std::shared_ptr<ScrollAccess> m_access;
         Appearance m_appearance{Appearance::Light};
+        int m_step{32};
         int m_content{},m_page{},m_position{},m_dragOrigin{},m_dragPosition{},m_wheel{};
         bool m_drag{},m_hover{};
     };

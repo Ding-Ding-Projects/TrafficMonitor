@@ -1028,4 +1028,16 @@
     <ClInclude Include="NativeRegex\Collections.h" />
     <ClCompile Include="NativeRegex\Collections.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="NativeMaterial\ScrollRail.h" />
+    <ClCompile Include="NativeMaterial\ScrollRail.cpp" />
+    <ClInclude Include="NativeMaterial\ScrollViewport.h" />
+    <ClCompile Include="NativeMaterial\ScrollViewport.cpp" />
+    <ClInclude Include="NativeMaterial\TextField.h" />
+    <ClCompile Include="NativeMaterial\TextField.cpp" />
+    <ClInclude Include="NativeMaterial\Navigation.h" />
+    <ClCompile Include="NativeMaterial\Navigation.cpp" />
+    <ClInclude Include="NativeMaterial\ButtonVisual.h" />
+    <ClCompile Include="NativeMaterial\ButtonVisual.cpp" />
+  </ItemGroup>
 </Project>

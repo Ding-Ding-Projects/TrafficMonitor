@@ -1,4 +1,4 @@
-#include "Theme.h"
+﻿#include "Theme.h"
 #include <cmath>
 
 #pragma comment(lib, "d2d1.lib")
@@ -28,14 +28,14 @@ namespace NativeMaterial
                 SystemColor(COLOR_WINDOWTEXT), SystemColor(COLOR_WINDOWTEXT), true };
         }
         if (appearance == Appearance::Dark)
-            return { D2D1::ColorF(0x101414), D2D1::ColorF(0x1c2020),
-                D2D1::ColorF(0xdfe4e3), D2D1::ColorF(0xbfc9c7),
-                D2D1::ColorF(0x80d5ca), D2D1::ColorF(0x003731),
-                D2D1::ColorF(0x899390), D2D1::ColorF(0xffb4ab), false };
-        return { D2D1::ColorF(0xf5faf8), D2D1::ColorF(0xe9efed),
-            D2D1::ColorF(0x171d1c), D2D1::ColorF(0x3f4947),
-            D2D1::ColorF(0x006b60), D2D1::ColorF(0xffffff),
-            D2D1::ColorF(0x6f7976), D2D1::ColorF(0xba1a1a), false };
+            return { D2D1::ColorF(0x101419), D2D1::ColorF(0x1b2129),
+                D2D1::ColorF(0xe6edf5), D2D1::ColorF(0xa8b7c8),
+                D2D1::ColorF(0x91b8ff), D2D1::ColorF(0x101419),
+                D2D1::ColorF(0x394758), D2D1::ColorF(0xffadb5), false };
+        return { D2D1::ColorF(0xf5f7fa), D2D1::ColorF(0xedf1f6),
+            D2D1::ColorF(0x17212f), D2D1::ColorF(0x526174),
+            D2D1::ColorF(0x245fc8), D2D1::ColorF(0xffffff),
+            D2D1::ColorF(0xd5dee8), D2D1::ColorF(0xa62a35), false };
     }
 
     HRESULT Canvas::Attach(HWND window, float dpi)

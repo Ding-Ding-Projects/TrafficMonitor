@@ -266,32 +266,8 @@ namespace NativeMaterial
     }
     void Button::Draw(ID2D1RenderTarget* target)
     {
-        const auto colors=Palette::Resolve(m_appearance);
-        Microsoft::WRL::ComPtr<ID2D1SolidColorBrush> brush;
-        if(FAILED(target->CreateSolidColorBrush(colors.primary,brush.GetAddressOf())))return;
-        auto color=[&](D2D1_COLOR_F value){brush->SetColor(value);return brush.Get();};
-        const auto size = target->GetSize();
-        const auto rect = D2D1::RectF(3, 3, size.width - 3, size.height - 3);
-        const auto shape = D2D1::RoundedRect(rect, 20, 20);
-        target->FillRoundedRectangle(shape, color(IsWindowEnabled() ? colors.primary : colors.outline));
-        if ((m_pressed||m_hover)&&IsWindowEnabled())
-        {
-            auto state = colors.onPrimary; state.a = m_pressed?0.12f:0.08f;
-            target->FillRoundedRectangle(shape, color(state));
-        }
-        if (GetFocus() == this) target->DrawRoundedRectangle(
-            D2D1::RoundedRect(D2D1::RectF(1, 1, size.width - 1, size.height - 1), 22, 22), color(colors.primary), 2);
-        Microsoft::WRL::ComPtr<IDWriteTextFormat> format;
-        Microsoft::WRL::ComPtr<IDWriteFactory> text;
-        if (SUCCEEDED(DWriteCreateFactory(DWRITE_FACTORY_TYPE_SHARED,__uuidof(IDWriteFactory),reinterpret_cast<IUnknown**>(text.GetAddressOf())))
-            &&SUCCEEDED(text->CreateTextFormat(L"Segoe UI",nullptr,DWRITE_FONT_WEIGHT_MEDIUM,DWRITE_FONT_STYLE_NORMAL,DWRITE_FONT_STRETCH_NORMAL,14,L"",format.GetAddressOf())))
-        {
-            format->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_CENTER);
-            format->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_CENTER);
-            CString label; GetWindowText(label);
-            target->DrawText(label, label.GetLength(), format.Get(),
-                D2D1::RectF(16, 5, size.width - 16, size.height - 5), color(colors.onPrimary));
-        }
+        CString label;GetWindowText(label);
+        DrawButton(target,Palette::Resolve(m_appearance),label,m_variant,IsWindowEnabled()!=FALSE,m_pressed,m_hover,GetFocus()==this);
     }
     LRESULT Button::OnPrintClient(WPARAM dc, LPARAM flags)
     {
