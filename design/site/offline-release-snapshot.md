@@ -16,7 +16,7 @@ The footer distinguishes **Documentation source: {source}** from **Bundled relea
 
 No new companion package version or build date is displayed in this bounded amendment. The current page-rendering context has a documentation source and a release manifest, but no validated companion identity context. A future producer-bound package identity may be displayed only through an explicit validated input, with independently named fields and missing-value states. The existing recorded documentation source remains valid and is not renamed package source.
 
-Hosted HTTPS documentation keeps its current release presentation and link behavior. The offline labels must never appear merely because the browser is disconnected, a fetch fails or a query parameter requests them. Delivery mode is selected only by the exact trusted scheme and host. An unexpected custom origin fails closed to a neutral snapshot description rather than asserting freshness.
+Hosted HTTPS documentation keeps its current release presentation and link behavior. The offline labels must never appear merely because the browser is disconnected, a fetch fails or a query parameter requests them. Delivery mode is selected only by the exact trusted scheme and host. The initializer leaves every nonmatching origin unchanged. The companion's protocol, request and navigation boundaries reject unexpected custom origins, so they are not supported reader states. This strict rejection behavior supersedes the proposal's unreachable neutral-fallback description.
 
 ## Localization and accessibility
 
