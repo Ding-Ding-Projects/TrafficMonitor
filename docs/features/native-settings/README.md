@@ -29,3 +29,8 @@ No new tests, reviews, audits or screenshots run in the selected expedited deliv
 and build receipts never establish runtime, IME, keyboard, persistence, recovery or visual proof.
 The prior workspace release 1.0.17 belongs to source f0d74c476842e1546ef1d7d666e5af914fc06044,
 not this settings change. Installed-update proof is tracked separately by the release owner.
+
+## Automatic-update coordination
+
+The [cooperative restart hook](cooperative-update-restart.md) defers restart throughout this editor's lifetime, including unapplied drafts and discard confirmation. It is part of the combined updater unit; this source hook alone is not update runtime proof.
+

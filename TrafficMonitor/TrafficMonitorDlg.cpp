@@ -5,6 +5,7 @@
 #include "stdafx.h"
 #include "NativeDashboard/Workspace.h"
 #include "NativeSettings/Settings.h"
+#include "NativeUpdate/SilentUpdater.h"
 #include "TrafficMonitor.h"
 #include "TrafficMonitorDlg.h"
 #include "afxdialogex.h"
@@ -131,6 +132,7 @@ BEGIN_MESSAGE_MAP(CTrafficMonitorDlg, CDialog)
     ON_MESSAGE(WM_REOPEN_TASKBAR_WND, &CTrafficMonitorDlg::OnReopenTaksbarWnd)
     ON_COMMAND(ID_OPEN_TASK_MANAGER, &CTrafficMonitorDlg::OnOpenTaskManager)
     ON_MESSAGE(WM_SETTINGS_APPLIED, &CTrafficMonitorDlg::OnSettingsApplied)
+    ON_MESSAGE(WM_APP + 0x45A, &CTrafficMonitorDlg::OnSilentUpdatePulse)
     ON_COMMAND(ID_DISPLAY_SETTINGS, &CTrafficMonitorDlg::OnDisplaySettings)
     ON_WM_LBUTTONUP()
     ON_COMMAND(ID_REFRESH_CONNECTION_LIST, &CTrafficMonitorDlg::OnRefreshConnectionList)
@@ -1191,6 +1193,12 @@ BOOL CTrafficMonitorDlg::OnInitDialog()
         SetTransparency(0);
 
     SetTimer(TASKBAR_TIMER, 100, NULL);
+
+    NativeUpdate::Start(theApp.m_general_data.check_update_when_start);
+    ::SetTimer(m_hWnd, 0x7B51, 1000, [](HWND window, UINT, UINT_PTR, DWORD)
+    {
+        ::PostMessageW(window, WM_APP + 0x45A, 0, 0);
+    });
 
     return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
@@ -2477,8 +2485,47 @@ void CTrafficMonitorDlg::OnShowNotifyIcon()
 }
 
 
+LRESULT CTrafficMonitorDlg::OnSilentUpdatePulse(WPARAM, LPARAM)
+{
+    if (m_updateUiClosing) return 0;
+    NativeUpdate::SetEnabled(theApp.m_general_data.check_update_when_start);
+    if (!theApp.m_general_data.check_update_when_start
+        || NativeUpdate::GetStatus().phase != NativeUpdate::Phase::Ready
+        || !NativeSettings::IsSafeToRestart() || !IsWindowEnabled() || m_menu_popuped)
+        return 0;
+
+    GUITHREADINFO gui{ sizeof(gui) };
+    if (!::GetGUIThreadInfo(::GetCurrentThreadId(), &gui) || gui.hwndCapture
+        || (gui.flags & (GUI_INMENUMODE | GUI_INMOVESIZE | GUI_POPUPMENUMODE | GUI_SYSTEMMENUMODE)))
+        return 0;
+    for (const auto& dialog : CBaseDialog::AllUniqueHandels())
+        if (::IsWindow(dialog.second)) return 0;
+
+    struct WindowState { HWND main; HWND taskbar; bool busy; } state{
+        m_hWnd, IsTaskbarWndValid() ? m_tBarDlg->GetSafeHwnd() : nullptr, false };
+    const BOOL enumerated = ::EnumThreadWindows(::GetCurrentThreadId(), [](HWND window, LPARAM parameter) -> BOOL
+    {
+        auto& current = *reinterpret_cast<WindowState*>(parameter);
+        if (window != current.main && window != current.taskbar && ::IsWindowVisible(window))
+            current.busy = true;
+        return TRUE;
+    }, reinterpret_cast<LPARAM>(&state));
+    if (!enumerated || state.busy) return 0;
+
+    if (NativeUpdate::PrepareRestart())
+    {
+        m_updateUiClosing = true;
+        // The existing close path saves settings and traffic history before normal exit.
+        OnClose();
+    }
+    return 0;
+}
+
 void CTrafficMonitorDlg::OnDestroy()
 {
+    m_updateUiClosing = true;
+    ::KillTimer(m_hWnd, 0x7B51);
+    NativeUpdate::Stop();
     CDialog::OnDestroy();
 
     //程序退出时删除通知栏图标
