@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "e59cac09300da192797439c668061c881440c12a",
+  "contentSource": "c637e4d54b5c53d30236f3e49a32047194a09067",
+  "command": "build.bat --site",
+  "exitCode": 0,
+  "inputState": "Clean immutable source and committed manifest unchanged through completion.",
+  "manifestSha256": "22814be649f4096faf09aafe74e8f5bc1d2e138a2df07a0be4018e6b176c5ce8",
+  "productionReceipt": {
+    "schemaVersion": 1,
+    "sourceCommit": "e59cac09300da192797439c668061c881440c12a",
+    "contentSource": "c637e4d54b5c53d30236f3e49a32047194a09067",
+    "wikiSource": {
+      "repository": "https://github.com/zhongyang219/TrafficMonitor.wiki.git",
+      "commit": "cf35274094fe2ffb040ca1f29d6ce73c713d93a2"
+    },
+    "releaseMetadataSHA256": "37e33d17df24ad8a8e1cbb935a1dffd2844b8de4ec0c5f0f14f6e13538e62e0f",
+    "releaseTag": "v1.0.15-run39912330939-1",
+    "releaseSource": "3f573fc0031ef6b6cb123dfbc80c05c33a5063db",
+    "articleCount": 196,
+    "historyCount": 1631,
+    "base": "/TrafficMonitor/",
+    "unresolvedAssets": []
+  },
+  "buildOutput": "Built 196 complete articles; 1631 history records; 0 unavailable local images.",
+  "scope": "Static production only. Readiness correction runtime unverified; no tests, reviews, audits, UI quality checks, screenshots, installation or deployment.",
+  "nativeReceipt": "docs/features/installation/silent-readiness-build.json",
+  "wikiState": "Existing published proof 90834942 remains historical; updated readiness guide prepared at c637e4d, publication pending.",
+  "outputs": [
+    {
+      "path": "docs/site/dist/index.html",
+      "bytes": 4911,
+      "sha256": "2c785a3acca8df41ed6c6360757f271a3f36513413de67f93e8be3c9b8a83cea"
+    },
+    {
+      "path": "docs/site/dist/build-receipt.json",
+      "bytes": 611,
+      "sha256": "963caa0eb7408280457e53bd17620de22db8a6beadd901f72c7f5848f66fbba0"
+    }
+  ]
+}

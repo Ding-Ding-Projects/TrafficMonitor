@@ -200,5 +200,14 @@
       "previousPublishedCommit": "0ab91b5d0ba50584dce8d75d2a2cb7c0a0d2a6dd",
       "note": "Final synchronous WM_CLOSE refinement and local 1.0.9017 production are prepared. Prior queued 1.0.9016 candidate and stored publication proof remain historical."
     }
-  ]
+  ],
+  "latestPreparedUpdate": {
+    "state": "prepared-publication-pending",
+    "pages": [
+      "Silent-updates.md"
+    ],
+    "sourceCommit": "c637e4d54b5c53d30236f3e49a32047194a09067",
+    "sha256": "588265a7e170b7bff5a9c00b6f32939010f34ddb44bd6863759616057b72d810",
+    "scope": "Current result 13, separate manual recovery, and identity readiness candidate; existing publication proof remains historical."
+  }
 }
