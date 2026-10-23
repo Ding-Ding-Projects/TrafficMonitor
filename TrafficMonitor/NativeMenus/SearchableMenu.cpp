@@ -12,12 +12,14 @@
 #pragma comment(lib, "imm32.lib")
 #pragma comment(lib, "oleacc.lib")
 #pragma comment(lib, "msimg32.lib")
+#pragma comment(lib, "uuid.lib")
 
 namespace NativeMenus
 {
 namespace
 {
 constexpr UINT EditId = 51001, ListId = 51002, BackId = 51003;
+constexpr UINT AccessibleInvokeMessage = WM_APP + 0x431;
 struct Item
 {
     UINT id{}, type{}, state{}, position{};
@@ -106,7 +108,16 @@ public:
     HRESULT STDMETHODCALLTYPE GetTypeInfoCount(UINT* n) override { if(!m_state->popup) return CO_E_OBJNOTCONNECTED; return m_native->GetTypeInfoCount(n); }
     HRESULT STDMETHODCALLTYPE GetTypeInfo(UINT n, LCID l, ITypeInfo** p) override { if(!m_state->popup) return CO_E_OBJNOTCONNECTED; return m_native->GetTypeInfo(n, l, p); }
     HRESULT STDMETHODCALLTYPE GetIDsOfNames(REFIID r, LPOLESTR* n, UINT c, LCID l, DISPID* d) override { if(!m_state->popup) return CO_E_OBJNOTCONNECTED; return m_native->GetIDsOfNames(r,n,c,l,d); }
-    HRESULT STDMETHODCALLTYPE Invoke(DISPID d, REFIID r, LCID l, WORD f, DISPPARAMS* p, VARIANT* v, EXCEPINFO* e, UINT* a) override { if(!m_state->popup) return CO_E_OBJNOTCONNECTED; return m_native->Invoke(d,r,l,f,p,v,e,a); }
+    HRESULT STDMETHODCALLTYPE Invoke(DISPID d, REFIID r, LCID l, WORD f, DISPPARAMS* p, VARIANT* v, EXCEPINFO* e, UINT* a) override
+    {
+        if(!m_state->popup) return CO_E_OBJNOTCONNECTED;
+        if(r!=IID_NULL) return DISP_E_UNKNOWNINTERFACE;
+        ITypeInfo* type{};
+        HRESULT result=m_native->GetTypeInfo(0,l,&type);
+        if(FAILED(result)) return result;
+        result=DispInvoke(static_cast<IAccessible*>(this),type,d,f,p,v,e,a);
+        type->Release(); return result;
+    }
     HRESULT STDMETHODCALLTYPE get_accParent(IDispatch** p) override { if(!m_state->popup) return CO_E_OBJNOTCONNECTED; return m_native->get_accParent(p); }
     HRESULT STDMETHODCALLTYPE get_accChildCount(long* p) override { if(!m_state->popup) return CO_E_OBJNOTCONNECTED; return m_native->get_accChildCount(p); }
     HRESULT STDMETHODCALLTYPE get_accChild(VARIANT v, IDispatch** p) override { if(!m_state->popup) return CO_E_OBJNOTCONNECTED; return m_native->get_accChild(v,p); }
@@ -152,6 +163,9 @@ public:
     int rowHeight{}, width{}, height{};
     HMENU selectedMenu{};
     Item selectedIdentity;
+    struct Invocation { UINT_PTR generation; HMENU menu; Item item; };
+    UINT_PTR generation{}, nextInvocation{};
+    std::map<UINT_PTR,Invocation> invocations;
 
     ~Popup()
     {
@@ -232,18 +246,18 @@ public:
     void Filter()
     {
         if (rebuilding || levels.empty()) return;
+        ++generation;
         int length = GetWindowTextLengthW(edit);
         std::vector<wchar_t> query(length+1); GetWindowTextW(edit,query.data(),length+1);
         levels.back().query = query.data();
         std::wstring needle = query.data();
-        std::transform(needle.begin(),needle.end(),needle.begin(),towlower);
         SendMessageW(list,WM_SETREDRAW,FALSE,0); SendMessageW(list,LB_RESETCONTENT,0,0); visible.clear();
         const auto& items = levels.back().items;
         for (size_t i=0;i<items.size();++i)
         {
             std::wstring haystack = items[i].label + L" " + items[i].shortcut;
-            std::transform(haystack.begin(),haystack.end(),haystack.begin(),towlower);
-            if (!needle.empty() && (items[i].Separator() || haystack.find(needle)==std::wstring::npos)) continue;
+            if (!needle.empty() && (items[i].Separator() || FindNLSStringEx(LOCALE_NAME_USER_DEFAULT,FIND_FROMSTART|NORM_IGNORECASE,
+                haystack.c_str(),static_cast<int>(haystack.size()),needle.c_str(),static_cast<int>(needle.size()),nullptr,nullptr,nullptr,0)<0)) continue;
             visible.push_back(i);
             SendMessageW(list,LB_ADDSTRING,0,reinterpret_cast<LPARAM>(items[i].label.c_str()));
         }
@@ -274,12 +288,34 @@ public:
     {
         const Item* selectedItem=Row(row); if (!selectedItem || !selectedItem->Enabled()) return;
         const Item old=*selectedItem; HMENU menu=levels.back().menu;
+        ActivateIdentity(menu,old);
+    }
+    void ActivateIdentity(HMENU menu,const Item& old)
+    {
+        if(levels.empty() || levels.back().menu!=menu) return;
         SendMessageW(owner,WM_INITMENUPOPUP,reinterpret_cast<WPARAM>(menu),MAKELPARAM(levels.back().parentPosition,FALSE));
         Item fresh;
         if (!ReadItem(menu,old.position,fresh) || fresh.id!=old.id || fresh.text!=old.text || fresh.submenu!=old.submenu || !fresh.Enabled())
         { ReadLevel(); Filter(); return; }
         if (fresh.submenu) { Open(fresh.submenu,fresh.position); return; }
         selectedMenu=menu; selectedIdentity=fresh; command=fresh.id; done=true;
+    }
+    HRESULT QueueInvocation(int row)
+    {
+        const Item* item=Row(row);
+        if(!item || !item->Enabled() || done || !IsWindow(window)) return E_INVALIDARG;
+        const UINT_PTR id=++nextInvocation;
+        invocations.emplace(id,Invocation{generation,levels.back().menu,*item});
+        if(!PostMessageW(window,AccessibleInvokeMessage,id,0))
+        { const DWORD error=GetLastError(); invocations.erase(id); return HRESULT_FROM_WIN32(error?error:ERROR_INVALID_WINDOW_HANDLE); }
+        return S_OK;
+    }
+    void ExecuteInvocation(UINT_PTR id)
+    {
+        auto found=invocations.find(id); if(found==invocations.end()) return;
+        const Invocation invocation=found->second; invocations.erase(found);
+        if(done || levels.empty() || generation!=invocation.generation || levels.back().menu!=invocation.menu) return;
+        ActivateIdentity(invocation.menu,invocation.item);
     }
     void SelectNext(int delta)
     {
@@ -383,6 +419,7 @@ public:
         if(!self) return DefWindowProcW(hwnd,message,w,l);
         switch(message)
         {
+        case AccessibleInvokeMessage: self->ExecuteInvocation(w); return 0;
         case WM_COMMAND:
             if(LOWORD(w)==EditId && HIWORD(w)==EN_CHANGE) self->Filter();
             if(LOWORD(w)==BackId && HIWORD(w)==BN_CLICKED) self->Back();
@@ -420,9 +457,9 @@ public:
         using GetDpi=UINT(WINAPI*)(HWND); auto getDpi=reinterpret_cast<GetDpi>(GetProcAddress(GetModuleHandleW(L"user32.dll"),"GetDpiForWindow"));
         if(getDpi) dpi=getDpi(window);
         rowHeight=Px(48);
-        back=CreateWindowExW(0,L"BUTTON",backText.c_str(),WS_CHILD|WS_TABSTOP|BS_PUSHBUTTON,0,0,1,1,window,reinterpret_cast<HMENU>(BackId),cls.hInstance,nullptr);
-        edit=CreateWindowExW(WS_EX_CLIENTEDGE,L"EDIT",L"",WS_CHILD|WS_VISIBLE|WS_TABSTOP|ES_AUTOHSCROLL,0,0,1,1,window,reinterpret_cast<HMENU>(EditId),cls.hInstance,nullptr);
-        list=CreateWindowExW(0,L"LISTBOX",searchText.c_str(),WS_CHILD|WS_VISIBLE|WS_TABSTOP|WS_VSCROLL|LBS_NOTIFY|LBS_OWNERDRAWVARIABLE|LBS_HASSTRINGS|LBS_NOINTEGRALHEIGHT,0,0,1,1,window,reinterpret_cast<HMENU>(ListId),cls.hInstance,nullptr);
+        back=CreateWindowExW(0,L"BUTTON",backText.c_str(),WS_CHILD|WS_TABSTOP|BS_PUSHBUTTON,0,0,1,1,window,reinterpret_cast<HMENU>(static_cast<UINT_PTR>(BackId)),cls.hInstance,nullptr);
+        edit=CreateWindowExW(WS_EX_CLIENTEDGE,L"EDIT",L"",WS_CHILD|WS_VISIBLE|WS_TABSTOP|ES_AUTOHSCROLL,0,0,1,1,window,reinterpret_cast<HMENU>(static_cast<UINT_PTR>(EditId)),cls.hInstance,nullptr);
+        list=CreateWindowExW(0,L"LISTBOX",searchText.c_str(),WS_CHILD|WS_VISIBLE|WS_TABSTOP|WS_VSCROLL|LBS_NOTIFY|LBS_OWNERDRAWVARIABLE|LBS_HASSTRINGS|LBS_NOINTEGRALHEIGHT,0,0,1,1,window,reinterpret_cast<HMENU>(static_cast<UINT_PTR>(ListId)),cls.hInstance,nullptr);
         empty=CreateWindowExW(0,L"STATIC",emptyText.c_str(),WS_CHILD|SS_LEFT,0,0,1,1,window,nullptr,cls.hInstance,nullptr);
         if(!edit || !list || !back || !empty) return false;
         SendMessageW(edit,EM_SETCUEBANNER,TRUE,reinterpret_cast<LPARAM>(searchText.c_str()));
@@ -493,11 +530,8 @@ HRESULT MenuAccessible::accDoDefaultAction(VARIANT child)
 {
     if(!m_state->popup) return CO_E_OBJNOTCONNECTED;
     if(child.vt!=VT_I4) return E_INVALIDARG;
-    const Item* item=m_state->popup->Row(child.lVal-1);
-    if(!item || !item->Enabled()) return E_INVALIDARG;
-    // Queue onto the owner UI thread rather than entering application code from COM.
-    SendMessageW(m_state->list,LB_SETCURSEL,child.lVal-1,0);
-    PostMessageW(m_state->list,WM_KEYDOWN,VK_RETURN,0); return S_OK;
+    // Capture identity now; a later selection change must never retarget this action.
+    return m_state->popup->QueueInvocation(child.lVal-1);
 }
 }
 
