@@ -152,3 +152,16 @@ The native UI owns readiness and never restarts through active settings, modal w
 Portable updates remain separate. No current installation was changed by this implementation lane.
 Compile/package results are pending. No new tests, reviews, runtime checks or screenshots run in
 this expedited scope. See docs/features/installation/silent-updates.md for limits and remaining proof.
+
+## Silent updater compile/package result
+
+Combined source 8f9812966be9de46b2262df55d44e71517d527bc completed exact root
+build.bat --silent with exit 0, 114 warnings and zero errors. Exact root
+build-installer.bat -Version 1.0.9003 completed with exit 0; its nested incremental
+build reported two linker warnings and zero errors. Local-only Squirrel outputs are
+Setup.exe (8,403,456 bytes), RELEASES, SHA256SUMS.txt and the full package
+(7,523,229 bytes). See evidence/builds/silent-updates/local-1.0.9003.json for hashes.
+This is compile/package proof only. No tests, reviews, audits, runtime checks or
+screenshots were run, no package was published, and this implementation lane did
+not modify the current installation. Default-branch integration and release remain
+with the parent task. Later documentation commits do not relabel the producer SHA.

@@ -33,7 +33,7 @@ acceptance. Full regex parity, onboarding and all other unfinished requirements 
 This is the maintained x64 fork at [Ding-Ding-Projects/TrafficMonitor](https://github.com/Ding-Ding-Projects/TrafficMonitor).
 Its unsigned Squirrel.Windows installer includes matching CRT/MFC runtime files. Fresh installed
 defaults enable login startup and the taskbar display while hiding the main floating window;
-saved settings survive updates. See [installation details](docs/features/installation/README.md),
+saved settings survive updates. See [installation details](docs/features/installation/README.md), [silent update behavior](docs/features/installation/silent-updates.md),
 [build instructions](docs/build/README.md), and [current verification](HANDOFF.md).
 The native interface redesign and broader required features follow the installer foundation.
 Upstream documentation and attribution are retained below.

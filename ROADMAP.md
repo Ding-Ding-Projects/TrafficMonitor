@@ -67,5 +67,5 @@ with historical originals retained separately.
 - [x] Implement bounded native background checks at five-minute intervals and verified full-package staging.
 - [x] Add cooperative UI readiness, identity-bound process handoff and next-launch application.
 - [x] Preserve explicit update opt-out and provide persisted automatic-restart preference with save failure reporting.
-- [ ] Compile and package the combined backend and native settings candidate.
+- [x] Compile and package combined source 8f9812966be9de46b2262df55d44e71517d527bc through the exact root entrypoints, local-only version 1.0.9003, both exit 0.
 - [ ] Verify update, failure, cancellation, recovery, draft deferral and data preservation when runtime checks are authorized again.

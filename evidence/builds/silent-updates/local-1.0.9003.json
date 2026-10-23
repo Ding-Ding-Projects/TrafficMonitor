@@ -1,0 +1,55 @@
+{
+  "sourceCommit": "8f9812966be9de46b2262df55d44e71517d527bc",
+  "configuration": "Release (lite)|x64",
+  "recordedAtUtc": "2026-10-23T10:49:56.0521823Z",
+  "build": {
+    "entrypoint": "build.bat --silent",
+    "exitCode": 0,
+    "warnings": 114,
+    "errors": 0,
+    "elapsed": "00:00:25.36"
+  },
+  "package": {
+    "entrypoint": "build-installer.bat -Version 1.0.9003",
+    "exitCode": 0,
+    "version": "1.0.9003",
+    "publication": "not published",
+    "installed": "not applied",
+    "nestedBuildWarnings": 2,
+    "nestedBuildErrors": 0
+  },
+  "executable": {
+    "path": "Bin/x64/Release (lite)/TrafficMonitor.exe",
+    "sha256": "A2E5A1BCF5C62E5AF6B74E198DBB07B37EFFCEFDC3611CA0BB64D1A42C668801"
+  },
+  "assets": [
+    {
+      "name": "RELEASES",
+      "bytes": 86,
+      "sha256": "9956DD5CEE4400A1BE957F035727E3165D08E4BF162E6AB809F63F3A9C27D034"
+    },
+    {
+      "name": "Setup.exe",
+      "bytes": 8403456,
+      "sha256": "D58F45F0BB3FF7FD73123AB0303127695544F979188E163CAC0671F145DA0946"
+    },
+    {
+      "name": "SHA256SUMS.txt",
+      "bytes": 255,
+      "sha256": "8DC3D98DA347987131B2668C9643B25A5186B02C38B212CD226F50E1A7E763A8"
+    },
+    {
+      "name": "TrafficMonitor-1.0.9003-full.nupkg",
+      "bytes": 7523229,
+      "sha256": "785D16D0AC6F4B1E7795AB50FC18EF7CA94C0B309F492B5EEF491619D92DC701"
+    }
+  ],
+  "verification": {
+    "tests": "not run, expedited scope",
+    "reviews": "not run, expedited scope",
+    "audits": "not run, expedited scope",
+    "screenshots": "not taken, expedited scope",
+    "runtime": "not run",
+    "currentInstallation": "unchanged by implementation lane"
+  }
+}
