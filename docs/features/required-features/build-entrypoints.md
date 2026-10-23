@@ -19,7 +19,7 @@ Listing is not implementation or acceptance proof. PARTIAL still means unfinishe
 | native-application | NOT_APPLICABLE | NOT_APPLICABLE | Repository-owned requirement; each companion still needs its own real runtime actions and evidence. |
 | hosted-documentation | NOT_APPLICABLE | NOT_APPLICABLE | Repository-owned requirement; each companion still needs its own real runtime actions and evidence. |
 | documentation-companion | NOT_APPLICABLE | NOT_APPLICABLE | Repository-owned requirement; each companion still needs its own real runtime actions and evidence. |
-| build-companion | NOT_APPLICABLE | NOT_APPLICABLE | Repository-owned requirement; each companion still needs its own real runtime actions and evidence. |
+| build-companion | APPLICABLE | UNFINISHED | The dedicated portable build GUI is required independently of repository scripts. Its Build action invokes exact root build.bat, Build and run invokes the supported source-bound build/run route, and Build installer invokes exact root build-installer.bat; verify real child exit status, progress, cancellation and recovery without false success. |
 | repository | APPLICABLE | UNFINISHED | Repository delivery, source/evidence or governance responsibility. |
 | browser-extension | NOT_APPLICABLE | NOT_APPLICABLE | No browser extension is delivered; adding one requires its independent full surface inventory. |
 | game | NOT_APPLICABLE | NOT_APPLICABLE | No game runtime is delivered by this native monitoring product. |

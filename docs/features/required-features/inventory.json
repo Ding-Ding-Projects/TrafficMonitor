@@ -7249,9 +7249,9 @@
           "reason": "Repository-owned requirement; each companion still needs its own real runtime actions and evidence."
         },
         "build-companion": {
-          "applicability": "NOT_APPLICABLE",
-          "status": "NOT_APPLICABLE",
-          "reason": "Repository-owned requirement; each companion still needs its own real runtime actions and evidence."
+          "applicability": "APPLICABLE",
+          "status": "UNFINISHED",
+          "reason": "The dedicated portable build GUI is required independently of repository scripts. Its Build action invokes exact root build.bat, Build and run invokes the supported source-bound build/run route, and Build installer invokes exact root build-installer.bat; verify real child exit status, progress, cancellation and recovery without false success."
         },
         "repository": {
           "applicability": "APPLICABLE",
