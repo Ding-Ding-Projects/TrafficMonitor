@@ -1000,6 +1000,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="NativeUpdate\SilentUpdater.h" />
+    <ClInclude Include="NativeUpdate\HelperProtocol.h" />
     <ClInclude Include="NativeUpdate\Transport.h" />
     <ClInclude Include="NativeUpdate\Json.h" />
     <ClCompile Include="NativeUpdate\SilentUpdater.cpp" />

@@ -15,9 +15,12 @@ namespace NativeUpdate
     bool AutomaticRestartEnabled();
     bool SaveAutomaticRestart(bool enabled); // False means the preference was not saved.
     // Caller must first establish that no editor, settings or modal work is active.
-    // On true, immediately use the normal application exit/save path.
+    // Zero-wait polling retains one helper while preparing. On true, complete
+    // original identity was acknowledged by a live helper; immediately dispatch
+    // the normal synchronous application exit/save path.
     bool PrepareRestart();
-    // After acquiring the normal instance mutex, before monitor/plugin initialization.
+    // Same identity-before-exit protocol, with at most a ten-second startup wait,
+    // after acquiring the normal instance mutex and before monitor/plugin initialization.
     bool ApplyPendingOnLaunch();
     // Before normal initialization and instance handling, after Squirrel callbacks.
     bool HandleHelper(int& exitCode);

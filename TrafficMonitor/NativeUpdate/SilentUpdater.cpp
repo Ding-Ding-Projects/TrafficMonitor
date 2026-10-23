@@ -1,7 +1,8 @@
-#define NOMINMAX
+﻿#define NOMINMAX
 #include "SilentUpdater.h"
 #include "Transport.h"
 #include "Json.h"
+#include "HelperProtocol.h"
 #include "../InstallerLifecycle.h"
 #include <filesystem>
 #include <thread>
@@ -29,6 +30,7 @@ namespace NativeUpdate
         };
         std::mutex serviceMutex;
         std::shared_ptr<State> service;
+        std::unique_ptr<HelperPreparation> preparation;
         struct Version
         {
             std::array<unsigned,3> numbers{};
@@ -288,43 +290,70 @@ namespace NativeUpdate
                 WritePrivateProfileStringW(section,L"result",std::to_wstring(result).c_str(),file.c_str());
             }catch(...){}
         }
-        bool SpawnHelper()
+        bool SpawnHelper(HelperPreparation& pending)
         {
             auto root=Root();auto staging=Staging(root);
-            // The helper revalidates all package bytes. UI preparation only reads the
-            // bounded manifest, avoiding a package-sized hash operation on the UI thread.
+            // The normal UI reads only bounded release metadata. Package hashing and
+            // network work remain outside both this preparation and its zero-wait poll.
             auto release=ParseRelease(Read(staging/L"pending"/L"release.json",MetadataLimit),CurrentVersion());
-            // Attempts survive application restarts and are bounded per immutable version.
             auto attemptsFile=staging/(Wide(release.version)+L".attempts.ini");
             int attempts=GetPrivateProfileIntW(L"update",L"attempts",0,attemptsFile.c_str());
-            if(attempts>=2){HelperDiagnostic(root,L"launch",L"attempt-limit",ERROR_RETRY);return false;}
-            FILETIME creation{},exit{},kernel{},user{};if(!GetProcessTimes(GetCurrentProcess(),&creation,&exit,&kernel,&user)){HelperDiagnostic(root,L"launch",L"parent-times",GetLastError());return false;}
-            HANDLE identity=OpenProcess(SYNCHRONIZE|PROCESS_QUERY_LIMITED_INFORMATION,TRUE,GetCurrentProcessId());
-            if(!identity){HelperDiagnostic(root,L"launch",L"parent-handle",GetLastError());return false;}
-            std::wstring arguments=L"--native-update-helper "+std::to_wstring(GetCurrentProcessId())+L" "+std::to_wstring(FileTimeValue(creation))+L" "+std::to_wstring(reinterpret_cast<ULONG_PTR>(identity));
-            // The helper keeps the old version's application-local runtime available until
-            // Squirrel finishes. No shell, elevation or credential-bearing URL is involved.
+            if(attempts>=2){pending.error=ERROR_RETRY;HelperDiagnostic(root,L"launch",L"attempt-limit",pending.error);return false;}
+            FILETIME creation{},exit{},kernel{},user{};
+            if(!GetProcessTimes(GetCurrentProcess(),&creation,&exit,&kernel,&user))
+            {pending.error=GetLastError();HelperDiagnostic(root,L"launch",L"parent-times",pending.error);return false;}
+            pending.identity.reset(OpenProcess(SYNCHRONIZE|PROCESS_QUERY_LIMITED_INFORMATION,FALSE,GetCurrentProcessId()));
+            if(!pending.identity.get()||!pending.CreateSignals())
+            {if(!pending.error)pending.error=GetLastError();HelperDiagnostic(root,L"launch",L"preparation-handles",pending.error);return false;}
+            std::wstring arguments=L"--native-update-helper "+std::to_wstring(GetCurrentProcessId())+L" "+std::to_wstring(FileTimeValue(creation));
+            HANDLE inherited[]{pending.identity.get(),pending.validated.get(),pending.proceed.get(),pending.cancel.get()};
+            struct InheritanceScope
+            {
+                HANDLE* handles;size_t count;
+                ~InheritanceScope(){for(size_t i=0;i<count;++i)SetHandleInformation(handles[i],HANDLE_FLAG_INHERIT,0);}
+            } inheritance{inherited,_countof(inherited)};
+            for(auto handle:inherited)if(!SetHandleInformation(handle,HANDLE_FLAG_INHERIT,HANDLE_FLAG_INHERIT))
+            {pending.error=GetLastError();HelperDiagnostic(root,L"launch",L"inheritance",pending.error);return false;}
+            for(auto handle:inherited)arguments+=L" "+std::to_wstring(reinterpret_cast<ULONG_PTR>(handle));
             auto executable=fs::path(InstallerLifecycle::ModuleDirectory())/L"TrafficMonitor.exe";
-            // Inherit one identity-bound process handle so even an immediate parent exit
-            // cannot race helper startup. No unrelated inheritable handle is forwarded.
             SIZE_T bytes{};InitializeProcThreadAttributeList(nullptr,1,0,&bytes);
             std::vector<unsigned char> storage(bytes);
             auto attributes=reinterpret_cast<LPPROC_THREAD_ATTRIBUTE_LIST>(storage.data());
             bool initialized=InitializeProcThreadAttributeList(attributes,1,0,&bytes)!=FALSE;
-            bool ready=initialized&&UpdateProcThreadAttribute(attributes,0,PROC_THREAD_ATTRIBUTE_HANDLE_LIST,&identity,sizeof(identity),nullptr,nullptr);
+            bool ready=initialized&&UpdateProcThreadAttribute(attributes,0,PROC_THREAD_ATTRIBUTE_HANDLE_LIST,inherited,sizeof(inherited),nullptr,nullptr);
             STARTUPINFOEXW start{};start.StartupInfo.cb=sizeof(start);start.StartupInfo.dwFlags=STARTF_USESHOWWINDOW;start.StartupInfo.wShowWindow=SW_HIDE;start.lpAttributeList=attributes;
             PROCESS_INFORMATION process{};
             std::wstring text=L"\""+executable.wstring()+L"\" "+arguments;std::vector<wchar_t> command(text.begin(),text.end());command.push_back(0);
-            if(fs::exists(attemptsFile)&&(GetFileAttributesW(attemptsFile.c_str())&(FILE_ATTRIBUTE_REPARSE_POINT|FILE_ATTRIBUTE_DIRECTORY))){SetLastError(ERROR_ACCESS_DENIED);ready=false;}
+            if(fs::exists(attemptsFile)&&(GetFileAttributesW(attemptsFile.c_str())&(FILE_ATTRIBUTE_REPARSE_POINT|FILE_ATTRIBUTE_DIRECTORY)))
+            {SetLastError(ERROR_ACCESS_DENIED);ready=false;}
             if(ready)ready=WritePrivateProfileStringW(L"update",L"attempts",std::to_wstring(attempts+1).c_str(),attemptsFile.c_str())!=FALSE;
-            DWORD preparation=ready?ERROR_SUCCESS:GetLastError();
+            DWORD failure=ready?ERROR_SUCCESS:GetLastError();
             bool launched=ready&&CreateProcessW(executable.c_str(),command.data(),nullptr,nullptr,TRUE,CREATE_NO_WINDOW|EXTENDED_STARTUPINFO_PRESENT,nullptr,executable.parent_path().c_str(),&start.StartupInfo,&process);
-            DWORD launchResult=launched?ERROR_SUCCESS:(ready?GetLastError():preparation);
-            if(initialized)DeleteProcThreadAttributeList(attributes);CloseHandle(identity);
-            HelperDiagnostic(root,L"launch",launched?L"created":L"create-process",launchResult);
-            if(launched){CloseHandle(process.hThread);CloseHandle(process.hProcess);}return launched;
+            if(!launched&&ready)failure=GetLastError();
+            if(initialized)DeleteProcThreadAttributeList(attributes);
+            if(launched){CloseHandle(process.hThread);pending.process.reset(process.hProcess);}
+            else pending.Cancel(failure?failure:ERROR_GEN_FAILURE);
+            HelperDiagnostic(root,L"launch",launched?L"created":L"create-process",launched?ERROR_SUCCESS:pending.error);
+            return launched;
         }
-        int RunHelper(DWORD pid,unsigned long long expectedCreation,HANDLE old)
+        PreparationState ObservePreparation()
+        {
+            if(!preparation)
+            {
+                preparation=std::make_unique<HelperPreparation>();
+                try{if(!SpawnHelper(*preparation))preparation->Cancel(preparation->error);}
+                catch(...){preparation->Cancel(ERROR_INVALID_DATA);}
+            }
+            auto result=preparation->Observe();
+            HelperDiagnostic(Root(),L"readiness",result==PreparationState::Preparing?L"preparing":result==PreparationState::Validated?L"validated":L"failed",
+                result==PreparationState::Preparing?STILL_ACTIVE:result==PreparationState::Validated?ERROR_SUCCESS:preparation->error);
+            return result;
+        }
+        void CancelPreparation(DWORD reason)
+        {if(preparation&&!preparation->committed)preparation->Cancel(reason);}
+        void ReleaseFailedPreparation()
+        {if(preparation&&!preparation->committed&&preparation->Exited())preparation.reset();}
+        int RunHelper(DWORD pid,unsigned long long expectedCreation,HANDLE old,HANDLE validated,HANDLE proceed,HANDLE cancel)
         {
             auto root=Root();auto staging=Staging(root);
             HelperDiagnostic(root,L"helper",L"entry",STILL_ACTIVE);
@@ -334,13 +363,37 @@ namespace NativeUpdate
             HANDLE mutex=CreateMutexW(nullptr,TRUE,mutexName.c_str());
             if(!mutex||GetLastError()==ERROR_ALREADY_EXISTS){if(mutex)CloseHandle(mutex);return ERROR_BUSY;}
             struct Close {HANDLE value;~Close(){if(value)CloseHandle(value);}} mutexOwner{mutex};
-            HelperDiagnostic(root,L"helper",L"parent-identity",STILL_ACTIVE);
-            if(!old||GetProcessId(old)!=pid)return ERROR_INVALID_HANDLE;Close oldOwner{old};
+            OwnedHandle oldOwner(old),validatedOwner(validated),proceedOwner(proceed),cancelOwner(cancel);
+            HelperDiagnostic(root,L"helper",L"parent-handle",STILL_ACTIVE);
+            if(!old)return ERROR_INVALID_HANDLE;
+            DWORD actualPid=GetProcessId(old);
+            if(!actualPid)return GetLastError();
+            HelperDiagnostic(root,L"helper",L"parent-pid",STILL_ACTIVE);
+            if(actualPid!=pid)return ERROR_INVALID_DATA;
             FILETIME creation{},exit{},kernel{},user{};
-            if(!GetProcessTimes(old,&creation,&exit,&kernel,&user)||FileTimeValue(creation)!=expectedCreation)return ERROR_INVALID_DATA;
+            HelperDiagnostic(root,L"helper",L"parent-time-query",STILL_ACTIVE);
+            if(!GetProcessTimes(old,&creation,&exit,&kernel,&user))return GetLastError();
+            HelperDiagnostic(root,L"helper",L"parent-creation",STILL_ACTIVE);
+            if(FileTimeValue(creation)!=expectedCreation)return ERROR_INVALID_DATA;
             wchar_t image[32768]{};DWORD length=32768;
             const auto executable=fs::path(InstallerLifecycle::ModuleDirectory())/L"TrafficMonitor.exe";
-            if(!QueryFullProcessImageNameW(old,0,image,&length)||_wcsicmp(image,executable.c_str()))return ERROR_INVALID_DATA;
+            HelperDiagnostic(root,L"helper",L"parent-image-query",STILL_ACTIVE);
+            if(!QueryFullProcessImageNameW(old,0,image,&length))return GetLastError();
+            HelperDiagnostic(root,L"helper",L"parent-image-path",STILL_ACTIVE);
+            if(_wcsicmp(image,executable.c_str()))return ERROR_INVALID_DATA;
+            HelperDiagnostic(root,L"helper",L"readiness-parent-live",STILL_ACTIVE);
+            auto parentState=WaitForSingleObject(old,0);
+            if(parentState!=WAIT_TIMEOUT)return parentState==WAIT_FAILED?GetLastError():ERROR_PROCESS_ABORTED;
+            if(WaitForSingleObject(cancel,0)!=WAIT_TIMEOUT)return ERROR_CANCELLED;
+            HelperDiagnostic(root,L"helper",L"readiness-signal",STILL_ACTIVE);
+            if(!SetEvent(validated))return GetLastError();
+            // The parent may exit only after observing this complete identity check.
+            // Cancellation wins over permission; no named readiness object is used.
+            HANDLE permission[]{cancel,proceed,old};
+            HelperDiagnostic(root,L"helper",L"readiness-permission",STILL_ACTIVE);
+            auto permissionState=WaitForMultipleObjects(_countof(permission),permission,FALSE,HelperPreparationTimeout);
+            if(permissionState==WAIT_OBJECT_0)return ERROR_CANCELLED;
+            if(permissionState!=WAIT_OBJECT_0+1)return permissionState==WAIT_FAILED?GetLastError():permissionState==WAIT_TIMEOUT?ERROR_TIMEOUT:ERROR_PROCESS_ABORTED;
             HelperDiagnostic(root,L"helper",L"parent-exit",STILL_ACTIVE);
             if(WaitForSingleObject(old,120000)!=WAIT_OBJECT_0)return ERROR_TIMEOUT;
             struct Recovery
@@ -399,7 +452,7 @@ namespace NativeUpdate
     void SetEnabled(bool enabled)
     {
         std::lock_guard<std::mutex> guard(serviceMutex);if(!service)return;
-        std::lock_guard<std::mutex> lock(service->mutex);if(service->enabled==enabled)return;service->enabled=enabled;service->networkCancel=!enabled;service->check=true;service->wake.notify_one();
+        std::lock_guard<std::mutex> lock(service->mutex);if(service->enabled==enabled)return;if(!enabled)CancelPreparation(ERROR_CANCELLED);service->enabled=enabled;service->networkCancel=!enabled;service->check=true;service->wake.notify_one();
     }
     void RequestCheck()
     {
@@ -408,7 +461,7 @@ namespace NativeUpdate
     }
     void Stop()
     {
-        std::lock_guard<std::mutex> guard(serviceMutex);if(!service)return;service->cancel=true;service->networkCancel=true;service->wake.notify_one();
+        std::lock_guard<std::mutex> guard(serviceMutex);CancelPreparation(ERROR_CANCELLED);if(!service)return;service->cancel=true;service->networkCancel=true;service->wake.notify_one();
         // Detached worker owns only its shared state and immutable installation path.
         // Keep this session single-flight, including while cancellation settles.
     }
@@ -421,11 +474,48 @@ namespace NativeUpdate
     {
         std::lock_guard<std::mutex> guard(serviceMutex);if(!service)return false;
         std::lock_guard<std::mutex> lock(service->mutex);
-        if(!service->enabled||service->status.phase!=Phase::Ready||!AutomaticRestartEnabled())return false;
-        try{if(!SpawnHelper()){service->status.phase=Phase::Failed;service->status.error=ERROR_RETRY;return false;}service->status.phase=Phase::Applying;service->cancel=true;service->networkCancel=true;service->wake.notify_one();return true;}catch(...){service->status.phase=Phase::Failed;service->status.error=ERROR_INVALID_DATA;return false;}
+        if(!service->enabled||service->status.phase!=Phase::Ready||!AutomaticRestartEnabled())
+        {CancelPreparation(ERROR_CANCELLED);return false;}
+        try
+        {
+            auto ready=ObservePreparation();
+            if(ready==PreparationState::Preparing)return false;
+            if(ready==PreparationState::Failed||!preparation->PermitParentExit())
+            {
+                service->status.phase=Phase::Failed;
+                service->status.error=preparation->error?preparation->error:ERROR_GEN_FAILURE;
+                HelperDiagnostic(service->root,L"readiness",L"failed",service->status.error);
+                ReleaseFailedPreparation();return false;
+            }
+            HelperDiagnostic(service->root,L"readiness",L"exit-permitted",ERROR_SUCCESS);
+            service->status.phase=Phase::Applying;service->cancel=true;service->networkCancel=true;service->wake.notify_one();return true;
+        }
+        catch(...)
+        {CancelPreparation(ERROR_INVALID_DATA);service->status.phase=Phase::Failed;service->status.error=ERROR_INVALID_DATA;ReleaseFailedPreparation();return false;}
     }
     bool ApplyPendingOnLaunch()
-    {try{if(!fs::exists(Staging(Root())/L"pending"))return false;return SpawnHelper();}catch(...){return false;}}
+    {
+        std::lock_guard<std::mutex> guard(serviceMutex);
+        try
+        {
+            if(!fs::exists(Staging(Root())/L"pending"))return false;
+            for(;;)
+            {
+                auto ready=ObservePreparation();
+                if(ready==PreparationState::Validated&&preparation->PermitParentExit())return true;
+                if(ready!=PreparationState::Preparing){CancelPreparation(preparation->error);ReleaseFailedPreparation();return false;}
+                // Only early startup may wait, before monitoring/plugin initialization.
+                // The normal UI uses the same protocol exclusively with zero waits.
+                auto now=GetTickCount64();
+                DWORD remaining=now<preparation->deadline?static_cast<DWORD>(preparation->deadline-now):0;
+                HANDLE signals[]{preparation->process.get(),preparation->validated.get()};
+                auto wait=WaitForMultipleObjects(_countof(signals),signals,FALSE,remaining);
+                if(wait!=WAIT_OBJECT_0&&wait!=WAIT_OBJECT_0+1)
+                {CancelPreparation(wait==WAIT_TIMEOUT?ERROR_TIMEOUT:GetLastError());ReleaseFailedPreparation();return false;}
+            }
+        }
+        catch(...){CancelPreparation(ERROR_INVALID_DATA);ReleaseFailedPreparation();return false;}
+    }
     bool AutomaticRestartEnabled()
     {
         try{return GetPrivateProfileIntW(L"update",L"automatic_restart",1,(Staging(Root())/L"preferences.ini").c_str())!=0;}catch(...){return false;}
@@ -436,7 +526,9 @@ namespace NativeUpdate
         {
             auto file=Staging(Root())/L"preferences.ini";
             if(fs::exists(file)&&(GetFileAttributesW(file.c_str())&FILE_ATTRIBUTE_REPARSE_POINT))return false;
-            return WritePrivateProfileStringW(L"update",L"automatic_restart",enabled?L"1":L"0",file.c_str())&&AutomaticRestartEnabled()==enabled;
+            bool saved=WritePrivateProfileStringW(L"update",L"automatic_restart",enabled?L"1":L"0",file.c_str())&&AutomaticRestartEnabled()==enabled;
+            if(saved&&!enabled){std::lock_guard<std::mutex> guard(serviceMutex);CancelPreparation(ERROR_CANCELLED);}
+            return saved;
         }catch(...){return false;}
     }
     bool HandleHelper(int& exitCode)
@@ -448,11 +540,21 @@ namespace NativeUpdate
             exitCode=ERROR_INVALID_PARAMETER;
             try
             {
-                if(count==5)
+                if(count==8)
                 {
-                    std::wstring pidText=arguments[2],timeText=arguments[3],handleText=arguments[4];
-                    if(!pidText.empty()&&!timeText.empty()&&!handleText.empty()&&pidText.find_first_not_of(L"0123456789")==std::wstring::npos&&timeText.find_first_not_of(L"0123456789")==std::wstring::npos&&handleText.find_first_not_of(L"0123456789")==std::wstring::npos)
-                    {auto pid=std::stoull(pidText);if(pid&&pid<=MAXDWORD&&pid!=GetCurrentProcessId())exitCode=RunHelper(static_cast<DWORD>(pid),std::stoull(timeText),reinterpret_cast<HANDLE>(static_cast<ULONG_PTR>(std::stoull(handleText))));}
+                    std::array<unsigned long long,6> values{};bool valid=true;
+                    for(size_t i=0;i<values.size();++i)
+                    {
+                        std::wstring text=arguments[i+2];
+                        if(text.empty()||text.find_first_not_of(L"0123456789")!=std::wstring::npos){valid=false;break;}
+                        values[i]=std::stoull(text);
+                    }
+                    if(valid&&values[0]&&values[0]<=MAXDWORD&&values[0]!=GetCurrentProcessId())
+                    {
+                        for(size_t i=2;i<values.size();++i)if(!values[i]||values[i]>static_cast<unsigned long long>(MAXULONG_PTR))valid=false;
+                        if(valid)exitCode=RunHelper(static_cast<DWORD>(values[0]),values[1],reinterpret_cast<HANDLE>(static_cast<ULONG_PTR>(values[2])),
+                            reinterpret_cast<HANDLE>(static_cast<ULONG_PTR>(values[3])),reinterpret_cast<HANDLE>(static_cast<ULONG_PTR>(values[4])),reinterpret_cast<HANDLE>(static_cast<ULONG_PTR>(values[5])));
+                    }
                 }
             }catch(...){exitCode=ERROR_INVALID_DATA;}
             try{HelperDiagnostic(Root(),L"helper",nullptr,static_cast<DWORD>(exitCode));}catch(...){}
