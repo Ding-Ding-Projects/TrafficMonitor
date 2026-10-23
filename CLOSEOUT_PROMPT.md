@@ -1,5 +1,18 @@
 # TrafficMonitor continuation
 
+## Active release-grade updater repair
+
+The latest direction is release-grade closeout and scoped cleanup, superseding the
+earlier expedited no-check restriction. Wider completion remains unfinished. Cleanup
+has not started; archive destination for the new pass is awaiting a structured answer.
+This lane changes only updater preparation/budget behavior and focused local checks.
+Cancelled/expired preparation and helper creation failure no longer spend apply
+attempts. Complete staging trust is required before exit readiness and repeated after
+parent exit. Exact root build.bat --verify-updater is the local regression route;
+root build.bat and build-installer.bat remain the production routes. Installed-client
+mutation, integration, push, publication and broader release acceptance remain with
+the coordinating task. The separate first-open setup lane owns its own paths.
+
 ## Current updater outcome
 
 | Evidence boundary | Current state |

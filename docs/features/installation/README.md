@@ -20,6 +20,8 @@ An existing startup entry for a different installation is protected rather than 
 Installed builds provide [silent staged updates](silent-updates.md), checking every
 five minutes and restarting cooperatively when no active editing work would be lost.
 The independent automatic-restart preference can leave application until next launch.
+See [preparation retry and staging validation](preparation-reliability.md) for the
+focused cancellation, trust-before-exit and bounded apply-attempt behavior.
 
 Installed configuration and traffic history use the existing application-data location rather
 than versioned executable folders. Updates preserve startup choices and existing display settings.

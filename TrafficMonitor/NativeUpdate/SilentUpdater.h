@@ -16,7 +16,7 @@ namespace NativeUpdate
     bool SaveAutomaticRestart(bool enabled); // False means the preference was not saved.
     // Caller must first establish that no editor, settings or modal work is active.
     // Zero-wait polling retains one helper while preparing. On true, complete
-    // original identity was acknowledged by a live helper; immediately dispatch
+    // original identity and complete staged package were acknowledged by a live helper; immediately dispatch
     // the normal synchronous application exit/save path.
     bool PrepareRestart();
     // Same identity-before-exit protocol, with at most a ten-second startup wait,

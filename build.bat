@@ -1,5 +1,6 @@
 @echo off
 setlocal
+if /i "%~1"=="--verify-updater" goto verifyUpdater
 if /i "%~1"=="--site" goto site
 if /i "%~1"=="/s" goto silent
 if /i "%~1"=="--silent" goto silent
@@ -11,4 +12,11 @@ powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0scripts\bu
 exit /b %errorlevel%
 :site
 powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0scripts\build-site.ps1"
+exit /b %errorlevel%
+:verifyUpdater
+if /i "%~2"=="--baseline" goto verifyUpdaterBaseline
+powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0scripts\test-native-update-protocol.ps1"
+exit /b %errorlevel%
+:verifyUpdaterBaseline
+powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0scripts\test-native-update-protocol.ps1" -Baseline
 exit /b %errorlevel%

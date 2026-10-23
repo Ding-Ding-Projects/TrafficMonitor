@@ -31,6 +31,7 @@ namespace NativeUpdate
         std::mutex serviceMutex;
         std::shared_ptr<State> service;
         std::unique_ptr<HelperPreparation> preparation;
+        ULONGLONG nextPreparation{};
         struct Version
         {
             std::array<unsigned,3> numbers{};
@@ -165,11 +166,11 @@ namespace NativeUpdate
                 ||comparison.at("merge_base_commit").at("sha").text()!=release.source)
                 throw std::runtime_error("release outside accepted main channel");
         }
-        Release Pending(const fs::path& root,bool requireNewer=true)
+        Release Pending(const fs::path& root,bool requireNewer=true,const std::string& current={})
         {
             auto pending=Staging(root)/L"pending";
             if(!PlainDirectory(pending))throw std::runtime_error("pending directory");
-            auto release=ParseRelease(Read(pending/L"release.json",MetadataLimit),CurrentVersion(),requireNewer);
+            auto release=ParseRelease(Read(pending/L"release.json",MetadataLimit),current.empty()?CurrentVersion():current,requireNewer);
             ValidateAdmission(release,Read(pending/L"main-source.json",65536),Read(pending/L"main-admission.json",MetadataLimit));
             auto releases=Read(pending/L"RELEASES",65536),package=Read(pending/Wide(release.package),PackageLimit);
             ValidateFeed(release,releases,package);return release;
@@ -326,7 +327,6 @@ namespace NativeUpdate
             std::wstring text=L"\""+executable.wstring()+L"\" "+arguments;std::vector<wchar_t> command(text.begin(),text.end());command.push_back(0);
             if(fs::exists(attemptsFile)&&(GetFileAttributesW(attemptsFile.c_str())&(FILE_ATTRIBUTE_REPARSE_POINT|FILE_ATTRIBUTE_DIRECTORY)))
             {SetLastError(ERROR_ACCESS_DENIED);ready=false;}
-            if(ready)ready=WritePrivateProfileStringW(L"update",L"attempts",std::to_wstring(attempts+1).c_str(),attemptsFile.c_str())!=FALSE;
             DWORD failure=ready?ERROR_SUCCESS:GetLastError();
             bool launched=ready&&CreateProcessW(executable.c_str(),command.data(),nullptr,nullptr,TRUE,CREATE_NO_WINDOW|EXTENDED_STARTUPINFO_PRESENT,nullptr,executable.parent_path().c_str(),&start.StartupInfo,&process);
             if(!launched&&ready)failure=GetLastError();
@@ -353,6 +353,20 @@ namespace NativeUpdate
         {if(preparation&&!preparation->committed)preparation->Cancel(reason);}
         void ReleaseFailedPreparation()
         {if(preparation&&!preparation->committed&&preparation->Exited())preparation.reset();}
+        template<class Run> DWORD ApplyWithBudget(const fs::path& root,const Release& release,Run run)
+        {
+            auto attemptsFile=Staging(root)/(Wide(release.version)+L".attempts.ini");
+            auto attributes=GetFileAttributesW(attemptsFile.c_str());
+            if(attributes!=INVALID_FILE_ATTRIBUTES&&(attributes&(FILE_ATTRIBUTE_REPARSE_POINT|FILE_ATTRIBUTE_DIRECTORY)))return ERROR_ACCESS_DENIED;
+            auto attempts=GetPrivateProfileIntW(L"update",L"attempts",0,attemptsFile.c_str());
+            if(attempts>=2)return ERROR_RETRY;
+            // Charge only the actual apply phase, after identity, permission, parent
+            // exit and final complete pending validation. Preparation is never an apply.
+            if(!WritePrivateProfileStringW(L"update",L"attempts",std::to_wstring(attempts+1).c_str(),attemptsFile.c_str()))return GetLastError();
+            auto result=run();
+            WritePrivateProfileStringW(L"update",L"last_exit_code",std::to_wstring(result).c_str(),attemptsFile.c_str());
+            return result;
+        }
         int RunHelper(DWORD pid,unsigned long long expectedCreation,HANDLE old,HANDLE validated,HANDLE proceed,HANDLE cancel)
         {
             auto root=Root();auto staging=Staging(root);
@@ -381,6 +395,12 @@ namespace NativeUpdate
             if(!QueryFullProcessImageNameW(old,0,image,&length))return GetLastError();
             HelperDiagnostic(root,L"helper",L"parent-image-path",STILL_ACTIVE);
             if(_wcsicmp(image,executable.c_str()))return ERROR_INVALID_DATA;
+            // Full trust is established on this helper thread before any exit
+            // acknowledgement. The parent keeps monitoring while bytes are hashed.
+            HelperDiagnostic(root,L"helper",L"preparation-validation",STILL_ACTIVE);
+            auto prepared=Pending(root);
+            auto preparedAttempts=staging/(Wide(prepared.version)+L".attempts.ini");
+            if(GetPrivateProfileIntW(L"update",L"attempts",0,preparedAttempts.c_str())>=2)return ERROR_RETRY;
             HelperDiagnostic(root,L"helper",L"readiness-parent-live",STILL_ACTIVE);
             auto parentState=WaitForSingleObject(old,0);
             if(parentState!=WAIT_TIMEOUT)return parentState==WAIT_FAILED?GetLastError():ERROR_PROCESS_ABORTED;
@@ -407,12 +427,10 @@ namespace NativeUpdate
             if(!application||GetLastError()==ERROR_ALREADY_EXISTS){if(application)CloseHandle(application);recovery.launch=false;return ERROR_BUSY;}
             Close applicationOwner{application};
             HelperDiagnostic(root,L"helper",L"pending-validation",STILL_ACTIVE);
-            auto release=Pending(root);auto attemptsFile=staging/(Wide(release.version)+L".attempts.ini");
-            int attempts=GetPrivateProfileIntW(L"update",L"attempts",0,attemptsFile.c_str());
-            if(attempts<1||attempts>2)return ERROR_RETRY;
+            auto release=Pending(root);
+            if(release.version!=prepared.version||release.source!=prepared.source||release.packageHash!=prepared.packageHash||release.releasesHash!=prepared.releasesHash)return ERROR_INVALID_DATA;
             HelperDiagnostic(root,L"helper",L"squirrel-update",STILL_ACTIVE);
-            DWORD result=Child(root/L"Update.exe",L"--update \""+(staging/L"pending").wstring()+L"\" --silent",180000);
-            WritePrivateProfileStringW(L"update",L"last_exit_code",std::to_wstring(result).c_str(),attemptsFile.c_str());
+            DWORD result=ApplyWithBudget(root,release,[&]{return Child(root/L"Update.exe",L"--update \""+(staging/L"pending").wstring()+L"\" --silent",180000);});
             // Never overlap a still-running updater after timeout or kill a child.
             if(result==ERROR_TIMEOUT){recovery.launch=false;return result;}
             if(result==ERROR_SUCCESS)
@@ -478,11 +496,15 @@ namespace NativeUpdate
         {CancelPreparation(ERROR_CANCELLED);return false;}
         try
         {
+            if(GetTickCount64()<nextPreparation)return false;
             auto ready=ObservePreparation();
             if(ready==PreparationState::Preparing)return false;
             if(ready==PreparationState::Failed||!preparation->PermitParentExit())
             {
-                service->status.phase=Phase::Failed;
+                // Cancellation, expired preparation and helper creation failures
+                // remain retryable without spending either real apply attempt.
+                service->status.phase=Phase::Ready;
+                nextPreparation=GetTickCount64()+HelperPreparationTimeout;
                 service->status.error=preparation->error?preparation->error:ERROR_GEN_FAILURE;
                 HelperDiagnostic(service->root,L"readiness",L"failed",service->status.error);
                 ReleaseFailedPreparation();return false;
