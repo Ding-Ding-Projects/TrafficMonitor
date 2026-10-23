@@ -1,3 +1,7 @@
+## Current owner direction, 2026-10-23
+
+Prioritize the main native C++/MFC application. Complete its interface, Settings and context menus, searches and full regex builders, applicable feature consumers and source-bound runtime acceptance before further documentation-website implementation. Keep installer/startup, saved data, tray/taskbar and silent update behavior intact. Finish documentation website/wiki/offline-reader work last. Existing external delivery runs may finish; previous evidence remains retained with its actual source. Release-grade verification and preservation remain active; cleanup has not started.
+
 # TrafficMonitor implementation handoff
 
 ## Current integration and scope

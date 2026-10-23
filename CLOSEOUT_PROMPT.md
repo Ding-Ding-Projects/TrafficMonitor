@@ -1,3 +1,9 @@
+# Current continuation priority
+
+Owner direction: main native C++/MFC application FIRST, documentation website LAST. Complete native Material workflows, full Settings/context menus/search/regex builders and applicable required-feature consumers with real built verification. Preserve installer/runtime dependencies, startup, tray/taskbar, saved choices, silent five-minute updating and safe application restart. Then finish build companion and operational release work. Only after main application completion resume remaining documentation website/wiki/offline-reader implementation and final verification. Existing delivery runs may finish. No new documentation implementation lane is authorized ahead of native completion.
+
+The full goal remains unfinished. One read-only native design lane is inspecting existing components for the next coherent implementation unit. No cleanup has started. Preserve active/incomplete work and private announcement variants, resolve the archive destination and verify archive/ownership/remote/ancestry before any deletion.
+
 # Continuation handoff
 
 Release-grade delivery and scoped cleanup remain active and unfinished. This integration combines main f795e86b309cb72f80e030fe7c802ea9c44b4fd2 with documentation companion tip 20e6317be551c05867fb9cf474a98e555e3c2801. Native C++/MFC remains the productive application. No cleanup has started; the new archive destination remains unanswered.

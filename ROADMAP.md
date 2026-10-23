@@ -1,5 +1,14 @@
 # TrafficMonitor delivery roadmap
 
+## Current delivery priority, 2026-10-23
+
+- [ ] Complete the main native C++/MFC application first: reusable Material components, productive monitoring workflows, onboarding, complete Settings, context menus, search and independent full regex builders.
+- [ ] Verify native consumers, saved choices, recovery, language modes, keyboard/accessibility, themes and supported DPI layouts using source-bound builds and actual interaction.
+- [ ] Finish native installer, silent update and accepted installed-version verification, plus the dedicated build companion and operational release work.
+- [ ] Only after the main application is complete, finish the hosted documentation, wiki, offline documentation companion, remaining documentation controls and current image matrix.
+
+Existing delivery runs may finish. Do not start more documentation-website implementation while main-application acceptance remains unfinished. Earlier receipts retain their original scope and source identity. Release-grade verification is active; older expedited-mode statements below are historical, not current restrictions.
+
 ## Integrated natural35 evidence
 
 - [x] Preserve reviewed source-bound natural 1.0.34 to 1.0.35 acceptance and all four release asset byte/hash records.
