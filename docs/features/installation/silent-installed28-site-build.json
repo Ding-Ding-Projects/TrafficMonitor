@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "command": "build.bat --site",
+  "exitCode": 0,
+  "sourceCommit": "1e0c2cc9fef895902e48f62650199207aa324fa0",
+  "contentSource": "720505c45314863c72903af9bf4934edc05f7c4e",
+  "inputState": "Clean fixed source and tracked manifest unchanged throughout final production.",
+  "manifestSha256": "a4792d8ea5465a5339bab6d24f43808ded14ba7116f33ae0c190bb4a6c0e6939",
+  "counts": {
+    "repositoryMarkdownArticles": 168,
+    "wikiMarkdownArticles": 28,
+    "wikiAssets": 75,
+    "wikiTrackedFiles": 103,
+    "articles": 196
+  },
+  "productionReceipt": {
+    "schemaVersion": 1,
+    "sourceCommit": "1e0c2cc9fef895902e48f62650199207aa324fa0",
+    "contentSource": "720505c45314863c72903af9bf4934edc05f7c4e",
+    "wikiSource": {
+      "repository": "https://github.com/zhongyang219/TrafficMonitor.wiki.git",
+      "commit": "cf35274094fe2ffb040ca1f29d6ce73c713d93a2"
+    },
+    "releaseMetadataSHA256": "37e33d17df24ad8a8e1cbb935a1dffd2844b8de4ec0c5f0f14f6e13538e62e0f",
+    "releaseTag": "v1.0.15-run39912330939-1",
+    "releaseSource": "3f573fc0031ef6b6cb123dfbc80c05c33a5063db",
+    "articleCount": 196,
+    "historyCount": 1620,
+    "base": "/TrafficMonitor/",
+    "unresolvedAssets": []
+  },
+  "buildOutput": "Built 196 complete articles; 1620 history records; 0 unavailable local images.",
+  "nativeProductionSource": "72f1fc929fe5d3a31b7a6e1ee73de20bb61a6ec3",
+  "nativeProductionVersion": "1.0.9017",
+  "manualInstalledVersion": "1.0.28",
+  "publishedWikiCommit": "27e2231ae4f8986ee394075dc46fdf9838c7e77c",
+  "intermediateProduction": [
+    {
+      "source": "835f65bc6f6f24c06d47ea07fe98c291831c58c9",
+      "content": "fe2b2362cc607464b54166d65827f469fc9d67ed",
+      "exitCode": 0,
+      "articles": 196,
+      "history": 1618,
+      "unavailableImages": 0,
+      "supersededBecause": "New publication evidence arrived after this source-pinned producer began."
+    },
+    {
+      "sourceAtStart": "720505c45314863c72903af9bf4934edc05f7c4e",
+      "sourceAtEnd": "1e0c2cc9fef895902e48f62650199207aa324fa0",
+      "exitCode": 0,
+      "articles": 196,
+      "history": 1620,
+      "unavailableImages": 0,
+      "verdict": "Intermediate only: manifest commit completed during production; not used as fixed-source proof."
+    }
+  ],
+  "verificationScope": "Static production and separately assigned supported installed-update metadata only. No native build, tests, reviews, audits, UI quality work, screenshots or deployment in this followup. Corrected-client automatic restart remains unverified; natural collector began before next real publication.",
+  "outputs": [
+    {
+      "path": "docs/site/dist/index.html",
+      "bytes": 4911,
+      "sha256": "6e631fe42a1449b4db9e952627bbc4169fb539d75470058ec292e99c93398502"
+    },
+    {
+      "path": "docs/site/dist/articles/source-docs-features-installation-silent-updates/index.html",
+      "bytes": 32123,
+      "sha256": "fa246a90cedef964c73f3d13768e229d423cc5720e17270e4c64ad51de0e130f"
+    },
+    {
+      "path": "docs/site/dist/articles/source-handoff/index.html",
+      "bytes": 70724,
+      "sha256": "42c2bf88965331bce87ddec7636f926b15380610c8cbea453c36f30f1258ada9"
+    },
+    {
+      "path": "docs/site/dist/build-receipt.json",
+      "bytes": 611,
+      "sha256": "b2992e19aa0b6760ed15f8d06937e82d2dea734e5db623fafa4028fd423fbc42"
+    }
+  ]
+}
