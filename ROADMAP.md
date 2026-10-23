@@ -19,6 +19,10 @@ required check is configured; administrators retain bypass permission.
 
 ## Native interface and required features, after the first delivery
 
+- [ ] Deliver independent complete regex builders beside every owning search. Local worker and first documentation-search interaction are verified; full parity and remaining owners are unfinished.
+- [ ] Expose every applicable Settings control with actual consumers, persistence, reset and recovery. The complete mapping is not implementation proof.
+- [ ] Verify modern task-led documentation and capability discovery on the deployed site, including narrow layouts, keyboard behavior and saved state.
+
 - [ ] Design and review a native MFC Material Design 3 component system.
 - [ ] Convert the complete owned interface while preserving monitoring and plugins.
 - [x] Inventory every required feature and its applicability by delivered surface.

@@ -1,5 +1,29 @@
 # TrafficMonitor implementation handoff
 
+## Current documentation correction
+
+The owner requires task-led documentation, a useful capability explorer, an adjacent independent
+regex builder for each search, and actual Settings controls for every applicable requirement.
+An inventory or a language/theme subset does not establish completion. The modern documentation
+slice is integrated through `e2b4c55e62f79cc263e152b127fab541069ec613`. Its exact root documentation
+build passed with 174 complete articles, 1,490 history records and zero unavailable local images.
+Real isolated browser interaction verified named captures and UTF-16 match indices in the local
+Worker, regex application to documentation search, invalid-pattern result preservation and return
+to literal search. The successful measured intervals had zero observed console errors, unhandled
+exceptions and page errors. The initial English-only status assertion timed out against bilingual
+copy; the corrected assertion passed. This narrow evidence does not establish full workbench parity,
+all four search owners, accessibility, or the complete layout matrix.
+
+The worker allocation correction has 16 focused passing checks and independent source review.
+It skips empty replacement fragments, coalesces small fragments, rejects browser worker URL
+queries and prevents browser worker-factory injection. No hard operating-system memory quota is
+claimed. The complete official-manual topic inventory remains explicitly unfinished.
+
+The native-menu lane has a built candidate and bounded Plugin Manager popup evidence, but remains
+separate pending wider interaction acceptance. Its candidate exited gracefully and installed 1.0.12
+was restored with its taskbar visible, main window hidden and unchanged startup/configuration.
+The newer normal 1.0.14 release is verified as published; its installed update remains pending.
+
 ## Objective
 
 Deliver the installer and release foundation first. Native MFC interface conversion and the
