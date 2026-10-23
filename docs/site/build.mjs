@@ -30,6 +30,8 @@ const context={base,release,source,manifest};
 async function page(route,title,body){const destination=path.join(dist,safeRelative(route?decodeURIComponent(route.replace(/^\//,'')):'index.html'));await fs.mkdir(path.dirname(destination),{recursive:true});await fs.writeFile(destination,shell(title,body,context));}
 await build({entryPoints:[path.join(here,'src/app.js')],bundle:true,format:'esm',outfile:path.join(dist,'app.js'),minify:true,legalComments:'linked'});
 await fs.copyFile(path.join(here,'src/style.css'),path.join(dist,'style.css'));
+await fs.mkdir(path.join(dist,'regex-engine'),{recursive:true});
+for(const name of ['worker.mjs','evaluate.mjs','request.mjs'])await fs.copyFile(path.join(here,'src/regex-engine',name),path.join(dist,'regex-engine',name));
 await fs.writeFile(path.join(dist,'.nojekyll'),'');
 await page('index.html','TrafficMonitor',home(context));
 await page('guide/index.html','Guided setup',guide(context));

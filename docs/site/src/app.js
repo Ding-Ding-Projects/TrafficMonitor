@@ -13,6 +13,8 @@ import {setupHistory} from './history.js';
 import {setupLearning,setupDocumentationSearch} from './learning.js';
 import {setupCapabilities} from './capabilities.js';
 import {setupReadingSettings} from './reading-settings.js';
+import {setupRegexWorkbenches} from './regex-workbench.js';
+import {createRegexEngine} from './regex-engine/client.mjs';
 const $=id=>document.getElementById(id);
 const base=document.body.dataset.base;
 export function notify(message){$('notice').textContent=message;}
@@ -43,6 +45,7 @@ const explanations={taskbar:'Taskbar mode keeps the meter beside your open appli
 for(const button of document.querySelectorAll('[data-display]'))button.addEventListener('click',()=>{for(const b of document.querySelectorAll('[data-display]'))b.setAttribute('aria-pressed',String(b===button));$('display-explanation').textContent=explanations[button.dataset.display];document.querySelector('.diagram').dataset.view=button.dataset.display;});
 const filter=()=>{const query=($('article-search')?.value??'').toLocaleLowerCase(),category=$('article-category')?.value??'';let count=0;for(const row of document.querySelectorAll('[data-search]')){row.hidden=!(row.dataset.search.toLocaleLowerCase().includes(query)&&(!category||row.dataset.search.includes(category)));if(!row.hidden)count++;}if($('article-count'))$('article-count').textContent=count?`${count} matching articles`:'No matching articles. Try a shorter phrase or another category.';};
 $('article-search')?.addEventListener('input',filter);$('article-category')?.addEventListener('change',filter);
-setupGuide(base,notify);setupHistory(base,notify);
-setupLearning(base,notify);setupDocumentationSearch(base);setupCapabilities();
+setupGuide(base,notify);await setupHistory(base,notify);
+setupLearning(base,notify);await setupDocumentationSearch(base);setupCapabilities();
 setupReadingSettings(notify);
+setupRegexWorkbenches(base,createRegexEngine,notify);
