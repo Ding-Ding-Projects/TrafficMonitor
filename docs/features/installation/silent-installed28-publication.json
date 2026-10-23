@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "scope": "Coordinating task supplied verified normal release and HTTP/asset/About readback; no interface interaction or screenshots.",
+  "run": "39967963564",
+  "runJobs": "All four succeeded",
+  "releaseTag": "v1.0.28-run39967963564-1",
+  "sourceCommit": "ebf95b99a4bd95c2e741e9099eaa5d2f2538d67b",
+  "publishedAt": "2026-10-23T14:19:36Z",
+  "deploymentCompletedAt": "2026-10-23T14:21:16Z",
+  "home": "https://ding-ding-projects.github.io/TrafficMonitor/",
+  "homeStatus": 200,
+  "aboutHomepage": "https://ding-ding-projects.github.io/TrafficMonitor/",
+  "articleCount": 196,
+  "unavailableAssets": 0,
+  "assets": [
+    {
+      "path": "style.css",
+      "status": 200,
+      "bytes": 16466
+    },
+    {
+      "path": "app.js",
+      "status": 200,
+      "bytes": 291736
+    }
+  ],
+  "installedPackageVersion": "1.0.28",
+  "installedRoute": "Supported graceful manual Squirrel update and stable launcher, exit0 each",
+  "installedExecutableSHA256": "f082056056b6606e59e28f59edf245e995bcd76ab475ef24e72230cac7bace63",
+  "dataAndStartupPreserved": true,
+  "automaticRestart": "Unverified for corrected28 client; natural collector began before next publication."
+}
