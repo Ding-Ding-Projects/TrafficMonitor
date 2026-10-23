@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "04a9a136ae800c4b1c547cf09c1bf3688ac0265a",
+  "entryCount": 26,
+  "files": [
+    {
+      "path": "2026.json",
+      "count": 26
+    }
+  ],
+  "coverage": {
+    "complete": false,
+    "expectedCount": 1413,
+    "representedCount": 26,
+    "remainingCount": 1387,
+    "sourceRef": "main",
+    "upstreamBaseline": "930f17533d6098989ebad62f210aa97d75ef174b",
+    "upstreamCount": 1387,
+    "forkCount": 26,
+    "representedLineage": "fork",
+    "candidateShaSet": "All 26 commits reachable from sourceCommit but not from upstreamBaseline, in source log order."
+  }
+}

@@ -1,0 +1,290 @@
+{
+  "entries": [
+    {
+      "sha": "04a9a136ae800c4b1c547cf09c1bf3688ac0265a",
+      "date": "2026-10-23T00:41:21-04:00",
+      "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/04a9a136ae800c4b1c547cf09c1bf3688ac0265a",
+      "summary": "Allow the portable build companion to be built independently.",
+      "category": "feature",
+      "lineage": "fork",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted",
+      "originalSubject": "Mark portable build companion independently applicable"
+    },
+    {
+      "sha": "7985876128d78a4fc7d75dad6a8ba7157bb821ca",
+      "date": "2026-10-23T00:41:36-04:00",
+      "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/7985876128d78a4fc7d75dad6a8ba7157bb821ca",
+      "summary": "Check the activation results for managed release pages.",
+      "category": "fix",
+      "lineage": "fork",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted",
+      "originalSubject": "Check managed release-page activation results"
+    },
+    {
+      "sha": "5b6066feb4195037eef5f3562e9f133d0fcf8d8a",
+      "date": "2026-10-23T00:38:34-04:00",
+      "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/5b6066feb4195037eef5f3562e9f133d0fcf8d8a",
+      "summary": "Keep installed update checks on the fork's release channel.",
+      "category": "fix",
+      "lineage": "fork",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted",
+      "originalSubject": "Keep installed update checks on the fork release channel"
+    },
+    {
+      "sha": "ab993673421d3b1d3a88f57cabbe3c7f26973b86",
+      "date": "2026-10-23T00:37:28-04:00",
+      "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/ab993673421d3b1d3a88f57cabbe3c7f26973b86",
+      "summary": "Specify context-menu search behavior and replace the current screenshot.",
+      "category": "documentation",
+      "lineage": "fork",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted",
+      "originalSubject": "Specify context-menu search and current screenshot replacement"
+    },
+    {
+      "sha": "220fa9ac0c569a3bd755966a3310b430d7eba5d0",
+      "date": "2026-10-23T00:37:05-04:00",
+      "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/220fa9ac0c569a3bd755966a3310b430d7eba5d0",
+      "summary": "Document the complete applicability inventory for required features.",
+      "category": "documentation",
+      "lineage": "fork",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted",
+      "originalSubject": "Document complete required-feature applicability inventory"
+    },
+    {
+      "sha": "67079f1372be7ff83715e091b2b4f4550064981b",
+      "date": "2026-10-23T00:36:09-04:00",
+      "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/67079f1372be7ff83715e091b2b4f4550064981b",
+      "summary": "Make the primary README English-first.",
+      "category": "documentation",
+      "lineage": "fork",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted",
+      "originalSubject": "Make the primary README English first"
+    },
+    {
+      "sha": "47ace8a91966c818d9180ae4a3a0b1c6790eb4c2",
+      "date": "2026-10-23T00:22:46-04:00",
+      "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/47ace8a91966c818d9180ae4a3a0b1c6790eb4c2",
+      "summary": "Record verified Explorer taskbar attachment and update behavior.",
+      "category": "documentation",
+      "lineage": "fork",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted",
+      "originalSubject": "Record verified Explorer taskbar and update behavior"
+    },
+    {
+      "sha": "c1647e585e7975c9a2aae14677615eb2ef210949",
+      "date": "2026-10-23T00:17:38-04:00",
+      "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/c1647e585e7975c9a2aae14677615eb2ef210949",
+      "summary": "Enforce publication checks before creating a release.",
+      "category": "maintenance",
+      "lineage": "fork",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted",
+      "originalSubject": "Enforce publication checks before release"
+    },
+    {
+      "sha": "5b859ee863e9334ff0c16465a0202ae6c12687d9",
+      "date": "2026-10-23T00:11:50-04:00",
+      "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/5b859ee863e9334ff0c16465a0202ae6c12687d9",
+      "summary": "Add a trusted local scanner entry point.",
+      "category": "feature",
+      "lineage": "fork",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted",
+      "originalSubject": "Add trusted local scanner entrypoint"
+    },
+    {
+      "sha": "0c652ebab9b7dff5c012910a62137a2d04feeb75",
+      "date": "2026-10-23T00:11:14-04:00",
+      "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/0c652ebab9b7dff5c012910a62137a2d04feeb75",
+      "summary": "Classify reviewed natural-language collisions accurately.",
+      "category": "fix",
+      "lineage": "fork",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted",
+      "originalSubject": "Classify reviewed natural-language collisions accurately"
+    },
+    {
+      "sha": "02a61f1c56d6cc37d3c94399f74e1205ead661a9",
+      "date": "2026-10-23T00:10:22-04:00",
+      "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/02a61f1c56d6cc37d3c94399f74e1205ead661a9",
+      "summary": "Add a neutral publication scanner with reviewed legacy decoding.",
+      "category": "feature",
+      "lineage": "fork",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted",
+      "originalSubject": "Add neutral publication scanner with reviewed legacy decoding"
+    },
+    {
+      "sha": "365402308d47c7a140bc03ab9a07116d3154e36d",
+      "date": "2026-10-23T00:08:47-04:00",
+      "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/365402308d47c7a140bc03ab9a07116d3154e36d",
+      "summary": "Record installed runtime and startup verification.",
+      "category": "documentation",
+      "lineage": "fork",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted",
+      "originalSubject": "Record installed runtime and startup verification"
+    },
+    {
+      "sha": "6687d76d1dc2cfced6e7b2e145f2c39e43eb55a8",
+      "date": "2026-10-22T23:59:10-04:00",
+      "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/6687d76d1dc2cfced6e7b2e145f2c39e43eb55a8",
+      "summary": "Reject packages missing exact native Squirrel awareness metadata.",
+      "category": "fix",
+      "lineage": "fork",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted",
+      "originalSubject": "Reject packages lacking exact native Squirrel awareness metadata"
+    },
+    {
+      "sha": "b54506269e63e620bb97d9c3e471cd0994564f1d",
+      "date": "2026-10-22T23:59:14-04:00",
+      "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/b54506269e63e620bb97d9c3e471cd0994564f1d",
+      "summary": "Expose installer awareness to the pinned Squirrel detector.",
+      "category": "maintenance",
+      "lineage": "fork",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted",
+      "originalSubject": "Expose installer awareness to pinned Squirrel detector"
+    },
+    {
+      "sha": "166bc42c09e0c88b61f4d7019c7751a99b725d3c",
+      "date": "2026-10-22T23:58:49-04:00",
+      "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/166bc42c09e0c88b61f4d7019c7751a99b725d3c",
+      "summary": "Match the pinned Squirrel native awareness resource lookup.",
+      "category": "fix",
+      "lineage": "fork",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted",
+      "originalSubject": "Match pinned Squirrel native awareness resource lookup"
+    },
+    {
+      "sha": "d35d6646926f6babbe99c58f046becf03364c229",
+      "date": "2026-10-22T23:51:30-04:00",
+      "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/d35d6646926f6babbe99c58f046becf03364c229",
+      "summary": "Wait for the Squirrel packaging process to finish.",
+      "category": "fix",
+      "lineage": "fork",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted",
+      "originalSubject": "Wait for the Squirrel packaging process to finish"
+    },
+    {
+      "sha": "bd48279ff703870b4002444e74c64eb8d22b114a",
+      "date": "2026-10-22T23:50:03-04:00",
+      "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/bd48279ff703870b4002444e74c64eb8d22b114a",
+      "summary": "Preserve stable shortcuts during updates.",
+      "category": "fix",
+      "lineage": "fork",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted",
+      "originalSubject": "Preserve stable shortcuts during updates"
+    },
+    {
+      "sha": "5f1beef6c1e83238b2bc233dd3112b383796daa3",
+      "date": "2026-10-22T23:49:32-04:00",
+      "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/5f1beef6c1e83238b2bc233dd3112b383796daa3",
+      "summary": "Preserve stable shortcuts without unsupported updater flags.",
+      "category": "fix",
+      "lineage": "fork",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted",
+      "originalSubject": "Preserve stable shortcuts without unsupported updater flags"
+    },
+    {
+      "sha": "c946b2f4419454c789c469ab682ebecd7c30773b",
+      "date": "2026-10-22T23:47:18-04:00",
+      "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/c946b2f4419454c789c469ab682ebecd7c30773b",
+      "summary": "Complete installer shortcut lifecycle and startup readback.",
+      "category": "feature",
+      "lineage": "fork",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted",
+      "originalSubject": "Complete installer shortcut lifecycle and startup readback"
+    },
+    {
+      "sha": "edb38585c1b6181f8c90289a81da8183a7080eb1",
+      "date": "2026-10-22T23:46:33-04:00",
+      "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/edb38585c1b6181f8c90289a81da8183a7080eb1",
+      "summary": "Record publication timing and resolve a native security module.",
+      "category": "maintenance",
+      "lineage": "fork",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted",
+      "originalSubject": "Record publication timing and resolve native security module"
+    },
+    {
+      "sha": "5b952e5ce66c16cd1421fd23ad96b20e725b6fe2",
+      "date": "2026-10-22T23:46:47-04:00",
+      "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/5b952e5ce66c16cd1421fd23ad96b20e725b6fe2",
+      "summary": "Manage Squirrel shortcuts and verify startup persistence.",
+      "category": "feature",
+      "lineage": "fork",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted",
+      "originalSubject": "Manage Squirrel shortcuts and verify startup persistence"
+    },
+    {
+      "sha": "563419e873e082116b094ac6718da3457a16a7f6",
+      "date": "2026-10-22T23:46:21-04:00",
+      "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/563419e873e082116b094ac6718da3457a16a7f6",
+      "summary": "Integrate the native installer build pipeline.",
+      "category": "maintenance",
+      "lineage": "fork",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted",
+      "originalSubject": "Integrate native installer build pipeline"
+    },
+    {
+      "sha": "4b877d8c061a0b6aeeacb473eba93c6614cd6394",
+      "date": "2026-10-22T23:46:21-04:00",
+      "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/4b877d8c061a0b6aeeacb473eba93c6614cd6394",
+      "summary": "Integrate the installed startup lifecycle.",
+      "category": "maintenance",
+      "lineage": "fork",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted",
+      "originalSubject": "Integrate installed startup lifecycle"
+    },
+    {
+      "sha": "695af1c2517754d9c413eed2432f9710f434ec47",
+      "date": "2026-10-22T23:45:26-04:00",
+      "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/695af1c2517754d9c413eed2432f9710f434ec47",
+      "summary": "Handle the native installer lifecycle and stable startup.",
+      "category": "feature",
+      "lineage": "fork",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted",
+      "originalSubject": "Handle native installer lifecycle and stable startup"
+    },
+    {
+      "sha": "f195afdee361b647feec7e2215acb60ad864c7bb",
+      "date": "2026-10-22T23:45:06-04:00",
+      "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/f195afdee361b647feec7e2215acb60ad864c7bb",
+      "summary": "Build native x64 binaries and package genuine Squirrel releases.",
+      "category": "release",
+      "lineage": "fork",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted",
+      "originalSubject": "Build native x64 and package genuine Squirrel releases"
+    },
+    {
+      "sha": "72d20253e8d295f2cabe8764d19c62c4b0a7131f",
+      "date": "2026-10-22T23:41:52-04:00",
+      "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/72d20253e8d295f2cabe8764d19c62c4b0a7131f",
+      "summary": "Document the installer-first delivery sequence.",
+      "category": "documentation",
+      "lineage": "fork",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted",
+      "originalSubject": "Document installer-first delivery sequence"
+    }
+  ]
+}
