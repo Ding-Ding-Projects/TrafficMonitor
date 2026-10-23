@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <afxstr.h>
 
 namespace NativeDashboard::Setup
