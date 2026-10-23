@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "command": "build.bat --site",
+  "exitCode": 0,
+  "sourceCommit": "69914e0164c622307b50349f32aea4b7f45acb25",
+  "contentSource": "58a1961a77dfef0a4a339228b3cdd12d27dc64e2",
+  "inputState": "No nonignored changes at producer start; source and manifest remained pinned through completion.",
+  "manifestSha256": "dc0d4ff79a0ed9297360ee69aa8acf96a231cd8c8908d0189b395adc00ecd455",
+  "counts": {
+    "repositoryMarkdownArticles": 168,
+    "wikiMarkdownArticles": 28,
+    "wikiAssets": 75,
+    "wikiTrackedFiles": 103,
+    "articles": 196
+  },
+  "nativePackageSource": "077b1412b61ea7659e907336ce11a60cb0aedaca",
+  "productionReceipt": {
+    "schemaVersion": 1,
+    "sourceCommit": "69914e0164c622307b50349f32aea4b7f45acb25",
+    "contentSource": "58a1961a77dfef0a4a339228b3cdd12d27dc64e2",
+    "wikiSource": {
+      "repository": "https://github.com/zhongyang219/TrafficMonitor.wiki.git",
+      "commit": "cf35274094fe2ffb040ca1f29d6ce73c713d93a2"
+    },
+    "releaseMetadataSHA256": "37e33d17df24ad8a8e1cbb935a1dffd2844b8de4ec0c5f0f14f6e13538e62e0f",
+    "releaseTag": "v1.0.15-run39912330939-1",
+    "releaseSource": "3f573fc0031ef6b6cb123dfbc80c05c33a5063db",
+    "articleCount": 196,
+    "historyCount": 1591,
+    "base": "/TrafficMonitor/",
+    "unresolvedAssets": []
+  },
+  "published": false,
+  "wikiPublication": "Combined Home, Regex-collections and Silent-updates changes are pending publication; earlier stored proof remains historical.",
+  "runtime": "UNVERIFIED: no tests, reviews, audits, runtime interaction or screenshots.",
+  "warning": "npm reported whatwg-encoding@3.1.1 deprecation.",
+  "outputs": [
+    {
+      "path": "docs/site/dist/index.html",
+      "size": 4911,
+      "sha256": "868a19ecd2833613e6f2b3e377f7a6f06061f91e9ab4e5fce998bee4b97e8d1a"
+    },
+    {
+      "path": "docs/site/dist/articles/source-docs-features-search-native-collections/index.html",
+      "size": 9075,
+      "sha256": "ad5a4e2196318ed8d2d1db3f41c7879c1521d0b5095cab8055ff89d1d69a865e"
+    },
+    {
+      "path": "docs/site/dist/articles/source-docs-wiki-pending-regex-collections/index.html",
+      "size": 9294,
+      "sha256": "fa9860e894b17780ca85ce8094afef1fa11850531615d5ba4ff0f756733bb71a"
+    },
+    {
+      "path": "docs/site/dist/build-receipt.json",
+      "size": 611,
+      "sha256": "1fd67f02b3f55ca1d862935cb2d943bda71679ff668641d22ad3da1e39cac37b"
+    }
+  ]
+}
