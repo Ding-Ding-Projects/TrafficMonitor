@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "baselineCommit": "47ace8a91966c818d9180ae4a3a0b1c6790eb4c2",
+  "status": "design-only",
+  "referenceViewer": "pending-native-viewer",
+  "productionRoutes": "pending-native-implementation",
+  "references": [
+    {"screen":"network","state":"live","theme":"light","language":"en","clientDip":[1120,760],"scale":100,"file":"network-normal-light.svg","fixture":"design-v1","data":"synthetic"},
+    {"screen":"network","state":"live","theme":"dark","language":"bilingual","clientDip":[720,540],"scale":100,"file":"network-minimum-dark-bilingual.svg","fixture":"design-v1","data":"synthetic"}
+  ],
+  "remainingReferences": "All other surfaces, states and tuples in surfaces.csv and verification.md remain pending. These two drawings do not establish full design parity or runtime evidence."
+}

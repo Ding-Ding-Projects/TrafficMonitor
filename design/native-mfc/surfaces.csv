@@ -1,0 +1,50 @@
+id,source_resource,source_class,target,states,conversion_status
+floating-meter,IDD_TRAFFICMONITOR_DIALOG,CTrafficMonitorDlg,Compact floating meter,normal|hover|locked-position|click-through|hidden,pending
+embedded-taskbar,IDD_TASK_BAR_DIALOG,CTaskBarDlg,Compact taskbar meter,attached|unattached|recovery|hidden,pending
+taskbar-no-redirection,IDD_TASK_BAR_DIALOG_NOREDIRECTIONBITMAP,CTaskBarDlg,Compact taskbar meter alternate renderer,attached|device-loss|hidden,pending
+about,IDD_ABOUTBOX,CAboutDlg,Help About,normal|provenance-unavailable|update-available,pending
+general-settings,IDD_GENERAL_SETTINGS_DIALOG,CGeneralSettingsDlg,Settings General,loaded|edited|invalid|applying|apply-error,pending
+history,IDD_HISTORY_TRAFFIC_DIALOG,CHistoryTrafficDlg,History workspace,loaded|empty|filtered-empty|read-error,pending
+icon-selection,IDD_ICON_SELECT_DIALOG,CIconSelectDlg,Appearance tray icon picker,selected|preview|invalid|reset,pending
+floating-colors,IDD_MAIN_COLOR_DIALOG,CMainWndColorDlg,Appearance floating meter colors,normal|editing|invalid|reset,pending
+floating-settings,IDD_MAIN_WND_SETTINGS_DIALOG,CMainWndSettingsDlg,Settings Floating meter,loaded|edited|invalid|applied,pending
+options-shell,IDD_OPTIONS_DIALOG,COptionsDlg,Settings tabbed workspace,normal|unsaved|apply-error|cancel,pending
+network-details,IDD_NETWORK_INFO_DIALOG,CNetworkInfoDlg,Network adapter details,connected|disconnected|removed|unavailable,pending
+skin-picker,IDD_SKIN_DIALOG,CSkinDlg,Appearance floating meter presets,loaded|empty|invalid|preview|applied,pending
+taskbar-colors,IDD_TASKBAR_COLOR_DIALOG,CTaskbarColorDlg,Appearance taskbar colors,normal|editing|invalid|reset,pending
+taskbar-settings,IDD_TASKBAR_SETTINGS_DIALOG,CTaskBarSettingsDlg,Settings Taskbar,loaded|edited|invalid|host-unavailable,pending
+history-list,IDD_HISTORY_TRAFFIC_LIST_DIALOG,CHistoryTrafficListDlg,History list tab,loaded|selected|empty|filtered-empty,pending
+history-calendar,IDD_HISTORY_TRAFFIC_CALENDAR_DIALOG,CHistoryTrafficCalendarDlg,History calendar tab,month|year|selected-day|empty,pending
+message,IDD_MESSAGE_DIALOG,CMessageDlg,Notification center or required decision dialog,information|warning|error|required-decision,pending
+auto-adapt,IDD_ATUO_ADAPT_SETTING_DIALOG,CAutoAdaptSettingsDlg,Settings Taskbar automatic adaptation,loaded|edited|invalid|applied,pending
+display-text,IDD_DISPLAY_TEXT_SETTINGS_DIALOG,CDisplayTextSettingDlg,Settings metric labels,loaded|edited|invalid|reset,pending
+item-order,IDD_SELECT_ORDER_DIALOG,CSetItemOrderDlg,Settings metric order,loaded|selected|reordered|reset,pending
+plugin-manager,IDD_PLUGIN_MANAGER_DIALOG,CPluginManagerDlg,Plugins workspace,loaded|empty|disabled|incompatible|load-error,pending
+already-running,IDD_APP_ALREAD_RUNING_DIALOG,CAppAlreadyRuningDlg,Existing-instance activation,reachable|unreachable|portable-conflict,pending
+connections,IDD_SELECT_CONNECTIONS_DIALOG,CSelectConnectionsDlg,Network adapter selection,automatic|all|manual|none|removed,pending
+skin-adaptation,IDD_SKIN_AUTO_ADAPT_DLG,CSkinAutoAdaptSettingDlg,Appearance automatic preset selection,light|dark|missing-preset,pending
+win11-taskbar,IDD_WIN11_TASKBAR_SETTING_DLG,CWin11TaskbarSettingDlg,Settings Windows 11 taskbar,normal|host-unavailable|edited|reset,pending
+plugin-detail,dynamic,CPluginInfoDlg,Plugins detail sheet,loaded|missing-metadata|external-options,pending
+tray-menu,IDR_MENU1,CTrafficMonitorDlg,Tray command menu,open|filtered|no-match|submenu,pending
+taskbar-menu,IDR_TASK_BAR_MENU,CTaskBarDlg,Taskbar command menu,open|filtered|no-match|submenu,pending
+history-menu,IDR_HISTORY_TRAFFIC_MENU,CHistoryTrafficDlg,History contextual menu,scale|week-start|today|filtered,pending
+info-menu,IDR_INFO_MENU,CNetworkInfoDlg,Adapter contextual menu,copy|filtered|no-match,pending
+plugin-menu,IDR_PLUGIN_MANAGER_MENU,CPluginManagerDlg,Plugin contextual menu,detail|options|disable|filtered,pending
+metric-menu,IDR_DISPLAY_ITEM_CONTEXT_MENU,display item owner,Metric contextual menu,restore|filtered|no-match,pending
+network-dashboard,new,CMonitorDashboard proposed,Network workspace,live|paused-display|stale|no-adapters|sampling-error,pending
+setup,new,CSetupFlow proposed,Resumable setup,language|adapter|taskbar|startup|review|applying|failed|complete,pending
+taskbar-flyout,new,NativeTaskbarFlyout proposed,Taskbar details and accessible actions,live|stale|no-host|keyboard,pending
+sensors,new,NativeSensorsView proposed,Sensors workspace,live|unavailable|stale|selected,pending
+notifications,new,NativeNotificationCenter proposed,Notifications,empty|unread|selected|filtered-empty,pending
+command-palette,new,NativeCommandPalette proposed,Global command and setting access,card|full-window|results|no-match|locked,pending
+new-tab,new,NativeDestinationCatalog proposed,Explicit destination catalog,open|filtered|no-match|selected,pending
+regex,new,NativeRegexWorkbench proposed,Field-anchored regex workbench,plain|valid|invalid|no-match|timeout|unsupported-engine,pending
+appearance,new,NativeAppearanceEditor proposed,Per-element layered editor,normal|state-edit|layers|typography|motion|unsupported|reset,pending
+accessibility,new,NativeAccessibilityPanel proposed,Everywhere-reachable tools,visible|hide-confirmation|hidden|restored,pending
+locks,new,NativeLockWizard proposed,Per-element lock and unlock,six-policies|locked|wrong-factor|unlocked|rate-limited,pending
+authenticator,new,NativeAuthenticator proposed,Authenticator workspace,empty|registration|pairing|active|vault-unavailable,pending
+local-history,new,NativeHistoryManager proposed,Protected local history,locked|list|diff|restore|retention|write-error,pending
+converter,new,NativeConverterWorkspace proposed,File conversion workspace,empty|inspect|queue|running|paused|partial|recovery,pending
+local-models,new,NativeModelWorkspace proposed,Local model workspace,missing|stopped|healthy|catalog-offline|pulling|chat|rollback,pending
+servers,new,NativeServerWorkspace proposed,Server management workspace,discover|create|adopt|install|running|stopped|lost-connection|restore,pending
+offline-help,new,NativeDocumentationView proposed,Offline articles and changelog,article|search|no-match|broken-link|version-filter,pending
