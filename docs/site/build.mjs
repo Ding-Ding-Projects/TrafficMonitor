@@ -1,4 +1,5 @@
 import fs from 'node:fs/promises';
+import {createHash} from 'node:crypto';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {execFileSync} from 'node:child_process';
@@ -11,7 +12,14 @@ const release=JSON.parse(await fs.readFile(path.join(root,'docs/release-metadata
 if(manifest.schemaVersion!==1||!manifest.articles.length)throw Error('Content manifest is missing articles');
 if(release.isDraft!==false||release.isPrerelease!==false)throw Error('Download metadata must describe a normal release');
 const source=execFileSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'}).trim();
+if(path.dirname(dist)!==here||path.basename(dist)!=='dist')throw Error('Unexpected output directory');
+await fs.rm(dist,{recursive:true,force:true});
 await fs.mkdir(dist,{recursive:true});
+for(const asset of manifest.assets??[]){
+ const relative=safeRelative(asset.sourcePath),bytes=await fs.readFile(path.join(root,relative));
+ if(createHash('sha256').update(bytes).digest('hex')!==asset.sha256)throw Error('Asset hash mismatch');
+ const target=path.join(dist,'media',relative);await fs.mkdir(path.dirname(target),{recursive:true});await fs.writeFile(target,bytes);
+}
 const context={base,release,source,manifest};
 async function page(route,title,body){const destination=path.join(dist,safeRelative(route?decodeURIComponent(route.replace(/^\//,'')):'index.html'));await fs.mkdir(path.dirname(destination),{recursive:true});await fs.writeFile(destination,shell(title,body,context));}
 await build({entryPoints:[path.join(here,'src/app.js')],bundle:true,format:'esm',outfile:path.join(dist,'app.js'),minify:true,legalComments:'linked'});
@@ -34,4 +42,5 @@ for(const article of manifest.articles){const rendered=await content.render(arti
 await page('404.html','Page not found',`<h1>Page not found</h1><p>This address is not in this documentation snapshot.</p><a href="${base}docs/">Find an article</a>`);
 await fs.writeFile(path.join(dist,'build-receipt.json'),JSON.stringify({schemaVersion:1,sourceCommit:source,contentSource:manifest.sourceCommit,wikiSource:manifest.wikiSource,articleCount:manifest.articles.length,historyCount:entries.length,base,unresolvedAssets:content.unresolved},null,2));
 console.log(`Built ${manifest.articles.length} complete articles; ${entries.length} history records; ${content.unresolved.length} unavailable local images.`);
+
 
