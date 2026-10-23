@@ -540,16 +540,28 @@ void CTrafficMonitorApp::DPIFromWindow(CWnd* pWnd)
 
 void CTrafficMonitorApp::CheckUpdate(bool message)
 {
+    if (m_checking_update)      //如果还在检查更新，则直接返回
+        return;
+    CFlagLocker update_locker(m_checking_update);
     // Managed installations must not offer upstream portable archives as updates.
     if (m_installed_mode)
     {
         if (message)
-            ShellExecuteW(nullptr, L"open", L"https://github.com/Ding-Ding-Projects/TrafficMonitor/releases/latest", nullptr, nullptr, SW_SHOWNORMAL);
+        {
+            const HRESULT initialized = CoInitializeEx(nullptr, COINIT_APARTMENTTHREADED | COINIT_DISABLE_OLE1DDE);
+            if (FAILED(initialized))
+            {
+                AfxMessageBox(CCommon::LoadText(IDS_CHECK_UPDATE_FAILD), MB_OK | MB_ICONWARNING);
+                return;
+            }
+            const auto result = reinterpret_cast<INT_PTR>(ShellExecuteW(nullptr, L"open",
+                L"https://github.com/Ding-Ding-Projects/TrafficMonitor/releases/latest", nullptr, nullptr, SW_SHOWNORMAL));
+            CoUninitialize();
+            if (result <= 32)
+                AfxMessageBox(CCommon::LoadText(IDS_CHECK_UPDATE_FAILD), MB_OK | MB_ICONWARNING);
+        }
         return;
     }
-    if (m_checking_update)      //如果还在检查更新，则直接返回
-        return;
-    CFlagLocker update_locker(m_checking_update);
     CWaitCursor wait_cursor;
 
     wstring version;        //程序版本
