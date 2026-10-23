@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="640" viewBox="0 0 760 640"><title>settings minimum bilingual light design proposal</title><desc>Authored design reference with synthetic values. Not a running application or screenshot.</desc>
+<rect x="0" y="0" width="760" height="640" rx="0" fill="#F5F7FA"/>
+<rect x="0" y="0" width="176" height="640" rx="0" fill="#EDF1F6"/>
+<text x="20" y="34" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="17" font-weight="600">TrafficMonitor</text>
+<g transform="translate(24 59)" fill="none" stroke="#526174" stroke-width="1.5"><rect width="16" height="14" rx="3"/><path d="M3 10L6 6 9 8 13 3"/></g>
+<text x="50" y="72" fill="#526174" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="13" font-weight="400">Monitoring</text>
+<text x="50" y="90" fill="#526174" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">監察</text>
+<g transform="translate(24 117)" fill="none" stroke="#526174" stroke-width="1.5"><rect width="16" height="14" rx="3"/><path d="M3 10L6 6 9 8 13 3"/></g>
+<text x="50" y="130" fill="#526174" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="13" font-weight="400">Floating monitor</text>
+<text x="50" y="148" fill="#526174" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">浮動監察</text>
+<g transform="translate(24 175)" fill="none" stroke="#526174" stroke-width="1.5"><rect width="16" height="14" rx="3"/><path d="M3 10L6 6 9 8 13 3"/></g>
+<text x="50" y="188" fill="#526174" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="13" font-weight="400">Taskbar</text>
+<text x="50" y="206" fill="#526174" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">工作列</text>
+<g transform="translate(24 233)" fill="none" stroke="#526174" stroke-width="1.5"><rect width="16" height="14" rx="3"/><path d="M3 10L6 6 9 8 13 3"/></g>
+<text x="50" y="246" fill="#526174" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="13" font-weight="400">Notifications</text>
+<text x="50" y="264" fill="#526174" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">通知</text>
+<rect x="12" y="282" width="152" height="52" rx="12" fill="#DCE8FF"/>
+<rect x="12" y="292" width="3" height="36" rx="2" fill="#245FC8"/>
+<g transform="translate(24 291)" fill="none" stroke="#245FC8" stroke-width="1.5"><rect width="16" height="14" rx="3"/><path d="M3 10L6 6 9 8 13 3"/></g>
+<text x="50" y="304" fill="#245FC8" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="13" font-weight="600">Interface</text>
+<text x="50" y="322" fill="#245FC8" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="600">介面</text>
+<g transform="translate(24 349)" fill="none" stroke="#526174" stroke-width="1.5"><rect width="16" height="14" rx="3"/><path d="M3 10L6 6 9 8 13 3"/></g>
+<text x="50" y="362" fill="#526174" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="13" font-weight="400">All groups</text>
+<text x="50" y="380" fill="#526174" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">所有群組</text>
+<text x="20" y="604" fill="#526174" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">Native monitor</text>
+<text x="20" y="621" fill="#526174" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">原生監察</text>
+<text x="200" y="38" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="24" font-weight="600">Settings</text>
+<text x="200" y="67" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="22" font-weight="600">設定</text>
+<rect x="200" y="82" width="460" height="64" rx="8" fill="#EDF1F6"/>
+<path d="M208 146H652" stroke="#D5DEE8" stroke-width="1"/>
+<text x="212" y="99" fill="#526174" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">Search</text>
+<text x="212" y="116" fill="#526174" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">搜尋</text>
+<text x="212" y="136" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">Find a setting</text>
+<rect x="668" y="90" width="64" height="48" rx="12" fill="#DCE8FF"/>
+<text x="680" y="111" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">Regex</text>
+<text x="680" y="130" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="500">正則</text>
+<rect x="188" y="156" width="544" height="336" rx="16" fill="#FFFFFF"/>
+<text x="200" y="186" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="18" font-weight="600">Language and appearance</text>
+<text x="200" y="209" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="600">語言與外觀</text>
+<text x="200" y="234" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="600">Interface language</text>
+<text x="200" y="253" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="600">介面語言</text>
+<rect x="200" y="278" width="520" height="48" rx="8" fill="#EDF1F6"/>
+<text x="214" y="301" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">English + 廣東話</text>
+<path d="M692 299.0l5 5 5 -5" fill="none" stroke="#526174" stroke-width="1.5"/>
+<text x="200" y="358" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="600">Appearance</text>
+<text x="200" y="377" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="600">外觀</text>
+<rect x="200" y="402" width="520" height="48" rx="8" fill="#EDF1F6"/>
+<text x="214" y="425" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">System</text>
+<path d="M692 423.0l5 5 5 -5" fill="none" stroke="#526174" stroke-width="1.5"/>
+<rect x="748" y="154" width="8" height="378" rx="4" fill="#EDF1F6"/>
+<rect x="749" y="166" width="6" height="113.39999999999999" rx="3" fill="#526174"/>
+<rect x="176" y="526" width="584" height="114" rx="0" fill="#FFFFFF"/>
+<path d="M176 526H760" stroke="#D5DEE8"/>
+<text x="200" y="548" fill="#526174" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">Unsaved interface changes</text>
+<text x="200" y="565" fill="#526174" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">介面變更尚未儲存</text>
+<rect x="200" y="580" width="116" height="48" rx="12" fill="#245FC8"/>
+<text x="212" y="601" fill="#FFFFFF" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">Apply</text>
+<text x="212" y="620" fill="#FFFFFF" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="500">套用</text>
+<rect x="324" y="580" width="128" height="48" rx="12" fill="#DCE8FF"/>
+<text x="336" y="601" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">Use saved</text>
+<text x="336" y="620" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="500">用已儲存值</text>
+<rect x="460" y="580" width="96" height="48" rx="12" fill="#DCE8FF"/>
+<text x="472" y="601" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">Reset</text>
+<text x="472" y="620" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="500">重設</text>
+</svg>

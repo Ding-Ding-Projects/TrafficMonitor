@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="480" viewBox="0 0 420 480"><title>menu normal english dark design proposal</title><desc>Authored design reference with synthetic values. Not a running application or screenshot.</desc>
+<rect x="0" y="0" width="420" height="480" rx="0" fill="#101419"/>
+<rect x="0" y="0" width="420" height="480" rx="10" fill="#1B2129" stroke="#394758"/>
+<text x="20" y="30" fill="#E6EDF5" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="18" font-weight="600">Interface language</text>
+<rect x="16" y="48" width="312" height="52" rx="8" fill="#151B23"/>
+<path d="M24 100H320" stroke="#394758" stroke-width="1"/>
+<text x="28" y="65" fill="#A8B7C8" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">Search</text>
+<text x="28" y="90" fill="#E6EDF5" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400"></text>
+<rect x="336" y="56" width="64" height="36" rx="12" fill="#243D63"/>
+<text x="348" y="77" fill="#E6EDF5" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">Regex</text>
+<text x="20" y="128" fill="#91B8FF" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="400"></text>
+<text x="48" y="128" fill="#E6EDF5" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">English</text>
+<text x="20" y="176" fill="#91B8FF" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="400"></text>
+<text x="48" y="176" fill="#E6EDF5" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">Cantonese</text>
+<rect x="8" y="200" width="396" height="40" rx="6" fill="#243D63"/>
+<text x="20" y="224" fill="#91B8FF" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="400">✓</text>
+<text x="48" y="224" fill="#E6EDF5" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">English + Cantonese</text>
+<rect x="408" y="116" width="8" height="320" rx="4" fill="#151B23"/>
+<rect x="409" y="128" width="6" height="96.0" rx="3" fill="#A8B7C8"/>
+<path d="M16 432H404" stroke="#394758"/>
+<text x="16" y="455" fill="#A8B7C8" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">Enter selects · Esc cancels</text>
+</svg>
