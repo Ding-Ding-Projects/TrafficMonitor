@@ -85,3 +85,31 @@ Read the [documentation home](https://ding-ding-projects.github.io/TrafficMonito
 for the complete guide library and the [updater wiki guide](https://github.com/Ding-Ding-Projects/TrafficMonitor/wiki/Silent-updates)
 for the matching wiki article. Wiki publication of the refreshed guide is prepared
 separately and must be verified before it is reported delivered.
+
+## Feed spelling repair and local diagnostics
+
+Squirrel writes SHA-1 in uppercase in its RELEASES feed. The reader now accepts exactly
+forty ASCII hexadecimal characters in either case, normalizes their spelling, and still
+requires the exact package digest, byte length, basename and single full-package row.
+The SHA-256 checks and strict accepted-main admission remain unchanged.
+
+Installed builds retain best-effort local `native-update/status.ini` fields: `stage` is a
+fixed updater operation name, `phase` is the native phase number (0 disabled, 1 idle,
+2 checking, 3 downloading, 4 ready, 5 applying, 6 failed, 7 stopped), `error` is the
+numeric result, and `http_status` records an unsuccessful HTTP response status when
+available, otherwise zero. A transport failure retains its WinHTTP result. Validation
+failures retain error 13. These are the last published background-check/startup values,
+not a heartbeat or a promise that the updater is still running. Preference toggles and
+helper application can occur later; helper outcomes remain in the version attempt file.
+No response body, URL, credentials, arbitrary exception message or user content is saved.
+If the diagnostic destination is unavailable, native in-memory status remains independent
+and the updater does not relax its checks. Managed startup rejection is failed rather
+than silently appearing disabled; portable builds retain their existing behavior.
+
+The exact root `build-installer.bat -Version 1.0.9007` at source
+`f63e8a456befcd2f6d726712182f6e2a01e9cc11` exited 0. Its root native build
+reported two LNK4199 warnings, zero errors and elapsed 15.28 seconds. The
+[build receipt](silent-update-repair-build.json) binds the local executable and package.
+This is local production evidence only, not publication, installation or automatic-update
+acceptance. No tests, reviews, audits, runtime checks or screenshots ran. Full Stage 2,
+automatic cadence, restart deferral and recovery remain unfinished.

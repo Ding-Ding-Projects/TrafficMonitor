@@ -304,3 +304,15 @@ installation or deletion was performed by this continuation lane. Full parity,
 modeless runtime acceptance, complete localization/accessibility and all display
 matrices remain unfinished. Status Hub binding remains unavailable. The coordinating
 task owns integration, remote preservation, normal release and accepted installed update.
+
+## Silent updater feed repair candidate
+
+The existing local production RELEASES feed spells SHA-1 in uppercase, while the native updater required lowercase and directly compared against its lowercase digest. The repair accepts only forty ASCII hexadecimal characters, normalizes their case and retains exact digest, package length, basename and single-entry checks. It also records fixed stage names, numeric phase/result and HTTP status in installation-local native-update/status.ini. No URL, response body, credentials or arbitrary exception text is recorded. Managed startup rejection remains a failed native status.
+
+The exact root build-installer.bat -Version 1.0.9007 at f63e8a456befcd2f6d726712182f6e2a01e9cc11 exited 0, with two LNK4199 warnings, zero errors and native elapsed 15.28 seconds. The local receipt is docs/features/installation/silent-update-repair-build.json. Later documentation commits do not relabel those bytes. No tests, reviews, audits, runtime checks or screenshots are authorized in the current expedited mode. The empty diagnostic directory on installed 1.0.19 does not establish a network or admission outcome. Automatic scheduling/restart and full Stage 2 remain unfinished.
+
+The repair documentation producer `build.bat --site` at `7c147944146d9d37d9d6978ef818f9f2a2088742` exited 0 from a clean pinned tree. Content source is `3a731428fcb731893814ad3d32fbabab291c0f36`; output reports 194 complete articles, 1557 history records and zero unavailable local images. The separate receipt is docs/features/installation/silent-update-repair-site-build.json. npm emitted a whatwg-encoding@3.1.1 deprecation warning. The matching wiki repair section is prepared, with publication pending and previous publication proof retained as history. No deployment or interface interaction is claimed.
+
+## Combined modeless editor and updater repair preparation
+
+The modeless editor and completed updater repair are combined without changing either product implementation. Both independent package and documentation receipts remain historical, source-bound records. A new combined 1.0.9009 package and complete documentation production will be recorded separately. The matching wiki repair is prepared but not yet remotely verified; prior publication proof does not establish the new revision. Runtime acceptance, automatic update behavior, full regex parity and localization/accessibility remain unfinished. No tests, reviews, audits, runtime checks or screenshots are authorized.

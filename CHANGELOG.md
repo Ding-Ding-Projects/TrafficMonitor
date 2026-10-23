@@ -58,3 +58,9 @@ Runtime installation and update acceptance remain separate from source and build
 - Replace the modal regex decision with a caller-owned modeless native tool window.
 - Revalidate current owner rows on Apply, cancel drafts on owner changes and preserve menu lifecycle routing.
 - Keep the bounded NFA engine unchanged; runtime acceptance and complete parity remain unfinished.
+
+## Pending silent updater feed compatibility
+
+- Accept uppercase and lowercase SHA-1 spelling from Squirrel while retaining exact hash, byte-size and single-package verification.
+- Retain bounded local updater stage, phase, numeric transport result and HTTP status without response bodies or URLs. Managed startup rejection now remains a failed status instead of disappearing as disabled.
+- Compile/package evidence is recorded separately. Automatic scheduling, safe restart and recovery remain unverified.

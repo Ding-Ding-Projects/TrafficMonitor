@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "f63e8a456befcd2f6d726712182f6e2a01e9cc11",
+  "version": "1.0.9007",
+  "command": "build-installer.bat -Version 1.0.9007",
+  "rootBuildEntrypoint": "build.bat",
+  "exitCode": 0,
+  "buildElapsed": "00:00:15.28",
+  "warnings": 2,
+  "errors": 0,
+  "warningCodes": [
+    "LNK4199"
+  ],
+  "scope": "local compile and Squirrel packaging only",
+  "runtime": "UNVERIFIED; no tests, reviews, audits, runtime checks or screenshots in expedited mode",
+  "artifacts": [
+    {
+      "path": "Bin/x64/Release (lite)/TrafficMonitor.exe",
+      "bytes": 2248192,
+      "sha256": "996662bbd79f454e84efa1a159d3e0f2504fb0d89cf143b477711ef809eb5606"
+    },
+    {
+      "path": "artifacts/releases/Setup.exe",
+      "bytes": 8440320,
+      "sha256": "575e76177f5a00b1bfea6451121e7cf05e86adaff158dcfc67e1824c2ba175eb"
+    },
+    {
+      "path": "artifacts/releases/TrafficMonitor-1.0.9007-full.nupkg",
+      "bytes": 7560019,
+      "sha256": "d39608d0aaca929914142d21dba55916038699f0cfdfecee84328250d8ebe4b7"
+    },
+    {
+      "path": "artifacts/releases/RELEASES",
+      "bytes": 588,
+      "sha256": "f98e75321ff1ccbab77d826e40673564e8905dceb16c3bd7bdf807a8d6329212"
+    }
+  ]
+}

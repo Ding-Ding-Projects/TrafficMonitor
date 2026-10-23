@@ -88,3 +88,8 @@ with historical originals retained separately.
 - [ ] Verify automatic updater runtime behavior when runtime checks are authorized again.
 
 - [ ] Verify the new owned modeless regex editor across workspace, Settings and menu owners. Source implemented; runtime, focus, cancellation and display-matrix acceptance remain unverified.
+
+## Silent updater feed repair
+
+- [x] Compile and package uppercase Squirrel SHA-1 compatibility and bounded local status diagnostics at f63e8a456befcd2f6d726712182f6e2a01e9cc11 as local-only 1.0.9007, exit 0.
+- [ ] Observe automatic update behavior, modal/draft deferral and recovery when runtime verification is authorized.

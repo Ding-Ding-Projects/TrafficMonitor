@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "destination": "https://github.com/Ding-Ding-Projects/TrafficMonitor.wiki.git",
   "observedWikiCommit": "3d7cfa6917e08d5b387add90c09c187830116cb7",
-  "state": "published-verified",
+  "state": "prepared-update-pending",
   "pages": [
     "Home.md",
     "Installation.md",
@@ -27,16 +27,17 @@
     "liveInterface": "UNVERIFIED: no live interface interaction in this pass."
   },
   "preparedUpdate": {
-    "state": "published-source-verified",
+    "state": "pending-publication",
     "pages": [
-      "Home.md",
-      "Installation.md",
-      "Verification.md",
       "Silent-updates.md"
     ],
-    "previousPublishedCommit": "2788a34224f07372904dd7a6584ea34e75022c14",
+    "previousPublishedCommit": "3d7cfa6917e08d5b387add90c09c187830116cb7",
     "documentationHome": "https://ding-ding-projects.github.io/TrafficMonitor/",
-    "note": "Published at the recorded master commit; exact source blob readback matched. Live interface interaction remains unverified."
+    "note": "The silent updater feed repair and local diagnostics are prepared. Parent must reconcile the supported wiki, publish and read back exact content before marking this update published. Existing publicationProof remains historical evidence for its recorded content.",
+    "sourceArticle": "docs/features/installation/silent-updates.md",
+    "sourceArticleSha256": "5c7974bc46160ff232b1fe0eaae14a18135d56ed79f72c4266f456324f137fd7",
+    "preparedWikiSha256": "65ac2734d041bb91e979adf6d1dd1d5e84a5a49adda2b5619873b4614c22b4b9",
+    "relationship": "Task-oriented wiki introduction and navigation remain distinct; the feed repair section mirrors the source guide, with an immutable source link replacing its local receipt link."
   },
   "historicalPublicationProof": {
     "fileCount": 5,

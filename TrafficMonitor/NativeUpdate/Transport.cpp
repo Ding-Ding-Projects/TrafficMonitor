@@ -21,7 +21,7 @@ namespace NativeUpdate::Detail
     {
         std::wstring url=initial;
         Internet session{WinHttpOpen(L"TrafficMonitor/NativeUpdater",WINHTTP_ACCESS_TYPE_AUTOMATIC_PROXY,WINHTTP_NO_PROXY_NAME,WINHTTP_NO_PROXY_BYPASS,0)};
-        if(!session.handle)throw std::runtime_error("session");
+        if(!session.handle)throw TransportError("session",GetLastError());
         WinHttpSetTimeouts(session.handle,5000,5000,5000,5000);
         for(int redirect=0;redirect<5;++redirect)
         {
@@ -33,23 +33,23 @@ namespace NativeUpdate::Detail
             std::wstring path(parts.lpszUrlPath,parts.dwUrlPathLength);if(parts.dwExtraInfoLength)path.append(parts.lpszExtraInfo,parts.dwExtraInfoLength);
             Internet connection{WinHttpConnect(session.handle,host.c_str(),443,0)};
             Internet request{connection.handle?WinHttpOpenRequest(connection.handle,L"GET",path.c_str(),nullptr,WINHTTP_NO_REFERER,WINHTTP_DEFAULT_ACCEPT_TYPES,WINHTTP_FLAG_SECURE):nullptr};
-            if(!request.handle)throw std::runtime_error("request");
+            if(!request.handle)throw TransportError("request",GetLastError());
             DWORD redirects=WINHTTP_OPTION_REDIRECT_POLICY_NEVER;WinHttpSetOption(request.handle,WINHTTP_OPTION_REDIRECT_POLICY,&redirects,sizeof(redirects));
             DWORD auth=WINHTTP_AUTOLOGON_SECURITY_LEVEL_HIGH;WinHttpSetOption(request.handle,WINHTTP_OPTION_AUTOLOGON_POLICY,&auth,sizeof(auth));
-            if(!WinHttpSendRequest(request.handle,L"Accept: application/vnd.github+json\r\nX-GitHub-Api-Version: 2022-11-28\r\n",static_cast<DWORD>(-1),nullptr,0,0,0)||!WinHttpReceiveResponse(request.handle,nullptr))throw std::runtime_error("response");
-            DWORD status{},length=sizeof(status);if(!WinHttpQueryHeaders(request.handle,WINHTTP_QUERY_STATUS_CODE|WINHTTP_QUERY_FLAG_NUMBER,nullptr,&status,&length,nullptr))throw std::runtime_error("status");
+            if(!WinHttpSendRequest(request.handle,L"Accept: application/vnd.github+json\r\nX-GitHub-Api-Version: 2022-11-28\r\n",static_cast<DWORD>(-1),nullptr,0,0,0)||!WinHttpReceiveResponse(request.handle,nullptr))throw TransportError("response",GetLastError());
+            DWORD status{},length=sizeof(status);if(!WinHttpQueryHeaders(request.handle,WINHTTP_QUERY_STATUS_CODE|WINHTTP_QUERY_FLAG_NUMBER,nullptr,&status,&length,nullptr))throw TransportError("status",GetLastError());
             if(status>=300&&status<=399)
             {
                 wchar_t location[8192]{};length=sizeof(location);
-                if(!WinHttpQueryHeaders(request.handle,WINHTTP_QUERY_LOCATION,nullptr,location,&length,nullptr))throw std::runtime_error("redirect");
+                if(!WinHttpQueryHeaders(request.handle,WINHTTP_QUERY_LOCATION,nullptr,location,&length,nullptr))throw TransportError("redirect",GetLastError());
                 url=location;continue;
             }
-            if(status!=200)throw std::runtime_error("http");
+            if(status!=200)throw TransportError("http",ERROR_WINHTTP_INVALID_SERVER_RESPONSE,status);
             std::vector<unsigned char> bytes;unsigned char buffer[65536];DWORD read{};
             do
             {
                 if(cancel||GetTickCount64()>deadline)throw std::runtime_error("cancel");
-                if(!WinHttpReadData(request.handle,buffer,sizeof(buffer),&read))throw std::runtime_error("read");
+                if(!WinHttpReadData(request.handle,buffer,sizeof(buffer),&read))throw TransportError("read",GetLastError());
                 if(read>limit-bytes.size())throw std::runtime_error("size");bytes.insert(bytes.end(),buffer,buffer+read);
             }while(read);
             return bytes;
