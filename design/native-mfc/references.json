@@ -5,8 +5,146 @@
   "referenceViewer": "pending-native-viewer",
   "productionRoutes": "pending-native-implementation",
   "references": [
-    {"screen":"network","state":"live","theme":"light","language":"en","clientDip":[1120,760],"scale":100,"file":"network-normal-light.svg","fixture":"design-v1","data":"synthetic"},
-    {"screen":"network","state":"live","theme":"dark","language":"bilingual","clientDip":[720,540],"scale":100,"file":"network-minimum-dark-bilingual.svg","fixture":"design-v1","data":"synthetic"}
+    {
+      "screen": "network",
+      "state": "live",
+      "theme": "light",
+      "language": "en",
+      "clientDip": [
+        1120,
+        760
+      ],
+      "scale": 100,
+      "file": "network-normal-light.svg",
+      "fixture": "design-v1",
+      "data": "synthetic"
+    },
+    {
+      "screen": "network",
+      "state": "live",
+      "theme": "dark",
+      "language": "bilingual",
+      "clientDip": [
+        720,
+        540
+      ],
+      "scale": 100,
+      "file": "network-minimum-dark-bilingual.svg",
+      "fixture": "design-v1",
+      "data": "synthetic"
+    },
+    {
+      "screen": "network",
+      "state": "stale",
+      "theme": "light",
+      "language": "en",
+      "clientDip": [
+        1120,
+        760
+      ],
+      "scale": 100,
+      "file": "network-stale-light.svg",
+      "fixture": "design-v1",
+      "data": "synthetic"
+    },
+    {
+      "screen": "network",
+      "state": "paused-display",
+      "theme": "light",
+      "language": "en",
+      "clientDip": [
+        1120,
+        760
+      ],
+      "scale": 100,
+      "file": "network-paused-light.svg",
+      "fixture": "design-v1",
+      "data": "synthetic"
+    },
+    {
+      "screen": "network",
+      "state": "disconnected",
+      "theme": "light",
+      "language": "en",
+      "clientDip": [
+        1120,
+        760
+      ],
+      "scale": 100,
+      "file": "network-disconnected-light.svg",
+      "fixture": "design-v1",
+      "data": "synthetic"
+    },
+    {
+      "screen": "network",
+      "state": "no-adapters",
+      "theme": "light",
+      "language": "en",
+      "clientDip": [
+        1120,
+        760
+      ],
+      "scale": 100,
+      "file": "network-empty-light.svg",
+      "fixture": "design-v1",
+      "data": "synthetic"
+    },
+    {
+      "screen": "adapter-details",
+      "state": "connected",
+      "theme": "light",
+      "language": "en",
+      "clientDip": [
+        720,
+        540
+      ],
+      "scale": 100,
+      "file": "adapter-details-minimum-light.svg",
+      "fixture": "design-v1",
+      "data": "synthetic"
+    },
+    {
+      "screen": "setup",
+      "state": "first-open-review",
+      "theme": "light",
+      "language": "en",
+      "clientDip": [
+        720,
+        540
+      ],
+      "scale": 100,
+      "file": "setup-firstopen-review-light.svg",
+      "fixture": "design-v1",
+      "data": "synthetic"
+    },
+    {
+      "screen": "setup",
+      "state": "first-open-language",
+      "theme": "light",
+      "language": "en",
+      "clientDip": [
+        720,
+        540
+      ],
+      "scale": 100,
+      "file": "setup-firstopen-language-light.svg",
+      "fixture": "design-v1",
+      "data": "synthetic"
+    },
+    {
+      "screen": "adapter-menu",
+      "state": "open",
+      "theme": "light",
+      "language": "en",
+      "clientDip": [
+        720,
+        540
+      ],
+      "scale": 100,
+      "file": "adapter-menu-light.svg",
+      "fixture": "design-v1",
+      "data": "synthetic"
+    }
   ],
-  "remainingReferences": "All other surfaces, states and tuples in surfaces.csv and verification.md remain pending. These two drawings do not establish full design parity or runtime evidence."
+  "remainingReferences": "Other surfaces and all unlisted language/theme/scale/state tuples remain pending. Ten static references do not establish runtime evidence or complete design parity."
 }

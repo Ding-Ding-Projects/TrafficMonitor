@@ -33,8 +33,8 @@ Native geometry uses HWND/UIA bounds and measured text/layout rectangles, not DO
 
 ## Sequenced implementation
 
-- P1: Native foundations, UIA, tokens, fonts, measure/arrange, command router; modeless Network dashboard and adapter details. Preserve every existing functional route. First releasable native slice after its applicable checks, real evidence and release/update verification.
-- P2: Setup resume flow, Settings and taskbar/floating-meter editors, connection selection and appearance primitives. Preserve existing setting consumers and migrate config additively.
+- P1: Native foundations, UIA, tokens, fonts, measure/arrange, command router; minimal resumable first-open setup, modeless Network dashboard, searchable adapter chooser and adapter details (complete closure in p1-amendments.md). Preserve every existing functional route. First releasable native slice after its applicable checks, real evidence and release/update verification.
+- P2: Extended setup workflows, Settings and taskbar/floating-meter editors, connection selection and appearance primitives. Preserve existing setting consumers and migrate config additively.
 - P3: History, Sensors, Plugins, notifications, offline documentation and changelog. Existing plugin-owned windows remain separately inventoried.
 - P4: Full cross-surface personalization, element guidance/playgrounds, complete search/regex parity, tab management, rich palette, locks/authenticator, local history and exports. Foundations shared across every owned surface; no completion inferred from one example.
 - P5: Actual converter, local-model manager and server-manager workspaces, with version/capability inventories and process/privacy boundaries. These are real product work, not empty destinations.

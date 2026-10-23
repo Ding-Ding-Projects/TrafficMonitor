@@ -2,6 +2,8 @@
 
 Status: design handoff, not implemented or runtime-verified. Baseline: `47ace8a91966c818d9180ae4a3a0b1c6790eb4c2` (application 1.0.4). All numerical readings in reference drawings are explicitly synthetic design fixtures.
 
+The reviewed P1 boundary and source-level identity/command mappings are specified in [P1 amendments](p1-amendments.md). Read that document before implementation; it resolves the first review findings.
+
 ## Decision
 
 Keep C++ and MFC throughout the productive application. Keep the existing monitoring loop, plugin ABI, portable configuration, notification-area identity, and Explorer taskbar integration. Add a reusable native Material Design 3 component layer and a modeless productive dashboard. Do not embed a browser, replace the application with a website, or merely recolor existing dialog controls.
@@ -12,7 +14,7 @@ The application remains taskbar-visible and main-window-hidden by default. A nor
 
 Release native component foundation plus **Network dashboard** and its adapter details sheet. This release must have real sampling, real adapter selection, explicit unavailable states, native accessibility, light/dark themes, three language modes, DPI reflow, and preserved taskbar/startup/update behavior. Existing Options, history and plugin dialogs remain reachable and explicitly recorded as pending conversion. This is a staged release, never a claim that the whole redesign or required-feature inventory is complete. Do not ship decorative destinations, inactive actions, invented data or claim disabled placeholders as features.
 
-The first slice must implement `NativeSurface`, `NativeText`, `NativeButton`, `NativeIconButton`, `NativeStatusChip`, `NativeMetricTile`, `NativeNavigationTab`, `NativeDisclosure`, and a bounded adapter-details sheet with semantic field groups. Search is not partially introduced: if an adapter chooser is searchable it ships the full field-bound regex workbench and its exact engine capability ledger in that slice, or remains an explicitly unfinished release criterion. No feature requirement is waived by this staging order.
+The first slice implements the complete P1 component closure in p1-amendments.md, including chart/table, text inputs, menu/picker, setup, notifications, guidance, full regex workbench and the matching UI Automation providers, plus a bounded adapter-details sheet with semantic field groups. Search is not partially introduced: if an adapter chooser is searchable it ships the full field-bound regex workbench and its exact engine capability ledger in that slice, or remains an explicitly unfinished release criterion. No feature requirement is waived by this staging order.
 
 ## Workspace and exact destinations
 
