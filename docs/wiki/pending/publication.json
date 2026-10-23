@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "destination": "https://github.com/Ding-Ding-Projects/TrafficMonitor.wiki.git",
-  "observedWikiCommit": "0ab91b5d0ba50584dce8d75d2a2cb7c0a0d2a6dd",
+  "observedWikiCommit": "27e2231ae4f8986ee394075dc46fdf9838c7e77c",
   "state": "published-verified",
   "pages": [
     "Home.md",
@@ -17,16 +17,16 @@
     "fileCount": 7,
     "sourceBlobReadbackMatched": true,
     "ref": "refs/heads/master",
-    "commit": "0ab91b5d0ba50584dce8d75d2a2cb7c0a0d2a6dd",
-    "sourceCommit": "99708ed18dc61c996113ed027a3f5d2dea370e4e",
+    "commit": "27e2231ae4f8986ee394075dc46fdf9838c7e77c",
+    "sourceCommit": "ebf95b99a4bd95c2e741e9099eaa5d2f2538d67b",
     "blobs": [
       {
         "path": "Silent-updates.md",
-        "sha256": "411488cb8820ab87fead547dcf40e39202a090c754ce6cab368e4768b292b718"
+        "sha256": "ebdd88f968f884a853c5b72e6dd6e2994da5db7ca19e65221ce95072e97572b1"
       }
     ],
-    "unchangedGuides": "The other six guides retain their preceding stored-content proof.",
-    "evidenceSource": "Coordinating task reported publication, post-fetch exact raw blob comparison and zero publication-language findings across seven guides and new history.",
+    "unchangedGuides": "The other six maintained guides retain their preceding stored-content proof.",
+    "evidenceSource": "Coordinating task reported exact stored-byte comparison and zero publication-language findings across seven maintained guides and new public commit messages.",
     "liveInterface": "UNVERIFIED: no live wiki interface interaction."
   },
   "preparedUpdate": {
@@ -34,9 +34,9 @@
     "pages": [
       "Silent-updates.md"
     ],
-    "sourceCommit": "99708ed18dc61c996113ed027a3f5d2dea370e4e",
-    "wikiCommit": "0ab91b5d0ba50584dce8d75d2a2cb7c0a0d2a6dd",
-    "note": "Stored source bytes match the published updater guide. Prior pending records remain historical; live interaction remains unverified."
+    "sourceCommit": "ebf95b99a4bd95c2e741e9099eaa5d2f2538d67b",
+    "wikiCommit": "27e2231ae4f8986ee394075dc46fdf9838c7e77c",
+    "note": "Final synchronous guide bytes match the published wiki. Prior queued candidate and prior stored proof remain historical; automatic restart and live wiki interaction remain unverified."
   },
   "historicalPublicationProof": {
     "fileCount": 5,
@@ -98,6 +98,22 @@
       ],
       "evidenceSource": "Coordinating task pushed and fetched the supported wiki and matched raw blobs to the recorded source. SHA-256 values derive from those exact source Git blobs.",
       "liveInterface": "UNVERIFIED: no live wiki interface interaction in this pass."
+    },
+    {
+      "fileCount": 7,
+      "sourceBlobReadbackMatched": true,
+      "ref": "refs/heads/master",
+      "commit": "0ab91b5d0ba50584dce8d75d2a2cb7c0a0d2a6dd",
+      "sourceCommit": "99708ed18dc61c996113ed027a3f5d2dea370e4e",
+      "blobs": [
+        {
+          "path": "Silent-updates.md",
+          "sha256": "411488cb8820ab87fead547dcf40e39202a090c754ce6cab368e4768b292b718"
+        }
+      ],
+      "unchangedGuides": "The other six guides retain their preceding stored-content proof.",
+      "evidenceSource": "Coordinating task reported publication, post-fetch exact raw blob comparison and zero publication-language findings across seven guides and new history.",
+      "liveInterface": "UNVERIFIED: no live wiki interface interaction."
     }
   ],
   "preparedUpdateHistory": [
