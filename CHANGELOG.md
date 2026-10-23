@@ -1,5 +1,9 @@
 # Fork changes
 
+## Genuine natural readiness update to 1.0.32
+
+One metadata-only observation recorded automatic31 to32 application, without manual intervention: validated exit permission, stable launcher and Squirrel apply all returned0, one attempt. The replacement executable and manifest match the exact normal release. Startup/configuration and historical records were preserved; current traffic counters advanced normally. See [bounded natural acceptance](docs/features/installation/silent-natural32-acceptance.json). Readiness timeout/cancellation, corrupt/offline input, busy-work deferral, visual acceptance and repeated cycles remain unverified.
+
 ## Accepted readiness release 1.0.31
 
 Normal release 1.0.31 is bound to source 891fe49f89914d088278c2d29a84d61ce30b43cd. All four release assets were downloaded and matched their published sizes and SHA-256 digests. The matching existing installation was manually updated through safe cooperative closure, Squirrel update and stable launcher, each exit 0. Released and installed executable hashes match; saved data and startup registration were preserved. Hidden main/taskbar-visible readiness is metadata proof only. The new identity-readiness handshake still requires a later genuine natural update. See [sanitized acceptance](docs/features/installation/silent-installed31-acceptance.json). Tests, reviews, audits and screenshots were not run.

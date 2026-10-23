@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "scope": "One genuine natural installed31 to32 automatic update with readiness handshake; metadata-only acceptance, not broader reliability or visual proof.",
+  "clientSource": "891fe49f89914d088278c2d29a84d61ce30b43cd",
+  "clientVersion": "1.0.31",
+  "releaseTag": "v1.0.32-run39980846919-1",
+  "releaseSource": "3a8213e6b99f914e0dc6a0d901911466663d5c81",
+  "releaseIsDraft": false,
+  "releaseIsPrerelease": false,
+  "publishedUTC": "2026-10-23T15:48:14Z",
+  "baselineUTC": "2026-10-23T15:39:24.854078+00:00",
+  "firstNewProcessSnapshotUTC": "2026-10-23T15:49:29.029380+00:00",
+  "terminalReceiptUTC": "2026-10-23T15:50:02.362728+00:00",
+  "deadlineUTC": "2026-10-23T15:58:14Z",
+  "installedVersion": "1.0.32",
+  "installedExecutableSHA256": "292faf253a43bf4aa2befaeddc8fca181c21bd81913e11431e6821bd1c153b91",
+  "matchesReleasedExecutable": true,
+  "manifestSourceMatches": true,
+  "oldProcessExited": true,
+  "singleNewProcessReadyMetadata": true,
+  "mainHidden": true,
+  "taskbarVisible": true,
+  "attemptCount": 1,
+  "squirrelExitCode": 0,
+  "helperLaunch": {
+    "stage": "created",
+    "result": 0
+  },
+  "readiness": {
+    "stage": "exit-permitted",
+    "result": 0
+  },
+  "helperTerminal": {
+    "stage": "stable-launcher",
+    "result": 0
+  },
+  "configBytesPreserved": true,
+  "startupPreserved": true,
+  "historicalRecordsUnchanged": true,
+  "currentTrafficRecordRetained": true,
+  "currentTrafficCountersNondecreasing": true,
+  "recordCountPreserved": true,
+  "historyAssessment": "History bytes advanced during legitimate monitoring/graceful save. Earlier records are identical, the current dated record remains present, counters did not decrease and record count is preserved.",
+  "manualActionsDuringWindow": false,
+  "assets": [
+    {
+      "name": "RELEASES",
+      "bytes": 81,
+      "sha256": "1f70fd7033b5fae760bc90e75bfdbd2f6ffad2acf6016025c9908f0fef491530"
+    },
+    {
+      "name": "Setup.exe",
+      "bytes": 8461824,
+      "sha256": "ca2afea2bb61bd4e3e10fe5b1a994618b83165ba8eb7204072564545fceec4a1"
+    },
+    {
+      "name": "SHA256SUMS.txt",
+      "bytes": 253,
+      "sha256": "afae356a3dc830a248b457ae30c823223a7805c1081216e75fa84e55494149ac"
+    },
+    {
+      "name": "TrafficMonitor-1.0.32-full.nupkg",
+      "bytes": 7582043,
+      "sha256": "6b6591ed5298cfb8d0add6cd2ea26ace97166b1cc9b4bc185379d5f6897f1754"
+    }
+  ],
+  "unrun": [
+    "readiness timeout/cancellation",
+    "offline/corrupt input/rollback",
+    "busy editor/modal/draft/menu deferral",
+    "visual/localization/accessibility",
+    "multiple future periodic updates"
+  ],
+  "evidenceOrigin": "Original prepublication metadata collector and preserved baseline, gh tag/normal-release/download verification, installed executable/manifest, fixed helper/readiness result files and read-only historical-record comparison."
+}
