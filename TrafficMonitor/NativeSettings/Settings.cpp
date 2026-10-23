@@ -62,6 +62,7 @@ namespace
         int Px(int n)const{return MulDiv(n,m_dpi,96);}
         void Place(CWnd& c,int x,int y,int w,int h){c.MoveWindow(Px(x),Px(y),Px((std::max)(1,w)),Px((std::max)(1,h)));}
         void Layout();void SetFonts();void SetTheme();void Reload();void SyncRow(Row&);
+        void RefreshRowText(Row&);
         void ApplyDraft();void ResetPage();bool CanDiscard();void SwitchGroup(int);
         void Scroll(UINT,int);void EnsureVisible(Row&);void Reveal(const std::wstring&);void OpenSelected();
         Row* Find(const std::wstring&);Row* Target(HWND,CPoint);
@@ -69,7 +70,16 @@ namespace
         void UpdateInfo();
         std::wstring DraftValue(const Row&,bool)const;
         std::vector<std::wstring> Subjects()const;
-        void Note(const CString& text){m_note.SetWindowText(text);}
+        enum class NoteKind { Loaded, Defaults, InvalidNumber, SaveFailed, Submitted, Explanation };
+        void Note(NoteKind kind, const Setting* setting = nullptr)
+        {
+            m_noteKind = kind;
+            m_noteSetting = setting;
+            RefreshNote();
+        }
+        void RefreshNote();
+        NoteKind m_noteKind{NoteKind::Loaded};
+        const Setting* m_noteSetting{};
         int m_page{},m_contentHeight{},m_viewHeight{};UINT m_dpi{96};
         bool m_chinese{},m_loading{},m_dirty{},m_layout{};
         EditorBinding m_binding;HWND m_lastFocus{};
@@ -137,8 +147,8 @@ namespace
         m_loading=true;m_navigation.ResetContent();for(int i=0;i<6;++i)m_navigation.AddString(T(GroupName(i,false),GroupName(i,true)));m_navigation.SetCurSel(m_page);m_loading=false;
         m_clear.SetLabel(T(L"Clear",L"清除"));m_regex.SetLabel(T(L"Regex",L"正規式"));m_applyButton.SetLabel(T(L"Apply",L"套用"));m_revert.SetLabel(T(L"Revert",L"還原"));m_reset.SetLabel(T(L"Reset group draft",L"重設本組草稿"));m_legacy.SetLabel(T(L"All settings (legacy)",L"所有設定（舊版）"));m_open.SetLabel(T(L"Open selected setting",L"開啟所選設定"));m_return.SetLabel(T(L"Return to group filter",L"返回本組篩選"));
         const auto mode=NativePreferences::Current().values.language;const CString cue=mode==NativePreferences::Language::Bilingual?L"Find a setting · 搜尋設定":mode==NativePreferences::Language::Cantonese?L"搜尋設定":L"Find a setting";m_search.SendMessage(EM_SETCUEBANNER,TRUE,reinterpret_cast<LPARAM>(cue.GetString()));
-        for(auto& r:m_rows){const auto& s=*r->setting;if(s.enabled)r->check.SetWindowText(T(s.english,s.chinese));else r->label.SetWindowText(T(s.english,s.chinese));r->description.SetWindowText(T(s.explanation,s.chineseExplanation));r->details.SetLabel(T(L"Details",L"詳情"));}
-        m_navigation.SetWindowText(T(L"Settings sections",L"設定分類"));m_body.SetScrollName(T(L"Scroll settings",L"捲動設定"));m_interface.Refresh();
+        for(auto& r:m_rows){const auto& s=*r->setting;if(s.enabled)r->check.SetWindowText(T(s.english,s.chinese));else r->label.SetWindowText(T(s.english,s.chinese));r->description.SetWindowText(T(s.explanation,s.chineseExplanation));r->details.SetLabel(T(L"Details",L"詳情"));RefreshRowText(*r);}
+        m_navigation.SetWindowText(T(L"Settings sections",L"設定分類"));m_body.SetScrollName(T(L"Scroll settings",L"捲動設定"));RefreshNote();m_interface.Refresh();
     }
     LRESULT Editor::OnPreferences(WPARAM generation,LPARAM)
     {
@@ -168,10 +178,50 @@ namespace
         const auto& s=*r.setting;
         if(s.enabled){r.check.SetCheck(m_values.*s.enabled?BST_CHECKED:BST_UNCHECKED);r.check.EnableWindow(s.Available());r.check.Invalidate();}
         if(s.number){r.number.SetWindowText(std::to_wstring(m_values.*s.number).c_str());r.number.EnableWindow(s.Available());if(s.trafficUnits)r.unit.SetLabel(m_values.trafficUnit==0?CString(L"MB"):m_values.trafficUnit==1?CString(L"GB"):T(L"Invalid unit",L"無效單位"));r.unit.EnableWindow(s.trafficUnits&&s.Available());}
-        const Values defaults;CString text=T(L"Default: ",L"預設：")+CString(FormatValue(s,defaults,m_chinese).c_str());text+=T(L". Current source: configuration/default provenance unavailable.",L"。目前來源：未能區分設定檔同預設來源。");
-        if(!s.Available())text=T(L"Temperature monitoring is unavailable in this build. Stored preferences are retained.",L"呢個版本未提供溫度監察；已儲存嘅偏好會保留。");r.defaults.SetWindowText(text);r.description.SetWindowText(T(s.explanation,s.chineseExplanation));
+        RefreshRowText(r);
     }
-    void Editor::Reload(){m_loading=true;m_values=Values::Current();for(auto& r:m_rows)SyncRow(*r);m_loading=false;m_dirty=false;Note(T(L"Applied values loaded. Apply saves drafts. Remaining controls are in All settings (legacy).",L"已載入目前套用值；按套用先會儲存草稿。其他控制項喺所有設定（舊版）。"));Layout();}
+    void Editor::RefreshRowText(Row& row)
+    {
+        const auto& setting = *row.setting;
+        if (setting.number)
+            row.numberLabel.SetWindowText(NativePreferences::Format(L"Value (%d to %d)", L"數值（%d 至 %d）", setting.minimum, setting.maximum));
+        const Values defaults;
+        const CString english = L"Default: " + CString(FormatValue(setting, defaults, false).c_str()) + L". Current source: configuration/default provenance unavailable.";
+        const CString chinese = L"預設：" + CString(FormatValue(setting, defaults, true).c_str()) + L"。目前來源：未能區分設定檔同預設來源。";
+        CString text = T(english, chinese);
+        if (!setting.Available())
+            text = T(L"Temperature monitoring is unavailable in this build. Stored preferences are retained.", L"呢個版本未提供溫度監察；已儲存嘅偏好會保留。");
+        row.defaults.SetWindowText(text);
+        row.description.SetWindowText(T(setting.explanation, setting.chineseExplanation));
+    }
+    void Editor::RefreshNote()
+    {
+        CString text;
+        switch (m_noteKind)
+        {
+        case NoteKind::Loaded:
+            text = T(L"Applied values loaded. Apply saves drafts. Remaining controls are in All settings (legacy).", L"已載入目前套用值；按套用先會儲存草稿。其他控制項喺所有設定（舊版）。");
+            break;
+        case NoteKind::Defaults:
+            text = T(L"Defaults staged for this whole group, including filtered rows. Apply to save; unavailable controls stay unchanged.", L"已重設本組全部草稿，包括篩選隱藏項目。按套用先會儲存；未提供嘅控制項保持不變。");
+            break;
+        case NoteKind::SaveFailed:
+            text = T(L"Restart preference could not be saved and read back. Draft retained; other settings were not applied.", L"未能儲存並讀回重新啟動偏好。草稿已保留，其他設定未套用。");
+            break;
+        case NoteKind::Submitted:
+            text = T(L"Submitted to the existing settings consumer; current values reloaded. This is not configuration-file readback proof and does not send a test notification.", L"已交畀原有設定流程處理，再載入目前數值。呢個結果未證明設定檔讀回成功，亦唔會發出測試通知。");
+            break;
+        case NoteKind::Explanation:
+            if (m_noteSetting) text = T(m_noteSetting->explanation, m_noteSetting->chineseExplanation);
+            break;
+        case NoteKind::InvalidNumber:
+            if (m_noteSetting)
+                text = NativePreferences::Format(L"%s: enter a whole value from %d to %d, step %d, with a valid unit. Nothing was applied.", L"%s：請輸入 %d 至 %d 嘅整數，步距 %d，同有效單位。尚未套用任何更改。", T(m_noteSetting->english, m_noteSetting->chinese).GetString(), m_noteSetting->minimum, m_noteSetting->maximum, m_noteSetting->step);
+            break;
+        }
+        m_note.SetWindowText(text);
+    }
+    void Editor::Reload(){m_loading=true;m_values=Values::Current();for(auto& r:m_rows)SyncRow(*r);m_loading=false;m_dirty=false;Note(NoteKind::Loaded);Layout();}
     Row* Editor::Find(const std::wstring& id){for(auto& r:m_rows)if(id==r->setting->id)return r.get();return nullptr;}
     std::wstring Editor::DraftValue(const Row& row,bool chinese)const
     {
@@ -199,7 +249,10 @@ namespace
         m_results.SetRedraw(FALSE);m_results.ResetContent();
         for(size_t i=0;i<m_rows.size();++i)if(m_searches[Discovery].filter.Visible(i))
         {
-            const auto& s=*m_rows[i]->setting;CString label=GroupName(s.group,m_chinese);label+=L" > ";label+=T(s.english,s.chinese);label+=L" : ";label+=DraftValue(*m_rows[i],m_chinese).c_str();
+            const auto& s = *m_rows[i]->setting;
+            const CString english = CString(GroupName(s.group, false)) + L" > " + s.english + L" : " + DraftValue(*m_rows[i], false).c_str();
+            const CString chinese = CString(GroupName(s.group, true)) + L" > " + s.chinese + L"：" + DraftValue(*m_rows[i], true).c_str();
+            CString label = T(english, chinese);
             const int at=m_results.AddString(label);if(at>=0){m_results.SetItemDataPtr(at,const_cast<Setting*>(&s));if(selected==s.id)m_results.SetCurSel(at);}
         }
         if(m_results.GetCurSel()==LB_ERR&&m_results.GetCount())m_results.SetCurSel(0);m_results.SetRedraw(TRUE);m_results.Invalidate();::NotifyWinEvent(EVENT_OBJECT_REORDER,m_results.GetSafeHwnd(),OBJID_CLIENT,CHILDID_SELF);
@@ -285,7 +338,7 @@ namespace
     void Editor::OpenSelected(){const int at=m_results.GetCurSel();if(at==LB_ERR)return;auto* s=static_cast<Setting*>(m_results.GetItemDataPtr(at));if(s)Reveal(s->id);}
     void Editor::SetRowFrom(Row& row,const Values& source){row.setting->Copy(m_values,source);m_loading=true;SyncRow(row);m_loading=false;m_dirty=true;Layout();EnsureVisible(row);}
     void Editor::ResetPage()
-    {if(m_page==Discovery)return;const Values defaults;m_loading=true;for(auto& r:m_rows)if(r->setting->group==m_page){r->setting->Copy(m_values,defaults);SyncRow(*r);}m_loading=false;m_dirty=true;Layout();Note(T(L"Defaults staged for this whole group, including filtered rows. Apply to save; unavailable controls stay unchanged.",L"已重設本組全部草稿，包括篩選隱藏項目。按套用先會儲存；未提供嘅控制項保持不變。"));}
+    {if(m_page==Discovery)return;const Values defaults;m_loading=true;for(auto& r:m_rows)if(r->setting->group==m_page){r->setting->Copy(m_values,defaults);SyncRow(*r);}m_loading=false;m_dirty=true;Layout();Note(NoteKind::Defaults);}
     void Editor::ApplyDraft()
     {
         if(m_page==Interface){m_interface.Command(NativePreferences::Editor::ApplyChoice);Layout();return;}
@@ -294,11 +347,11 @@ namespace
         {
             const auto& s=*r->setting;if(!s.number)continue;CString text;r->number.GetWindowText(text);int value=candidate.*s.number;
             if(!ReadNumberDraft(text.GetString(),s.minimum,s.maximum,s.step,s.Available(),value)||(s.trafficUnits&&!ValidTrafficUnit(candidate.trafficUnit,s.Available())))
-            {Reveal(s.id);CString message;message=NativePreferences::Format(L"%s: enter a whole value from %d to %d, step %d, with a valid unit. Nothing was applied.",L"%s：請輸入 %d 至 %d 嘅整數，步距 %d，同有效單位。尚未套用任何更改。",T(s.english,s.chinese).GetString(),s.minimum,s.maximum,s.step);Note(message);return;}candidate.*s.number=value;
+            {Reveal(s.id);Note(NoteKind::InvalidNumber, &s);return;}candidate.*s.number=value;
         }
         if(candidate.automaticRestart!=NativeUpdate::AutomaticRestartEnabled()&&!NativeUpdate::SaveAutomaticRestart(candidate.automaticRestart))
-        {m_dirty=true;Note(T(L"Restart preference could not be saved and read back. Draft retained; other settings were not applied.",L"未能儲存並讀回重新啟動偏好。草稿已保留，其他設定未套用。"));return;}
-        m_apply(candidate);Reload();Note(T(L"Submitted to the existing settings consumer; current values reloaded. This is not configuration-file readback proof and does not send a test notification.",L"已交畀原有設定流程處理，再載入目前數值。呢個結果未證明設定檔讀回成功，亦唔會發出測試通知。"));
+        {m_dirty=true;Note(NoteKind::SaveFailed);return;}
+        m_apply(candidate);Reload();Note(NoteKind::Submitted);
     }
     bool Editor::CanDiscard(){return (!m_dirty&&!m_interface.draft.dirty)||MessageBox(T(L"Discard unapplied settings changes?",L"捨棄未套用嘅設定修改？"),T(L"Settings",L"設定"),MB_YESNO|MB_ICONQUESTION|MB_DEFBUTTON2)==IDYES;}
     void Editor::OnCancel(){if(CanDiscard()){m_regexEditor.Close();m_binding.Invalidate();EndDialog(IDCANCEL);}}
@@ -317,7 +370,7 @@ namespace
         CMenu menu;menu.CreatePopupMenu();menu.AppendMenu(MF_STRING,1,T(L"Show explanation",L"顯示解說"));const UINT flags=MF_STRING|(row.setting->Available()?0:MF_GRAYED);
         menu.AppendMenu(flags,2,T(L"Stage this setting's default",L"暫存呢項設定嘅預設值"));menu.AppendMenu(flags,3,T(L"Revert this setting to applied value",L"還原呢項設定至目前套用值"));
         const UINT selected=NativeMenus::Track(&menu,TPM_RETURNCMD|TPM_RIGHTBUTTON,point.x,point.y,this);auto* current=Find(identity);if(!current)return;
-        if(selected==1){current->expanded=true;Layout();EnsureVisible(*current);Note(T(current->setting->explanation,current->setting->chineseExplanation));}
+        if(selected==1){current->expanded=true;Layout();EnsureVisible(*current);Note(NoteKind::Explanation, current->setting);}
         else if(selected==2&&current->setting->Available())SetRowFrom(*current,Values{});else if(selected==3&&current->setting->Available())SetRowFrom(*current,Values::Current());
     }
     void Editor::OnContextMenu(CWnd* window,CPoint point){if(auto* row=Target(window?window->GetSafeHwnd():nullptr,point))Menu(*row,point);}

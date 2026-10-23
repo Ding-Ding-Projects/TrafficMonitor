@@ -8,7 +8,14 @@
 namespace NativeMaterial
 {
     constexpr UINT SetScrollValue=WM_APP+0x529;
-    struct ScrollAccess { std::mutex mutex; HWND window{}; std::wstring name{L"Scroll"}; int maximum{},page{},position{},step{32}; };
+    struct ScrollAccess
+    {
+        std::mutex mutex;
+        HWND window{};
+        std::wstring name{L"Scroll"};
+        int maximum{}, page{}, position{}, step{32};
+        bool enabled{true}, visible{};
+    };
     class ScrollProvider final : public IRawElementProviderSimple, public IRangeValueProvider
     {
     public:
@@ -26,19 +33,49 @@ namespace NativeMaterial
             if(id==UIA_ControlTypePropertyId){out->vt=VT_I4;out->lVal=UIA_ScrollBarControlTypeId;}
             else if(id==UIA_OrientationPropertyId){out->vt=VT_I4;out->lVal=OrientationType_Vertical;}
             else if(id==UIA_NamePropertyId){out->vt=VT_BSTR;out->bstrVal=SysAllocString(state->name.c_str());}
-            else if(id==UIA_IsEnabledPropertyId||id==UIA_IsKeyboardFocusablePropertyId||id==UIA_IsControlElementPropertyId||id==UIA_IsContentElementPropertyId){out->vt=VT_BOOL;out->boolVal=VARIANT_TRUE;}
+            else if (id == UIA_IsEnabledPropertyId || id == UIA_IsKeyboardFocusablePropertyId)
+            {
+                out->vt = VT_BOOL;
+                const bool available = state->enabled && (id != UIA_IsKeyboardFocusablePropertyId || state->visible);
+                out->boolVal = available ? VARIANT_TRUE : VARIANT_FALSE;
+            }
+            else if (id == UIA_IsControlElementPropertyId || id == UIA_IsContentElementPropertyId)
+            { out->vt = VT_BOOL; out->boolVal = VARIANT_TRUE; }
             return S_OK;
         }
         HRESULT STDMETHODCALLTYPE get_HostRawElementProvider(IRawElementProviderSimple** out) override
-        {if(!out)return E_POINTER;std::lock_guard<std::mutex> lock(state->mutex);return state->window?UiaHostProviderFromHwnd(state->window,out):UIA_E_ELEMENTNOTAVAILABLE;}
+        {
+            if (!out) return E_POINTER;
+            *out = nullptr;
+            HWND window{};
+            {
+                std::lock_guard<std::mutex> lock(state->mutex);
+                window = state->window;
+            }
+            return window ? UiaHostProviderFromHwnd(window, out) : UIA_E_ELEMENTNOTAVAILABLE;
+        }
         HRESULT STDMETHODCALLTYPE SetValue(double value) override
-        {std::lock_guard<std::mutex> lock(state->mutex);if(!state->window)return UIA_E_ELEMENTNOTAVAILABLE;if(!std::isfinite(value)||value<0||value>state->maximum)return E_INVALIDARG;return PostMessageW(state->window,SetScrollValue,static_cast<WPARAM>(value),0)?S_OK:HRESULT_FROM_WIN32(GetLastError());}
+        {
+            std::lock_guard<std::mutex> lock(state->mutex);
+            if (!state->window) return UIA_E_ELEMENTNOTAVAILABLE;
+            if (!state->enabled) return UIA_E_ELEMENTNOTENABLED;
+            if (!std::isfinite(value) || value < 0 || value > state->maximum) return E_INVALIDARG;
+            return PostMessageW(state->window, SetScrollValue, static_cast<WPARAM>(value), 0)
+                ? S_OK : HRESULT_FROM_WIN32(GetLastError());
+        }
         HRESULT STDMETHODCALLTYPE get_Value(double* out) override{return Number(out,0);}
         HRESULT STDMETHODCALLTYPE get_Minimum(double* out) override{return Number(out,1);}
         HRESULT STDMETHODCALLTYPE get_Maximum(double* out) override{return Number(out,2);}
         HRESULT STDMETHODCALLTYPE get_LargeChange(double* out) override{return Number(out,3);}
         HRESULT STDMETHODCALLTYPE get_SmallChange(double* out) override{return Number(out,4);}
-        HRESULT STDMETHODCALLTYPE get_IsReadOnly(BOOL* out) override{if(!out)return E_POINTER;*out=FALSE;return S_OK;}
+        HRESULT STDMETHODCALLTYPE get_IsReadOnly(BOOL* out) override
+        {
+            if (!out) return E_POINTER;
+            std::lock_guard<std::mutex> lock(state->mutex);
+            if (!state->window) return UIA_E_ELEMENTNOTAVAILABLE;
+            *out = FALSE;
+            return S_OK;
+        }
     private:
         HRESULT Number(double* out,int part){if(!out)return E_POINTER;std::lock_guard<std::mutex> lock(state->mutex);if(!state->window)return UIA_E_ELEMENTNOTAVAILABLE;*out=part==0?state->position:part==1?0:part==2?state->maximum:part==3?state->page:state->step;return S_OK;}
         std::atomic<ULONG> refs{1};std::shared_ptr<ScrollAccess> state;
@@ -75,7 +112,21 @@ namespace NativeMaterial
         if(message==WM_PAINT){CPaintDC dc(this);Paint(dc);return 0;}if(message==WM_PRINTCLIENT){Paint(reinterpret_cast<HDC>(w));return 0;}if(message==WM_ERASEBKGND)return TRUE;
         if(message==WM_SETTEXT&&m_access){std::lock_guard<std::mutex> lock(m_access->mutex);m_access->name=l?reinterpret_cast<const wchar_t*>(l):L"";}
         if(message==WM_GETOBJECT&&l==UiaRootObjectId){auto* p=new ScrollProvider(m_access);auto result=UiaReturnRawElementProvider(m_hWnd,w,l,p);p->Release();return result;}
-        if(message==SetScrollValue){Move(static_cast<int>(w));return 0;}
+        if (message == WM_ENABLE && m_access)
+        {
+            std::lock_guard<std::mutex> lock(m_access->mutex);
+            m_access->enabled = w != FALSE;
+        }
+        if (message == WM_SHOWWINDOW && m_access)
+        {
+            std::lock_guard<std::mutex> lock(m_access->mutex);
+            m_access->visible = w != FALSE;
+        }
+        if (message == SetScrollValue)
+        {
+            if (IsWindowEnabled()) Move(static_cast<int>(w));
+            return 0;
+        }
         if(message==WM_LBUTTONDOWN){SetFocus();const CPoint point(GET_X_LPARAM(l),GET_Y_LPARAM(l));auto thumb=Thumb();if(thumb.PtInRect(point)){m_drag=true;m_dragOrigin=point.y;m_dragPosition=m_position;SetCapture();}else Move(m_position+(point.y<thumb.top?-m_page:m_page));Invalidate();return 0;}
         if(message==WM_MOUSEMOVE){m_hover=true;TRACKMOUSEEVENT track{sizeof(track),TME_LEAVE,m_hWnd,0};TrackMouseEvent(&track);if(m_drag){CRect r;GetClientRect(r);const int travel=r.Height()-Thumb().Height();if(travel>0)Move(m_dragPosition+MulDiv(GET_Y_LPARAM(l)-m_dragOrigin,m_content-m_page,travel));}Invalidate(FALSE);return 0;}
         if(message==WM_MOUSELEAVE){m_hover=false;Invalidate(FALSE);return 0;}

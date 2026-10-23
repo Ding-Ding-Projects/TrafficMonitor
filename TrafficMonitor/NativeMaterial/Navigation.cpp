@@ -22,7 +22,48 @@ namespace NativeMaterial
         dc.FillSolidRect(r,Rgb(c.surface));CRect shape=r;shape.DeflateRect(px(4),px(3));shape.right-=px(12);CBrush brush(Rgb(selected?c.container:c.surface));auto* oldBrush=dc.SelectObject(&brush);auto* oldPen=dc.SelectStockObject(NULL_PEN);dc.RoundRect(shape,CPoint(px(16),px(16)));dc.SelectObject(oldBrush);dc.SelectObject(oldPen);
         if(selected&&m_navigation)dc.FillSolidRect(shape.left,shape.top+px(8),px(3),shape.Height()-px(16),Rgb(c.primary));
         CString label;GetText(item->itemID,label);CRect text=r;text.DeflateRect(px(m_navigation?36:12),px(10));text.right=r.right-px(24);auto* oldFont=GetFont()?dc.SelectObject(GetFont()):nullptr;dc.SetBkMode(TRANSPARENT);dc.SetTextColor(Rgb(selected?c.primary:c.onSurface));dc.DrawText(label,text,DT_WORDBREAK|DT_NOPREFIX);if(oldFont)dc.SelectObject(oldFont);
-        if(m_navigation){CPen pen(PS_SOLID,px(1),Rgb(selected?c.primary:c.secondaryText));auto* prev=dc.SelectObject(&pen);const int x=r.left+px(14),y=r.top+px(16),s=px(14);if(item->itemID==4)dc.Ellipse(x,y,x+s,y+s);else if(item->itemID==5){dc.Rectangle(x,y,x+s/2,y+s/2);dc.Rectangle(x+s/2+2,y+s/2+2,x+s,y+s);}else{dc.Rectangle(x,y,x+s,y+s);const int offset=px(3+static_cast<int>(item->itemID)*2);dc.MoveTo(x+px(2),y+offset);dc.LineTo(x+s-px(2),y+offset);}dc.SelectObject(prev);}
+        if (m_navigation)
+        {
+            CPen pen(PS_SOLID, (std::max)(1, px(1)), Rgb(selected ? c.primary : c.secondaryText));
+            auto* previousPen = dc.SelectObject(&pen);
+            auto* previousBrush = dc.SelectStockObject(NULL_BRUSH);
+            const int x = r.left + px(13), y = r.top + px(16);
+            auto line = [&](int x1, int y1, int x2, int y2) {
+                dc.MoveTo(x + px(x1), y + px(y1));
+                dc.LineTo(x + px(x2), y + px(y2));
+            };
+            switch (item->itemID)
+            {
+            case 0: // Live monitoring waveform.
+                line(0, 9, 3, 9); line(3, 9, 6, 2); line(6, 2, 9, 14);
+                line(9, 14, 12, 6); line(12, 6, 16, 6);
+                break;
+            case 1: // Floating window in front of its owner.
+                dc.Rectangle(x, y, x + px(11), y + px(10));
+                dc.Rectangle(x + px(5), y + px(5), x + px(17), y + px(15));
+                line(7, 8, 15, 8);
+                break;
+            case 2: // Monitor with a distinct bottom taskbar.
+                dc.Rectangle(x, y, x + px(17), y + px(13));
+                line(1, 9, 16, 9); line(8, 13, 8, 16); line(4, 16, 13, 16);
+                break;
+            case 3: // Notification bell and clapper.
+                dc.Arc(x + px(3), y + px(1), x + px(14), y + px(13), x + px(14), y + px(7), x + px(3), y + px(7));
+                line(3, 7, 2, 13); line(14, 7, 15, 13); line(2, 13, 15, 13);
+                dc.Ellipse(x + px(7), y + px(14), x + px(11), y + px(17));
+                break;
+            case 4:
+                dc.Ellipse(x, y, x + px(16), y + px(16));
+                line(8, 0, 8, 16); line(0, 8, 16, 8);
+                break;
+            case 5:
+                dc.Rectangle(x, y, x + px(7), y + px(7));
+                dc.Rectangle(x + px(9), y + px(9), x + px(16), y + px(16));
+                break;
+            }
+            dc.SelectObject(previousBrush);
+            dc.SelectObject(previousPen);
+        }
         if(item->itemState&ODS_FOCUS){shape.DeflateRect(1,1);dc.DrawFocusRect(shape);}dc.Detach();
     }
     void ResultList::SyncScroll()
