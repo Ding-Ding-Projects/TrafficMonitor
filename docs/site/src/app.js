@@ -12,6 +12,7 @@ import {setupGuide} from './guide.js';
 import {setupHistory} from './history.js';
 import {setupLearning,setupDocumentationSearch} from './learning.js';
 import {setupCapabilities} from './capabilities.js';
+import {setupReadingSettings} from './reading-settings.js';
 const $=id=>document.getElementById(id);
 const base=document.body.dataset.base;
 export function notify(message){$('notice').textContent=message;}
@@ -44,3 +45,4 @@ const filter=()=>{const query=($('article-search')?.value??'').toLocaleLowerCase
 $('article-search')?.addEventListener('input',filter);$('article-category')?.addEventListener('change',filter);
 setupGuide(base,notify);setupHistory(base,notify);
 setupLearning(base,notify);setupDocumentationSearch(base);setupCapabilities();
+setupReadingSettings(notify);

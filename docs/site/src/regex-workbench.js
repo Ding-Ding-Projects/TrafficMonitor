@@ -1,0 +1,39 @@
+import {storage} from './wording.js';
+
+const defaults={pattern:'',flags:'g',subject:'',replacement:'',operation:'match'};
+function validate(value){
+ if(!value||value.schemaVersion!==1||!value.experiment||typeof value.experiment!=='object')throw Error();
+ const result={};for(const name of Object.keys(defaults)){if(typeof value.experiment[name]!=='string')throw Error();result[name]=value.experiment[name];}
+ if(!['match','search','replace','split'].includes(result.operation)||result.pattern.length>16384||result.flags.length>16||result.subject.length>1048576||result.replacement.length>65536)throw Error();
+ return result;
+}
+export function setupRegexWorkbenches(base,createRegexEngine,notify){
+ const owners=[...document.querySelectorAll('[data-doc-search],#capability-search,#history-search,#settings-search')];
+ for(const query of owners){
+  const owner=query.closest('[data-search-owner]')?.dataset.searchOwner??query.id.replace('-search','');
+  const engine=createRegexEngine({workerUrl:new URL(base+'regex-engine/worker.mjs',location.origin).href});
+  const key='regex-workbench-'+owner,old=storage.read(key,null);let state={...defaults};try{if(old)state=validate(old);}catch{}
+  const panel=document.createElement('details');panel.className='regex-workbench panel';
+  panel.innerHTML='<summary>Regex workbench</summary><p>Local browser engine. Samples run in a terminable worker. Other engines and full workbench parity remain unfinished.</p><div class="regex-fields"><md-outlined-text-field data-field="pattern" label="Pattern"></md-outlined-text-field><md-outlined-text-field data-field="flags" label="Flags"></md-outlined-text-field><md-outlined-select data-field="operation" label="Operation"><md-select-option value="match"><div slot="headline">Match</div></md-select-option><md-select-option value="search"><div slot="headline">Find first</div></md-select-option><md-select-option value="replace"><div slot="headline">Replace preview</div></md-select-option><md-select-option value="split"><div slot="headline">Split</div></md-select-option></md-outlined-select></div><div class="actions" aria-label="Build a pattern"><md-text-button data-token="digits">Digits</md-text-button><md-text-button data-token="word">Word</md-text-button><md-text-button data-token="capture">Named capture</md-text-button><md-text-button data-token="start">Start of subject</md-text-button></div><p data-token-help></p><md-outlined-text-field data-field="subject" label="Sample text" type="textarea" rows="5"></md-outlined-text-field><md-outlined-text-field data-field="replacement" label="Replacement" type="textarea" rows="2"></md-outlined-text-field><div class="actions"><md-filled-button data-run>Run sample</md-filled-button><md-outlined-button data-cancel>Cancel</md-outlined-button><md-text-button data-copy-query>Use search text as sample</md-text-button></div><p data-run-status role="status"></p><pre data-regex-output data-original-content tabindex="0" aria-label="Regex result"></pre><details><summary>Saved experiments</summary><md-outlined-text-field data-name label="Experiment name"></md-outlined-text-field><div class="actions"><md-outlined-button data-save>Save experiment</md-outlined-button><md-outlined-button data-export>Export experiment</md-outlined-button><md-outlined-button data-import>Import experiment</md-outlined-button></div><input type="file" accept="application/json,.json" data-file hidden><div data-experiments></div></details>';
+  const parent=query.closest('[data-search-owner]')??query.closest('.filters')??query.parentElement;parent.insertAdjacentElement('afterend',panel);
+  const field=name=>panel.querySelector(`[data-field="${name}"]`),status=panel.querySelector('[data-run-status]'),output=panel.querySelector('[data-regex-output]');
+  const fill=()=>{for(const name of Object.keys(defaults))field(name).value=state[name];};fill();
+  const read=()=>{for(const name of Object.keys(defaults))state[name]=field(name).value;return {...state};};
+  const persist=()=>storage.write(key,{schemaVersion:1,experiment:read()});
+  for(const control of panel.querySelectorAll('[data-field]'))control.addEventListener('input',persist);
+  field('operation').addEventListener('change',persist);
+  const tokens={digits:['\\d+','One or more digits.'],word:['\\w+','One or more word characters in this engine.'],capture:['(?<name>text)','A named capture. Replace name and text before running.'],start:['^','Start of the subject, or a line when multiline mode is enabled.']};
+  for(const b of panel.querySelectorAll('[data-token]'))b.addEventListener('click',()=>{const [pattern,help]=tokens[b.dataset.token];field('pattern').value+=pattern;panel.querySelector('[data-token-help]').textContent=help;persist();field('pattern').focus();});
+  panel.querySelector('[data-copy-query]').addEventListener('click',()=>{field('subject').value=query.value;persist();});
+  let serial=0;
+  panel.querySelector('[data-run]').addEventListener('click',async()=>{const current=++serial;status.textContent='Running locally…';const result=await engine.execute(read());if(current!==serial)return;if(result.ok){output.textContent=JSON.stringify({engine:result.engine,elapsedMs:result.elapsedMs,result:result.result},null,2);status.textContent='Sample completed. Search results are unchanged.';persist();}else status.textContent=`${result.code}: ${result.message}`;});
+  panel.querySelector('[data-cancel]').addEventListener('click',()=>{serial++;engine.cancel();status.textContent='Cancelled. Previous results retained.';});
+  panel.addEventListener('toggle',()=>{if(!panel.open){serial++;engine.cancel();query.focus();}});
+  const savedKey=key+'-experiments';let experiments=storage.read(savedKey,[]);if(!Array.isArray(experiments))experiments=[];
+  const showSaved=()=>{const list=panel.querySelector('[data-experiments]');list.replaceChildren();experiments.slice(0,20).forEach((entry,i)=>{try{validate(entry);}catch{return;}const row=document.createElement('div'),load=document.createElement('md-text-button'),remove=document.createElement('md-text-button');load.textContent=typeof entry.name==='string'?entry.name:'Saved experiment';remove.textContent='Delete experiment';load.addEventListener('click',()=>{state=validate(entry);fill();persist();});remove.addEventListener('click',()=>{experiments.splice(i,1);storage.write(savedKey,experiments);showSaved();});row.append(load,remove);list.append(row);});};showSaved();
+  panel.querySelector('[data-save]').addEventListener('click',()=>{if(experiments.length>=20){notify('Delete an experiment before saving another. The limit is 20.');return;}const entry={schemaVersion:1,name:panel.querySelector('[data-name]').value.slice(0,120)||'Saved experiment',experiment:read()};try{validate(entry);}catch{notify('The experiment exceeds the supported bounds.');return;}const next=[...experiments,entry];if(!storage.write(savedKey,next)){notify('The experiment could not be saved locally.');return;}experiments=next;showSaved();});
+  panel.querySelector('[data-export]').addEventListener('click',()=>{const data={schemaVersion:1,experiment:read()};try{validate(data);}catch{return;}const url=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'})),a=document.createElement('a');a.href=url;a.download='regex-experiment.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);});
+  const file=panel.querySelector('[data-file]');panel.querySelector('[data-import]').addEventListener('click',()=>file.click());file.addEventListener('change',async()=>{try{const selected=file.files[0];if(!selected||selected.size>2097152)throw Error();const next=validate(JSON.parse(await selected.text()));state=next;fill();persist();status.textContent='Experiment imported locally.';}catch{status.textContent='Invalid experiment. Existing inputs retained.';}finally{file.value='';}});
+  window.addEventListener('pagehide',()=>engine.dispose(),{once:true});
+ }
+}

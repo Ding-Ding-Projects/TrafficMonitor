@@ -34,6 +34,7 @@ export function translate(source,mode='en',entries={}) {
  if(Object.hasOwn(entries,source))return entries[source];
  let yue=cantonese[source];
  const patterns=[
+ [/^(\d+) matching settings groups$/,m=>`${m[1]} 組符合條件嘅設定`],
  [/^(\d+) of (\d+) capabilities$/,m=>`${m[2]} 項功能中顯示 ${m[1]} 項`],
  [/^(\d+) capabilities$/,m=>`${m[1]} 項功能`],
  [/^(\d+) steps marked read$/,m=>`已閱讀 ${m[1]} 步`],
