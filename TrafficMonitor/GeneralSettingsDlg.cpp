@@ -277,7 +277,9 @@ BOOL CGeneralSettingsDlg::OnInitDialog()
 
     //检查开始菜单的“启动”目录下有没有程序的快捷方式，如果有则设置开机自启动，然后删除快捷方式
     wstring start_up_path = CCommon::GetStartUpPath();
-    bool shortcut_exist = CCommon::FileExist((start_up_path + L"\\TrafficMonitor.lnk").c_str());
+    // Managed installations use their stable launcher and never adopt portable shortcuts.
+    bool shortcut_exist = !theApp.m_installed_mode
+        && CCommon::FileExist((start_up_path + L"\\TrafficMonitor.lnk").c_str());
     m_data.auto_run = false;
 #ifdef WITHOUT_TEMPERATURE
     m_data.auto_run_by_task_scheduler = false;
@@ -317,6 +319,14 @@ BOOL CGeneralSettingsDlg::OnInitDialog()
         CheckDlgButton(IDC_AUTO_RUN_METHOD_TASK_SCHEDULE_RADIO, TRUE);
     else
         CheckDlgButton(IDC_AUTO_RUN_METHOD_REGESTRY_RADIO, TRUE);
+
+    if (theApp.m_installed_mode)
+    {
+        m_data.auto_run_by_task_scheduler = false;
+        CheckRadioButton(IDC_AUTO_RUN_METHOD_REGESTRY_RADIO, IDC_AUTO_RUN_METHOD_TASK_SCHEDULE_RADIO,
+            IDC_AUTO_RUN_METHOD_REGESTRY_RADIO);
+        GetDlgItem(IDC_AUTO_RUN_METHOD_TASK_SCHEDULE_RADIO)->EnableWindow(FALSE);
+    }
 
 
     ((CButton*)GetDlgItem(IDC_SAVE_TO_APPDATA_RADIO))->SetCheck(!m_data.portable_mode);

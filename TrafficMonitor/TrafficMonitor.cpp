@@ -14,6 +14,7 @@
 #include "WindowsSettingHelper.h"
 #include "SkinManager.h"
 #include "SettingsHelper.h"
+#include "InstallerLifecycle.h"
 #ifndef DISABLE_WINDOWS_WEB_EXPERIENCE_DETECTOR
 #include "winrt/base.h"
 #endif
@@ -98,12 +99,12 @@ void CTrafficMonitorApp::LoadConfig()
     m_general_data.show_notify_icon = ini.GetBool(_T("config"), _T("show_notify_icon"), true);
     m_cfg_data.m_show_more_info = ini.GetBool(_T("config"), _T("show_cpu_memory"), false);
     m_main_wnd_data.m_mouse_penetrate = ini.GetBool(_T("config"), _T("mouse_penetrate"), false);
-    m_cfg_data.m_show_task_bar_wnd = ini.GetBool(_T("config"), _T("show_task_bar_wnd"), false);
+    m_cfg_data.m_show_task_bar_wnd = ini.GetBool(_T("config"), _T("show_task_bar_wnd"), m_installed_mode);
     m_cfg_data.m_position_x = ini.GetInt(_T("config"), _T("position_x"), -1);
     m_cfg_data.m_position_y = ini.GetInt(_T("config"), _T("position_y"), -1);
     m_cfg_data.m_auto_select = ini.GetBool(_T("connection"), _T("auto_select"), true);
     m_cfg_data.m_select_all = ini.GetBool(_T("connection"), _T("select_all"), false);
-    m_cfg_data.m_hide_main_window = ini.GetBool(_T("config"), _T("hide_main_window"), false);
+    m_cfg_data.m_hide_main_window = ini.GetBool(_T("config"), _T("hide_main_window"), m_installed_mode);
     m_cfg_data.m_connection_name = CCommon::UnicodeToStr(ini.GetString(L"connection", L"connection_name", L"").c_str());
     m_cfg_data.m_skin_name = ini.GetString(_T("config"), _T("skin_selected"), _T(""));
     if (m_cfg_data.m_skin_name.substr(0, 8) == L".\\skins\\")       //如果读取到的皮肤名称前面有".\\skins\\"，则把它删除。（用于和前一个版本保持兼容性）
@@ -465,6 +466,12 @@ void CTrafficMonitorApp::LoadPluginDisabledSettings()
 
 void CTrafficMonitorApp::LoadGlobalConfig()
 {
+    if (m_installed_mode)
+    {
+        m_general_data.portable_mode = false;
+        m_module_dir_writable = false;
+        return;
+    }
     bool portable_mode_default{ false };
     wstring global_cfg_path{ m_module_dir + L"global_cfg.ini" };
     if (!CCommon::FileExist(global_cfg_path.c_str()))       //如果global_cfg.ini不存在，则根据AppData/Roaming/TrafficMonitor目录下是否存在config.ini来判断配置文件的保存位置
@@ -491,6 +498,8 @@ void CTrafficMonitorApp::LoadGlobalConfig()
 
 void CTrafficMonitorApp::SaveGlobalConfig()
 {
+    if (m_installed_mode)
+        return;
     CIniHelper ini{ m_module_dir + L"global_cfg.ini" };
     ini.WriteBool(L"config", L"portable_mode", m_general_data.portable_mode);
 
@@ -637,6 +646,8 @@ UINT CTrafficMonitorApp::InitOpenHardwareMonitorLibThreadFunc(LPVOID lpParam)
 
 bool  CTrafficMonitorApp::SetAutoRun(bool auto_run, bool task_scheduler)
 {
+    if (m_installed_mode)
+        return InstallerLifecycle::SetStartup(auto_run);
     if (task_scheduler)
     {
         //使用任务计划的方式设置开机自启动
@@ -651,6 +662,15 @@ bool  CTrafficMonitorApp::SetAutoRun(bool auto_run, bool task_scheduler)
 
 bool CTrafficMonitorApp::GetAutoRun(wstring* auto_run_path, bool task_scheduler)
 {
+    if (m_installed_mode)
+    {
+        std::wstring command;
+        const bool enabled = !task_scheduler && InstallerLifecycle::ReadStartup(command)
+            && command == InstallerLifecycle::StartupCommand();
+        if (auto_run_path != nullptr)
+            *auto_run_path = enabled ? command : L"";
+        return enabled;
+    }
     if (auto_run_path != nullptr)
         auto_run_path->clear();
 
@@ -693,6 +713,8 @@ bool CTrafficMonitorApp::GetAutoRun(wstring* auto_run_path, bool task_scheduler)
 
 bool CTrafficMonitorApp::SetAutoRunByRegistry(bool auto_run)
 {
+    if (m_installed_mode)
+        return InstallerLifecycle::SetStartup(auto_run);
     CRegKey key;
     //打开注册表项
     if (key.Open(HKEY_CURRENT_USER, _T("Software\\Microsoft\\Windows\\CurrentVersion\\Run")) != ERROR_SUCCESS)
@@ -729,6 +751,8 @@ bool CTrafficMonitorApp::SetAutoRunByRegistry(bool auto_run)
 
 bool CTrafficMonitorApp::SetAutoRunByTaskScheduler(bool auto_run)
 {
+    if (m_installed_mode)
+        return !auto_run;
     bool succeed = delete_auto_start_task_for_this_user();     //先删除开机自启动
     if (auto_run)
     {
@@ -916,6 +940,12 @@ CTrafficMonitorApp theApp;
 
 BOOL CTrafficMonitorApp::InitInstance()
 {
+    if (InstallerLifecycle::HandleCallback(m_installer_exit_code))
+    {
+        m_installer_callback = true;
+        return FALSE;
+    }
+    m_installed_mode = InstallerLifecycle::IsManaged();
     //替换掉对话框程序的默认类名
     WNDCLASS wc;
     ::GetClassInfo(AfxGetInstanceHandle(), _T("#32770"), &wc);       //MFC默认的所有对话框的类名为#32770
@@ -954,6 +984,8 @@ BOOL CTrafficMonitorApp::InitInstance()
     m_skin_path = m_module_dir + L"skins\\";
 #endif
     //AppData里面的程序配置文件路径
+    if (m_installed_mode)
+        m_config_dir = m_appdata_dir;
     m_config_path = m_config_dir + L"config.ini";
     m_history_traffic_path = m_config_dir + L"history_traffic.dat";
     m_log_path = m_config_dir + L"error.log";
@@ -1386,6 +1418,8 @@ void CTrafficMonitorApp::OnUpdateLog()
 
 int CTrafficMonitorApp::ExitInstance()
 {
+    if (m_installer_callback)
+        return m_installer_exit_code;
     // 释放GDI+
     Gdiplus::GdiplusShutdown(m_gdiplusToken);
 

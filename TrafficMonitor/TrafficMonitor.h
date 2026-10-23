@@ -43,6 +43,9 @@ public:
     wstring m_skin_path;
     wstring m_system_dir;
     wstring m_config_dir;
+    bool m_installed_mode{ false };
+    bool m_installer_callback{ false };
+    int m_installer_exit_code{ 0 };
 
     //以下数据定义为App类中的公共成员，以便于在主对话框和任务栏窗口中都能访问
     unsigned __int64 m_in_speed{};      //下载速度

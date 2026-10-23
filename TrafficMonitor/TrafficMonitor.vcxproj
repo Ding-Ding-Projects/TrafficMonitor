@@ -839,6 +839,7 @@
     <ClInclude Include="SelectConnectionsDlg.h" />
     <ClInclude Include="SetItemOrderDlg.h" />
     <ClInclude Include="SettingsHelper.h" />
+    <ClInclude Include="InstallerLifecycle.h" />
     <ClInclude Include="SimpleXML.h" />
     <ClInclude Include="SkinAutoAdaptSettingDlg.h" />
     <ClInclude Include="SkinDlg.h" />
