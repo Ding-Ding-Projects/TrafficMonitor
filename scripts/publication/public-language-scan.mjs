@@ -32,7 +32,7 @@ const exactKeys = (value, keys) => value && typeof value === 'object' && !Array.
 const decoder = () => new TextDecoder('utf-8', { fatal: true });
 const string = (value, max = 512) => typeof value === 'string' && value.length > 0 && value.length <= max && !/[\u0000-\u001f\u007f]/u.test(value);
 const inside = (root, value) => { const relative = path.relative(root, value); return relative === '' || (!relative.startsWith('..' + path.sep) && relative !== '..' && !path.isAbsolute(relative)); };
-const reasons = new Set(['technical-identifier', 'proper-name', 'external-quotation']);
+const reasons = new Set(['technical-identifier', 'proper-name', 'external-quotation', 'natural-language-collision']);
 
 function normalize(value, removeFormats = false) {
   const characters = []; const offsets = [];

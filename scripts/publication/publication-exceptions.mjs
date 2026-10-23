@@ -10,7 +10,7 @@ function validateSet(value) {
   if (!keys(value, ['schemaVersion', 'entries']) || value.schemaVersion !== 1 || !Array.isArray(value.entries) || value.entries.length > 4096 || Buffer.byteLength(JSON.stringify(value)) > EXCEPTION_LIMITS.setBytes) fail();
   const seen = new Set();
   for (const entry of value.entries) {
-    if (!keys(entry, ['path', 'line', 'sha256', 'reason']) || typeof entry.path !== 'string' || !entry.path.length || entry.path.length > 4096 || /[\x00-\x1f\x7f]/u.test(entry.path) || path.posix.isAbsolute(entry.path) || entry.path.includes('\\') || entry.path.split('/').some(part => part === '..' || part === '') || !Number.isSafeInteger(entry.line) || entry.line < 0 || !/^[a-f0-9]{64}$/u.test(entry.sha256) || !['technical-identifier', 'proper-name', 'external-quotation'].includes(entry.reason)) fail();
+    if (!keys(entry, ['path', 'line', 'sha256', 'reason']) || typeof entry.path !== 'string' || !entry.path.length || entry.path.length > 4096 || /[\x00-\x1f\x7f]/u.test(entry.path) || path.posix.isAbsolute(entry.path) || entry.path.includes('\\') || entry.path.split('/').some(part => part === '..' || part === '') || !Number.isSafeInteger(entry.line) || entry.line < 0 || !/^[a-f0-9]{64}$/u.test(entry.sha256) || !['technical-identifier', 'proper-name', 'external-quotation', 'natural-language-collision'].includes(entry.reason)) fail();
     const key = entry.path + ':' + entry.line; if (seen.has(key)) fail(); seen.add(key);
   }
   return value.entries.length;
