@@ -1,4 +1,4 @@
-#include "../stdafx.h"
+﻿#include "../stdafx.h"
 #include "Workspace.h"
 #include "ViewModel.h"
 #include "Presentation.h"

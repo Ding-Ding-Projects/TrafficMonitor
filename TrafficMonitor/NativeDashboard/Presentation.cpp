@@ -1,4 +1,4 @@
-#include "../stdafx.h"
+﻿#include "../stdafx.h"
 #include "Presentation.h"
 #include <cmath>
 #include <iomanip>
