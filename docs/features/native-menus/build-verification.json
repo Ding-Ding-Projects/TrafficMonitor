@@ -1,0 +1,17 @@
+{
+  "sourceCommit": "a74b441b08acbfd22480653f0a085fcab8ad0b83",
+  "command": "build.bat --silent",
+  "configuration": "Release (lite)",
+  "platform": "x64",
+  "exitCode": 0,
+  "warnings": 2,
+  "errors": 0,
+  "warningCodes": ["LNK4199"],
+  "elapsedSeconds": 7.44,
+  "executable": "Bin/x64/Release (lite)/TrafficMonitor.exe",
+  "sha256": "FEDBFFC9D0FA401BB73860C0900BB9AE5C5F6B9B08A1629FD2CF0154B787144C",
+  "runtimeVerified": false,
+  "uiaVerified": false,
+  "layoutMatrixVerified": false,
+  "notes": "SDK accessibility GUIDs were emitted by a separate translation unit using initguid.h and oleacc.h. Existing unused WinRT delay-load imports produce the two linker warnings."
+}

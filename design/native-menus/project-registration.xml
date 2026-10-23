@@ -1,0 +1,7 @@
+<ItemGroup>
+  <ClInclude Include="NativeMenus\SearchableMenu.h" />
+  <ClCompile Include="NativeMenus\SearchableMenu.cpp" />
+  <ClCompile Include="NativeMenus\AccessibilityGuids.cpp">
+    <PrecompiledHeader>NotUsing</PrecompiledHeader>
+  </ClCompile>
+</ItemGroup>

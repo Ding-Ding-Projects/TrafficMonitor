@@ -978,4 +978,9 @@
     <ClInclude Include="NativeMaterial\Controls.h" />
     <ClCompile Include="NativeMaterial\Controls.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="NativeMenus\SearchableMenu.h"><Filter>源文件和头文件</Filter></ClInclude>
+    <ClCompile Include="NativeMenus\SearchableMenu.cpp"><Filter>源文件和头文件</Filter></ClCompile>
+  </ItemGroup>
+  <ItemGroup><ClCompile Include="NativeMenus\AccessibilityGuids.cpp"><Filter>源文件和头文件</Filter></ClCompile></ItemGroup>
 </Project>
