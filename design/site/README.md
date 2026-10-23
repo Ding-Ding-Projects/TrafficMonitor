@@ -1,0 +1,47 @@
+# TrafficMonitor documentation website design handoff
+
+Status: design proposed for independent review. This is a static documentation/download website, not a replacement for the native MFC application. Native design work remains preserved in `design/native-mfc/`. Deployment, homepage configuration and live verification belong to the integration owner.
+
+## Purpose and current truth
+
+Lead with **Understand your network at a glance**, then a concrete explanation: native Windows network and resource monitoring in the taskbar or floating window. The first action is the verified installer download; the next is **Set up your taskbar monitor**. Show the actual running documentation build version/provenance before navigation, with unavailable metadata explicit. Do not advertise the planned native dashboard or broader required features as shipped.
+
+Latest inspected normal-release metadata at design discovery was `v1.0.6-run39901228118-1`, published `2026-10-23T04:39:28Z`, containing Setup.exe, RELEASES, the full package and SHA256SUMS.txt. This observation is not a permanent latest-version assertion. Parent supplies a pinned verified release manifest for the actual build, including exact tag/source/version/publication timestamp, immutable asset URLs, sizes and hashes. The primary button exists only for a verified non-draft/non-prerelease installer; missing metadata shows **Download verification unavailable** with a link to the release list, never a guessed asset URL. Source-only follow-up releases are not represented as newly verified native-runtime behavior.
+
+## Information architecture
+
+Persistent shell: product identity, Home, Guided setup, Documentation, Release status, Settings and visible Accessibility entry. English is initial language; Cantonese and bilingual are explicit persisted modes. Theme controls support light/dark/system, reduced motion, text size and visible focus. At 320 CSS px use a keyboard-operable expandable navigation region and stacked actions, not horizontally overflowing tabs. Desktop content maximum is 1200px with 24px gutters; narrow gutters are 16px.
+
+Home has a concise purpose block, verified download panel, real current evidence panel, three task-entry buttons, and an honest delivery-status section. It is not an inventory of source filenames. Real task entries: install and keep preferences; choose taskbar or floating display; select adapters and inspect history. Existing verified 1.0.4 evidence is labelled with that version and source, never relabelled as the pending redesign. Only parent-reviewed public-safe actual images may be copied into served assets. If unavailable, omit the image and state the evidence limit; no fabricated UI or design SVG masquerades as product imagery.
+
+Documentation uses task categories with full articles rendered locally, in-page headings, breadcrumb, related articles and optional source link. Categories: Getting started, Monitoring and taskbar, Configuration and appearance, Plugins, Troubleshooting, Building, Release history and Historical upstream reference. Imported upstream instructions retain attribution and their exact upstream revision; clear version/context banners distinguish upstream behavior from this fork's installed-mode behavior. All original substantive content remains available. Unsupported links/images are reported, never silently replaced with summaries. Complete upstream wiki content is supplied by the separate content lane because this fork's own wiki is uninitialized.
+
+## Interactive walkthroughs
+
+Guided setup shows a left step list at wide sizes and a compact step selector above content at narrow sizes. Steps: Download, Install, Find the taskbar meter, Choose a display, Preserve settings during updates. Each step has what to do, expected actual behavior, troubleshooting and related article links. Controls change the explanation, and **Mark as read** persists visitor-owned progress. **Reset reading progress** clears only this website's checklist. Text explicitly says **Reading progress only. This website does not run setup or change your computer.** Never claim that checking a step proves native installation.
+
+A display-mode explainer has Taskbar/Floating/Both choices that change the explanation, a simple labelled diagram, and links to relevant settings guidance. It is labelled **Illustration, not a live monitor**. No animated fake throughput, fabricated real-time chart or deceptive native action button. Reduced motion uses static transitions. Visitor progress is local storage with bounded schema/version, recoverable corrupt-state handling and no network telemetry.
+
+## Settings and privacy
+
+Settings has visible local personal-wording JSON upload before a file exists, replace and clear/reset, generic loaded/invalid/no-file states, and the same full validation bounds: 256 KiB UTF-8, depth 8, 160 code points/key, 1000/value, supported version, strings only, unknown/unsafe keys and duplicate keys rejected before application. No real mappings, sample private terms, filenames or payloads are bundled or logged. Cache stays in this origin's local storage; clear purges and restores original wording. Imported text changes only controlled UI text, never article/source quotations, URLs, identifiers or user data. Runtime code makes no upload request. The exact shared neutral schema must be confirmed before implementation; do not invent a compatible-looking schema.
+
+All preferences have reset paths and local-only disclosure. Accessibility controls remain available in dialogs/narrow states. Keyboard focus returns to the origin on closing an overlay. Existing articles may contain external links; opening a link is distinct from background fetching. Bundle scripts/styles/icons/assets locally, no CDN or analytics. Third-party badges from inherited Markdown become explanatory text/source links unless locally reviewed assets are available, avoiding runtime tracking.
+
+## Component and interaction system
+
+Use registered Material Design 3 components with semantic token roles and actual keyboard behavior. Prefer a locally bundled proven web component implementation where available; a hand-painted HTML button is not certified by naming a CSS class. Registry/provenance and missing conformance proof remain explicit. Components: top app bar, navigation tabs, filled/tonal/text buttons, outlined fields, checkbox, switch, segmented choice, cards, dialog, snackbar, menu and list. Font stack must have offline-safe CJK fallback; no remote font request. Light and dark role colors follow the native design's restrained teal family for continuity.
+
+Every visible search, article filter, picker and contextual menu requires its own adjacent anchored full regex workbench and independent state. Plain text is default. A simple regex toggle does not establish full RegexBuddy parity; unfinished capability remains an explicit required-feature gap. Contextual menus must be real searchable Material menus with keyboard focus, Escape, invalid/no-match states and command identity preserved. Scope never expands to modifying the native application from the browser.
+
+## Build and content contract
+
+Implementation lives in `docs/site/`, build output in `docs/site/dist/`. A local build script consumes `docs/site-content/manifest.json` and full Markdown source files from the separate content lane. Stable article IDs/routes, categories, languages, source paths, attribution and pinned wiki revision are preserved. Generated output carries complete article bodies with internal routing, anchors and local assets. Build rejects duplicate routes, missing content and unresolved required assets. Link/anchor inventory and source-content completeness compare against the source list, not only generated pages. Markdown rendering escapes unsafe raw HTML and validates URL schemes; no author-provided script execution.
+
+Parent's deployment uses the exact generated directory and repository subpath. All internal paths work under `/TrafficMonitor/`, without hardcoded domain-root asset links. The static output remains usable on refresh/deep links and with no third-party runtime requests. A release metadata change requires rebuilding the manifest-bound output, not a browser API call that silently changes the documented release.
+
+## Review and verification boundary
+
+First bounded implementation: working home/download/status, complete local article navigation, functional walkthroughs with persisted reading progress, preferences and accessible responsive shell. This is not completion of every required feature. Explicit remaining ledger: full regex parity, every-element appearance/motion depth, all shared mode/security/tool equivalents, complete design tuple evidence and other missing requirements. No stub counts as implemented.
+
+Verify normal 1280x900 and minimum 320x740 CSS viewports, English/Cantonese/bilingual, light/dark, 100/125/150/200 percent, keyboard-only and reduced motion. Drive real navigation, deep-link reloads, walkthrough steps/reset/persistence, display explainer, theme/language, upload invalid/replace/clear and offline article access. Inspect computed overflow and genuine rendered captures bound to exact source/output hashes. Verify deployed home/articles/assets, installer URL, Open Graph image if actual reviewed evidence exists, and exact About homepage readback separately from local build. No design-only result is deployment proof.
