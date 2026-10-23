@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "SearchableMenu.h"
 #include "../TrafficMonitor.h"
 #include <commctrl.h>
@@ -103,31 +103,31 @@ public:
     }
     ULONG STDMETHODCALLTYPE AddRef() override { return InterlockedIncrement(&m_refs); }
     ULONG STDMETHODCALLTYPE Release() override { ULONG n = InterlockedDecrement(&m_refs); if (!n) delete this; return n; }
-    HRESULT STDMETHODCALLTYPE GetTypeInfoCount(UINT* n) override { return m_native->GetTypeInfoCount(n); }
-    HRESULT STDMETHODCALLTYPE GetTypeInfo(UINT n, LCID l, ITypeInfo** p) override { return m_native->GetTypeInfo(n, l, p); }
-    HRESULT STDMETHODCALLTYPE GetIDsOfNames(REFIID r, LPOLESTR* n, UINT c, LCID l, DISPID* d) override { return m_native->GetIDsOfNames(r,n,c,l,d); }
-    HRESULT STDMETHODCALLTYPE Invoke(DISPID d, REFIID r, LCID l, WORD f, DISPPARAMS* p, VARIANT* v, EXCEPINFO* e, UINT* a) override { return m_native->Invoke(d,r,l,f,p,v,e,a); }
-    HRESULT STDMETHODCALLTYPE get_accParent(IDispatch** p) override { return m_native->get_accParent(p); }
-    HRESULT STDMETHODCALLTYPE get_accChildCount(long* p) override { return m_native->get_accChildCount(p); }
-    HRESULT STDMETHODCALLTYPE get_accChild(VARIANT v, IDispatch** p) override { return m_native->get_accChild(v,p); }
-    HRESULT STDMETHODCALLTYPE get_accName(VARIANT v, BSTR* p) override { return m_native->get_accName(v,p); }
-    HRESULT STDMETHODCALLTYPE get_accValue(VARIANT v, BSTR* p) override { return m_native->get_accValue(v,p); }
-    HRESULT STDMETHODCALLTYPE get_accDescription(VARIANT v, BSTR* p) override { return m_native->get_accDescription(v,p); }
+    HRESULT STDMETHODCALLTYPE GetTypeInfoCount(UINT* n) override { if(!m_state->popup) return CO_E_OBJNOTCONNECTED; return m_native->GetTypeInfoCount(n); }
+    HRESULT STDMETHODCALLTYPE GetTypeInfo(UINT n, LCID l, ITypeInfo** p) override { if(!m_state->popup) return CO_E_OBJNOTCONNECTED; return m_native->GetTypeInfo(n, l, p); }
+    HRESULT STDMETHODCALLTYPE GetIDsOfNames(REFIID r, LPOLESTR* n, UINT c, LCID l, DISPID* d) override { if(!m_state->popup) return CO_E_OBJNOTCONNECTED; return m_native->GetIDsOfNames(r,n,c,l,d); }
+    HRESULT STDMETHODCALLTYPE Invoke(DISPID d, REFIID r, LCID l, WORD f, DISPPARAMS* p, VARIANT* v, EXCEPINFO* e, UINT* a) override { if(!m_state->popup) return CO_E_OBJNOTCONNECTED; return m_native->Invoke(d,r,l,f,p,v,e,a); }
+    HRESULT STDMETHODCALLTYPE get_accParent(IDispatch** p) override { if(!m_state->popup) return CO_E_OBJNOTCONNECTED; return m_native->get_accParent(p); }
+    HRESULT STDMETHODCALLTYPE get_accChildCount(long* p) override { if(!m_state->popup) return CO_E_OBJNOTCONNECTED; return m_native->get_accChildCount(p); }
+    HRESULT STDMETHODCALLTYPE get_accChild(VARIANT v, IDispatch** p) override { if(!m_state->popup) return CO_E_OBJNOTCONNECTED; return m_native->get_accChild(v,p); }
+    HRESULT STDMETHODCALLTYPE get_accName(VARIANT v, BSTR* p) override { if(!m_state->popup) return CO_E_OBJNOTCONNECTED; return m_native->get_accName(v,p); }
+    HRESULT STDMETHODCALLTYPE get_accValue(VARIANT v, BSTR* p) override { if(!m_state->popup) return CO_E_OBJNOTCONNECTED; return m_native->get_accValue(v,p); }
+    HRESULT STDMETHODCALLTYPE get_accDescription(VARIANT v, BSTR* p) override;
     HRESULT STDMETHODCALLTYPE get_accRole(VARIANT v, VARIANT* p) override;
     HRESULT STDMETHODCALLTYPE get_accState(VARIANT v, VARIANT* p) override;
-    HRESULT STDMETHODCALLTYPE get_accHelp(VARIANT v, BSTR* p) override { return m_native->get_accHelp(v,p); }
-    HRESULT STDMETHODCALLTYPE get_accHelpTopic(BSTR* p, VARIANT v, long* n) override { return m_native->get_accHelpTopic(p,v,n); }
+    HRESULT STDMETHODCALLTYPE get_accHelp(VARIANT v, BSTR* p) override { if(!m_state->popup) return CO_E_OBJNOTCONNECTED; return m_native->get_accHelp(v,p); }
+    HRESULT STDMETHODCALLTYPE get_accHelpTopic(BSTR* p, VARIANT v, long* n) override { if(!m_state->popup) return CO_E_OBJNOTCONNECTED; return m_native->get_accHelpTopic(p,v,n); }
     HRESULT STDMETHODCALLTYPE get_accKeyboardShortcut(VARIANT v, BSTR* p) override;
-    HRESULT STDMETHODCALLTYPE get_accFocus(VARIANT* p) override { return m_native->get_accFocus(p); }
-    HRESULT STDMETHODCALLTYPE get_accSelection(VARIANT* p) override { return m_native->get_accSelection(p); }
+    HRESULT STDMETHODCALLTYPE get_accFocus(VARIANT* p) override { if(!m_state->popup) return CO_E_OBJNOTCONNECTED; return m_native->get_accFocus(p); }
+    HRESULT STDMETHODCALLTYPE get_accSelection(VARIANT* p) override { if(!m_state->popup) return CO_E_OBJNOTCONNECTED; return m_native->get_accSelection(p); }
     HRESULT STDMETHODCALLTYPE get_accDefaultAction(VARIANT v, BSTR* p) override;
-    HRESULT STDMETHODCALLTYPE accSelect(long f, VARIANT v) override { return m_native->accSelect(f,v); }
-    HRESULT STDMETHODCALLTYPE accLocation(long* x,long* y,long* w,long* h,VARIANT v) override { return m_native->accLocation(x,y,w,h,v); }
-    HRESULT STDMETHODCALLTYPE accNavigate(long d, VARIANT v, VARIANT* p) override { return m_native->accNavigate(d,v,p); }
-    HRESULT STDMETHODCALLTYPE accHitTest(long x,long y,VARIANT* p) override { return m_native->accHitTest(x,y,p); }
+    HRESULT STDMETHODCALLTYPE accSelect(long f, VARIANT v) override { if(!m_state->popup) return CO_E_OBJNOTCONNECTED; return m_native->accSelect(f,v); }
+    HRESULT STDMETHODCALLTYPE accLocation(long* x,long* y,long* w,long* h,VARIANT v) override { if(!m_state->popup) return CO_E_OBJNOTCONNECTED; return m_native->accLocation(x,y,w,h,v); }
+    HRESULT STDMETHODCALLTYPE accNavigate(long d, VARIANT v, VARIANT* p) override { if(!m_state->popup) return CO_E_OBJNOTCONNECTED; return m_native->accNavigate(d,v,p); }
+    HRESULT STDMETHODCALLTYPE accHitTest(long x,long y,VARIANT* p) override { if(!m_state->popup) return CO_E_OBJNOTCONNECTED; return m_native->accHitTest(x,y,p); }
     HRESULT STDMETHODCALLTYPE accDoDefaultAction(VARIANT v) override;
-    HRESULT STDMETHODCALLTYPE put_accName(VARIANT v, BSTR p) override { return m_native->put_accName(v,p); }
-    HRESULT STDMETHODCALLTYPE put_accValue(VARIANT v, BSTR p) override { return m_native->put_accValue(v,p); }
+    HRESULT STDMETHODCALLTYPE put_accName(VARIANT v, BSTR p) override { if(!m_state->popup) return CO_E_OBJNOTCONNECTED; return m_native->put_accName(v,p); }
+    HRESULT STDMETHODCALLTYPE put_accValue(VARIANT v, BSTR p) override { if(!m_state->popup) return CO_E_OBJNOTCONNECTED; return m_native->put_accValue(v,p); }
 private:
     LONG m_refs{ 1 };
     IAccessible* m_native;
@@ -137,17 +137,17 @@ private:
 class Popup
 {
 public:
-    HWND window{}, owner{}, edit{}, list{}, back{}, previousFocus{};
-    bool done{}, composing{}, rebuilding{}, restoreFocus{};
+    HWND window{}, owner{}, edit{}, list{}, back{}, empty{}, previousFocus{};
+    bool done{}, composing{}, rebuilding{}, restoreFocus{}, compatibility{};
     UINT command{}, dpi{96};
     HFONT font{}, boldFont{};
     HBRUSH background{};
-    COLORREF surface{}, ink{}, muted{}, selected{}, accent{};
+    COLORREF surface{}, ink{}, muted{}, selected{}, accent{}, selectedInk{};
     std::vector<Level> levels;
     std::vector<size_t> visible;
     std::shared_ptr<AccessibleState> accessibility{ std::make_shared<AccessibleState>() };
     MenuAccessible* accessible{};
-    std::wstring searchText, backText, emptyText, invokeText, expandText;
+    std::wstring searchText, backText, emptyText, invokeText, expandText, radioText;
     POINT anchor{};
     int rowHeight{}, width{}, height{};
     HMENU selectedMenu{};
@@ -179,6 +179,7 @@ public:
         { surface = RGB(247,249,255); ink = RGB(25,28,32); muted = RGB(89,95,106); selected = RGB(217,228,250); accent = RGB(38,86,158); }
         else
         { surface = RGB(31,35,43); ink = RGB(229,233,242); muted = RGB(166,176,192); selected = RGB(54,72,102); accent = RGB(173,201,255); }
+        selectedInk=(hc.dwFlags&HCF_HIGHCONTRASTON)?GetSysColor(COLOR_HIGHLIGHTTEXT):ink;
         if (background) DeleteObject(background);
         background = CreateSolidBrush(surface);
     }
@@ -188,7 +189,7 @@ public:
         if (boldFont) DeleteObject(boldFont);
         font = CreateFontW(-Px(14),0,0,0,FW_NORMAL,FALSE,FALSE,FALSE,DEFAULT_CHARSET,OUT_DEFAULT_PRECIS,CLIP_DEFAULT_PRECIS,CLEARTYPE_QUALITY,DEFAULT_PITCH,L"Segoe UI");
         boldFont = CreateFontW(-Px(14),0,0,0,FW_SEMIBOLD,FALSE,FALSE,FALSE,DEFAULT_CHARSET,OUT_DEFAULT_PRECIS,CLIP_DEFAULT_PRECIS,CLEARTYPE_QUALITY,DEFAULT_PITCH,L"Segoe UI");
-        for (HWND control : { edit, list, back }) SendMessageW(control, WM_SETFONT, reinterpret_cast<WPARAM>(font), TRUE);
+        for (HWND control : { edit, list, back, empty }) SendMessageW(control, WM_SETFONT, reinterpret_cast<WPARAM>(font), TRUE);
     }
     void Layout()
     {
@@ -204,6 +205,7 @@ public:
         MoveWindow(back,padding,padding,backWidth,Px(44),TRUE);
         MoveWindow(edit,padding+backWidth,padding,(std::max)(1,width-padding*2-backWidth),Px(44),TRUE);
         MoveWindow(list,padding,Px(68),(std::max)(1,width-padding*2),(std::max)(1,height-Px(80)),TRUE);
+        MoveWindow(empty,padding+Px(12),Px(80),(std::max)(1,width-padding*2-Px(24)),Px(64),TRUE);
         MeasureRows();
     }
     void MeasureRows()
@@ -246,6 +248,7 @@ public:
             SendMessageW(list,LB_ADDSTRING,0,reinterpret_cast<LPARAM>(items[i].label.c_str()));
         }
         SendMessageW(list,LB_SETCURSEL,visible.empty() ? -1 : 0,0);
+        ShowWindow(empty,visible.empty()?SW_SHOW:SW_HIDE);
         MeasureRows();
         SendMessageW(list,WM_SETREDRAW,TRUE,0); InvalidateRect(list,nullptr,TRUE);
         NotifyWinEvent(EVENT_OBJECT_REORDER,list,OBJID_CLIENT,CHILDID_SELF);
@@ -255,6 +258,7 @@ public:
         if (!levels.empty()) levels.back().selected = static_cast<int>(SendMessageW(list,LB_GETCURSEL,0,0));
         SendMessageW(owner,WM_INITMENUPOPUP,reinterpret_cast<WPARAM>(menu),MAKELPARAM(position,FALSE));
         Level level; level.menu=menu; level.parentPosition=position; levels.push_back(std::move(level));
+        if(HasOpaqueItems(menu)) { compatibility=true; done=true; return; }
         ReadLevel(); rebuilding=true; SetWindowTextW(edit,L""); rebuilding=false; Filter(); Layout(); SetFocus(edit);
     }
     void Back()
@@ -323,7 +327,7 @@ public:
             MoveToEx(draw.hDC,draw.rcItem.left+Px(12),(draw.rcItem.top+draw.rcItem.bottom)/2,nullptr);
             LineTo(draw.hDC,draw.rcItem.right-Px(12),(draw.rcItem.top+draw.rcItem.bottom)/2); SelectObject(draw.hDC,old); DeleteObject(pen); return;
         }
-        SetTextColor(draw.hDC,item->Enabled() ? ink : muted);
+        SetTextColor(draw.hDC,item->Enabled() ? (active?selectedInk:ink) : muted);
         auto oldFont=SelectObject(draw.hDC,(item->state&MFS_DEFAULT) ? boldFont : font);
         RECT text=draw.rcItem; text.left+=Px(64); text.right-=Px(28); text.top+=Px(4); text.bottom-=Px(4);
         if(!item->shortcut.empty())
@@ -360,14 +364,6 @@ public:
         }
         if(hwnd==self->list && message==WM_GETOBJECT && static_cast<LONG>(l)==OBJID_CLIENT && self->accessible)
             return LresultFromObject(IID_IAccessible,w,self->accessible);
-        if(hwnd==self->list && message==WM_PAINT && self->visible.empty())
-        {
-            LRESULT result=DefSubclassProc(hwnd,message,w,l);
-            HDC dc=GetDC(hwnd); RECT rect{}; GetClientRect(hwnd,&rect); InflateRect(&rect,-self->Px(12),-self->Px(12));
-            auto old=SelectObject(dc,self->font); SetBkMode(dc,TRANSPARENT); SetTextColor(dc,self->muted);
-            DrawTextW(dc,self->emptyText.c_str(),-1,&rect,DT_WORDBREAK|DT_NOPREFIX);
-            SelectObject(dc,old); ReleaseDC(hwnd,dc); return result;
-        }
         if(hwnd==self->list && message==WM_LBUTTONUP)
         {
             DWORD hit=static_cast<DWORD>(SendMessageW(hwnd,LB_ITEMFROMPOINT,0,l));
@@ -415,6 +411,7 @@ public:
         emptyText=chinese ? L"沒有符合的指令" : L"No matching commands";
         invokeText=chinese ? L"執行" : L"Invoke";
         expandText=chinese ? L"開啟子選單" : L"Open submenu";
+        radioText=chinese ? L"單選選項" : L"Radio option";
         WNDCLASSEXW cls{sizeof(cls)}; cls.lpfnWndProc=WindowProc; cls.hInstance=AfxGetInstanceHandle(); cls.lpszClassName=L"TrafficMonitor.NativeSearchMenu"; cls.hCursor=LoadCursorW(nullptr,IDC_ARROW); cls.style=CS_DROPSHADOW;
         if(!RegisterClassExW(&cls) && GetLastError()!=ERROR_CLASS_ALREADY_EXISTS) return false;
         Colors();
@@ -426,7 +423,8 @@ public:
         back=CreateWindowExW(0,L"BUTTON",backText.c_str(),WS_CHILD|WS_TABSTOP|BS_PUSHBUTTON,0,0,1,1,window,reinterpret_cast<HMENU>(BackId),cls.hInstance,nullptr);
         edit=CreateWindowExW(WS_EX_CLIENTEDGE,L"EDIT",L"",WS_CHILD|WS_VISIBLE|WS_TABSTOP|ES_AUTOHSCROLL,0,0,1,1,window,reinterpret_cast<HMENU>(EditId),cls.hInstance,nullptr);
         list=CreateWindowExW(0,L"LISTBOX",searchText.c_str(),WS_CHILD|WS_VISIBLE|WS_TABSTOP|WS_VSCROLL|LBS_NOTIFY|LBS_OWNERDRAWVARIABLE|LBS_HASSTRINGS|LBS_NOINTEGRALHEIGHT,0,0,1,1,window,reinterpret_cast<HMENU>(ListId),cls.hInstance,nullptr);
-        if(!edit || !list || !back) return false;
+        empty=CreateWindowExW(0,L"STATIC",emptyText.c_str(),WS_CHILD|SS_LEFT,0,0,1,1,window,nullptr,cls.hInstance,nullptr);
+        if(!edit || !list || !back || !empty) return false;
         SendMessageW(edit,EM_SETCUEBANNER,TRUE,reinterpret_cast<LPARAM>(searchText.c_str()));
         SendMessageW(edit,EM_SETLIMITTEXT,512,0);
         IAccPropServices* properties{};
@@ -465,6 +463,15 @@ HRESULT MenuAccessible::get_accState(VARIANT child, VARIANT* value)
         if(item->Separator()) value->lVal&=~(STATE_SYSTEM_SELECTABLE|STATE_SYSTEM_FOCUSABLE);
     }
     return result;
+}
+HRESULT MenuAccessible::get_accDescription(VARIANT child,BSTR* value)
+{
+    if(!value) return E_POINTER; *value=nullptr;
+    if(!m_state->popup) return CO_E_OBJNOTCONNECTED;
+    const Item* item=child.vt==VT_I4 ? m_state->popup->Row(child.lVal-1) : nullptr;
+    if(item && (item->type&MFT_RADIOCHECK))
+    { *value=SysAllocString(m_state->popup->radioText.c_str()); return *value ? S_OK : E_OUTOFMEMORY; }
+    return m_native->get_accDescription(child,value);
 }
 HRESULT MenuAccessible::get_accKeyboardShortcut(VARIANT child,BSTR* value)
 {
@@ -505,7 +512,8 @@ UINT Track(CMenu* menu,UINT flags,int x,int y,CWnd* ownerWindow)
     const bool created=popup.Create();
     if(created)
     {
-        popup.Open(handle,0); ShowWindow(popup.window,SW_SHOW); SetForegroundWindow(popup.window); SetFocus(popup.edit);
+        popup.Open(handle,0);
+        if(!popup.done) { ShowWindow(popup.window,SW_SHOW); SetForegroundWindow(popup.window); SetFocus(popup.edit); }
         MSG message{};
         while(!popup.done && IsWindow(owner) && IsWindow(popup.window))
         {
@@ -522,7 +530,7 @@ UINT Track(CMenu* menu,UINT flags,int x,int y,CWnd* ownerWindow)
         if(IsWindow(popup.window)) DestroyWindow(popup.window);
     }
     if(IsWindow(owner)) SendMessageW(owner,WM_EXITMENULOOP,TRUE,0);
-    if(!created && IsWindow(owner)) return static_cast<UINT>(menu->TrackPopupMenu(flags,x,y,ownerWindow));
+    if((!created || popup.compatibility) && IsWindow(owner)) return static_cast<UINT>(menu->TrackPopupMenu(flags,x,y,ownerWindow));
     if(popup.restoreFocus && IsWindow(owner))
     {
         HWND foreground=GetForegroundWindow(); HWND root=GetAncestor(owner,GA_ROOT);
