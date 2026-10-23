@@ -405,3 +405,13 @@ The updater lane incorporates local integration 693ae4d. Validated stale pending
 Installer production 1.0.9015 completed with exit 0 at 7fffeb22b26e7f0e6d0cec247f19fb895957213f. Receipt: docs/features/installation/silent-handoff-build.json. Full article production remains pending. No automatic restart or original handoff cause is claimed verified.
 
 Documentation production completed at d5777a660a2fa36ce360a163b1f338093ee24dfa through build.bat --site: 196 complete articles, 1599 history records, zero unavailable images. Receipt: docs/features/installation/silent-handoff-site-build.json. No deployment or wiki publication occurred. The exact original helper loading fault remains unresolved; fixed stage/results support the next accepted normal operation without provoking checks. No runtime work is authorized in this lane.
+
+## Verified manual package 1.0.25 baseline
+
+Normal release [v1.0.25-run39959454885-1](https://github.com/Ding-Ding-Projects/TrafficMonitor/releases/tag/v1.0.25-run39959454885-1) is bound to source `693ae4d349dcd5b993b826d05e6c0fd9a8eae400`. The assigned supported manual update completed with Squirrel update and stable launcher exit 0. Its installed executable SHA-256 is `2994f92bfc3b6c224f8d6e7f64948293ca9e9e0505d68cbf65dd989664d9d685`, matching the released package executable. Settings, traffic history and startup registration matched the post-graceful-save baseline, and all four roaming files remained unchanged after launch. Embedded executable versions remain 1.8.6.0, separate from package version 1.0.25.
+
+This is the verified manual baseline, not a claim that 1.0.25 is the newest release. The unchanged obsolete pending-package state was retained before fallback; no repeated observation, preference change or check trigger occurred. Automatic cadence, helper loading, cooperative restart and recovery remain unverified. Native production 1.0.9015 remains bound to source `7fffeb22b26e7f0e6d0cec247f19fb895957213f`; no native rebuild is part of this documentation followup.
+
+The updater wiki guide was separately published at wiki master `0ab91b5d0ba50584dce8d75d2a2cb7c0a0d2a6dd`. Its post-fetch raw blob matches prepared source `99708ed18dc61c996113ed027a3f5d2dea370e4e`, SHA-256 `411488cb8820ab87fead547dcf40e39202a090c754ce6cab368e4768b292b718`. The other six guides and prior publication proof are retained. This proves stored content, not live wiki interaction.
+
+Current followup: produce the complete static article snapshot and a separate source-bound receipt. Do not rebuild native 1.0.9015 or infer automatic restart acceptance. The coordinating task owns subsequent release, installed-update and publication actions.
