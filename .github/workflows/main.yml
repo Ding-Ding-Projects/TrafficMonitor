@@ -9,7 +9,40 @@ concurrency:
   group: trafficmonitor-release-${{ github.ref }}
   cancel-in-progress: false
 jobs:
+  publication-language:
+    runs-on: windows-2022
+    timeout-minutes: 30
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout candidate as data
+        uses: actions/checkout@v4
+        with:
+          path: candidate
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Checkout immutable trusted scanner
+        uses: actions/checkout@v4
+        with:
+          ref: 5b859ee863e9334ff0c16465a0202ae6c12687d9
+          path: trusted-scanner
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24.10.0'
+      - name: Check publication language
+        shell: pwsh
+        env:
+          PUBLICATION_LANGUAGE_DATA: ${{ secrets.PUBLICATION_LANGUAGE_DATA }}
+          PUBLICATION_LANGUAGE_EXCEPTIONS: ${{ secrets.PUBLICATION_LANGUAGE_EXCEPTIONS }}
+          EVENT_NAME: ${{ github.event_name }}
+          EVENT_TIP: ${{ github.sha }}
+          EVENT_BASE: ${{ github.event.before }}
+        run: |
+          node -e "const {spawnSync}=require('node:child_process'); const path=require('node:path'); const fs=require('node:fs'); const os=require('node:os'); const input=process.env.PUBLICATION_LANGUAGE_DATA; const exceptions=process.env.PUBLICATION_LANGUAGE_EXCEPTIONS; delete process.env.PUBLICATION_LANGUAGE_DATA; delete process.env.PUBLICATION_LANGUAGE_EXCEPTIONS; if(!input||!exceptions){console.error('Publication rule or reviewed exception input missing; check incomplete.');process.exit(2)} const dir=fs.mkdtempSync(path.join(os.tmpdir(),'publication-policy-')); try{const file=path.join(dir,'exceptions.json'); fs.writeFileSync(file,exceptions,{mode:384}); const args=[path.resolve('trusted-scanner/scripts/publication/run-publication-language-ci.mjs'),'--root',path.resolve('candidate'),'--tip',process.env.EVENT_TIP,'--exceptions-file',file]; if(process.env.EVENT_NAME==='push'){args.push('--base',process.env.EVENT_BASE)}else{args.push('--mode','current-tree-only')} const result=spawnSync(process.execPath,args,{input,stdio:['pipe','inherit','inherit'],windowsHide:true});process.exitCode=result.status??2;}finally{fs.rmSync(dir,{recursive:true,force:true})}"
+          if ($LASTEXITCODE -ne 0) { throw 'Publication language check failed or incomplete' }
   build-release:
+    needs: publication-language
     runs-on: windows-2022
     timeout-minutes: 60
     env:
