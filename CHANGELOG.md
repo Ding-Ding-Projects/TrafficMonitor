@@ -52,3 +52,9 @@ Runtime installation and update acceptance remain separate from source and build
 - Add independent native pattern editing and bounded asynchronous filtering to workspace, Settings and context-menu searches.
 - Add search, literal replacement and split previews, syntax insertion and match-span navigation.
 - Retain explicit unsupported syntax, parity gaps and deferred runtime evidence.
+
+## Unreleased modeless regex presentation
+
+- Replace the modal regex decision with a caller-owned modeless native tool window.
+- Revalidate current owner rows on Apply, cancel drafts on owner changes and preserve menu lifecycle routing.
+- Keep the bounded NFA engine unchanged; runtime acceptance and complete parity remain unfinished.

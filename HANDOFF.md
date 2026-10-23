@@ -274,3 +274,7 @@ lane. Static deployment and live interaction remain unverified here. Full native
 conversion, all required features, full regex parity, modeless presentation,
 localization and accessibility acceptance remain unfinished. The coordinating
 task owns the next remote preservation and main integration.
+
+## Owned modeless regex continuation
+
+The editor lifetime is now caller-owned and modeless for workspace, Settings and each menu level. Owner edits/navigation close stale drafts; Apply validates the current corpus and rechecks it before transferring options. Menu keyboard translation and owned-group activation preserve its HMENU identity routing. The bounded engine and updater backend are unchanged. Native package 1.0.9008 is pending; older package receipts remain historical. No tests, review, audits, runtime interaction or screenshots ran. Full parity, localization/accessibility and modeless runtime acceptance remain unfinished.

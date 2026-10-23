@@ -52,6 +52,7 @@ namespace NativeSettings
             CStatic m_title,m_note,m_intervalLabel,m_results,m_updateInfo;
             CEdit m_search,m_interval;
             NativeRegex::Filter m_filter;
+            NativeRegex::Editor m_regexEditor;
             std::vector<std::wstring> Subjects() const;
             NativeMaterial::Button m_monitor,m_floating,m_taskbar,m_clear,m_applyButton,m_revert,m_reset,m_legacy,m_theme,m_regex;
             std::vector<Entry> m_entries;
@@ -217,26 +218,27 @@ namespace NativeSettings
         {
             return !m_dirty||MessageBox(T(L"Discard unapplied settings changes?",L"捨棄尚未套用嘅設定更改？"),T(L"Settings",L"設定"),MB_YESNO|MB_ICONQUESTION|MB_DEFBUTTON2)==IDYES;
         }
-        void Editor::OnCancel(){if(CanDiscard())EndDialog(IDCANCEL);}
+        void Editor::OnCancel(){if(CanDiscard()){m_regexEditor.Close();EndDialog(IDCANCEL);}}
         BOOL Editor::OnCommand(WPARAM w,LPARAM l)
         {
             const UINT id=LOWORD(w),code=HIWORD(w);
             if(m_loading)return CDialog::OnCommand(w,l);
-            if(id==Search&&code==EN_CHANGE){Layout();return TRUE;}
+            if(id==Search&&code==EN_CHANGE){m_regexEditor.Close();Layout();return TRUE;}
             if(id==Interval&&code==EN_CHANGE){m_dirty=true;return TRUE;}
             if(code==BN_CLICKED&&id>=FirstCheck&&id<FirstCheck+m_entries.size())
             {auto& entry=m_entries[id-FirstCheck];m_values.*entry.member=entry.control->GetCheck()==BST_CHECKED;m_dirty=true;entry.control->Invalidate();Note(T(L"Unapplied changes. Apply saves, Revert reloads current values.",L"有未套用更改。套用會儲存，還原會重新載入目前數值。"));return TRUE;}
             if(code!=BN_CLICKED)return CDialog::OnCommand(w,l);
             switch(id)
             {
-            case PageMonitor:case PageFloating:case PageTaskbar:m_page=id-PageMonitor;Layout();return TRUE;
+            case PageMonitor:case PageFloating:case PageTaskbar:m_regexEditor.Close();m_page=id-PageMonitor;Layout();return TRUE;
             case Regex:
-                if(NativeRegex::Edit(m_hWnd,m_search.GetSafeHwnd(),m_filter.options,Subjects(),m_chinese,m_appearance)){m_search.SetWindowText(m_filter.options.query.c_str());Layout();}return TRUE;
+                m_regexEditor.Open(m_hWnd,m_search.GetSafeHwnd(),m_filter.options,[this]{return Subjects();},
+                    [this](const NativeRegex::Options& options){m_filter.options=options;m_search.SetWindowText(options.query.c_str());Layout();},m_chinese,m_appearance);return TRUE;
             case Clear:m_filter.options.regex=false;m_search.SetWindowText(L"");m_search.SetFocus();return TRUE;
             case Apply:ApplyDraft();return TRUE;
             case Revert:Reload();return TRUE;
             case Reset:ResetPage();return TRUE;
-            case Legacy:if(CanDiscard())EndDialog(IDRETRY);return TRUE;
+            case Legacy:if(CanDiscard()){m_regexEditor.Close();EndDialog(IDRETRY);}return TRUE;
             case Theme:m_appearance=m_appearance==NativeMaterial::Appearance::Light?NativeMaterial::Appearance::Dark:NativeMaterial::Appearance::Light;SetTheme();return TRUE;
             default:return CDialog::OnCommand(w,l);
             }

@@ -77,6 +77,7 @@ namespace NativeDashboard
             CBrush m_background;
             NativeMaterial::Button m_history, m_plugins, m_settings, m_floatButton, m_theme, m_pause, m_refresh, m_clear, m_regex;
             CEdit m_search, m_details;
+            NativeRegex::Editor m_regexEditor;
             CStatic m_status, m_summary;
             CTabCtrl m_tabs;
             CListCtrl m_adapters, m_samples;
@@ -307,7 +308,7 @@ namespace NativeDashboard
         {
             const UINT id = LOWORD(wparam);
             if (id == SearchId && HIWORD(wparam) == EN_CHANGE)
-            { CString query; m_search.GetWindowText(query); m_model.Filter(query.GetString()); RefreshRows(); return TRUE; }
+            { m_regexEditor.Close(); CString query; m_search.GetWindowText(query); m_model.Filter(query.GetString()); RefreshRows(); return TRUE; }
             if (HIWORD(wparam) != BN_CLICKED) return CWnd::OnCommand(wparam, lparam);
             switch (id)
             {
@@ -321,8 +322,8 @@ namespace NativeDashboard
             case RefreshId:
                 m_controller.Stop(); m_model.Reset(); m_pause.SetLabel(T(L"Pause display", L"暫停顯示")); RefreshRows(); Start(); return TRUE;
             case RegexId:
-                if(NativeRegex::Edit(m_hWnd,m_search.GetSafeHwnd(),m_model.search.options,m_model.SearchSubjects(),m_chinese,m_appearance))
-                { m_search.SetWindowText(m_model.search.options.query.c_str());m_model.Refilter(); }
+                m_regexEditor.Open(m_hWnd,m_search.GetSafeHwnd(),m_model.search.options,[this]{return m_model.SearchSubjects();},
+                    [this](const NativeRegex::Options& options){m_model.search.options=options;m_search.SetWindowText(options.query.c_str());m_model.Refilter();},m_chinese,m_appearance);
                 return TRUE;
             case ClearId: m_model.search.options.regex=false; m_search.SetWindowText(L""); m_search.SetFocus(); return TRUE;
             default: return CWnd::OnCommand(wparam, lparam);
@@ -412,6 +413,7 @@ namespace NativeDashboard
         void Workspace::OnClose() { ShowWindow(SW_HIDE); m_controller.Stop(); DestroyWindow(); }
         void Workspace::OnDestroy()
         {
+            m_regexEditor.Close();
             m_controller.Stop(); m_floating = {}; m_canvas.Detach();
             CWnd::OnDestroy();
         }

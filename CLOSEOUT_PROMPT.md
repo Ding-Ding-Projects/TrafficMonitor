@@ -93,3 +93,7 @@ lane. Static deployment and live interaction remain unverified here. Full native
 conversion, all required features, full regex parity, modeless presentation,
 localization and accessibility acceptance remain unfinished. The coordinating
 task owns the next remote preservation and main integration.
+
+## Current modeless regex continuation
+
+Source now replaces the modal decision with a caller-owned modeless native tool window across the three existing owners. Keep owner lifetime cancellation, fresh corpus validation, HMENU routing and updater restart deferral. The engine and updater backend are unchanged. Exact package 1.0.9008 is pending; prior 1.0.9006 remains bound to source 265f048da7cb7534cb151519d003c67218a73048. No tests, reviews, runtime quality checks or screenshots are authorized in this pass. Parent owns integration, push, release and accepted installation. Runtime acceptance, all display/accessibility modes and full RegexBuddy parity remain unfinished.

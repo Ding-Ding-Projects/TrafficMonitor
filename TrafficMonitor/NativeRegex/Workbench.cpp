@@ -5,18 +5,27 @@
 
 namespace NativeRegex
 {
+struct EditorState { HWND window{}; };
 namespace
 {
     enum : UINT { Pattern=55001, Subject, Replacement, Mode, Case, Run, Replace, Split, Apply, Cancel, Results, InsertAny, InsertDigit, InsertWord, InsertGroup, InsertStart, InsertEnd };
     class Workbench final : public CDialog
     {
     public:
-        Options draft; std::vector<std::wstring> subjects; HWND anchor{}; bool chinese{};
+        Options draft; std::vector<std::wstring> subjects; HWND anchor{},owner{}; bool chinese{};
+        std::shared_ptr<EditorState> state;bool autoDelete{};
+        std::function<std::vector<std::wstring>()> readSubjects;
+        std::function<void(const Options&)> accept;
+        bool Translate(MSG* message) { return PreTranslateMessage(message)!=FALSE; }
+        void Reanchor();
         NativeMaterial::Appearance appearance{};
     protected:
         BOOL OnInitDialog() override;
         BOOL OnCommand(WPARAM,LPARAM) override;
-        void OnCancel() override { session.Cancel();EndDialog(IDCANCEL); }
+        void OnCancel() override { Finish(false); }
+        void PostNcDestroy() override { if(state && state->window==m_hWnd)state->window=nullptr;if(autoDelete)delete this; }
+        afx_msg void OnDestroy() { session.Cancel();KillTimer(1);if(state)state->window=nullptr;CDialog::OnDestroy(); }
+        afx_msg void OnClose() { Finish(false); }
         void OnOK() override { Execute(Operation::Search,false); }
         afx_msg void OnTimer(UINT_PTR);
         afx_msg void OnSize(UINT,int,int){Layout();}
@@ -33,6 +42,8 @@ namespace
         CString T(const wchar_t* en,const wchar_t* zh) const{return chinese?zh:en;}
         int Px(int n) const{return MulDiv(n,dpi,96);}
         void Layout();void Fonts();void Execute(Operation,bool);void Changed();Options Read();
+        void Finish(bool commit);
+        RECT previousAnchor{};
         UINT dpi{96};int scroll{};bool loading{true},applying{},ready{};
         CFont font;CBrush background;
         CEdit pattern,subject,replacement,output;CListBox results;
@@ -42,6 +53,8 @@ namespace
     };
     BEGIN_MESSAGE_MAP(Workbench,CDialog)
         ON_WM_TIMER()
+        ON_WM_DESTROY()
+        ON_WM_CLOSE()
         ON_WM_SIZE()
         ON_WM_VSCROLL()
         ON_WM_MOUSEWHEEL()
@@ -53,7 +66,7 @@ namespace
     END_MESSAGE_MAP()
     BOOL Workbench::OnInitDialog()
     {
-        CDialog::OnInitDialog();dpi=GetDpiForWindow(m_hWnd);if(!dpi)dpi=96;
+        CDialog::OnInitDialog();state->window=m_hWnd;dpi=GetDpiForWindow(m_hWnd);if(!dpi)dpi=96;
         SetWindowText(T(L"Search pattern workbench",L"搜尋表示式工作台"));
         auto colors=NativeMaterial::Palette::Resolve(appearance);
         background.CreateSolidBrush(RGB(BYTE(colors.surface.r*255),BYTE(colors.surface.g*255),BYTE(colors.surface.b*255)));
@@ -79,10 +92,32 @@ namespace
         apply.Create(T(L"Apply to search",L"套用至搜尋"),r,this,Apply);cancel.Create(T(L"Cancel",L"取消"),r,this,Cancel);
         for(auto* b:{&mode,&caseButton,&run,&replace,&split,&apply,&cancel,&any,&digit,&word,&group,&start,&end})b->SetAppearance(appearance);
         Fonts();RECT size{0,0,Px(780),Px(700)};AdjustWindowRectEx(&size,GetStyle(),FALSE,GetExStyle());
-        RECT origin{};::GetWindowRect(anchor,&origin);MONITORINFO monitor{sizeof(monitor)};GetMonitorInfoW(MonitorFromWindow(anchor,MONITOR_DEFAULTTONEAREST),&monitor);
+        MONITORINFO monitor{sizeof(monitor)};GetMonitorInfoW(MonitorFromWindow(anchor,MONITOR_DEFAULTTONEAREST),&monitor);
         int width=(std::min)(size.right-size.left,monitor.rcWork.right-monitor.rcWork.left),height=(std::min)(size.bottom-size.top,monitor.rcWork.bottom-monitor.rcWork.top);
-        SetWindowPos(nullptr,(std::max)(monitor.rcWork.left,(std::min)(origin.left,monitor.rcWork.right-width)),(std::max)(monitor.rcWork.top,(std::min)(origin.bottom,monitor.rcWork.bottom-height)),width,height,SWP_NOZORDER);
+        SetWindowPos(nullptr,0,0,width,height,SWP_NOMOVE|SWP_NOZORDER|SWP_NOACTIVATE);Reanchor();
         Layout();loading=false;SetTimer(1,40,nullptr);Execute(Operation::Search,false);pattern.SetFocus();return FALSE;
+    }
+    void Workbench::Finish(bool commit)
+    {
+        const Options value=draft;auto callback=commit?std::move(accept):std::function<void(const Options&)>{};
+        HWND target=anchor,parent=owner;HWND foreground=::GetForegroundWindow();
+        const bool returnFocus=foreground==m_hWnd || (foreground && ::IsChild(m_hWnd,foreground));
+        session.Cancel();DestroyWindow();
+        // The dialog has deleted itself. Only copied values may be used below.
+        if(callback && ::IsWindow(parent) && ::IsWindow(target))callback(value);
+        if(returnFocus && ::IsWindow(parent) && ::IsWindow(target))
+        {::SetForegroundWindow(parent);::SetFocus(target);}
+    }
+    void Workbench::Reanchor()
+    {
+        RECT origin{};if(!::GetWindowRect(anchor,&origin)||EqualRect(&origin,&previousAnchor))return;previousAnchor=origin;
+        RECT bounds{};GetWindowRect(&bounds);const int width=bounds.right-bounds.left,height=bounds.bottom-bounds.top;
+        MONITORINFO monitor{sizeof(monitor)};if(!GetMonitorInfoW(MonitorFromWindow(anchor,MONITOR_DEFAULTTONEAREST),&monitor))return;
+        int x=origin.left,y=origin.bottom;
+        if(y+height>monitor.rcWork.bottom && origin.top-height>=monitor.rcWork.top)y=origin.top-height;
+        x=(std::max)(monitor.rcWork.left,(std::min)(x,monitor.rcWork.right-width));
+        y=(std::max)(monitor.rcWork.top,(std::min)(y,monitor.rcWork.bottom-height));
+        SetWindowPos(nullptr,x,y,0,0,SWP_NOSIZE|SWP_NOZORDER|SWP_NOACTIVATE);
     }
     void Workbench::Fonts()
     {
@@ -108,14 +143,24 @@ namespace
     void Workbench::Execute(Operation operation,bool commit)
     {
         CString sample,repl;subject.GetWindowText(sample);replacement.GetWindowText(repl);
+        if(commit)subjects=readSubjects();
         applying=commit;ready=false;apply.EnableWindow(FALSE);note.SetWindowText(T(L"Evaluating locally; Cancel retains the accepted search.",L"正在本機處理；取消會保留已套用搜尋。"));
         session.Request(Read(),commit?subjects:std::vector<std::wstring>{sample.GetString()},commit?Operation::Filter:operation,repl.GetString());
     }
     void Workbench::OnTimer(UINT_PTR id)
     {
-        if(id!=1){CDialog::OnTimer(id);return;}Result result;if(!session.Poll(result))return;
+        if(id!=1){CDialog::OnTimer(id);return;}
+        if(!::IsWindow(owner)||!::IsWindow(anchor)||!::IsWindowVisible(owner)){Finish(false);return;}
+        Reanchor();
+        if(!::IsWindowEnabled(owner))
+        {session.Cancel();applying=false;ready=false;apply.EnableWindow(FALSE);note.SetWindowText(T(L"Owner is busy. Run a preview again when it is available.",L"來源視窗忙碌中。待可用時請重新預覽。"));return;}
+        Result result;if(!session.Poll(result))return;
         if(!result.complete){ready=false;applying=false;note.SetWindowText(result.error.c_str());return;}
-        if(applying){draft=Read();EndDialog(IDOK);return;}
+        if(applying)
+        {
+            if(subjects!=readSubjects()){applying=false;ready=true;apply.EnableWindow(TRUE);note.SetWindowText(T(L"Search rows changed. Apply again to validate the current rows.",L"搜尋項目已更改。請再次套用以驗證目前項目。"));return;}
+            draft=Read();Finish(true);return;
+        }
         last=std::move(result);ready=true;apply.EnableWindow(TRUE);results.ResetContent();
         for(size_t i=0;i<last.matches.size();++i){CString line;line.Format(T(L"Match %zu: offset %zu, length %zu",L"符合 %zu：位置 %zu，長度 %zu"),i+1,last.matches[i].start,last.matches[i].length);results.AddString(line);}
         output.SetWindowText(last.output.c_str());note.SetWindowText(T(L"Preview complete. Select a match to highlight its UTF-16 span. Apply validates all owner rows.",L"預覽完成。選取結果可標示 UTF-16 範圍。套用時會驗證全部來源項目。"));
@@ -149,12 +194,29 @@ namespace
     void Workbench::OnGetMinMaxInfo(MINMAXINFO* info){RECT r{0,0,Px(640),Px(400)};AdjustWindowRectEx(&r,GetStyle(),FALSE,GetExStyle());info->ptMinTrackSize={r.right-r.left,r.bottom-r.top};}
     LRESULT Workbench::OnDpi(WPARAM w,LPARAM l){dpi=HIWORD(w);auto r=reinterpret_cast<RECT*>(l);SetWindowPos(nullptr,r->left,r->top,r->right-r->left,r->bottom-r->top,SWP_NOZORDER|SWP_NOACTIVATE);Fonts();Layout();return 0;}
 }
-bool Edit(HWND owner,HWND anchor,Options& accepted,const std::vector<std::wstring>& subjects,bool chinese,NativeMaterial::Appearance appearance)
+Editor::Editor():m_state(std::make_shared<EditorState>()){}
+Editor::~Editor(){Close();}
+bool Editor::IsOpen() const{return m_state->window && ::IsWindow(m_state->window);}
+bool Editor::Contains(HWND window) const{return IsOpen() && (window==m_state->window || ::IsChild(m_state->window,window));}
+void Editor::Close(){if(IsOpen())::SendMessageW(m_state->window,WM_CLOSE,0,0);}
+bool Editor::Translate(MSG* message)
 {
+    if(!Contains(message->hwnd))return false;
+    auto* editor=static_cast<Workbench*>(CWnd::FromHandlePermanent(m_state->window));
+    return editor && editor->Translate(message);
+}
+bool Editor::Open(HWND owner,HWND anchor,const Options& accepted,std::function<std::vector<std::wstring>()> subjects,
+    std::function<void(const Options&)> apply,bool chinese,NativeMaterial::Appearance appearance)
+{
+    if(IsOpen()){::SetForegroundWindow(m_state->window);return true;}
+    if(!::IsWindow(owner)||!::IsWindow(anchor))return false;
     struct Template {DLGTEMPLATE dialog;WORD menu{},className{},title{};} layout{};
-    layout.dialog.style=WS_POPUP|WS_CAPTION|WS_SYSMENU|WS_THICKFRAME|WS_CLIPCHILDREN|WS_VSCROLL|DS_MODALFRAME;layout.dialog.dwExtendedStyle=WS_EX_CONTROLPARENT;layout.dialog.cx=500;layout.dialog.cy=450;
-    Workbench editor;editor.draft=accepted;editor.subjects=subjects;editor.anchor=anchor;editor.chinese=chinese;editor.appearance=appearance;
-    if(!editor.InitModalIndirect(&layout.dialog,CWnd::FromHandle(owner)))return false;
-    bool applied=editor.DoModal()==IDOK;if(applied)accepted=editor.draft;if(IsWindow(anchor))::SetFocus(anchor);return applied;
+    layout.dialog.style=WS_POPUP|WS_CAPTION|WS_SYSMENU|WS_THICKFRAME|WS_CLIPCHILDREN|WS_VSCROLL;
+    layout.dialog.dwExtendedStyle=WS_EX_CONTROLPARENT|WS_EX_TOOLWINDOW;layout.dialog.cx=500;layout.dialog.cy=450;
+    auto owned=std::make_unique<Workbench>();auto* editor=owned.get();editor->state=m_state;editor->draft=accepted;editor->subjects=subjects();editor->readSubjects=std::move(subjects);
+    editor->accept=std::move(apply);editor->anchor=anchor;editor->owner=owner;editor->chinese=chinese;editor->appearance=appearance;
+    if(!editor->CreateIndirect(&layout.dialog,CWnd::FromHandle(owner)))return false;
+    editor->autoDelete=true;owned.release();
+    editor->ShowWindow(SW_SHOW);editor->SetForegroundWindow();return true;
 }
 }

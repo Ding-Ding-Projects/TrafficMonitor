@@ -86,3 +86,5 @@ with historical originals retained separately.
 - [x] Build the refreshed inventory through root build.bat --site at 69a6ab51ab1b63d513de27be1efd2cbbfb7b6ef8: 191 articles, 1542 history records, zero unavailable images, exit 0.
 - [ ] Publish the refreshed documentation deployment through its existing same-run release metadata binding and verify source-bound live articles.
 - [ ] Verify automatic updater runtime behavior when runtime checks are authorized again.
+
+- [ ] Verify the new owned modeless regex editor across workspace, Settings and menu owners. Source implemented; runtime, focus, cancellation and display-matrix acceptance remain unverified.

@@ -151,8 +151,9 @@ class Popup
 {
 public:
     HWND window{}, owner{}, edit{}, list{}, back{}, empty{}, regex{}, previousFocus{};
-    bool done{}, composing{}, rebuilding{}, restoreFocus{}, compatibility{}, editingRegex{}, chinese{};
+    bool done{}, composing{}, rebuilding{}, restoreFocus{}, compatibility{}, chinese{};
     UINT command{}, dpi{96};
+    NativeRegex::Editor regexEditor;
     HFONT font{}, boldFont{};
     HBRUSH background{};
     COLORREF surface{}, ink{}, muted{}, selected{}, accent{}, selectedInk{};
@@ -171,6 +172,7 @@ public:
 
     ~Popup()
     {
+        regexEditor.Close();
         accessibility->popup = nullptr; accessibility->list = nullptr;
         if (IsWindow(window)) DestroyWindow(window);
         if (accessible) accessible->Release();
@@ -279,14 +281,23 @@ public:
         if(levels.empty())return;
         auto filter=levels.back().filter;std::vector<std::wstring> subjects;
         for(const auto& item:levels.back().items)subjects.push_back(item.label+L" "+item.shortcut);
-        editingRegex=true;
-        bool accepted=NativeRegex::Edit(window,edit,filter->options,subjects,chinese);
-        editingRegex=false;
-        if(accepted && IsWindow(window) && !levels.empty() && levels.back().filter==filter)
-        {rebuilding=true;SetWindowTextW(edit,filter->options.query.c_str());rebuilding=false;Filter();}
+        const HMENU levelMenu=levels.back().menu;
+        regexEditor.Open(window,edit,filter->options,
+            [this,filter,levelMenu]{
+                std::vector<std::wstring> current;
+                if(!levels.empty() && levels.back().filter==filter && levels.back().menu==levelMenu)
+                    for(const auto& item:levels.back().items)current.push_back(item.label+L" "+item.shortcut);
+                return current;
+            },
+            [this,filter,levelMenu](const NativeRegex::Options& options){
+                if(done || levels.empty() || levels.back().filter!=filter || levels.back().menu!=levelMenu)return;
+                filter->options=options;rebuilding=true;SetWindowTextW(edit,options.query.c_str());rebuilding=false;Filter();
+            },chinese);
+
     }
     void Open(HMENU menu, UINT position)
     {
+        regexEditor.Close();
         if (!levels.empty()) levels.back().selected = static_cast<int>(SendMessageW(list,LB_GETCURSEL,0,0));
         SendMessageW(owner,WM_INITMENUPOPUP,reinterpret_cast<WPARAM>(menu),MAKELPARAM(position,FALSE));
         Level level; level.menu=menu; level.parentPosition=position; levels.push_back(std::move(level));
@@ -295,6 +306,7 @@ public:
     }
     void Back()
     {
+        regexEditor.Close();
         if (levels.size()<2) { done=true; return; }
         SendMessageW(owner,WM_UNINITMENUPOPUP,reinterpret_cast<WPARAM>(levels.back().menu),0);
         levels.pop_back();
@@ -310,6 +322,7 @@ public:
     }
     void ActivateIdentity(HMENU menu,const Item& old)
     {
+        regexEditor.Close();
         if(levels.empty() || levels.back().menu!=menu) return;
         SendMessageW(owner,WM_INITMENUPOPUP,reinterpret_cast<WPARAM>(menu),MAKELPARAM(levels.back().parentPosition,FALSE));
         Item fresh;
@@ -437,10 +450,16 @@ public:
         if(!self) return DefWindowProcW(hwnd,message,w,l);
         switch(message)
         {
-        case AccessibleInvokeMessage: if(!self->editingRegex)self->ExecuteInvocation(w);return 0;
-        case WM_TIMER: if(w==1 && !self->levels.empty() && self->levels.back().filter->Poll())self->Filter();return 0;
+        case AccessibleInvokeMessage: self->ExecuteInvocation(w);return 0;
+        case WM_TIMER:
+            if(w==1)
+            {
+                HWND foreground=GetForegroundWindow();
+                if(self->regexEditor.IsOpen() && foreground!=self->window && !self->regexEditor.Contains(foreground))self->done=true;
+                if(!self->levels.empty() && self->levels.back().filter->Poll())self->Filter();
+            }return 0;
         case WM_COMMAND:
-            if(LOWORD(w)==EditId && HIWORD(w)==EN_CHANGE) self->Filter();
+            if(LOWORD(w)==EditId && HIWORD(w)==EN_CHANGE){if(!self->rebuilding)self->regexEditor.Close();self->Filter();}
             if(LOWORD(w)==BackId && HIWORD(w)==BN_CLICKED) self->Back();
             if(LOWORD(w)==RegexId && HIWORD(w)==BN_CLICKED) self->EditRegex();
             return 0;
@@ -450,7 +469,7 @@ public:
             SetTextColor(reinterpret_cast<HDC>(w),self->ink); SetBkColor(reinterpret_cast<HDC>(w),self->surface); return reinterpret_cast<LRESULT>(self->background);
         case WM_ERASEBKGND:
             { RECT rect; GetClientRect(hwnd,&rect); FillRect(reinterpret_cast<HDC>(w),&rect,self->background); return TRUE; }
-        case WM_ACTIVATE: if(LOWORD(w)==WA_INACTIVE && !self->editingRegex) self->done=true; return 0;
+        case WM_ACTIVATE: if(LOWORD(w)==WA_INACTIVE && !self->regexEditor.Contains(reinterpret_cast<HWND>(l))) self->done=true; return 0;
         case WM_CLOSE: self->done=true; return 0;
         case WM_DPICHANGED: self->dpi=HIWORD(w); self->Fonts(); self->Layout(); return 0;
         case WM_SETTINGCHANGE: case WM_THEMECHANGED: self->Colors(); InvalidateRect(hwnd,nullptr,TRUE); return 0;
@@ -575,12 +594,15 @@ UINT Track(CMenu* menu,UINT flags,int x,int y,CWnd* ownerWindow)
         {
             const BOOL read=GetMessageW(&message,nullptr,0,0);
             if(read<=0) { if(read==0) PostQuitMessage(static_cast<int>(message.wParam)); break; }
+            const bool editorMessage=popup.regexEditor.Contains(message.hwnd);
             const bool inside=message.hwnd==popup.window || IsChild(popup.window,message.hwnd);
-            if(!inside && (message.message==WM_LBUTTONDOWN || message.message==WM_RBUTTONDOWN || message.message==WM_NCLBUTTONDOWN)) popup.done=true;
+            if(popup.regexEditor.Translate(&message))continue;
+            if(!inside && !editorMessage && (message.message==WM_LBUTTONDOWN || message.message==WM_RBUTTONDOWN || message.message==WM_NCLBUTTONDOWN)) popup.done=true;
             if(inside && popup.Key(message)) continue;
             TranslateMessage(&message); DispatchMessageW(&message);
         }
-        popup.restoreFocus=GetForegroundWindow()==popup.window;
+        popup.restoreFocus=GetForegroundWindow()==popup.window || popup.regexEditor.Contains(GetForegroundWindow());
+        popup.regexEditor.Close();
         while(!popup.levels.empty())
         { SendMessageW(owner,WM_UNINITMENUPOPUP,reinterpret_cast<WPARAM>(popup.levels.back().menu),0); popup.levels.pop_back(); }
         if(IsWindow(popup.window)) DestroyWindow(popup.window);

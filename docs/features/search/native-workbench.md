@@ -1,8 +1,8 @@
 # Native search pattern workbench
 
-Choose **Regex** immediately beside the native workspace, Settings or context-menu search. Each dialog or menu level owns its own query, literal/regex mode, ASCII case option, validation and accepted rows. Plain text is the default. The editor is positioned beside the originating search and returns focus there. It is currently an owned modal decision editor; a fully modeless anchored popover remains unfinished.
+Choose **Regex** immediately beside the native workspace, Settings or context-menu search. Each dialog or menu level owns its own query, literal/regex mode, ASCII case option, validation and accepted rows. Plain text is the default. The editor is positioned beside the originating search and returns focus there. It is an owned modeless native tool window: the originating search remains usable, reopening focuses the existing editor, and moving the search reanchors the editor within the monitor work area.
 
-Edit the query, choose literal or regex mode, use construction buttons to insert supported syntax at the selection, and edit the local example subject. Search lists indexed UTF-16 spans; selecting a result highlights that span. Replace previews literal replacement text, with no capture expansion. Split previews fields separated by CRLF. No file is read or changed. Run a successful preview, then Apply to validate every current owner row before transferring the draft. Cancel or Escape keeps the previous owner state. Changing input cancels pending results and disables Apply until another preview succeeds.
+Edit the query, choose literal or regex mode, use construction buttons to insert supported syntax at the selection, and edit the local example subject. Search lists indexed UTF-16 spans; selecting a result highlights that span. Replace previews literal replacement text, with no capture expansion. Split previews fields separated by CRLF. No file is read or changed. Run a successful preview, then Apply to validate every current owner row before transferring the draft. Apply rechecks the corpus before accepting results; a changed corpus requires another Apply. Cancel or Escape keeps the previous owner state. Editing the owner query, changing the Settings group or navigating menu levels cancels that owner's stale editor. Changing input cancels pending results and disables Apply until another preview succeeds.
 
 ## Actual engine and bounds
 
@@ -20,7 +20,7 @@ Every owner has at most one asynchronous worker and one replaceable pending requ
 | Native Settings | `NativeSettings::Editor::m_filter` | Current group, matching the full stable label corpus |
 | Native context menu | Each `NativeMenus::Level::filter` | Current HMENU labels and shortcuts |
 
-The menu keeps its item order, owner notification lifecycle and identity revalidation. Opening the editor suppresses popup dismissal only while its owned decision is active; item invocation remains invalidated by the menu generation. Settings retains draft changes and its existing restart-deferral lifetime. No updater backend behavior is changed.
+The menu keeps its item order, owner notification lifecycle and identity revalidation. The popup and editor form one owned modeless window group. Its message loop routes keyboard translation to the editor before menu navigation, allows clicks inside either window and retains dismissal when the group loses activation. Item invocation remains invalidated by the menu generation. Settings retains draft changes and its existing restart-deferral lifetime. No updater backend behavior is changed.
 
 ## Unfinished acceptance and capabilities
 
@@ -35,3 +35,18 @@ The native layout uses DPI-scaled controls, existing light/dark palettes and ver
 ## Source-bound build result
 
 Exact root `build-installer.bat -Version 1.0.9006` (including `build.bat`) passed at `265f048da7cb7534cb151519d003c67218a73048` with exit 0, 114 warnings and zero errors. [The build receipt](native-build-receipt.json) records SHA-256 values and sizes. The package is local only, not installed or published. The preceding source candidate failed compilation on an unqualified window-rectangle lookup, corrected in this producer commit. No runtime or full-parity claim follows from compilation.
+
+## Modeless source continuation
+
+The modeless lifetime is caller-owned through `NativeRegex::Editor`. The editor owns its draft
+and async session, never a pointer to mutable owner options. Owner closure cancels and destroys
+it before callbacks may run. Successful Apply destroys the editor before invoking its copied
+callback, preventing owner edit notifications from recursively destroying a live callback target.
+The current corpus is fetched at Apply and compared again on completion. No engine syntax or
+execution bounds changed. The existing updater visible-window check continues to defer restart
+while this owned tool window is present; the updater backend was not modified.
+
+Version 1.0.9008 compilation/package evidence will be recorded separately. Earlier 1.0.9006
+receipts remain bound to their original source and do not verify the modeless continuation.
+No tests, reviews, audits, runtime interaction or screenshots ran. Modeless runtime acceptance,
+all focus/keyboard/accessibility/DPI/theme/language combinations and full parity remain unfinished.
