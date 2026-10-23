@@ -36,8 +36,8 @@ The fixture closed normally. The matching existing installation was restored thr
 
 - Raw screenshots have been inspected but are not yet promoted through the repository evidence inventory and receipt validator. This article does not substitute for that promotion.
 - Shift+F10 did not open the menu through the message-based transport, whose documented modifier limitations prevent treating that observation as a product defect. The helper does not expose the Menu key by name. Hardware-keyboard proof remains unverified.
-- Pointer context actions, exact focused-row Menu-key delivery, complete tab order, screen-reader behavior, restart persistence and failure-injected automatic-restart preference persistence still need focused runtime verification.
-- Cantonese rendering and the 125%, 150% and 200% real display-scale tuples remain unverified. Chinese-versus-other language selection is implemented; complete bilingual mode is not.
+- A second process loaded the saved interval 1200 and memory threshold 81 from the fixture configuration. WM_NEXTDLGCTL followed by message-based VK_APPS opened the focused memory row menu. These are process-reload and message-input observations, not hardware-keyboard proof. Pointer context actions, complete tab order, screen-reader behavior and failure-injected automatic-restart preference persistence still need focused runtime verification.
+- The second Chinese-locale run exposed mojibake in candidate 1.0.9025 because the two new UTF-8 source files lacked byte-order marks for the existing compiler configuration. Explicit UTF-8 markers now correct those inputs; a rebuilt native verification is pending. The 125%, 150% and 200% real display-scale tuples remain unverified. Chinese-versus-other language selection is implemented; complete bilingual mode is not.
 - Full RegexBuddy parity, persistent global language/theme conversion, complete settings migration and the remaining required-feature inventory remain unfinished.
 
 No actual notification was triggered as part of this verification. The existing settings callback is not a transaction or configuration-file readback guarantee.

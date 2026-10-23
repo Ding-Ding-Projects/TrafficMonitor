@@ -1,4 +1,4 @@
-#include "../stdafx.h"
+﻿#include "../stdafx.h"
 #include "Settings.h"
 #include "SettingCatalog.h"
 #include "SettingsViewport.h"
