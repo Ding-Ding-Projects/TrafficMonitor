@@ -11,6 +11,8 @@ namespace NativeSettings
 {
     namespace
     {
+        unsigned activeEditors{};
+        struct EditorLifetime { EditorLifetime() { ++activeEditors; } ~EditorLifetime() { --activeEditors; } };
         enum : UINT { PageMonitor=54001, PageFloating, PageTaskbar, Search, Clear, Apply, Revert, Reset, Legacy, Interval, Theme, FirstCheck=54100 };
         std::wstring Fold(std::wstring value) { for(auto& c:value) c=static_cast<wchar_t>(std::towlower(c)); return value; }
         class Editor final : public CDialog
@@ -216,8 +218,10 @@ namespace NativeSettings
         LRESULT Editor::OnDpi(WPARAM dpi,LPARAM value)
         {m_dpi=HIWORD(dpi);const auto* r=reinterpret_cast<const RECT*>(value);SetWindowPos(nullptr,r->left,r->top,r->right-r->left,r->bottom-r->top,SWP_NOZORDER|SWP_NOACTIVATE);SetFonts();Layout();return 0;}
     }
+    bool IsSafeToRestart() noexcept { return activeEditors == 0; }
     bool Show(CWnd* owner,int initialPage,const std::function<void(const Values&)>& apply)
     {
+        EditorLifetime lifetime;
         struct Template { DLGTEMPLATE dialog; WORD menu{},className{},title{}; } layout{};
         layout.dialog.style=WS_POPUP|WS_CAPTION|WS_SYSMENU|WS_THICKFRAME|WS_CLIPCHILDREN|DS_MODALFRAME;
         layout.dialog.dwExtendedStyle=WS_EX_CONTROLPARENT;layout.dialog.cx=500;layout.dialog.cy=400;

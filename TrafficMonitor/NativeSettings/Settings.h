@@ -3,6 +3,8 @@
 #include <functional>
 namespace NativeSettings
 {
+    // UI-thread query. Every active settings editor blocks automatic restart, even without edits.
+    bool IsSafeToRestart() noexcept;
     struct Values
     {
         int interval{1000};

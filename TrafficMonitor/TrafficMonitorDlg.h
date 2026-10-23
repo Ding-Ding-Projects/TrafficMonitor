@@ -73,6 +73,7 @@ protected:
 
     bool m_get_disk_usage_by_pdh{};
 
+    bool m_updateUiClosing{ false };
     bool m_first_start{ true };     //初始时为true，在定时器第一次启动后置为flase
 
     // https://www.jianshu.com/p/9d4b68cdbd99
@@ -231,6 +232,7 @@ protected:
 public:
     afx_msg void OnShowNotifyIcon();
     afx_msg void OnDestroy();
+    afx_msg LRESULT OnSilentUpdatePulse(WPARAM, LPARAM);
     afx_msg void OnShowCpuMemory();
     afx_msg void OnMousePenetrate();
     //afx_msg void OnTextColor();
