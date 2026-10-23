@@ -1,13 +1,16 @@
 # Silent update implementation handoff
 
-The silent installed-update backend, cooperative UI hook and native settings controls are
-combined at source 8f9812966be9de46b2262df55d44e71517d527bc. Exact root build.bat --silent
-completed with exit 0, 114 warnings and zero errors. Exact root build-installer.bat
--Version 1.0.9003 completed with exit 0 and produced all four local Squirrel assets.
-Hashes and sizes are in evidence/builds/silent-updates/local-1.0.9003.json. This version
-is local-only and has not been published or installed. Later receipt commits preserve
-these results without relabelling their producer source. No tests, reviews, audits,
-runtime checks or screenshots were run in the expedited scope. The next owner is the
-parent task, which must integrate this completed source, publish a unique normal release,
-verify its assets, and separately handle accepted installed updates. Runtime acceptance
-for failure, cancellation, modal/draft deferral and preservation remains unverified.
+The latest combined backend, cooperative UI and native settings candidate is
+3e6f8c72fe40a363de70c7ee5e27772ca86b9c6b. It additionally admits release source only
+when a bounded owning-repository comparison proves ancestry in an exact resolved main
+SHA. Branch and comparison response identities are revalidated offline before apply.
+Exact root build-installer.bat -Version 1.0.9005, invoking exact root build.bat,
+completed with exit 0, two linker warnings and zero errors. Hashes and sizes are in
+evidence/builds/silent-updates/local-1.0.9005.json. Local-only 1.0.9003 and 1.0.9004
+outputs are historical superseded candidates. None was installed or published by this
+lane. Later receipt commits do not relabel the producer source. No tests, reviews,
+audits, runtime checks or screenshots were run. The parent task owns integration,
+source preservation to the remote, normal release publication and separately authorized
+accepted installed update. Failure/cancellation/draft deferral/preservation runtime
+acceptance remains unverified. The task branch is preserved locally and must not be
+deleted before its source is integrated and the remote ancestry is proven.

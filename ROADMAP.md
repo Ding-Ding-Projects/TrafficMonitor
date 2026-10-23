@@ -69,3 +69,5 @@ with historical originals retained separately.
 - [x] Preserve explicit update opt-out and provide persisted automatic-restart preference with save failure reporting.
 - [x] Compile and package combined source 8f9812966be9de46b2262df55d44e71517d527bc through the exact root entrypoints, local-only version 1.0.9003, both exit 0.
 - [ ] Verify update, failure, cancellation, recovery, draft deferral and data preservation when runtime checks are authorized again.
+
+- [x] Restrict accepted-channel admission to release commits contained in an exact resolved main SHA, retain bounded offline records, and compile/package source 3e6f8c72fe40a363de70c7ee5e27772ca86b9c6b as local-only 1.0.9005, exit 0.

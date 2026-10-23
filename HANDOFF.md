@@ -165,3 +165,17 @@ This is compile/package proof only. No tests, reviews, audits, runtime checks or
 screenshots were run, no package was published, and this implementation lane did
 not modify the current installation. Default-branch integration and release remain
 with the parent task. Later documentation commits do not relabel the producer SHA.
+
+## Accepted-channel admission follow-up
+
+Delivery candidate 3e6f8c72fe40a363de70c7ee5e27772ca86b9c6b additionally resolves the
+owning main branch to an exact source SHA before comparing release ancestry. The
+comparison URL, base and merge-base identities must match that exact request.
+Both bounded responses stay beside staging for offline next-launch revalidation.
+Unavailable or inconsistent admission leaves the candidate unapplied.
+Exact root build-installer.bat -Version 1.0.9005, including exact root build.bat,
+completed with exit 0, two linker warnings and zero errors. The receipt at
+evidence/builds/silent-updates/local-1.0.9005.json binds the actual source and hashes.
+Earlier 1.0.9003 and intermediate 1.0.9004 packages are historical and superseded.
+No runtime, tests, reviews, audits or screenshots were run; publication and installed
+application remain the parent task's separately authorized work.

@@ -1,0 +1,48 @@
+{
+  "sourceCommit": "3e6f8c72fe40a363de70c7ee5e27772ca86b9c6b",
+  "recordedAtUtc": "2026-10-23T10:52:59.0874642Z",
+  "entrypoint": "build-installer.bat -Version 1.0.9005",
+  "entrypointBuild": "build.bat",
+  "buildExitCode": 0,
+  "packageExitCode": 0,
+  "buildWarnings": 2,
+  "buildErrors": 0,
+  "buildElapsed": "00:00:05.60",
+  "version": "1.0.9005",
+  "publication": "not published",
+  "installation": "not applied",
+  "sourceChannel": "Exact main SHA resolved before source ancestry comparison; offline admission records revalidated",
+  "executableSHA256": "AFB9E5B2157108E37A319FE6251F1D7AFF48ACF4ADA0CB48EE480DB546277255",
+  "assets": [
+    {
+      "name": "Setup.exe",
+      "bytes": 8406016,
+      "sha256": "A673A559C15589592AF93706C459F54244CA3EDDF8AB1030D06DE98B6EDE54E2"
+    },
+    {
+      "name": "RELEASES",
+      "bytes": 420,
+      "sha256": "36A8AB5D972A2FF186AC4759C7D219875841E2478AFC62C06AE6A9F0FBDB1A76"
+    },
+    {
+      "name": "SHA256SUMS.txt",
+      "bytes": 665,
+      "sha256": "5543F066CA1617D408A729B63E060D2F2A1E13AA8EDC3F224496CF68BBA140E4"
+    },
+    {
+      "name": "TrafficMonitor-1.0.9005-full.nupkg",
+      "bytes": 7526172,
+      "sha256": "DE4C2EEA655461B15EADD2B882F4E6899E9681DE4BC8CA66401324A16CC7FB20"
+    }
+  ],
+  "supersedes": {
+    "package": "1.0.9003",
+    "intermediatePackage": "1.0.9004",
+    "source": "8f9812966be9de46b2262df55d44e71517d527bc"
+  },
+  "runtime": "unverified",
+  "tests": "not run",
+  "reviews": "not run",
+  "audits": "not run",
+  "screenshots": "not taken"
+}
