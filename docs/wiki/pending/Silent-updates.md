@@ -157,4 +157,6 @@ UTF-8 before calculating SHA256SUMS and publication metadata. It preserves Squir
 row contents, line endings, SHA-1 fields and package bytes, then reads back the
 stored feed to require exact text and absence of the leading marker. Parser support
 for prior valid BOM-prefixed feeds remains. The local 1.0.9012 receipt precedes this
-writer correction; its bytes remain historical. Production 1.0.9013 is pending.
+writer correction; its bytes remain historical. Production 1.0.9013 completed as recorded below.
+
+Exact build-installer.bat -Version 1.0.9013 at 58ff5b8226a9da38307a1b3ec3956e0a4ed35119 exited 0, with two LNK4199 warnings, zero errors and native elapsed 3.84 seconds. The supported writer completed its strict BOM-free UTF-8 readback before checksums. Source-bound receipt: docs/features/installation/silent-feed-writer-build.json. This is local production only, not automatic staging, restart, release or installed-update proof.

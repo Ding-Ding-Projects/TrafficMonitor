@@ -36,9 +36,9 @@
     ],
     "previousPublishedCommit": "bb937c4a46a42dcffb7d4a3eaa4df6b91e520c63",
     "sourceArticle": "docs/features/installation/silent-updates.md",
-    "sourceArticleSha256": "a07cd8e9b354dda389f5a5d4cfc7161780cd2c8c6ff752fc2cac96de294519f5",
-    "preparedWikiSha256": "1794d9a70f0dc0c9b7968a4f9e5e1370b1eeb8db770d7d0d20b76aba2e3c2fe5",
-    "note": "Leading UTF-8 feed marker repair section and local production evidence are prepared; parent must publish and read back the supported wiki before marking this update delivered. Existing publicationProof remains historical.",
+    "sourceArticleSha256": "4d56d94a0ba693c936ca96db033dcfb5b44b2cf9fdef462cacdaa319826740ca",
+    "preparedWikiSha256": "8530f1531ff4532c9140e117d4b9ea734299dffd0fd0b971b5dee2e7cb1bb439",
+    "note": "Leading UTF-8 parser compatibility, explicit BOM-free publication writer and local production evidence are prepared; parent must publish and read back the supported wiki before marking this update delivered. Existing publicationProof remains historical.",
     "relationship": "The UTF-8 feed marker repair section and production summary match exactly; existing task-oriented introductions and navigation remain distinct."
   },
   "historicalPublicationProof": {
