@@ -169,7 +169,7 @@ Click the link below to download and install the Microsoft Visual C++ runtime en
 
 The Hardware Monitor plug in is now available. It can display all the monitoring items in LibreHardwareMonitor.
 
-![](images/420555677-53bd3ac9-1c55-4212-aa68-1fe5711e9fbc.png)
+![](Screenshots/420555677-53bd3ac9-1c55-4212-aa68-1fe5711e9fbc.png)
 
 For instructions and download links, please click the link below to go to the plug-in download page:
 
