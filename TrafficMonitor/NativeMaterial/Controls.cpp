@@ -119,7 +119,7 @@ namespace NativeMaterial
         dc.SelectObject(oldBrush);dc.SelectObject(oldPen);
         CString value;value.Format(L"%d",GetPos());dc.SetBkMode(TRANSPARENT);dc.SetTextColor(Color(colors.onSurface));
         const int textWidth=MulDiv(28,dpi,96);
-        const int textLeft=(std::max)(0,(std::min)(bounds.right-textWidth,center.x-textWidth/2));
+        const int textLeft=(std::max<LONG>)(0,(std::min<LONG>)(bounds.right-textWidth,center.x-textWidth/2));
         CRect number(textLeft,0,textLeft+textWidth,MulDiv(20,dpi,96));
         dc.DrawText(value,number,DT_CENTER|DT_VCENTER|DT_SINGLELINE);
         if(GetFocus()==this){bounds.DeflateRect(1,1);dc.DrawFocusRect(bounds);}
