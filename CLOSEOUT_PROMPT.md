@@ -9,8 +9,10 @@ Content source dcb65a0cf906225052cc5461cf0f616edbfe3112 is included by the refre
 manifest. Exact root build.bat --site at 69a6ab51ab1b63d513de27be1efd2cbbfb7b6ef8
 exited 0: 191 complete articles, 1542 history records, zero unavailable local images.
 The full new guide is built at /articles/source-docs-wiki-pending-silent-updates/.
-The existing download metadata still describes 1.0.15 and was outside this lane;
-the parent must reconcile it before claiming a current downloads presentation.
+The local tracked fallback still describes 1.0.15 and is explicitly historical. The
+parent confirmed deployment consumes the same run's exact published release tag,
+validates normal/source/assets and generates fresh metadata before its site build.
+Runs 16 through 19 completed through that route; no fallback-update loop is required.
 Later handoff records do not relabel this build's source or content binding.
 
 Supported wiki master is prepared at 3d7cfa6917e08d5b387add90c09c187830116cb7,

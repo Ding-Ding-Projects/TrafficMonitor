@@ -217,8 +217,11 @@ The complete mirrored updater guide is included at
 /articles/source-docs-wiki-pending-silent-updates/; it is not only an external source link.
 Local homepage SHA-256: 5A162DD5A35E45DC8D1FA6E7CAD1BB05C8E0480E08955AA3CD34855A55D7A3B0.
 The build receipt still identifies the pre-existing download metadata as release
-v1.0.15-run39912330939-1. That existing metadata was outside this lane's assigned
-files and must be reconciled by the parent before claiming a current downloads presentation.
+v1.0.15-run39912330939-1. This is the expected historical tracked fallback. The parent
+confirmed that the documentation deployment job consumes the same run's exact published
+release tag, validates normal/source/assets and generates fresh release metadata before
+its root build.bat --site. Runs 16 through 19 completed through that route. This local
+historical fallback is not evidence of that later deployment's download metadata.
 The current updater article separately records the verified 1.0.19 installation baseline.
 
 Prepared wiki master tip is 3d7cfa6917e08d5b387add90c09c187830116cb7, based on the
