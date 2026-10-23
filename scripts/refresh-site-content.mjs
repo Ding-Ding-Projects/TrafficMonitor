@@ -1,14 +1,17 @@
 import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
-import { readFileSync, writeFileSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const git = (...args) => execFileSync('git', args, { cwd: root, maxBuffer: 32 * 1024 * 1024 });
 const manifestPath = resolve(root, 'docs/site-content/manifest.json');
-const previous = JSON.parse(readFileSync(manifestPath, 'utf8').replace(/^\uFEFF/, ''));
 const sourceCommit = git('rev-parse', 'HEAD').toString().trim();
+const previous = JSON.parse(git('show', `${sourceCommit}:docs/site-content/manifest.json`).toString().replace(/^\uFEFF/, ''));
+const outputIndex = process.argv.indexOf('--output');
+if (outputIndex !== -1 && !process.argv[outputIndex + 1]) throw new Error('Missing manifest output path');
+const output = outputIndex === -1 ? manifestPath : resolve(root, process.argv[outputIndex + 1]);
 if (!/^[a-f0-9]{40}$/.test(sourceCommit)) throw new Error('Invalid source revision');
 const files = git('ls-tree', '-rz', '--name-only', sourceCommit).toString().split('\0').filter(Boolean);
 const existing = new Map(previous.articles.map(article => [article.sourcePath, article]));
@@ -70,5 +73,9 @@ const next = {
   },
   categories: [...new Set(articles.map(article => article.category))].sort(),
 };
-writeFileSync(manifestPath, `${JSON.stringify(next, null, 2)}\n`, 'utf8');
+for (const sourcePath of repositoryPaths) {
+  if (articles.filter(article => article.sourcePath === sourcePath && article.provenanceKind === 'repository-markdown').length !== 1) throw new Error('Current Markdown inventory is incomplete');
+}
+mkdirSync(dirname(output), {recursive:true});
+writeFileSync(output, `${JSON.stringify(next, null, 2)}\n`, 'utf8');
 console.log(`Content inventory refreshed: ${repositoryPaths.length} repository articles, ${articles.length - repositoryPaths.length} wiki articles, source ${sourceCommit}.`);

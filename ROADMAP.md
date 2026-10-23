@@ -151,3 +151,9 @@ with historical originals retained separately.
 - [x] Restore matching installed 1.0.30 manually after the natural result13 regression, preserving saved data and startup.
 - [ ] Observe the readiness correction in a later actual accepted natural transition; compilation does not discharge this item.
 - [ ] Verify cancellation, timeout, busy/modal/draft deferral and other unrun negative modes when authorized.
+
+## Offline documentation companion
+
+- [ ] Build the current complete article/wiki inventory into a single portable documentation executable and verify production hashes.
+- [ ] Verify real offline one-file launch, internal routes, search and preference persistence on the supported host.
+- [ ] Publish and read back the companion assets on the native source-bound normal release.

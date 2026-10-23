@@ -240,3 +240,7 @@ The current automatic updater synchronously sends a real WM_CLOSE on the already
 Current updater baseline: normal 1.0.32 is naturally installed; the [sanitized acceptance receipt](docs/features/installation/silent-natural32-acceptance.json) binds publication, original baseline, replacement process, exact released executable/source and preservation. Earlier failed29-to30 and manual31 records remain historical. One success is not a general reliability claim.
 
 Release 1.0.28 documentation availability is verified: home and required CSS/JavaScript return HTTP 200, the real installer link is present, and About points exactly to the deployed home. The [current updater outcome](docs/features/installation/silent-updates.md#current-updater-outcome) separates that publication from its manual installation and pending automatic transition.
+
+## Offline documentation companion candidate
+
+A single-file offline documentation packaging route is available through `build.bat --docs-companion` and `build-installer.bat --docs-companion`. It supplements the hosted documentation. Production, runtime and release verification are tracked separately in [the packaging guide](docs/features/build/offline-documentation-companion.md).

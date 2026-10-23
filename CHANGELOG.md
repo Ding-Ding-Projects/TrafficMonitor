@@ -113,3 +113,7 @@ Runtime installation and update acceptance remain separate from source and build
 - Keep synchronous cooperative WM_CLOSE, same-thread safe UI checks, accepted-main and package/feed integrity, stable-launcher recovery after trust, and bounded attempts.
 - Split fixed numeric parent diagnostics into handle/PID, time-query/creation, image-query/path and readiness stages.
 - Record later natural 29-to-30 result 13 separately from successful manual recovery; the exact failing identity subcheck remains unproven. Local 9018 production is not runtime acceptance.
+
+## Offline documentation packaging candidate
+
+Added a pinned portable documentation reader and same-release attachment path. Production derives a complete current Markdown inventory from the held source instead of relying on the historical tracked inventory. Runtime and released-asset verification remain pending. See [packaging details](docs/features/build/offline-documentation-companion.md).

@@ -60,7 +60,7 @@ export async function createContent(root,dist,manifest,base) {
   return null;
  }
  return {unresolved,async render(article){
-  const markdown=article.provenanceKind==='repository-markdown' ? execFileSync('git',['show',`${manifest.sourceCommit}:${article.sourcePath}`],{cwd:root,encoding:'utf8',maxBuffer:8*1024*1024}) : await fs.readFile(path.join(root,article.sourcePath),'utf8');
+  const markdown=execFileSync('git',['show',`${manifest.sourceCommit}:${safeRelative(article.sourcePath)}`],{cwd:root,encoding:'utf8',maxBuffer:8*1024*1024});
   if(createHash('sha256').update(markdown).digest('hex')!==article.sourceSha256)throw Error('Content hash mismatch: '+article.id);
   const document=new JSDOM(purifier.sanitize(marked.parse(markdown),{USE_PROFILES:{html:true},FORBID_TAGS:['style','iframe','form','input','button','video','audio','source','track','object','embed'],FORBID_ATTR:['style','srcset']})).window.document;
   const used=new Map();

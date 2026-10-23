@@ -1,5 +1,6 @@
 @echo off
 setlocal
+if /i "%~1"=="--docs-companion" goto docsCompanion
 if /i "%~1"=="--verify-updater" goto verifyUpdater
 if /i "%~1"=="--site" goto site
 if /i "%~1"=="/s" goto silent
@@ -19,4 +20,7 @@ powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0scripts\te
 exit /b %errorlevel%
 :verifyUpdaterBaseline
 powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0scripts\test-native-update-protocol.ps1" -Baseline
+exit /b %errorlevel%
+:docsCompanion
+powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0scripts\build-docs-companion.ps1" %2 %3 %4 %5 %6 %7 %8 %9
 exit /b %errorlevel%
