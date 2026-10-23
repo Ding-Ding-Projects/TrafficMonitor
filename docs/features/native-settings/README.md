@@ -1,6 +1,7 @@
 # Native settings
 
 - [Find a setting and configure notifications](notifications-and-discovery.md)
+- [Candidate verification and remaining acceptance](verification.md)
 - [Source-bound migration inventory](migration-inventory.json)
 - [Design and verification scope](../../../design/native-settings/discovery-notifications.md)
 
