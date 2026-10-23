@@ -35,3 +35,9 @@ The fixture closed normally. Configuration/history and startup comparisons passe
 ## Workspace source checkpoint
 
 The next bounded unit modernizes only Workspace and its Presentation boundary. It preserves the sampler/model, stable adapter identity and all existing destinations, reusing native shared controls and custom rails. See design/native-modern-remake/workspace-component-implementation.md for the replacement inventory and explicit observational-metric adaptation. Candidate 1.0.9042 is not yet compiled or runtime verified. The accepted-update observer owns the host lane until its coordinator reports terminal state; no workspace fixture has launched.
+
+## Workspace 9042 rejected visual checkpoint
+
+Source 7b8e114ac36ab701beb7f54435cbfb07b6a95d65 packaged successfully as 1.0.9042 through the exact root entrypoint. Package SHA-256 a0ea149d15d3c5451ccac3b353cad13429e0171c16c91b9276709cb1e48f48cc; embedded executable SHA-256 2950f7f9d7013cfa57d5918cdffcfc4300deb80eeff81f4dfb05d12c9ed5dc52. Actual normal and minimum images exposed a blank chart/metric child, recorded as TM-WORKSPACE-DATAVIEW-PRINT-001. These images remain rejected and preserved. They are not accepted presentation evidence.
+
+The 25-action fixture closed normally and restored accepted installation 1.0.48 at 2026-10-23T20:49:55.7046130Z, executable SHA-256 3cde62040b0d829e08ebef15d8a5b1a5605a0f3446e2745ce8d992688793cd9b. Data/history and startup comparisons passed against the normal-close baseline. The run ended at 2026-10-23T20:49:59.7167570Z. Private receipts retain live identities and action details. Candidate 1.0.9043 is reserved for the bounded shared paint/print drawing repair and is not yet built or verified. Independent Workspace acceptance remains pending.

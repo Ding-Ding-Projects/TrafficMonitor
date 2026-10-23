@@ -7,6 +7,32 @@
 
 namespace NativeDashboard
 {
+    namespace
+    {
+        class Drawing
+        {
+        public:
+            Drawing(ID2D1RenderTarget* target, IDWriteFactory* text) : m_target(target), m_text(text) {}
+            ID2D1RenderTarget* Target() const { return m_target; }
+            ID2D1SolidColorBrush* Brush(const D2D1_COLOR_F& color)
+            {
+                if (!m_brush) m_target->CreateSolidColorBrush(color, m_brush.GetAddressOf());
+                else m_brush->SetColor(color);
+                return m_brush.Get();
+            }
+            HRESULT TextFormat(float size, DWRITE_FONT_WEIGHT weight, IDWriteTextFormat** format)
+            {
+                return m_text->CreateTextFormat(L"Segoe UI", nullptr, weight,
+                    DWRITE_FONT_STYLE_NORMAL, DWRITE_FONT_STRETCH_NORMAL, size, L"", format);
+            }
+        private:
+            ID2D1RenderTarget* m_target;
+            IDWriteFactory* m_text;
+            Microsoft::WRL::ComPtr<ID2D1SolidColorBrush> m_brush;
+        };
+        void DrawData(Drawing&, const NativeMaterial::Palette&, float, float, float, float,
+            const NativeMonitoring::AdapterSnapshot*, bool);
+    }
     BOOL DataView::Create(CWnd* parent,UINT id)
     {
         return CreateEx(0,AfxRegisterWndClass(CS_HREDRAW|CS_VREDRAW,::LoadCursor(nullptr,IDC_ARROW)),
@@ -22,25 +48,51 @@ namespace NativeDashboard
     {
         m_appearance=value;Invalidate(FALSE);
     }
-    LRESULT DataView::WindowProc(UINT message,WPARAM w,LPARAM l)
+    HRESULT DataView::DrawDC(HDC dc)
     {
-        if(message==WM_ERASEBKGND)return TRUE;
-        if(message==WM_DESTROY)m_canvas.Detach();
-        if(message==WM_PAINT)
+        Microsoft::WRL::ComPtr<ID2D1Factory> factory;
+        Microsoft::WRL::ComPtr<IDWriteFactory> text;
+        Microsoft::WRL::ComPtr<ID2D1DCRenderTarget> target;
+        HRESULT result = D2D1CreateFactory(D2D1_FACTORY_TYPE_SINGLE_THREADED, factory.GetAddressOf());
+        if (SUCCEEDED(result))
+            result = DWriteCreateFactory(DWRITE_FACTORY_TYPE_SHARED, __uuidof(IDWriteFactory),
+                reinterpret_cast<IUnknown**>(text.GetAddressOf()));
+        const float dpi = static_cast<float>(GetDpiForWindow(m_hWnd));
+        const auto properties = D2D1::RenderTargetProperties(D2D1_RENDER_TARGET_TYPE_DEFAULT,
+            D2D1::PixelFormat(DXGI_FORMAT_B8G8R8A8_UNORM, D2D1_ALPHA_MODE_IGNORE), dpi, dpi);
+        if (SUCCEEDED(result)) result = factory->CreateDCRenderTarget(&properties, target.GetAddressOf());
+        CRect bounds;
+        GetClientRect(bounds);
+        if (SUCCEEDED(result)) result = target->BindDC(dc, bounds);
+        if (SUCCEEDED(result))
         {
-            CPaintDC dc(this);CRect r;GetClientRect(r);const UINT dpi=GetDpiForWindow(m_hWnd);
-            if(!m_canvas.Target()&&FAILED(m_canvas.Attach(m_hWnd,float(dpi))))return 0;
-            m_canvas.Resize(r.Width(),r.Height(),float(dpi));
-            const auto colors=NativeMaterial::Palette::Resolve(m_appearance);
-            if(SUCCEEDED(m_canvas.Begin(colors.surface)))
-            {
-                DrawData(m_canvas,colors,r.Width()*96.0f/dpi,0,112,264,m_row?&*m_row:nullptr,m_chinese);
-                m_canvas.End();
-            }
+            const auto colors = NativeMaterial::Palette::Resolve(m_appearance);
+            target->BeginDraw();
+            target->Clear(colors.surface);
+            Drawing drawing(target.Get(), text.Get());
+            DrawData(drawing, colors, bounds.Width() * 96.0f / dpi, 0, 112, 264,
+                m_row ? &*m_row : nullptr, m_chinese);
+            result = target->EndDraw();
+        }
+        return result;
+    }
+    LRESULT DataView::WindowProc(UINT message, WPARAM w, LPARAM l)
+    {
+        if (message == WM_ERASEBKGND) return TRUE;
+        if (message == WM_PAINT)
+        {
+            CPaintDC dc(this);
+            DrawDC(dc.GetSafeHdc());
             return 0;
         }
-        if(message==WM_MOUSEWHEEL||message==WM_CONTEXTMENU)return GetParent()->SendMessage(message,w,l);
-        return CWnd::WindowProc(message,w,l);
+        if (message == WM_PRINTCLIENT || (message == WM_PRINT && (l & PRF_CLIENT)))
+        {
+            DrawDC(reinterpret_cast<HDC>(w));
+            return 0;
+        }
+        if (message == WM_MOUSEWHEEL || message == WM_CONTEXTMENU)
+            return GetParent()->SendMessage(message, w, l);
+        return CWnd::WindowProc(message, w, l);
     }
     std::wstring Rate(const std::optional<double>& value, bool chinese)
     {
@@ -97,15 +149,14 @@ namespace NativeDashboard
     }
     namespace
     {
-        void Text(NativeMaterial::Canvas& canvas, const std::wstring& value, float size,
+        void Text(Drawing& canvas, const std::wstring& value, float size,
             D2D1_RECT_F rectangle, const D2D1_COLOR_F& color)
         {
             Microsoft::WRL::ComPtr<IDWriteTextFormat> format;
             if (SUCCEEDED(canvas.TextFormat(size, DWRITE_FONT_WEIGHT_NORMAL, format.GetAddressOf())))
                 canvas.Target()->DrawText(value.c_str(), static_cast<UINT32>(value.size()), format.Get(), rectangle, canvas.Brush(color));
         }
-    }
-    void DrawData(NativeMaterial::Canvas& canvas, const NativeMaterial::Palette& colors,
+    void DrawData(Drawing& canvas, const NativeMaterial::Palette& colors,
         float width, float metricsTop, float chartTop, float chartBottom, const NativeMonitoring::AdapterSnapshot* row, bool chinese)
     {
         auto* target = canvas.Target();
@@ -167,4 +218,5 @@ namespace NativeDashboard
             }
         }
     }
+}
 }
