@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "destination": "https://github.com/Ding-Ding-Projects/TrafficMonitor.wiki.git",
-  "observedWikiCommit": "bb937c4a46a42dcffb7d4a3eaa4df6b91e520c63",
-  "state": "prepared-update-pending",
+  "observedWikiCommit": "68b9c8aeeb5e29995af1500dbe4e3271f02def77",
+  "state": "published-verified",
   "pages": [
     "Home.md",
     "Installation.md",
@@ -14,24 +14,30 @@
   ],
   "existingContentPolicy": "Preserve the original welcome line and reconcile any later changes before publication.",
   "publicationProof": {
-    "fileCount": 6,
+    "fileCount": 7,
     "sourceBlobReadbackMatched": true,
     "ref": "refs/heads/master",
-    "commit": "bb937c4a46a42dcffb7d4a3eaa4df6b91e520c63",
-    "silentUpdatesSha256": "2add829a74fcd35dbb9031d69b8cd5d05a73bcf357fbd9916096912c99afbf95",
-    "navigation": [
-      "Home.md",
-      "Installation.md",
-      "Verification.md"
+    "commit": "68b9c8aeeb5e29995af1500dbe4e3271f02def77",
+    "sourceCommit": "279333589117f6917d9ab924d0f3526d9135d45a",
+    "blobs": [
+      {
+        "path": "Home.md",
+        "sha256": "3e5b688ba4c8c7b8835b603fc36dc4b81b9de8d80c82bfdc550a14cd697eda0e"
+      },
+      {
+        "path": "Regex-collections.md",
+        "sha256": "442d11bcc3b13def91436310aa2ee8b0a6438fca1ab7e29a71bce7bf35a2f25e"
+      },
+      {
+        "path": "Silent-updates.md",
+        "sha256": "585baf6af76fdb3c858b6c183839f975f8ef13b1dc2efbfab891f13b9d8f267a"
+      }
     ],
-    "evidenceSource": "Coordinating task publication and fetched exact remote blob readback.",
-    "liveInterface": "UNVERIFIED: no live wiki interface interaction in this pass.",
-    "sourceCommit": "ebf0c2655dee1fa5861ebde20aa3142ca0803f11",
-    "sourcePath": "docs/wiki/pending/Silent-updates.md",
-    "publicationLanguageScan": "Six tracked guides and new history passed with zero findings."
+    "evidenceSource": "Coordinating task pushed and fetched the supported wiki and matched raw blobs to the recorded source. SHA-256 values derive from those exact source Git blobs.",
+    "liveInterface": "UNVERIFIED: no live wiki interface interaction in this pass."
   },
   "preparedUpdate": {
-    "state": "pending-publication",
+    "state": "published-verified",
     "pages": [
       "Home.md",
       "Regex-collections.md",
@@ -48,7 +54,7 @@
         "commit": "250d06e263372dc1f9f15c6d0395c0109a629e27"
       }
     ],
-    "note": "Complete collections guide/navigation and optional-BOM parser plus BOM-free writer documentation are prepared together. Earlier publication proofs remain historical. Publish and fetch exact stored wiki content before marking the combined revision delivered."
+    "note": "The coordinating task published and fetched the combined seven-guide wiki. Raw Home, Regex-collections and Silent-updates blobs match the recorded source. Prior pending entries are historical; live interaction remains unverified."
   },
   "historicalPublicationProof": {
     "fileCount": 5,
@@ -70,6 +76,23 @@
       ],
       "evidenceSource": "Coordinating task publication and fetched exact remote blob readback.",
       "liveInterface": "UNVERIFIED: no live interface interaction in this pass."
+    },
+    {
+      "fileCount": 6,
+      "sourceBlobReadbackMatched": true,
+      "ref": "refs/heads/master",
+      "commit": "bb937c4a46a42dcffb7d4a3eaa4df6b91e520c63",
+      "silentUpdatesSha256": "2add829a74fcd35dbb9031d69b8cd5d05a73bcf357fbd9916096912c99afbf95",
+      "navigation": [
+        "Home.md",
+        "Installation.md",
+        "Verification.md"
+      ],
+      "evidenceSource": "Coordinating task publication and fetched exact remote blob readback.",
+      "liveInterface": "UNVERIFIED: no live wiki interface interaction in this pass.",
+      "sourceCommit": "ebf0c2655dee1fa5861ebde20aa3142ca0803f11",
+      "sourcePath": "docs/wiki/pending/Silent-updates.md",
+      "publicationLanguageScan": "Six tracked guides and new history passed with zero findings."
     }
   ],
   "preparedUpdateHistory": [
