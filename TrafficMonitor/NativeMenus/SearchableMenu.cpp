@@ -523,8 +523,17 @@ public:
         case WM_TIMER:
             if(w==1)
             {
-                HWND foreground=GetForegroundWindow();
-                if(self->regexEditor.IsOpen() && foreground!=self->window && !self->regexEditor.Contains(foreground))self->done=true;
+                // The input desktop's foreground can be unavailable while this
+                // UI thread still has an active owned editor on another desktop.
+                // Unknown activation is not evidence of an outside click.
+                HWND active = GetForegroundWindow();
+                if (!active)
+                    active = GetActiveWindow();
+                if (self->regexEditor.IsOpen() && active
+                    && active != self->window && !self->regexEditor.Contains(active))
+                {
+                    self->done = true;
+                }
                 if(!self->levels.empty() && self->levels.back().filter->Poll())self->Filter();
             }return 0;
         case WM_COMMAND:

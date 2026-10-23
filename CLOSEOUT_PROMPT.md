@@ -19,3 +19,9 @@ The shared preference backend now has23 storage/draft and24 actual production IN
 Only24 settings are exposed by the current native editor. Full Settings and110 required-feature completion, complete RegexBuddy parity, workspace/setup/regex and all legacy owned-surface conversion, checkbox runtime preservation, unequal-height menu overflow, clipboard/IME, hover/full keyboard/UIA, high contrast and every language/theme/DPI tuple remain unfinished. Native image promotion needs an explicit truthful native receipt arm and fresh observations; never fabricate browser fields or relabel historical raw images. Current presentation-image refresh remains an acceptance gap.
 
 No cleanup has started. The current archive destination is unresolved; retain active/incomplete checkouts and every ignored private announcement variant. Deletion requires a complete verified archive plus ownership, preservation, integration and remote-ancestry proof. Goal remains active and unfinished. No host power/login action is authorized.
+
+## Adjacent menu regex lifetime correction
+
+The continuation branch was fast-forwarded to integrated source 4451624f7002e3fa8e767ae1981f815687361018. A bounded package 1.0.9034 hidden-desktop diagnostic confirmed that the menu Regex command creates and activates its workbench, then the menu timer closes it when GetForegroundWindow returns null despite a valid GUI-thread active editor. The timer now falls back to its own UI thread's active window only when global foreground is unavailable. Non-null outside activation, WM_ACTIVATE dismissal, ownership and cancellation remain unchanged.
+
+The diagnostic fixture closed normally and restored the matching installation with configuration/history and startup comparisons preserved. The correction is source-only until the reserved 1.0.9035 exact-root package and bounded lifetime, cancellation and outside-activation checks run. No full visual, accessibility or regex parity acceptance is claimed.
