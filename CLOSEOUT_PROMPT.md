@@ -65,3 +65,13 @@ The fixture closed normally and restored installation 1.0.45 at 2026-10-23T19:42
 ## Native caption correction
 
 A scoped shared helper now requests supported DWM dark-mode, caption, text and border colors for Settings while retaining the operating-system frame, sizing and accessibility. High contrast requests native default colors. Unsupported attributes are tolerated by leaving the native frame in place; no custom caption is substituted. Production and actual host readback/pixels are pending for this follow-up source.
+
+## 9033 native frame and typed provider results
+
+Source `76a41a4f89d802524501e8cc558f4e7d3ac2fa21` produced package 1.0.9033 through the exact root installer entrypoint, from 2026-10-23T19:43:42.8384527Z to 2026-10-23T19:44:07.0768784Z, exit 0 with two existing delay-load warnings. Executable SHA-256: `9e433eba89ec0185b295526aef214541890d6c6d5184afa400563a830df378ea`; full package SHA-256: `95132235a40583d237681b6eb6e2a5a6999f33e93cdc42db315ece32598fa9c1`.
+
+Actual DWM readback returned success for dark-mode attribute 20, changing from 0 in light appearance to 1 in dark appearance. Attributes 34, 35 and 36 returned E_INVALIDARG on this host, so explicit border/caption/text colors use the documented native fallback. Genuine `settings-dark-native-caption.png` and `settings-dark-native-caption-normal.png` show the native dark caption at minimum and normal sizes. The receipt records GetWindowAttribute results, not direct instrumentation of the helper's SetWindowAttribute calls.
+
+A typed C# observer using the real .NET UI Automation client retained the element and RangeValue pattern on the same hidden desktop. Disabled state reported enabled=false, focusable=false and unchanged value 22 after a queued value 100; SetValue returned ElementNotEnabledException, HRESULT 80040200. Re-enabling reported true/true and accepted SetValue. After normal Settings closure, enabled, focusable, value, read-only and SetValue each returned ElementNotAvailableException, HRESULT 80040201. This supplies the previously missing exact retained-getter observation. It does not prove all UI Automation behavior or the full visual matrix.
+
+Both helper and fixture exited normally. Installation 1.0.45 was restored at 2026-10-23T19:45:10.4897370Z, restoration exit 0, with data/startup comparisons passed and unchanged installed executable hash. No producer or fixture remains active. Raw evidence stays in the private 9032 and 9033 verification inventories. The author is idle for independent recheck of the three corrections and native-frame adaptation. Remaining matrix, clipboard/IME, variable-height overflow behavior, selector panel-background edges and broader native-surface work remain explicitly unfinished.
