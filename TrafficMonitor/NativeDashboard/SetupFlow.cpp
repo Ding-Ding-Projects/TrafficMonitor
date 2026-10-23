@@ -112,7 +112,13 @@ namespace NativeDashboard::Setup
             if (!output.Save() || !MoveFileExW(temp.c_str(), Path().c_str(), MOVEFILE_REPLACE_EXISTING | MOVEFILE_WRITE_THROUGH)) return false;
             CIniHelper stored(Path());
             return stored.GetInt(L"setup", L"schemaVersion", 0) == 2 && stored.GetInt(L"setup", L"step", -1) == d.step
-                && stored.GetBool(L"setup", L"complete", !d.complete) == d.complete;
+                && stored.GetBool(L"setup", L"complete", !d.complete) == d.complete
+                && stored.GetInt(L"setup",L"language",-1)==d.language
+                && stored.GetInt(L"setup",L"appearance",-1)==static_cast<int>(d.preferences.values.appearance)
+                && stored.GetInt(L"setup",L"baseLanguage",-1)==static_cast<int>(d.preferences.base.values.language)
+                && stored.GetInt(L"setup",L"baseAppearance",-1)==static_cast<int>(d.preferences.base.values.appearance)
+                && stored.GetString(L"setup",L"baseFingerprint",L"")==d.preferences.base.fingerprint
+                && stored.GetString(L"setup",L"preferenceDirty",L"")==std::wstring(d.preferences.dirty?L"true":L"false");
         }
         bool StartupEnabled() { return theApp.GetAutoRun(nullptr, theApp.m_installed_mode ? false : theApp.m_general_data.auto_run_by_task_scheduler); }
         bool active{};
@@ -189,7 +195,7 @@ namespace NativeDashboard::Setup
             Fonts(); Labels(); ReloadAdapters();
             RECT r{0,0,Px(760),Px(640)}; AdjustWindowRectEx(&r,GetStyle(),FALSE,GetExStyle());
             SetWindowPos(nullptr,0,0,r.right-r.left,r.bottom-r.top,SWP_NOMOVE|SWP_NOZORDER); CenterWindow(); Layout();
-            m_next.SetFocus(); return FALSE;
+            if(m_draft.protectedSchema){Note(Copy::Protected);m_save.SetFocus();}else m_next.SetFocus(); return FALSE;
         }
         void Wizard::Fonts()
         {
@@ -216,7 +222,7 @@ namespace NativeDashboard::Setup
             for(int i:{5,6})for(auto label:{Copy::Keep,Copy::Enable,Copy::Disable})m_choices[i].AddString(T(label));
             m_choices[0].SetCurSel(m_draft.language);m_ranges[0].SetPos(m_draft.english);m_ranges[1].SetPos(m_draft.cantonese);
             m_choices[3].SetCurSel(static_cast<int>(m_draft.selection.mode));m_choices[5].SetCurSel(m_draft.taskbar);m_choices[6].SetCurSel(m_draft.startup);
-            m_back.SetLabel(T(Copy::Back));m_save.SetLabel(T(Copy::SaveClose));m_refresh.SetLabel(T(Copy::Refresh));m_keep.SetLabel(T(Copy::KeepRemaining));
+            m_back.SetLabel(T(Copy::Back));m_save.SetLabel(T(m_draft.protectedSchema?Copy::CloseUnsaved:Copy::SaveClose));m_refresh.SetLabel(T(Copy::Refresh));m_keep.SetLabel(T(Copy::KeepRemaining));
             m_loading=false;
         }
         void Wizard::ReloadAdapters()
@@ -278,7 +284,7 @@ namespace NativeDashboard::Setup
             m_keep.ShowWindow(m_draft.step==3?SW_SHOW:SW_HIDE);place(m_keep,24,height-200,width-48,44);
             place(m_note,24,height-148,width-48,78);
             const int button=(width-72)/3;place(m_back,24,height-62,button,44);place(m_save,36+button,height-62,button,44);place(m_next,48+2*button,height-62,button,44);
-            m_back.EnableWindow(m_draft.step>0&&!m_applying);m_save.EnableWindow(!m_applying);m_next.EnableWindow(!m_applying);
+            m_back.EnableWindow(m_draft.step>0&&!m_applying);m_save.EnableWindow(!m_applying);m_next.EnableWindow(!m_applying&&!m_draft.protectedSchema);
             m_next.SetLabel(T(m_draft.step==3?Copy::Apply:Copy::Next));
             RedrawWindow(nullptr,nullptr,RDW_INVALIDATE|RDW_ERASE|RDW_ALLCHILDREN|RDW_UPDATENOW);
         }
@@ -384,7 +390,7 @@ namespace NativeDashboard::Setup
         LRESULT Wizard::OnPreferences(WPARAM generation,LPARAM)
         {if(!m_subscription.Accepts(generation))return 0;m_appearance=NativePreferences::EffectiveAppearance();const auto colors=NativeMaterial::Palette::Resolve(m_appearance);m_background.DeleteObject();m_background.CreateSolidBrush(RGB(BYTE(colors.surface.r*255),BYTE(colors.surface.g*255),BYTE(colors.surface.b*255)));m_preferences.Refresh();for(auto* button:{&m_back,&m_next,&m_save,&m_refresh,&m_keep})button->SetAppearance(m_appearance);m_review.SetAppearance(m_appearance);for(auto& range:m_ranges)range.SetAppearance(m_appearance);for(auto& choice:m_choices)if(choice.GetSafeHwnd())choice.SetAppearance(m_appearance);ReadControls();Labels();Layout();return 0;}
         void Wizard::OnCancel()
-        {if(m_applying)return;ReadControls();m_draft.complete=false;if(Save(m_draft))EndDialog(IDCANCEL);else Note(Copy::SaveFailed);}
+        {if(m_applying)return;if(m_draft.protectedSchema){EndDialog(IDCANCEL);return;}ReadControls();m_draft.complete=false;if(Save(m_draft))EndDialog(IDCANCEL);else Note(Copy::SaveFailed);}
         BOOL Wizard::PreTranslateMessage(MSG* msg)
         {
             if(msg->message==WM_KEYDOWN&&msg->wParam==VK_ESCAPE)
@@ -392,7 +398,7 @@ namespace NativeDashboard::Setup
             return CDialog::PreTranslateMessage(msg);
         }
         void Wizard::OnGetMinMaxInfo(MINMAXINFO* info)
-        {CDialog::OnGetMinMaxInfo(info);RECT r{0,0,Px(720),Px(600)};AdjustWindowRectEx(&r,GetStyle(),FALSE,GetExStyle());info->ptMinTrackSize={r.right-r.left,r.bottom-r.top};}
+        {CDialog::OnGetMinMaxInfo(info);RECT r{0,0,Px(760),Px(640)};AdjustWindowRectEx(&r,GetStyle(),FALSE,GetExStyle());info->ptMinTrackSize={r.right-r.left,r.bottom-r.top};}
         HBRUSH Wizard::OnCtlColor(CDC* dc,CWnd*,UINT)
         {const auto p=NativeMaterial::Palette::Resolve(m_appearance);dc->SetTextColor(RGB(BYTE(p.onSurface.r*255),BYTE(p.onSurface.g*255),BYTE(p.onSurface.b*255)));dc->SetBkColor(RGB(BYTE(p.surface.r*255),BYTE(p.surface.g*255),BYTE(p.surface.b*255)));return static_cast<HBRUSH>(m_background.GetSafeHandle());}
         LRESULT Wizard::OnDpi(WPARAM dpi,LPARAM value)

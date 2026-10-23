@@ -215,7 +215,7 @@ namespace
         if(!::IsWindowEnabled(owner))
         {session.Cancel();applying=false;ready=false;apply.EnableWindow(FALSE);Note(note,L"Owner is busy. Run a preview again when it is available.",L"來源視窗忙碌中。待可用時請重新預覽。");return;}
         Result result;if(!session.Poll(result))return;
-        if(!result.complete){ready=false;applying=false;note.SetWindowText(result.error.c_str());return;}
+        if(!result.complete){ready=false;applying=false;messages.erase(note.GetSafeHwnd());note.SetWindowText(result.error.c_str());return;}
         if(applying)
         {
             if(subjects!=readSubjects()){applying=false;ready=true;apply.EnableWindow(TRUE);Note(note,L"Search rows changed. Apply again to validate the current rows.",L"搜尋項目已更改。請再次套用以驗證目前項目。");return;}

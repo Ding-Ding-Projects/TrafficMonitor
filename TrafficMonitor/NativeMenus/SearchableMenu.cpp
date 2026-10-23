@@ -71,6 +71,22 @@ bool ReadItem(HMENU menu, UINT position, Item& item)
     const auto tab = item.text.find(L'\t');
     item.label = VisibleText(item.text.substr(0, tab));
     item.shortcut = tab == std::wstring::npos ? L"" : item.text.substr(tab + 1);
+    const wchar_t* en=nullptr;const wchar_t* zh=nullptr;
+    switch(item.id)
+    {
+        case ID_OPTIONS:case ID_OPTIONS2:en=L"Settings";zh=L"設定";break;
+        case ID_TRAFFIC_HISTORY:en=L"Traffic history";zh=L"流量記錄";break;
+        case ID_PLUGIN_MANAGE:en=L"Manage plugins";zh=L"管理外掛程式";break;
+        case ID_ALWAYS_ON_TOP:en=L"Always on top";zh=L"保持最上層";break;
+        case ID_LOCK_WINDOW_POS:en=L"Lock window position";zh=L"鎖定視窗位置";break;
+        case ID_SHOW_NOTIFY_ICON:en=L"Show notification-area icon";zh=L"顯示通知區域圖示";break;
+        case ID_SHOW_TASK_BAR_WND:en=L"Show taskbar monitor";zh=L"顯示工作列監察器";break;
+        case ID_SHOW_MAIN_WND:en=L"Show floating monitor";zh=L"顯示浮動監察器";break;
+        case ID_CHECK_UPDATE:en=L"Check for updates";zh=L"檢查更新";break;
+        default:break;
+    }
+    if(en)item.label=NativePreferences::Pair(en,zh).GetString();
+
     return true;
 }
 
@@ -475,13 +491,13 @@ public:
         case WM_ACTIVATE: if(LOWORD(w)==WA_INACTIVE && !self->regexEditor.Contains(reinterpret_cast<HWND>(l))) self->done=true; return 0;
         case WM_CLOSE: self->done=true; return 0;
         case WM_DPICHANGED: self->dpi=HIWORD(w); self->Fonts(); self->Layout(); return 0;
-        case NativePreferences::ChangedMessage: if(!self->preferences.Accepts(w))return 0; self->Colors(); self->Layout(); InvalidateRect(hwnd,nullptr,TRUE); return 0;
+        case NativePreferences::ChangedMessage: if(!self->preferences.Accepts(w))return 0; self->PreferencesChanged(); InvalidateRect(hwnd,nullptr,TRUE); return 0;
         case WM_SETTINGCHANGE: case WM_THEMECHANGED: NativePreferences::RefreshSystemAppearance(); self->Colors(); InvalidateRect(hwnd,nullptr,TRUE); return 0;
         case WM_NCDESTROY: self->preferences.Detach(); self->accessibility->popup=nullptr; self->accessibility->list=nullptr; self->window=nullptr; break;
         }
         return DefWindowProcW(hwnd,message,w,l);
     }
-    bool Create()
+    void Labels()
     {
         chinese=NativePreferences::Current().values.language==NativePreferences::Language::Cantonese;
         searchText=NativePreferences::Pair(L"Search menu",L"搜尋選單").GetString();
@@ -490,6 +506,17 @@ public:
         invokeText=NativePreferences::Pair(L"Invoke",L"執行").GetString();
         expandText=NativePreferences::Pair(L"Open submenu",L"開啟子選單").GetString();
         radioText=NativePreferences::Pair(L"Radio option",L"單選選項").GetString();
+        if(back)SetWindowTextW(back,backText.c_str());if(regex)SetWindowTextW(regex,NativePreferences::Pair(L"Regex",L"正規式"));
+        if(edit)SendMessageW(edit,EM_SETCUEBANNER,TRUE,reinterpret_cast<LPARAM>(searchText.c_str()));
+    }
+    void PreferencesChanged()
+    {
+        UINT selectedId=0;const auto* selected=Row(static_cast<int>(SendMessageW(list,LB_GETCURSEL,0,0)));if(selected)selectedId=selected->id;
+        Labels();Colors();if(!levels.empty()){ReadLevel();Filter();for(size_t i=0;i<visible.size();++i)if(Row(static_cast<int>(i))->id==selectedId){SendMessageW(list,LB_SETCURSEL,i,0);break;}}Layout();
+    }
+    bool Create()
+    {
+        Labels();
         WNDCLASSEXW cls{sizeof(cls)}; cls.lpfnWndProc=WindowProc; cls.hInstance=AfxGetInstanceHandle(); cls.lpszClassName=L"TrafficMonitor.NativeSearchMenu"; cls.hCursor=LoadCursorW(nullptr,IDC_ARROW); cls.style=CS_DROPSHADOW;
         if(!RegisterClassExW(&cls) && GetLastError()!=ERROR_CLASS_ALREADY_EXISTS) return false;
         Colors();

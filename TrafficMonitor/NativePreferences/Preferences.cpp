@@ -17,7 +17,23 @@ namespace NativePreferences
         accepted.values=defaults;
         WIN32_FILE_ATTRIBUTE_DATA a{};const auto setup=directory+L"dashboard-setup.ini";
         if(GetFileAttributesExW(setup.c_str(),GetFileExInfoStandard,&a)&&!a.nFileSizeHigh&&a.nFileSizeLow<=16384)
-        {CIniHelper ini(setup);if(ini.GetInt(L"setup",L"schemaVersion",0)==1){std::wstring value;if(ini.GetString(L"setup",L"language",value)&&ParseSavedLanguage(value,accepted.values.language))accepted.values.language=static_cast<Language>(value[0]-L'0');}}
+        {
+            CIniHelper ini(setup);const int schema=ini.GetInt(L"setup",L"schemaVersion",0);
+            if(schema==1){std::wstring value;if(ini.GetString(L"setup",L"language",value))ParseSavedLanguage(value,accepted.values.language);}
+            else if(schema==2&&ini.GetString(L"setup",L"baseFingerprint",L"")==L"missing")
+            {
+                // The accepted startup fallback is durable even before an explicit Apply.
+                // Read the accepted base, never the wizard's possibly unsaved draft.
+                std::wstring language,appearance,draftLanguage,draftAppearance,dirty;
+                Language parsed{};Language ignored{};
+                if(ini.GetString(L"setup",L"baseLanguage",language)&&ParseSavedLanguage(language,parsed)
+                    &&ini.GetString(L"setup",L"baseAppearance",appearance)&&ParseSavedLanguage(appearance,ignored)
+                    &&ini.GetString(L"setup",L"language",draftLanguage)&&ParseSavedLanguage(draftLanguage,ignored)
+                    &&ini.GetString(L"setup",L"appearance",draftAppearance)&&ParseSavedLanguage(draftAppearance,ignored)
+                    &&ini.GetString(L"setup",L"preferenceDirty",dirty)&&(dirty==L"true"||dirty==L"false"))
+                    accepted.values={parsed,static_cast<Appearance>(appearance[0]-L'0')};
+            }
+        }
         missingFallback=accepted.values;Reload();
     }
     Snapshot Current(){return accepted;}

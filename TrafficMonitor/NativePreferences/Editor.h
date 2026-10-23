@@ -16,6 +16,7 @@ namespace NativePreferences
         bool Command(UINT id);
         Draft draft;
         void UseSaved();
+        void Focus(bool appearance){(appearance?m_appearanceChoice:m_languageChoice).SetFocus();}
     private:
         CWnd* m_parent{};
         CStatic m_language,m_appearance,m_scope,m_preview,m_note;

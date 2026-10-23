@@ -166,6 +166,7 @@ namespace
     std::wstring Editor::DraftValue(const Row& row,bool chinese)const
     {
         const auto& s=*row.setting;std::wstring result;
+        if(s.group==Interface){const bool appearance=std::wstring(s.id)==L"interface.appearance";const auto id=static_cast<NativePreferences::TextId>(static_cast<int>(appearance?NativePreferences::TextId::System:NativePreferences::TextId::English)+(appearance?static_cast<int>(m_interface.draft.values.appearance):static_cast<int>(m_interface.draft.values.language)));return NativePreferences::Text(id,chinese?NativePreferences::Language::Cantonese:NativePreferences::Language::English).GetString();}
         if(s.enabled)result=m_values.*s.enabled?(chinese?L"已啟用":L"Enabled"):(chinese?L"已停用":L"Disabled");
         if(s.number){CString text;row.number.GetWindowText(text);if(!result.empty())result+=L"; ";result+=text.GetString();result+=L" ";if(s.trafficUnits)result+=m_values.trafficUnit==0?L"MB":m_values.trafficUnit==1?L"GB":(chinese?L"無效單位":L"Invalid unit");else if(s.unit)result+=s.unit;}
         return result;
@@ -215,7 +216,7 @@ namespace
         auto textHeight=[&](CWnd& c,int w){CString text;c.GetWindowText(text);CRect r(0,0,Px(w),0);dc.DrawText(text,&r,DT_CALCRECT|DT_WORDBREAK|DT_NOPREFIX);return (std::max)(24,(r.Height()*96+static_cast<int>(m_dpi)-1)/static_cast<int>(m_dpi));};
         for(size_t i=0;i<m_rows.size();++i)
         {
-            auto& r=*m_rows[i];const auto& s=*r.setting;r.visible=m_page!=Discovery&&s.group==m_page&&(state.filter.Visible(i)||m_reveal==s.id);
+            auto& r=*m_rows[i];const auto& s=*r.setting;r.visible=m_page!=Discovery&&m_page!=Interface&&s.group==m_page&&(state.filter.Visible(i)||m_reveal==s.id);
             if(r.visible){r.top=y;r.labelHeight=(std::max)(52,textHeight(s.enabled?static_cast<CWnd&>(r.check):static_cast<CWnd&>(r.label),bw-170)+24);r.defaultHeight=textHeight(r.defaults,bw-24);r.descriptionHeight=r.expanded?textHeight(r.description,bw-24):0;r.height=r.labelHeight+8+(s.number?48:0)+r.defaultHeight+12+(r.expanded?r.descriptionHeight+12:0);y+=r.height+12;++count;}
         }
         const int updateTop=y;const int updateHeight=m_page==0?textHeight(m_updateInfo,bw-24)+16:0;y+=updateHeight;
@@ -263,7 +264,7 @@ namespace
     void Editor::SwitchGroup(int group)
     {if(group<0||group>Discovery)return;m_regexEditor.Close();m_binding.Invalidate();m_reveal.clear();m_page=group;m_loading=true;m_search.SetWindowText(m_searches[group].filter.options.query.c_str());m_loading=false;Layout();m_search.SetFocus();}
     void Editor::Reveal(const std::wstring& id)
-    {auto* r=Find(id);if(!r)return;SwitchGroup(r->setting->group);m_reveal=id;Layout();EnsureVisible(*r);if(r->setting->number&&r->number.IsWindowEnabled())r->number.SetFocus();else if(r->check.GetSafeHwnd()&&r->check.IsWindowEnabled())r->check.SetFocus();else r->details.SetFocus();}
+    {auto* r=Find(id);if(!r)return;SwitchGroup(r->setting->group);if(r->setting->group==Interface){m_interface.Focus(id==L"interface.appearance");return;}m_reveal=id;Layout();EnsureVisible(*r);if(r->setting->number&&r->number.IsWindowEnabled())r->number.SetFocus();else if(r->check.GetSafeHwnd()&&r->check.IsWindowEnabled())r->check.SetFocus();else r->details.SetFocus();}
     void Editor::OpenSelected(){const int at=m_results.GetCurSel();if(at==LB_ERR)return;auto* s=static_cast<Setting*>(m_results.GetItemDataPtr(at));if(s)Reveal(s->id);}
     void Editor::SetRowFrom(Row& row,const Values& source){row.setting->Copy(m_values,source);m_loading=true;SyncRow(row);m_loading=false;m_dirty=true;Layout();EnsureVisible(row);}
     void Editor::ResetPage()

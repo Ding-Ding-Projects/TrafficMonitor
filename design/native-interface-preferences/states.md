@@ -43,3 +43,22 @@ Unit seams cover typed enum validation, explicit setup migration precedence, unk
 Runtime checks open workspace, Settings and an independent regex editor together; change every language/appearance pair; inspect actual text, colors and accessibility, close/reopen each surface and restart the application. Repeat with pending numeric edits, regex work, disconnected adapter, submenu search and owner destruction. Verify no monitoring resampling/restart and no change to legacy language_id, plugin labels or unrelated saved preferences. Run exact root build entrypoint after independent design approval and implementation. This design pass runs no build and starts no UI.
 
 Evidence must identify candidate commit, executable hash, version, screen/state, language, theme, DPI, actual client dimensions, controlled inputs, route and privacy review. Preserve raw screenshots, layout receipts, same-tuple reference comparison and reviewed deviations. Existing 96-DPI evidence from earlier settings work is historical baseline, not proof of this design or the whole matrix.
+
+### Setup fallback and protected-file correction
+
+A schema-1 explicit language choice remains the accepted startup fallback before
+any shared preference file exists. When wizard navigation serializes schema 2,
+its accepted base pair and `missing` fingerprint preserve that fallback across
+restart. Initialization reads the base pair, never a dirty retained draft. An
+existing valid shared preference file takes precedence. This does not claim a
+successful global Apply or create a shared preference file.
+
+Unsupported setup schemas remain byte-preserved. The wizard disables progression
+and labels its close action "Close without saving"; Escape and the window close
+button leave without attempting persistence. Saving and completion stay blocked.
+The production serializer also reads back both draft values, the dirty marker,
+and the complete accepted base after replacement.
+
+These paths are source corrections. Actual wizard serialization, startup
+migration and protected-schema close still require production-bound execution;
+the earlier 23 storage/helper checks do not establish those results.
