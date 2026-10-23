@@ -2,7 +2,7 @@
   "entries": [
     {
       "sha": "b4d38b16ed7b3b324f83fd56d64c06e0ea3e9b8e",
-      "date": "2022-01-01T12:26:22+08:00",
+      "date": "2021-12-31T23:26:22-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/b4d38b16ed7b3b324f83fd56d64c06e0ea3e9b8e",
       "summary": "Update LibreHardwareMonitorLib to version 0.89",
       "category": "maintenance",
@@ -13,7 +13,7 @@
     },
     {
       "sha": "fc29c8a6326b634f464e241a8134ca224d8291ef",
-      "date": "2022-01-01T12:41:37+08:00",
+      "date": "2021-12-31T23:41:37-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/fc29c8a6326b634f464e241a8134ca224d8291ef",
       "summary": "Merge pull request #977 from 0nahid/master",
       "category": "merge",
@@ -24,7 +24,7 @@
     },
     {
       "sha": "d27a2d7f510c3a4b9e253dc2976ad75405677e7a",
-      "date": "2022-01-02T23:35:32+08:00",
+      "date": "2022-01-02T10:35:32-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/d27a2d7f510c3a4b9e253dc2976ad75405677e7a",
       "summary": "Move the skin-creation tutorial to the wiki",
       "category": "documentation",
@@ -35,7 +35,7 @@
     },
     {
       "sha": "3e5e5b3801e821fe060c3ec7e5f4474f39fb6f2a",
-      "date": "2022-01-02T23:39:43+08:00",
+      "date": "2022-01-02T10:39:43-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/3e5e5b3801e821fe060c3ec7e5f4474f39fb6f2a",
       "summary": "Update the documentation",
       "category": "documentation",
@@ -46,7 +46,7 @@
     },
     {
       "sha": "72356ad9a75e7d7d55caf339e08fecbc5d283066",
-      "date": "2022-01-03T19:50:35+08:00",
+      "date": "2022-01-03T06:50:35-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/72356ad9a75e7d7d55caf339e08fecbc5d283066",
       "summary": "Remove unused files",
       "category": "maintenance",
@@ -57,7 +57,7 @@
     },
     {
       "sha": "b6d9b425b28bd8450cc5426ba4fde1803c0f9cae",
-      "date": "2022-01-04T19:29:37+08:00",
+      "date": "2022-01-04T06:29:37-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/b6d9b425b28bd8450cc5426ba4fde1803c0f9cae",
       "summary": "Allow sorting plugin items in the taskbar",
       "category": "feature",
@@ -68,7 +68,7 @@
     },
     {
       "sha": "a9498e1ab0c7d1f3f08df4f48e02d037671e0f80",
-      "date": "2022-01-09T15:13:22+08:00",
+      "date": "2022-01-09T02:13:22-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/a9498e1ab0c7d1f3f08df4f48e02d037671e0f80",
       "summary": "Fix duplicate keyboard mnemonics in the already-running dialog",
       "category": "fix",
@@ -79,7 +79,7 @@
     },
     {
       "sha": "7f4310dd7d0d50b80dff5044de027676168b6a9c",
-      "date": "2022-01-09T17:29:30+08:00",
+      "date": "2022-01-09T04:29:30-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/7f4310dd7d0d50b80dff5044de027676168b6a9c",
       "summary": "Revise taskbar color presets, add preset 4, and remove the old light-mode preset",
       "category": "feature",
@@ -90,7 +90,7 @@
     },
     {
       "sha": "6e1fb1f679cc1e10c00681f08be8c7be76db2179",
-      "date": "2022-01-09T19:56:30+08:00",
+      "date": "2022-01-09T06:56:30-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/6e1fb1f679cc1e10c00681f08be8c7be76db2179",
       "summary": "Save the current colors into the matching preset when automatic light/dark adaptation is enabled",
       "category": "feature",
@@ -101,7 +101,7 @@
     },
     {
       "sha": "aa98081d1269856896a8f3409af9d3b504c80048",
-      "date": "2022-01-10T09:52:08+08:00",
+      "date": "2022-01-09T20:52:08-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/aa98081d1269856896a8f3409af9d3b504c80048",
       "summary": "Add a configuration option to save taskbar colors automatically to presets",
       "category": "feature",
@@ -112,7 +112,7 @@
     },
     {
       "sha": "73cc985cd0671e20b7fb3aebef18a2803b0a557f",
-      "date": "2022-01-10T09:58:02+08:00",
+      "date": "2022-01-09T20:58:02-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/73cc985cd0671e20b7fb3aebef18a2803b0a557f",
       "summary": "Fix the covered scrollbar on the English historical-traffic dialog",
       "category": "fix",
@@ -123,7 +123,7 @@
     },
     {
       "sha": "7418d5ca2235f53d6bd405461afa1fb474b5c578",
-      "date": "2022-01-10T10:12:18+08:00",
+      "date": "2022-01-09T21:12:18-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/7418d5ca2235f53d6bd405461afa1fb474b5c578",
       "summary": "Reopen the taskbar window after saving plugin options so changes take effect immediately",
       "category": "fix",
@@ -134,7 +134,7 @@
     },
     {
       "sha": "4aa3c4e7512462cfa42d5b00f108e899053a5806",
-      "date": "2022-01-10T20:08:08+08:00",
+      "date": "2022-01-10T07:08:08-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/4aa3c4e7512462cfa42d5b00f108e899053a5806",
       "summary": "Allow selecting which network connections appear in the connection list",
       "category": "feature",
@@ -145,7 +145,7 @@
     },
     {
       "sha": "8e27d0a7c7a90cd0d594b9a2c2e92cc63d0e786b",
-      "date": "2022-01-11T17:43:43+08:00",
+      "date": "2022-01-11T04:43:43-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/8e27d0a7c7a90cd0d594b9a2c2e92cc63d0e786b",
       "summary": "Add an option to automatically save taskbar colors into presets",
       "category": "feature",
@@ -156,7 +156,7 @@
     },
     {
       "sha": "fd54fd88c2f99aa578a4cd28166e98f97fa53f7d",
-      "date": "2022-01-12T22:53:00+08:00",
+      "date": "2022-01-12T09:53:00-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/fd54fd88c2f99aa578a4cd28166e98f97fa53f7d",
       "summary": "Send current options to plugins",
       "category": "feature",
@@ -167,7 +167,7 @@
     },
     {
       "sha": "3d4e674eddc70df41f6efdf125adf1118ce8173f",
-      "date": "2022-01-13T12:11:28+08:00",
+      "date": "2022-01-12T23:11:28-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/3d4e674eddc70df41f6efdf125adf1118ce8173f",
       "summary": "Add total network-speed display",
       "category": "feature",
@@ -178,7 +178,7 @@
     },
     {
       "sha": "1c0ab775b09a293e63958faac4be30f1977af1e4",
-      "date": "2022-01-13T20:59:16+08:00",
+      "date": "2022-01-13T07:59:16-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/1c0ab775b09a293e63958faac4be30f1977af1e4",
       "summary": "Add a network-usage graph",
       "category": "feature",
@@ -189,7 +189,7 @@
     },
     {
       "sha": "93c9760e97efb911ba209b033f6fca2a0b4d182e",
-      "date": "2022-01-13T21:08:16+08:00",
+      "date": "2022-01-13T08:08:16-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/93c9760e97efb911ba209b033f6fca2a0b4d182e",
       "summary": "Change the default network-usage graph style",
       "category": "maintenance",
@@ -200,7 +200,7 @@
     },
     {
       "sha": "07ed0bf07be89267a379c2a05a50417c56a3d629",
-      "date": "2022-01-13T21:39:52+08:00",
+      "date": "2022-01-13T08:39:52-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/07ed0bf07be89267a379c2a05a50417c56a3d629",
       "summary": "Show disks with duplicate names as separate entries",
       "category": "fix",
@@ -211,7 +211,7 @@
     },
     {
       "sha": "5f609445b3f9294fd3305d04263fffcd115f2e2d",
-      "date": "2022-01-14T21:14:13+08:00",
+      "date": "2022-01-14T08:14:13-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/5f609445b3f9294fd3305d04263fffcd115f2e2d",
       "summary": "Improve horizontal graph rendering in the taskbar window",
       "category": "maintenance",
@@ -222,7 +222,7 @@
     },
     {
       "sha": "df3d9ed23c56ee7ef14d08ef43d140ada0b81b0c",
-      "date": "2022-01-14T21:56:12+08:00",
+      "date": "2022-01-14T08:56:12-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/df3d9ed23c56ee7ef14d08ef43d140ada0b81b0c",
       "summary": "Correct code comments",
       "category": "maintenance",
@@ -233,7 +233,7 @@
     },
     {
       "sha": "e9c5cebafe9e87cf9958fa6574756516939db3f7",
-      "date": "2022-01-15T13:32:24+08:00",
+      "date": "2022-01-15T00:32:24-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/e9c5cebafe9e87cf9958fa6574756516939db3f7",
       "summary": "Replace the taskbar display-settings submenu with a dialog",
       "category": "feature",
@@ -244,7 +244,7 @@
     },
     {
       "sha": "12f81eef81d0b7035a8bc0c9d8f91ce6e39dbeff",
-      "date": "2022-01-15T13:56:09+08:00",
+      "date": "2022-01-15T00:56:09-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/12f81eef81d0b7035a8bc0c9d8f91ce6e39dbeff",
       "summary": "Allow context menus while dialogs are open and close open dialogs when the application exits",
       "category": "fix",
@@ -255,7 +255,7 @@
     },
     {
       "sha": "6b118cf66f186b77067d9e0b522f1266b457d01f",
-      "date": "2022-01-15T14:31:32+08:00",
+      "date": "2022-01-15T01:31:32-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/6b118cf66f186b77067d9e0b522f1266b457d01f",
       "summary": "Remove unused code",
       "category": "maintenance",
@@ -266,7 +266,7 @@
     },
     {
       "sha": "6c53d02f81fef53908e05ce5b8553a03bf4108b2",
-      "date": "2022-01-16T10:40:48+08:00",
+      "date": "2022-01-15T21:40:48-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/6c53d02f81fef53908e05ce5b8553a03bf4108b2",
       "summary": "Remove the registry entry identifying the application as a wizard-generated program",
       "category": "maintenance",
@@ -277,7 +277,7 @@
     },
     {
       "sha": "c6cb100daff19e7d4e29889126f9cf1fc36314d1",
-      "date": "2022-01-16T19:34:46+08:00",
+      "date": "2022-01-16T06:34:46-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/c6cb100daff19e7d4e29889126f9cf1fc36314d1",
       "summary": "Add an alignment mode that places labels and values at opposite ends",
       "category": "feature",
@@ -288,7 +288,7 @@
     },
     {
       "sha": "ed557ef8b243c70b972b2826c7ee99b898bd822d",
-      "date": "2022-01-16T19:43:50+08:00",
+      "date": "2022-01-16T06:43:50-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/ed557ef8b243c70b972b2826c7ee99b898bd822d",
       "summary": "Fix repeated temperature labels in the main window",
       "category": "fix",
@@ -299,7 +299,7 @@
     },
     {
       "sha": "7319f2546d666e7f8cb99f005db5087280aad921",
-      "date": "2022-01-17T19:52:54+08:00",
+      "date": "2022-01-17T06:52:54-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/7319f2546d666e7f8cb99f005db5087280aad921",
       "summary": "Fix automatic saving of the transparent-background color preset",
       "category": "fix",
@@ -310,7 +310,7 @@
     },
     {
       "sha": "a561e89f9c427964ee0096e8e364c12ba009a074",
-      "date": "2022-01-17T22:52:45+08:00",
+      "date": "2022-01-17T09:52:45-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/a561e89f9c427964ee0096e8e364c12ba009a074",
       "summary": "Fix the donation dialog failing to open",
       "category": "fix",
@@ -321,7 +321,7 @@
     },
     {
       "sha": "e233b8f1f449ed3f6f0a9968b34251c64fa16e1f",
-      "date": "2022-01-18T18:29:54+08:00",
+      "date": "2022-01-18T05:29:54-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/e233b8f1f449ed3f6f0a9968b34251c64fa16e1f",
       "summary": "Prevent notification-area context menus while another dialog is open",
       "category": "fix",
@@ -332,7 +332,7 @@
     },
     {
       "sha": "6d258a5bb382753c1ed645c6df3b24daeeedf0bb",
-      "date": "2022-01-22T10:36:14+08:00",
+      "date": "2022-01-21T21:36:14-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/6d258a5bb382753c1ed645c6df3b24daeeedf0bb",
       "summary": "Add a plugin API for responding to mouse clicks",
       "category": "feature",
@@ -343,7 +343,7 @@
     },
     {
       "sha": "bce0bc890481960b5b1a1685e6bca1b2d92b58dd",
-      "date": "2022-01-22T19:55:59+08:00",
+      "date": "2022-01-22T06:55:59-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/bce0bc890481960b5b1a1685e6bca1b2d92b58dd",
       "summary": "Add links to skin and plugin folders in their management dialogs",
       "category": "feature",
@@ -354,7 +354,7 @@
     },
     {
       "sha": "2f327fc7563acb9e283b0a68d0d2fc7954a0a608",
-      "date": "2022-01-23T12:52:53+08:00",
+      "date": "2022-01-22T23:52:53-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/2f327fc7563acb9e283b0a68d0d2fc7954a0a608",
       "summary": "Pass the configuration directory to plugins at startup",
       "category": "feature",
@@ -365,7 +365,7 @@
     },
     {
       "sha": "536af40f3828223fc953251a0a2aa604476bc7a6",
-      "date": "2022-01-25T21:08:52+08:00",
+      "date": "2022-01-25T08:08:52-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/536af40f3828223fc953251a0a2aa604476bc7a6",
       "summary": "Use the new API to measure taskbar plugin-item widths",
       "category": "maintenance",
@@ -376,7 +376,7 @@
     },
     {
       "sha": "5b51884073e53481e265bcd90eec26b690eba556",
-      "date": "2022-01-26T23:10:43+08:00",
+      "date": "2022-01-26T10:10:43-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/5b51884073e53481e265bcd90eec26b690eba556",
       "summary": "Fix a crash when no network connections are available",
       "category": "fix",
@@ -387,7 +387,7 @@
     },
     {
       "sha": "fd7ce62c5259756aab158ea33e8d6fd593ca3dbd",
-      "date": "2022-01-26T23:55:06+08:00",
+      "date": "2022-01-26T10:55:06-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/fd7ce62c5259756aab158ea33e8d6fd593ca3dbd",
       "summary": "Hide tooltips while opening the taskbar context menu",
       "category": "fix",
@@ -398,7 +398,7 @@
     },
     {
       "sha": "e238f0e18f3207a1fffc4a76f63842a5fbb13afa",
-      "date": "2022-01-27T19:13:48+08:00",
+      "date": "2022-01-27T06:13:48-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/e238f0e18f3207a1fffc4a76f63842a5fbb13afa",
       "summary": "Add a command to refresh the network-connection list",
       "category": "feature",
@@ -409,7 +409,7 @@
     },
     {
       "sha": "d243889f9e96f37477e57be66125b0fa016b9498",
-      "date": "2022-02-01T20:35:22+08:00",
+      "date": "2022-02-01T07:35:22-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/d243889f9e96f37477e57be66125b0fa016b9498",
       "summary": "Catch hardware-monitoring exceptions to prevent crashes",
       "category": "fix",
@@ -420,7 +420,7 @@
     },
     {
       "sha": "dd6c638268c33c894bd1184ffe7384100bd84a55",
-      "date": "2022-02-01T21:27:43+08:00",
+      "date": "2022-02-01T08:27:43-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/dd6c638268c33c894bd1184ffe7384100bd84a55",
       "summary": "Store the date-and-time plugin configuration alongside the main application's settings",
       "category": "fix",
@@ -431,7 +431,7 @@
     },
     {
       "sha": "e10839866361cf44d48738fd5b6d498148612b76",
-      "date": "2022-02-03T19:09:27+08:00",
+      "date": "2022-02-03T06:09:27-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/e10839866361cf44d48738fd5b6d498148612b76",
       "summary": "Show the startup path in the startup option tooltip and add a reset-startup-settings action",
       "category": "feature",
@@ -442,7 +442,7 @@
     },
     {
       "sha": "043b0bb06e2a15d5f6b739eb0212a61a63b8e068",
-      "date": "2022-02-03T19:48:15+08:00",
+      "date": "2022-02-03T06:48:15-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/043b0bb06e2a15d5f6b739eb0212a61a63b8e068",
       "summary": "Update the version number",
       "category": "release",
@@ -453,7 +453,7 @@
     },
     {
       "sha": "adb711e9e28d93e8a93af817ff22a705cb5134d1",
-      "date": "2022-02-03T20:45:37+08:00",
+      "date": "2022-02-03T07:45:37-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/adb711e9e28d93e8a93af817ff22a705cb5134d1",
       "summary": "Update version metadata",
       "category": "release",
@@ -464,7 +464,7 @@
     },
     {
       "sha": "d3a167ee70065f63df1515b6d659fcc596bea195",
-      "date": "2022-02-04T11:35:21+08:00",
+      "date": "2022-02-03T22:35:21-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/d3a167ee70065f63df1515b6d659fcc596bea195",
       "summary": "Add the missing /s to main-window network-speed units",
       "category": "fix",
@@ -475,7 +475,7 @@
     },
     {
       "sha": "159c25d422ce3b70803ba52eacb0d859e6f06b32",
-      "date": "2022-02-05T18:15:55+08:00",
+      "date": "2022-02-05T05:15:55-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/159c25d422ce3b70803ba52eacb0d859e6f06b32",
       "summary": "Correct an English spelling error",
       "category": "fix",
@@ -486,7 +486,7 @@
     },
     {
       "sha": "c0d2469ee101eb9984b93e3fb3233ca4834dbae5",
-      "date": "2022-02-07T00:00:53+08:00",
+      "date": "2022-02-06T11:00:53-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/c0d2469ee101eb9984b93e3fb3233ca4834dbae5",
       "summary": "Catch exceptions from GetIfTable to prevent crashes",
       "category": "fix",
@@ -497,7 +497,7 @@
     },
     {
       "sha": "de56a5b1e59a885fc98630e7c78da75f80d2aef3",
-      "date": "2022-02-12T15:02:22+08:00",
+      "date": "2022-02-12T02:02:22-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/de56a5b1e59a885fc98630e7c78da75f80d2aef3",
       "summary": "Add CPU-frequency monitoring",
       "category": "feature",
@@ -508,7 +508,7 @@
     },
     {
       "sha": "8ef98a434b38b53d107360684d62c79f8368a4d6",
-      "date": "2022-02-20T11:30:53+08:00",
+      "date": "2022-02-19T22:30:53-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/8ef98a434b38b53d107360684d62c79f8368a4d6",
       "summary": "Normalize line endings in the documentation",
       "category": "maintenance",
@@ -519,7 +519,7 @@
     },
     {
       "sha": "839948d00a5d6bcb71dd8376170170ebd0ddfecb",
-      "date": "2022-02-20T11:34:28+08:00",
+      "date": "2022-02-19T22:34:28-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/839948d00a5d6bcb71dd8376170170ebd0ddfecb",
       "summary": "Normalize line endings in the README files",
       "category": "maintenance",
@@ -530,7 +530,7 @@
     },
     {
       "sha": "bb8a2ba3853a83f8be709d9d54b3ab846e66fa3b",
-      "date": "2022-02-20T20:12:14+08:00",
+      "date": "2022-02-20T07:12:14-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/bb8a2ba3853a83f8be709d9d54b3ab846e66fa3b",
       "summary": "Update the changelog",
       "category": "release",
@@ -541,7 +541,7 @@
     },
     {
       "sha": "6dd1f02320d6fe6a332bc29bde7748988d4f3c8e",
-      "date": "2022-02-20T20:13:52+08:00",
+      "date": "2022-02-20T07:13:52-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/6dd1f02320d6fe6a332bc29bde7748988d4f3c8e",
       "summary": "Prevent string-buffer overflows when writing INI values",
       "category": "fix",
@@ -552,7 +552,7 @@
     },
     {
       "sha": "a9dde52505f7ad8cdef7011b3cca121f2c868a8c",
-      "date": "2022-02-20T23:04:16+08:00",
+      "date": "2022-02-20T10:04:16-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/a9dde52505f7ad8cdef7011b3cca121f2c868a8c",
       "summary": "Build with the Windows Server 2019 runner image",
       "category": "maintenance",
@@ -563,7 +563,7 @@
     },
     {
       "sha": "ff5f3a6a23dddb03b10c0868df56f4b17cfe0397",
-      "date": "2022-02-24T19:43:59+08:00",
+      "date": "2022-02-24T06:43:59-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/ff5f3a6a23dddb03b10c0868df56f4b17cfe0397",
       "summary": "Fix plugin context menus opening when right-clicking blank taskbar space",
       "category": "fix",
@@ -574,7 +574,7 @@
     },
     {
       "sha": "56361e5f87d450f217761c16d8d26a4912d1dccb",
-      "date": "2022-02-25T20:07:19+08:00",
+      "date": "2022-02-25T07:07:19-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/56361e5f87d450f217761c16d8d26a4912d1dccb",
       "summary": "Merge pull request #1047 from xgdgsc/feat/cpu_freq",
       "category": "merge",
@@ -585,7 +585,7 @@
     },
     {
       "sha": "5dfee8005c89cf8f2e558be6d37ab835a65e52a8",
-      "date": "2022-02-25T21:11:38+08:00",
+      "date": "2022-02-25T08:11:38-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/5dfee8005c89cf8f2e558be6d37ab835a65e52a8",
       "summary": "Refine CPU-frequency display details",
       "category": "maintenance",
@@ -596,7 +596,7 @@
     },
     {
       "sha": "775db3e22c4d003dae0898c3feff0deaac8cc52a",
-      "date": "2022-02-25T21:19:34+08:00",
+      "date": "2022-02-25T08:19:34-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/775db3e22c4d003dae0898c3feff0deaac8cc52a",
       "summary": "Hide the usage graph for CPU-frequency values",
       "category": "maintenance",
@@ -607,7 +607,7 @@
     },
     {
       "sha": "23bc91a5d6a03db3a380207fbba612702a9a4086",
-      "date": "2022-02-25T21:27:38+08:00",
+      "date": "2022-02-25T08:27:38-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/23bc91a5d6a03db3a380207fbba612702a9a4086",
       "summary": "Show CPU frequency in mouse tooltips",
       "category": "feature",
@@ -618,7 +618,7 @@
     },
     {
       "sha": "61c06b0ec1050527db698f9ab94071cb4b33fa02",
-      "date": "2022-02-25T23:12:25+08:00",
+      "date": "2022-02-25T10:12:25-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/61c06b0ec1050527db698f9ab94071cb4b33fa02",
       "summary": "Enable the Windows 11 taskbar-near-icon option when the taskbar window is docked on the left",
       "category": "fix",
@@ -629,7 +629,7 @@
     },
     {
       "sha": "1b1eab832bf79d09407b48c22a22af111b7dac3e",
-      "date": "2022-02-25T23:22:08+08:00",
+      "date": "2022-02-25T10:22:08-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/1b1eab832bf79d09407b48c22a22af111b7dac3e",
       "summary": "Ignore the Bus Speed sensor when calculating CPU frequency",
       "category": "fix",
@@ -640,7 +640,7 @@
     },
     {
       "sha": "83018b2362973b5d92b30486496da1161e7200a4",
-      "date": "2022-02-26T10:29:58+08:00",
+      "date": "2022-02-25T21:29:58-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/83018b2362973b5d92b30486496da1161e7200a4",
       "summary": "Open the main options dialog instead of plugin options for non-plugin taskbar items",
       "category": "fix",
@@ -651,7 +651,7 @@
     },
     {
       "sha": "308a07291c0aaa8296a1c282a3f1ae39d901292c",
-      "date": "2022-03-02T15:28:32+08:00",
+      "date": "2022-03-02T02:28:32-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/308a07291c0aaa8296a1c282a3f1ae39d901292c",
       "summary": "Fix blank areas after resizing the options window",
       "category": "fix",
@@ -662,7 +662,7 @@
     },
     {
       "sha": "71d7c10ae3579d80fadb94c45264ba6dcdbe26af",
-      "date": "2022-03-03T13:20:26+08:00",
+      "date": "2022-03-03T00:20:26-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/71d7c10ae3579d80fadb94c45264ba6dcdbe26af",
       "summary": "Retry taskbar docking and log the retry limit and error details",
       "category": "fix",
@@ -673,7 +673,7 @@
     },
     {
       "sha": "6eeb1896cea39559737d16e8f81ddbf89e240d50",
-      "date": "2022-03-03T13:33:45+08:00",
+      "date": "2022-03-03T00:33:45-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/6eeb1896cea39559737d16e8f81ddbf89e240d50",
       "summary": "Only report a taskbar-docking error after the retry limit is reached",
       "category": "fix",
@@ -684,7 +684,7 @@
     },
     {
       "sha": "d40399b4e73510746a00415c99836698edc3af8a",
-      "date": "2022-03-03T13:33:53+08:00",
+      "date": "2022-03-03T00:33:53-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/d40399b4e73510746a00415c99836698edc3af8a",
       "summary": "Merge the upstream taskbar-warning changes into the fix branch",
       "category": "merge",
@@ -695,10 +695,10 @@
     },
     {
       "sha": "9922c15dc4a65223a6975c3d9b5b9d33ca6c55f0",
-      "date": "2022-03-03T13:49:18+08:00",
+      "date": "2022-03-03T00:49:18-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/9922c15dc4a65223a6975c3d9b5b9d33ca6c55f0",
       "summary": "Adjust resource data for taskbar warning messages; the binary-only change does not expose exact resource text",
-      "category": "ambiguous",
+      "category": "maintenance",
       "lineage": "upstream",
       "originalSubject": "fix rc",
       "summaryMethod": "ambiguous",
@@ -706,7 +706,7 @@
     },
     {
       "sha": "d57ee50bc584f23937bcf0ec29216b979f26f38b",
-      "date": "2022-03-05T09:57:10+08:00",
+      "date": "2022-03-04T20:57:10-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/d57ee50bc584f23937bcf0ec29216b979f26f38b",
       "summary": "Move the main-timer counter update to the start of each tick to keep retry timing consistent",
       "category": "fix",
@@ -717,7 +717,7 @@
     },
     {
       "sha": "3e36a10e80789d7c5ddfad6bfdcc81d9d6a0eae5",
-      "date": "2022-03-06T08:57:21+08:00",
+      "date": "2022-03-05T19:57:21-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/3e36a10e80789d7c5ddfad6bfdcc81d9d6a0eae5",
       "summary": "Mark the taskbar-docking warning as shown before displaying it to prevent repeats",
       "category": "fix",
@@ -728,7 +728,7 @@
     },
     {
       "sha": "98d10410fc159ec76c1206eb3e67d13675c3bb78",
-      "date": "2022-03-12T12:05:26+08:00",
+      "date": "2022-03-11T23:05:26-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/98d10410fc159ec76c1206eb3e67d13675c3bb78",
       "summary": "Move registry-based system-settings retrieval into a dedicated class",
       "category": "maintenance",
@@ -739,7 +739,7 @@
     },
     {
       "sha": "b7ee192dc7f89bc2e24b5f1e10cd64a235a42dcf",
-      "date": "2022-03-12T13:10:55+08:00",
+      "date": "2022-03-12T00:10:55-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/b7ee192dc7f89bc2e24b5f1e10cd64a235a42dcf",
       "summary": "Prevent the taskbar window from overlapping Windows 11 widgets when docked on the left",
       "category": "fix",
@@ -750,7 +750,7 @@
     },
     {
       "sha": "46539f50a78135a2387a67c4f82da3759878903f",
-      "date": "2022-03-12T13:15:58+08:00",
+      "date": "2022-03-12T00:15:58-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/46539f50a78135a2387a67c4f82da3759878903f",
       "summary": "Fix a compilation error",
       "category": "fix",
@@ -761,7 +761,7 @@
     },
     {
       "sha": "8d680577c524130e14b53d14489ef1ddee93032e",
-      "date": "2022-03-12T17:43:29+08:00",
+      "date": "2022-03-12T04:43:29-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/8d680577c524130e14b53d14489ef1ddee93032e",
       "summary": "Correct a spelling error",
       "category": "fix",
@@ -772,7 +772,7 @@
     },
     {
       "sha": "60ae0fe08298301e1d547951f9d04a5214c2215b",
-      "date": "2022-03-17T18:57:43+08:00",
+      "date": "2022-03-17T06:57:43-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/60ae0fe08298301e1d547951f9d04a5214c2215b",
       "summary": "Prevent out-of-bounds access when a new display is added",
       "category": "fix",
@@ -783,7 +783,7 @@
     },
     {
       "sha": "2357be83cb86d34e8c75fc0ad5e69d4c11e7465f",
-      "date": "2022-03-18T00:40:20+06:00",
+      "date": "2022-03-17T14:40:20-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/2357be83cb86d34e8c75fc0ad5e69d4c11e7465f",
       "summary": "Correct the version number and date",
       "category": "release",
@@ -794,7 +794,7 @@
     },
     {
       "sha": "1977dce73f57cfc16c728a59786d63cd7ff23b9a",
-      "date": "2022-03-19T11:38:00+08:00",
+      "date": "2022-03-18T23:38:00-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/1977dce73f57cfc16c728a59786d63cd7ff23b9a",
       "summary": "Make the left-taskbar margin configurable on Windows 11",
       "category": "feature",
@@ -805,7 +805,7 @@
     },
     {
       "sha": "0b9b3b8186eb798144a05879214e3a0209a656d7",
-      "date": "2022-03-19T11:39:57+08:00",
+      "date": "2022-03-18T23:39:57-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/0b9b3b8186eb798144a05879214e3a0209a656d7",
       "summary": "Merge pull request #1072 from sdonc/master",
       "category": "merge",
@@ -816,7 +816,7 @@
     },
     {
       "sha": "bc001ce6c405cdcc56cb667fe09e0dfed675f2b0",
-      "date": "2022-03-19T15:17:03+08:00",
+      "date": "2022-03-19T03:17:03-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/bc001ce6c405cdcc56cb667fe09e0dfed675f2b0",
       "summary": "Remove unnecessary whitespace",
       "category": "maintenance",
@@ -827,7 +827,7 @@
     },
     {
       "sha": "71406d6242b490dddc4c294c7f98397d1476b409",
-      "date": "2022-03-20T12:00:13+08:00",
+      "date": "2022-03-20T00:00:13-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/71406d6242b490dddc4c294c7f98397d1476b409",
       "summary": "Merge pull request #1094 from BombaxCeiba/master",
       "category": "merge",
@@ -838,7 +838,7 @@
     },
     {
       "sha": "5ac1625134bf6c10394258b38ea813d7db4ad946",
-      "date": "2022-03-20T12:00:46+08:00",
+      "date": "2022-03-20T00:00:46-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/5ac1625134bf6c10394258b38ea813d7db4ad946",
       "summary": "Merge pull request #1095 from Shakil-Shahadat/patch-1",
       "category": "merge",
@@ -849,7 +849,7 @@
     },
     {
       "sha": "1941e18689c83f224504915a85404efe70f5dc5d",
-      "date": "2022-03-22T11:20:49+08:00",
+      "date": "2022-03-21T23:20:49-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/1941e18689c83f224504915a85404efe70f5dc5d",
       "summary": "Add Windows 8.1 detection",
       "category": "feature",
@@ -860,7 +860,7 @@
     },
     {
       "sha": "2496b9255aae54db3b30d51f9dd94aeda1c9988b",
-      "date": "2022-03-22T11:31:29+08:00",
+      "date": "2022-03-21T23:31:29-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/2496b9255aae54db3b30d51f9dd94aeda1c9988b",
       "summary": "Check display DPI every second on Windows 8.1 and later",
       "category": "feature",
@@ -871,7 +871,7 @@
     },
     {
       "sha": "f3bfeb6af8a86129b0d278824d26803126b9610c",
-      "date": "2022-03-22T16:17:38+08:00",
+      "date": "2022-03-22T04:17:38-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/f3bfeb6af8a86129b0d278824d26803126b9610c",
       "summary": "Allow the taskbar window to use independent DPI scaling",
       "category": "feature",
@@ -882,7 +882,7 @@
     },
     {
       "sha": "0ce237ae41108214405173d6c5d3dccf26841760",
-      "date": "2022-03-22T16:51:09+08:00",
+      "date": "2022-03-22T04:51:09-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/0ce237ae41108214405173d6c5d3dccf26841760",
       "summary": "Document the Shcore.lib requirement",
       "category": "documentation",
@@ -893,7 +893,7 @@
     },
     {
       "sha": "79cc03b0fe7304b8c4ed370f450e3f5ed179ddc1",
-      "date": "2022-03-26T20:42:29+08:00",
+      "date": "2022-03-26T08:42:29-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/79cc03b0fe7304b8c4ed370f450e3f5ed179ddc1",
       "summary": "Fix taskbar-window positioning on Windows 11 build 22581.100",
       "category": "fix",
@@ -904,7 +904,7 @@
     },
     {
       "sha": "f59020af81a0a9e6e863136b9bc40e23dfb5fe4f",
-      "date": "2022-04-10T18:54:15+08:00",
+      "date": "2022-04-10T06:54:15-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/f59020af81a0a9e6e863136b9bc40e23dfb5fe4f",
       "summary": "Correct an English translation typo and add spacing to the Traditional Chinese translation",
       "category": "translation",
@@ -915,7 +915,7 @@
     },
     {
       "sha": "5c9ccdf3778679c1403fef2cb5093763cff3c059",
-      "date": "2022-04-10T22:11:40+08:00",
+      "date": "2022-04-10T10:11:40-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/5c9ccdf3778679c1403fef2cb5093763cff3c059",
       "summary": "Correct a typo",
       "category": "fix",
@@ -926,7 +926,7 @@
     },
     {
       "sha": "b516a904b87057255129b1f793987d3e6e2318cb",
-      "date": "2022-04-19T05:49:43-07:00",
+      "date": "2022-04-19T08:49:43-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/b516a904b87057255129b1f793987d3e6e2318cb",
       "summary": "Improve the English README",
       "category": "documentation",
@@ -937,7 +937,7 @@
     },
     {
       "sha": "36d0cde58512828496c7e66d79ceaff027a6440c",
-      "date": "2022-04-22T19:02:24+08:00",
+      "date": "2022-04-22T07:02:24-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/36d0cde58512828496c7e66d79ceaff027a6440c",
       "summary": "Add an alpha-channel drawing buffer",
       "category": "feature",
@@ -948,7 +948,7 @@
     },
     {
       "sha": "d0ddb05b4b05bbd9ca3f4204ca1824329bfe86fc",
-      "date": "2022-04-24T11:25:18+08:00",
+      "date": "2022-04-23T23:25:18-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/d0ddb05b4b05bbd9ca3f4204ca1824329bfe86fc",
       "summary": "Restore the maximum retry limit",
       "category": "fix",
@@ -959,7 +959,7 @@
     },
     {
       "sha": "03460faa32364a9b9f9536db9b91308091404021",
-      "date": "2022-04-26T18:46:55+08:00",
+      "date": "2022-04-26T06:46:55-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/03460faa32364a9b9f9536db9b91308091404021",
       "summary": "Add preliminary Direct2D drawing support",
       "category": "feature",
@@ -970,7 +970,7 @@
     },
     {
       "sha": "b4b3b7a2c59a5f15f2ae6d9c572c131a43acbb0f",
-      "date": "2022-04-27T22:46:15+08:00",
+      "date": "2022-04-27T10:46:15-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/b4b3b7a2c59a5f15f2ae6d9c572c131a43acbb0f",
       "summary": "Add Direct2D rendering support, though it is not yet correctly invoked",
       "category": "feature",
@@ -981,7 +981,7 @@
     },
     {
       "sha": "2b8fd13a50eeaad2b74ae725d0839c2648c1dece",
-      "date": "2022-04-29T21:49:35+08:00",
+      "date": "2022-04-29T09:49:35-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/2b8fd13a50eeaad2b74ae725d0839c2648c1dece",
       "summary": "Fix memory issues and incorrect Direct2D renderer behavior",
       "category": "fix",
@@ -992,7 +992,7 @@
     },
     {
       "sha": "17b1145d846f4997b627cb1439c854d2b4fa1798",
-      "date": "2022-04-30T00:10:40+08:00",
+      "date": "2022-04-29T12:10:40-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/17b1145d846f4997b627cb1439c854d2b4fa1798",
       "summary": "Allow disabling Direct2D rendering in settings",
       "category": "feature",
@@ -1003,7 +1003,7 @@
     },
     {
       "sha": "78f127799bdbf9a8a4718c5d4268154446e90a52",
-      "date": "2022-04-30T11:59:47+08:00",
+      "date": "2022-04-29T23:59:47-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/78f127799bdbf9a8a4718c5d4268154446e90a52",
       "summary": "Remove redundant alpha-channel handling when Direct2D interoperate with GDI",
       "category": "fix",
@@ -1014,7 +1014,7 @@
     },
     {
       "sha": "25af1744ece4704916c789e3a01c4c7ff4a1d88d",
-      "date": "2022-05-07T13:01:36+08:00",
+      "date": "2022-05-07T01:01:36-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/25af1744ece4704916c789e3a01c4c7ff4a1d88d",
       "summary": "Disable Direct2D rendering by default",
       "category": "maintenance",
@@ -1025,7 +1025,7 @@
     },
     {
       "sha": "a87125a0915eaf901323d18895e0ca6cc0180539",
-      "date": "2022-05-07T13:09:06+08:00",
+      "date": "2022-05-07T01:09:06-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/a87125a0915eaf901323d18895e0ca6cc0180539",
       "summary": "Handle failures to update the shared drawing buffer",
       "category": "fix",
@@ -1036,7 +1036,7 @@
     },
     {
       "sha": "85521f3e3ffa765415bb57ff1cb772d5cf9e9378",
-      "date": "2022-05-07T13:19:29+08:00",
+      "date": "2022-05-07T01:19:29-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/85521f3e3ffa765415bb57ff1cb772d5cf9e9378",
       "summary": "Reduce compiler warnings",
       "category": "maintenance",
@@ -1047,7 +1047,7 @@
     },
     {
       "sha": "7bb40558d8bae76592fae7deb4bff1c5bfd1af3b",
-      "date": "2022-05-07T14:24:09+08:00",
+      "date": "2022-05-07T02:24:09-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/7bb40558d8bae76592fae7deb4bff1c5bfd1af3b",
       "summary": "Format the source code",
       "category": "maintenance",
@@ -1058,7 +1058,7 @@
     },
     {
       "sha": "99a9f4e9cd951e1246f72243c980da37ac1e66f6",
-      "date": "2022-05-09T15:59:08+08:00",
+      "date": "2022-05-09T03:59:08-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/99a9f4e9cd951e1246f72243c980da37ac1e66f6",
       "summary": "Fix plugin custom-drawing opacity in Direct2D rendering",
       "category": "fix",
@@ -1069,7 +1069,7 @@
     },
     {
       "sha": "5b66e21af18ac0cae3185ef618c471a5f7ba2be6",
-      "date": "2022-05-10T00:01:38+08:00",
+      "date": "2022-05-09T12:01:38-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/5b66e21af18ac0cae3185ef618c471a5f7ba2be6",
       "summary": "Improve exception handling in the Direct2D renderer",
       "category": "fix",
@@ -1080,7 +1080,7 @@
     },
     {
       "sha": "8fa83c5890ff0670cb1a15851261e9d6f2ba007c",
-      "date": "2022-06-01T22:31:12+08:00",
+      "date": "2022-06-01T10:31:12-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/8fa83c5890ff0670cb1a15851261e9d6f2ba007c",
       "summary": "Rename SAFE_RELEASE to RELEASE_COM",
       "category": "maintenance",
@@ -1091,7 +1091,7 @@
     },
     {
       "sha": "5ae37e277fadf238d37e5129e431c4c140ba86cd",
-      "date": "2022-06-01T22:51:06+08:00",
+      "date": "2022-06-01T10:51:06-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/5ae37e277fadf238d37e5129e431c4c140ba86cd",
       "summary": "Fix the LOGFONT type and call mismatch in D2D1DrawCommon::SetFont",
       "category": "fix",
@@ -1102,7 +1102,7 @@
     },
     {
       "sha": "26f50e82b6323d7f6be17c126a88fca3e07618d8",
-      "date": "2022-06-03T13:38:34+08:00",
+      "date": "2022-06-03T01:38:34-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/26f50e82b6323d7f6be17c126a88fca3e07618d8",
       "summary": "Move a class and add a helper to Common.h",
       "category": "maintenance",
@@ -1113,7 +1113,7 @@
     },
     {
       "sha": "46ff1e6e1810cdadaaa3b3a7c9fe6577d05a6a60",
-      "date": "2022-06-15T19:39:47+08:00",
+      "date": "2022-06-15T07:39:47-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/46ff1e6e1810cdadaaa3b3a7c9fe6577d05a6a60",
       "summary": "Add keyboard-event support to the plugin API",
       "category": "feature",
@@ -1124,7 +1124,7 @@
     },
     {
       "sha": "96658cad472ba33896ebff6045630644be90aebc",
-      "date": "2022-06-15T19:55:20+08:00",
+      "date": "2022-06-15T07:55:20-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/96658cad472ba33896ebff6045630644be90aebc",
       "summary": "Upgrade the project to Visual Studio 2022",
       "category": "maintenance",
@@ -1135,7 +1135,7 @@
     },
     {
       "sha": "5bd2ca233759c387da632920a1467ac2065939cd",
-      "date": "2022-06-17T10:18:44+08:00",
+      "date": "2022-06-16T22:18:44-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/5bd2ca233759c387da632920a1467ac2065939cd",
       "summary": "Add a framework for intercepting user32 DrawText functions",
       "category": "feature",
@@ -1146,7 +1146,7 @@
     },
     {
       "sha": "66f376455cbaf325aa2ccc2577175938c20342c6",
-      "date": "2022-07-07T11:17:37+08:00",
+      "date": "2022-07-06T23:17:37-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/66f376455cbaf325aa2ccc2577175938c20342c6",
       "summary": "Merge the temporary branch into TransparentSupport",
       "category": "merge",
@@ -1157,7 +1157,7 @@
     },
     {
       "sha": "373c43865254ea268bc608de3bcb996ec400f646",
-      "date": "2022-07-07T18:21:31+08:00",
+      "date": "2022-07-07T06:21:31-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/373c43865254ea268bc608de3bcb996ec400f646",
       "summary": "Extract HRESULT exceptions and common helpers into reusable code",
       "category": "maintenance",
@@ -1168,7 +1168,7 @@
     },
     {
       "sha": "a4cf65f9f4387b2b859fd6f158d805735e6f9178",
-      "date": "2022-07-07T18:24:52+08:00",
+      "date": "2022-07-07T06:24:52-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/a4cf65f9f4387b2b859fd6f158d805735e6f9178",
       "summary": "Enable multiprocessor compilation for TrafficMonitor and PluginDemo",
       "category": "maintenance",
@@ -1179,7 +1179,7 @@
     },
     {
       "sha": "d832076c8f24f596015dae8bbd440f857261bbbf",
-      "date": "2022-07-09T09:56:11+08:00",
+      "date": "2022-07-08T21:56:11-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/d832076c8f24f596015dae8bbd440f857261bbbf",
       "summary": "Allow Nullable values to be copied and moved",
       "category": "maintenance",
@@ -1190,7 +1190,7 @@
     },
     {
       "sha": "d6272fa8bbd503fa3cad4dea46736b71f1f6898f",
-      "date": "2022-07-09T09:57:33+08:00",
+      "date": "2022-07-08T21:57:33-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/d6272fa8bbd503fa3cad4dea46736b71f1f6898f",
       "summary": "Add helpers for constructing and destroying objects",
       "category": "maintenance",
@@ -1201,7 +1201,7 @@
     },
     {
       "sha": "30415369b203a5b1825aa402139b478f49a60b3f",
-      "date": "2022-07-09T11:12:02+08:00",
+      "date": "2022-07-08T23:12:02-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/30415369b203a5b1825aa402139b478f49a60b3f",
       "summary": "Standardize type naming",
       "category": "maintenance",
@@ -1212,7 +1212,7 @@
     },
     {
       "sha": "df5b3e30f8120ab99205f6598b7f39e5fd742fce",
-      "date": "2022-07-10T16:36:21+08:00",
+      "date": "2022-07-10T04:36:21-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/df5b3e30f8120ab99205f6598b7f39e5fd742fce",
       "summary": "Merge zhongyang219:master into master",
       "category": "merge",
@@ -1223,7 +1223,7 @@
     },
     {
       "sha": "7c73d0f0ff7d46ab849f9d7f966d5db557e24165",
-      "date": "2022-07-22T12:55:50+08:00",
+      "date": "2022-07-22T00:55:50-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/7c73d0f0ff7d46ab849f9d7f966d5db557e24165",
       "summary": "Update the hardware-monitoring library for 12th-generation Intel laptop temperatures",
       "category": "maintenance",
@@ -1234,7 +1234,7 @@
     },
     {
       "sha": "473d77538adaad8bc5bff8ade76401a1bc35f423",
-      "date": "2022-07-24T11:16:32+08:00",
+      "date": "2022-07-23T23:16:32-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/473d77538adaad8bc5bff8ade76401a1bc35f423",
       "summary": "Merge pull request #1097 from BombaxCeiba/master",
       "category": "merge",
@@ -1245,7 +1245,7 @@
     },
     {
       "sha": "fd85e539f8c22f9dba387ee5cd6e1984d96fe088",
-      "date": "2022-07-24T11:26:43+08:00",
+      "date": "2022-07-23T23:26:43-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/fd85e539f8c22f9dba387ee5cd6e1984d96fe088",
       "summary": "Merge SiderealArt's patch-1 branch into master",
       "category": "merge",
@@ -1256,7 +1256,7 @@
     },
     {
       "sha": "ec5bae7dedc7fdbd424c0965c2f87b844cfda627",
-      "date": "2022-07-24T11:27:58+08:00",
+      "date": "2022-07-23T23:27:58-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/ec5bae7dedc7fdbd424c0965c2f87b844cfda627",
       "summary": "Merge pull request #1149 from EugeneWong2002/English README improvements",
       "category": "merge",
@@ -1267,7 +1267,7 @@
     },
     {
       "sha": "3d947d9357c86dcf3ce47308bb12335522d904d7",
-      "date": "2022-07-24T11:35:19+08:00",
+      "date": "2022-07-23T23:35:19-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/3d947d9357c86dcf3ce47308bb12335522d904d7",
       "summary": "Merge the taskbar-warning fix branch into master",
       "category": "merge",
@@ -1278,7 +1278,7 @@
     },
     {
       "sha": "dc854aac7ad679febc0b4c4001e03f2d12ab24ef",
-      "date": "2022-07-24T11:35:27+08:00",
+      "date": "2022-07-23T23:35:27-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/dc854aac7ad679febc0b4c4001e03f2d12ab24ef",
       "summary": "Merge the upstream master branch into master",
       "category": "merge",
@@ -1289,7 +1289,7 @@
     },
     {
       "sha": "cd1ef32ec7d7973202b857950ec8005106a86832",
-      "date": "2022-07-24T11:44:43+08:00",
+      "date": "2022-07-23T23:44:43-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/cd1ef32ec7d7973202b857950ec8005106a86832",
       "summary": "Fix the Go to Today command in Simplified Chinese historical traffic statistics",
       "category": "fix",
@@ -1300,7 +1300,7 @@
     },
     {
       "sha": "630b461c54579e3891414c3f1a26008f5ddce409",
-      "date": "2022-07-24T12:03:39+08:00",
+      "date": "2022-07-24T00:03:39-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/630b461c54579e3891414c3f1a26008f5ddce409",
       "summary": "Send keyboard events to plugin items in the main window and fix left-click handling on plugin items",
       "category": "feature",
@@ -1311,7 +1311,7 @@
     },
     {
       "sha": "b85326ce5f7a757eb3f8e749a9c7060184f5981f",
-      "date": "2022-07-24T13:20:31+08:00",
+      "date": "2022-07-24T01:20:31-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/b85326ce5f7a757eb3f8e749a9c7060184f5981f",
       "summary": "Open plugin details instead of the options dialog from the plugin manager context menu",
       "category": "fix",
@@ -1322,7 +1322,7 @@
     },
     {
       "sha": "027104c680100e2f9514cfb7790096498fff4958",
-      "date": "2022-07-25T21:48:35+08:00",
+      "date": "2022-07-25T09:48:35-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/027104c680100e2f9514cfb7790096498fff4958",
       "summary": "Merge master into TransparentSupport",
       "category": "merge",
@@ -1333,7 +1333,7 @@
     },
     {
       "sha": "017497df672f78284f0f4ecb4c80bb85ba824cfd",
-      "date": "2022-07-26T01:59:49+08:00",
+      "date": "2022-07-25T13:59:49-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/017497df672f78284f0f4ecb4c80bb85ba824cfd",
       "summary": "Merge zhongyang219:master into master",
       "category": "merge",
@@ -1344,7 +1344,7 @@
     },
     {
       "sha": "7d52e8a022a57261fec32db631a83384bda752f7",
-      "date": "2022-07-30T18:01:18+08:00",
+      "date": "2022-07-30T06:01:18-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/7d52e8a022a57261fec32db631a83384bda752f7",
       "summary": "Fix missing GetDpiForMonitor DLL entry on Windows 7",
       "category": "fix",
@@ -1355,7 +1355,7 @@
     },
     {
       "sha": "9be37683afcb9f64537f76f06428111e5b919d22",
-      "date": "2022-08-02T10:17:53+08:00",
+      "date": "2022-08-01T22:17:53-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/9be37683afcb9f64537f76f06428111e5b919d22",
       "summary": "Update the Traditional Chinese translation",
       "category": "translation",
@@ -1366,7 +1366,7 @@
     },
     {
       "sha": "82a21bc147e0797140266bdfd47c98ea781256ed",
-      "date": "2022-08-06T20:53:38+08:00",
+      "date": "2022-08-06T08:53:38-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/82a21bc147e0797140266bdfd47c98ea781256ed",
       "summary": "Correct left-docked taskbar positioning when Windows 11 alignment is left",
       "category": "fix",
@@ -1377,7 +1377,7 @@
     },
     {
       "sha": "c74eff97328e84a578fc411ca173e028c35ad8c2",
-      "date": "2022-08-08T00:47:14+08:00",
+      "date": "2022-08-07T12:47:14-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/c74eff97328e84a578fc411ca173e028c35ad8c2",
       "summary": "Merge zhongyang219:master into master",
       "category": "merge",
@@ -1388,7 +1388,7 @@
     },
     {
       "sha": "7f2708f35b006015268560070ea3f5a7db95b260",
-      "date": "2022-08-11T14:20:40+08:00",
+      "date": "2022-08-11T02:20:40-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/7f2708f35b006015268560070ea3f5a7db95b260",
       "summary": "Merge zhongyang219:master into master",
       "category": "merge",
@@ -1399,7 +1399,7 @@
     },
     {
       "sha": "45c315d4fa1983a439eefff2f17ad81b3cbfeff9",
-      "date": "2022-08-17T18:53:24+08:00",
+      "date": "2022-08-17T06:53:24-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/45c315d4fa1983a439eefff2f17ad81b3cbfeff9",
       "summary": "Refactor Direct2D rendering and improve plugin custom drawing",
       "category": "maintenance",
@@ -1410,7 +1410,7 @@
     },
     {
       "sha": "9264400d204c8b9cc90f3892d57143eab71d679c",
-      "date": "2022-08-18T20:23:36+08:00",
+      "date": "2022-08-18T08:23:36-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/9264400d204c8b9cc90f3892d57143eab71d679c",
       "summary": "Fix invalid function access after hooking DrawText",
       "category": "fix",
@@ -1421,7 +1421,7 @@
     },
     {
       "sha": "2c5ad7f182d7693881077dd2e8c3538f027ad83c",
-      "date": "2022-08-18T20:28:34+08:00",
+      "date": "2022-08-18T08:28:34-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/2c5ad7f182d7693881077dd2e8c3538f027ad83c",
       "summary": "Merge the Windows 11 taskbar-alignment fix into TransparentSupport",
       "category": "merge",
@@ -1432,7 +1432,7 @@
     },
     {
       "sha": "bfd29139f9f04c87bf11b8f6a32368d9bc14c0f8",
-      "date": "2022-08-19T14:20:40+07:00",
+      "date": "2022-08-19T03:20:40-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/bfd29139f9f04c87bf11b8f6a32368d9bc14c0f8",
       "summary": "Fix the feature-comparison table",
       "category": "fix",
@@ -1443,7 +1443,7 @@
     },
     {
       "sha": "a6c25d656ca16ffc852d219220974ba4016b3f05",
-      "date": "2022-08-21T23:48:42+08:00",
+      "date": "2022-08-21T11:48:42-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/a6c25d656ca16ffc852d219220974ba4016b3f05",
       "summary": "Fix incorrect alignment on Windows 10",
       "category": "fix",
@@ -1454,7 +1454,7 @@
     },
     {
       "sha": "270662e3ab49528da28dfcd593981e81fa3ac8bd",
-      "date": "2022-08-21T23:56:57+08:00",
+      "date": "2022-08-21T11:56:57-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/270662e3ab49528da28dfcd593981e81fa3ac8bd",
       "summary": "Initialize the taskbar handle before using it",
       "category": "fix",
@@ -1465,7 +1465,7 @@
     },
     {
       "sha": "160c69a03650efba0cbfcc60a6337305542f284a",
-      "date": "2022-08-22T00:29:51+08:00",
+      "date": "2022-08-21T12:29:51-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/160c69a03650efba0cbfcc60a6337305542f284a",
       "summary": "Fix failure to obtain the taskbar handle",
       "category": "fix",
@@ -1476,7 +1476,7 @@
     },
     {
       "sha": "f943b26fb0aaf066c26762ea8b8fcbd772ca20b6",
-      "date": "2022-08-31T23:16:09+08:00",
+      "date": "2022-08-31T11:16:09-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/f943b26fb0aaf066c26762ea8b8fcbd772ca20b6",
       "summary": "Optimize rvalue-reference use and reduce compiler warnings",
       "category": "maintenance",
@@ -1487,7 +1487,7 @@
     },
     {
       "sha": "f5119890595330554d227cbe73f1c2923614a3e6",
-      "date": "2022-09-01T13:50:16+08:00",
+      "date": "2022-09-01T01:50:16-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/f5119890595330554d227cbe73f1c2923614a3e6",
       "summary": "Fix errors in the Direct3D 10.1 rendering path",
       "category": "fix",
@@ -1498,7 +1498,7 @@
     },
     {
       "sha": "c58d57ce5ae151a45858f36536be8bee826ee422",
-      "date": "2022-09-01T13:51:23+08:00",
+      "date": "2022-09-01T01:51:23-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/c58d57ce5ae151a45858f36536be8bee826ee422",
       "summary": "Make the taskbar window easier to click with Direct2D rendering enabled",
       "category": "fix",
@@ -1509,7 +1509,7 @@
     },
     {
       "sha": "a88def14b1d59138bae0f59ea038adf939bb3d3b",
-      "date": "2022-09-03T01:13:01+08:00",
+      "date": "2022-09-02T13:13:01-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/a88def14b1d59138bae0f59ea038adf939bb3d3b",
       "summary": "Fix incorrect plugin drawing",
       "category": "fix",
@@ -1520,7 +1520,7 @@
     },
     {
       "sha": "596a81c890dbc1c9bc59ce4ce97f5902046d9217",
-      "date": "2022-09-03T12:02:47+08:00",
+      "date": "2022-09-03T00:02:47-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/596a81c890dbc1c9bc59ce4ce97f5902046d9217",
       "summary": "Restructure code and remove redundant code",
       "category": "maintenance",
@@ -1531,7 +1531,7 @@
     },
     {
       "sha": "297d4fd87d1a1e07d38f9b34555b8a6e4b1df184",
-      "date": "2022-09-03T13:55:59+08:00",
+      "date": "2022-09-03T01:55:59-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/297d4fd87d1a1e07d38f9b34555b8a6e4b1df184",
       "summary": "Fix plugin custom-drawn text positioning",
       "category": "fix",
@@ -1542,7 +1542,7 @@
     },
     {
       "sha": "a1d49f97b71202189dc06fc4bceb3b51f6b1ac6c",
-      "date": "2022-09-03T15:32:50+08:00",
+      "date": "2022-09-03T03:32:50-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/a1d49f97b71202189dc06fc4bceb3b51f6b1ac6c",
       "summary": "Improve DrawText and DrawTextEx behavior after function interception",
       "category": "maintenance",
@@ -1553,7 +1553,7 @@
     },
     {
       "sha": "38c25d43a4b24e084c4e7453af77127747ab24de",
-      "date": "2022-09-03T18:36:08+08:00",
+      "date": "2022-09-03T06:36:08-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/38c25d43a4b24e084c4e7453af77127747ab24de",
       "summary": "Fix Direct2D rendering when plugins are disabled",
       "category": "fix",
@@ -1564,7 +1564,7 @@
     },
     {
       "sha": "b923300a44176f98cf33b4eaba2a660579b50950",
-      "date": "2022-09-04T13:08:32+08:00",
+      "date": "2022-09-04T01:08:32-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/b923300a44176f98cf33b4eaba2a660579b50950",
       "summary": "Fix a memory leak caused by plugins calling CDC::FromHandle",
       "category": "fix",
@@ -1575,7 +1575,7 @@
     },
     {
       "sha": "b2ffe31c29677b322761dd37f16853c02f0f1f92",
-      "date": "2022-09-24T18:57:32+08:00",
+      "date": "2022-09-24T06:57:32-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/b2ffe31c29677b322761dd37f16853c02f0f1f92",
       "summary": "Merge pull request #1247 from frankfoxy/master",
       "category": "merge",
@@ -1586,7 +1586,7 @@
     },
     {
       "sha": "bcb935bc6253e11de56eda4e0484dfd9924c16c6",
-      "date": "2022-09-24T19:09:18+08:00",
+      "date": "2022-09-24T07:09:18-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/bcb935bc6253e11de56eda4e0484dfd9924c16c6",
       "summary": "Merge pull request #1106 from GZTimeWalker/master",
       "category": "merge",
@@ -1597,7 +1597,7 @@
     },
     {
       "sha": "1c465cf32df3743fc7f97100e91224294af07a1c",
-      "date": "2022-09-24T20:22:52+08:00",
+      "date": "2022-09-24T08:22:52-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/1c465cf32df3743fc7f97100e91224294af07a1c",
       "summary": "Use the correct default when a registry task setting is missing",
       "category": "fix",
@@ -1608,7 +1608,7 @@
     },
     {
       "sha": "6c4eab096494825a5362377ffd4f6985897211ef",
-      "date": "2022-10-01T12:23:56+08:00",
+      "date": "2022-10-01T00:23:56-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/6c4eab096494825a5362377ffd4f6985897211ef",
       "summary": "Merge zhtw2013/TrafficMonitor master",
       "category": "merge",
@@ -1619,7 +1619,7 @@
     },
     {
       "sha": "4ba1d9a36fed6fab1667b209346b2b3b978ce112",
-      "date": "2022-10-01T12:28:37+08:00",
+      "date": "2022-10-01T00:28:37-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/4ba1d9a36fed6fab1667b209346b2b3b978ce112",
       "summary": "Merge zhongyang219/TrafficMonitor master",
       "category": "merge",
@@ -1630,7 +1630,7 @@
     },
     {
       "sha": "9b2c8fffd12b8efd9f6931981f4277bc85f50039",
-      "date": "2022-10-01T12:30:39+08:00",
+      "date": "2022-10-01T00:30:39-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/9b2c8fffd12b8efd9f6931981f4277bc85f50039",
       "summary": "Merge pull request #1285 from ooker777/patch-1",
       "category": "merge",
@@ -1641,7 +1641,7 @@
     },
     {
       "sha": "2b8e0ef3c1614df3e75d037733a37e3e6e6199b6",
-      "date": "2022-10-01T13:17:19+08:00",
+      "date": "2022-10-01T01:17:19-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/2b8e0ef3c1614df3e75d037733a37e3e6e6199b6",
       "summary": "Merge master into TransparentSupport",
       "category": "merge",
@@ -1652,7 +1652,7 @@
     },
     {
       "sha": "45a2a7e561318b9c16710a0d9afa1497d13c8798",
-      "date": "2022-10-01T17:47:44+08:00",
+      "date": "2022-10-01T05:47:44-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/45a2a7e561318b9c16710a0d9afa1497d13c8798",
       "summary": "Increase the maximum monitoring interval to 30 seconds",
       "category": "maintenance",
@@ -1663,7 +1663,7 @@
     },
     {
       "sha": "236bd7b68c0cb059bfd6e3ee85e51ce88fbecad8",
-      "date": "2022-10-02T15:27:34+08:00",
+      "date": "2022-10-02T03:27:34-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/236bd7b68c0cb059bfd6e3ee85e51ce88fbecad8",
       "summary": "Forward DrawText calls with DT_CALCRECT to the original function",
       "category": "fix",
@@ -1674,7 +1674,7 @@
     },
     {
       "sha": "e0296c624849a653c7607f155f3104f12e88ee39",
-      "date": "2022-10-05T16:55:32+08:00",
+      "date": "2022-10-05T04:55:32-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/e0296c624849a653c7607f155f3104f12e88ee39",
       "summary": "Update the version number and acknowledgements",
       "category": "release",
@@ -1685,7 +1685,7 @@
     },
     {
       "sha": "abdf771f5903b0eaa2e27b6da477570570d65557",
-      "date": "2022-10-05T21:11:09+08:00",
+      "date": "2022-10-05T09:11:09-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/abdf771f5903b0eaa2e27b6da477570570d65557",
       "summary": "Update version metadata",
       "category": "release",
@@ -1696,7 +1696,7 @@
     },
     {
       "sha": "10aa8026e8ed94309f8e36adc9bede546ae51132",
-      "date": "2022-10-05T23:10:54+08:00",
+      "date": "2022-10-05T11:10:54-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/10aa8026e8ed94309f8e36adc9bede546ae51132",
       "summary": "Merge master into TransparentSupport",
       "category": "merge",
@@ -1707,7 +1707,7 @@
     },
     {
       "sha": "ef25ca0daac399d310af3f1fc2637efa9279995f",
-      "date": "2022-10-06T11:39:40+08:00",
+      "date": "2022-10-05T23:39:40-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/ef25ca0daac399d310af3f1fc2637efa9279995f",
       "summary": "Fix Windows 11 taskbar alignment detection when the user has not changed the alignment setting (#1346, #1344)",
       "category": "fix",
@@ -1718,7 +1718,7 @@
     },
     {
       "sha": "46775050a6bec667b4a1d3046bb73d751274fcdc",
-      "date": "2022-10-07T09:37:01+08:00",
+      "date": "2022-10-06T21:37:01-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/46775050a6bec667b4a1d3046bb73d751274fcdc",
       "summary": "Update the documentation",
       "category": "documentation",
@@ -1729,7 +1729,7 @@
     },
     {
       "sha": "49b44798c4c788a94f2a2559f45e2c4d242289f8",
-      "date": "2022-10-07T10:17:55+08:00",
+      "date": "2022-10-06T22:17:55-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/49b44798c4c788a94f2a2559f45e2c4d242289f8",
       "summary": "Fix clipped taskbar-window content when the taskbar is docked at the screen edge (#1357)",
       "category": "fix",
@@ -1740,7 +1740,7 @@
     },
     {
       "sha": "08813e0a42474da24f2f1090651552f6489fb570",
-      "date": "2022-10-07T19:52:03+08:00",
+      "date": "2022-10-07T07:52:03-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/08813e0a42474da24f2f1090651552f6489fb570",
       "summary": "Fix taskbar-window positioning on Windows 11 22H2 when no windows or pinned taskbar icons are present (#1356)",
       "category": "fix",
@@ -1751,7 +1751,7 @@
     },
     {
       "sha": "9ebb0a566d26abd6fd8de528d2b1a7e91875f5f9",
-      "date": "2022-10-10T19:30:48+08:00",
+      "date": "2022-10-10T07:30:48-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/9ebb0a566d26abd6fd8de528d2b1a7e91875f5f9",
       "summary": "Add bitmap drawing support to CTaskBarDlgDrawCommon",
       "category": "feature",
@@ -1762,7 +1762,7 @@
     },
     {
       "sha": "b67fd82539898e6c8a515486ee9e5b0a8fcde6a3",
-      "date": "2022-10-12T15:29:34+08:00",
+      "date": "2022-10-12T03:29:34-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/b67fd82539898e6c8a515486ee9e5b0a8fcde6a3",
       "summary": "Refactor renderer creation in window drawing code",
       "category": "maintenance",
@@ -1773,7 +1773,7 @@
     },
     {
       "sha": "1ef6c4144edf5dcc407f16f97eb0716b8bfe32e5",
-      "date": "2022-10-14T09:33:27+08:00",
+      "date": "2022-10-13T21:33:27-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/1ef6c4144edf5dcc407f16f97eb0716b8bfe32e5",
       "summary": "Update workflow action versions ahead of deprecated output commands",
       "category": "maintenance",
@@ -1784,7 +1784,7 @@
     },
     {
       "sha": "5fc3825182d4532c415aa88f0985af996a293c4c",
-      "date": "2022-10-15T18:37:23+08:00",
+      "date": "2022-10-15T06:37:23-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/5fc3825182d4532c415aa88f0985af996a293c4c",
       "summary": "Remove redundant code and eliminate warnings",
       "category": "maintenance",
@@ -1795,7 +1795,7 @@
     },
     {
       "sha": "ef1ac76f65a9289d57adf463cf5bfcebb66018ee",
-      "date": "2022-11-03T22:44:40+08:00",
+      "date": "2022-11-03T10:44:40-04:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/ef1ac76f65a9289d57adf463cf5bfcebb66018ee",
       "summary": "Update LibreHardwareMonitorLib",
       "category": "maintenance",
@@ -1806,7 +1806,7 @@
     },
     {
       "sha": "f1ec769b44e660f0b116b416d8c0b9226f364e9c",
-      "date": "2022-11-08T13:57:30+08:00",
+      "date": "2022-11-08T00:57:30-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/f1ec769b44e660f0b116b416d8c0b9226f364e9c",
       "summary": "Generalize device-resource management",
       "category": "maintenance",
@@ -1817,7 +1817,7 @@
     },
     {
       "sha": "98299214422f7fcc8b4c77d2d00c297b6ac1d28c",
-      "date": "2022-11-08T13:58:30+08:00",
+      "date": "2022-11-08T00:58:30-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/98299214422f7fcc8b4c77d2d00c297b6ac1d28c",
       "summary": "Fix the HRESULT stored in CHResultException",
       "category": "fix",
@@ -1828,7 +1828,7 @@
     },
     {
       "sha": "7bde82514b5444e9d98c3e501461c067ecdfea7e",
-      "date": "2022-11-08T13:59:23+08:00",
+      "date": "2022-11-08T00:59:23-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/7bde82514b5444e9d98c3e501461c067ecdfea7e",
       "summary": "Add Direct2D 1.1 support and refactor rendering code",
       "category": "feature",
@@ -1839,7 +1839,7 @@
     },
     {
       "sha": "0040ac7483e70cc65597a1282a97c3fcf6dd501e",
-      "date": "2022-11-08T14:18:03+08:00",
+      "date": "2022-11-08T01:18:03-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/0040ac7483e70cc65597a1282a97c3fcf6dd501e",
       "summary": "Include file and line information in error messages",
       "category": "feature",
@@ -1850,7 +1850,7 @@
     },
     {
       "sha": "6773003c47a972525307ba5a865f95b5de8052b8",
-      "date": "2022-11-08T14:28:04+08:00",
+      "date": "2022-11-08T01:28:04-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/6773003c47a972525307ba5a865f95b5de8052b8",
       "summary": "Check for Direct2D 1.1 support before enabling its features",
       "category": "fix",
@@ -1861,7 +1861,7 @@
     },
     {
       "sha": "eea8fe89b896e6f9e722504a47a0e915dd282d28",
-      "date": "2022-11-08T14:48:06+08:00",
+      "date": "2022-11-08T01:48:06-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/eea8fe89b896e6f9e722504a47a0e915dd282d28",
       "summary": "Remove the IDrawBuffer::GetMemDC interface",
       "category": "maintenance",
@@ -1872,7 +1872,7 @@
     },
     {
       "sha": "4577f56f51fafadba9289827fc7375eae932bb9e",
-      "date": "2022-11-08T17:20:08+08:00",
+      "date": "2022-11-08T04:20:08-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/4577f56f51fafadba9289827fc7375eae932bb9e",
       "summary": "Convert integer settings to and from strings with std::to_wstring",
       "category": "maintenance",
@@ -1883,7 +1883,7 @@
     },
     {
       "sha": "2aef9d8a54fe53a3c0f9f42874896b53f93f96e5",
-      "date": "2022-11-08T17:33:58+08:00",
+      "date": "2022-11-08T04:33:58-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/2aef9d8a54fe53a3c0f9f42874896b53f93f96e5",
       "summary": "Add long-press right-click menus for touchscreen devices (#1379)",
       "category": "feature",
@@ -1894,7 +1894,7 @@
     },
     {
       "sha": "1bc2e42b6dcf666cd8aafd5fcb5771ee140e3198",
-      "date": "2022-11-08T17:57:42+08:00",
+      "date": "2022-11-08T04:57:42-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/1bc2e42b6dcf666cd8aafd5fcb5771ee140e3198",
       "summary": "Prevent tooltips from appearing over an open context menu",
       "category": "fix",
@@ -1905,7 +1905,7 @@
     },
     {
       "sha": "39f0d8e17ec2696f1dd8998dfcdfe7ca4faa2c4d",
-      "date": "2022-11-08T19:40:27+08:00",
+      "date": "2022-11-08T06:40:27-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/39f0d8e17ec2696f1dd8998dfcdfe7ca4faa2c4d",
       "summary": "Display CPU frequency correctly when the reading is unavailable",
       "category": "fix",
@@ -1916,7 +1916,7 @@
     },
     {
       "sha": "e24142888d37ff56ce1d762d5516288618de75ca",
-      "date": "2022-11-08T19:41:26+08:00",
+      "date": "2022-11-08T06:41:26-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/e24142888d37ff56ce1d762d5516288618de75ca",
       "summary": "Forward double-click messages from the custom list control to its parent",
       "category": "fix",
@@ -1927,7 +1927,7 @@
     },
     {
       "sha": "7507c3c1f9bf2551f0a3720135e3b8cb4611c458",
-      "date": "2022-11-10T14:40:29+08:00",
+      "date": "2022-11-10T01:40:29-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/7507c3c1f9bf2551f0a3720135e3b8cb4611c458",
       "summary": "Update Help.md",
       "category": "documentation",
@@ -1938,7 +1938,7 @@
     },
     {
       "sha": "e8947fddd4bdab06727442e6460ff370170fc5d7",
-      "date": "2022-11-11T00:26:04+08:00",
+      "date": "2022-11-10T11:26:04-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/e8947fddd4bdab06727442e6460ff370170fc5d7",
       "summary": "Migrate rendering to Direct2D 1.1 and keep Direct2D enabled when a Direct3D device is removed",
       "category": "fix",
@@ -1949,7 +1949,7 @@
     },
     {
       "sha": "7547c2d968bda16c90dba35d61bf3aa563a8e776",
-      "date": "2022-11-11T00:45:57+08:00",
+      "date": "2022-11-10T11:45:57-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/7547c2d968bda16c90dba35d61bf3aa563a8e776",
       "summary": "Remove invalid function declarations",
       "category": "maintenance",
@@ -1960,7 +1960,7 @@
     },
     {
       "sha": "e3201f2822c7f33548da782721e1a3831292b2dd",
-      "date": "2022-11-11T00:58:34+08:00",
+      "date": "2022-11-10T11:58:34-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/e3201f2822c7f33548da782721e1a3831292b2dd",
       "summary": "Merge master into TransparentSupport",
       "category": "merge",
@@ -1971,7 +1971,7 @@
     },
     {
       "sha": "6358d018422fb80046523e8e2ba936d32993c096",
-      "date": "2022-11-11T15:33:14+08:00",
+      "date": "2022-11-11T02:33:14-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/6358d018422fb80046523e8e2ba936d32993c096",
       "summary": "Extract repeated logic",
       "category": "maintenance",
@@ -1982,7 +1982,7 @@
     },
     {
       "sha": "96d4deeeafd02f17b5a1a33964d7935b80f4abc5",
-      "date": "2022-11-12T15:34:17+08:00",
+      "date": "2022-11-12T02:34:17-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/96d4deeeafd02f17b5a1a33964d7935b80f4abc5",
       "summary": "Fix left-docked taskbar positioning with the wider Windows 11 search button",
       "category": "fix",
@@ -1993,7 +1993,7 @@
     },
     {
       "sha": "814ac4c868e0e9d19b3f7baa4e16390f5a9fd179",
-      "date": "2022-11-12T17:46:05+08:00",
+      "date": "2022-11-12T04:46:05-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/814ac4c868e0e9d19b3f7baa4e16390f5a9fd179",
       "summary": "Improve error-message details",
       "category": "maintenance",
@@ -2004,7 +2004,7 @@
     },
     {
       "sha": "f5fc7ad57625c9316c52ad0f517ca8437d977b6f",
-      "date": "2022-11-12T17:46:56+08:00",
+      "date": "2022-11-12T04:46:56-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/f5fc7ad57625c9316c52ad0f517ca8437d977b6f",
       "summary": "Standardize class names",
       "category": "maintenance",
@@ -2015,7 +2015,7 @@
     },
     {
       "sha": "5fd7a5562dc70ecf28dee44919b329522f9da097",
-      "date": "2022-11-16T22:30:51+08:00",
+      "date": "2022-11-16T09:30:51-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/5fd7a5562dc70ecf28dee44919b329522f9da097",
       "summary": "Pass the plugin configuration path earlier during startup",
       "category": "maintenance",
@@ -2026,7 +2026,7 @@
     },
     {
       "sha": "04c5710ed6e495322607043d1b86ef9ee6911750",
-      "date": "2022-11-18T15:44:23+08:00",
+      "date": "2022-11-18T02:44:23-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/04c5710ed6e495322607043d1b86ef9ee6911750",
       "summary": "Add DirectComposition support",
       "category": "feature",
@@ -2037,7 +2037,7 @@
     },
     {
       "sha": "0868dfc326238a76c1d2aa08a8aac2da920d759b",
-      "date": "2022-11-18T15:45:22+08:00",
+      "date": "2022-11-18T02:45:22-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/0868dfc326238a76c1d2aa08a8aac2da920d759b",
       "summary": "Update the version number",
       "category": "release",
@@ -2048,7 +2048,7 @@
     },
     {
       "sha": "a42e8d2e15de17fb3702b4e69d29e955085f1607",
-      "date": "2022-11-18T15:46:23+08:00",
+      "date": "2022-11-18T02:46:23-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/a42e8d2e15de17fb3702b4e69d29e955085f1607",
       "summary": "Skip Image2DEffect updates when input and output pointers are unchanged",
       "category": "maintenance",
@@ -2059,7 +2059,7 @@
     },
     {
       "sha": "529b67ab276d11aa28838be756badb885c5cc953",
-      "date": "2022-11-18T16:12:36+08:00",
+      "date": "2022-11-18T03:12:36-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/529b67ab276d11aa28838be756badb885c5cc953",
       "summary": "Fix About-dialog sizing",
       "category": "fix",
@@ -2070,7 +2070,7 @@
     },
     {
       "sha": "59b03bbc6cdf6f1b01bcd478b0c0f4cf3fe37518",
-      "date": "2022-11-18T17:37:20+08:00",
+      "date": "2022-11-18T04:37:20-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/59b03bbc6cdf6f1b01bcd478b0c0f4cf3fe37518",
       "summary": "Update version metadata",
       "category": "release",
@@ -2081,7 +2081,7 @@
     },
     {
       "sha": "d796e3ca17da70cf1c60e5fd937a510962406a73",
-      "date": "2022-11-19T10:53:18+08:00",
+      "date": "2022-11-18T21:53:18-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/d796e3ca17da70cf1c60e5fd937a510962406a73",
       "summary": "Update the Frequently Asked Questions",
       "category": "documentation",
@@ -2092,7 +2092,7 @@
     },
     {
       "sha": "fe1e929f7e837ee78a06353901f9876089135a53",
-      "date": "2022-11-19T15:16:42+08:00",
+      "date": "2022-11-19T02:16:42-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/fe1e929f7e837ee78a06353901f9876089135a53",
       "summary": "Update the changelog",
       "category": "release",
@@ -2103,7 +2103,7 @@
     },
     {
       "sha": "7e566b42cd873659cc68cc903896ff40c25a5c32",
-      "date": "2022-11-19T21:45:43+08:00",
+      "date": "2022-11-19T08:45:43-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/7e566b42cd873659cc68cc903896ff40c25a5c32",
       "summary": "Remove non-printing characters around plugin tooltip text",
       "category": "fix",
@@ -2114,7 +2114,7 @@
     },
     {
       "sha": "058a0c09189807a2bec01908ff8f1707b0f5ba57",
-      "date": "2022-11-19T22:47:29+08:00",
+      "date": "2022-11-19T09:47:29-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/058a0c09189807a2bec01908ff8f1707b0f5ba57",
       "summary": "Add Intel GPU monitoring",
       "category": "feature",
@@ -2125,7 +2125,7 @@
     },
     {
       "sha": "5f3b7f23f18d3de94753797f32cc0e99e8677d8a",
-      "date": "2022-11-22T11:26:46+08:00",
+      "date": "2022-11-21T22:26:46-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/5f3b7f23f18d3de94753797f32cc0e99e8677d8a",
       "summary": "Add plugin options and details to the taskbar plugin context menu",
       "category": "feature",
@@ -2136,7 +2136,7 @@
     },
     {
       "sha": "49c389844e9fddac299473f188ea62df79f1c22f",
-      "date": "2022-11-22T11:34:36+08:00",
+      "date": "2022-11-21T22:34:36-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/49c389844e9fddac299473f188ea62df79f1c22f",
       "summary": "Add the missing icon to plugin context-menu items",
       "category": "fix",
@@ -2147,7 +2147,7 @@
     },
     {
       "sha": "d6f08e4069f4a4812b9480cdd267fcb407a4ce1f",
-      "date": "2022-11-22T22:52:34+08:00",
+      "date": "2022-11-22T09:52:34-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/d6f08e4069f4a4812b9480cdd267fcb407a4ce1f",
       "summary": "Extend the plugin API to expose plugin commands and add plugin menu items",
       "category": "feature",
@@ -2158,7 +2158,7 @@
     },
     {
       "sha": "dc878e6a72ef93bca2558f13d9caf6612761f83e",
-      "date": "2022-11-23T15:11:20+08:00",
+      "date": "2022-11-23T02:11:20-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/dc878e6a72ef93bca2558f13d9caf6612761f83e",
       "summary": "Run plugin commands selected from the context menu",
       "category": "feature",
@@ -2169,7 +2169,7 @@
     },
     {
       "sha": "988675b6222e8f8aa0160152647a61f7f5a2ba72",
-      "date": "2022-11-23T17:08:39+08:00",
+      "date": "2022-11-23T04:08:39-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/988675b6222e8f8aa0160152647a61f7f5a2ba72",
       "summary": "Show plugin icons in the plugin manager",
       "category": "feature",
@@ -2180,7 +2180,7 @@
     },
     {
       "sha": "26d07b5615b27af054cb8d04e8af9c9005e077b0",
-      "date": "2022-11-24T18:59:36+08:00",
+      "date": "2022-11-24T05:59:36-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/26d07b5615b27af054cb8d04e8af9c9005e077b0",
       "summary": "Extend the plugin API to report whether a command is checked",
       "category": "feature",
@@ -2191,7 +2191,7 @@
     },
     {
       "sha": "a0273fba15357dad2685e42c0a8be2ab0dc8f87e",
-      "date": "2022-11-27T19:47:40+08:00",
+      "date": "2022-11-27T06:47:40-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/a0273fba15357dad2685e42c0a8be2ab0dc8f87e",
       "summary": "Use a clearer macro name",
       "category": "maintenance",
@@ -2202,7 +2202,7 @@
     },
     {
       "sha": "5e41621e11b370787fac58769ef0d78b27b8fbbe",
-      "date": "2022-11-27T19:48:43+08:00",
+      "date": "2022-11-27T06:48:43-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/5e41621e11b370787fac58769ef0d78b27b8fbbe",
       "summary": "Load D3DCompile dynamically",
       "category": "feature",
@@ -2213,7 +2213,7 @@
     },
     {
       "sha": "aaa5f882405ed5f5cfa534f38f419baa316697b6",
-      "date": "2022-11-27T19:50:58+08:00",
+      "date": "2022-11-27T06:50:58-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/aaa5f882405ed5f5cfa534f38f419baa316697b6",
       "summary": "Add a reusable class for loading DLL functions dynamically",
       "category": "feature",
@@ -2224,7 +2224,7 @@
     },
     {
       "sha": "31637284857ad7889dcbb9640eb472655af1bd32",
-      "date": "2022-11-27T19:52:39+08:00",
+      "date": "2022-11-27T06:52:39-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/31637284857ad7889dcbb9640eb472655af1bd32",
       "summary": "Allow Nullable to hold ComPtr values",
       "category": "fix",
@@ -2235,7 +2235,7 @@
     },
     {
       "sha": "91bb39c3fa7a817b2307c88af4429c08cb3ef6fc",
-      "date": "2022-11-27T23:55:04+08:00",
+      "date": "2022-11-27T10:55:04-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/91bb39c3fa7a817b2307c88af4429c08cb3ef6fc",
       "summary": "Expand dynamic function loading support",
       "category": "feature",
@@ -2246,7 +2246,7 @@
     },
     {
       "sha": "2f1a0f7d3dacc4e02dbb95633e152ec5f7483549",
-      "date": "2022-11-27T23:56:23+08:00",
+      "date": "2022-11-27T10:56:23-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/2f1a0f7d3dacc4e02dbb95633e152ec5f7483549",
       "summary": "Improve error messages and correct comments",
       "category": "maintenance",
@@ -2257,7 +2257,7 @@
     },
     {
       "sha": "9c14d1e04b83bd3bd58ec235b0d3ae5c4595a719",
-      "date": "2022-11-27T23:58:38+08:00",
+      "date": "2022-11-27T10:58:38-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/9c14d1e04b83bd3bd58ec235b0d3ae5c4595a719",
       "summary": "Use DirectComposition for transparency on Windows 8.1 and later",
       "category": "feature",
@@ -2268,7 +2268,7 @@
     },
     {
       "sha": "e90d9e15d1691519b82bd7569d43b1ec70a7ced8",
-      "date": "2022-11-28T00:14:40+08:00",
+      "date": "2022-11-27T11:14:40-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/e90d9e15d1691519b82bd7569d43b1ec70a7ced8",
       "summary": "Remove unnecessary debug statements",
       "category": "maintenance",
@@ -2279,7 +2279,7 @@
     },
     {
       "sha": "13817b6bb9f7242a2004026e01d108598730130d",
-      "date": "2022-11-28T00:20:01+08:00",
+      "date": "2022-11-27T11:20:01-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/13817b6bb9f7242a2004026e01d108598730130d",
       "summary": "Merge master into TransparentSupport",
       "category": "merge",
@@ -2290,7 +2290,7 @@
     },
     {
       "sha": "6f0300e5bcd13b561cb3255ffc7b3114a1c11de6",
-      "date": "2022-11-28T19:27:46+08:00",
+      "date": "2022-11-28T06:27:46-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/6f0300e5bcd13b561cb3255ffc7b3114a1c11de6",
       "summary": "Fix missing render output in Direct2D 1 mode",
       "category": "fix",
@@ -2301,7 +2301,7 @@
     },
     {
       "sha": "97132cf6705be0ab9b9b4dfd70411e34b288c21a",
-      "date": "2022-11-28T20:11:56+08:00",
+      "date": "2022-11-28T07:11:56-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/97132cf6705be0ab9b9b4dfd70411e34b288c21a",
       "summary": "Fix failed Direct2D device reinitialization",
       "category": "fix",
@@ -2312,7 +2312,7 @@
     },
     {
       "sha": "000bff9c1a8fc9ccf481fe6e1c38d379a3ce5541",
-      "date": "2022-11-30T10:17:08+08:00",
+      "date": "2022-11-29T21:17:08-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/000bff9c1a8fc9ccf481fe6e1c38d379a3ce5541",
       "summary": "Refresh the network-connection submenu when opening the context menu over a plugin area",
       "category": "fix",
@@ -2323,7 +2323,7 @@
     },
     {
       "sha": "c9cf04edc0b632b0a14c22b81cb4cad339d8a715",
-      "date": "2022-12-04T13:33:14+08:00",
+      "date": "2022-12-04T00:33:14-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/c9cf04edc0b632b0a14c22b81cb4cad339d8a715",
       "summary": "Add an icon to the options dialog",
       "category": "maintenance",
@@ -2334,7 +2334,7 @@
     },
     {
       "sha": "3268e6207d743342923940312274e47f13a53c90",
-      "date": "2022-12-07T16:01:41+08:00",
+      "date": "2022-12-07T03:01:41-05:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/3268e6207d743342923940312274e47f13a53c90",
       "summary": "Merge pull request #1385 from josStorer/master",
       "category": "merge",
