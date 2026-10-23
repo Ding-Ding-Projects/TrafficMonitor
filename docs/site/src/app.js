@@ -10,6 +10,8 @@ import {createLocalizer} from './locale.js';
 import {parseWording,storage} from './wording.js';
 import {setupGuide} from './guide.js';
 import {setupHistory} from './history.js';
+import {setupLearning,setupDocumentationSearch} from './learning.js';
+import {setupCapabilities} from './capabilities.js';
 const $=id=>document.getElementById(id);
 const base=document.body.dataset.base;
 export function notify(message){$('notice').textContent=message;}
@@ -41,3 +43,4 @@ for(const button of document.querySelectorAll('[data-display]'))button.addEventL
 const filter=()=>{const query=($('article-search')?.value??'').toLocaleLowerCase(),category=$('article-category')?.value??'';let count=0;for(const row of document.querySelectorAll('[data-search]')){row.hidden=!(row.dataset.search.toLocaleLowerCase().includes(query)&&(!category||row.dataset.search.includes(category)));if(!row.hidden)count++;}if($('article-count'))$('article-count').textContent=count?`${count} matching articles`:'No matching articles. Try a shorter phrase or another category.';};
 $('article-search')?.addEventListener('input',filter);$('article-category')?.addEventListener('change',filter);
 setupGuide(base,notify);setupHistory(base,notify);
+setupLearning(base,notify);setupDocumentationSearch(base);setupCapabilities();
