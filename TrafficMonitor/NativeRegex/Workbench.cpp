@@ -154,11 +154,11 @@ namespace
         viewport.scroll = [this](UINT code,int position){OnVScroll(code,position,nullptr);};
         viewport.background = [this]{return static_cast<HBRUSH>(background.GetSafeHandle());};
         panel.Create(&viewport,55101);
-        resultsLabel.Create(L"",child,r,&viewport);
-        outputLabel.Create(L"",child,r,&viewport);
+        resultsLabel.Create(L"",child,r,&panel);
+        outputLabel.Create(L"",child,r,&panel);
         options.Create(L"",r,this,OptionsToggle);
         for(int index=0;index<4;++index)pages[index].Create(L"",r,this,TestPage+index);
-        for(CWnd* control:std::initializer_list<CWnd*>{&savedLabel,&savedList,&loadSaved,&refreshSaved,&nameLabel,&savedName,&saveNew,&renameSaved,&deleteSaved,&recoverSaved,&collectionNote,&engine,&mode,&caseButton,&any,&digit,&word,&group,&start,&end,&help,&subjectLabel,&subject,&replacementLabel,&replacement,&run,&replace,&split,&results,&output})control->SetParent(&viewport);
+        for(CWnd* control:std::initializer_list<CWnd*>{&savedLabel,&savedList,&loadSaved,&refreshSaved,&nameLabel,&savedName,&saveNew,&renameSaved,&deleteSaved,&recoverSaved,&collectionNote,&engine,&mode,&caseButton,&any,&digit,&word,&group,&start,&end,&help,&subjectLabel,&subject,&replacementLabel,&replacement,&run,&replace,&split,&results,&output})control->SetParent(&panel);
         Theme();
         Labels();Fonts();RECT size{0,0,Px(1280),Px(840)};AdjustWindowRectEx(&size,GetStyle(),FALSE,GetExStyle());
         MONITORINFO monitor{sizeof(monitor)};GetMonitorInfoW(MonitorFromWindow(anchor,MONITOR_DEFAULTTONEAREST),&monitor);
@@ -358,7 +358,7 @@ namespace
             const bool visible=std::any_of(boxes.begin(),boxes.end(),[control](const Box& box){return box.control==control;});
             if(visible!=((control->GetStyle()&WS_VISIBLE)!=0))control->ShowWindow(visible?SW_SHOW:SW_HIDE);
         }
-        for(const auto& box:boxes)move(*box.control,box.x,box.y-scroll,box.w,box.h);
+        for(const auto& box:boxes)move(*box.control,box.x-20,box.y,box.w,box.h);
         subject.SyncScroll();output.SyncScroll();results.SyncScroll();
         dc.SelectObject(previous);Invalidate(FALSE);
     }

@@ -9,6 +9,13 @@ namespace NativeMaterial
     {
         if(message==WM_SETFONT){m_font=reinterpret_cast<HFONT>(w);return 0;}if(message==WM_GETFONT)return reinterpret_cast<LRESULT>(m_font);
         if(message==WM_COMMAND||message==WM_CONTEXTMENU)return GetParent()->SendMessage(message,w,l);
+        if(message==WM_CTLCOLOREDIT)return GetParent()->SendMessage(message,w,l);
+        if(message==WM_CTLCOLORSTATIC)
+        {
+            wchar_t className[32]{};
+            ::GetClassNameW(reinterpret_cast<HWND>(l),className,_countof(className));
+            if(_wcsicmp(className,L"EDIT")==0)return GetParent()->SendMessage(message,w,l);
+        }
         if(message==WM_CTLCOLORSTATIC){auto* dc=CDC::FromHandle(reinterpret_cast<HDC>(w));dc->SetTextColor(Rgb(Palette::Resolve(m_appearance).onSurface));dc->SetBkMode(TRANSPARENT);return reinterpret_cast<LRESULT>(m_fill.GetSafeHandle());}
         if(message==WM_ERASEBKGND)return TRUE;
         if(message==WM_PAINT){CPaintDC dc(this);CRect r;GetClientRect(r);const auto c=Palette::Resolve(m_appearance);dc.FillSolidRect(r,Rgb(c.surface));auto* b=dc.SelectObject(&m_fill);auto* p=dc.SelectStockObject(NULL_PEN);const int radius=MulDiv(32,GetDpiForWindow(m_hWnd),96);dc.RoundRect(r,CPoint(radius,radius));dc.SelectObject(b);dc.SelectObject(p);return 0;}
