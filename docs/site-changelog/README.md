@@ -1,6 +1,6 @@
 # TrafficMonitor commit history
 
-This directory is being populated as an English-language index of the commits reachable from the source repository's `main` branch at the recorded snapshot. Current data covers all 26 fork commits after the upstream baseline, stored verbatim, and 623 upstream commits through 2021-07-20; 764 upstream entries remain to be added. Each entry links to its exact immutable commit and retains the source subject where translation helps readers audit the summary. The list describes recorded changes; it does not claim that a commit was built, tested, or exercised at runtime.
+This directory is being populated as an English-language index of the commits reachable from the source repository's `main` branch at the recorded snapshot. Current data covers all 26 fork commits after the upstream baseline, stored verbatim, and 673 upstream commits through 2021-10-28; 714 upstream entries remain to be added. Each entry links to its exact immutable commit and retains the source subject where translation helps readers audit the summary. The list describes recorded changes; it does not claim that a commit was built, tested, or exercised at runtime.
 
 ## Data format
 
