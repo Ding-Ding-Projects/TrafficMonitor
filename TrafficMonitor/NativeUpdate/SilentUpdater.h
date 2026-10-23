@@ -12,6 +12,8 @@ namespace NativeUpdate
     void RequestCheck();
     void Stop(); // Signals cancellation; never joins a worker on the UI thread.
     Status GetStatus();
+    bool AutomaticRestartEnabled();
+    bool SaveAutomaticRestart(bool enabled); // False means the preference was not saved.
     // Caller must first establish that no editor, settings or modal work is active.
     // On true, immediately use the normal application exit/save path.
     bool PrepareRestart();
