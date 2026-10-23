@@ -24,7 +24,7 @@ MFC conversion and all 110 applicable required features remain unfinished.
 The public 1.0.23 feed carries a leading UTF-8 BOM. The native reader now verifies
 its original bytes before skipping that marker for row parsing, retaining every
 integrity and accepted-main check. Fixed local substages distinguish integrity
-rejections. Production is pending; automatic-update behavior remains unverified.
+rejections. Local production 1.0.9012 at `6464841107c5b2bc43f15040c3108057ed296caf` exited 0, with 22 warnings and zero errors. Automatic-update behavior remains unverified.
 See [repair behavior and evidence](docs/features/installation/silent-updates.md#utf-8-feed-marker-repair).
 
 ## Silent updater feed repair candidate

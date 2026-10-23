@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "6464841107c5b2bc43f15040c3108057ed296caf",
+  "command": "build-installer.bat -Version 1.0.9012",
+  "rootBuildEntrypoint": "build.bat",
+  "version": "1.0.9012",
+  "exitCode": 0,
+  "nativeElapsed": "00:00:10.20",
+  "warnings": 22,
+  "errors": 0,
+  "warningCodes": [
+    "C4018",
+    "C4244",
+    "C4267",
+    "LNK4199"
+  ],
+  "scope": "Local compile/package only; no runtime, tests, reviews, audits, interface interaction or screenshots.",
+  "staticCause": {
+    "release": "v1.0.23-run39952193588-1",
+    "feedPrefixHex": "EF BB BF",
+    "packageBytes": 7563228,
+    "feedSha1": "C85030EC34816789685D91E66FF9DD5A3811FD65",
+    "inspection": "Static public feed bytes and package digest only; updater code was not invoked."
+  },
+  "outputs": [
+    {
+      "path": "Bin/x64/Release (lite)/TrafficMonitor.exe",
+      "bytes": 2260480,
+      "sha256": "19fc2d99d66560178b3ee9eb8f4a5fb259a5878c8c3f18708e32ae6263e20118"
+    },
+    {
+      "path": "artifacts/releases/Setup.exe",
+      "bytes": 8444416,
+      "sha256": "2c654a9b5de85f48dfb57ee64555aa1cd77e3811650dd0e4615f77ad732e7429"
+    },
+    {
+      "path": "artifacts/releases/TrafficMonitor-1.0.9012-full.nupkg",
+      "bytes": 7563886,
+      "sha256": "61b544a966a8dc90ddb50aff742e51f5909fbe892cb052d9d8b129d10473d53d"
+    },
+    {
+      "path": "artifacts/releases/RELEASES",
+      "bytes": 756,
+      "sha256": "49781bd4b435340c94fc64c89179ab8c1403e9ba1fdf567d65393d0234d2e7c8"
+    }
+  ]
+}

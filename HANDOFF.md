@@ -348,3 +348,5 @@ The final caller correction is packaged as local 1.0.9010 from 5916a1293ba943162
 ## UTF-8 updater feed marker repair
 
 Static inspection of the public 1.0.23 RELEASES bytes found EF BB BF before its valid uppercase SHA-1. The reader included the marker in its first field and rejected the resulting length. Package SHA-1 matched the published feed. The reader now verifies raw feed bytes and skips only a leading UTF-8 marker for row parsing, preserving every digest/size/source invariant. Fixed local integrity rejection substages retain numeric error 13. Production is pending. No updater code was executed against those files; no runtime, installation or automatic-update acceptance is claimed.
+
+The exact root build-installer.bat -Version 1.0.9012 at 6464841107c5b2bc43f15040c3108057ed296caf exited 0. Native build elapsed 10.20 seconds, with 22 warnings and zero errors. The source-bound local receipt is docs/features/installation/silent-feed-marker-build.json. This is compile/package evidence only; automatic scheduling, safe restart, recovery and full Stage 2 remain unverified.

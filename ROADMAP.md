@@ -96,5 +96,5 @@ with historical originals retained separately.
 
 ## UTF-8 updater feed marker repair
 
-- [ ] Compile/package leading UTF-8 feed marker compatibility and fixed integrity substages.
+- [x] Compile/package leading UTF-8 feed marker compatibility and fixed integrity substages at 6464841107c5b2bc43f15040c3108057ed296caf as local-only 1.0.9012, exit 0.
 - [ ] Verify automatic update behavior when runtime checks are authorized.
