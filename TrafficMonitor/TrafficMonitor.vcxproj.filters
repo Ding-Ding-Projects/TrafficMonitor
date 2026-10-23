@@ -974,4 +974,8 @@
     <ClInclude Include="NativeDashboardController.h" />
     <ClCompile Include="NativeDashboardController.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="NativeMaterial\Controls.h" />
+    <ClCompile Include="NativeMaterial\Controls.cpp" />
+  </ItemGroup>
 </Project>

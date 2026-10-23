@@ -1061,4 +1061,10 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="NativeMaterial\Controls.h" />
+    <ClCompile Include="NativeMaterial\Controls.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+  </ItemGroup>
 </Project>
