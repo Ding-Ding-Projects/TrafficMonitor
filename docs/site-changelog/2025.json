@@ -1179,6 +1179,606 @@
       "originalSubject": "Update Turkish.ini",
       "summaryMethod": "translated-message",
       "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "e89bcbe35c3622e37e5b02eafca5efcbfb7b27d0",
+      "date": "2025-02-13T19:53:53+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/e89bcbe35c3622e37e5b02eafca5efcbfb7b27d0",
+      "summary": "Merge pull request #1986 from hberkayaktas/master|merge",
+      "lineage": "upstream",
+      "originalSubject": "Merge pull request #1986 from hberkayaktas/master",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "a6200aa3caba0630d26dd215526af14c1696fe08",
+      "date": "2025-02-13T19:54:17+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/a6200aa3caba0630d26dd215526af14c1696fe08",
+      "summary": "Merge the upstream master branch into master|merge",
+      "lineage": "upstream",
+      "originalSubject": "Merge branch 'master' of github.com:zhongyang219/TrafficMonitor",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "4a46ef9837498765c8e94d3fb82a5ce01d484764",
+      "date": "2025-02-13T20:05:01+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/4a46ef9837498765c8e94d3fb82a5ce01d484764",
+      "summary": "Add Turkish language resources|translation",
+      "lineage": "upstream",
+      "originalSubject": "添加土耳其语资源文件",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "872bd78ac9d16d72aceb320b0206d730dab5d89a",
+      "date": "2025-02-14T10:36:51+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/872bd78ac9d16d72aceb320b0206d730dab5d89a",
+      "summary": "Prevent opening multiple About dialogs|fix",
+      "lineage": "upstream",
+      "originalSubject": "修正“关于”对话框可以打开两个的问题",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "7a41153a60b0ad7260cb9f59a38153bab0fee7f5",
+      "date": "2025-02-14T14:28:10+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/7a41153a60b0ad7260cb9f59a38153bab0fee7f5",
+      "summary": "Dynamically resize controls to fit their text|feature",
+      "lineage": "upstream",
+      "originalSubject": "增加根据控件文本宽度动态调整控件宽度的处理",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "2f3747eb387d57a53919b1ba142febc10730eb44",
+      "date": "2025-02-14T15:25:28+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/2f3747eb387d57a53919b1ba142febc10730eb44",
+      "summary": "Load language files from the external language directory|feature",
+      "lineage": "upstream",
+      "originalSubject": "新增支持从外部文件(lanugage目录)读取语言",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "a96a9c49ac2dac2e6596dfac7544c4c23b7dd35d",
+      "date": "2025-02-14T08:39:30+01:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/a96a9c49ac2dac2e6596dfac7544c4c23b7dd35d",
+      "summary": "Update the Italian translation|translation",
+      "lineage": "upstream",
+      "originalSubject": "Italian language update",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "a68ca3f170298fee233a61c02669fafd96c3a1ef",
+      "date": "2025-02-14T15:56:11+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/a68ca3f170298fee233a61c02669fafd96c3a1ef",
+      "summary": "Use a list box for the skin list|maintenance",
+      "lineage": "upstream",
+      "originalSubject": "更换皮肤对话框中的皮肤列表改为listbox",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "cc54378c1181c825aa68e61dda84f85028ff87a2",
+      "date": "2025-02-14T09:11:59+01:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/cc54378c1181c825aa68e61dda84f85028ff87a2",
+      "summary": "Update the Italian translation|translation",
+      "lineage": "upstream",
+      "originalSubject": "Update Italian.ini",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "757aad1b900da2293dae49d36545d33a50ded94d",
+      "date": "2025-02-14T16:20:51+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/757aad1b900da2293dae49d36545d33a50ded94d",
+      "summary": "Merge pull request #1988 from bovirus/master|merge",
+      "lineage": "upstream",
+      "originalSubject": "Merge pull request #1988 from bovirus/master",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "399395f98788eaa5be2736af9348c92e57fdc19a",
+      "date": "2025-02-14T16:21:40+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/399395f98788eaa5be2736af9348c92e57fdc19a",
+      "summary": "Merge the upstream master branch into master|merge",
+      "lineage": "upstream",
+      "originalSubject": "Merge branch 'master' of github.com:zhongyang219/TrafficMonitor",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "71df43dcf9f27c75b7d0ad8f9f117cd967c748ae",
+      "date": "2025-02-14T16:28:18+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/71df43dcf9f27c75b7d0ad8f9f117cd967c748ae",
+      "summary": "Correct language metadata for externally loaded language files|fix",
+      "lineage": "upstream",
+      "originalSubject": "修正当前语言为从外部文件加载的语言ini文件时，CStrTable::m_language_info的值不正确的问题",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "3655a6bcfd2b44f3ebb438bd71d285986e16d991",
+      "date": "2025-02-14T16:38:02+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/3655a6bcfd2b44f3ebb438bd71d285986e16d991",
+      "summary": "Adjust control positions in General settings|maintenance",
+      "lineage": "upstream",
+      "originalSubject": "选项设置常规设置对话框控件位置调整",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "f28b982c0634c71e09070fb5bf052dbff78cbf1c",
+      "date": "2025-02-14T10:11:01+01:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/f28b982c0634c71e09070fb5bf052dbff78cbf1c",
+      "summary": "Update the Italian translation|translation",
+      "lineage": "upstream",
+      "originalSubject": "Italian language update",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "afa8bd63f468c2dd606fe580a3805435f32de790",
+      "date": "2025-02-14T17:21:49+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/afa8bd63f468c2dd606fe580a3805435f32de790",
+      "summary": "Merge pull request #1990 from bovirus/master|merge",
+      "lineage": "upstream",
+      "originalSubject": "Merge pull request #1990 from bovirus/master",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "b988d75c65bf06325b1328bb405d1a7c2f6e2b41",
+      "date": "2025-02-14T17:22:22+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/b988d75c65bf06325b1328bb405d1a7c2f6e2b41",
+      "summary": "Allow options-dialog controls to resize dynamically|feature",
+      "lineage": "upstream",
+      "originalSubject": "选项设置对话框中的控件支持动态调整大小",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "dd1df1e95369c61b27509e17957c27b631f503a4",
+      "date": "2025-02-14T17:25:57+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/dd1df1e95369c61b27509e17957c27b631f503a4",
+      "summary": "Merge the upstream master branch into master|merge",
+      "lineage": "upstream",
+      "originalSubject": "Merge branch 'master' of github.com:zhongyang219/TrafficMonitor",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "e71d12b9f93fb1bdbc3d2e692f107aa03d106d1f",
+      "date": "2025-02-14T17:57:42+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/e71d12b9f93fb1bdbc3d2e692f107aa03d106d1f",
+      "summary": "Preserve the scroll position when resizing the options dialog|fix",
+      "lineage": "upstream",
+      "originalSubject": "选项设置对话框中，窗口大小变化时不再复位滚动条",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "cf570bdf80cfeacc817e80f7aabcb6f1544087d2",
+      "date": "2025-02-14T19:14:06+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/cf570bdf80cfeacc817e80f7aabcb6f1544087d2",
+      "summary": "Adjust controls in several dialogs|maintenance",
+      "lineage": "upstream",
+      "originalSubject": "调整部分对话框控件的位置",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "d17c1d90a32a42fb713cabcf96afde9af1c5f3f5",
+      "date": "2025-02-14T19:42:30+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/d17c1d90a32a42fb713cabcf96afde9af1c5f3f5",
+      "summary": "Update language resources and remove unused strings|translation",
+      "lineage": "upstream",
+      "originalSubject": "语言资源更新，删除了不使用的字符串资源",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "f0cdbe7fd7d623c15b69c90f7d4ddd45dbe2c798",
+      "date": "2025-02-14T19:48:15+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/f0cdbe7fd7d623c15b69c90f7d4ddd45dbe2c798",
+      "summary": "Add Polish language support|feature",
+      "lineage": "upstream",
+      "originalSubject": "Add Polish language",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "725abbeaf8a870cb1ff93145eb8d98d58a7c857b",
+      "date": "2025-02-14T20:23:46+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/725abbeaf8a870cb1ff93145eb8d98d58a7c857b",
+      "summary": "Adjust control positions|maintenance",
+      "lineage": "upstream",
+      "originalSubject": "控件位置调整",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "a9eccf366f11ed65567274c3b1daff69989d798c",
+      "date": "2025-02-14T21:41:23+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/a9eccf366f11ed65567274c3b1daff69989d798c",
+      "summary": "Make translator email links clickable and prevent long dialog text from being clipped|fix",
+      "lineage": "upstream",
+      "originalSubject": "修正关于对话框中翻译者url是邮箱链接时无法点击的问题；修正部分对话框中文本过长时显示不全的问题",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "3780953e876d5eaa44f1f873504ad7db21fc6b16",
+      "date": "2025-02-14T21:47:02+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/3780953e876d5eaa44f1f873504ad7db21fc6b16",
+      "summary": "Correct skin ordering in the skin-selection dialog|fix",
+      "lineage": "upstream",
+      "originalSubject": "修正更换皮肤界面皮肤列表顺序不正确的问题",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "f14d7f4790a2b9deb2b2fa33b854c18bc2eee704",
+      "date": "2025-02-15T14:12:09+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/f14d7f4790a2b9deb2b2fa33b854c18bc2eee704",
+      "summary": "Reload dialog fonts when display DPI changes|fix",
+      "lineage": "upstream",
+      "originalSubject": "DPI变化时重新加载对话框字体",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "aea3dd98dfad0b119d074523fe91a034128cd6e2",
+      "date": "2025-02-15T16:49:34+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/aea3dd98dfad0b119d074523fe91a034128cd6e2",
+      "summary": "Separate Help-menu and Help-submenu translation strings|maintenance",
+      "lineage": "upstream",
+      "originalSubject": "右键菜单中的“帮助”和子菜单中的“帮助”拆分为两个字符串",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "16b8126bc67bc0f51d706d8d2ad3e46fca60415b",
+      "date": "2025-02-15T16:59:24+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/16b8126bc67bc0f51d706d8d2ad3e46fca60415b",
+      "summary": "Fix skin-preview font sizing across displays with different DPI settings|fix",
+      "lineage": "upstream",
+      "originalSubject": "修正多显示器DPI不一致时更换皮肤对话框预览图中字体大小不正确的问题",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "503352ac0da792df7800136a6a1b15cd55900132",
+      "date": "2025-02-15T11:08:57+01:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/503352ac0da792df7800136a6a1b15cd55900132",
+      "summary": "Update the Italian translation|translation",
+      "lineage": "upstream",
+      "originalSubject": "Italian language update",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "1a2094e8cd98d1ac5b4cbbf9c0a34d6f7462a2c3",
+      "date": "2025-02-15T19:16:30+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/1a2094e8cd98d1ac5b4cbbf9c0a34d6f7462a2c3",
+      "summary": "Merge pull request #1995 from bovirus/master|merge",
+      "lineage": "upstream",
+      "originalSubject": "Merge pull request #1995 from bovirus/master",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "ed90867a0dc18e01dba636601c1ec697ec87f4b0",
+      "date": "2025-02-15T19:26:57+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/ed90867a0dc18e01dba636601c1ec697ec87f4b0",
+      "summary": "Select the correct language variant for Help and FAQ links|fix",
+      "lineage": "upstream",
+      "originalSubject": "修正帮助和FAQ链接的语言版本问题",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "2451f70901f7d5100fc358ae39e23ee299465cf3",
+      "date": "2025-02-16T15:16:32+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/2451f70901f7d5100fc358ae39e23ee299465cf3",
+      "summary": "Refactor taskbar dialogs into Windows 11 and classic taskbar classes|maintenance",
+      "lineage": "upstream",
+      "originalSubject": "重构CTaskBarDlg，根据win11任务栏和经典任务栏派生出两个类",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "b9c27f9d4010e1299858d5bfed42c3695b1853c6",
+      "date": "2025-02-16T15:34:24+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/b9c27f9d4010e1299858d5bfed42c3695b1853c6",
+      "summary": "Translate the Windows 11 taskbar settings dialog|translation",
+      "lineage": "upstream",
+      "originalSubject": "修正“任务栏窗口设置”-“Windows11相关设置”对话框中文本没有翻译的问题",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "a2a3a04ca96b15512d485ea6f0cb2250af09a4e3",
+      "date": "2025-02-16T15:48:30+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/a2a3a04ca96b15512d485ea6f0cb2250af09a4e3",
+      "summary": "Fix positioning when a Windows 11 taskbar window is near icons on a secondary display|fix",
+      "lineage": "upstream",
+      "originalSubject": "修正Win11下任务栏窗口显示在副显示器时，设置成“靠近图标而不是任务栏的两侧”时，任务栏窗口位置不正确的问题",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "a7b0877c1cb064b98c009d42a6da0f00a1e849bc",
+      "date": "2025-02-16T16:03:25+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/a7b0877c1cb064b98c009d42a6da0f00a1e849bc",
+      "summary": "Restore taskbar position after closing the window when the Windows 10 taskbar is docked at the screen edge|fix",
+      "lineage": "upstream",
+      "originalSubject": "修正Win10下当任务栏在桌面的两侧时，关闭任务栏窗口后无法还原任务栏位置的问题",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "ff1dfd4fa7083967cf9a63a3ef71031b2dc857e8",
+      "date": "2025-02-16T23:28:03+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/ff1dfd4fa7083967cf9a63a3ef71031b2dc857e8",
+      "summary": "Update taskbar items and width without closing and reopening the taskbar window|fix",
+      "lineage": "upstream",
+      "originalSubject": "任务栏窗口显示项目变化、宽度变化时不再关闭再打开任务栏窗口",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "9a1658928b811acd7952e1d890469f3ad364f2a0",
+      "date": "2025-02-17T10:09:20+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/9a1658928b811acd7952e1d890469f3ad364f2a0",
+      "summary": "Initialize the Windows 11 taskbar state before creating the taskbar dialog|fix",
+      "lineage": "upstream",
+      "originalSubject": "修正没有在CTaskBarDlg创建之前初始化theApp.m_is_windows11_taskbar的值的问题",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "7ecbb6bd62abd2bea09a776260ac0d4933387b09",
+      "date": "2025-02-17T10:39:27+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/7ecbb6bd62abd2bea09a776260ac0d4933387b09",
+      "summary": "Dynamically resize and reposition the taskbar window when its calculated width changes|feature",
+      "lineage": "upstream",
+      "originalSubject": "任务栏窗口宽度支持动态调整，理论上只要计算得到的任务窗口宽度发生变化，任务栏窗口的位置都会自动调整",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "a5f99daa276d6e8d7afa4a4349bcb70261e0fdf6",
+      "date": "2025-02-17T10:39:54+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/a5f99daa276d6e8d7afa4a4349bcb70261e0fdf6",
+      "summary": "Update ignore rules|maintenance",
+      "lineage": "upstream",
+      "originalSubject": "gitignore更新",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "7d1a81c1d5f21ac29989daf1416975674a7f90cc",
+      "date": "2025-02-17T10:53:29+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/7d1a81c1d5f21ac29989daf1416975674a7f90cc",
+      "summary": "Right-align taskbar values by default and increase default item spacing to 8|maintenance",
+      "lineage": "upstream",
+      "originalSubject": "任务栏窗口设置中“数值右对齐”默认勾选，项目间距默认值由4改为8",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "3d2621522973a52f3db11d469cf18393ad723a91",
+      "date": "2025-02-17T14:02:01+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/3d2621522973a52f3db11d469cf18393ad723a91",
+      "summary": "Handle failures to embed the taskbar window on Windows 11|fix",
+      "lineage": "upstream",
+      "originalSubject": "添加win11任务栏窗口嵌入失败的处理",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "81de62dda252202b7bf74a929d4bc1b0319f04cc",
+      "date": "2025-02-17T14:25:01+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/81de62dda252202b7bf74a929d4bc1b0319f04cc",
+      "summary": "Use the correct font DPI for dialogs opened from a secondary-display taskbar with different DPI|fix",
+      "lineage": "upstream",
+      "originalSubject": "修正多显示器且DPI不同时，当任务栏窗口显示在副显示器时，通过任务栏窗口右键菜单弹出的对话框字体大小不正常的问题",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "60a25dfe518b9dda0d6655b8dfb6317d70982a79",
+      "date": "2025-02-17T14:42:15+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/60a25dfe518b9dda0d6655b8dfb6317d70982a79",
+      "summary": "Use the correct DPI for the main window on a secondary display|fix",
+      "lineage": "upstream",
+      "originalSubject": "修正多显示器且DPI不一致时，如果主窗口显示在副显示器，主窗口的DPI不正确的问题",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "0c80d3415e0dad85fcb7d7a8be53d41c1d167b4c",
+      "date": "2025-02-17T15:10:06+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/0c80d3415e0dad85fcb7d7a8be53d41c1d167b4c",
+      "summary": "Check whether DPIFromRect succeeds before using its result|fix",
+      "lineage": "upstream",
+      "originalSubject": "DPIFromRect添加是否成功的判断",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "c6e877487bc7da2092a6e4ebb81e121cff54e755",
+      "date": "2025-02-17T15:50:51+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/c6e877487bc7da2092a6e4ebb81e121cff54e755",
+      "summary": "Avoid reopening the taskbar window whenever options are applied|fix",
+      "lineage": "upstream",
+      "originalSubject": "应用了选项设置时不再总是重新打开任务栏窗口",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "730ff64963d49ba28276fb2e716c7b76a6ff33be",
+      "date": "2025-02-17T16:39:38+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/730ff64963d49ba28276fb2e716c7b76a6ff33be",
+      "summary": "Store DPI on each base dialog|maintenance",
+      "lineage": "upstream",
+      "originalSubject": "CBaseDailog类保存自己的DPI",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "1928560cddc57d98d4aa59b617c72d230ea61c06",
+      "date": "2025-02-17T17:50:45+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/1928560cddc57d98d4aa59b617c72d230ea61c06",
+      "summary": "Use TrayNotifyWnd width changes to position taskbar windows on Windows 10 and earlier, avoiding conflicts that could hide taskbar buttons|fix",
+      "lineage": "upstream",
+      "originalSubject": "Win10及以下的任务栏窗口中，不再使用MSTaskListWClass的宽度变化来调整任务栏窗口的位置，而是使用TrayNotifyWnd宽度的变化，以解决任务栏窗口会和其他同类软件冲突导致任务栏所有按钮消失的问题",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "bb33063eaefc2728408d7db8d8c1f710f2bcc92d",
+      "date": "2025-02-17T18:21:10+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/bb33063eaefc2728408d7db8d8c1f710f2bcc92d",
+      "summary": "Use a fallback notification-area position on Windows 11 and remove the taskbar-boundary clamp (#1967)|fix",
+      "lineage": "upstream",
+      "originalSubject": "Win11下无法获取通知区位置时使用一个固定位置；去掉限制任务栏窗口不超出边界的处理 #1967",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "c81f80277215f1708d2e5c932e9e260847221fb5",
+      "date": "2025-02-17T20:48:50+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/c81f80277215f1708d2e5c932e9e260847221fb5",
+      "summary": "Continue using MSTaskListWClass width changes on pre-Windows 10 systems|fix",
+      "lineage": "upstream",
+      "originalSubject": "Win10以前的系统仍然使用MSTaskListWClass的宽度变化来调整任务栏窗口的位置",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "3e9546ef342e09c8a1ac9f9b868cb1c07b47142c",
+      "date": "2025-02-17T21:04:10+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/3e9546ef342e09c8a1ac9f9b868cb1c07b47142c",
+      "summary": "Show the hardware-acquisition error text instead of its string identifier (#1997)|fix",
+      "lineage": "upstream",
+      "originalSubject": "修正IDS_HARDWARE_INFO_ACQUIRE_FAILED_ERROR这个字符串ID直接被显示在MessageBox上的问题 #1997",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "2e5ac385fdf57282e279664282e0a4c019e14587",
+      "date": "2025-02-17T23:50:52+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/2e5ac385fdf57282e279664282e0a4c019e14587",
+      "summary": "Fix a compilation error|fix",
+      "lineage": "upstream",
+      "originalSubject": "修正编译问题",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "e02ecc657ded695135ed1222326c2f21e24d27d3",
+      "date": "2025-02-18T00:17:58+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/e02ecc657ded695135ed1222326c2f21e24d27d3",
+      "summary": "Release GDI+ during application shutdown|maintenance",
+      "lineage": "upstream",
+      "originalSubject": "释放GDI+的处理移动到ExitInstance中",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "65a9f8a3484bbf7c0e251573659dc26dddfff8c5",
+      "date": "2025-02-18T11:33:35+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/65a9f8a3484bbf7c0e251573659dc26dddfff8c5",
+      "summary": "Keep the taskbar window visible when Windows changes the all-displays taskbar setting|fix",
+      "lineage": "upstream",
+      "originalSubject": "修正开启“在副显示器中显示任务栏窗口”的状态下，当更改系统设置中“在所有显示器中显示任务栏”选项时，任务栏窗口可能会不显示的问题",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "3d4d4ac01d8b2002360bd976cfe475450517b125",
+      "date": "2025-02-20T10:47:55+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/3d4d4ac01d8b2002360bd976cfe475450517b125",
+      "summary": "Adjust several control sizes|maintenance",
+      "lineage": "upstream",
+      "originalSubject": "调整部分控件的大小",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "78ad037dd947919640074d1f6471a0593ff1da9e",
+      "date": "2025-02-20T16:40:09+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/78ad037dd947919640074d1f6471a0593ff1da9e",
+      "summary": "Allow choosing the monitor for the taskbar window|feature",
+      "lineage": "upstream",
+      "originalSubject": "新增将任务栏窗口显示在指定显示器的功能",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "a0b577e9bdced9a830d2750e11d8e7487a635924",
+      "date": "2025-02-22T10:41:57+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/a0b577e9bdced9a830d2750e11d8e7487a635924",
+      "summary": "Load plugins after initializing the interface language|fix",
+      "lineage": "upstream",
+      "originalSubject": "将载入插件的处理移到界面语言初始化之后，以解决插件语言可能显示不正确的问题",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "7a729ddde4db755cb45e29d4beea9484288c1266",
+      "date": "2025-02-22T10:53:13+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/7a729ddde4db755cb45e29d4beea9484288c1266",
+      "summary": "Finish editing instead of closing the dialog when Enter is pressed in text-display settings|fix",
+      "lineage": "upstream",
+      "originalSubject": "在显示文本对话框中，如果在编辑状态按下回车键则结束编辑，而不是关闭对话框",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "bc2fa4df48bf3cdaf4459e91a12f118b72eb4f62",
+      "date": "2025-02-22T16:24:26+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/bc2fa4df48bf3cdaf4459e91a12f118b72eb4f62",
+      "summary": "Reinitialize network connections after resuming from sleep|fix",
+      "lineage": "upstream",
+      "originalSubject": "添加从睡眠状态恢复时重新初始化连接的处理，解决有时从睡眠状态恢复时无法获取到网速的问题",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "eaf77891d3c82c2cf4c6637b85d32508b0d5f049",
+      "date": "2025-02-22T17:34:05+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/eaf77891d3c82c2cf4c6637b85d32508b0d5f049",
+      "summary": "Restart the taskbar window when the secondary-display taskbar count changes|fix",
+      "lineage": "upstream",
+      "originalSubject": "任务栏窗口显示在副显示器时，通过检测副显示器任务栏的数量变化来重启任务栏窗口。（原来的逻辑可能会导致程序崩溃）",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "d22940e7c83f0d2302ea48464989322d8f66735c",
+      "date": "2025-02-23T12:12:05+01:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/d22940e7c83f0d2302ea48464989322d8f66735c",
+      "summary": "Update the Italian translation|translation",
+      "lineage": "upstream",
+      "originalSubject": "Italian language update",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "72b9533650ad87fe65052e48e603da4cac7d51ee",
+      "date": "2025-02-24T13:50:34+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/72b9533650ad87fe65052e48e603da4cac7d51ee",
+      "summary": "Replace the Alipay donation QR code with a collection code|maintenance",
+      "lineage": "upstream",
+      "originalSubject": "捐赠界面的支付宝二维码改成收款码",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
     }
   ]
 }
