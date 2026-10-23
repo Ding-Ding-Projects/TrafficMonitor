@@ -27,6 +27,7 @@ public:
     bool IsAutoRunModified() const { return m_auto_run_modified; }
     bool IsShowAllInterfaceModified() const { return m_show_all_interface_modified; }
     bool IsMonitorTimeSpanModified() const;
+    void SetMonitorTimeSpanBaseline(int value) { m_monitor_time_span_ori = value; }
     //bool IsTaskbarItemModified() const { return m_taskbar_item_modified; }
 
 protected:

@@ -991,4 +991,11 @@
     <ClInclude Include="NativeDashboard\Presentation.h" />
     <ClCompile Include="NativeDashboard\Presentation.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="NativeSettings\Settings.h" />
+    <ClInclude Include="NativeMaterial\SettingsControls.h" />
+    <ClCompile Include="NativeSettings\Settings.cpp" />
+    <ClCompile Include="NativeSettings\Values.cpp" />
+    <ClCompile Include="NativeMaterial\SettingsControls.cpp" />
+  </ItemGroup>
 </Project>

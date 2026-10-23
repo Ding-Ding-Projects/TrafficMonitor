@@ -1084,4 +1084,11 @@
     <ClInclude Include="NativeDashboard\Presentation.h" />
     <ClCompile Include="NativeDashboard\Presentation.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="NativeSettings\Settings.h" />
+    <ClInclude Include="NativeMaterial\SettingsControls.h" />
+    <ClCompile Include="NativeSettings\Settings.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
+    <ClCompile Include="NativeSettings\Values.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
+    <ClCompile Include="NativeMaterial\SettingsControls.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
+  </ItemGroup>
 </Project>

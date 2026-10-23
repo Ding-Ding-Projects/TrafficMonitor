@@ -1,5 +1,19 @@
 # Fork changes
 
+## Native task-oriented settings candidate
+
+The settings entrypoint now provides real Monitoring, Floating monitor and Taskbar draft controls,
+plain group search, Apply, Revert and page-default drafts. Apply retains the existing consumer and
+configuration save path. All settings (legacy) keeps the complete original dialog available.
+See [settings behavior and limits](docs/features/native-settings/README.md). Compilation and
+packaging are pending for this candidate. No new tests, reviews, audits or screenshots run in this
+expedited pass; full regex, localization, accessibility and remaining conversion stay unfinished.
+
+The previous normal release [1.0.17](https://github.com/Ding-Ding-Projects/TrafficMonitor/releases/tag/v1.0.17-run39938393354-1)
+is bound to f0d74c476842e1546ef1d7d666e5af914fc06044. All four release jobs succeeded and four
+nonempty downloadable files were verified by the release owner. Installed-update evidence remains
+separate. This prior release does not verify the new settings implementation.
+
 ## Native network workspace candidate
 
 The explicit main-window action now opens a modeless native network workspace with real immutable

@@ -54,3 +54,10 @@ with historical originals retained separately.
 - [ ] Verify the new workspace at runtime when testing is enabled again; no new tests, reviews or screenshots run in the current expedited mode.
 - [ ] Complete custom UIA table behavior, full language modes, adjacent full regex workbench and practical onboarding. The partial workspace does not close these requirements.
 
+
+## Native task-oriented settings
+
+- [ ] Compile and package the new task-oriented settings editor with real existing consumers.
+- [ ] Deliver and verify its draft/apply/revert/reset, persistence and recovery behavior when runtime checks resume.
+- [ ] Finish remaining legacy settings, full adjacent regex, language modes and accessibility acceptance.
+

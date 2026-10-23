@@ -4,6 +4,7 @@
 
 #include "stdafx.h"
 #include "NativeDashboard/Workspace.h"
+#include "NativeSettings/Settings.h"
 #include "TrafficMonitor.h"
 #include "TrafficMonitorDlg.h"
 #include "afxdialogex.h"
@@ -756,6 +757,16 @@ void CTrafficMonitorDlg::BackupHistoryTrafficFile()
 
 void CTrafficMonitorDlg::_OnOptions(int tab, CWnd* pParent)
 {
+    if (!NativeSettings::Show(pParent, tab, [this](const NativeSettings::Values& values)
+    {
+        COptionsDlg carrier(0, this);
+        carrier.m_tab1_dlg.m_data = theApp.m_main_wnd_data;
+        carrier.m_tab2_dlg.m_data = theApp.m_taskbar_data;
+        carrier.m_tab3_dlg.m_data = theApp.m_general_data;
+        carrier.m_tab3_dlg.SetMonitorTimeSpanBaseline(theApp.m_general_data.monitor_time_span);
+        values.Patch(carrier.m_tab1_dlg.m_data, carrier.m_tab2_dlg.m_data, carrier.m_tab3_dlg.m_data);
+        ApplySettings(carrier);
+    })) return;
     COptionsDlg optionsDlg(tab, pParent);
 
     //将选项设置数据传递给选项设置对话框

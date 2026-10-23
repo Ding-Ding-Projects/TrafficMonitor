@@ -1,24 +1,17 @@
-# Continuation handoff
+# Settings continuation handoff
 
-The native network workspace is implemented on ai/feature/20261023-native-lang-ui. Design is in
-design/native-dashboard/observational-workspace.md; behavior and limits are in
-docs/features/native-dashboard/README.md. Runtime code is confined to NativeDashboard, with the
-minimal main entrypoint, two menu-action check-state updates, language labels and project entries.
-Shared sampling, controller, palette and button implementations are reused unchanged.
+The native workspace baseline is normal release 1.0.17 at
+f0d74c476842e1546ef1d7d666e5af914fc06044. Its four release jobs and four downloadable files were
+verified by the release owner; installed-update proof remains separately owned.
 
-The exact build-installer.bat -Version 1.0.9001 at
-7e560bfefa61952339f534b72a794bd6b93f4181 exited 0. The incremental native build reported 2 warnings,
-zero errors and 6.07 seconds. The preceding full build at f5d626e63369d32805dd9b30f11b5940a8151b95
-exited 0 with 114 warnings, zero errors and 24.36 seconds. The source-bound build receipt records
-executable and package hashes. The local candidate was not installed or published.
+The next bounded unit implements task-oriented native settings in NativeSettings and reusable
+SettingsControls, with the minimal _OnOptions wrapper, baseline setter and registrations.
+ApplySettings and all original OptionsDlg controls remain intact. Direct documentation and design
+record real fields, defaults, draft/apply/revert behavior and legacy recovery access.
 
-Next: the parent session integrates this completed bounded source into the default branch,
-preserves it remotely, and owns normal release publication and supported installed update.
-Documentation after 7e560bf records the result without changing runtime source. Do not reuse the
-local candidate version as proof of an accepted installed release.
-
-The current expedited mode prohibits new tests, reviews, audits and screenshots. Runtime,
-accessibility, IME, keyboard and visual behavior for this workspace remain unverified. Historical
-menu and installer evidence applies only to its recorded source. Full regex parity, onboarding,
-complete custom tables, complete localization, settings/dialog conversion and other unfinished
-requirements remain open. Preserve existing monitoring, taskbar/tray defaults and saved data.
+Next: preserve the source, run exact root build and installer entrypoints pinned to the candidate,
+record actual results, refresh the documentation inventory and return the final source to the
+parent for default-branch integration, remote preservation and normal release production.
+No tests, reviews, audits or screenshots run in the current expedited mode. Runtime, accessibility,
+IME, persistence and visual acceptance remain unverified. Full regex workbench, complete language
+modes, onboarding and all unfinished native conversions remain open. Keep active work retained.
