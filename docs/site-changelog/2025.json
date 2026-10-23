@@ -599,6 +599,586 @@
       "originalSubject": "修正鸣谢界面有乱码的问题",
       "summaryMethod": "translated-message",
       "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "4030ab8f67f2a6eca72b9763cd445b67f6c1e0c1",
+      "date": "2025-02-01T20:04:14+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/4030ab8f67f2a6eca72b9763cd445b67f6c1e0c1",
+      "summary": "Clear the interface version when switching to a disabled plugin in plugin details|fix",
+      "lineage": "upstream",
+      "originalSubject": "修正插件详细信息对话框中切换到已禁用的插件时，接口版本没有清空的问题",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "621653788312ba69070ccb248bfa9be0feb234ba",
+      "date": "2025-02-01T22:24:48+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/621653788312ba69070ccb248bfa9be0feb234ba",
+      "summary": "Do not show the hardware-monitor warning again when monitoring is already enabled|fix",
+      "lineage": "upstream",
+      "originalSubject": "如果已经开启了硬件监控，再开启其中的一项时，不再弹出警告对话框",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "1afcd58ebc4b0b663dbdd35721614cc4f27bec2d",
+      "date": "2025-02-01T23:26:40+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/1afcd58ebc4b0b663dbdd35721614cc4f27bec2d",
+      "summary": "Use a checkerboard background to preview transparent PNG skins|feature",
+      "lineage": "upstream",
+      "originalSubject": "如果皮肤背景是png格式，在预览图中显示交错的棋盘背景",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "b68bb1ce170e3181fe7fee8adf3a2f72cbf08282",
+      "date": "2025-02-01T23:32:49+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/b68bb1ce170e3181fe7fee8adf3a2f72cbf08282",
+      "summary": "Update CI workflows|maintenance",
+      "lineage": "upstream",
+      "originalSubject": "CI更新",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "aa1971de5454709a4b4efd94c7937ea0d6a0594b",
+      "date": "2025-02-02T18:36:36+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/aa1971de5454709a4b4efd94c7937ea0d6a0594b",
+      "summary": "Set a taskbar-window title so FindWindow can identify it|maintenance",
+      "lineage": "upstream",
+      "originalSubject": "为任务栏窗口设置标题，以便被FindWindow识别",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "c171afd56dacae31ac5d2a0b58c84c057993bb6b",
+      "date": "2025-02-03T20:11:17+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/c171afd56dacae31ac5d2a0b58c84c057993bb6b",
+      "summary": "Prevent exaggerated network speeds when the monitoring interval is very short (#1263, #1674)|fix",
+      "lineage": "upstream",
+      "originalSubject": "修正当监控时间周期设置得过小时，显示的网速可能会大于实际网速问题 #1263 #1674",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "1981950f542dc37422bb5a1a4b577ab37413350e",
+      "date": "2025-02-04T13:06:06+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/1981950f542dc37422bb5a1a4b577ab37413350e",
+      "summary": "Collect monitoring data on one persistent thread instead of creating a new thread each time|maintenance",
+      "lineage": "upstream",
+      "originalSubject": "获取监控数据的处理放在一个线程中，不再每次开启新的线程",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "42eee79cfcdee9f59a3b127f859acd7b7ec8ea0c",
+      "date": "2025-02-04T16:13:33+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/42eee79cfcdee9f59a3b127f859acd7b7ec8ea0c",
+      "summary": "Apply monitoring-interval changes from the General settings dialog|fix",
+      "lineage": "upstream",
+      "originalSubject": "修正常规设置中“监控时间间隔”选项在点击“应用”时不生效的问题",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "993c85583b365a61866d1a6ee511a77ca8d96e8e",
+      "date": "2025-02-04T16:51:36+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/993c85583b365a61866d1a6ee511a77ca8d96e8e",
+      "summary": "Wait for the monitoring thread to exit during application shutdown|fix",
+      "lineage": "upstream",
+      "originalSubject": "增加程序退出时等待监控线程退出的处理",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "50ab2fd234cf4e5a3cbf587a933c7765e737d68b",
+      "date": "2025-02-04T17:42:41+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/50ab2fd234cf4e5a3cbf587a933c7765e737d68b",
+      "summary": "Prevent taskbar memory values from clipping when total memory exceeds 100 GB (#1722)|fix",
+      "lineage": "upstream",
+      "originalSubject": "修正当内存超过100G时显示任务栏剩余内存显示不全的问题 #1722",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "4d621b7199b6a5d5963837a2f96584ae86f7daeb",
+      "date": "2025-02-06T11:04:03+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/4d621b7199b6a5d5963837a2f96584ae86f7daeb",
+      "summary": "Use a boolean flag instead of a counter to signal whether the monitoring thread should collect data|maintenance",
+      "lineage": "upstream",
+      "originalSubject": "线程中是否需要获取监控数据使用bool标志，不再使用int计数",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "a1f18166a7f18d5e7f3267f39eea72ed2bbb1974",
+      "date": "2025-02-06T12:21:39+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/a1f18166a7f18d5e7f3267f39eea72ed2bbb1974",
+      "summary": "Apply the monitoring-interval setting even when its final value equals the initial value|fix",
+      "lineage": "upstream",
+      "originalSubject": "修正点击选项设置对话框中的“应用”按钮时，如果开始时的“监控时间间隔”和最后一次相同，则无法应用设置的问题",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "db3ca21556ab4ff3cf0cf7d93e860435282e2ea8",
+      "date": "2025-02-06T12:23:17+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/db3ca21556ab4ff3cf0cf7d93e860435282e2ea8",
+      "summary": "Improve CPU-frequency readings to better match Task Manager|maintenance",
+      "lineage": "upstream",
+      "originalSubject": "优化CPU频率的获取方式，使得其更加接近任务管理器的数值",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "7960ae31289a94d6a0bd6118bb8ec4a361b285a7",
+      "date": "2025-02-06T14:50:33+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/7960ae31289a94d6a0bd6118bb8ec4a361b285a7",
+      "summary": "Keep the CPU-frequency query open instead of reopening it for every reading|maintenance",
+      "lineage": "upstream",
+      "originalSubject": "优化CPU频率获取方式，不再每次打开关闭查询",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "229a686cfc7612cd323168f20de22753dd49fb48",
+      "date": "2025-02-06T16:09:49+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/229a686cfc7612cd323168f20de22753dd49fb48",
+      "summary": "Refactor CPU utilization and frequency queries, add a GetSystemTimes fallback, and default CPU utilization to performance counters|maintenance",
+      "lineage": "upstream",
+      "originalSubject": "重构了获取CPU利用率和CPU频率的代码，将查询pdh的部分提取到了基类中；增加当通过pdh获取CPU利用失败时通过GetSystemTimes获取的处理；CPU利用率默认获取方式改为性能计数器",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "b172b69f1e812b69c0a2f6fa0a934da5ae04c689",
+      "date": "2025-02-07T00:11:56+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/b172b69f1e812b69c0a2f6fa0a934da5ae04c689",
+      "summary": "Disable hardware-monitoring CPU-utilization options in the Lite edition|fix",
+      "lineage": "upstream",
+      "originalSubject": "修正Lite版“常规设置”中“CPU利用率获取方式”-“使用硬件监控”选项没有禁用的问题",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "57fe4ee67ee0c680b26fb91ff6a4a863e7f7d01f",
+      "date": "2025-02-07T10:13:02+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/57fe4ee67ee0c680b26fb91ff6a4a863e7f7d01f",
+      "summary": "Keep the taskbar window within screen bounds|fix",
+      "lineage": "upstream",
+      "originalSubject": "增加任务栏窗口不超出边界的判断",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "9005cdce82a4a6e0ebc879c30c57766f13062d00",
+      "date": "2025-02-07T11:18:36+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/9005cdce82a4a6e0ebc879c30c57766f13062d00",
+      "summary": "Add a compile-time switch for WebExperience detection|maintenance",
+      "lineage": "upstream",
+      "originalSubject": "WebExperience检测功能增加宏定义开关",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "45d5401322ae05489844c9f277092bbbc688c906",
+      "date": "2025-02-07T11:54:28+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/45d5401322ae05489844c9f277092bbbc688c906",
+      "summary": "Avoid retrying PDH initialization after it has failed|fix",
+      "lineage": "upstream",
+      "originalSubject": "PDH查询初始化失败的情况下不再每次重复执行初始化操作",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "ba8b05594c41de560701d1fc9dde98e961e365f4",
+      "date": "2025-02-09T22:39:16+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/ba8b05594c41de560701d1fc9dde98e961e365f4",
+      "summary": "Try PdhAddCounter first and fall back to PdhAddEnglishCounter|fix",
+      "lineage": "upstream",
+      "originalSubject": "通过pdh查询时，先使用PdhAddCounter，如果失败再使用PdhAddEnglishCounter",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "1266fbfa42f8a9602f3cdc7dba0859fa8b45b68c",
+      "date": "2025-02-10T11:36:09+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/1266fbfa42f8a9602f3cdc7dba0859fa8b45b68c",
+      "summary": "Update the version number|release",
+      "lineage": "upstream",
+      "originalSubject": "版本号更新",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "11469f2a542f6d598253da1ea632e498991e4230",
+      "date": "2025-02-10T14:16:52+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/11469f2a542f6d598253da1ea632e498991e4230",
+      "summary": "Add Windows 11 settings to the English and Traditional Chinese taskbar settings|fix",
+      "lineage": "upstream",
+      "originalSubject": "修正英文版和繁体中文版任务栏窗口中没有添加“Windows11相关设置”的问题",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "9d62bfba69bc6eae81450f087361525ce8499d13",
+      "date": "2025-02-10T14:19:01+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/9d62bfba69bc6eae81450f087361525ce8499d13",
+      "summary": "Merge the upstream master branch into master|merge",
+      "lineage": "upstream",
+      "originalSubject": "Merge branch 'master' of github.com:zhongyang219/TrafficMonitor",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "78cc52827cc63cbd55defcfe26eccf4f605bd5c8",
+      "date": "2025-02-10T16:17:55+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/78cc52827cc63cbd55defcfe26eccf4f605bd5c8",
+      "summary": "Skip the periodic always-on-top action while a dialog is open|fix",
+      "lineage": "upstream",
+      "originalSubject": "有对话框处于打开状态时，不执行每5分钟总是置顶操作",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "47514ac998e23df31c9c37832d8233910558980a",
+      "date": "2025-02-10T17:34:28+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/47514ac998e23df31c9c37832d8233910558980a",
+      "summary": "Update version metadata and the changelog|release",
+      "lineage": "upstream",
+      "originalSubject": "version.info更新；更新日志更新",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "01bad73555d0b35cc836698e0bce0b7462a996cd",
+      "date": "2025-02-10T20:42:13+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/01bad73555d0b35cc836698e0bce0b7462a996cd",
+      "summary": "Add issue-form configuration|maintenance",
+      "lineage": "upstream",
+      "originalSubject": "添加议题模板配置",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "f18999ea18ee7eefde6682029db6b2c6af7bbdd0",
+      "date": "2025-02-10T21:19:08+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/f18999ea18ee7eefde6682029db6b2c6af7bbdd0",
+      "summary": "Add the Chinese bug-report issue form|feature",
+      "lineage": "upstream",
+      "originalSubject": "添加议题模板：Bug反馈",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "5e103a16cd96e052c72f0a60f47c52903c2e4908",
+      "date": "2025-02-10T21:21:40+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/5e103a16cd96e052c72f0a60f47c52903c2e4908",
+      "summary": "Fix the Chinese bug-report form layout|fix",
+      "lineage": "upstream",
+      "originalSubject": "修正bug",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "955e9da5540e72d0320cf4122d37f2874d677014",
+      "date": "2025-02-10T21:23:47+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/955e9da5540e72d0320cf4122d37f2874d677014",
+      "summary": "Correct YAML structure in the Chinese bug-report form|fix",
+      "lineage": "upstream",
+      "originalSubject": "修正bug",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "495c27bbb6029f8bcfb633df46b15d4eb41cfebd",
+      "date": "2025-02-10T21:26:01+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/495c27bbb6029f8bcfb633df46b15d4eb41cfebd",
+      "summary": "Fix required-field indentation in the Chinese bug-report form|fix",
+      "lineage": "upstream",
+      "originalSubject": "修正bug",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "1654f14d0b6b10f6d8795c9cf5a6db592b6bdf5f",
+      "date": "2025-02-10T21:32:07+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/1654f14d0b6b10f6d8795c9cf5a6db592b6bdf5f",
+      "summary": "Require the current application version in the Chinese bug-report form|fix",
+      "lineage": "upstream",
+      "originalSubject": "更新",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "53c9733f5e71fde55ade29b17f8092e546dff0af",
+      "date": "2025-02-10T21:36:38+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/53c9733f5e71fde55ade29b17f8092e546dff0af",
+      "summary": "Add the Chinese feature-request issue form|feature",
+      "lineage": "upstream",
+      "originalSubject": "添加议题模板：功能请求",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "e4d1593701ab52ab04eeae270d73ecedd47d65b8",
+      "date": "2025-02-10T21:38:09+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/e4d1593701ab52ab04eeae270d73ecedd47d65b8",
+      "summary": "Rename the configuration file|maintenance",
+      "lineage": "upstream",
+      "originalSubject": "重命名配置文件",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "137825684564f439f5c1d8d8ded9371e6bca4fc3",
+      "date": "2025-02-10T21:40:48+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/137825684564f439f5c1d8d8ded9371e6bca4fc3",
+      "summary": "Update the issue-form configuration|maintenance",
+      "lineage": "upstream",
+      "originalSubject": "更新",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "25ec4da7869cd0eaa15089e14bed306fbb2da83b",
+      "date": "2025-02-10T21:41:24+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/25ec4da7869cd0eaa15089e14bed306fbb2da83b",
+      "summary": "Correct the Chinese bug-report form|fix",
+      "lineage": "upstream",
+      "originalSubject": "修正",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "616e29ae3592bd2c4423b7e18dcb9503889e55a1",
+      "date": "2025-02-10T21:43:26+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/616e29ae3592bd2c4423b7e18dcb9503889e55a1",
+      "summary": "Correct the Chinese bug-report form's required labels and descriptions|fix",
+      "lineage": "upstream",
+      "originalSubject": "修正",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "29b55b861fc9234cf05f65bd76cdcf5ebff8c284",
+      "date": "2025-02-10T21:45:56+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/29b55b861fc9234cf05f65bd76cdcf5ebff8c284",
+      "summary": "Add the English bug-report issue form|feature",
+      "lineage": "upstream",
+      "originalSubject": "还是修正",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "42afcba680bdbe172e25fd249b5b060b02251a68",
+      "date": "2025-02-10T21:47:26+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/42afcba680bdbe172e25fd249b5b060b02251a68",
+      "summary": "Add the English feature-request issue form|feature",
+      "lineage": "upstream",
+      "originalSubject": "更新",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "5d14b46906871d4eef3a8d21f583d829c6503744",
+      "date": "2025-02-10T22:12:58+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/5d14b46906871d4eef3a8d21f583d829c6503744",
+      "summary": "Make the Windows 11 taskbar flag a private application member|maintenance",
+      "lineage": "upstream",
+      "originalSubject": "Create template: BugReport (en)",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "39acf09718f6bd8a3ad7ecc50d611d9d57f9713b",
+      "date": "2025-02-10T22:18:21+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/39acf09718f6bd8a3ad7ecc50d611d9d57f9713b",
+      "summary": "Add support for showing the taskbar window on secondary monitors (#1870, #1621, #1529, #1254, #1209, #737)|feature",
+      "lineage": "upstream",
+      "originalSubject": "Create template: Feature Request (en)",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "c18ebda203c666c996f316677e901a8cb3539f69",
+      "date": "2025-02-11T11:25:08+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/c18ebda203c666c996f316677e901a8cb3539f69",
+      "summary": "Reposition the taskbar window at initialization to ensure it appears on secondary monitors in Windows 11|fix",
+      "lineage": "upstream",
+      "originalSubject": "将m_is_windows11_taskbar改为CTrafficMonitorApp的私有成员",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "2f2a527b3b62406c8a75aa0c048730a9cd695de5",
+      "date": "2025-02-11T15:58:57+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/2f2a527b3b62406c8a75aa0c048730a9cd695de5",
+      "summary": "Add INI-format string resources|feature",
+      "lineage": "upstream",
+      "originalSubject": "新增在副显示器上显示任务栏窗口的功能 #1870 #1621 #1529 #1254 #1209 #737",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "a18cdf30f53aaae6ddd25a4bd9d97a04c168b2ad",
+      "date": "2025-02-11T17:00:37+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/a18cdf30f53aaae6ddd25a4bd9d97a04c168b2ad",
+      "summary": "Move string resources from the resource file into INI files|maintenance",
+      "lineage": "upstream",
+      "originalSubject": "任务栏窗口中初始化时强制调整一次位置，防止Win11下任务栏窗口设置为在副屏显示时，启动时不显示的问题",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "a1d9c759f9afc1a3a49062a985fa1fcd7713bf35",
+      "date": "2025-02-11T20:32:08+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/a1d9c759f9afc1a3a49062a985fa1fcd7713bf35",
+      "summary": "Check text-resource sizes to prevent trailing garbage characters|fix",
+      "lineage": "upstream",
+      "originalSubject": "添加ini格式的字符串资源",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "776d03dcbde91b6496824789e1aebb9c765d0fca",
+      "date": "2025-02-12T11:15:57+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/776d03dcbde91b6496824789e1aebb9c765d0fca",
+      "summary": "Read About-dialog text from INI-format language files|maintenance",
+      "lineage": "upstream",
+      "originalSubject": "删除rc文件中的字符串资源，所有字符串改成从ini文件读取",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "682a0c6a37b0e22aa5b7884e2bed852286099eeb",
+      "date": "2025-02-12T11:35:43+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/682a0c6a37b0e22aa5b7884e2bed852286099eeb",
+      "summary": "Begin migrating dialog text to INI-format language files|maintenance",
+      "lineage": "upstream",
+      "originalSubject": "修正GetTextResource读取TEXT资源时没有判断资源大小导致后面可能会有乱码的问题",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "12ce7ee3c19aa8fabca17637a3410d5956f2af72",
+      "date": "2025-02-12T14:30:06+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/12ce7ee3c19aa8fabca17637a3410d5956f2af72",
+      "summary": "Complete migration of dialog-resource text to INI files|maintenance",
+      "lineage": "upstream",
+      "originalSubject": "对话框文本改为从ini格式语言文件获取，目前处理了关于对话框",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "908d4d52b5eff842c055501eb7a2bfc0d82ea204",
+      "date": "2025-02-12T17:05:49+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/908d4d52b5eff842c055501eb7a2bfc0d82ea204",
+      "summary": "Use Microsoft YaHei as the default dialog font and adjust dialog sizes and control positions|maintenance",
+      "lineage": "upstream",
+      "originalSubject": "对话框文本改成从ini文件读取 part1",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "85b0242ee5deca1be663c8931d5f20f97c1b01f9",
+      "date": "2025-02-12T22:00:58+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/85b0242ee5deca1be663c8931d5f20f97c1b01f9",
+      "summary": "Build the language list by reading available language resources instead of using a fixed enum|maintenance",
+      "lineage": "upstream",
+      "originalSubject": "完成对话框资源中的文本向ini文件迁移",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "54f094275113c376af84c64f390786968cd3744f",
+      "date": "2025-02-12T22:44:46+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/54f094275113c376af84c64f390786968cd3744f",
+      "summary": "Complete migration of menu text to INI files|maintenance",
+      "lineage": "upstream",
+      "originalSubject": "rc文件中对话框默认字体改为微软雅黑，解决Segoe UI字体在100%时垂直方向太拥挤的问题；调整了部分对话框的大小和控件位置",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "a565ab02a281a4ad6d353c7accbe3c37e9a6d6b6",
+      "date": "2025-02-13T11:32:25+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/a565ab02a281a4ad6d353c7accbe3c37e9a6d6b6",
+      "summary": "Fix About-dialog artwork scaling when DPI changes|fix",
+      "lineage": "upstream",
+      "originalSubject": "语言列表不再使用固定的枚举值，而是遍历IDR_LANGUAGE资源获取所有语言列表",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "2c67508a46cb0567fa4479a698ddb06ee58f9218",
+      "date": "2025-02-13T13:09:55+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/2c67508a46cb0567fa4479a698ddb06ee58f9218",
+      "summary": "Adjust control positions in the options dialog|maintenance",
+      "lineage": "upstream",
+      "originalSubject": "完成菜单文本向ini文件的迁移",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "3e38c74509b47f1d8db6213b7c0c678e408d515e",
+      "date": "2025-02-13T15:49:22+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/3e38c74509b47f1d8db6213b7c0c678e408d515e",
+      "summary": "Remove unused string resources|maintenance",
+      "lineage": "upstream",
+      "originalSubject": "修正关于对话框中的图片在DPI变化时显示不正常的问题",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "3ccf4fe05d7509f9d96c493aa75d5574a57d3801",
+      "date": "2025-02-13T16:52:09+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/3ccf4fe05d7509f9d96c493aa75d5574a57d3801",
+      "summary": "Add Turkish language support|feature",
+      "lineage": "upstream",
+      "originalSubject": "调整了选项设置对话框中控件的位置",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "1556e298298397f13ad98c402d0418aa944141ed",
+      "date": "2025-02-13T17:08:24+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/1556e298298397f13ad98c402d0418aa944141ed",
+      "summary": "Correct an English spelling error|fix",
+      "lineage": "upstream",
+      "originalSubject": "删除不需要的字符串资源",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "a5966829dcdd3ca315fb12558360c3de786c8afe",
+      "date": "2025-02-13T13:21:32+03:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/a5966829dcdd3ca315fb12558360c3de786c8afe",
+      "summary": "Update the Turkish translation|translation",
+      "lineage": "upstream",
+      "originalSubject": "Turkish language support added",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "ab91e8b202f6a6c62be3b2fd0de80abe2788af26",
+      "date": "2025-02-13T19:49:41+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/ab91e8b202f6a6c62be3b2fd0de80abe2788af26",
+      "summary": "Merge pull request #1986 from hberkayaktas/master|merge",
+      "lineage": "upstream",
+      "originalSubject": "修正一处英文文本拼写错误",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "8ab5b51bf7d6594df772042d35a2dc74e92d1eb1",
+      "date": "2025-02-13T14:50:33+03:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/8ab5b51bf7d6594df772042d35a2dc74e92d1eb1",
+      "summary": "Merge the upstream master branch into master|merge",
+      "lineage": "upstream",
+      "originalSubject": "Update Turkish.ini",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
     }
   ]
 }
