@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug (lite)|ARM64EC">
@@ -1051,4 +1051,10 @@
       <UserProperties RESOURCE_FILE="TrafficMonitor.rc" />
     </VisualStudio>
   </ProjectExtensions>
+  <ItemGroup>
+    <ClInclude Include="NativeMenus\SearchableMenu.h" />
+    <ClCompile Include="NativeMenus\SearchableMenu.cpp">
+      <AdditionalIncludeDirectories>$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemGroup>
 </Project>
