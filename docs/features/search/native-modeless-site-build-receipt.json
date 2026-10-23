@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "command": "build.bat --site",
+  "exitCode": 0,
+  "sourceCommit": "e4e4119423bd2bfd20b554338d300c50b6f28339",
+  "contentSource": "a178290fe207c3fce605406eab5ed91d03dc0afc",
+  "inputState": "No nonignored changes at producer start; source and manifest remained unchanged through completion.",
+  "manifestSha256": "5b618c5134e9411f7f3f1246e265f54a7cf0b4e690edd888c6b280c9110f33e4",
+  "counts": {
+    "repositoryMarkdownArticles": 166,
+    "wikiMarkdownArticles": 28,
+    "wikiAssets": 75,
+    "wikiTrackedFiles": 103,
+    "articles": 194
+  },
+  "nativePackageSource": "97a3cd2fb1866adb9bb412c8a7a421acf466ac1b",
+  "productionReceipt": {
+    "schemaVersion": 1,
+    "sourceCommit": "e4e4119423bd2bfd20b554338d300c50b6f28339",
+    "contentSource": "a178290fe207c3fce605406eab5ed91d03dc0afc",
+    "wikiSource": {
+      "repository": "https://github.com/zhongyang219/TrafficMonitor.wiki.git",
+      "commit": "cf35274094fe2ffb040ca1f29d6ce73c713d93a2"
+    },
+    "releaseMetadataSHA256": "37e33d17df24ad8a8e1cbb935a1dffd2844b8de4ec0c5f0f14f6e13538e62e0f",
+    "releaseTag": "v1.0.15-run39912330939-1",
+    "releaseSource": "3f573fc0031ef6b6cb123dfbc80c05c33a5063db",
+    "articleCount": 194,
+    "historyCount": 1558,
+    "base": "/TrafficMonitor/",
+    "unresolvedAssets": []
+  },
+  "published": false,
+  "runtime": "UNVERIFIED: no tests, reviews, runtime interaction or screenshots were performed.",
+  "outputs": [
+    {
+      "path": "docs/site/dist/index.html",
+      "size": 4911,
+      "sha256": "14dbefb66f3caf1b4546a320a44c41934d2e5d855f39e96e6e6907604aa26660"
+    },
+    {
+      "path": "docs/site/dist/articles/source-docs-features-search-native-workbench/index.html",
+      "size": 12672,
+      "sha256": "ad670402a50369414947c5004b5cb247a9abd3e55650254ab920a7d2ed473b41"
+    },
+    {
+      "path": "docs/site/dist/build-receipt.json",
+      "size": 611,
+      "sha256": "832e2d2ebed475fe6dca29f6726f3ec100538a012077c7a16b54a8274b6f3967"
+    }
+  ]
+}

@@ -101,3 +101,25 @@ Source now replaces the modal decision with a caller-owned modeless native tool 
 ## Modeless package production result
 
 Exact root `build-installer.bat -Version 1.0.9008`, including `build.bat`, passed at `97a3cd2fb1866adb9bb412c8a7a421acf466ac1b` with exit 0, two linker warnings, zero errors and 9.18 seconds native compilation. Hashes and sizes are in `docs/features/search/native-modeless-build-receipt.json`. This is a local candidate, not an installed or published release. Later documentation commits do not relabel the producer.
+
+## Modeless continuation final local production
+
+Native package 1.0.9008 is bound to 97a3cd2fb1866adb9bb412c8a7a421acf466ac1b.
+Exact root build-installer.bat (including build.bat) exited 0, with two linker
+warnings, zero errors and 9.18 seconds native compilation. The native receipt is
+docs/features/search/native-modeless-build-receipt.json. Product source changes
+are limited to Workbench ownership/lifetime and its three existing native callers;
+the engine and updater backend are unchanged. No installation or release occurred.
+
+Complete article content is bound to a178290fe207c3fce605406eab5ed91d03dc0afc;
+the manifest was committed before exact root build.bat --site at pinned producer
+e4e4119423bd2bfd20b554338d300c50b6f28339. No nonignored changes existed at producer
+start. Static production exited 0: 194 complete articles, 1,558 history records and
+zero unavailable local images (166 repository articles and 28 inherited wiki
+articles). Its separate receipt is docs/features/search/native-modeless-site-build-receipt.json.
+Later receipt/handoff commits do not relabel either producer. No tests, reviews,
+audits, runtime interaction or screenshots ran; no push, integration, deployment,
+installation or deletion was performed by this continuation lane. Full parity,
+modeless runtime acceptance, complete localization/accessibility and all display
+matrices remain unfinished. Status Hub binding remains unavailable. The coordinating
+task owns integration, remote preservation, normal release and accepted installed update.
