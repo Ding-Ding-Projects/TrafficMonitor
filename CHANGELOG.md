@@ -2,6 +2,8 @@
 
 ## Local required-feature acceptance validator
 
+Reject screenshot evidence containing text, empty or truncated PNG data, invalid checksums/compression or dimensions that differ from its receipt. The bounded built-in decoder validates actual PNG structure and pixels without a network service or external tool. Local baseline reproduction is red and the repaired 150-check suite is green; this does not prove screenshot provenance or product execution.
+
 Add a local source-bound inventory/evidence validator and 141 focused mutation checks. Diagnostic mode retains unfinished declarations; strict mode rejects them. No product feature is marked implemented and no tests or lint were added to the release workflow. The existing 110-item inventory remains incomplete.
 
 ## Natural34-to35 acceptance

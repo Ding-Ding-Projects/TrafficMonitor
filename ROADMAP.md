@@ -2,6 +2,10 @@
 
 ## Required-feature audit validator
 
+- [x] Reproduce acceptance of malformed screenshot bytes on the preserved validator baseline.
+- [x] Require complete bounded PNG decoding and exact viewport dimensions; verify 150 final local regressions including real malformed-byte negatives and a tracked PNG positive.
+- [ ] Obtain independent review of the PNG repair before integration; real screenshot provenance and full runtime proof remain separately required.
+
 - [x] Add an independent handwritten 110-ID validator retaining eight surface rows and eight proof dimensions.
 - [x] Keep diagnostic unfinished output separate from strict completion acceptance and verify false-complete rejection.
 - [x] Observe 141 focused local mutation/CLI checks pass on unchanged final inputs, with the baseline still reporting 1499 acceptance gaps.

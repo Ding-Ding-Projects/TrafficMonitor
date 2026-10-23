@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import {createHash} from 'node:crypto';
 import {execFileSync} from 'node:child_process';
+import {inflateSync} from 'node:zlib';
 import {fileURLToPath} from 'node:url';
 
 // Independent reviewed inventory. Do not derive this list from discovered articles.
@@ -17,6 +18,86 @@ const hash = bytes => createHash('sha256').update(bytes).digest('hex');
 const exactKeys = (value, expected) => object(value) && Object.keys(value).length === expected.length && expected.every(key => Object.hasOwn(value,key));
 const sha = value => typeof value === 'string' && /^[a-f0-9]{40}$/.test(value);
 const sha256 = value => typeof value === 'string' && /^[a-f0-9]{64}$/.test(value);
+
+// Decode bounded PNG scanlines, including filters and Adam7 passes. This validates
+// the file format and dimensions, not capture provenance or human inspection.
+export function decodePng(bytes) {
+  const fail=()=>{throw Error('Invalid or unsupported bounded PNG');};
+  const limit=64*1024*1024;
+  if(!Buffer.isBuffer(bytes)||bytes.length<45||bytes.length>32*1024*1024||!bytes.subarray(0,8).equals(Buffer.from('89504e470d0a1a0a','hex')))fail();
+  const crc=buffer=>{let n=0xffffffff;for(const byte of buffer){n^=byte;for(let i=0;i<8;i++)n=(n>>>1)^((n&1)?0xedb88320:0);}return (n^0xffffffff)>>>0;};
+  let offset=8,header,ended=false,palette=null,transparency=false,idatStarted=false,idatEnded=false,chunks=0;
+  const data=[];
+  while(offset<bytes.length){
+    if(++chunks>8192)fail();
+    if(offset+12>bytes.length)fail();
+    const length=bytes.readUInt32BE(offset);
+    if(length>bytes.length-offset-12)fail();
+    const kind=bytes.toString('ascii',offset+4,offset+8),body=bytes.subarray(offset+8,offset+8+length);
+    if(!bytes.subarray(offset+4,offset+8).every(byte=>(byte>=65&&byte<=90)||(byte>=97&&byte<=122))||(bytes[offset+6]&32)!==0||crc(bytes.subarray(offset+4,offset+8+length))!==bytes.readUInt32BE(offset+8+length))fail();
+    if(!header&&kind!=='IHDR')fail();
+    if(kind==='IHDR'){
+      if(header||length!==13||offset!==8)fail();
+      const width=body.readUInt32BE(0),height=body.readUInt32BE(4),depth=body[8],color=body[9],interlace=body[12];
+      const depths={0:[1,2,4,8,16],2:[8,16],3:[1,2,4,8],4:[8,16],6:[8,16]};
+      if(!width||!height||width>8192||height>8192||!depths[color]?.includes(depth)||body[10]!==0||body[11]!==0||interlace>1)fail();
+      header={width,height,depth,color,interlace,channels:({0:1,2:3,3:1,4:2,6:4})[color]};
+    }else if(kind==='PLTE'){
+      if(palette||idatStarted||header.color===0||header.color===4||!length||length%3||length>768||(header.color===3&&length/3>2**header.depth))fail();
+      palette=body;
+    }else if(kind==='tRNS'){
+      if(transparency||idatStarted||header.color===4||header.color===6||(header.color===0&&length!==2)||(header.color===2&&length!==6)||(header.color===3&&(!palette||!length||length>palette.length/3)))fail();
+      transparency=true;
+    }else if(kind==='IDAT'){
+      if(idatEnded||(header.color===3&&!palette))fail();
+      idatStarted=true;data.push(body);
+    }else if(kind==='IEND'){
+      if(length||!idatStarted||offset+12!==bytes.length)fail();
+      ended=true;offset+=12;break;
+    }else{
+      if((bytes[offset+4]&32)===0)fail();
+      if(idatStarted)idatEnded=true;
+    }
+    offset+=length+12;
+  }
+  if(!ended||offset!==bytes.length)fail();
+  const bits=header.channels*header.depth,bpp=Math.max(1,Math.ceil(bits/8));
+  const pattern=header.interlace?[[0,0,8,8],[4,0,8,8],[0,4,4,8],[2,0,4,4],[0,2,2,4],[1,0,2,2],[0,1,1,2]]:[[0,0,1,1]];
+  const passes=pattern.map(([x,y,dx,dy])=>({width:header.width<=x?0:Math.ceil((header.width-x)/dx),height:header.height<=y?0:Math.ceil((header.height-y)/dy)}));
+  let expected=0;
+  for(const p of passes)if(p.width&&p.height)expected+=(Math.ceil(p.width*bits/8)+1)*p.height;
+  if(!expected||expected>limit)fail();
+  const compressed=Buffer.concat(data);
+  let decoded;
+  try{
+    const result=inflateSync(compressed,{maxOutputLength:expected+1,info:true});
+    if(result.engine.bytesWritten!==compressed.length)fail();
+    decoded=result.buffer;
+  }catch{fail();}
+  if(decoded.length!==expected)fail();
+  let position=0;
+  const paeth=(a,b,c)=>{const n=a+b-c,da=Math.abs(n-a),db=Math.abs(n-b),dc=Math.abs(n-c);return da<=db&&da<=dc?a:db<=dc?b:c;};
+  for(const p of passes){
+    if(!p.width||!p.height)continue;
+    const stride=Math.ceil(p.width*bits/8);
+    let previous=Buffer.alloc(stride),row=Buffer.alloc(stride);
+    for(let y=0;y<p.height;y++){
+      const filter=decoded[position++];if(filter>4)fail();
+      for(let x=0;x<stride;x++){
+        const a=x>=bpp?row[x-bpp]:0,b=previous[x],c=x>=bpp?previous[x-bpp]:0;
+        const correction=filter===0?0:filter===1?a:filter===2?b:filter===3?Math.floor((a+b)/2):paeth(a,b,c);
+        row[x]=(decoded[position++]+correction)&255;
+      }
+      if(header.color===3){
+        const mask=(1<<header.depth)-1;
+        for(let x=0;x<p.width;x++){const bit=x*header.depth,index=(row[Math.floor(bit/8)]>>(8-header.depth-(bit%8)))&mask;if(index>=palette.length/3)fail();}
+      }
+      [row,previous]=[previous,row];
+    }
+  }
+  return {width:header.width,height:header.height};
+}
+
 export function audit({root, inventory, expected, sourceCommit, evidenceCommit=sourceCommit}) {
   const errors=[], gaps=[];
   const error = (location, message) => errors.push({location,message});
@@ -52,7 +133,15 @@ export function audit({root, inventory, expected, sourceCommit, evidenceCommit=s
         if(dimension==='screenshots'&&text(receipt.imagePath)){
           const image=receipt.imagePath;
           if(image.includes('\\')||image.includes(':')||image.startsWith('/')||image.split('/').some(p=>!p||p==='.'||p==='..'))error(location,'Image path must be repository-relative');
-          else try{if(hash(git(['show',evidenceCommit+':'+image]))!==receipt.imageSHA256)error(location,'Image bytes do not match receipt');}catch{error(location,'Receipt image is absent from evidence commit');}
+          else {
+            let imageBytes;
+            try{imageBytes=git(['show',evidenceCommit+':'+image]);}catch{error(location,'Receipt image is absent from evidence commit');}
+            if(imageBytes){
+              if(hash(imageBytes)!==receipt.imageSHA256)error(location,'Image bytes do not match receipt');
+              try{const size=decodePng(imageBytes);if(size.width!==receipt.viewport?.width||size.height!==receipt.viewport?.height)error(location,'Decoded image dimensions do not match receipt viewport');}
+              catch{error(location,'Receipt image must be a complete bounded decodable PNG');}
+            }
+          }
         }
       }
     }

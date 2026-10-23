@@ -4,7 +4,8 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import {execFileSync,spawnSync} from 'node:child_process';
-import {fileURLToPath} from 'node:url';
+import {fileURLToPath,pathToFileURL} from 'node:url';
+import {createHash} from 'node:crypto';
 import {audit,REQUIRED_IDS,SURFACES,DIMENSIONS} from './required-feature-audit.mjs';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const original=JSON.parse(fs.readFileSync(path.join(root,'docs/features/required-features/inventory.json'),'utf8'));
@@ -23,6 +24,75 @@ function negative(name,change,find){
   assert.equal(run(original).errors.length,0,name+': restoration did not recover');
   console.log('PASS '+name);cases++;
 }
+
+async function imageRegressionChecks() {
+  const temp=fs.mkdtempSync(path.join(os.tmpdir(),'trafficmonitor-png-audit-'));
+  try {
+    let check=audit;
+    if(process.argv.includes('--baseline-png')){
+      const legacy=path.join(temp,'baseline.mjs');
+      fs.writeFileSync(legacy,execFileSync('git',['show','070a6058d7fc6ac270e4b499510e0025ee87fc15:scripts/required-feature-audit.mjs'],{cwd:root}));
+      check=(await import(pathToFileURL(legacy))).audit;
+    }
+    const fixture=path.join(temp,'repository');fs.mkdirSync(fixture);
+    const git=args=>execFileSync('git',args,{cwd:fixture,windowsHide:true,encoding:'utf8',stdio:['ignore','pipe','pipe']}).trim();
+    git(['init','--quiet']);git(['config','user.name','Claude Fable 5.1']);git(['config','user.email','noreply@anthropic.com']);
+    git(['config','core.hooksPath',path.join(temp,'no-hooks')]);
+    fs.mkdirSync(path.join(fixture,'docs/features/required-features'),{recursive:true});
+    for(const id of REQUIRED_IDS)fs.writeFileSync(path.join(fixture,'docs/features/required-features',id+'.md'),'# Isolated structural fixture\n');
+    git(['add','--','docs']);git(['commit','--quiet','-m','Create isolated audit fixture']);
+    const product=git(['rev-parse','HEAD']);
+    const genuine=execFileSync('git',['show','HEAD:TrafficMonitor/skins/默认皮肤2/background.png'],{cwd:root});
+    const width=genuine.readUInt32BE(16),height=genuine.readUInt32BE(20);
+    const crc=bytes=>{let n=0xffffffff;for(const byte of bytes){n^=byte;for(let i=0;i<8;i++)n=(n>>>1)^((n&1)?0xedb88320:0);}return (n^0xffffffff)>>>0;};
+    const corruptDeflate=Buffer.from(genuine);
+    for(let offset=8;offset+12<=corruptDeflate.length;){
+      const length=corruptDeflate.readUInt32BE(offset),kind=corruptDeflate.toString('ascii',offset+4,offset+8);
+      if(kind==='IDAT'){corruptDeflate[offset+8]=0;corruptDeflate.writeUInt32BE(crc(corruptDeflate.subarray(offset+4,offset+8+length)),offset+8+length);break;}
+      offset+=length+12;
+    }
+    const badCRC=Buffer.from(genuine);badCRC[badCRC.length-1]^=1;
+    const inputs=[
+      {name:'genuine project PNG',bytes:genuine,accept:true},
+      {name:'UTF-8 text named PNG',bytes:Buffer.from('This is text, not image pixels.')},
+      {name:'zero byte PNG',bytes:Buffer.alloc(0)},
+      {name:'signature only PNG',bytes:Buffer.from('89504e470d0a1a0a','hex')},
+      {name:'truncated PNG',bytes:genuine.subarray(0,genuine.length-7)},
+      {name:'corrupt chunk CRC',bytes:badCRC},
+      {name:'corrupt deflate with valid chunk CRC',bytes:corruptDeflate},
+      {name:'wrong viewport dimensions',bytes:genuine,wrongDimensions:true},
+      {name:'wrong image hash control',bytes:genuine,wrongHash:true}
+    ];
+    fs.mkdirSync(path.join(fixture,'evidence'));
+    const hash=bytes=>createHash('sha256').update(bytes).digest('hex');
+    for(const [i,input] of inputs.entries()){
+      const imagePath='evidence/image-'+i+'.png',receiptPath='evidence/receipt-'+i+'.json';
+      fs.writeFileSync(path.join(fixture,imagePath),input.bytes);
+      const receipt={sourceCommit:product,verified:true,featureId:'language',surface:'native-application',buildSHA256:'1'.repeat(64),state:'structural fixture only',route:'synthetic-local-test',language:'English',theme:'light',scale:1,viewport:{width:width+(input.wrongDimensions?1:0),height},privacyReviewed:true,pixelsInspected:true,imagePath,imageSHA256:input.wrongHash?'0'.repeat(64):hash(input.bytes)};
+      fs.writeFileSync(path.join(fixture,receiptPath),JSON.stringify(receipt));
+      input.receiptPath=receiptPath;input.receiptHash=hash(fs.readFileSync(path.join(fixture,receiptPath)));
+    }
+    git(['add','--','evidence']);git(['commit','--quiet','-m','Preserve isolated image audit inputs']);
+    const evidenceCommit=git(['rev-parse','HEAD']);
+    let failed=0;
+    for(const input of inputs){
+      const inventory=structuredClone(original),item=inventory.items.find(item=>item.id==='language'),row=item.surfaces['native-application'];
+      row.proof=structuredClone(item.proof);
+      row.proof.screenshots={status:'COMPLETE',expected:'Validate image bytes only, never product execution.',evidence:[{featureId:'language',surface:'native-application',path:input.receiptPath,sourceCommit:product,sha256:input.receiptHash}]};
+      const result=check({root:fixture,inventory,expected,sourceCommit:product,evidenceCommit});
+      const imageErrors=result.errors.filter(e=>e.location.startsWith('language.native-application.proof.screenshots'));
+      const accepted=imageErrors.length===0;
+      const pass=accepted===Boolean(input.accept);
+      console.log((pass?'PASS ':'FAIL ')+input.name+' accepted='+accepted+' imageErrors='+imageErrors.length);
+      if(!pass)failed++;cases++;
+      assert.equal(result.complete,false,'Image fixtures never imply full product completion');
+    }
+    assert.equal(failed,0,'PNG structural acceptance regressions');
+  } finally {fs.rmSync(temp,{recursive:true,force:true});}
+}
+await imageRegressionChecks();
+if(process.argv.includes('--png-only')){console.log('PNG audit checks: '+cases+' passed; structural fixture evidence is not runtime acceptance.');process.exit(0);}
+
 for(const id of REQUIRED_IDS)negative('missing identity '+id,i=>{i.items=i.items.filter(item=>item.id!==id);},e=>e.location===id&&e.message==='Required identity is missing');
 for(const surface of SURFACES)negative('missing surface '+surface,i=>{delete i.items.find(item=>item.id==='language').surfaces[surface];},e=>e.location==='language.surfaces');
 for(const dimension of DIMENSIONS)negative('missing proof '+dimension,i=>{delete i.items.find(item=>item.id==='language').proof[dimension];},e=>e.location==='language.proof');
