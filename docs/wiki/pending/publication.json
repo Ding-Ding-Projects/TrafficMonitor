@@ -205,9 +205,9 @@
     "pages": [
       "Silent-updates.md"
     ],
-    "sourceCommit": "3a8213e6b99f914e0dc6a0d901911466663d5c81",
-    "sha256": "995548d93e04ebd898763f175299ce8d227f85f3cb2563199e445b2cb063d984",
-    "scope": "One genuine natural31-to32 update with readiness0, exact released executable/source and saved-data preservation; negative/repeated paths unverified."
+    "sourceCommit": "204597be2bdf4f3392e6ea44c26ceaa55fd7ed4d",
+    "sha256": "ab9fe71d2c0222d6ca059b87b47d3b505451718ffffd0d91fab4a86c94a83010",
+    "scope": "Preparation budget/trust repair candidate with local negative/regression checks and source-bound production; current-host acceptance pending."
   },
   "publicationProofHistory": [
     {

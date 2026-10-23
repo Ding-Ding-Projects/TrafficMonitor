@@ -1,5 +1,9 @@
 # Fork changes
 
+## Update preparation reliability
+
+Cancelled/expired preparation and helper creation failures no longer consume the two actual apply attempts. The helper validates the complete accepted feed/package before acknowledging exit readiness and again after parent exit. Local baseline regressions were observed red, the repaired focused checks pass, and exact root installer production 1.0.9020 exited0. Current-host acceptance of this new repair remains pending. See [behavior and evidence](docs/features/installation/preparation-reliability.md).
+
 ## Genuine natural readiness update to 1.0.32
 
 One metadata-only observation recorded automatic31 to32 application, without manual intervention: validated exit permission, stable launcher and Squirrel apply all returned0, one attempt. The replacement executable and manifest match the exact normal release. Startup/configuration and historical records were preserved; current traffic counters advanced normally. See [bounded natural acceptance](docs/features/installation/silent-natural32-acceptance.json). Readiness timeout/cancellation, corrupt/offline input, busy-work deferral, visual acceptance and repeated cycles remain unverified.

@@ -1,5 +1,14 @@
 # TrafficMonitor delivery roadmap
 
+## Preparation reliability candidate
+
+- [x] Separate cancelled/expired preparation and helper creation failure from durable actual-apply attempts.
+- [x] Require complete staging trust before readiness and retain post-exit revalidation.
+- [x] Observe focused baseline regressions red and repaired local helper/budget checks green.
+- [x] Produce exact root unsigned installer candidate1.0.9020.
+- [ ] Accept this repair on the matching current installation and complete broader release-grade verification.
+- [ ] Complete separately coordinated preservation/archive and scoped cleanup.
+
 ## Readiness release delivery
 
 - [x] Verify normal 1.0.31 tag, source, complete downloaded asset inventory and hashes.

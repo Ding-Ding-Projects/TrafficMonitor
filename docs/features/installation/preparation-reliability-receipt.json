@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "204597be2bdf4f3392e6ea44c26ceaa55fd7ed4d",
+  "preservedBaselineSource": "2098090699c6029c47fb1e432742b7cc51834350",
+  "baselineCommand": "build.bat --verify-updater --baseline",
+  "baselineExitCode": 1,
+  "baselineFailedAssertions": 10,
+  "fixedCommand": "build.bat --verify-updater",
+  "fixedExitCode": 0,
+  "fixedPassedAssertions": 32,
+  "fixedFailedAssertions": 0,
+  "checks": [
+    "real inherited-handle helper: repeated cancellation does not charge attempts",
+    "two real ten-second permission expiries remain Ready and do not charge attempts",
+    "failed helper creation does not charge attempts",
+    "corrupt feed and package fail before readiness and do not charge apply attempts",
+    "actual apply transaction callback fails twice; third callback refused with persisted attempts=2"
+  ],
+  "scope": "Local console fixtures only; no actual installed client mutations, no GUI or production reliability acceptance. Fixture updater is deliberately non-executable.",
+  "logSHA256": {
+    "baseline": "53077a4843cd5bf0215b2c8111cdb49c8d8f17c364748a9c4c2bf0d211ec58b3",
+    "fixed": "d0a537a753ff996427b309daec324efff701592990004be683dbcffbd4b3fcc9"
+  },
+  "production": {
+    "command": "build-installer.bat -Version 1.0.9020",
+    "includesRootBuild": "build.bat",
+    "exitCode": 0,
+    "nativeElapsed": "00:00:10.17",
+    "warnings": 69,
+    "errors": 0,
+    "outputs": [
+      {
+        "path": "Bin/x64/Release (lite)/TrafficMonitor.exe",
+        "bytes": 2309632,
+        "sha256": "74a713cfd7174a53808b0a9f66c1a75cfcc887702513f6eef21265fe7c05b9ed"
+      },
+      {
+        "path": "artifacts/releases/Setup.exe",
+        "bytes": 8463360,
+        "sha256": "c6ddbfe2d2e43166fc3430d15ace416007454ee8888812c6d311df656b4e888b"
+      },
+      {
+        "path": "artifacts/releases/TrafficMonitor-1.0.9020-full.nupkg",
+        "bytes": 7583284,
+        "sha256": "d46f6538ad9faa444772975b5dd148ee24c01398f13f31b42572a16f3353b4a0"
+      },
+      {
+        "path": "artifacts/releases/RELEASES",
+        "bytes": 1758,
+        "sha256": "0d87e6870b30bf88ac679e171fea505247013ff3ed67883f36685dbce9a99225"
+      },
+      {
+        "path": "artifacts/releases/SHA256SUMS.txt",
+        "bytes": 2305,
+        "sha256": "895bac1bb588bd924a9d49927145e674c4f5b688e8309f6fc07805074e099abd"
+      }
+    ]
+  }
+}

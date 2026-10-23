@@ -1,5 +1,12 @@
 # TrafficMonitor continuation
 
+## Preparation reliability repair, current candidate
+
+Source 204597be2bdf4f3392e6ea44c26ceaa55fd7ed4d separates preparation from the durable two-apply budget and requires complete staging validation before exit readiness, retaining post-exit revalidation. Exact root `build.bat --verify-updater --baseline` exited 1 on the preserved source with 10 failed assertions; `build.bat --verify-updater` exited 0 with all focused assertions passing, including two actual ten-second permission expiries. Exact root `build-installer.bat -Version 1.0.9020`, including `build.bat`, exited 0: native 10.17 seconds, 69 warnings, zero errors. See [source-bound local receipt](docs/features/installation/preparation-reliability-receipt.json) and [behavior/check route](docs/features/installation/preparation-reliability.md).
+
+This repair is not installed or naturally accepted. The earlier genuine31-to32 result remains evidence for that older source only. Release-grade closeout is active and unfinished, superseding the expedited no-check restriction. No cleanup has started; the new pass archive destination remains pending. Current-host runtime, complete installer/update acceptance and broader checks remain with the coordinating task.
+
+
 ## Active release-grade updater repair
 
 The latest direction is release-grade closeout and scoped cleanup, superseding the
