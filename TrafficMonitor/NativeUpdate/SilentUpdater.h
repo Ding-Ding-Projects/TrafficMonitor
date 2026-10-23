@@ -17,7 +17,6 @@ namespace NativeUpdate
     // Caller must first establish that no editor, settings or modal work is active.
     // On true, immediately use the normal application exit/save path.
     bool PrepareRestart();
-    void RestartQueueFailed(DWORD error); // Retains queue failure without forcing closure.
     // After acquiring the normal instance mutex, before monitor/plugin initialization.
     bool ApplyPendingOnLaunch();
     // Before normal initialization and instance handling, after Squirrel callbacks.

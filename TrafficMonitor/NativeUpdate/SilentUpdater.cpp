@@ -424,16 +424,6 @@ namespace NativeUpdate
         if(!service->enabled||service->status.phase!=Phase::Ready||!AutomaticRestartEnabled())return false;
         try{if(!SpawnHelper()){service->status.phase=Phase::Failed;service->status.error=ERROR_RETRY;return false;}service->status.phase=Phase::Applying;service->cancel=true;service->networkCancel=true;service->wake.notify_one();return true;}catch(...){service->status.phase=Phase::Failed;service->status.error=ERROR_INVALID_DATA;return false;}
     }
-    void RestartQueueFailed(DWORD error)
-    {
-        std::lock_guard<std::mutex> guard(serviceMutex);if(!service)return;
-        if(!error)error=ERROR_GEN_FAILURE;
-        service->stage=L"close-queue";
-        HelperDiagnostic(service->root,L"launch",L"close-queue",error);
-        Publish(service,Phase::Failed,{},error);
-        // The existing helper retains its bounded parent-exit wait. Never force
-        // the application closed or start a competing helper after queue failure.
-    }
     bool ApplyPendingOnLaunch()
     {try{if(!fs::exists(Staging(Root())/L"pending"))return false;return SpawnHelper();}catch(...){return false;}}
     bool AutomaticRestartEnabled()

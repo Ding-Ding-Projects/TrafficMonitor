@@ -2524,12 +2524,11 @@ LRESULT CTrafficMonitorDlg::OnSilentUpdatePulse(WPARAM, LPARAM)
 
     if (NativeUpdate::PrepareRestart())
     {
-        // Dispatch an actual close message: the inherited MFC close handler uses
-        // the current message context, so calling it from this pulse is not closure.
-        if (::PostMessageW(m_hWnd, WM_CLOSE, 0, 0))
-            m_updateUiClosing = true;
-        else
-            NativeUpdate::RestartQueueFailed(::GetLastError());
+        // Nested dispatch gives MFC an actual WM_CLOSE context without allowing
+        // queued input between the cooperative safety decision and normal saves.
+        m_updateUiClosing = true;
+        ::SendMessageW(m_hWnd, WM_CLOSE, 0, 0);
+        return 0; // The close path may destroy the window; do not access it again.
     }
     return 0;
 }
