@@ -17,6 +17,14 @@
 
 The [candidate production receipt](docs/features/installation/silent-readiness-build.json) preserves source and output bindings. No tests, audits, reviews, UI quality checks or screenshots ran.
 
+## Accepted release continuation
+
+Source 891fe49f89914d088278c2d29a84d61ce30b43cd produced accepted normal release v1.0.31-run39979408301-1. All four downloaded assets match their stored size/digest metadata and the package manifest. The matching existing installation is manually updated to 1.0.31 with the exact released executable, preserved post-save data/startup and hidden-main/taskbar-visible metadata. The readiness handshake is not naturally accepted yet.
+
+The installed-31 baseline and observation-only collector were created before followup publication. Publish the completed documentation followup through main as a genuine later target, then bind the collector only to its actual version/source/publication time and observe the natural update for ten minutes. Do not change preferences, attempts or staging, trigger a check or manually close the process during natural observation. Keep natural and manual results separate. The coordinating task owns integration, branch push, wiki publication and deployment verification.
+
+Exact root build.bat --site at 4d5d38153f3b75a1fca0683391bfcdedfff23a06 exited 0 and produced 196 complete articles, 1633 history records and zero unavailable local images; see the source-bound receipt. No tests, reviews, audits or screenshots ran. Existing older continuation paragraphs below are retained history.
+
 ## Historical implementation and production records
 
 The records below retain their original sources, receipts and limits. Earlier versions, queued-close proposals, pending-publication statements and initial observation gaps describe those earlier points in time; the current table above governs the current state.

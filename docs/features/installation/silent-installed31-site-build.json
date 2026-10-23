@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "4d5d38153f3b75a1fca0683391bfcdedfff23a06",
+  "command": "build.bat --site",
+  "exitCode": 0,
+  "inputState": "Clean scoped documentation commit unchanged throughout production.",
+  "articleCount": 196,
+  "historyRecords": 1633,
+  "unavailableLocalImages": 0,
+  "scope": "Documentation production only. No tests, reviews, audits, UI quality checks or screenshots.",
+  "outputs": [
+    {
+      "path": "docs/site/dist/index.html",
+      "bytes": 4911,
+      "sha256": "f84f4bf0fe40a618b135b8f00fe302cc304df64f78ac8dd72d17015800d99e97"
+    },
+    {
+      "path": "docs/site/dist/build-receipt.json",
+      "bytes": 611,
+      "sha256": "c12bfdfc4c41f83bfcad71f0d12a789785bf43aad0bb6809470b8b9c0c2e44b2"
+    }
+  ]
+}
