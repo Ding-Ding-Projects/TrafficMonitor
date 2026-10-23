@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "c4231a8776e884c629274fb075068763e1c77fb9",
+  "command": "build-installer.bat --docs-companion -Version 1.0.9021",
+  "exitCode": 0,
+  "version": "1.0.9021",
+  "file": "TrafficMonitor-Documentation-1.0.9021-x64.exe",
+  "bytes": 107221382,
+  "authenticodeStatus": "NotSigned",
+  "sha256": "8cadcc94940a383786c4b53ff6576b1445fffbe8cd908e488f321d5841c7bc49",
+  "articleCount": 199,
+  "historyCount": 1641,
+  "unresolvedLocalImages": 0,
+  "verifiedBundledFiles": 337,
+  "allBundledFileHashesMatch": true,
+  "asarSHA256": "55fac4cd27ac5c9c63f05852945801c7282af48d502a32861a3b95c2cf0cb76d",
+  "focusedChecks": {
+    "currentArticlePositive": true,
+    "modifiedArticleHashPositive": true,
+    "omissionNegativeExit": 1,
+    "modifiedHashNegativeObserved": true,
+    "outputReceiptUnchanged": true,
+    "protocolPositiveAndNegative": true
+  },
+  "runtimeVerification": "pending",
+  "remoteReleaseVerification": "pending",
+  "evidenceBoundary": "Local production and archive byte verification only; no GUI interaction or one-file launch is claimed. Later source revisions require their own production receipt."
+}

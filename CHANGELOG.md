@@ -123,3 +123,7 @@ Runtime installation and update acceptance remain separate from source and build
 The first explicit Open dashboard action now opens a resumable native setup wizard until its four steps are completed. Login and ordinary monitoring launch do not enter setup. Language and message-style controls currently apply to this wizard only. Adapter choices resolve current GUID identities, taskbar changes use an idempotent wrapper around the existing consumer, and startup uses the existing installed/portable registration route. Save and close preserves only the bounded draft. Successful partial operations remain recorded for retry; completion requires saved outcomes.
 
 Source implementation compiled and packaged through the exact root build-installer.bat -Version 1.0.9019 at a500e6c, exit 0 (23.64 seconds, 114 warnings, zero errors). See [production receipt](docs/features/native-dashboard/setup-build.json). Runtime, accessibility, language/theme/DPI and visual acceptance are pending. Broader interface conversion, complete search-builder parity and universal required features remain unfinished. See [first-open setup](docs/features/native-dashboard/setup.md).
+
+## Offline documentation packaging candidate
+
+Added a pinned portable documentation reader and same-release attachment path. Production derives a complete current Markdown inventory from the held source instead of relying on the historical tracked inventory. Runtime and released-asset verification remain pending. See [packaging details](docs/features/build/offline-documentation-companion.md).

@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "reviewedBase": "d666f5226f4b1f9e1555d65f5be2d7ed9001ebbb",
+  "changedFile": "docs/site/test/content.test.mjs",
+  "baseline": { "command": "npm test", "passed": 33, "failed": 1, "exitCode": 1 },
+  "cause": "The link-rewrite fixture lacked a Git repository and sourceCommit after immutable article reads became mandatory.",
+  "repair": "Initialize a temporary repository, commit the exact fixture bytes and supply the resulting source identity. Production source/hash validation is unchanged.",
+  "focused": { "command": "node --test test/content.test.mjs", "passed": 1, "failed": 0, "exitCode": 0 },
+  "suite": { "command": "npm test", "passed": 34, "failed": 0, "exitCode": 0 },
+  "productionImpact": "Test fixture only. No portable rebuild, runtime interaction, release or deployment proof is claimed by these checks."
+}

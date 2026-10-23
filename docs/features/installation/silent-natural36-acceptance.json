@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "scope": "One automatic matching35-to36 update; observation only, no manual check/close/apply or updater-state change.",
+  "priorVerified35TerminalUTC": "2026-10-23T17:03:19.599084+00:00",
+  "observationSnapshotUTC": "2026-10-23T17:16:15.653539+00:00",
+  "snapshotTiming": "POST-PUBLICATION snapshot, not a new prepublication baseline",
+  "preservationComparisonWindow": "Post-publication snapshot to terminal. No newly captured prepublication full-data baseline.",
+  "clientVersion": "1.0.35",
+  "clientSource": "cb0add4808a8ece040ffc76668bce290bcf8a65f",
+  "releaseTag": "v1.0.36-run39992941450-1",
+  "releaseSource": "f795e86b309cb72f80e030fe7c802ea9c44b4fd2",
+  "publishedUTC": "2026-10-23T17:14:13Z",
+  "firstReplacementSnapshotUTC": "2026-10-23T17:17:18.209964+00:00",
+  "terminalUTC": "2026-10-23T17:17:51.872435+00:00",
+  "deadlineUTC": "2026-10-23T17:24:13Z",
+  "normalRelease": true,
+  "samples": 3,
+  "oldProcessExited": true,
+  "singleReplacementProcess": true,
+  "installedVersion": "1.0.36",
+  "installedExecutableSHA256": "5124b7a9bc2b1e623e149e1e43b87d41bd0a886ac3b0842c39f02b4e26440b2b",
+  "matchesReleasedExecutable": true,
+  "manifestSourceMatches": true,
+  "attemptCount": 1,
+  "squirrelExitCode": 0,
+  "readiness": {
+    "stage": "exit-permitted",
+    "result": 0
+  },
+  "helperTerminal": {
+    "stage": "stable-launcher",
+    "result": 0
+  },
+  "configBytesPreservedFromPostPublicationSnapshot": true,
+  "configMatchesPrior35Terminal": true,
+  "startupPreservedFromPostPublicationSnapshot": true,
+  "historicalRecordsUnchanged": true,
+  "currentTrafficRecordRetained": true,
+  "currentTrafficCountersNondecreasing": true,
+  "recordCountPreserved": true,
+  "appliedStagingRetained": true,
+  "pendingAbsent": true,
+  "stagedPackageMatchesRelease": true,
+  "retainedAcceptedMainAdmissionValid": true,
+  "historyAssessment": "Historical records match the post-publication snapshot; dated counters did not decrease and record count is preserved. No new prepublication full-data baseline claim.",
+  "assets": [
+    {
+      "name": "RELEASES",
+      "bytes": 81,
+      "sha256": "520a4be017b340cdd817ab3cdec56a64b38ea4f08337fc3bf55ba6fe6d9b65ac"
+    },
+    {
+      "name": "Setup.exe",
+      "bytes": 8485888,
+      "sha256": "e6362158bfb3929c3d46c3d56c903113c9541e75d140cc8b6453c4f600192a8d"
+    },
+    {
+      "name": "SHA256SUMS.txt",
+      "bytes": 253,
+      "sha256": "1ddfd35c9b49b5a16ac791d37a3a3892b548d23590a0ab23f5f5a1850594ea37"
+    },
+    {
+      "name": "TrafficMonitor-1.0.36-full.nupkg",
+      "bytes": 7606181,
+      "sha256": "0b20decb4eb9366ab1ad34833da8d4ddf61c01ca81613474bfbba1adda4f32d8"
+    }
+  ],
+  "guiReadiness": "UNVERIFIED: no GUI interaction or visual inspection.",
+  "broaderReliability": "UNVERIFIED beyond this observed transition."
+}

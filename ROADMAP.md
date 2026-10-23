@@ -4,7 +4,7 @@
 
 - [x] Preserve reviewed source-bound natural 1.0.34 to 1.0.35 acceptance and all four release asset byte/hash records.
 - [x] Record integrated source cb0add local root installer production 1.0.9023 separately from normal 1.0.35 release.
-- [ ] Publish/read back this natural35 documentation and wiki amendment through the coordinating task.
+- [x] Publish/read back natural35 documentation at main f795 and wiki master07ffa with exact stored article bytes; live wiki interaction remains unverified.
 
 ## Preparation reliability candidate
 
@@ -165,3 +165,10 @@ with historical originals retained separately.
 - [ ] Verify first explicit open, resume, save-only close, changed/removed adapters, partial retries and actual startup/taskbar readback.
 - [ ] Verify English, Cantonese, bilingual, independent message-style levels, keyboard/accessibility and theme/DPI layouts from the built executable.
 - [ ] Complete remaining interface and search-builder obligations; this bounded wizard does not establish broad parity.
+
+## Offline documentation companion
+
+- [x] Build candidate c4231a8 complete article/wiki inventory into a single portable documentation executable and verify production hashes (199 articles, 337 bundled files; later revisions require their own receipt).
+- [x] Verify bounded real offline one-file launch, internal routes, search and selected preference persistence for source421/candidate9024.
+- [ ] Complete higher scales, full keyboard/accessibility, all images and exact integrated release verification.
+- [ ] Publish and read back the companion assets on the native source-bound normal release.

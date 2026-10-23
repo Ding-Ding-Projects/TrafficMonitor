@@ -18,7 +18,9 @@ try {
         if (!(Test-Path -LiteralPath "$RepoRoot/docs/site/package-lock.json")) { throw 'Documentation dependency lock is not yet available' }
         & $nodePath $npm ci --prefix "$RepoRoot/docs/site" --include=dev --include=optional --ignore-scripts --no-audit --no-fund
         if ($LASTEXITCODE -ne 0) { throw "Documentation dependency installation failed with exit $LASTEXITCODE" }
-        & $nodePath $entrypoint
+        & $nodePath "$RepoRoot/scripts/refresh-site-content.mjs" --output artifacts/documentation-content-manifest.json
+        if ($LASTEXITCODE -ne 0) { throw 'Current documentation inventory generation failed' }
+        & $nodePath $entrypoint --manifest artifacts/documentation-content-manifest.json
         if ($LASTEXITCODE -ne 0) { throw "Documentation build failed with exit $LASTEXITCODE" }
         if (!(Test-Path -LiteralPath "$RepoRoot/docs/site/dist/index.html")) { throw 'Documentation home page was not produced' }
     } finally { Pop-Location }
