@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "077b1412b61ea7659e907336ce11a60cb0aedaca",
+  "command": "build-installer.bat -Version 1.0.9014",
+  "includedBuildEntrypoint": "build.bat",
+  "exitCode": 0,
+  "configuration": "Release (lite)|x64",
+  "buildWarnings": 2,
+  "buildErrors": 0,
+  "buildElapsed": "00:00:05.71",
+  "version": "1.0.9014",
+  "published": false,
+  "installed": false,
+  "inputState": "No nonignored changes at producer start; source remained pinned through completion.",
+  "verification": "Combined collections plus optional-BOM updater parser and BOM-free publisher writer production only. No tests, reviews, audits, runtime interaction or screenshots. Automatic-update and collections runtime acceptance remain unverified.",
+  "artifacts": [
+    {
+      "path": "Bin/x64/Release (lite)/TrafficMonitor.exe",
+      "size": 2300416,
+      "sha256": "39b607c14c057ae2003d5f065dafcac340dbb33480ec8f6e7f6de30536d00465"
+    },
+    {
+      "path": "artifacts/releases/Setup.exe",
+      "size": 8459264,
+      "sha256": "c28a4dcad69453e3a07a857fd91047032989e910e3a315959f086a68c6d9e420"
+    },
+    {
+      "path": "artifacts/releases/TrafficMonitor-1.0.9014-full.nupkg",
+      "size": 7578925,
+      "sha256": "891ba8453d76b2cad9f4a4f884ae855b60ad531e089bda2386760205b669257f"
+    },
+    {
+      "path": "artifacts/releases/RELEASES",
+      "size": 251,
+      "sha256": "e49283adddc1af580345addc927368e4af4f4a44817abc7f8b7736fa38bf8776"
+    },
+    {
+      "path": "artifacts/releases/SHA256SUMS.txt",
+      "size": 460,
+      "sha256": "fb0d80e913e984144b41c5959eeb2523978195c2a8e4663234a658cd5c46da29"
+    }
+  ]
+}

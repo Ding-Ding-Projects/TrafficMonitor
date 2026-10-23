@@ -381,3 +381,7 @@ Exact final build.bat --site at 6ed186424956cc528b49596e1a229b21818cc378 exited 
 ## Collections and feed repair convergence
 
 Merged completed updater parser/writer source 250d06e263372dc1f9f15c6d0395c0109a629e27 with native collections source without manually changing either implementation. Optional leading UTF-8 BOM parsing and explicit BOM-free publisher output are retained. Independent 1.0.9011, 1.0.9012 and 1.0.9013 receipts remain historical and source-bound. New combined production will use its own source and receipt. Complete prepared wiki changes remain pending publication. No tests, reviews, runtime interaction or screenshots are authorized.
+
+## Combined collections/feed native production
+
+Exact build-installer.bat -Version 1.0.9014, including root build.bat, exited 0 from clean pinned source 077b1412b61ea7659e907336ce11a60cb0aedaca. Native compilation reported two linker warnings, zero errors and 5.71 seconds. The supported publisher completed its BOM-free feed write/readback before checksums. Combined receipt: docs/features/search/collections-feed-union-build-receipt.json. This does not relabel prior 1.0.9011/9012/9013 receipts or establish runtime acceptance.
