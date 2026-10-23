@@ -1,3 +1,5 @@
+[Documentation website](https://ding-ding-projects.github.io/TrafficMonitor/)
+
 **[English](./README.md) | 简体中文**
 
 ## 此分支先完成安裝及發佈

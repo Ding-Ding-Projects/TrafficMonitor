@@ -17,4 +17,4 @@ unfinished. Historical upstream screenshots do not prove that redesign is implem
 
 The complete upstream wiki is preserved with attribution in the source repository under
 `docs/wiki/upstream/`, pinned to `cf35274094fe2ffb040ca1f29d6ce73c713d93a2`.
-The documentation website is being prepared; a live delivery claim requires separate verification.
+The [documentation website](https://ding-ding-projects.github.io/TrafficMonitor/) includes complete articles and wiki content. Hosting is deployed; full interactive and interface acceptance remains in progress.
