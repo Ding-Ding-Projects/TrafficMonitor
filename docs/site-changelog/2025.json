@@ -1779,6 +1779,606 @@
       "originalSubject": "捐赠界面的支付宝二维码改成收款码",
       "summaryMethod": "translated-message",
       "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "f36321f658d4207e1e3ea82aa98cf5b32938066d",
+      "date": "2025-02-24T16:26:49+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/f36321f658d4207e1e3ea82aa98cf5b32938066d",
+      "summary": "Merge pull request #2011 from bovirus/master|merge",
+      "lineage": "upstream",
+      "originalSubject": "Merge pull request #2011 from bovirus/master",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "3d33d8adc96a78adcfb6fea15148b8e98374fa13",
+      "date": "2025-02-24T16:27:23+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/3d33d8adc96a78adcfb6fea15148b8e98374fa13",
+      "summary": "Merge the upstream master branch into master|merge",
+      "lineage": "upstream",
+      "originalSubject": "Merge branch 'master' of github.com:zhongyang219/TrafficMonitor",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "349857a92179aba7d1f965d69e1b60236c7079ca",
+      "date": "2025-02-27T11:43:55+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/349857a92179aba7d1f965d69e1b60236c7079ca",
+      "summary": "Revert positioning taskbar windows using TrayNotifyWnd width on systems before Windows 10|revert",
+      "lineage": "upstream",
+      "originalSubject": "回退了之前Win10以下任务栏窗口使用TrayNotifyWnd宽度的变化调整任务栏窗口位置的更改",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "a1f53297e25d109ddd74664adcc4ebd62dd3b1d8",
+      "date": "2025-02-27T11:56:06+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/a1f53297e25d109ddd74664adcc4ebd62dd3b1d8",
+      "summary": "Fix saving the update-source setting (#2020, #1561, #1119)|fix",
+      "lineage": "upstream",
+      "originalSubject": "修正“常规设置”中更新源没有保存的问题 #2020 #1561 #1119",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "e6776b66b15a654a9668571c542de3c96e78d936",
+      "date": "2025-02-27T06:20:38+01:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/e6776b66b15a654a9668571c542de3c96e78d936",
+      "summary": "Add files via upload|maintenance",
+      "lineage": "upstream",
+      "originalSubject": "Add files via upload",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "8fd5878f94d953fcbec2efc0111d213cffe8f2c2",
+      "date": "2025-02-27T06:22:03+01:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/8fd5878f94d953fcbec2efc0111d213cffe8f2c2",
+      "summary": "Merge pull request #1 from bege10/bege10-patch-1|merge",
+      "lineage": "upstream",
+      "originalSubject": "Merge pull request #1 from bege10/bege10-patch-1",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "bbce65c06792996d24ba7aeac62dda306514e22a",
+      "date": "2025-02-27T15:15:47+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/bbce65c06792996d24ba7aeac62dda306514e22a",
+      "summary": "Fix DPI selection when moving the floating window between displays|fix",
+      "lineage": "upstream",
+      "originalSubject": "修正当悬浮窗在不同DPI的显示器间移动时DPI可能不正确的问题",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "bab442bb259e3564cf402e7fcf426e3167a4b3c4",
+      "date": "2025-02-27T15:50:34+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/bab442bb259e3564cf402e7fcf426e3167a4b3c4",
+      "summary": "Allow removing every built-in taskbar item when plugin items are shown (#1965)|fix",
+      "lineage": "upstream",
+      "originalSubject": "修正显示了插件项目时任务栏内置项目不能全部去掉，会保留一个上传速度的问题 #1965",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "565e680c444d56ee0fbdb4c92584084c29ad316e",
+      "date": "2025-02-27T16:27:52+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/565e680c444d56ee0fbdb4c92584084c29ad316e",
+      "summary": "Correct an English spelling error|fix",
+      "lineage": "upstream",
+      "originalSubject": "修正一处英文文本拼写错误",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "a9d5df453e6908c48c401f714054fe96cd9a592d",
+      "date": "2025-02-27T18:18:30+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/a9d5df453e6908c48c401f714054fe96cd9a592d",
+      "summary": "Match the taskbar usage-graph background to the Windows theme|feature",
+      "lineage": "upstream",
+      "originalSubject": "新增任务栏资源占用图背景颜色跟随Windows主题颜色的功能",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "bc871c8bf053622c7453d5b7205c31cbdb3c5b92",
+      "date": "2025-02-27T16:16:40+01:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/bc871c8bf053622c7453d5b7205c31cbdb3c5b92",
+      "summary": "Update the Italian translation|translation",
+      "lineage": "upstream",
+      "originalSubject": "Italian language update",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "395405410c05377558cb25c3cec67fcf8712e6db",
+      "date": "2025-02-27T17:06:24+01:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/395405410c05377558cb25c3cec67fcf8712e6db",
+      "summary": "Update the Italian translation|translation",
+      "lineage": "upstream",
+      "originalSubject": "Italian language update",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "cbb4ed4a1e3abcaeb2d15afeee8e8683cc78d60d",
+      "date": "2025-02-28T10:13:48+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/cbb4ed4a1e3abcaeb2d15afeee8e8683cc78d60d",
+      "summary": "Merge pull request #2025 from bovirus/master|merge",
+      "lineage": "upstream",
+      "originalSubject": "Merge pull request #2025 from bovirus/master",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "701696d9ddac2c77576b387e9392ebe2c5cb0b43",
+      "date": "2025-02-28T10:32:41+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/701696d9ddac2c77576b387e9392ebe2c5cb0b43",
+      "summary": "Remove the unused default-language resource identifier|maintenance",
+      "lineage": "upstream",
+      "originalSubject": "资源中的IDR_LANGUAGE_DEFAULT没有起到作用，将它删除",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "b7613bce7d97e59d368baffff5cb4e96498a08eb",
+      "date": "2025-02-28T10:58:48+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/b7613bce7d97e59d368baffff5cb4e96498a08eb",
+      "summary": "Sort built-in languages by BCP 47 tag|maintenance",
+      "lineage": "upstream",
+      "originalSubject": "将内置的语言按bcp47排序",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "77683a653ed1b4a1cd5aec15d8e578f54cd908f2",
+      "date": "2025-02-28T15:33:30+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/77683a653ed1b4a1cd5aec15d8e578f54cd908f2",
+      "summary": "Adjust the plugin-manager dialog layout|maintenance",
+      "lineage": "upstream",
+      "originalSubject": "插件管理对话框布局调整",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "06974fb9bfc89c1ec854860322630b5c368fbd5c",
+      "date": "2025-02-28T17:33:30+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/06974fb9bfc89c1ec854860322630b5c368fbd5c",
+      "summary": "Use the standard dialog font in the color dialog|maintenance",
+      "lineage": "upstream",
+      "originalSubject": "颜色对话框字体改成与其他对话框一致",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "cc470476707d1f3e5920d0006667753c647a1f5e",
+      "date": "2025-02-28T17:37:35+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/cc470476707d1f3e5920d0006667753c647a1f5e",
+      "summary": "Revert removal of the default-language resource identifier|revert",
+      "lineage": "upstream",
+      "originalSubject": "Revert \"资源中的IDR_LANGUAGE_DEFAULT没有起到作用，将它删除\"",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "23db5251a313df216baa2ab8e2b3812b902f9f0e",
+      "date": "2025-02-28T20:25:39+01:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/23db5251a313df216baa2ab8e2b3812b902f9f0e",
+      "summary": "Merge zhongyang219:master into master|merge",
+      "lineage": "upstream",
+      "originalSubject": "Merge branch 'zhongyang219:master' into master",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "9ed4559c9fedd0da54a2188e11a70b767807f046",
+      "date": "2025-02-28T20:38:21+01:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/9ed4559c9fedd0da54a2188e11a70b767807f046",
+      "summary": "Update the German translation|translation",
+      "lineage": "upstream",
+      "originalSubject": "Update German.ini",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "1f97d6dc525a4a573eba9b01f05983a9642e94cc",
+      "date": "2025-03-01T14:30:54+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/1f97d6dc525a4a573eba9b01f05983a9642e94cc",
+      "summary": "Save fonts, text colors, and displayed items separately for each skin|feature",
+      "lineage": "upstream",
+      "originalSubject": "实现每个皮肤的字体、文本颜色、显示文本单独保存",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "0c35899f4c293b09014ea5b07331175ca578c701",
+      "date": "2025-03-01T15:15:29+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/0c35899f4c293b09014ea5b07331175ca578c701",
+      "summary": "Add a Restore skin defaults button to main-window settings|feature",
+      "lineage": "upstream",
+      "originalSubject": "主窗口设置中增加“恢复皮肤默认”按钮",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "a455945cfee8a369b2131349343b0cf2cc91a17f",
+      "date": "2025-03-01T15:47:36+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/a455945cfee8a369b2131349343b0cf2cc91a17f",
+      "summary": "Remove options that let skins override font and displayed-text settings|maintenance",
+      "lineage": "upstream",
+      "originalSubject": "删除了常规设置中允许皮肤覆盖字体设置和显示文本设置的选项",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "4558fa9a395472717b597de06391aca82352eb7d",
+      "date": "2025-03-01T16:41:25+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/4558fa9a395472717b597de06391aca82352eb7d",
+      "summary": "Match skin-preview fonts and text to the actual skin appearance|fix",
+      "lineage": "upstream",
+      "originalSubject": "更换皮肤界面预览图字体和显示文本和实际效果一致",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "7b0a11f514e905bc9f51c08c50f2c8196ff3bd4b",
+      "date": "2025-03-01T17:04:52+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/7b0a11f514e905bc9f51c08c50f2c8196ff3bd4b",
+      "summary": "Save plugin display text in per-skin settings|fix",
+      "lineage": "upstream",
+      "originalSubject": "修正保存每个皮肤的单独设置时，插件项目的显示文本没有保存的问题",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "cf49d9b6942e84b15477c338dab21e96b4f3aa1d",
+      "date": "2025-03-01T17:07:28+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/cf49d9b6942e84b15477c338dab21e96b4f3aa1d",
+      "summary": "Match plugin display text in previews to the skin file|fix",
+      "lineage": "upstream",
+      "originalSubject": "修正皮肤预览图中插件项目的显示文本和皮肤文件中的不一致的问题",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "ff2d4d01830a237e4da0bb2c46f2ae96b87d3333",
+      "date": "2025-03-01T19:32:14+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/ff2d4d01830a237e4da0bb2c46f2ae96b87d3333",
+      "summary": "Show only items present in the current skin in main-window text settings|fix",
+      "lineage": "upstream",
+      "originalSubject": "主窗口设置-显示文本设置中只显示当前皮肤中有的项目",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "c1d1d00da584df8246d2086991e0e68fdd6514b0",
+      "date": "2025-03-01T20:35:08+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/c1d1d00da584df8246d2086991e0e68fdd6514b0",
+      "summary": "Use const accessors for display strings and save only items present in each skin|maintenance",
+      "lineage": "upstream",
+      "originalSubject": "DispStrings结构中只读的Get函数改为GetConst，以避免对DispStrings结构造成意外的修改，保存到每个皮肤的显示文本只包含该皮肤有的显示项目",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "bf57aefd55eddc6cfc080d7b7c1a88ae348d9f4c",
+      "date": "2025-03-02T11:18:57+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/bf57aefd55eddc6cfc080d7b7c1a88ae348d9f4c",
+      "summary": "Remove a leading slash when loading skin names from configuration|fix",
+      "lineage": "upstream",
+      "originalSubject": "从配置文件读取皮肤名称时去掉前面的斜杠",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "a45791f7dae86ba945351fd2b3c70ac5bd5d44d8",
+      "date": "2025-03-02T11:21:19+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/a45791f7dae86ba945351fd2b3c70ac5bd5d44d8",
+      "summary": "Merge pull request #2023 from bege10/master|merge",
+      "lineage": "upstream",
+      "originalSubject": "Merge pull request #2023 from bege10/master",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "fc57d508e2aafc64a8f058247814d8c8fa0051cd",
+      "date": "2025-03-02T11:22:08+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/fc57d508e2aafc64a8f058247814d8c8fa0051cd",
+      "summary": "Merge pull request #1968 from QingFeng-awa/master|merge",
+      "lineage": "upstream",
+      "originalSubject": "Merge pull request #1968 from QingFeng-awa/master",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "ee2a5eb463b4785cee72343a1f5d8b39cd70ab57",
+      "date": "2025-03-02T11:34:23+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/ee2a5eb463b4785cee72343a1f5d8b39cd70ab57",
+      "summary": "Update the Polish translation|translation",
+      "lineage": "upstream",
+      "originalSubject": "update Polish.ini",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "345e6dc28ba9e74c8e5643b5b808eb91377b681f",
+      "date": "2025-03-02T16:40:40+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/345e6dc28ba9e74c8e5643b5b808eb91377b681f",
+      "summary": "Stop saving skin-specific text, font, and display settings in the global configuration|maintenance",
+      "lineage": "upstream",
+      "originalSubject": "由于每个皮肤的设置单独保存，因此不再向配置文件中写入theApp.m_main_wnd_data中的文本颜色、字体、显示文本设置",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "6fe32fa0c0023f80a3fdc8515328b5aa6b9435b7",
+      "date": "2025-03-02T16:56:25+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/6fe32fa0c0023f80a3fdc8515328b5aa6b9435b7",
+      "summary": "Move application-settings reads and writes into CSettingsHelper|maintenance",
+      "lineage": "upstream",
+      "originalSubject": "将CIniHelper中业务相关的配置读写移动到新的类CSettingsHelper中",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "104c9810cb229ea1ac9e5833985ac40c98f30bec",
+      "date": "2025-03-02T17:19:14+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/104c9810cb229ea1ac9e5833985ac40c98f30bec",
+      "summary": "Use default skin settings when no overrides exist and show text when no skin file is present|fix",
+      "lineage": "upstream",
+      "originalSubject": "没有读取到皮肤的单独设置时应该获取皮肤的默认设置，修正没有皮肤文件时文本不出来的问题",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "6ef0a7a7c46e5bf422dc85fca0b43938ed3bfb51",
+      "date": "2025-03-02T18:17:39+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/6ef0a7a7c46e5bf422dc85fca0b43938ed3bfb51",
+      "summary": "Ignore display items absent from the current skin when loading main-window text settings|fix",
+      "lineage": "upstream",
+      "originalSubject": "修正读取主窗口显示文本设置时会读取到当前皮肤中不存在的项目的问题",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "f8a4dd3df4fc5e5aeb5d369efb30d7eeb563fc98",
+      "date": "2025-03-02T19:30:38+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/f8a4dd3df4fc5e5aeb5d369efb30d7eeb563fc98",
+      "summary": "Read and write main-window text colors only for items present in the current skin|fix",
+      "lineage": "upstream",
+      "originalSubject": "主窗口文本颜色设置的读写只针对皮肤中有的项目",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "df486724bac50b3150e35b27d9e7db3261add696",
+      "date": "2025-03-02T19:52:06+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/df486724bac50b3150e35b27d9e7db3261add696",
+      "summary": "Show only colors for items present in the current skin|fix",
+      "lineage": "upstream",
+      "originalSubject": "主窗口颜色设置中只显示当前皮肤中有的项目",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "2e9362c909f23df92b1e10beda77080b753e4dff",
+      "date": "2025-03-02T19:52:40+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/2e9362c909f23df92b1e10beda77080b753e4dff",
+      "summary": "Ignore saved per-skin settings for skins that no longer exist|fix",
+      "lineage": "upstream",
+      "originalSubject": "加载皮肤单独设置时，如果皮肤不存在，则忽略它",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "705d31ef68b8ece727fd67561677a8674a1c4411",
+      "date": "2025-03-02T20:16:01+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/705d31ef68b8ece727fd67561677a8674a1c4411",
+      "summary": "Remove settings for missing skins when saving per-skin configuration|fix",
+      "lineage": "upstream",
+      "originalSubject": "保存每个皮肤的配置时，如果皮肤不存在，则将它从配置文件中删除",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "766db86071120b26201dc21195b65dcaf2dc8b0a",
+      "date": "2025-03-02T21:12:01+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/766db86071120b26201dc21195b65dcaf2dc8b0a",
+      "summary": "Improve color swatches and remove excess blank space when more than eight colors are shown|fix",
+      "lineage": "upstream",
+      "originalSubject": "优化了CColorStatic颜色显示的样式，修正颜色数量大于8个时控件右侧有明显的空白的问题",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "50b738b8cc79344f40a448aea2b5ecc302fcb8d3",
+      "date": "2025-03-02T21:27:30+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/50b738b8cc79344f40a448aea2b5ecc302fcb8d3",
+      "summary": "Apply font-size changes immediately in main-window and taskbar settings|fix",
+      "lineage": "upstream",
+      "originalSubject": "修正主窗口和任务栏窗口设置中，更改“字体大小”文本框中的值后点击“应用”没有生效的问题",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "8ee955785b59a8910d3b7433d7052f715e8755f0",
+      "date": "2025-03-02T21:37:23+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/8ee955785b59a8910d3b7433d7052f715e8755f0",
+      "summary": "Restore the default skin font size to 10|maintenance",
+      "lineage": "upstream",
+      "originalSubject": "皮肤的默认字体大小改回原来的10",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "fc3e1aa593db266b92fe18e7cf8f1bb8fd7e263a",
+      "date": "2025-03-02T21:54:53+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/fc3e1aa593db266b92fe18e7cf8f1bb8fd7e263a",
+      "summary": "Add Plugin Manager to the taskbar context menu|feature",
+      "lineage": "upstream",
+      "originalSubject": "任务栏窗口右键菜单中增加“插件管理”",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "5c20ba753e86cb534e33842aa0be4f4159deeed5",
+      "date": "2025-03-03T09:54:21+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/5c20ba753e86cb534e33842aa0be4f4159deeed5",
+      "summary": "Clear saved item rectangles when taskbar items change to keep plugin menus correct|fix",
+      "lineage": "upstream",
+      "originalSubject": "修正更改任务栏窗口显示项目时，由于保存的每个项目的矩形区域没有清除导致右键菜单中的插件菜单不正确的问题",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "2b920eec8268f64d414a093fcf96a8e6952ea101",
+      "date": "2025-03-03T10:34:44+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/2b920eec8268f64d414a093fcf96a8e6952ea101",
+      "summary": "Save skin settings only when skin-related options change|fix",
+      "lineage": "upstream",
+      "originalSubject": "仅当主窗口设置皮肤相关设置有更改时保存当前皮肤设置",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "bca2def3ebf4649427f653f22a5390be1ed6cb35",
+      "date": "2025-03-03T10:48:26+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/bca2def3ebf4649427f653f22a5390be1ed6cb35",
+      "summary": "Disable network-selection controls when all network connections are shown|fix",
+      "lineage": "upstream",
+      "originalSubject": "常规设置中，勾选了“显示所有网络连接”时，禁用“选择要监控的网络连接”按钮。",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "fcc0c0841a0721ea28152f6849c71edd495c9ac7",
+      "date": "2025-03-03T12:00:28+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/fcc0c0841a0721ea28152f6849c71edd495c9ac7",
+      "summary": "Clean up INI-helper header includes|maintenance",
+      "lineage": "upstream",
+      "originalSubject": "整理IniHelper中的头文件包含",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "4f8bf978308564756f1b6d1746d072450f26e127",
+      "date": "2025-03-03T13:42:19+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/4f8bf978308564756f1b6d1746d072450f26e127",
+      "summary": "Fix compiler warnings|maintenance",
+      "lineage": "upstream",
+      "originalSubject": "消除警告",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "13c58443eac1f7794e5fe96c3564f03a91897a27",
+      "date": "2025-03-03T16:25:32+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/13c58443eac1f7794e5fe96c3564f03a91897a27",
+      "summary": "Use the skin font for main-window drawing and match preview text to the user's font|maintenance",
+      "lineage": "upstream",
+      "originalSubject": "删除了CTrafficMonitorDlg类中的m_font成员，绘制主窗口时使用CSkin类中的m_font成员作为字体；皮肤预览界面中的字体和用户设置的字体一致",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "946e92e5b0ab94ea86fd0fa3c0e074d916f278d9",
+      "date": "2025-03-04T09:28:01+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/946e92e5b0ab94ea86fd0fa3c0e074d916f278d9",
+      "summary": "Fix duplicate control IDs affecting controls when all connections are shown|fix",
+      "lineage": "upstream",
+      "originalSubject": "修正控件ID重复导致勾选“显示所有连接”时部分控件的可用状态不正常的问题",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "2cc782596819d46428244512a874b5d8eaba3225",
+      "date": "2025-03-04T09:30:11+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/2cc782596819d46428244512a874b5d8eaba3225",
+      "summary": "Use the configured speed unit in taskbar tooltips|fix",
+      "lineage": "upstream",
+      "originalSubject": "修正任务栏窗口鼠标提示中的网速单位和设置的不一致的问题",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "d45fbdaf51e2a9164526f867ba3e595ca4b2150a",
+      "date": "2025-03-04T10:12:16+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/d45fbdaf51e2a9164526f867ba3e595ca4b2150a",
+      "summary": "Match preview font color and displayed text to the actual skin|fix",
+      "lineage": "upstream",
+      "originalSubject": "皮肤预览中的字体颜色和显示文本和实际效果一致",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "cd42dab8fe2beab12389a308770adac5126a1a1a",
+      "date": "2025-03-04T10:38:14+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/cd42dab8fe2beab12389a308770adac5126a1a1a",
+      "summary": "Remove NONE_STR and represent missing display strings by absent map keys|maintenance",
+      "lineage": "upstream",
+      "originalSubject": "删除不再需要的NONE_STR宏定义，DispStrings中不再使用NONE_STR表示无效字符串，map中对应项目的key不存在则表示无效",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "52d6e686b05b595d3268adb6ad11797f56922a3e",
+      "date": "2025-03-04T11:19:13+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/52d6e686b05b595d3268adb6ad11797f56922a3e",
+      "summary": "Refactor shared display-item code|maintenance",
+      "lineage": "upstream",
+      "originalSubject": "代码重构，合并了DisplayItem相关的部分代码",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "c96dc7bdba51396da33ab139ef029dc31e6f2bcd",
+      "date": "2025-03-04T16:08:44+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/c96dc7bdba51396da33ab139ef029dc31e6f2bcd",
+      "summary": "Move CommonDisplayItem into DisplayItem.h and DisplayItem.cpp|maintenance",
+      "lineage": "upstream",
+      "originalSubject": "代码重构，将CommonDisplayItem移动到单独的DisplayItem.h/DisplayItem.cpp中",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "52cd77980c8f6edb35c4c4f6d1cef104c19719f1",
+      "date": "2025-03-04T19:41:01+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/52cd77980c8f6edb35c4c4f6d1cef104c19719f1",
+      "summary": "Replace bit-combined display-item enums with DisplayItemSet|maintenance",
+      "lineage": "upstream",
+      "originalSubject": "代码重构，DisplayItem枚举不再使用bit位组合，新增DisplayItemSet类",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "23ab56283a0fca22b4d243a464a98513f68b2151",
+      "date": "2025-03-04T19:53:28+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/23ab56283a0fca22b4d243a464a98513f68b2151",
+      "summary": "Update the per-item-color checkbox when restoring default skin settings|fix",
+      "lineage": "upstream",
+      "originalSubject": "修正主窗口设置中，点击“恢复皮肤默认”按钮时，“指定每个项目的颜色”复选框没有更新的问题",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "87d8dd722f5bfd5eeb81d3b886a40f0d2818533d",
+      "date": "2025-03-05T20:33:46+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/87d8dd722f5bfd5eeb81d3b886a40f0d2818533d",
+      "summary": "Add mouse-wheel events to plugin mouse input|feature",
+      "lineage": "upstream",
+      "originalSubject": "插件鼠标事件中增加滚轮事件",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "dab77a760b952f0cb82a7f6fd0319d2b374e1f7d",
+      "date": "2025-03-06T10:25:30+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/dab77a760b952f0cb82a7f6fd0319d2b374e1f7d",
+      "summary": "Add a version column to the plugin manager|feature",
+      "lineage": "upstream",
+      "originalSubject": "插件管理对话框中增加版本一列",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
     }
   ]
 }
