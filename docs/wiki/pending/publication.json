@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 1,
+  "destination": "https://github.com/Ding-Ding-Projects/TrafficMonitor.wiki.git",
+  "observedWikiCommit": "b179a645f4dcd80a27103a6a3e628aafc6756d80",
+  "state": "prepared-not-published",
+  "pages": ["Home.md", "Installation.md", "Monitoring.md", "Build-and-release.md", "Verification.md"],
+  "existingContentPolicy": "Preserve the original welcome line and reconcile any later changes before publication.",
+  "publicationProof": null
+}
