@@ -8,6 +8,7 @@ Fresh installation enables sign-in startup, shows the taskbar monitor and hides 
 window. Existing saved choices take precedence.
 
 - [Install or update](Installation)
+- [[Keep updates quiet and choose restart behavior|Silent-updates]]
 - [Use the taskbar and tray](Monitoring)
 - [Build and release](Build-and-release)
 - [Verified behavior and remaining work](Verification)

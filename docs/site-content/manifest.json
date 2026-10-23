@@ -2712,6 +2712,20 @@
       "provenanceKind": "upstream-wiki",
       "contentStatus": "complete-source-article",
       "historicalPresentation": true
+    },
+    {
+      "id": "source-docs-wiki-pending-silent-updates",
+      "title": "Keep TrafficMonitor updated quietly",
+      "category": "contributor-records",
+      "language": "en",
+      "sourcePath": "docs/wiki/pending/Silent-updates.md",
+      "originalSourcePath": "docs/wiki/pending/Silent-updates.md",
+      "route": "/articles/source-docs-wiki-pending-silent-updates/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/dcb65a0cf906225052cc5461cf0f616edbfe3112/docs/wiki/pending/Silent-updates.md",
+      "sourceSha256": "74cc44d218bd0941cda183623f68019bc075d60238bdfee0b756f1d2a521b941",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
     }
   ],
   "wikiAliases": [
@@ -3707,11 +3721,11 @@
     }
   ],
   "counts": {
-    "repositoryMarkdownArticles": 165,
+    "repositoryMarkdownArticles": 166,
     "wikiMarkdownArticles": 28,
     "wikiAssets": 75,
     "wikiTrackedFiles": 103,
-    "articles": 193
+    "articles": 194
   },
   "categories": [
     "build",

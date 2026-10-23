@@ -62,5 +62,26 @@ The current expedited delivery allows compile and packaging only. No new automat
 tests, reviews, runtime checks or screenshots have been performed for this updater.
 Offline recovery, cancellation, corrupt metadata/packages, downgrade rejection,
 modal/draft deferral, restart timing, timeout recovery and preservation remain runtime
-acceptance work. The previously verified manual installed update to 1.0.17 is a
-separate result and does not verify this new automatic implementation.
+acceptance work.
+
+## Published and installed baseline
+
+Normal release [v1.0.19-run39942930510-1](https://github.com/Ding-Ding-Projects/TrafficMonitor/releases/tag/v1.0.19-run39942930510-1)
+is bound to source `77435775e46ca78de13859a9e4f2a15732e53415`. Its four build,
+package, publication and documentation jobs completed successfully. The separately
+assigned installed-update operation applied version `1.0.19` through the supported
+stable Squirrel updater and launcher, both exit `0`. Its receipt reports exact
+post-save configuration/history and startup preservation, main window hidden and
+taskbar monitor visible from metadata only. The installed executable SHA-256 is
+`0438e33baa14c302640326a296bcf2d078a1043356eebc3b57aea98b11f497b1`.
+
+That supported installed update is separate from automatic scheduling: it does not
+prove the five-minute cadence, automatic cooperative restart, modal/draft deferral,
+next-launch application or failure recovery. No new runtime checks or screenshots
+were performed for this documentation refresh. The native MFC interface conversion
+and all 110 applicable required features remain the broader unfinished goal.
+
+Read the [documentation home](https://ding-ding-projects.github.io/TrafficMonitor/)
+for the complete guide library and the [updater wiki guide](https://github.com/Ding-Ding-Projects/TrafficMonitor/wiki/Silent-updates)
+for the matching wiki article. Wiki publication of the refreshed guide is prepared
+separately and must be verified before it is reported delivered.

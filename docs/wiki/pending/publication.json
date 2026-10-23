@@ -1,17 +1,44 @@
 {
   "schemaVersion": 1,
   "destination": "https://github.com/Ding-Ding-Projects/TrafficMonitor.wiki.git",
-  "observedWikiCommit": "b179a645f4dcd80a27103a6a3e628aafc6756d80",
+  "observedWikiCommit": "3d7cfa6917e08d5b387add90c09c187830116cb7",
   "state": "published-verified",
   "pages": [
     "Home.md",
     "Installation.md",
     "Monitoring.md",
     "Build-and-release.md",
-    "Verification.md"
+    "Verification.md",
+    "Silent-updates.md"
   ],
   "existingContentPolicy": "Preserve the original welcome line and reconcile any later changes before publication.",
   "publicationProof": {
+    "fileCount": 6,
+    "sourceBlobReadbackMatched": true,
+    "ref": "refs/heads/master",
+    "commit": "3d7cfa6917e08d5b387add90c09c187830116cb7",
+    "silentUpdatesSha256": "74cc44d218bd0941cda183623f68019bc075d60238bdfee0b756f1d2a521b941",
+    "navigation": [
+      "Home.md",
+      "Installation.md",
+      "Verification.md"
+    ],
+    "evidenceSource": "Coordinating task publication and fetched exact remote blob readback.",
+    "liveInterface": "UNVERIFIED: no live interface interaction in this pass."
+  },
+  "preparedUpdate": {
+    "state": "published-source-verified",
+    "pages": [
+      "Home.md",
+      "Installation.md",
+      "Verification.md",
+      "Silent-updates.md"
+    ],
+    "previousPublishedCommit": "2788a34224f07372904dd7a6584ea34e75022c14",
+    "documentationHome": "https://ding-ding-projects.github.io/TrafficMonitor/",
+    "note": "Published at the recorded master commit; exact source blob readback matched. Live interface interaction remains unverified."
+  },
+  "historicalPublicationProof": {
     "fileCount": 5,
     "sourceBlobReadbackMatched": true,
     "ref": "refs/heads/master",

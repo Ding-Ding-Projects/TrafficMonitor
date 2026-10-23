@@ -77,3 +77,12 @@ with historical originals retained separately.
 - [ ] Verify native workspace, Settings and menu pattern Apply/Cancel, invalid input, cancellation and independent state. Source implementation added; runtime verification deferred.
 - [ ] Complete every topic in the native RegexBuddy parity ledger, including captures, engine comparison, debugger, saved collections, GREP and automation.
 - [ ] Verify anchored modeless presentation, bilingual mode, accessibility, minimum layouts and the complete DPI/theme/language matrix.
+
+## Silent update documentation publication
+
+- [x] Refresh the current 1.0.19 supported-update baseline without claiming automatic timing/restart proof.
+- [x] Prepare complete matching silent-update wiki content and navigation while preserving existing guides.
+- [x] Publish six wiki guides and navigation at 3d7cfa6917e08d5b387add90c09c187830116cb7; coordinating-task exact stored blob readback matched. Live UI verification remains unverified.
+- [x] Build the refreshed inventory through root build.bat --site at 69a6ab51ab1b63d513de27be1efd2cbbfb7b6ef8: 191 articles, 1542 history records, zero unavailable images, exit 0.
+- [ ] Publish the refreshed documentation deployment through its existing same-run release metadata binding and verify source-bound live articles.
+- [ ] Verify automatic updater runtime behavior when runtime checks are authorized again.

@@ -1,19 +1,11 @@
-﻿# Silent update implementation handoff
+﻿# Combined native regex and updater documentation handoff
 
-The latest combined backend, cooperative UI and native settings candidate is
-3e6f8c72fe40a363de70c7ee5e27772ca86b9c6b. It additionally admits release source only
-when a bounded owning-repository comparison proves ancestry in an exact resolved main
-SHA. Branch and comparison response identities are revalidated offline before apply.
-Exact root build-installer.bat -Version 1.0.9005, invoking exact root build.bat,
-completed with exit 0, two linker warnings and zero errors. Hashes and sizes are in
-evidence/builds/silent-updates/local-1.0.9005.json. Local-only 1.0.9003 and 1.0.9004
-outputs are historical superseded candidates. None was installed or published by this
-lane. Later receipt commits do not relabel the producer source. No tests, reviews,
-audits, runtime checks or screenshots were run. The parent task owns integration,
-source preservation to the remote, normal release publication and separately authorized
-accepted installed update. Failure/cancellation/draft deferral/preservation runtime
-acceptance remains unverified. The task branch is preserved locally and must not be
-deleted before its source is integrated and the remote ancestry is proven.
+
+
+Documentation-only continuation from main 77435775e46ca78de13859a9e4f2a15732e53415.
+The updater guide and README now distinguish normal release 1.0.19 and its separate
+supported installed update from unverified automatic cadence/restart/deferral/recovery.
+Native MFC conversion and all 110 applicable required features remain unfinished.
 
 The separately assigned installed-update lane has reported accepted 1.0.18 applied with
 stable updater/launcher exit 0, executable SHA-256
@@ -40,3 +32,43 @@ review, runtime interaction or screenshots were performed. Native package source
 remains 265f048da7cb7534cb151519d003c67218a73048. The coordinating task must merge
 the independently prepared updater documentation and regenerate the combined
 manifest at convergence, without replacing either article inventory.
+
+Content source dcb65a0cf906225052cc5461cf0f616edbfe3112 is included by the refreshed
+manifest. Exact root build.bat --site at 69a6ab51ab1b63d513de27be1efd2cbbfb7b6ef8
+exited 0: 191 complete articles, 1542 history records, zero unavailable local images.
+The full new guide is built at /articles/source-docs-wiki-pending-silent-updates/.
+The local tracked fallback still describes 1.0.15 and is explicitly historical. The
+parent confirmed deployment consumes the same run's exact published release tag,
+validates normal/source/assets and generates fresh metadata before its site build.
+Runs 16 through 19 completed through that route; no fallback-update loop is required.
+Later handoff records do not relabel this build's source or content binding.
+
+Supported wiki master is prepared at 3d7cfa6917e08d5b387add90c09c187830116cb7,
+based on 2788a34224f07372904dd7a6584ea34e75022c14. Its six guides include complete
+Silent-updates.md, plus Home/Installation/Verification navigation. Source and wiki
+new guide bytes match; navigation matches after newline normalization. Existing
+welcome, original pages and inherited upstream snapshot are preserved.
+Wiki article: https://github.com/Ding-Ding-Projects/TrafficMonitor/wiki/Silent-updates
+Documentation home: https://ding-ding-projects.github.io/TrafficMonitor/.
+
+Neither repository was pushed or integrated by this lane. Parent owns preservation,
+main integration, wiki publication and exact remote/deployment readback, with the
+existing exactly-once companion operations. No product code, tests, reviews, audits,
+runtime checks, screenshots, installation, release or deletion occurred in this pass.
+Status Hub binding remains unavailable. Preserve both prepared local tips until the
+parent proves publication and integration. Wiki publication and live article evidence
+remain pending; no delivery or full-goal completion is claimed.
+
+## Combined documentation integration, 2026-10-23
+
+Merged completed updater documentation source ebf9e023e8eff41246920a0fbbf3eb286b664172
+with native regex source and receipts. The coordinating task published wiki master
+3d7cfa6917e08d5b387add90c09c187830116cb7 and fetched its exact stored content.
+Silent-updates.md SHA-256 is 74cc44d218bd0941cda183623f68019bc075d60238bdfee0b756f1d2a521b941;
+the source mirror matches byte-for-byte. Six guides and Home/Installation/Verification
+navigation are published, with the original welcome preserved. Earlier pending entries
+above describe their historical lane state; publication source readback now supersedes
+that state, while live UI verification remains unavailable. The complete combined manifest
+will be regenerated and committed before pinned static production. Native package source
+remains 265f048da7cb7534cb151519d003c67218a73048. No product changes, tests, reviews,
+runtime interaction or screenshots were performed in this integration step.

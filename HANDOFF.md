@@ -195,3 +195,61 @@ fa08759cc4dc78811903aa259988aa2224880ad1 before this candidate's integration.
 ## Native regex workbench candidate
 
 The source candidate adds a bounded native NFA engine, an owned native pattern editor, and independent asynchronous search consumers in workspace, Settings and context-menu levels. See docs/features/search/native-workbench.md and native-regex-parity.json. No tests, review, audits, runtime interaction or screenshots were run under the selected expedited mode. Exact root `build-installer.bat -Version 1.0.9006`, including root `build.bat`, passed with exit 0 at `265f048da7cb7534cb151519d003c67218a73048`: 114 warnings, zero errors, 36.61 seconds. Hashes and sizes are in `docs/features/search/native-build-receipt.json`. Later receipt/documentation commits do not relabel that producer source. No release, installation or full parity is claimed. The parent task owns integration, remote preservation and release.
+
+## Updater guide and wiki preparation, 2026-10-23
+
+The silent update article now records normal release 1.0.19 at source
+77435775e46ca78de13859a9e4f2a15732e53415 and the separately recorded supported installed
+update. Updater/launcher exit 0, post-save data/startup preservation and hidden-main/visible-
+taskbar metadata do not prove automatic cadence, cooperative restart or deferral behavior.
+A complete task-oriented Silent-updates.md wiki article and Home/Installation/Verification
+navigation are prepared in docs/wiki/pending and the supported wiki checkout. Existing
+welcome text, five original guides and inherited upstream snapshot are preserved. The
+previous five-page publication proof remains historical; the prepared update has not been
+published by this lane. Parent owns both remote operations, integration and readback.
+No product code, tests, reviews, audits, runtime checks, screenshots or installations were
+changed or run in this documentation pass. The wider native conversion and all 110
+applicable required features remain unfinished. Status Hub binding is unavailable.
+
+## Documentation build and wiki handoff
+
+Exact root build.bat --site exited 0 at source
+69a6ab51ab1b63d513de27be1efd2cbbfb7b6ef8, using content manifest source
+dcb65a0cf906225052cc5461cf0f616edbfe3112. Its actual summary was:
+`Built 191 complete articles; 1542 history records; 0 unavailable local images.`
+The complete mirrored updater guide is included at
+/articles/source-docs-wiki-pending-silent-updates/; it is not only an external source link.
+Local homepage SHA-256: 5A162DD5A35E45DC8D1FA6E7CAD1BB05C8E0480E08955AA3CD34855A55D7A3B0.
+The build receipt still identifies the pre-existing download metadata as release
+v1.0.15-run39912330939-1. This is the expected historical tracked fallback. The parent
+confirmed that the documentation deployment job consumes the same run's exact published
+release tag, validates normal/source/assets and generates fresh release metadata before
+its root build.bat --site. Runs 16 through 19 completed through that route. This local
+historical fallback is not evidence of that later deployment's download metadata.
+The current updater article separately records the verified 1.0.19 installation baseline.
+
+Prepared wiki master tip is 3d7cfa6917e08d5b387add90c09c187830116cb7, based on the
+verified existing five-guide tip 2788a34224f07372904dd7a6584ea34e75022c14. New page
+Silent-updates.md is byte-identical to its source mirror. Home.md, Installation.md and
+Verification.md match after newline normalization; existing welcome and unrelated pages
+are preserved. The wiki has six guides after this local change. The intended article
+is https://github.com/Ding-Ding-Projects/TrafficMonitor/wiki/Silent-updates and the exact
+documentation home remains https://ding-ding-projects.github.io/TrafficMonitor/.
+Neither repository was pushed, integrated, released, installed or deleted by this lane.
+The source branch and wiki master are prepared for the parent's authorized publication;
+remote files, navigation and deployed article remain unverified until that readback.
+Later handoff commits are documentation records, not a relabelling of the build source.
+
+## Combined documentation integration, 2026-10-23
+
+Merged completed updater documentation source ebf9e023e8eff41246920a0fbbf3eb286b664172
+with native regex source and receipts. The coordinating task published wiki master
+3d7cfa6917e08d5b387add90c09c187830116cb7 and fetched its exact stored content.
+Silent-updates.md SHA-256 is 74cc44d218bd0941cda183623f68019bc075d60238bdfee0b756f1d2a521b941;
+the source mirror matches byte-for-byte. Six guides and Home/Installation/Verification
+navigation are published, with the original welcome preserved. Earlier pending entries
+above describe their historical lane state; publication source readback now supersedes
+that state, while live UI verification remains unavailable. The complete combined manifest
+will be regenerated and committed before pinned static production. Native package source
+remains 265f048da7cb7534cb151519d003c67218a73048. No product changes, tests, reviews,
+runtime interaction or screenshots were performed in this integration step.
