@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "b54506269e63e620bb97d9c3e471cd0994564f1d",
+  "packageVersion": "1.0.3",
+  "executableSha256": "1213A1EF5DAAFB8C3717349F9B7FE27CD82B72009F8B3C3B8EE4C4B29DA06780",
+  "captureSha256": "94F43B832E23D66267DDC47798BFA51FE3FBBD3CCB7532DD51E724D3AE163465",
+  "captureMethod": "direct-cheap-cli",
+  "captureDimensions": [
+    122,
+    48
+  ],
+  "dpi": 144,
+  "mainWindowVisible": false,
+  "taskbarWindowVisible": true,
+  "explorerAttachmentVerified": false,
+  "runtimeModulesLoadedAppLocal": [
+    "mfc140u.dll",
+    "msvcp140.dll",
+    "vcruntime140.dll",
+    "vcruntime140_1.dll"
+  ],
+  "startupRegistrationVerified": true,
+  "startupCommandLaunchVerified": true,
+  "signInObserved": false,
+  "packageAwarenessVerified": true,
+  "versionResourceBytes": 2932,
+  "privacy": "No personal identifiers or credentials visible",
+  "limitations": [
+    "Hidden desktop has no Explorer shell; actual taskbar embedding is not verified.",
+    "No host restart or sign-out performed.",
+    "Current-host proof does not establish fresh-host dependency installation."
+  ]
+}

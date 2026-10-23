@@ -1,5 +1,20 @@
 **[简体中文](./README.md) | English**
 
+## This fork: installer delivery first
+
+This is the maintained x64 fork at [Ding-Ding-Projects/TrafficMonitor](https://github.com/Ding-Ding-Projects/TrafficMonitor).
+Its unsigned Squirrel.Windows installer includes matching CRT/MFC runtime files. Fresh installed
+defaults enable login startup and the taskbar display while hiding the main floating window;
+saved settings survive updates. See [installation details](docs/features/installation/README.md),
+[build instructions](docs/build/README.md), and [current verification](HANDOFF.md).
+The native interface redesign and broader required features follow the installer foundation.
+Upstream documentation and attribution are retained below.
+
+![Installed taskbar display rendered on an isolated desktop](evidence/installer/1.0.3/taskbar-hidden-desktop.png)
+
+This genuine 1.0.3 capture proves the monitor renders. It does not prove attachment to Explorer's
+taskbar; the [receipt](evidence/installer/1.0.3/runtime.json) keeps that verification limit explicit.
+
 [![Badge](https://img.shields.io/badge/link-996.icu-%23FF4D5B.svg?style=flat-square)](https://996.icu/#/en_US)
 [![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg?style=flat-square)](https://github.com/996icu/996.ICU/blob/master/LICENSE)
 [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/zhongyang219/TrafficMonitor/main.yml?branch=master&label=Release%20CI&logo=github&style=flat-square)](https://github.com/zhongyang219/TrafficMonitor/actions?query=workflow:"Release+CI")

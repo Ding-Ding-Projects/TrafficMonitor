@@ -3,13 +3,18 @@
 ## Installer and release foundation
 
 - [x] Create the organization fork, preserve upstream history, and establish `main`.
-- [ ] Add reproducible x64 build and installer entrypoints.
-- [ ] Package a genuine unsigned Squirrel.Windows installer with required runtime dependencies.
-- [ ] Enable current-user login startup on fresh install through the stable launcher.
-- [ ] Default installed taskbar display to visible and main window to hidden.
+- [x] Add reproducible x64 build and installer entrypoints.
+- [x] Package a genuine unsigned Squirrel.Windows installer with required runtime dependencies.
+- [x] Enable current-user login startup on fresh install through the stable launcher.
+- [x] Default installed taskbar display to visible and main window to hidden.
 - [ ] Preserve explicit choices and data across updates; remove only owned startup registration.
 - [ ] Verify installer, update, runtime display, and release download behavior.
-- [ ] Publish and verify the first customized normal release.
+- [x] Publish and verify the first customized normal release.
+
+Release 1.0.3 and its installer callback/startup-command launch passed current-host checks.
+Real Explorer attachment, subsequent sign-in, update acceptance and fresh-host prerequisites remain
+separate verification gaps. Full-tree publication enforcement is pending inherited encoding and
+literal-collision support; no complete protection verdict is claimed.
 
 ## Native interface and required features, after the first delivery
 

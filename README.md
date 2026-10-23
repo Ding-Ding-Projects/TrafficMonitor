@@ -1,5 +1,19 @@
 **简体中文 | [English](./README_en-us.md)**
 
+## 此分支先完成安裝及發佈
+
+此原生 x64 分支位於 [Ding-Ding-Projects/TrafficMonitor](https://github.com/Ding-Ding-Projects/TrafficMonitor)。
+未簽署的 Squirrel.Windows 安裝包包含配套 CRT/MFC 執行庫。首次安裝預設登入自動啟動、
+顯示工作列監察及隱藏主懸浮視窗；更新保留已有設定。
+請參閱 [安裝說明](docs/features/installation/README.md)、[編譯說明](docs/build/README.md)
+及 [驗證進度](HANDOFF.md)。原生介面重製和其他必要功能會在安裝基礎完成後進行。
+以下保留上游文件及作者資訊。
+
+![隔離桌面上的真實工作列監察畫面](evidence/installer/1.0.3/taskbar-hidden-desktop.png)
+
+此 1.0.3 真實畫面確認監察器能夠繪製；並不代表已驗證附加到 Explorer 工作列。
+[驗證記錄](evidence/installer/1.0.3/runtime.json) 保留各項限制。
+
 [![Badge](https://img.shields.io/badge/link-996.icu-%23FF4D5B.svg?style=flat-square)](https://996.icu/#/en_US)
 [![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg?style=flat-square)](https://github.com/996icu/996.ICU/blob/master/LICENSE)
 [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/zhongyang219/TrafficMonitor/main.yml?branch=master&label=Release%20CI&logo=github&style=flat-square)](https://github.com/zhongyang219/TrafficMonitor/actions?query=workflow:"Release+CI")
