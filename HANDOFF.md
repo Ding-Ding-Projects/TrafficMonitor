@@ -316,3 +316,7 @@ The repair documentation producer `build.bat --site` at `7c147944146d9d37d9d6978
 ## Combined modeless editor and updater repair preparation
 
 The modeless editor and completed updater repair are combined without changing either product implementation. Both independent package and documentation receipts remain historical, source-bound records. A new combined 1.0.9009 package and complete documentation production will be recorded separately. The matching wiki repair is prepared but not yet remotely verified; prior publication proof does not establish the new revision. Runtime acceptance, automatic update behavior, full regex parity and localization/accessibility remain unfinished. No tests, reviews, audits, runtime checks or screenshots are authorized.
+
+## Combined native production result
+
+Exact root build-installer.bat -Version 1.0.9009, including root build.bat, exited 0 at faa0e8c302fc09e927ad7141415640f782f3dd8a from a clean pinned producer. Native compilation reported two linker warnings, zero errors and 7.11 seconds. The combined modeless editor and updater repair receipt is docs/features/search/native-modeless-updater-union-build-receipt.json. Prior 1.0.9007 and 1.0.9008 receipts retain their independent sources. No publication, installation or runtime acceptance is claimed.

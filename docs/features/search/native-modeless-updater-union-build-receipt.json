@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "faa0e8c302fc09e927ad7141415640f782f3dd8a",
+  "command": "build-installer.bat -Version 1.0.9009",
+  "includedBuildEntrypoint": "build.bat",
+  "exitCode": 0,
+  "configuration": "Release (lite)|x64",
+  "buildWarnings": 2,
+  "buildErrors": 0,
+  "buildElapsed": "00:00:07.11",
+  "version": "1.0.9009",
+  "published": false,
+  "installed": false,
+  "inputState": "No nonignored changes at producer start; source remained pinned through completion.",
+  "verification": "Combined modeless editor and updater repair compile/package only. No tests, reviews, audits, runtime interaction or screenshots. Full parity and automatic updater acceptance remain unfinished.",
+  "artifacts": [
+    {
+      "path": "Bin/x64/Release (lite)/TrafficMonitor.exe",
+      "size": 2259456,
+      "sha256": "93533234ddd356396275a9140c10282165ecb35e73e11cc916a1dc5a80115a39"
+    },
+    {
+      "path": "artifacts/releases/Setup.exe",
+      "size": 8443904,
+      "sha256": "ee40644e810ec6634476c07eaeaf887e78cef8c25caf09ac25cde69413d3a44f"
+    },
+    {
+      "path": "artifacts/releases/TrafficMonitor-1.0.9009-full.nupkg",
+      "size": 7563536,
+      "sha256": "07fd0be13a05f13028874e5396c6f739e9e556563403482d2f6b472d0069ca84"
+    },
+    {
+      "path": "artifacts/releases/RELEASES",
+      "size": 422,
+      "sha256": "e70ec95902e0dc2772f87812103a0d12ad6dfe96804cde490099186172aebdb5"
+    },
+    {
+      "path": "artifacts/releases/SHA256SUMS.txt",
+      "size": 665,
+      "sha256": "709b792ea81e34761dd9f48a5a1ea681de318bee7f3007c609f5f1ffdaf387a3"
+    }
+  ]
+}
