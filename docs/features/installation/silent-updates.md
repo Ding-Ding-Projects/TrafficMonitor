@@ -1,5 +1,24 @@
 # Silent installed updates
 
+## Current updater outcome
+
+| Evidence boundary | Current verified state |
+| --- | --- |
+| Product source | Synchronous WM_CLOSE refinement `72f1fc929fe5d3a31b7a6e1ee73de20bb61a6ec3`, included in normal-release source `ebf95b99a4bd95c2e741e9099eaa5d2f2538d67b`. |
+| Local production | Exact root `build-installer.bat -Version 1.0.9017` exited 0 at that product source. Native elapsed 8.79 seconds, 69 warnings, zero errors. Earlier 1.0.9015 and queued 1.0.9016 receipts remain historical. |
+| Normal release | [v1.0.28-run39967963564-1](https://github.com/Ding-Ding-Projects/TrafficMonitor/releases/tag/v1.0.28-run39967963564-1), direct source `ebf95b99a4bd95c2e741e9099eaa5d2f2538d67b`, normal flags false/false, published 2026-10-23T14:19:36Z. |
+| Matching installation | Package 1.0.28 applied through supported graceful manual Squirrel update and stable launcher, exit 0 each. Installed executable SHA-256 `f082056056b6606e59e28f59edf245e995bcd76ab475ef24e72230cac7bace63` matches the release package. Embedded executable versions remain 1.8.6.0. |
+| Preservation | Settings, traffic history and startup matched the legitimate post-graceful-save baseline. All four roaming files were unchanged after launch. Live monitoring/history writes before the saved baseline are not data loss. |
+| Observed automatic behavior | The old 1.0.27 caller naturally created a helper before manual application; its parent-exit wait ended with 1460 and no parent transition. The manual route waited for that helper to settle. This is historical old-caller evidence. No successful automatic restart of the corrected 1.0.28 client has yet been observed. |
+| Current observation | Metadata-only collector began before the next real publication. Its next target and publication-bound deadline await actual release identity. No check or preference change is triggered. Existing helper result 1460 is inherited history, not a new result. |
+| Published wiki | Master `27e2231ae4f8986ee394075dc46fdf9838c7e77c`, exact prepared source `ebf95b99a4bd95c2e741e9099eaa5d2f2538d67b`, stored guide SHA-256 `ebdd88f968f884a853c5b72e6dd6e2994da5db7ca19e65221ce95072e97572b1`. Seven maintained guides and new public commit messages passed the publication-language scan with zero findings. Live wiki interaction remains unverified. |
+
+Native receipt: [1.0.9017 production](https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/ebf95b99a4bd95c2e741e9099eaa5d2f2538d67b/docs/features/installation/silent-synchronous-close-build.json). Source, local production, normal release, manual installation, stored wiki and automatic restart are separate evidence boundaries. No tests, audits, reviews, UI quality checks or screenshots ran in this followup.
+
+## Historical implementation and production records
+
+The records below retain their original sources, receipts and limits. Earlier versions, queued-close proposals, pending-publication statements and initial observation gaps describe those earlier points in time; the current table above governs the current state.
+
 Installed x64 builds check the owning `Ding-Ding-Projects/TrafficMonitor` normal
 release channel at startup and every five minutes. Checks and full-package downloads
 run on one bounded background worker. Portable builds keep their existing behavior.
@@ -58,8 +77,10 @@ preferences return failure when persistence or readback fails. Network work has 
 two-minute operation deadline, five-second request timeouts and cancellation signals;
 the UI never joins its worker.
 
-The current expedited delivery allows compile and packaging only. No new automated
-tests, reviews, runtime checks or screenshots have been performed for this updater.
+The initial implementation pass allowed compile and packaging only. Later assigned
+normal installed-update observations establish the narrow current-table facts; they
+do not constitute general runtime acceptance. No new tests, reviews, UI quality checks
+or screenshots were performed.
 Offline recovery, cancellation, corrupt metadata/packages, downgrade rejection,
 modal/draft deferral, restart timing, timeout recovery and preservation remain runtime
 acceptance work.
@@ -83,8 +104,9 @@ and all 110 applicable required features remain the broader unfinished goal.
 
 Read the [documentation home](https://ding-ding-projects.github.io/TrafficMonitor/)
 for the complete guide library and the [updater wiki guide](https://github.com/Ding-Ding-Projects/TrafficMonitor/wiki/Silent-updates)
-for the matching wiki article. Wiki publication of the refreshed guide is prepared
-separately and must be verified before it is reported delivered.
+for the matching wiki article. That earlier prepared snapshot was subsequently published with exact stored-source
+proof, most recently at wiki master 27e2231ae4f8986ee394075dc46fdf9838c7e77c.
+Live wiki interaction remains unverified.
 
 ## Feed spelling repair and local diagnostics
 
