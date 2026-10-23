@@ -206,3 +206,29 @@ published by this lane. Parent owns both remote operations, integration and read
 No product code, tests, reviews, audits, runtime checks, screenshots or installations were
 changed or run in this documentation pass. The wider native conversion and all 110
 applicable required features remain unfinished. Status Hub binding is unavailable.
+
+## Documentation build and wiki handoff
+
+Exact root build.bat --site exited 0 at source
+69a6ab51ab1b63d513de27be1efd2cbbfb7b6ef8, using content manifest source
+dcb65a0cf906225052cc5461cf0f616edbfe3112. Its actual summary was:
+`Built 191 complete articles; 1542 history records; 0 unavailable local images.`
+The complete mirrored updater guide is included at
+/articles/source-docs-wiki-pending-silent-updates/; it is not only an external source link.
+Local homepage SHA-256: 5A162DD5A35E45DC8D1FA6E7CAD1BB05C8E0480E08955AA3CD34855A55D7A3B0.
+The build receipt still identifies the pre-existing download metadata as release
+v1.0.15-run39912330939-1. That existing metadata was outside this lane's assigned
+files and must be reconciled by the parent before claiming a current downloads presentation.
+The current updater article separately records the verified 1.0.19 installation baseline.
+
+Prepared wiki master tip is 3d7cfa6917e08d5b387add90c09c187830116cb7, based on the
+verified existing five-guide tip 2788a34224f07372904dd7a6584ea34e75022c14. New page
+Silent-updates.md is byte-identical to its source mirror. Home.md, Installation.md and
+Verification.md match after newline normalization; existing welcome and unrelated pages
+are preserved. The wiki has six guides after this local change. The intended article
+is https://github.com/Ding-Ding-Projects/TrafficMonitor/wiki/Silent-updates and the exact
+documentation home remains https://ding-ding-projects.github.io/TrafficMonitor/.
+Neither repository was pushed, integrated, released, installed or deleted by this lane.
+The source branch and wiki master are prepared for the parent's authorized publication;
+remote files, navigation and deployed article remain unverified until that readback.
+Later handoff commits are documentation records, not a relabelling of the build source.
