@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "records": [
+    {
+      "id": "offline-snapshot-02-home",
+      "active": true,
+      "path": "evidence/ui/docs-companion-9024/home-en-light.png",
+      "sourceCommit": "421ac841a7825b682f0a67928be117c6b21c6ea4",
+      "artifactSha256": "8c84df5e042b31c3270ed130ae6d1a403f6e8dac80463bc01a7ac6a12e3e663d",
+      "captureSha256": "5fca722c018a69d3b48b7121c2038ec96bc12e5164bbcdd474a462b7375cc551",
+      "screen": "home",
+      "state": "English snapshot labels and persistent external-link explanation",
+      "theme": "light",
+      "viewportWidth": 1164,
+      "viewportHeight": 781,
+      "scale": 1,
+      "interactionProofId": "fresh-owned-portable-launch",
+      "interactionReceiptSha256": "ad72c404111482444d48c4516f69d011a131be345ab33467a951ac0016f210a4",
+      "inspectionStatus": "inspected",
+      "captureStartedUtc": "2026-10-23T17:15:44.457Z",
+      "capturedUtc": "2026-10-23T17:15:44.519Z",
+      "route": "cheap-lowlevel-headless",
+      "evidenceScope": "Local candidate at the recorded source, not a later integration/release or full-feature acceptance."
+    },
+    {
+      "id": "offline-snapshot-17-min-both-download",
+      "active": true,
+      "path": "evidence/ui/docs-companion-9024/downloads-bilingual-minimum.png",
+      "sourceCommit": "421ac841a7825b682f0a67928be117c6b21c6ea4",
+      "artifactSha256": "8c84df5e042b31c3270ed130ae6d1a403f6e8dac80463bc01a7ac6a12e3e663d",
+      "captureSha256": "c554181b92b4e3fe913aab542d525f2d7a87cb478dd542130adf0d71fa4d2098",
+      "screen": "downloads",
+      "state": "Bilingual snapshot header and downloads heading at minimum native window size",
+      "theme": "light",
+      "viewportWidth": 624,
+      "viewportHeight": 441,
+      "scale": 1,
+      "interactionProofId": "language-choice-navigation-and-identity-bound-native-resize",
+      "interactionReceiptSha256": "de63bdb8e99aafb26e748d5c08723ec309b0cf46194ba03464c2ac6f3dad94fc",
+      "inspectionStatus": "inspected",
+      "captureStartedUtc": "2026-10-23T17:17:05.561Z",
+      "capturedUtc": "2026-10-23T17:17:05.613Z",
+      "route": "cheap-lowlevel-headless",
+      "evidenceScope": "Local candidate at the recorded source, not a later integration/release or full-feature acceptance."
+    }
+  ],
+  "limits": [
+    "Actual96 DPI only; higher scales unverified.",
+    "The minimum image shows the header/heading, with lower content available by normal scrolling.",
+    "Full private identity and runtime receipts are retained separately; public fields contain no machine paths or process identities."
+  ]
+}

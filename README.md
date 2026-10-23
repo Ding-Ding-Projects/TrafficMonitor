@@ -244,3 +244,14 @@ Release 1.0.28 documentation availability is verified: home and required CSS/Jav
 ## Offline documentation companion candidate
 
 A single-file offline documentation packaging route is available through `build.bat --docs-companion` and `build-installer.bat --docs-companion`. It supplements the hosted documentation. Production, runtime and release verification are tracked separately in [the packaging guide](docs/features/build/offline-documentation-companion.md).
+
+
+## Source-bound offline reader images
+
+These exact raw images show local documentation candidate 1.0.9024 built from 421ac841a7825b682f0a67928be117c6b21c6ea4, not a later release. The inventory retains actual UTC capture times, original hashes and the bounded 96-DPI state. Higher scales and full keyboard/accessibility remain unverified. The minimum image shows the header and heading; lower content continues by normal vertical scrolling.
+
+![Offline documentation candidate 1.0.9024 showing English bundled-release labels and the external-link explanation at 1164 by 781](evidence/ui/docs-companion-9024/home-en-light.png)
+
+![Offline documentation candidate 1.0.9024 showing a wrapped bilingual snapshot header and Downloads heading at 624 by 441](evidence/ui/docs-companion-9024/downloads-bilingual-minimum.png)
+
+[Source/hash/state inventory](evidence/ui/docs-companion-9024/inventory.json).

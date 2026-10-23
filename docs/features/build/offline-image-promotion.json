@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "421ac841a7825b682f0a67928be117c6b21c6ea4",
+  "packageVersion": "1.0.9024",
+  "packageSHA256": "8c84df5e042b31c3270ed130ae6d1a403f6e8dac80463bc01a7ac6a12e3e663d",
+  "promotionValidation": {
+    "valid": true,
+    "repositoryHEADAtValidation": "421ac841a7825b682f0a67928be117c6b21c6ea4",
+    "records": [
+      "offline-snapshot-02-home",
+      "offline-snapshot-17-min-both-download"
+    ],
+    "inventory": "evidence/ui/docs-companion-9024/inventory.json",
+    "rawBytesUnchanged": true,
+    "promotedPixelsReinspected": true
+  },
+  "limits": [
+    "Original local candidate only, not a later integration/release.",
+    "Actual96 DPI only; higher scales and full keyboard/accessibility remain unverified.",
+    "The minimum image proves its header/heading only; lower content continues below the viewport.",
+    "Zero recorded console/page errors cover the captured plan intervals, not startup history.",
+    "Full private identity/producer/privacy receipts remain separately retained without publication of machine paths or process identifiers."
+  ]
+}
