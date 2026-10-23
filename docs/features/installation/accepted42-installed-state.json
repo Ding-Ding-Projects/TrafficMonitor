@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "utc": "2026-10-23T18:17:36.989496+00:00",
+  "release": {
+    "tagName": "v1.0.42-run39999940889-1",
+    "isDraft": false,
+    "isPrerelease": false,
+    "targetCommitish": "0411be2a7215ae119596d287f520b300312baf34",
+    "publishedAt": "2026-10-23T18:06:32Z",
+    "url": "https://github.com/Ding-Ding-Projects/TrafficMonitor/releases/tag/v1.0.42-run39999940889-1"
+  },
+  "assets": [
+    {
+      "name": "TrafficMonitor-1.0.42-full.nupkg",
+      "bytes": 7606202,
+      "sha256": "a3f947dd07b927efe15b1e1e9dc6df331556384e919391d14e230cfb428f2263"
+    },
+    {
+      "name": "RELEASES",
+      "bytes": 81,
+      "sha256": "360d785add3f12c011c92a7af6f2d09d4324ff346e5408f11bf0600725e42687"
+    },
+    {
+      "name": "SHA256SUMS.txt",
+      "bytes": 253,
+      "sha256": "2a3a03361e5ebb63bb9a37b799523734b885aa8ac9f0925973d1d7d5f0ecd7e0"
+    }
+  ],
+  "releasedExecutableSHA256": "fc27d549c0c83c0fe633b7146f9d826c4668f9e69db90e4b7cb9ed04aa3f0215",
+  "releasedManifest": {
+    "version": "1.0.42",
+    "architecture": "x64",
+    "configuration": "Release (lite)",
+    "sourceCommit": "0411be2a7215ae119596d287f520b300312baf34",
+    "runtime": "MSVC v143 CRT and MFC app-local",
+    "squirrel": "2.0.1"
+  },
+  "matchesAuthorRestoredIdentity": true,
+  "identityStableDuringRead": true,
+  "baselineFixtureSource": "5d9ec3207862eea16a028b72305de9400619943c",
+  "authorPostCloseUTC": "2026-10-23T18:12:18.6784900Z",
+  "authorRestoredUTC": "2026-10-23T18:15:33.9372110Z",
+  "authorRestoreExitCode": 0,
+  "authorDataPreservedBeforeRestore": true,
+  "authorStartupPreservedBeforeRestore": true,
+  "baselineSnapshotHashesVerified": {
+    "config.ini": true,
+    "error.log": true,
+    "history_traffic.dat": true,
+    "history_traffic.dat.bak": true
+  },
+  "configBytesMatchPostCloseBaseline": true,
+  "errorLogBytesMatchPostCloseBaseline": true,
+  "historyComparison": {
+    "historicalRecordsUnchanged": true,
+    "currentTrafficRecordRetained": true,
+    "recordCountPreserved": true,
+    "counterFieldCountPreserved": true,
+    "currentCountersNondecreasing": true,
+    "historyBytesEqual": false
+  },
+  "startupMatchesLastStored38Registration": true,
+  "startupComparisonLimit": "The fixture receipt records preservation as a boolean, not the original registration bytes. Independent registration comparison uses the last stored accepted 1.0.38 snapshot.",
+  "nativeFeedSHA1NameSizeVerified": true,
+  "continuousNaturalTransitionClaim": false,
+  "scope": "Read-only accepted 1.0.42 installed-state verification after the author explicitly closed the fixture and restored the installation through its stable launcher.",
+  "limitations": [
+    "Explicit lifecycle intervention occurred before this lane; this is not a natural-transition observation.",
+    "Volatile traffic history is assessed semantically, not required to remain byte-identical after monitoring resumes.",
+    "No GUI readiness, appearance, interaction, layout or companion runtime claim.",
+    "No check/apply/close/launch/edit/install or host mutation occurred in this lane.",
+    "Authenticated own-session Status Hub binding unavailable."
+  ],
+  "singleMatchingNativeProcess": true,
+  "installedVersion": "1.0.42",
+  "installedSource": "0411be2a7215ae119596d287f520b300312baf34",
+  "installedExecutableSHA256": "fc27d549c0c83c0fe633b7146f9d826c4668f9e69db90e4b7cb9ed04aa3f0215",
+  "matchesReleasedNativeExecutable": true,
+  "matchesReleasedManifest": true
+}

@@ -1,5 +1,10 @@
 # Fork changes
 
+## Native Settings discovery and notifications
+
+Add independent group filters, all-group discovery, a clipped scrolling child viewport and searchable per-row explanation/default/revert actions. Notification drafts use existing configuration consumers and retain disabled/unavailable settings. Validate all numeric drafts before applying; reveal invalid fields without losing other drafts. Repair repeated-open regex callback ownership and UTF-8 source decoding. Local candidate1.0.9026 has source-bound build and bounded native interaction evidence; complete Settings, regex parity, global language/theme, full accessibility/DPI and image promotion remain unfinished.
+
+
 ## Local required-feature acceptance validator
 
 Add an independent 110-identity/eight-surface/eight-dimension local validator. Diagnostic mode preserves unfinished declarations; strict mode rejects them. The bounded PNG decoder rejects malformed bytes and reversed optional palette/transparency order. Final local regression: 153 checks passed. Independent final review: six focused cases passed. This validates the checker, not product execution or the still-incomplete feature inventory. No general tests or lint were added to CI.

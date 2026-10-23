@@ -1,5 +1,16 @@
 # TrafficMonitor delivery roadmap
 
+## Native Settings discovery and Notifications slice
+
+- [x] Implement stable setting identities, independent group discovery, temporary result reveal, a real scrolling child viewport and per-row draft actions.
+- [x] Retain existing notification consumers, explicit ranges/defaults and unavailable temperature values.
+- [x] Observe 46 production validation/binding checks, five deliberate ownership-mutation failures and restored46-pass output through the root entrypoint.
+- [x] Package local1.0.9026 at30e3009 and verify bounded real repeated-open, invalid-draft, persistence, row-menu and corrected Chinese behavior.
+- [x] Obtain independent source/refutation and actual-pixel review approving bounded partial integration.
+- [ ] Verify the exact integrated native build, normal release and matching installed update.
+- [ ] Finish all remaining native settings, full regex parity, global languages/themes, UIA/tab order, actual higher-DPI tuples and strict image promotion.
+
+
 ## Required-feature acceptance validator
 
 - [x] Add the independent 110-ID, eight-surface and eight-dimension local inventory validator.

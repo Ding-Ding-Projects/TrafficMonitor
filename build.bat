@@ -1,5 +1,6 @@
 @echo off
 setlocal
+if /i "%~1"=="--verify-settings" goto verifySettings
 if /i "%~1"=="--docs-companion" goto docsCompanion
 if /i "%~1"=="--verify-updater" goto verifyUpdater
 if /i "%~1"=="--site" goto site
@@ -17,6 +18,9 @@ exit /b %errorlevel%
 :verifyUpdater
 if /i "%~2"=="--baseline" goto verifyUpdaterBaseline
 powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0scripts\test-native-update-protocol.ps1"
+exit /b %errorlevel%
+:verifySettings
+powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0scripts\test-native-settings.ps1"
 exit /b %errorlevel%
 :verifyUpdaterBaseline
 powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0scripts\test-native-update-protocol.ps1" -Baseline

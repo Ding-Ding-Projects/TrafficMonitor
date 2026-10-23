@@ -1,0 +1,7263 @@
+{
+  "schemaVersion": 1,
+  "source": "c79d49dbee6467d591676b575fb6b2dd615224a6",
+  "status": "Baseline inventory; notification fields planned at this source revision. Native implementation and runtime acceptance must be tracked separately.",
+  "counts": {
+    "existing_native_values": 15,
+    "remaining_native_migration": 74,
+    "planned_notifications": 13,
+    "derived_or_internal": 7,
+    "persisted_config_only_fallback": 1,
+    "persisted_productive_workflow": 6,
+    "persisted_window_geometry": 2,
+    "persisted_other_workflow": 3
+  },
+  "countsByType": {
+    "GeneralSettingData": {
+      "existing_native_values": 3,
+      "remaining_native_migration": 11,
+      "planned_notifications": 13
+    },
+    "MainWndSettingData": {
+      "remaining_native_migration": 14,
+      "existing_native_values": 6
+    },
+    "TaskBarSettingData": {
+      "remaining_native_migration": 41,
+      "existing_native_values": 6,
+      "derived_or_internal": 6,
+      "persisted_config_only_fallback": 1
+    },
+    "MainConfigData": {
+      "remaining_native_migration": 8,
+      "persisted_productive_workflow": 6,
+      "persisted_window_geometry": 2,
+      "derived_or_internal": 1,
+      "persisted_other_workflow": 3
+    }
+  },
+  "limits": [
+    "No runtime or actual installed configuration inspection.",
+    "Map and set entries are represented as owning containers, not arbitrary plugin-owned configuration. TrafficMonitor-owned plugin enable/visibility/display metadata remains in scope.",
+    "Other carrier operations are preserved as exact source evidence, not automatically classified as editable settings.",
+    "No claim of complete settings acceptance or feature completion."
+  ],
+  "scopeNotes": [
+    "Counts are descriptor field units, with NotifyTipSettings expanded into enable and tip_value; six FontInfo leaves are retained as compound expansion rather than increasing the descriptor count.",
+    "remaining_native_migration means absent from NativeSettings Values. Existing legacy controls or productive workflows remain source evidence, not missing product behavior.",
+    "The three settings structs contain 66 remaining migration units beyond the 13 planned Notifications leaves. MainConfigData contributes eight additional preference/container units.",
+    "MainConfigData visibility, connection and history workflow state is separated from mandatory missing Settings rows. Window geometry is separate. Config-only taskbar right-space fallback is retained explicitly.",
+    "The four taskbar dft_* values are computed fallback inputs, not separately saved keys. Read references mentioning them as defaults do not make them persisted preferences.",
+    "Relevant auxiliary installed carrier operations are retained, including other/debug/capability/warning state. These are not automatically user-editable controls.",
+    "Exact source snippets remain literal technical evidence. This file has no actual host paths, PIDs, installed setting values or credentials."
+  ],
+  "sourceBlobIds": {
+    "TrafficMonitor/CommonData.h": "130dcd90e748c74a029dba76aafefd6cfcc77138",
+    "TrafficMonitor/CommonData.cpp": "f8159a2da235f55595c06a6391bf89291e64f973",
+    "TrafficMonitor/TrafficMonitor.cpp": "cb0088ccc2f3104395fd764acbe0cc08bee4a268",
+    "TrafficMonitor/TrafficMonitorDlg.cpp": "6e41eb760941602f1ee7fbd03dfdf7546d39b64f",
+    "TrafficMonitor/GeneralSettingsDlg.cpp": "09d20902639440ad2acb2d3539a7f6efafd7025c",
+    "TrafficMonitor/MainWndSettingsDlg.cpp": "721129959e2408e4712112d50fbca9c8ed4dfab8",
+    "TrafficMonitor/TaskBarSettingsDlg.cpp": "9089caaf36305049aa8b9f69b84db5c2f6763fb4",
+    "TrafficMonitor/SettingsHelper.cpp": "aefbd95cb24023b333c97ab1bcf6af8e4a23b3ed",
+    "TrafficMonitor/SkinManager.cpp": "0a9bf655a91ba9fb5427745705cea2b5ad2b3da4",
+    "TrafficMonitor/SkinDlg.cpp": "217a82865eb768dac1d78e68160cafa200407168",
+    "TrafficMonitor/TaskbarDefaultStyle.cpp": "48b0d627d68425a01de138c775d6c44ed37b5b7b",
+    "TrafficMonitor/Win11TaskbarSettingDlg.cpp": "7cbe3f9659e589e7d2aec4cd7ace7aad0bfca17e",
+    "TrafficMonitor/CAutoAdaptSettingsDlg.cpp": "f17c8276b065ea31dc1e37b0d4ff9e630abb9cb9",
+    "TrafficMonitor/OptionsDlg.cpp": "4520ec9acbcd837b3104bec776b0c0e8bd83fa9a",
+    "TrafficMonitor/NativeSettings/Values.cpp": "2b0a065843d5ebce4c18aa982bf704b541d81830",
+    "TrafficMonitor/NativeSettings/Settings.cpp": "b0e83dcf5c6312e1e8ed68e1297040ef4d913824",
+    "TrafficMonitor/NativeSettings/Settings.h": "beb3f1baddbd400495545a93ae68130a3b72a6d0",
+    "TrafficMonitor/NativeUpdate/SilentUpdater.cpp": "99453067e8dc88779d22c90cf68bd85256d06eb2",
+    "TrafficMonitor/Common.cpp": "3f2f7588c891c87ed01ceff26e90d0f03447e569",
+    "TrafficMonitor/TaskbarItemOrderHelper.cpp": "a1beb5a0cc73c7ed2c08d0aba7755c03289bd3e5",
+    "TrafficMonitor/Win11TaskbarDlg.cpp": "3476e65a3b9421caed7d4b615def0280725a6b84",
+    "TrafficMonitor/NativeDashboard/SetupFlow.cpp": "d24d53df1f5cd4cd14e49fb1d0cc7059bae275c3",
+    "TrafficMonitor/TaskBarDlg.cpp": "1bf7537cb1530c4607b441e81972952047d52797",
+    "TrafficMonitor/SkinAutoAdaptSettingDlg.cpp": "c1c99f3b814a772058aeaaadfbd4ced374d8b7ea"
+  },
+  "fields": [
+    {
+      "type": "GeneralSettingData",
+      "field": "check_update_when_start",
+      "valueType": "bool",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 352
+      },
+      "classification": "existing_native_values",
+      "reason": "Mapped through Values::Current and Values::Patch.",
+      "nativeValue": "automaticCheck",
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 72
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 297
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 72
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 297
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 1139
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1197
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2564
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2565
+        },
+        {
+          "path": "TrafficMonitor/NativeSettings/Values.cpp",
+          "line": 9
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 265
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 481
+        }
+      ]
+    },
+    {
+      "type": "GeneralSettingData",
+      "field": "update_source",
+      "valueType": "int",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 353
+      },
+      "classification": "remaining_native_migration",
+      "reason": "Existing carrier and legacy consumer references retained.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 77
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 301
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 77
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 301
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 574
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 1422
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 1441
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 701
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 709
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 716
+        },
+        {
+          "path": "TrafficMonitor/SkinDlg.cpp",
+          "line": 148
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 66
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 273
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 399
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 700
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 708
+        }
+      ]
+    },
+    {
+      "type": "GeneralSettingData",
+      "field": "auto_run",
+      "valueType": "bool",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 354
+      },
+      "classification": "remaining_native_migration",
+      "reason": "External startup carrier, registry/task scheduler rather than ordinary INI key.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/NativeDashboard/SetupFlow.cpp",
+          "line": 315
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 842
+        },
+        {
+          "path": "TrafficMonitor/NativeDashboard/SetupFlow.cpp",
+          "line": 315
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 150
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 215
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 216
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 217
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 283
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 293
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 304
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 313
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 336
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 488
+        }
+      ]
+    },
+    {
+      "type": "GeneralSettingData",
+      "field": "auto_run_by_task_scheduler",
+      "valueType": "bool",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 355
+      },
+      "classification": "remaining_native_migration",
+      "reason": "External startup carrier, registry/task scheduler rather than ordinary INI key.",
+      "nativeValue": null,
+      "persistenceReferences": [],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 842
+        },
+        {
+          "path": "TrafficMonitor/NativeDashboard/SetupFlow.cpp",
+          "line": 94
+        },
+        {
+          "path": "TrafficMonitor/NativeDashboard/SetupFlow.cpp",
+          "line": 313
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 153
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 285
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 287
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 305
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 314
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 318
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 325
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 831
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 837
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 852
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 859
+        }
+      ]
+    },
+    {
+      "type": "GeneralSettingData",
+      "field": "show_notify_icon",
+      "valueType": "bool",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 356
+      },
+      "classification": "existing_native_values",
+      "reason": "Mapped through Values::Current and Values::Patch.",
+      "nativeValue": "tray",
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 100
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 314
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 100
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 314
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 638
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 653
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 795
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 885
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 889
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 901
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 902
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1133
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1159
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1934
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2547
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2550
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2555
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2682
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2686
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2718
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2721
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2743
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2752
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2769
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2772
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2894
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 3026
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 3029
+        },
+        {
+          "path": "TrafficMonitor/NativeSettings/Values.cpp",
+          "line": 11
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 268
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 271
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 811
+        }
+      ]
+    },
+    {
+      "type": "GeneralSettingData",
+      "field": "traffic_tip_enable",
+      "valueType": "bool",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 358
+      },
+      "classification": "planned_notifications",
+      "reason": "Planned only, absent from native Values at pinned source.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 149
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 356
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 149
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 356
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1848
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 202
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 203
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 338
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 561
+        }
+      ]
+    },
+    {
+      "type": "GeneralSettingData",
+      "field": "traffic_tip_value",
+      "valueType": "int",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 359
+      },
+      "classification": "planned_notifications",
+      "reason": "Planned only, absent from native Values at pinned source.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 150
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 357
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 150
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 357
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1853
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1855
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 340
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 498
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 499
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 500
+        }
+      ]
+    },
+    {
+      "type": "GeneralSettingData",
+      "field": "traffic_tip_unit",
+      "valueType": "int",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 360
+      },
+      "classification": "planned_notifications",
+      "reason": "Planned only, absent from native Values at pinned source.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 151
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 358
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 151
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 358
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1852
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 343
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 501
+        }
+      ]
+    },
+    {
+      "type": "GeneralSettingData",
+      "field": "memory_usage_tip.enable",
+      "valueType": "NotifyTipSettings",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 367
+      },
+      "classification": "planned_notifications",
+      "reason": "Planned only, absent from native Values at pinned source.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 152
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 359
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 152
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 359
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 204
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 344
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 569
+        }
+      ]
+    },
+    {
+      "type": "GeneralSettingData",
+      "field": "memory_usage_tip.tip_value",
+      "valueType": "NotifyTipSettings",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 367
+      },
+      "classification": "planned_notifications",
+      "reason": "Planned only, absent from native Values at pinned source.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 153
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 360
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 153
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 360
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 346
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 513
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 514
+        }
+      ]
+    },
+    {
+      "type": "GeneralSettingData",
+      "field": "cpu_temp_tip.enable",
+      "valueType": "NotifyTipSettings",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 368
+      },
+      "classification": "planned_notifications",
+      "reason": "Planned only, absent from native Values at pinned source.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 154
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 361
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 154
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 361
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 205
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 348
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 668
+        }
+      ]
+    },
+    {
+      "type": "GeneralSettingData",
+      "field": "cpu_temp_tip.tip_value",
+      "valueType": "NotifyTipSettings",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 368
+      },
+      "classification": "planned_notifications",
+      "reason": "Planned only, absent from native Values at pinned source.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 155
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 362
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 155
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 362
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 350
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 516
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 517
+        }
+      ]
+    },
+    {
+      "type": "GeneralSettingData",
+      "field": "gpu_temp_tip.enable",
+      "valueType": "NotifyTipSettings",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 369
+      },
+      "classification": "planned_notifications",
+      "reason": "Planned only, absent from native Values at pinned source.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 156
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 363
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 156
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 363
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 206
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 352
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 676
+        }
+      ]
+    },
+    {
+      "type": "GeneralSettingData",
+      "field": "gpu_temp_tip.tip_value",
+      "valueType": "NotifyTipSettings",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 369
+      },
+      "classification": "planned_notifications",
+      "reason": "Planned only, absent from native Values at pinned source.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 157
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 364
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 157
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 364
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 354
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 519
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 520
+        }
+      ]
+    },
+    {
+      "type": "GeneralSettingData",
+      "field": "hdd_temp_tip.enable",
+      "valueType": "NotifyTipSettings",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 370
+      },
+      "classification": "planned_notifications",
+      "reason": "Planned only, absent from native Values at pinned source.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 158
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 365
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 158
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 365
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 207
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 356
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 684
+        }
+      ]
+    },
+    {
+      "type": "GeneralSettingData",
+      "field": "hdd_temp_tip.tip_value",
+      "valueType": "NotifyTipSettings",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 370
+      },
+      "classification": "planned_notifications",
+      "reason": "Planned only, absent from native Values at pinned source.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 159
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 366
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 159
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 366
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 358
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 522
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 523
+        }
+      ]
+    },
+    {
+      "type": "GeneralSettingData",
+      "field": "mainboard_temp_tip.enable",
+      "valueType": "NotifyTipSettings",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 371
+      },
+      "classification": "planned_notifications",
+      "reason": "Planned only, absent from native Values at pinned source.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 160
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 367
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 160
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 367
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 208
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 360
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 692
+        }
+      ]
+    },
+    {
+      "type": "GeneralSettingData",
+      "field": "mainboard_temp_tip.tip_value",
+      "valueType": "NotifyTipSettings",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 371
+      },
+      "classification": "planned_notifications",
+      "reason": "Planned only, absent from native Values at pinned source.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 161
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 368
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 161
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 368
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 362
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 525
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 526
+        }
+      ]
+    },
+    {
+      "type": "GeneralSettingData",
+      "field": "language",
+      "valueType": "LanguageInfo",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 375
+      },
+      "classification": "remaining_native_migration",
+      "reason": "Existing carrier and legacy consumer references retained.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 64
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 300
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 64
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 300
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 645
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 1037
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 1545
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 539
+        },
+        {
+          "path": "TrafficMonitor/NativeSettings/Settings.cpp",
+          "line": 78
+        },
+        {
+          "path": "TrafficMonitor/NativeDashboard/SetupFlow.cpp",
+          "line": 57
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 372
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 529
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 536
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 539
+        }
+      ]
+    },
+    {
+      "type": "GeneralSettingData",
+      "field": "show_all_interface",
+      "valueType": "bool",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 377
+      },
+      "classification": "remaining_native_migration",
+      "reason": "Existing carrier and legacy consumer references retained.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 75
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 302
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 75
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 302
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 417
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 435
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2393
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 543
+        },
+        {
+          "path": "TrafficMonitor/NativeDashboard/SetupFlow.cpp",
+          "line": 17
+        },
+        {
+          "path": "TrafficMonitor/TaskBarDlg.cpp",
+          "line": 1133
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 213
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 377
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 543
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 584
+        }
+      ]
+    },
+    {
+      "type": "GeneralSettingData",
+      "field": "cpu_usage_acquire_method",
+      "valueType": "CpuUsageAcquireMethod",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 385
+      },
+      "classification": "remaining_native_migration",
+      "reason": "Existing carrier and legacy consumer references retained.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 78
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 303
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 78
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 303
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1431
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 386
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 390
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 600
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 606
+        }
+      ]
+    },
+    {
+      "type": "GeneralSettingData",
+      "field": "portable_mode",
+      "valueType": "bool",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 387
+      },
+      "classification": "remaining_native_migration",
+      "reason": "Existing carrier and legacy consumer references retained.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 484
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 505
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 472
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 484
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 496
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 505
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 1010
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 547
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 332
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 333
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 546
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 547
+        }
+      ]
+    },
+    {
+      "type": "GeneralSettingData",
+      "field": "monitor_time_span",
+      "valueType": "int",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 388
+      },
+      "classification": "existing_native_values",
+      "reason": "Mapped through Values::Current and Values::Patch.",
+      "nativeValue": "interval",
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 79
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 304
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 79
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 80
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 81
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 304
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 768
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 852
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1168
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1217
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1293
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2761
+        },
+        {
+          "path": "TrafficMonitor/NativeSettings/Values.cpp",
+          "line": 11
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 65
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 179
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 396
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 398
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 847
+        }
+      ]
+    },
+    {
+      "type": "GeneralSettingData",
+      "field": "hard_disk_name",
+      "valueType": "std::wstring",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 390
+      },
+      "classification": "remaining_native_migration",
+      "reason": "Existing carrier and legacy consumer references retained.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 82
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 305
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 82
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 305
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1452
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1459
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1468
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1543
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1547
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1560
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1564
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 406
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 424
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 734
+        }
+      ]
+    },
+    {
+      "type": "GeneralSettingData",
+      "field": "cpu_core_name",
+      "valueType": "std::wstring",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 391
+      },
+      "classification": "remaining_native_migration",
+      "reason": "Existing carrier and legacy consumer references retained.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 83
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 306
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 83
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 306
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1521
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1527
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1531
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 431
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 796
+        }
+      ]
+    },
+    {
+      "type": "GeneralSettingData",
+      "field": "hardware_monitor_item",
+      "valueType": "unsigned int",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 393
+      },
+      "classification": "remaining_native_migration",
+      "reason": "Existing carrier and legacy consumer references retained.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 84
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 307
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 84
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 307
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 791
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 859
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 139
+        }
+      ]
+    },
+    {
+      "type": "GeneralSettingData",
+      "field": "connections_hide",
+      "valueType": "StringSet",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 406
+      },
+      "classification": "remaining_native_migration",
+      "reason": "Existing carrier and legacy consumer references retained.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 308
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 87
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 308
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 424
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 796
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 818
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 821
+        }
+      ]
+    },
+    {
+      "type": "MainWndSettingData",
+      "field": "specify_each_item_color",
+      "valueType": "bool",
+      "inheritedFrom": "PublicSettingData",
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 243
+      },
+      "classification": "remaining_native_migration",
+      "reason": "Active skin values, persisted through per-skin SkinSettingData and SkinManager, not commented-out legacy config writes.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/SkinManager.cpp",
+          "line": 43
+        },
+        {
+          "path": "TrafficMonitor/SkinManager.cpp",
+          "line": 124
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 128
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 77
+        },
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 238
+        },
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 465
+        },
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 495
+        },
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 602
+        },
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 607
+        }
+      ]
+    },
+    {
+      "type": "MainWndSettingData",
+      "field": "font",
+      "valueType": "FontInfo",
+      "inheritedFrom": "PublicSettingData",
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 244
+      },
+      "classification": "remaining_native_migration",
+      "reason": "Active skin values, persisted through per-skin SkinSettingData and SkinManager, not commented-out legacy config writes.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/SkinManager.cpp",
+          "line": 48
+        },
+        {
+          "path": "TrafficMonitor/SkinManager.cpp",
+          "line": 126
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 129
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 130
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 184
+        },
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 189
+        },
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 347
+        },
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 348
+        },
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 349
+        },
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 350
+        },
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 351
+        },
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 354
+        },
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 361
+        },
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 362
+        },
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 363
+        },
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 364
+        },
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 365
+        },
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 366
+        },
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 368
+        },
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 369
+        },
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 443
+        },
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 445
+        },
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 603
+        },
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 605
+        },
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 606
+        },
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 615
+        }
+      ]
+    },
+    {
+      "type": "MainWndSettingData",
+      "field": "disp_str",
+      "valueType": "DispStrings",
+      "inheritedFrom": "PublicSettingData",
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 245
+      },
+      "classification": "remaining_native_migration",
+      "reason": "Active skin values, persisted through per-skin SkinSettingData and SkinManager, not commented-out legacy config writes.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/SkinManager.cpp",
+          "line": 50
+        },
+        {
+          "path": "TrafficMonitor/SkinManager.cpp",
+          "line": 51
+        },
+        {
+          "path": "TrafficMonitor/SkinManager.cpp",
+          "line": 128
+        },
+        {
+          "path": "TrafficMonitor/SkinManager.cpp",
+          "line": 129
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 131
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 132
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 133
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 134
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 554
+        }
+      ]
+    },
+    {
+      "type": "MainWndSettingData",
+      "field": "speed_short_mode",
+      "valueType": "bool",
+      "inheritedFrom": "PublicSettingData",
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 246
+      },
+      "classification": "existing_native_values",
+      "reason": "Mapped through Values::Current and Values::Patch.",
+      "nativeValue": "floatingCompact",
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 136
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 343
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 136
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 343
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 1324
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 198
+        },
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 391
+        }
+      ]
+    },
+    {
+      "type": "MainWndSettingData",
+      "field": "separate_value_unit_with_space",
+      "valueType": "bool",
+      "inheritedFrom": "PublicSettingData",
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 247
+      },
+      "classification": "existing_native_values",
+      "reason": "Mapped through Values::Current and Values::Patch.",
+      "nativeValue": "floatingSpace",
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 137
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 344
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 137
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 344
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 1325
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 199
+        },
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 511
+        }
+      ]
+    },
+    {
+      "type": "MainWndSettingData",
+      "field": "show_tool_tip",
+      "valueType": "bool",
+      "inheritedFrom": "PublicSettingData",
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 248
+      },
+      "classification": "existing_native_values",
+      "reason": "Mapped through Values::Current and Values::Patch.",
+      "nativeValue": "floatingTips",
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 138
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 345
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 138
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 345
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2419
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 3041
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 200
+        },
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 534
+        }
+      ]
+    },
+    {
+      "type": "MainWndSettingData",
+      "field": "memory_display",
+      "valueType": "MemoryDisplay",
+      "inheritedFrom": "PublicSettingData",
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 249
+      },
+      "classification": "remaining_native_migration",
+      "reason": "Existing carrier and legacy consumer references retained.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 139
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 346
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 139
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 346
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 257
+        },
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 562
+        }
+      ]
+    },
+    {
+      "type": "MainWndSettingData",
+      "field": "unit_byte",
+      "valueType": "bool",
+      "inheritedFrom": "PublicSettingData",
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 251
+      },
+      "classification": "existing_native_values",
+      "reason": "Mapped through Values::Current and Values::Patch.",
+      "nativeValue": "floatingBytes",
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 140
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 347
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 140
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 347
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 1326
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 101
+        },
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 209
+        },
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 518
+        },
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 526
+        }
+      ]
+    },
+    {
+      "type": "MainWndSettingData",
+      "field": "speed_unit",
+      "valueType": "SpeedUnit",
+      "inheritedFrom": "PublicSettingData",
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 252
+      },
+      "classification": "remaining_native_migration",
+      "reason": "Existing carrier and legacy consumer references retained.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 141
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 348
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 141
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 348
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 1327
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 111
+        },
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 217
+        },
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 398
+        },
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 399
+        }
+      ]
+    },
+    {
+      "type": "MainWndSettingData",
+      "field": "hide_unit",
+      "valueType": "bool",
+      "inheritedFrom": "PublicSettingData",
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 253
+      },
+      "classification": "remaining_native_migration",
+      "reason": "Existing carrier and legacy consumer references retained.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 142
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 349
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 142
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 349
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 1328
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 216
+        },
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 220
+        },
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 402
+        },
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 415
+        }
+      ]
+    },
+    {
+      "type": "MainWndSettingData",
+      "field": "hide_percent",
+      "valueType": "bool",
+      "inheritedFrom": "PublicSettingData",
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 254
+      },
+      "classification": "remaining_native_migration",
+      "reason": "Existing carrier and legacy consumer references retained.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 143
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 350
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 143
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 350
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 1329
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 223
+        },
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 454
+        }
+      ]
+    },
+    {
+      "type": "MainWndSettingData",
+      "field": "double_click_action",
+      "valueType": "DoubleClickAction",
+      "inheritedFrom": "PublicSettingData",
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 255
+      },
+      "classification": "remaining_native_migration",
+      "reason": "Existing carrier and legacy consumer references retained.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 144
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 351
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 144
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 351
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2078
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2829
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 116
+        },
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 248
+        },
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 503
+        }
+      ]
+    },
+    {
+      "type": "MainWndSettingData",
+      "field": "double_click_exe",
+      "valueType": "wstring",
+      "inheritedFrom": "PublicSettingData",
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 256
+      },
+      "classification": "remaining_native_migration",
+      "reason": "Existing carrier and legacy consumer references retained.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 145
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 352
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 145
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 352
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2847
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 250
+        },
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 545
+        },
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 546
+        }
+      ]
+    },
+    {
+      "type": "MainWndSettingData",
+      "field": "text_colors",
+      "valueType": "std::map<CommonDisplayItem, COLORREF>",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 263
+      },
+      "classification": "remaining_native_migration",
+      "reason": "Active skin values, persisted through per-skin SkinSettingData and SkinManager, not commented-out legacy config writes.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/SkinManager.cpp",
+          "line": 42
+        },
+        {
+          "path": "TrafficMonitor/SkinManager.cpp",
+          "line": 123
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 127
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 75
+        },
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 79
+        },
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 84
+        },
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 93
+        },
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 467
+        },
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 470
+        },
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 474
+        },
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 476
+        },
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 479
+        },
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 601
+        }
+      ]
+    },
+    {
+      "type": "MainWndSettingData",
+      "field": "swap_up_down",
+      "valueType": "bool",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 264
+      },
+      "classification": "remaining_native_migration",
+      "reason": "Existing carrier and legacy consumer references retained.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 123
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 337
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 123
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 337
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 936
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 196
+        },
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 232
+        },
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 377
+        }
+      ]
+    },
+    {
+      "type": "MainWndSettingData",
+      "field": "hide_main_wnd_when_fullscreen",
+      "valueType": "bool",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 265
+      },
+      "classification": "remaining_native_migration",
+      "reason": "Existing carrier and legacy consumer references retained.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 124
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 338
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 124
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 338
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 273
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1702
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 197
+        },
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 384
+        }
+      ]
+    },
+    {
+      "type": "MainWndSettingData",
+      "field": "m_always_on_top",
+      "valueType": "bool",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 266
+      },
+      "classification": "existing_native_values",
+      "reason": "Mapped through Values::Current and Values::Patch.",
+      "nativeValue": "top",
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 98
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 312
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 98
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 312
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 276
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 792
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1695
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1736
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2165
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2366
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 259
+        },
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 569
+        }
+      ]
+    },
+    {
+      "type": "MainWndSettingData",
+      "field": "m_lock_window_pos",
+      "valueType": "bool",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 267
+      },
+      "classification": "existing_native_values",
+      "reason": "Mapped through Values::Current and Values::Patch.",
+      "nativeValue": "locked",
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 99
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 313
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 99
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 313
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2140
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2367
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2444
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 261
+        },
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 583
+        }
+      ]
+    },
+    {
+      "type": "MainWndSettingData",
+      "field": "m_mouse_penetrate",
+      "valueType": "bool",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 268
+      },
+      "classification": "remaining_native_migration",
+      "reason": "Existing carrier and legacy consumer references retained.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 102
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 316
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 102
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 316
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 1282
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 285
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 793
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1132
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2369
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2680
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2690
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 260
+        },
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 576
+        }
+      ]
+    },
+    {
+      "type": "MainWndSettingData",
+      "field": "m_alow_out_of_border",
+      "valueType": "bool",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 269
+      },
+      "classification": "remaining_native_migration",
+      "reason": "Existing carrier and legacy consumer references retained.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 147
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 354
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 147
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 354
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 351
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 794
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2372
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2907
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 262
+        },
+        {
+          "path": "TrafficMonitor/MainWndSettingsDlg.cpp",
+          "line": 590
+        }
+      ]
+    },
+    {
+      "type": "TaskBarSettingData",
+      "field": "specify_each_item_color",
+      "valueType": "bool",
+      "inheritedFrom": "PublicSettingData",
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 243
+      },
+      "classification": "remaining_native_migration",
+      "reason": "Existing carrier and legacy consumer references retained.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 174
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 375
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 174
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 375
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 40
+        },
+        {
+          "path": "TrafficMonitor/TaskBarDlg.cpp",
+          "line": 213
+        },
+        {
+          "path": "TrafficMonitor/TaskBarDlg.cpp",
+          "line": 345
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 40
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 48
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 93
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 350
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 609
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 690
+        }
+      ]
+    },
+    {
+      "type": "TaskBarSettingData",
+      "field": "font",
+      "valueType": "FontInfo",
+      "inheritedFrom": "PublicSettingData",
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 244
+      },
+      "classification": "remaining_native_migration",
+      "reason": "Existing carrier and legacy consumer references retained.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 213
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 378
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 213
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 378
+        },
+        {
+          "path": "TrafficMonitor/TaskBarDlg.cpp",
+          "line": 739
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 291
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 296
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 473
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 474
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 475
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 476
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 477
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 480
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 487
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 488
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 489
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 490
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 491
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 492
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 494
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 496
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 565
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 567
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 993
+        }
+      ]
+    },
+    {
+      "type": "TaskBarSettingData",
+      "field": "disp_str",
+      "valueType": "DispStrings",
+      "inheritedFrom": "PublicSettingData",
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 245
+      },
+      "classification": "remaining_native_migration",
+      "reason": "Existing carrier and legacy consumer references retained.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 216
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 217
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 383
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 384
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 216
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 217
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 383
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 384
+        },
+        {
+          "path": "TrafficMonitor/TaskBarDlg.cpp",
+          "line": 304
+        },
+        {
+          "path": "TrafficMonitor/TaskBarDlg.cpp",
+          "line": 413
+        },
+        {
+          "path": "TrafficMonitor/TaskBarDlg.cpp",
+          "line": 779
+        },
+        {
+          "path": "TrafficMonitor/TaskBarDlg.cpp",
+          "line": 788
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 832
+        }
+      ]
+    },
+    {
+      "type": "TaskBarSettingData",
+      "field": "speed_short_mode",
+      "valueType": "bool",
+      "inheritedFrom": "PublicSettingData",
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 246
+      },
+      "classification": "existing_native_values",
+      "reason": "Mapped through Values::Current and Values::Patch.",
+      "nativeValue": "taskbarCompact",
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 220
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 388
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 220
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 388
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 1331
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 305
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 513
+        }
+      ]
+    },
+    {
+      "type": "TaskBarSettingData",
+      "field": "separate_value_unit_with_space",
+      "valueType": "bool",
+      "inheritedFrom": "PublicSettingData",
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 247
+      },
+      "classification": "existing_native_values",
+      "reason": "Mapped through Values::Current and Values::Patch.",
+      "nativeValue": "taskbarSpace",
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 229
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 396
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 229
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 396
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 1332
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 309
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 722
+        }
+      ]
+    },
+    {
+      "type": "TaskBarSettingData",
+      "field": "show_tool_tip",
+      "valueType": "bool",
+      "inheritedFrom": "PublicSettingData",
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 248
+      },
+      "classification": "existing_native_values",
+      "reason": "Mapped through Values::Current and Values::Patch.",
+      "nativeValue": "taskbarTips",
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 230
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 397
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 230
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 397
+        },
+        {
+          "path": "TrafficMonitor/TaskBarDlg.cpp",
+          "line": 964
+        },
+        {
+          "path": "TrafficMonitor/TaskBarDlg.cpp",
+          "line": 1181
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 310
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 745
+        }
+      ]
+    },
+    {
+      "type": "TaskBarSettingData",
+      "field": "memory_display",
+      "valueType": "MemoryDisplay",
+      "inheritedFrom": "PublicSettingData",
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 249
+      },
+      "classification": "remaining_native_migration",
+      "reason": "Existing carrier and legacy consumer references retained.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 232
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 399
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 232
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 399
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 401
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 840
+        }
+      ]
+    },
+    {
+      "type": "TaskBarSettingData",
+      "field": "unit_byte",
+      "valueType": "bool",
+      "inheritedFrom": "PublicSettingData",
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 251
+      },
+      "classification": "existing_native_values",
+      "reason": "Mapped through Values::Current and Values::Patch.",
+      "nativeValue": "taskbarBytes",
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 222
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 389
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 222
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 389
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 1335
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 76
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 335
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 729
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 737
+        }
+      ]
+    },
+    {
+      "type": "TaskBarSettingData",
+      "field": "speed_unit",
+      "valueType": "SpeedUnit",
+      "inheritedFrom": "PublicSettingData",
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 252
+      },
+      "classification": "remaining_native_migration",
+      "reason": "Existing carrier and legacy consumer references retained.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 223
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 390
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 223
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 390
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 1336
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 86
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 343
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 530
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 531
+        }
+      ]
+    },
+    {
+      "type": "TaskBarSettingData",
+      "field": "hide_unit",
+      "valueType": "bool",
+      "inheritedFrom": "PublicSettingData",
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 253
+      },
+      "classification": "remaining_native_migration",
+      "reason": "Existing carrier and legacy consumer references retained.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 224
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 391
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 224
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 391
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 1337
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 342
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 346
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 534
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 547
+        }
+      ]
+    },
+    {
+      "type": "TaskBarSettingData",
+      "field": "hide_percent",
+      "valueType": "bool",
+      "inheritedFrom": "PublicSettingData",
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 254
+      },
+      "classification": "remaining_native_migration",
+      "reason": "Existing carrier and legacy consumer references retained.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 225
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 392
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 225
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 392
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 1338
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 349
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 598
+        }
+      ]
+    },
+    {
+      "type": "TaskBarSettingData",
+      "field": "double_click_action",
+      "valueType": "DoubleClickAction",
+      "inheritedFrom": "PublicSettingData",
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 255
+      },
+      "classification": "remaining_native_migration",
+      "reason": "Existing carrier and legacy consumer references retained.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 233
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 400
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 233
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 400
+        },
+        {
+          "path": "TrafficMonitor/TaskBarDlg.cpp",
+          "line": 1138
+        },
+        {
+          "path": "TrafficMonitor/TaskBarDlg.cpp",
+          "line": 1223
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 104
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 369
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 699
+        }
+      ]
+    },
+    {
+      "type": "TaskBarSettingData",
+      "field": "double_click_exe",
+      "valueType": "wstring",
+      "inheritedFrom": "PublicSettingData",
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 256
+      },
+      "classification": "remaining_native_migration",
+      "reason": "Existing carrier and legacy consumer references retained.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 234
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 401
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 234
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 401
+        },
+        {
+          "path": "TrafficMonitor/TaskBarDlg.cpp",
+          "line": 1241
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 378
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 781
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 782
+        }
+      ]
+    },
+    {
+      "type": "TaskBarSettingData",
+      "field": "back_color",
+      "valueType": "COLORREF",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 291
+      },
+      "classification": "remaining_native_migration",
+      "reason": "Existing carrier and legacy consumer references retained.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 164
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 371
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 164
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 168
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 204
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 206
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 371
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1908
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1966
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1969
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1978
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 37
+        },
+        {
+          "path": "TrafficMonitor/TaskBarDlg.cpp",
+          "line": 116
+        },
+        {
+          "path": "TrafficMonitor/TaskBarDlg.cpp",
+          "line": 118
+        },
+        {
+          "path": "TrafficMonitor/TaskBarDlg.cpp",
+          "line": 144
+        },
+        {
+          "path": "TrafficMonitor/TaskBarDlg.cpp",
+          "line": 169
+        },
+        {
+          "path": "TrafficMonitor/TaskBarDlg.cpp",
+          "line": 363
+        },
+        {
+          "path": "TrafficMonitor/TaskBarDlg.cpp",
+          "line": 509
+        },
+        {
+          "path": "TrafficMonitor/TaskBarDlg.cpp",
+          "line": 512
+        },
+        {
+          "path": "TrafficMonitor/TaskBarDlg.cpp",
+          "line": 1046
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 37
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 67
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 625
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 636
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 640
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 641
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 645
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 647
+        }
+      ]
+    },
+    {
+      "type": "TaskBarSettingData",
+      "field": "transparent_color",
+      "valueType": "COLORREF",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 292
+      },
+      "classification": "remaining_native_migration",
+      "reason": "Existing carrier and legacy consumer references retained.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 165
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 372
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 165
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 169
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 372
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1911
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1952
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 38
+        },
+        {
+          "path": "TrafficMonitor/TaskBarDlg.cpp",
+          "line": 509
+        },
+        {
+          "path": "TrafficMonitor/TaskBarDlg.cpp",
+          "line": 511
+        },
+        {
+          "path": "TrafficMonitor/TaskBarDlg.cpp",
+          "line": 515
+        },
+        {
+          "path": "TrafficMonitor/TaskBarDlg.cpp",
+          "line": 532
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 38
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 647
+        }
+      ]
+    },
+    {
+      "type": "TaskBarSettingData",
+      "field": "status_bar_color",
+      "valueType": "COLORREF",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 293
+      },
+      "classification": "remaining_native_migration",
+      "reason": "Existing carrier and legacy consumer references retained.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 171
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 373
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 171
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 373
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 39
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 39
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 666
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 669
+        }
+      ]
+    },
+    {
+      "type": "TaskBarSettingData",
+      "field": "text_colors",
+      "valueType": "std::map<CommonDisplayItem, TaskbarItemColor>",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 294
+      },
+      "classification": "remaining_native_migration",
+      "reason": "Existing carrier and legacy consumer references retained.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 173
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 374
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 173
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 204
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 207
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 374
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1914
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1978
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 36
+        },
+        {
+          "path": "TrafficMonitor/TaskBarDlg.cpp",
+          "line": 215
+        },
+        {
+          "path": "TrafficMonitor/TaskBarDlg.cpp",
+          "line": 216
+        },
+        {
+          "path": "TrafficMonitor/TaskBarDlg.cpp",
+          "line": 218
+        },
+        {
+          "path": "TrafficMonitor/TaskBarDlg.cpp",
+          "line": 220
+        },
+        {
+          "path": "TrafficMonitor/TaskBarDlg.cpp",
+          "line": 221
+        },
+        {
+          "path": "TrafficMonitor/TaskBarDlg.cpp",
+          "line": 347
+        },
+        {
+          "path": "TrafficMonitor/TaskBarDlg.cpp",
+          "line": 348
+        },
+        {
+          "path": "TrafficMonitor/TaskBarDlg.cpp",
+          "line": 350
+        },
+        {
+          "path": "TrafficMonitor/TaskBarDlg.cpp",
+          "line": 352
+        },
+        {
+          "path": "TrafficMonitor/TaskBarDlg.cpp",
+          "line": 353
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 36
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 50
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 55
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 63
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 65
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 611
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 614
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 619
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 621
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 624
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 625
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 641
+        }
+      ]
+    },
+    {
+      "type": "TaskBarSettingData",
+      "field": "dft_back_color",
+      "valueType": "int",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 295
+      },
+      "classification": "derived_or_internal",
+      "reason": "Fallback/render-diagnostic state, no direct persisted editable control demonstrated.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 164
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 164
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 206
+        },
+        {
+          "path": "TrafficMonitor/Common.cpp",
+          "line": 1137
+        },
+        {
+          "path": "TrafficMonitor/Common.cpp",
+          "line": 1142
+        },
+        {
+          "path": "TrafficMonitor/Common.cpp",
+          "line": 1150
+        }
+      ],
+      "legacyControlReferences": []
+    },
+    {
+      "type": "TaskBarSettingData",
+      "field": "dft_transparent_color",
+      "valueType": "int",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 296
+      },
+      "classification": "derived_or_internal",
+      "reason": "Fallback/render-diagnostic state, no direct persisted editable control demonstrated.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 165
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 165
+        },
+        {
+          "path": "TrafficMonitor/Common.cpp",
+          "line": 1138
+        },
+        {
+          "path": "TrafficMonitor/Common.cpp",
+          "line": 1143
+        },
+        {
+          "path": "TrafficMonitor/Common.cpp",
+          "line": 1151
+        }
+      ],
+      "legacyControlReferences": []
+    },
+    {
+      "type": "TaskBarSettingData",
+      "field": "dft_status_bar_color",
+      "valueType": "int",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 297
+      },
+      "classification": "derived_or_internal",
+      "reason": "Fallback/render-diagnostic state, no direct persisted editable control demonstrated.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 171
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 171
+        },
+        {
+          "path": "TrafficMonitor/Common.cpp",
+          "line": 1145
+        },
+        {
+          "path": "TrafficMonitor/Common.cpp",
+          "line": 1152
+        }
+      ],
+      "legacyControlReferences": []
+    },
+    {
+      "type": "TaskBarSettingData",
+      "field": "dft_text_colors",
+      "valueType": "int",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 298
+      },
+      "classification": "derived_or_internal",
+      "reason": "Fallback/render-diagnostic state, no direct persisted editable control demonstrated.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 173
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 173
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 207
+        },
+        {
+          "path": "TrafficMonitor/Common.cpp",
+          "line": 1146
+        },
+        {
+          "path": "TrafficMonitor/Common.cpp",
+          "line": 1153
+        }
+      ],
+      "legacyControlReferences": []
+    },
+    {
+      "type": "TaskBarSettingData",
+      "field": "auto_adapt_light_theme",
+      "valueType": "bool",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 300
+      },
+      "classification": "remaining_native_migration",
+      "reason": "Existing carrier and legacy consumer references retained.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 249
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 412
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 249
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 251
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 412
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1874
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1902
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 108
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 352
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 358
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 581
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 817
+        }
+      ]
+    },
+    {
+      "type": "TaskBarSettingData",
+      "field": "dark_default_style",
+      "valueType": "int",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 301
+      },
+      "classification": "remaining_native_migration",
+      "reason": "Existing carrier and legacy consumer references retained.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 252
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 413
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 252
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 413
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1876
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 583
+        },
+        {
+          "path": "TrafficMonitor/CAutoAdaptSettingsDlg.cpp",
+          "line": 79
+        },
+        {
+          "path": "TrafficMonitor/CAutoAdaptSettingsDlg.cpp",
+          "line": 97
+        }
+      ]
+    },
+    {
+      "type": "TaskBarSettingData",
+      "field": "light_default_style",
+      "valueType": "int",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 302
+      },
+      "classification": "remaining_native_migration",
+      "reason": "Existing carrier and legacy consumer references retained.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 253
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 414
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 253
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 414
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1876
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 583
+        },
+        {
+          "path": "TrafficMonitor/CAutoAdaptSettingsDlg.cpp",
+          "line": 80
+        },
+        {
+          "path": "TrafficMonitor/CAutoAdaptSettingsDlg.cpp",
+          "line": 98
+        }
+      ]
+    },
+    {
+      "type": "TaskBarSettingData",
+      "field": "auto_set_background_color",
+      "valueType": "bool",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 303
+      },
+      "classification": "remaining_native_migration",
+      "reason": "Existing carrier and legacy consumer references retained.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 256
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 415
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 256
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 258
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 415
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 803
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 820
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1951
+        },
+        {
+          "path": "TrafficMonitor/TaskBarDlg.cpp",
+          "line": 440
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 353
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 825
+        }
+      ]
+    },
+    {
+      "type": "TaskBarSettingData",
+      "field": "auto_save_taskbar_color_settings_to_preset",
+      "valueType": "bool",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 304
+      },
+      "classification": "remaining_native_migration",
+      "reason": "Existing carrier and legacy consumer references retained.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 263
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 419
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 263
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 419
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 581
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/CAutoAdaptSettingsDlg.cpp",
+          "line": 81
+        },
+        {
+          "path": "TrafficMonitor/CAutoAdaptSettingsDlg.cpp",
+          "line": 99
+        }
+      ]
+    },
+    {
+      "type": "TaskBarSettingData",
+      "field": "item_order",
+      "valueType": "CTaskbarItemOrderHelper",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 308
+      },
+      "classification": "remaining_native_migration",
+      "reason": "Existing carrier and legacy consumer references retained.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 261
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 417
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 260
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 261
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 417
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 3107
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 3112
+        },
+        {
+          "path": "TrafficMonitor/TaskBarDlg.cpp",
+          "line": 795
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 855
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 860
+        }
+      ]
+    },
+    {
+      "type": "TaskBarSettingData",
+      "field": "display_item",
+      "valueType": "DisplayItemSet",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 309
+      },
+      "classification": "remaining_native_migration",
+      "reason": "Existing carrier and legacy consumer references retained.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 176
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 377
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 176
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 182
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 183
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 184
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 185
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 190
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 193
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 197
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 200
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 377
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 1313
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 997
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1000
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1004
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2657
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2660
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2661
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2665
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2666
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2934
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2937
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2938
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2942
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2943
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 3108
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 3113
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 33
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 37
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 41
+        },
+        {
+          "path": "TrafficMonitor/GeneralSettingsDlg.cpp",
+          "line": 44
+        },
+        {
+          "path": "TrafficMonitor/TaskBarDlg.cpp",
+          "line": 751
+        },
+        {
+          "path": "TrafficMonitor/TaskBarDlg.cpp",
+          "line": 752
+        },
+        {
+          "path": "TrafficMonitor/TaskBarDlg.cpp",
+          "line": 974
+        },
+        {
+          "path": "TrafficMonitor/TaskBarDlg.cpp",
+          "line": 979
+        },
+        {
+          "path": "TrafficMonitor/TaskBarDlg.cpp",
+          "line": 984
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 856
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 861
+        }
+      ]
+    },
+    {
+      "type": "TaskBarSettingData",
+      "field": "plugin_display_item",
+      "valueType": "StringSet",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 310
+      },
+      "classification": "remaining_native_migration",
+      "reason": "Existing carrier and legacy consumer references retained.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 262
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 418
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 262
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 418
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 1309
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 3109
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 3114
+        },
+        {
+          "path": "TrafficMonitor/TaskBarDlg.cpp",
+          "line": 751
+        },
+        {
+          "path": "TrafficMonitor/TaskBarDlg.cpp",
+          "line": 766
+        },
+        {
+          "path": "TrafficMonitor/TaskBarDlg.cpp",
+          "line": 1283
+        },
+        {
+          "path": "TrafficMonitor/TaskBarDlg.cpp",
+          "line": 1284
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 857
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 862
+        }
+      ]
+    },
+    {
+      "type": "TaskBarSettingData",
+      "field": "show_taskbar_wnd_in_secondary_display",
+      "valueType": "bool",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 312
+      },
+      "classification": "remaining_native_migration",
+      "reason": "Existing carrier and legacy consumer references retained.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 177
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 380
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 177
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 380
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 799
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2008
+        },
+        {
+          "path": "TrafficMonitor/TaskBarDlg.cpp",
+          "line": 611
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 312
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 434
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 963
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 973
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 977
+        }
+      ]
+    },
+    {
+      "type": "TaskBarSettingData",
+      "field": "secondary_display_index",
+      "valueType": "int",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 313
+      },
+      "classification": "remaining_native_migration",
+      "reason": "Existing carrier and legacy consumer references retained.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 178
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 381
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 178
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 381
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 800
+        },
+        {
+          "path": "TrafficMonitor/TaskBarDlg.cpp",
+          "line": 618
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 440
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 978
+        }
+      ]
+    },
+    {
+      "type": "TaskBarSettingData",
+      "field": "value_right_align",
+      "valueType": "bool",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 314
+      },
+      "classification": "existing_native_values",
+      "reason": "Mapped through Values::Current and Values::Patch.",
+      "nativeValue": "right",
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 226
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 393
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 226
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 393
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 1333
+        },
+        {
+          "path": "TrafficMonitor/TaskBarDlg.cpp",
+          "line": 309
+        },
+        {
+          "path": "TrafficMonitor/TaskBarDlg.cpp",
+          "line": 416
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 306
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 591
+        }
+      ]
+    },
+    {
+      "type": "TaskBarSettingData",
+      "field": "digits_number",
+      "valueType": "int",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 315
+      },
+      "classification": "remaining_native_migration",
+      "reason": "Existing carrier and legacy consumer references retained.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 231
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 398
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 231
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 398
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 1334
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 376
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 950
+        }
+      ]
+    },
+    {
+      "type": "TaskBarSettingData",
+      "field": "horizontal_arrange",
+      "valueType": "bool",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 316
+      },
+      "classification": "existing_native_values",
+      "reason": "Mapped through Values::Current and Values::Patch.",
+      "nativeValue": "horizontal",
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 227
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 394
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 227
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 394
+        },
+        {
+          "path": "TrafficMonitor/TaskBarDlg.cpp",
+          "line": 750
+        },
+        {
+          "path": "TrafficMonitor/TaskBarDlg.cpp",
+          "line": 820
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 307
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 707
+        }
+      ]
+    },
+    {
+      "type": "TaskBarSettingData",
+      "field": "show_status_bar",
+      "valueType": "bool",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 317
+      },
+      "classification": "remaining_native_migration",
+      "reason": "Existing carrier and legacy consumer references retained.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 228
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 395
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 228
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 395
+        },
+        {
+          "path": "TrafficMonitor/TaskBarDlg.cpp",
+          "line": 286
+        },
+        {
+          "path": "TrafficMonitor/TaskBarDlg.cpp",
+          "line": 323
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 109
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 110
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 111
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 112
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 308
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 714
+        }
+      ]
+    },
+    {
+      "type": "TaskBarSettingData",
+      "field": "tbar_wnd_on_left",
+      "valueType": "bool",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 318
+      },
+      "classification": "remaining_native_migration",
+      "reason": "Existing carrier and legacy consumer references retained.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 219
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 386
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 219
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 386
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1958
+        },
+        {
+          "path": "TrafficMonitor/Win11TaskbarDlg.cpp",
+          "line": 20
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 304
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 505
+        },
+        {
+          "path": "TrafficMonitor/Win11TaskbarSettingDlg.cpp",
+          "line": 80
+        }
+      ]
+    },
+    {
+      "type": "TaskBarSettingData",
+      "field": "tbar_wnd_snap",
+      "valueType": "bool",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 319
+      },
+      "classification": "remaining_native_migration",
+      "reason": "Existing carrier and legacy consumer references retained.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 221
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 387
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 221
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 387
+        },
+        {
+          "path": "TrafficMonitor/Win11TaskbarDlg.cpp",
+          "line": 53
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/Win11TaskbarSettingDlg.cpp",
+          "line": 81
+        },
+        {
+          "path": "TrafficMonitor/Win11TaskbarSettingDlg.cpp",
+          "line": 99
+        }
+      ]
+    },
+    {
+      "type": "TaskBarSettingData",
+      "field": "cm_graph_type",
+      "valueType": "bool",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 320
+      },
+      "classification": "remaining_native_migration",
+      "reason": "Existing carrier and legacy consumer references retained.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 235
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 402
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 235
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 402
+        },
+        {
+          "path": "TrafficMonitor/TaskBarDlg.cpp",
+          "line": 289
+        },
+        {
+          "path": "TrafficMonitor/TaskBarDlg.cpp",
+          "line": 329
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 382
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 788
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 793
+        }
+      ]
+    },
+    {
+      "type": "TaskBarSettingData",
+      "field": "show_graph_dashed_box",
+      "valueType": "bool",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 321
+      },
+      "classification": "remaining_native_migration",
+      "reason": "Existing carrier and legacy consumer references retained.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 236
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 403
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 236
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 403
+        },
+        {
+          "path": "TrafficMonitor/TaskBarDlg.cpp",
+          "line": 456
+        },
+        {
+          "path": "TrafficMonitor/TaskBarDlg.cpp",
+          "line": 1418
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 386
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 847
+        }
+      ]
+    },
+    {
+      "type": "TaskBarSettingData",
+      "field": "item_space",
+      "valueType": "int",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 323
+      },
+      "classification": "remaining_native_migration",
+      "reason": "Existing carrier and legacy consumer references retained.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 237
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 404
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 237
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 404
+        },
+        {
+          "path": "TrafficMonitor/TaskBarDlg.cpp",
+          "line": 828
+        },
+        {
+          "path": "TrafficMonitor/TaskBarDlg.cpp",
+          "line": 834
+        },
+        {
+          "path": "TrafficMonitor/TaskBarDlg.cpp",
+          "line": 838
+        },
+        {
+          "path": "TrafficMonitor/TaskBarDlg.cpp",
+          "line": 839
+        },
+        {
+          "path": "TrafficMonitor/TaskBarDlg.cpp",
+          "line": 943
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 390
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 875
+        }
+      ]
+    },
+    {
+      "type": "TaskBarSettingData",
+      "field": "vertical_margin",
+      "valueType": "int",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 324
+      },
+      "classification": "remaining_native_migration",
+      "reason": "Existing carrier and legacy consumer references retained.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 238
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 405
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 238
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 405
+        },
+        {
+          "path": "TrafficMonitor/TaskBarDlg.cpp",
+          "line": 843
+        },
+        {
+          "path": "TrafficMonitor/TaskBarDlg.cpp",
+          "line": 844
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 393
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 881
+        }
+      ]
+    },
+    {
+      "type": "TaskBarSettingData",
+      "field": "window_offset_top",
+      "valueType": "int",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 325
+      },
+      "classification": "remaining_native_migration",
+      "reason": "Existing carrier and legacy consumer references retained.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 239
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 406
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 239
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 406
+        },
+        {
+          "path": "TrafficMonitor/Win11TaskbarDlg.cpp",
+          "line": 78
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/Win11TaskbarSettingDlg.cpp",
+          "line": 83
+        },
+        {
+          "path": "TrafficMonitor/Win11TaskbarSettingDlg.cpp",
+          "line": 101
+        }
+      ]
+    },
+    {
+      "type": "TaskBarSettingData",
+      "field": "window_offset_left",
+      "valueType": "int",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 326
+      },
+      "classification": "remaining_native_migration",
+      "reason": "Existing carrier and legacy consumer references retained.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 240
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 407
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 240
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 407
+        },
+        {
+          "path": "TrafficMonitor/Win11TaskbarDlg.cpp",
+          "line": 67
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/Win11TaskbarSettingDlg.cpp",
+          "line": 85
+        },
+        {
+          "path": "TrafficMonitor/Win11TaskbarSettingDlg.cpp",
+          "line": 103
+        }
+      ]
+    },
+    {
+      "type": "TaskBarSettingData",
+      "field": "avoid_overlap_with_widgets",
+      "valueType": "bool",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 331
+      },
+      "classification": "remaining_native_migration",
+      "reason": "Existing carrier and legacy consumer references retained.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 244
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 408
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 244
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 408
+        },
+        {
+          "path": "TrafficMonitor/Win11TaskbarDlg.cpp",
+          "line": 43
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/Win11TaskbarSettingDlg.cpp",
+          "line": 86
+        },
+        {
+          "path": "TrafficMonitor/Win11TaskbarSettingDlg.cpp",
+          "line": 106
+        }
+      ]
+    },
+    {
+      "type": "TaskBarSettingData",
+      "field": "taskbar_left_space_win11",
+      "valueType": "int",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 332
+      },
+      "classification": "remaining_native_migration",
+      "reason": "Existing carrier and legacy consumer references retained.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 245
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 409
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 245
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 409
+        },
+        {
+          "path": "TrafficMonitor/Win11TaskbarDlg.cpp",
+          "line": 44
+        },
+        {
+          "path": "TrafficMonitor/Win11TaskbarDlg.cpp",
+          "line": 61
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/Win11TaskbarSettingDlg.cpp",
+          "line": 89
+        },
+        {
+          "path": "TrafficMonitor/Win11TaskbarSettingDlg.cpp",
+          "line": 108
+        },
+        {
+          "path": "TrafficMonitor/Win11TaskbarSettingDlg.cpp",
+          "line": 109
+        },
+        {
+          "path": "TrafficMonitor/Win11TaskbarSettingDlg.cpp",
+          "line": 110
+        },
+        {
+          "path": "TrafficMonitor/Win11TaskbarSettingDlg.cpp",
+          "line": 111
+        },
+        {
+          "path": "TrafficMonitor/Win11TaskbarSettingDlg.cpp",
+          "line": 112
+        }
+      ]
+    },
+    {
+      "type": "TaskBarSettingData",
+      "field": "taskbar_right_space_win11",
+      "valueType": "int",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 333
+      },
+      "classification": "persisted_config_only_fallback",
+      "reason": "Manual configuration fallback when notification-area position is unavailable, no dialog edit demonstrated.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 246
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 410
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 246
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 410
+        },
+        {
+          "path": "TrafficMonitor/Win11TaskbarDlg.cpp",
+          "line": 40
+        }
+      ],
+      "legacyControlReferences": []
+    },
+    {
+      "type": "TaskBarSettingData",
+      "field": "show_netspeed_figure",
+      "valueType": "bool",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 335
+      },
+      "classification": "remaining_native_migration",
+      "reason": "Existing carrier and legacy consumer references retained.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 265
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 421
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 265
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 421
+        },
+        {
+          "path": "TrafficMonitor/TaskBarDlg.cpp",
+          "line": 287
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 109
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 110
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 111
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 112
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 113
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 114
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 403
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 910
+        }
+      ]
+    },
+    {
+      "type": "TaskBarSettingData",
+      "field": "netspeed_figure_max_value",
+      "valueType": "int",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 336
+      },
+      "classification": "remaining_native_migration",
+      "reason": "Existing carrier and legacy consumer references retained.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 266
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 422
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 266
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 422
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 405
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 923
+        }
+      ]
+    },
+    {
+      "type": "TaskBarSettingData",
+      "field": "netspeed_figure_max_value_unit",
+      "valueType": "int",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 337
+      },
+      "classification": "remaining_native_migration",
+      "reason": "Existing carrier and legacy consumer references retained.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 267
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 423
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 267
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 423
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 408
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 917
+        }
+      ]
+    },
+    {
+      "type": "TaskBarSettingData",
+      "field": "graph_color_following_system",
+      "valueType": "bool",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 339
+      },
+      "classification": "remaining_native_migration",
+      "reason": "Existing carrier and legacy consumer references retained.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 268
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 424
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 268
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 424
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 387
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 673
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 986
+        }
+      ]
+    },
+    {
+      "type": "TaskBarSettingData",
+      "field": "disable_d2d",
+      "valueType": "bool",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 342
+      },
+      "classification": "remaining_native_migration",
+      "reason": "Existing carrier and legacy consumer references retained.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 271
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 426
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 271
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 273
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 426
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 797
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 801
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1953
+        },
+        {
+          "path": "TrafficMonitor/TaskBarDlg.cpp",
+          "line": 85
+        },
+        {
+          "path": "TrafficMonitor/TaskBarDlg.cpp",
+          "line": 440
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 117
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 450
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 455
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 929
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 936
+        }
+      ]
+    },
+    {
+      "type": "TaskBarSettingData",
+      "field": "update_layered_window_error_code",
+      "valueType": "DWORD",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 343
+      },
+      "classification": "derived_or_internal",
+      "reason": "Fallback/render-diagnostic state, no direct persisted editable control demonstrated.",
+      "nativeValue": null,
+      "persistenceReferences": [],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 578
+        },
+        {
+          "path": "TrafficMonitor/TaskBarDlg.cpp",
+          "line": 71
+        },
+        {
+          "path": "TrafficMonitor/TaskBarDlg.cpp",
+          "line": 435
+        }
+      ],
+      "legacyControlReferences": []
+    },
+    {
+      "type": "TaskBarSettingData",
+      "field": "enable_colorful_emoji",
+      "valueType": "bool",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 344
+      },
+      "classification": "remaining_native_migration",
+      "reason": "Existing carrier and legacy consumer references retained.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 274
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 427
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 274
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 427
+        }
+      ],
+      "legacyControlReferences": [
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 460
+        },
+        {
+          "path": "TrafficMonitor/TaskBarSettingsDlg.cpp",
+          "line": 943
+        }
+      ]
+    },
+    {
+      "type": "TaskBarSettingData",
+      "field": "is_windows_web_experience_detected",
+      "valueType": "bool",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 346
+      },
+      "classification": "derived_or_internal",
+      "reason": "Fallback/render-diagnostic state, no direct persisted editable control demonstrated.",
+      "nativeValue": null,
+      "persistenceReferences": [],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TaskBarDlg.cpp",
+          "line": 1002
+        }
+      ],
+      "legacyControlReferences": []
+    },
+    {
+      "type": "MainConfigData",
+      "field": "m_transparency",
+      "valueType": "int",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 189
+      },
+      "classification": "remaining_native_migration",
+      "reason": "Existing carrier and legacy consumer references retained.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 97
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 311
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 97
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 311
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 246
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2174
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2183
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2192
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2201
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2379
+        }
+      ],
+      "legacyControlReferences": []
+    },
+    {
+      "type": "MainConfigData",
+      "field": "m_show_more_info",
+      "valueType": "bool",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 190
+      },
+      "classification": "persisted_productive_workflow",
+      "reason": "Visibility or selected connection state, existing menu/onboarding/workspace actions must be preserved, not automatically treated as a missing Settings control.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 101
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 315
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 101
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 315
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 159
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 922
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 944
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 956
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1014
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2368
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2629
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2630
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2977
+        }
+      ],
+      "legacyControlReferences": []
+    },
+    {
+      "type": "MainConfigData",
+      "field": "m_show_task_bar_wnd",
+      "valueType": "bool",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 191
+      },
+      "classification": "persisted_productive_workflow",
+      "reason": "Visibility or selected connection state, existing menu/onboarding/workspace actions must be preserved, not automatically treated as a missing Settings control.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 103
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 317
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 103
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 317
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 1281
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 617
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 621
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 627
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 631
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1132
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1666
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1764
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2008
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2298
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2306
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2370
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2709
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2711
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2716
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 3024
+        },
+        {
+          "path": "TrafficMonitor/NativeDashboard/SetupFlow.cpp",
+          "line": 262
+        }
+      ],
+      "legacyControlReferences": []
+    },
+    {
+      "type": "MainConfigData",
+      "field": "m_hide_main_window",
+      "valueType": "bool",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 192
+      },
+      "classification": "persisted_productive_workflow",
+      "reason": "Visibility or selected connection state, existing menu/onboarding/workspace actions must be preserved, not automatically treated as a missing Settings control.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 108
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 324
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 108
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 324
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 1282
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 271
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1132
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1192
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1662
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1695
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1704
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1725
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1736
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1764
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2486
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2495
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2533
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2764
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2767
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2778
+        }
+      ],
+      "legacyControlReferences": []
+    },
+    {
+      "type": "MainConfigData",
+      "field": "m_position_x",
+      "valueType": "int",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 195
+      },
+      "classification": "persisted_window_geometry",
+      "reason": "Persisted placement, separate from editable preference inventory.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 104
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 318
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 104
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 318
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1173
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1174
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1192
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1670
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1672
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1749
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1752
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2457
+        }
+      ],
+      "legacyControlReferences": []
+    },
+    {
+      "type": "MainConfigData",
+      "field": "m_position_y",
+      "valueType": "int",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 196
+      },
+      "classification": "persisted_window_geometry",
+      "reason": "Persisted placement, separate from editable preference inventory.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 105
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 319
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 105
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 319
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1173
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1174
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1192
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1670
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1672
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1749
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1753
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2458
+        }
+      ],
+      "legacyControlReferences": []
+    },
+    {
+      "type": "MainConfigData",
+      "field": "m_auto_select",
+      "valueType": "bool",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 198
+      },
+      "classification": "persisted_productive_workflow",
+      "reason": "Visibility or selected connection state, existing menu/onboarding/workspace actions must be preserved, not automatically treated as a missing Settings control.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 106
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 320
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 106
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 320
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 438
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 468
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 558
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1308
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2242
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2283
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2291
+        }
+      ],
+      "legacyControlReferences": []
+    },
+    {
+      "type": "MainConfigData",
+      "field": "m_select_all",
+      "valueType": "bool",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 199
+      },
+      "classification": "persisted_productive_workflow",
+      "reason": "Visibility or selected connection state, existing menu/onboarding/workspace actions must be preserved, not automatically treated as a missing Settings control.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 107
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 321
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 107
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 321
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 435
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 437
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 556
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 564
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1249
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2242
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2284
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2292
+        }
+      ],
+      "legacyControlReferences": []
+    },
+    {
+      "type": "MainConfigData",
+      "field": "m_connection_name",
+      "valueType": "string",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 200
+      },
+      "classification": "persisted_productive_workflow",
+      "reason": "Visibility or selected connection state, existing menu/onboarding/workspace actions must be preserved, not automatically treated as a missing Settings control.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 109
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 325
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 109
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 325
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 397
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 491
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1400
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1410
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2280
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2281
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2293
+        }
+      ],
+      "legacyControlReferences": []
+    },
+    {
+      "type": "MainConfigData",
+      "field": "m_skin_name",
+      "valueType": "wstring",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 202
+      },
+      "classification": "remaining_native_migration",
+      "reason": "Existing carrier and legacy consumer references retained.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 110
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 326
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 110
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 111
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 112
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 113
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 326
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 912
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1031
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1114
+        }
+      ],
+      "legacyControlReferences": []
+    },
+    {
+      "type": "MainConfigData",
+      "field": "skin_auto_adapt",
+      "valueType": "bool",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 204
+      },
+      "classification": "remaining_native_migration",
+      "reason": "Existing carrier and legacy consumer references retained.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 115
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 328
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 115
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 328
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1943
+        },
+        {
+          "path": "TrafficMonitor/SkinDlg.cpp",
+          "line": 143
+        },
+        {
+          "path": "TrafficMonitor/SkinDlg.cpp",
+          "line": 144
+        },
+        {
+          "path": "TrafficMonitor/SkinDlg.cpp",
+          "line": 207
+        }
+      ],
+      "legacyControlReferences": []
+    },
+    {
+      "type": "MainConfigData",
+      "field": "skin_name_light_mode",
+      "valueType": "wstring",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 205
+      },
+      "classification": "remaining_native_migration",
+      "reason": "Existing carrier and legacy consumer references retained.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 117
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 330
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 117
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 330
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1945
+        },
+        {
+          "path": "TrafficMonitor/SkinDlg.cpp",
+          "line": 200
+        },
+        {
+          "path": "TrafficMonitor/SkinAutoAdaptSettingDlg.cpp",
+          "line": 68
+        }
+      ],
+      "legacyControlReferences": []
+    },
+    {
+      "type": "MainConfigData",
+      "field": "skin_name_dark_mode",
+      "valueType": "wstring",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 206
+      },
+      "classification": "remaining_native_migration",
+      "reason": "Existing carrier and legacy consumer references retained.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 116
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 329
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 116
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 329
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1945
+        },
+        {
+          "path": "TrafficMonitor/SkinDlg.cpp",
+          "line": 198
+        },
+        {
+          "path": "TrafficMonitor/SkinAutoAdaptSettingDlg.cpp",
+          "line": 67
+        }
+      ],
+      "legacyControlReferences": []
+    },
+    {
+      "type": "MainConfigData",
+      "field": "m_dft_notify_icon",
+      "valueType": "int",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 208
+      },
+      "classification": "derived_or_internal",
+      "reason": "Default notification icon selected from host appearance.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 119
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 119
+        },
+        {
+          "path": "TrafficMonitor/Common.cpp",
+          "line": 1147
+        },
+        {
+          "path": "TrafficMonitor/Common.cpp",
+          "line": 1154
+        }
+      ],
+      "legacyControlReferences": []
+    },
+    {
+      "type": "MainConfigData",
+      "field": "m_notify_icon_selected",
+      "valueType": "int",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 209
+      },
+      "classification": "remaining_native_migration",
+      "reason": "Existing carrier and legacy consumer references retained.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 119
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 332
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 119
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 332
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 944
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 945
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 946
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 947
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 951
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 952
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 953
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 954
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1145
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1146
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1147
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1929
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1931
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1933
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2885
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2889
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2891
+        }
+      ],
+      "legacyControlReferences": []
+    },
+    {
+      "type": "MainConfigData",
+      "field": "m_notify_icon_auto_adapt",
+      "valueType": "bool",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 210
+      },
+      "classification": "remaining_native_migration",
+      "reason": "Existing carrier and legacy consumer references retained.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 120
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 333
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 120
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 121
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 333
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 1927
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2886
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2890
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitorDlg.cpp",
+          "line": 2892
+        }
+      ],
+      "legacyControlReferences": []
+    },
+    {
+      "type": "MainConfigData",
+      "field": "m_use_log_scale",
+      "valueType": "bool",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 213
+      },
+      "classification": "persisted_other_workflow",
+      "reason": "History-view preferences, outside the three settings structs. Native Settings migration is a product decision, not inferred here.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 278
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 431
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 278
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 431
+        }
+      ],
+      "legacyControlReferences": []
+    },
+    {
+      "type": "MainConfigData",
+      "field": "m_view_type",
+      "valueType": "HistoryTrafficViewType",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 214
+      },
+      "classification": "persisted_other_workflow",
+      "reason": "History-view preferences, outside the three settings structs. Native Settings migration is a product decision, not inferred here.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 280
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 433
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 280
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 433
+        }
+      ],
+      "legacyControlReferences": []
+    },
+    {
+      "type": "MainConfigData",
+      "field": "m_sunday_first",
+      "valueType": "bool",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 215
+      },
+      "classification": "persisted_other_workflow",
+      "reason": "History-view preferences, outside the three settings structs. Native Settings migration is a product decision, not inferred here.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 279
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 432
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/CommonData.cpp",
+          "line": 20
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 279
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 432
+        }
+      ],
+      "legacyControlReferences": []
+    },
+    {
+      "type": "MainConfigData",
+      "field": "plugin_disabled",
+      "valueType": "StringSet",
+      "inheritedFrom": null,
+      "declaration": {
+        "path": "TrafficMonitor/CommonData.h",
+        "line": 216
+      },
+      "classification": "remaining_native_migration",
+      "reason": "Existing carrier and legacy consumer references retained.",
+      "nativeValue": null,
+      "persistenceReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 444
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 465
+        }
+      ],
+      "carrierReferences": [
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 444
+        },
+        {
+          "path": "TrafficMonitor/TrafficMonitor.cpp",
+          "line": 465
+        }
+      ],
+      "legacyControlReferences": []
+    }
+  ]
+}

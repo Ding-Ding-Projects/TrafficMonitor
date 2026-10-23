@@ -2,7 +2,7 @@
 
 A native C++/MFC network monitor for Windows, with a compact taskbar display, tray access and a floating monitor. This fork delivers the maintained x64 edition, preserves upstream attribution and supports the existing optional plugin interfaces.
 
-[Documentation website](https://ding-ding-projects.github.io/TrafficMonitor/) · [Verified 1.0.36 release](https://github.com/Ding-Ding-Projects/TrafficMonitor/releases/tag/v1.0.36-run39992941450-1) · [Installation](docs/features/installation/README.md) · [Changelog](CHANGELOG.md) · [Required-feature status](docs/features/required-features/README.md) · [简体中文](README_zh-CN.md)
+[Documentation website](https://ding-ding-projects.github.io/TrafficMonitor/) · [Native 1.0.42 release](https://github.com/Ding-Ding-Projects/TrafficMonitor/releases/tag/v1.0.42-run39999940889-1) · [Installation](docs/features/installation/README.md) · [Changelog](CHANGELOG.md) · [Required-feature status](docs/features/required-features/README.md) · [简体中文](README_zh-CN.md)
 
 ## Install and start monitoring
 
@@ -14,7 +14,7 @@ Startup and shortcuts use the stable installation launcher. Uninstall removes on
 
 The installed monitor checks on startup and every five minutes, validates the accepted release and package, and stages updates silently. It cooperatively restarts at a safe lifecycle boundary, preserving busy-work checks and the next-launch fallback. No Windows restart or sign-out is required or initiated.
 
-Normal release **1.0.36** is bound to `f795e86b309cb72f80e030fe7c802ea9c44b4fd2`; all four release jobs succeeded. One genuine **1.0.34 to 1.0.35** transition used a real prepublication baseline and verified exact released bytes, readiness/launcher results, one apply attempt and configuration/startup/history preservation. A subsequent automatic **1.0.35 to 1.0.36** transition used an explicitly post-publication preservation snapshot, with the earlier verified terminal state retained separately. These are two bounded observations, not long-term reliability or production-negative-path proof.
+The last verified accepted native installation is **1.0.42**, source `0411be2a7215ae119596d287f520b300312baf34`, with exact released executable bytes. Its post-fixture launcher restoration and bounded configuration/startup/history preservation are [recorded separately](docs/features/installation/accepted42-installed-state.json); this observation does not claim a continuously observed natural transition. Earlier normal **1.0.36** was bound to `f795e86b309cb72f80e030fe7c802ea9c44b4fd2`, with all four release jobs successful. One genuine **1.0.34 to 1.0.35** transition used a real prepublication baseline and verified exact released bytes, readiness/launcher results, one apply attempt and configuration/startup/history preservation. A subsequent automatic **1.0.35 to 1.0.36** transition used an explicitly post-publication preservation snapshot, with the earlier verified terminal state retained separately. These are two bounded observations, not long-term reliability or production-negative-path proof.
 
 See [natural35 evidence](docs/features/installation/silent-natural35-acceptance.json), [natural36 evidence](docs/features/installation/silent-natural36-acceptance.json), and [update behavior and limits](docs/features/installation/silent-updates.md).
 
@@ -25,6 +25,14 @@ The native monitoring backend, taskbar integration, tray and plugin interfaces r
 Bounded setup checks cover light theme at actual 96 DPI, three languages, save/resume, Keep-current completion and selected accessibility consumers. Choice expansion, complete keyboard/accessibility behavior, the full theme/scale matrix, full regex-builder parity and the broader required-feature inventory remain unfinished. The indexed 110-item ledger is an obligation inventory, not proof that 110 features shipped.
 
 Read [workspace](docs/features/native-dashboard/README.md), [setup](docs/features/native-dashboard/setup.md), [settings](docs/features/native-settings/README.md), [search](docs/features/search/README.md), [roadmap](ROADMAP.md) and [handoff](HANDOFF.md).
+
+### Settings discovery and notifications
+
+The integrated source adds independent group searches, cross-group discovery, a scrolling editor body and per-setting searchable explanation/default/revert menus. Notifications edit the existing daily-traffic, memory and supported temperature preferences through the existing consumer, retaining disabled values and unavailable capabilities. Invalid numeric drafts block application and reveal the offending row without losing other drafts.
+
+Local candidate **1.0.9026**, source `30e300938a8502e9c2a1e8b35bb568b51ed7b716`, packaged successfully. Focused checks passed 46 cases, rejected the disposable old ownership behavior, then passed all 46 again. Real native checks verified repeated regex opening, invalid-value recovery, selected persistence and row actions; Chinese encoding was repaired and checked in the rebuilt application. Independent source and visual reviews approved this useful partial integration. The exact integrated build, normal release and matching installed update remain pending.
+
+This is not complete Settings, complete regex parity or complete language/accessibility acceptance. Actual display evidence is 96 DPI only; bilingual/global language and appearance conversion, higher scales, UIA/full tab traversal and strict image promotion remain unfinished. See [behavior](docs/features/native-settings/notifications-and-discovery.md), [verification boundaries](docs/features/native-settings/verification.md) and the [source-bound migration inventory](docs/features/native-settings/migration-inventory.json).
 
 ## Offline documentation companion
 
