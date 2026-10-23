@@ -28,8 +28,8 @@ export async function createContent(root,dist,manifest,base) {
   let decoded; try{decoded=decodeURI(raw);}catch{return raw;}
   const [withoutHash,hash='']=decoded.split('#');
   const suffix=hash?'#'+encodeURI(hash):'';
-  let match=aliases.get(withoutHash.toLowerCase());
-  const known=manifest.articles.find(a=>a.sourceUrl===withoutHash);
+  let match;
+  const known=manifest.articles.find(a=>a.sourceUrl===withoutHash||a.wikiSourceUrl===withoutHash);
   if(known) match=known;
   if(match&&!image) return base+match.route.slice(1)+suffix;
   if(/^https?:/i.test(withoutHash)) {
@@ -37,7 +37,7 @@ export async function createContent(root,dist,manifest,base) {
    if(isOwnedGithubUrl(u,['main','master',manifest.sourceCommit])) {
     const segments=u.pathname.split('/');
     const wikiIndex=segments.indexOf('wiki');
-    if(wikiIndex>=0) match=aliases.get(decodeURIComponent(segments.slice(wikiIndex+1).join('/')).toLowerCase());
+    if(wikiIndex>=0&&segments[1]==='zhongyang219') match=aliases.get(decodeURIComponent(segments.slice(wikiIndex+1).join('/')).toLowerCase());
     else if(segments[3]==='blob') match=byPath.get(decodeURIComponent(segments.slice(5).join('/')).toLowerCase());
     if(match&&!image)return base+match.route.slice(1)+suffix;
    }
@@ -46,7 +46,7 @@ export async function createContent(root,dist,manifest,base) {
   if(/^[a-z][a-z\d+.-]*:/i.test(withoutHash)) return image?null:raw;
   let local;
   try{local=safeRelative(path.posix.join(path.posix.dirname(article.sourcePath),withoutHash));}catch{return null;}
-  match=byPath.get(local.toLowerCase());
+  match=byPath.get(local.toLowerCase())??byPath.get((local+'.md').toLowerCase());
   if(!match&&article.provenanceKind.includes('wiki'))match=aliases.get(withoutHash.toLowerCase());
   if(match&&!image)return base+match.route.slice(1)+suffix;
   if(/\.(png|jpe?g|gif|webp|svg|ico|pdf)$/i.test(local)) {

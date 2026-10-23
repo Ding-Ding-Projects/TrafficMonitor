@@ -5,6 +5,7 @@ import {fileURLToPath} from 'node:url';
 import {execFileSync} from 'node:child_process';
 import {build} from 'esbuild';
 import {createContent,escape as e,safeRelative} from './lib/content.mjs';
+import {collectHistory} from './lib/history.mjs';
 import {shell,home,guide,settings,releasePage,changelogPage} from './lib/pages.mjs';
 const here=path.dirname(fileURLToPath(import.meta.url)),root=path.resolve(here,'../..'),dist=path.join(here,'dist'),base='/TrafficMonitor/';
 const manifest=JSON.parse(await fs.readFile(path.join(root,'docs/site-content/manifest.json'),'utf8'));
@@ -29,8 +30,7 @@ await page('index.html','TrafficMonitor',home(context));
 await page('guide/index.html','Guided setup',guide(context));
 await page('settings/index.html','Reading preferences',settings(context));
 await page('downloads/index.html','Downloads and release status',releasePage(context));
-let entries=[],history=null;
-try{history=JSON.parse(await fs.readFile(path.join(root,'docs/site-changelog/manifest.json'),'utf8'));for(const file of history.files){const data=JSON.parse(await fs.readFile(path.join(root,'docs/site-changelog',safeRelative(file.path)),'utf8'));entries.push(...data.entries);}if(entries.length!==history.entryCount)throw Error('History entry count mismatch');}catch(err){if(err.code!=='ENOENT')throw err;}
+const {entries,manifest:history}=await collectHistory(root,source);
 await fs.writeFile(path.join(dist,'history.json'),JSON.stringify({entries,manifest:history}));
 await page('changelog/index.html','Changelog',changelogPage(entries.length));
 const content=await createContent(root,dist,manifest,base);
@@ -42,5 +42,6 @@ for(const article of manifest.articles){const rendered=await content.render(arti
 await page('404.html','Page not found',`<h1>Page not found</h1><p>This address is not in this documentation snapshot.</p><a href="${base}docs/">Find an article</a>`);
 await fs.writeFile(path.join(dist,'build-receipt.json'),JSON.stringify({schemaVersion:1,sourceCommit:source,contentSource:manifest.sourceCommit,wikiSource:manifest.wikiSource,articleCount:manifest.articles.length,historyCount:entries.length,base,unresolvedAssets:content.unresolved},null,2));
 console.log(`Built ${manifest.articles.length} complete articles; ${entries.length} history records; ${content.unresolved.length} unavailable local images.`);
+
 
 

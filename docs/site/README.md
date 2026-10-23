@@ -32,3 +32,11 @@ The interface language layer covers overview explanations, guided reading steps,
 Settings and filter selects use registered Material Web outlined selects and select options; guided-step actions use Material outlined buttons. The file picker is activated by a Material button and remains a native operating-system picker. Date filters use Material outlined text-field hosts with native date inputs, a type the dependency marks as unsupported for full design conformance. That date-picker limitation remains explicit and requires browser verification.
 
 Focused DOM tests verify language switching and restoration, protected article/history text, localized accessible labels, dynamic counts, stable option values and Material select registration in generated markup. These tests do not establish screen-reader, layout or browser interaction acceptance. The parent verification lane owns genuine built browser evidence and deployment.
+
+## Build-bound history
+
+Every build enumerates all commits reachable from its exact source and absent from the immutable upstream baseline. Fork messages are read directly with Git's full-message format and preserved verbatim, including their complete bodies. Loaded fork records must provide the verbatim method and match the immutable message. No subject-only fallback is permitted.
+
+Upstream translations remain separately reviewed content. The build rejects duplicate identities, missing English summaries and invalid lineage membership. A declared-complete manifest must cover the exact 1,387-commit upstream set. Partial translation counts remain visible alongside the complete current fork count and build source. The generated history JSON is local and source-bound; commit links always identify the exact source commit.
+
+Source-relative extensionless wiki links resolve to their local Markdown articles. Published fork wiki URLs match the manifest's exact `wikiSourceUrl` before historical upstream aliases. Foreign repository links remain external.

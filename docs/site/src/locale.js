@@ -1,5 +1,6 @@
 // Interface copy only. Source articles and authored history remain unchanged.
 export const cantonese = {
+'Translation coverage is loading.':'翻譯覆蓋資料載入中。',
 'I have read this step':'我已閱讀呢一步','Set up your taskbar meter':'設定工作列流量計','Downloads and release status':'下載及版本狀態','Download Windows installer':'下載 Windows 安裝程式','Walk through setup':'睇設定步驟','Understand your network at a glance.':'網絡用量，一眼睇清。','What would you like to do?':'你想做啲乜？',
 'Overview':'總覽','Preferences':'閱讀設定','Guided setup':'設定指南','Documentation':'使用文件','Downloads':'下載','Changelog':'更新記錄','Skip to content':'跳到主要內容','Main navigation':'主要導覽','Source repository':'原始碼儲存庫','Upstream project':'上游專案','TrafficMonitor · Windows native monitoring':'TrafficMonitor · Windows 原生監察工具',
 'SMALL METER. USEFUL CONTEXT.':'精簡流量計，實用資訊。','CHOOSE YOUR VIEW':'揀選顯示方式','Where should the meter live?':'想喺邊度顯示流量計？','Display explanation':'顯示方式說明','Taskbar':'工作列','Floating':'浮動視窗','Both':'兩者','Workspace':'工作空間','Windows taskbar':'Windows 工作列','↑ Upload   ↓ Download':'↑ 上載   ↓ 下載','Release details and checksums':'版本詳情及校驗碼',
@@ -31,6 +32,7 @@ export function translate(source,mode='en',entries={}) {
  if(Object.hasOwn(entries,source))return entries[source];
  let yue=cantonese[source];
  const patterns=[
+ [/^Upstream translations: (\d+) of (\d+)\. Remaining: (\d+)\. Fork messages: (\d+) of (\d+), verbatim through (\S+)\.$/,m=>`上游翻譯：${m[1]} 項，共 ${m[2]} 項，尚餘 ${m[3]} 項。分支專案訊息：${m[4]} 項，共 ${m[5]} 項，原文保留至 ${m[6]}。`],
  [/^Source language: (.+)\. Preserved documentation snapshot, (.+)\. Images and interface descriptions are historical upstream material\. They do not show the rebuilt interface\.$/,m=>`來源語言：${m[1]}。保留文件快照：${m[2]}。圖片同介面說明屬於上游歷史資料，唔係重製後嘅介面。`],
  [/^Source language: (.+)\. Preserved documentation snapshot, (.+)\. Images retain their documented version and provenance; they do not verify a newer build\.$/,m=>`來源語言：${m[1]}。保留文件快照：${m[2]}。圖片保留原有版本同來源記錄，唔代表較新版本已通過驗證。`],
  [/^STEP (\d+) OF (\d+)$/,m=>`第 ${m[1]} 步，共 ${m[2]} 步`],
