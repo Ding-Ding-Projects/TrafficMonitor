@@ -83,3 +83,8 @@ Runtime installation and update acceptance remain separate from source and build
 
 - Preserve and retire fully validated already-installed staging before discovering later releases; never apply a downgrade.
 - Retain fixed helper stages and numeric launch/exit results instead of discarding early handoff failures. Automatic restart remains unverified.
+
+## Pending automatic close routing correction
+
+- Queue a real WM_CLOSE rather than invoking the close handler from the custom update pulse. Preserve cooperative saves and report queue failures numerically without forcing exit.
+- Record the real helper parent-exit timeout, supported manual 1.0.27 installation and separate local 1.0.9016 production. Automatic restart after the correction remains unverified.

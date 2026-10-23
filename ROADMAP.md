@@ -110,3 +110,8 @@ with historical originals retained separately.
 
 - [x] Produce the stale-staging correction and bounded helper diagnostics through the supported installer entrypoint (1.0.9015, compile/package only).
 - [ ] Verify automatic handoff, helper loading, safe restart and recovery in an authorized runtime acceptance pass.
+
+## Automatic close-message correction
+
+- [x] Correct the observed pulse/default-close message mismatch and produce native package 1.0.9016.
+- [ ] Observe a real accepted automatic update after this correction, including preservation, helper completion and relaunch.
