@@ -7,6 +7,41 @@
 
 namespace NativeDashboard
 {
+    BOOL DataView::Create(CWnd* parent,UINT id)
+    {
+        return CreateEx(0,AfxRegisterWndClass(CS_HREDRAW|CS_VREDRAW,::LoadCursor(nullptr,IDC_ARROW)),
+            L"Observed receive and send rates",WS_CHILD|WS_VISIBLE,CRect(0,0,100,100),parent,id);
+    }
+    void DataView::SetSnapshot(const NativeMonitoring::AdapterSnapshot* row,bool chinese)
+    {
+        m_chinese=chinese;
+        if(row)m_row=*row;else m_row.reset();
+        Invalidate(FALSE);
+    }
+    void DataView::SetAppearance(NativeMaterial::Appearance value)
+    {
+        m_appearance=value;Invalidate(FALSE);
+    }
+    LRESULT DataView::WindowProc(UINT message,WPARAM w,LPARAM l)
+    {
+        if(message==WM_ERASEBKGND)return TRUE;
+        if(message==WM_DESTROY)m_canvas.Detach();
+        if(message==WM_PAINT)
+        {
+            CPaintDC dc(this);CRect r;GetClientRect(r);const UINT dpi=GetDpiForWindow(m_hWnd);
+            if(!m_canvas.Target()&&FAILED(m_canvas.Attach(m_hWnd,float(dpi))))return 0;
+            m_canvas.Resize(r.Width(),r.Height(),float(dpi));
+            const auto colors=NativeMaterial::Palette::Resolve(m_appearance);
+            if(SUCCEEDED(m_canvas.Begin(colors.surface)))
+            {
+                DrawData(m_canvas,colors,r.Width()*96.0f/dpi,0,112,264,m_row?&*m_row:nullptr,m_chinese);
+                m_canvas.End();
+            }
+            return 0;
+        }
+        if(message==WM_MOUSEWHEEL||message==WM_CONTEXTMENU)return GetParent()->SendMessage(message,w,l);
+        return CWnd::WindowProc(message,w,l);
+    }
     std::wstring Rate(const std::optional<double>& value, bool chinese)
     {
         if (!value || !std::isfinite(*value)) return NativePreferences::InlinePair(L"Unavailable",L"未有讀數").GetString();
@@ -74,15 +109,19 @@ namespace NativeDashboard
         float width, float metricsTop, float chartTop, float chartBottom, const NativeMonitoring::AdapterSnapshot* row, bool chinese)
     {
         auto* target = canvas.Target();
-        const float gap = 16, left = 24, right = width - 24, half = (right - left - gap) / 2;
-        for (int i = 0; i < 2; ++i)
+        const float left=0,right=width,third=width/3;
+        for(int i=0;i<3;++i)
         {
-            const float x = left + i * (half + gap);
-            target->FillRoundedRectangle(D2D1::RoundedRect(D2D1::RectF(x, metricsTop, x + half, metricsTop + 96), 16, 16), canvas.Brush(colors.container));
-            Text(canvas, i ? (NativePreferences::InlinePair(L"Sending",L"傳送").GetString()) : (NativePreferences::InlinePair(L"Receiving",L"接收").GetString()), 14,
-                D2D1::RectF(x + 16, metricsTop + 10, x + half - 12, metricsTop + 34), colors.secondaryText);
-            Text(canvas, Rate(row ? (i ? row->sentBytesPerSecond : row->receivedBytesPerSecond) : std::optional<double>{}, chinese), 28,
-                D2D1::RectF(x + 16, metricsTop + 40, x + half - 12, metricsTop + 90), colors.onSurface);
+            const float x=i*third;
+            if(i)target->DrawLine(D2D1::Point2F(x-12,metricsTop+8),D2D1::Point2F(x-12,metricsTop+88),canvas.Brush(colors.outline));
+            const auto label=i==0?NativePreferences::Pair(L"Receiving",L"接收"):
+                (i==1?NativePreferences::Pair(L"Sending",L"傳送"):NativePreferences::Pair(L"Sample interval",L"採樣間隔"));
+            Text(canvas,label.GetString(),14,D2D1::RectF(x,metricsTop+4,x+third-20,metricsTop+44),colors.secondaryText);
+            CString value;
+            if(i<2)value=Rate(row?(i?row->sentBytesPerSecond:row->receivedBytesPerSecond):std::optional<double>{},chinese).c_str();
+            else if(row)value.Format(L"%.2f s",row->intervalSeconds);
+            else value=L"--";
+            Text(canvas,value.GetString(),24,D2D1::RectF(x,metricsTop+48,x+third-20,metricsTop+94),colors.onSurface);
         }
         target->FillRoundedRectangle(D2D1::RoundedRect(D2D1::RectF(left, chartTop, right, chartBottom), 16, 16), canvas.Brush(colors.container));
         Text(canvas, NativePreferences::InlinePair(L"Selected adapter samples · receive solid / send dashed",L"所選介面樣本 · 接收實線 / 傳送短線").GetString(), 14,

@@ -1,0 +1,9 @@
+# Workspace implementation boundary
+
+This bounded unit follows the approved 1280 by 840 normal and 800 by 600 minimum workspace composition: persistent left navigation, measured heading/search/action/status region, and a scrollable monitoring body. Adapters, Sample history and Details are exactly three existing data destinations. Their native button roles are explicit; no unimplemented tab provider is claimed.
+
+The stock bordered search edit, report lists, tab strip and nonclient scrollbar are replaced by the existing TextField, ResultList, Button, ScrollViewport and ScrollableTextField components. Adapter and sample rows retain every prior column value in labelled wrapping rows. This is an adaptive row presentation, not deletion of state, rates, interval or relative time. Native list selection and the existing stable adapter identity model remain authoritative. Details remains selectable read-only native text with an internal rail.
+
+Presentation owns a child data view and a copy of the displayed observation, never a borrowed worker pointer. It retains the existing discontinuity-aware receive/send chart. The third metric is the actual sample interval, not the reference's synthetic daily-total example: this observational sampler does not supply accounting totals. Pause/resume, restart samples, floating monitor, original History and Plugins, Settings, Interface and Setup routes remain real actions. Setup implementation and monitoring backend are unchanged.
+
+This early source checkpoint is uncompiled and unverified. Candidate 1.0.9042 packaging, genuine normal/minimum images, keyboard/focus/selection, live/pause/restart behavior and independent review remain pending. Full language/theme/DPI, UI Automation, clipboard/IME and complete regex parity are not claimed. Remaining native owners and legacy dialogs remain mandatory later units.

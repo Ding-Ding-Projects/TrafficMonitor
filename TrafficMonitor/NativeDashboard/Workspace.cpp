@@ -8,6 +8,11 @@
 #include "SetupFlow.h"
 #include "../NativeDashboardController.h"
 #include "../NativeMaterial/Controls.h"
+#include "../NativeMaterial/TextField.h"
+#include "../NativeMaterial/ScrollableTextField.h"
+#include "../NativeMaterial/Navigation.h"
+#include "../NativeMaterial/ScrollViewport.h"
+#include "../NativeMaterial/Panel.h"
 #include "../NativeMenus/SearchableMenu.h"
 #include "../NativeRegex/Workbench.h"
 #include "../TrafficMonitor.h"
@@ -23,7 +28,7 @@ namespace NativeDashboard
     {
         constexpr UINT SnapshotMessage = WM_APP + 0x452;
         enum ControlId : UINT { HistoryId = 52001, PluginsId, SettingsId, FloatingId, ThemeId,
-            PauseId, RefreshId, SearchId, ClearId, TabsId, AdaptersId, SamplesId, DetailsId, StatusId, SummaryId, RegexId };
+            PauseId, RefreshId, SearchId, ClearId, TabsId, AdaptersId, SamplesId, DetailsId, StatusId, SummaryId, RegexId, MonitorId, SetupId, SamplesPageId, DetailsPageId };
         class Workspace;
         std::map<HWND, Workspace*> windows;
         COLORREF Color(const D2D1_COLOR_F& value)
@@ -52,15 +57,13 @@ namespace NativeDashboard
             afx_msg LRESULT OnSnapshot(WPARAM generation, LPARAM);
             afx_msg LRESULT OnDpi(WPARAM dpi, LPARAM bounds);
             afx_msg HBRUSH OnCtlColor(CDC* dc, CWnd*, UINT);
-            afx_msg void OnAdapterChanged(NMHDR*, LRESULT* result);
-            afx_msg void OnTabChanged(NMHDR*, LRESULT* result);
             afx_msg void OnContextMenu(CWnd* source, CPoint point);
             BOOL OnCommand(WPARAM wparam, LPARAM lparam) override;
             BOOL PreTranslateMessage(MSG* message) override;
             void PostNcDestroy() override;
             DECLARE_MESSAGE_MAP()
         private:
-            CString T(const wchar_t* english, const wchar_t* chinese) const { return NativePreferences::InlinePair(english,chinese); }
+            CString T(const wchar_t* english, const wchar_t* chinese) const { return NativePreferences::Pair(english,chinese); }
             NativePreferences::Subscription m_preferences;
             LRESULT OnPreferences(WPARAM,LPARAM);
             void Labels();
@@ -86,13 +89,21 @@ namespace NativeDashboard
             NativeMaterial::Canvas m_canvas;
             NativeMaterial::Appearance m_appearance{ NativeMaterial::Appearance::Light };
             CFont m_font;
-            CBrush m_background;
+            CBrush m_background, m_navigationFill;
             NativeMaterial::Button m_history, m_plugins, m_settings, m_floatButton, m_theme, m_pause, m_refresh, m_clear, m_regex;
-            CEdit m_search, m_details;
+            NativeMaterial::TextField m_search;
+            NativeMaterial::ScrollableTextField m_details;
+            NativeMaterial::ScrollViewport m_viewport;
+            NativeMaterial::Panel m_panel;
+            DataView m_data;
+            NativeMaterial::Button m_monitor, m_setup;
+            std::array<NativeMaterial::Button,3> m_pages;
+            int m_page{},m_bodyTop{},m_bodyHeight{};
+            CStatic m_heading,m_brand;
+            CFont m_headingFont;
             NativeRegex::Editor m_regexEditor;
             CStatic m_status, m_summary;
-            CTabCtrl m_tabs;
-            CListCtrl m_adapters, m_samples;
+            NativeMaterial::ResultList m_adapters, m_samples;
         };
         BEGIN_MESSAGE_MAP(Workspace, CWnd)
             ON_WM_CREATE()
@@ -110,8 +121,6 @@ namespace NativeDashboard
             ON_MESSAGE(SnapshotMessage, &Workspace::OnSnapshot)
             ON_MESSAGE(WM_DPICHANGED, &Workspace::OnDpi)
             ON_MESSAGE(NativePreferences::ChangedMessage,&Workspace::OnPreferences)
-            ON_NOTIFY(LVN_ITEMCHANGED, AdaptersId, &Workspace::OnAdapterChanged)
-            ON_NOTIFY(TCN_SELCHANGE, TabsId, &Workspace::OnTabChanged)
         END_MESSAGE_MAP()
 
         bool Workspace::CreateWorkspace()
@@ -123,140 +132,197 @@ namespace NativeDashboard
             GetMonitorInfoW(MonitorFromWindow(m_owner, MONITOR_DEFAULTTONEAREST), &monitor);
             m_dpi = GetDpiForWindow(m_owner);
             if (!m_dpi) m_dpi = 96;
-            const int width = (std::min)(Px(1120), int(monitor.rcWork.right - monitor.rcWork.left));
-            const int height = (std::min)(Px(760), int(monitor.rcWork.bottom - monitor.rcWork.top));
+            const int width = (std::min)(Px(1296), int(monitor.rcWork.right - monitor.rcWork.left));
+            const int height = (std::min)(Px(879), int(monitor.rcWork.bottom - monitor.rcWork.top));
             const int x = monitor.rcWork.left + (monitor.rcWork.right - monitor.rcWork.left - width) / 2;
             const int y = monitor.rcWork.top + (monitor.rcWork.bottom - monitor.rcWork.top - height) / 2;
             return CreateEx(WS_EX_CONTROLPARENT, className, T(L"TrafficMonitor - Network workspace", L"TrafficMonitor - 網絡工作區"),
-                WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN | WS_VSCROLL, x, y, width, height, m_owner, nullptr) != FALSE;
+                WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN, x, y, width, height, m_owner, nullptr) != FALSE;
         }
         int Workspace::OnCreate(LPCREATESTRUCT create)
         {
             if (CWnd::OnCreate(create) == -1) return -1;
             m_dpi = GetDpiForWindow(m_hWnd); if (!m_dpi) m_dpi = 96;
-            if (FAILED(m_canvas.Attach(m_hWnd, static_cast<float>(m_dpi)))) return -1;
             const CRect initial(0, 0, 100, 40);
-            if (!m_history.Create(T(L"History", L"流量記錄"), initial, this, HistoryId)
-                || !m_plugins.Create(T(L"Plugins", L"外掛程式"), initial, this, PluginsId)
-                || !m_settings.Create(T(L"Settings", L"設定"), initial, this, SettingsId)
-                || !m_floatButton.Create(T(L"Toggle floating monitor", L"顯示／隱藏浮動監察器"), initial, this, FloatingId)
-                || !m_theme.Create(T(L"Switch appearance", L"切換外觀"), initial, this, ThemeId)
-                || !m_pause.Create(T(L"Pause display", L"暫停顯示"), initial, this, PauseId)
-                || !m_refresh.Create(T(L"Restart samples", L"重新採樣"), initial, this, RefreshId)
-                || !m_regex.Create(T(L"Regex", L"正規式"), initial, this, RegexId)
-                || !m_clear.Create(T(L"Clear", L"清除"), initial, this, ClearId)) return -1;
-            const DWORD child = WS_CHILD | WS_VISIBLE | WS_TABSTOP;
-            if (!m_search.CreateEx(WS_EX_CLIENTEDGE, L"EDIT", L"", child | ES_AUTOHSCROLL, initial, this, SearchId)
-                || !m_tabs.Create(child, initial, this, TabsId)
-                || !m_adapters.Create(child | LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS, initial, this, AdaptersId)
-                || !m_samples.Create(child | LVS_REPORT | LVS_SINGLESEL, initial, this, SamplesId)
-                || !m_details.Create(child | ES_MULTILINE | ES_READONLY | ES_AUTOVSCROLL | WS_VSCROLL, initial, this, DetailsId)
-                || !m_status.Create(L"", WS_CHILD | WS_VISIBLE, initial, this, StatusId)
-                || !m_summary.Create(L"", WS_CHILD | WS_VISIBLE, initial, this, SummaryId)) return -1;
-            m_search.SendMessage(EM_SETCUEBANNER, TRUE, reinterpret_cast<LPARAM>(m_chinese ? L"搜尋網絡介面名稱或描述" : L"Search adapter name or description"));
+            if (!m_viewport.Create(this, 52100) || !m_panel.Create(&m_viewport, 52101)
+                || !m_data.Create(&m_viewport, 52102)) return -1;
+            m_viewport.background = [this] { return static_cast<HBRUSH>(m_background.GetSafeHandle()); };
+            m_viewport.scroll = [this](UINT code, int value) {
+                if (code == SB_THUMBTRACK) m_scroll = value;
+                else if (code == SB_LINEUP) m_scroll -= Px(32);
+                else if (code == SB_LINEDOWN) m_scroll += Px(32);
+                else if (code == SB_PAGEUP) m_scroll -= m_bodyHeight;
+                else if (code == SB_PAGEDOWN) m_scroll += m_bodyHeight;
+                Layout();
+            };
+            struct Action { NativeMaterial::Button* button; UINT id; };
+            for (const auto& action : std::array<Action,11>{{
+                {&m_monitor,MonitorId},{&m_history,HistoryId},{&m_plugins,PluginsId},
+                {&m_settings,SettingsId},{&m_setup,SetupId},{&m_theme,ThemeId},
+                {&m_floatButton,FloatingId},{&m_pause,PauseId},{&m_refresh,RefreshId},
+                {&m_clear,ClearId},{&m_regex,RegexId}}})
+                if (!action.button->Create(L"", initial, this, action.id)) return -1;
+            for (int i=0;i<3;++i)
+                if (!m_pages[i].Create(L"",initial,&m_viewport,i==0?TabsId:(i==1?SamplesPageId:DetailsPageId))) return -1;
+            const DWORD child=WS_CHILD|WS_VISIBLE|WS_TABSTOP;
+            if (!m_search.Create(child|ES_AUTOHSCROLL,initial,this,SearchId)
+                || !m_adapters.Create(initial,&m_panel,AdaptersId)
+                || !m_samples.Create(initial,&m_panel,SamplesId)
+                || !m_details.Create(child|ES_MULTILINE|ES_READONLY|ES_AUTOVSCROLL|WS_CLIPCHILDREN,initial,&m_panel,DetailsId)
+                || !m_status.Create(L"",WS_CHILD|WS_VISIBLE,initial,this,StatusId)
+                || !m_summary.Create(L"",WS_CHILD|WS_VISIBLE,initial,&m_viewport,SummaryId)
+                || !m_heading.Create(L"",WS_CHILD|WS_VISIBLE,initial,this,52103)
+                || !m_brand.Create(L"TrafficMonitor",WS_CHILD|WS_VISIBLE,initial,this,52104)) return -1;
             m_search.SetLimitText(512);
-            m_adapters.SetWindowText(T(L"Observed network adapters", L"已觀察網絡介面"));
-            m_samples.SetWindowText(T(L"Selected adapter sample history", L"所選網絡介面採樣記錄"));
-            m_details.SetWindowText(T(L"Waiting for adapter discovery", L"正在等待網絡介面資料"));
-            m_adapters.SetExtendedStyle(LVS_EX_FULLROWSELECT | LVS_EX_DOUBLEBUFFER | LVS_EX_LABELTIP);
-            m_samples.SetExtendedStyle(LVS_EX_FULLROWSELECT | LVS_EX_DOUBLEBUFFER | LVS_EX_LABELTIP);
-            m_tabs.InsertItem(0, T(L"Adapters", L"網絡介面"));
-            m_tabs.InsertItem(1, T(L"Sample history", L"採樣記錄"));
-            m_tabs.InsertItem(2, T(L"Details", L"詳細資料"));
-            m_adapters.InsertColumn(0, T(L"Adapter", L"網絡介面"), LVCFMT_LEFT, 240);
-            m_adapters.InsertColumn(1, T(L"State", L"狀態"), LVCFMT_LEFT, 180);
-            m_adapters.InsertColumn(2, T(L"Receiving", L"接收"), LVCFMT_LEFT, 130);
-            m_adapters.InsertColumn(3, T(L"Sending", L"傳送"), LVCFMT_LEFT, 130);
-            m_adapters.InsertColumn(4, T(L"Interval", L"間隔"), LVCFMT_LEFT, 100);
-            m_samples.InsertColumn(0, T(L"Relative time", L"相對時間"), LVCFMT_LEFT, 160);
-            m_samples.InsertColumn(1, T(L"Receiving", L"接收"), LVCFMT_LEFT, 160);
-            m_samples.InsertColumn(2, T(L"Sending", L"傳送"), LVCFMT_LEFT, 160);
-            m_samples.InsertColumn(3, T(L"State", L"狀態"), LVCFMT_LEFT, 240);
-            m_preferences.Attach(m_hWnd);Labels();SetFonts(); ApplyTheme(); Layout(); Start(); SetTimer(0x4E92,40,nullptr);
+            m_details.SetLimitText(65535);
+            m_preferences.Attach(m_hWnd);
+            Labels(); SetFonts(); ApplyTheme(); Layout(); Start(); SetTimer(0x4E92,40,nullptr);
             return 0;
         }
         void Workspace::Labels()
         {
             SetWindowText(T(L"TrafficMonitor - Network workspace",L"TrafficMonitor - 網絡工作區"));
-            m_history.SetLabel(T(L"History",L"流量記錄"));m_plugins.SetLabel(T(L"Plugins",L"外掛程式"));m_settings.SetLabel(T(L"Settings",L"設定"));m_floatButton.SetLabel(T(L"Toggle floating monitor",L"顯示／隱藏浮動監察器"));m_theme.SetLabel(NativePreferences::Text(NativePreferences::TextId::Interface));m_pause.SetLabel(m_model.Paused()?T(L"Resume display",L"恢復顯示"):T(L"Pause display",L"暫停顯示"));m_refresh.SetLabel(T(L"Restart samples",L"重新採樣"));m_regex.SetLabel(T(L"Regex",L"正規式"));m_clear.SetLabel(T(L"Clear",L"清除"));
-            auto cue=T(L"Search adapter name or description",L"搜尋網絡介面名稱或描述");m_search.SendMessage(EM_SETCUEBANNER,TRUE,reinterpret_cast<LPARAM>(cue.GetString()));
-            const wchar_t* en[]={L"Adapters",L"Sample history",L"Details"};const wchar_t* zh[]={L"網絡介面",L"採樣記錄",L"詳細資料"};
-            for(int i=0;i<3;++i){auto label=T(en[i],zh[i]);label.Replace(L"\r\n",L" / ");TCITEM item{};item.mask=TCIF_TEXT;item.pszText=label.GetBuffer();m_tabs.SetItem(i,&item);label.ReleaseBuffer();}
+            m_heading.SetWindowText(T(L"Network overview",L"網絡總覽"));
+            m_monitor.SetLabel(T(L"Monitor",L"監察"));
+            m_history.SetLabel(T(L"History",L"流量記錄"));
+            m_plugins.SetLabel(T(L"Plugins",L"外掛程式"));
+            m_settings.SetLabel(T(L"Settings",L"設定"));
+            m_setup.SetLabel(T(L"Setup",L"初始設定"));
+            m_floatButton.SetLabel(T(L"Toggle floating monitor",L"顯示／隱藏浮動監察器"));
+            m_theme.SetLabel(NativePreferences::Text(NativePreferences::TextId::Interface));
+            m_pause.SetLabel(m_model.Paused()?T(L"Resume display",L"恢復顯示"):T(L"Pause display",L"暫停顯示"));
+            m_refresh.SetLabel(T(L"Restart samples",L"重新採樣"));
+            m_regex.SetLabel(T(L"Regex",L"正規式")); m_clear.SetLabel(T(L"Clear",L"清除"));
+            // A single-line edit uses the primary language cue; its accessible name is complete.
+            CString cue=m_chinese?L"搜尋網絡介面名稱或描述":L"Search adapter name or description";
+            m_search.SendMessage(EM_SETCUEBANNER,TRUE,reinterpret_cast<LPARAM>(cue.GetString()));
+            m_adapters.SetWindowText(T(L"Observed network adapters",L"已觀察網絡介面"));
+            m_samples.SetWindowText(T(L"Selected adapter sample history",L"所選網絡介面採樣記錄"));
+            m_viewport.SetWindowText(T(L"Monitoring data",L"監察資料"));
+            m_viewport.SetScrollName(T(L"Scroll monitoring data",L"捲動監察資料"));
+            const wchar_t* en[]={L"Adapters",L"Sample history",L"Details"};
+            const wchar_t* zh[]={L"網絡介面",L"採樣記錄",L"詳細資料"};
+            for(int i=0;i<3;++i)m_pages[i].SetLabel(T(en[i],zh[i]));
         }
         LRESULT Workspace::OnPreferences(WPARAM generation,LPARAM)
         {if(!m_preferences.Accepts(generation))return 0;m_chinese=NativePreferences::Current().values.language==NativePreferences::Language::Cantonese;m_appearance=NativePreferences::EffectiveAppearance();Labels();ApplyTheme();Layout();RefreshRows();return 0;}
         void Workspace::SetFonts()
         {
-            LOGFONT font{};
-            NONCLIENTMETRICS metrics{ sizeof(metrics) };
-            if (SystemParametersInfoW(SPI_GETNONCLIENTMETRICS, sizeof(metrics), &metrics, 0)) font = metrics.lfMessageFont;
-            else wcscpy_s(font.lfFaceName, L"Segoe UI");
-            font.lfHeight = -Px(14);
-            HFONT replacement = CreateFontIndirectW(&font);
-            if (!replacement) return;
-            HFONT previous = static_cast<HFONT>(m_font.Detach()); m_font.Attach(replacement);
-            for (CWnd* control : std::array<CWnd*, 7>{&m_search, &m_tabs, &m_adapters, &m_samples, &m_details, &m_status, &m_summary}) control->SetFont(&m_font);
-            if (previous) DeleteObject(previous);
+            LOGFONT font{};font.lfHeight=-Px(14);font.lfCharSet=DEFAULT_CHARSET;
+            wcscpy_s(font.lfFaceName,L"Segoe UI");
+            HFONT replacement=CreateFontIndirectW(&font);
+            if(!replacement)return;
+            HFONT previous=static_cast<HFONT>(m_font.Detach());m_font.Attach(replacement);
+            EnumChildWindows(m_hWnd,[](HWND child,LPARAM value)->BOOL {
+                ::SendMessageW(child,WM_SETFONT,value,TRUE);return TRUE;
+            },reinterpret_cast<LPARAM>(replacement));
+            if(previous)DeleteObject(previous);
+            font.lfHeight=-Px(24);font.lfWeight=FW_SEMIBOLD;
+            replacement=CreateFontIndirectW(&font);
+            if(replacement){previous=static_cast<HFONT>(m_headingFont.Detach());m_headingFont.Attach(replacement);m_heading.SetFont(&m_headingFont);if(previous)DeleteObject(previous);}
         }
         void Workspace::ApplyTheme()
         {
-            const auto palette = NativeMaterial::Palette::Resolve(m_appearance);
-            m_background.DeleteObject(); m_background.CreateSolidBrush(Color(palette.surface));
-            for (auto* button : {&m_history, &m_plugins, &m_settings, &m_floatButton, &m_theme, &m_pause, &m_refresh, &m_clear, &m_regex}) button->SetAppearance(m_appearance);
-            for (auto* list : {&m_adapters, &m_samples})
+            const auto palette=NativeMaterial::Palette::Resolve(m_appearance);
+            m_background.DeleteObject();m_background.CreateSolidBrush(Color(palette.surface));
+            m_navigationFill.DeleteObject();m_navigationFill.CreateSolidBrush(Color(palette.container));
+            NativeMaterial::ApplyNativeFrameAppearance(m_hWnd,m_appearance);
+            for(auto* button:{&m_monitor,&m_history,&m_plugins,&m_settings,&m_setup,&m_floatButton,&m_theme,&m_pause,&m_refresh,&m_clear,&m_regex})
             {
-                list->SetBkColor(Color(palette.container)); list->SetTextBkColor(Color(palette.container)); list->SetTextColor(Color(palette.onSurface));
+                button->SetAppearance(m_appearance);
+                button->SetVariant(NativeMaterial::ButtonVariant::Text);
             }
-            RedrawWindow(nullptr, nullptr, RDW_INVALIDATE | RDW_ALLCHILDREN);
+            for(auto* button:{&m_monitor,&m_history,&m_plugins,&m_settings,&m_setup,&m_theme})button->SetSurfaceColor(Color(palette.container));
+            m_monitor.SetVariant(NativeMaterial::ButtonVariant::Tonal);
+            m_pause.SetVariant(NativeMaterial::ButtonVariant::Tonal);
+            m_regex.SetVariant(NativeMaterial::ButtonVariant::Tonal);
+            m_search.SetAppearance(m_appearance);m_details.SetAppearance(m_appearance);
+            m_adapters.SetAppearance(m_appearance);m_samples.SetAppearance(m_appearance);
+            m_viewport.SetAppearance(m_appearance);m_panel.SetAppearance(m_appearance);
+            m_data.SetAppearance(m_appearance);
+            for(auto& button:m_pages)button.SetAppearance(m_appearance);
+            ShowPage();RedrawWindow(nullptr,nullptr,RDW_INVALIDATE|RDW_ALLCHILDREN);
         }
         void Workspace::Layout()
         {
-            if (!m_search.GetSafeHwnd()||m_layout) return;m_layout=true;
-            CRect client; GetClientRect(client); const int width = MulDiv(client.Width(), 96, m_dpi), height = MulDiv(client.Height(), 96, m_dpi);
-            CClientDC dc(this);auto* old=dc.SelectObject(&m_font);
-            auto measure=[&](CWnd& control,int w){CString text;control.GetWindowText(text);CRect r(0,0,Px(w),0);dc.DrawText(text,r,DT_CALCRECT|DT_WORDBREAK|DT_NOPREFIX);return MulDiv(r.Height(),96,m_dpi);};
-            struct Box{CWnd* control;int x,y,w,h;};std::vector<Box> boxes;
-            int y=48;const int summaryHeight=(std::max)(28,measure(m_summary,width-48)+4);boxes.push_back({&m_summary,24,y,width-48,summaryHeight});y+=summaryHeight+8;
-            int x=24,rowHeight=0;
-            for(auto* button:{&m_history,&m_plugins,&m_settings,&m_floatButton,&m_theme,&m_pause,&m_refresh})
+            if(!m_search.GetSafeHwnd()||m_layout)return;
+            m_layout=true;
+            CRect client;GetClientRect(client);
+            const int nav=Px(176),inset=Px(24),left=nav+inset,right=client.right-inset;
+            const int width=(std::max)(Px(200),right-left);
+            CClientDC dc(this);
+            auto measure=[&](CWnd& control,int available){
+                CString text;control.GetWindowText(text);auto* font=control.GetFont();auto* old=font?dc.SelectObject(font):nullptr;
+                CRect r(0,0,(std::max)(1,available),0);dc.DrawText(text,r,DT_CALCRECT|DT_WORDBREAK|DT_NOPREFIX);
+                if(old)dc.SelectObject(old);return r.Height();
+            };
+            auto place=[](CWnd& control,int x,int y,int w,int h){control.MoveWindow(x,y,(std::max)(1,w),(std::max)(1,h));};
+            m_brand.MoveWindow(Px(16),Px(24),nav-Px(28),Px(32));
+            int y=Px(64);
+            for(auto* button:{&m_monitor,&m_history,&m_plugins,&m_settings,&m_setup,&m_theme})
             {
-                CString label;button->GetWindowText(label);CRect r(0,0,0,0);dc.DrawText(label,r,DT_CALCRECT|DT_SINGLELINE|DT_NOPREFIX);
-                const int w=(std::min)(width-48,(std::max)(100,MulDiv(r.Width(),96,m_dpi)+32));
-                const int h=(std::max)(44,measure(*button,w-28)+20);
-                if(x>24&&x+w>width-24){y+=rowHeight+8;x=24;rowHeight=0;}
-                boxes.push_back({button,x,y,w,h});x+=w+8;rowHeight=(std::max)(rowHeight,h);
+                int h=(std::max)(Px(40),measure(*button,nav-Px(52))+Px(18));
+                place(*button,Px(12),y,nav-Px(24),h);y+=h+Px(8);
             }
-            y+=rowHeight+10;
-            const int searchHeight=(std::max)(44,(std::max)(measure(m_regex,110),measure(m_clear,110))+20);
-            boxes.push_back({&m_search,24,y,width-324,searchHeight});boxes.push_back({&m_regex,width-288,y,128,searchHeight});boxes.push_back({&m_clear,width-152,y,128,searchHeight});y+=searchHeight+8;
-            const int statusHeight=(std::max)(24,measure(m_status,width-48)+8);boxes.push_back({&m_status,24,y,width-48,statusHeight});y+=statusHeight+8;
-            dc.SelectObject(old);m_metricsTop=y;m_chartTop=y+108;m_chartBottom=m_chartTop+136;
-            const int tabY=m_chartBottom+12;const int tabHeight=(std::max)(200,height-tabY-20);m_contentHeight=tabY+tabHeight+20;
-            m_scroll=(std::max)(0,(std::min)(m_scroll,m_contentHeight-height));
-            SCROLLINFO si{sizeof(si),SIF_RANGE|SIF_PAGE|SIF_POS,0,m_contentHeight-1,static_cast<UINT>(height),m_scroll};SetScrollInfo(SB_VERT,&si,TRUE);
-            auto place = [&](CWnd& child, int xx, int yy, int w, int h) { child.MoveWindow(Px(xx), Px(yy-m_scroll), Px((std::max)(1,w)), Px((std::max)(1,h))); };
-            for(const auto& b:boxes)place(*b.control,b.x,b.y,b.w,b.h);
-            place(m_tabs,24,tabY,width-48,tabHeight);            CRect body; m_tabs.GetClientRect(body); m_tabs.AdjustRect(FALSE, body); m_tabs.MapWindowPoints(this, body);
-            body.DeflateRect(Px(4), Px(4));
-            for (CWnd* page : std::array<CWnd*, 3>{&m_adapters, &m_samples, &m_details}) page->MoveWindow(body);
-            const int tableWidth = (std::max)(700, width - 72);
-            const int adapterWidths[] = { tableWidth * 30 / 100, tableWidth * 25 / 100, tableWidth * 17 / 100, tableWidth * 17 / 100, tableWidth * 11 / 100 };
-            for (int i = 0; i < 5; ++i) m_adapters.SetColumnWidth(i, Px(adapterWidths[i]));
-            const int sampleWidths[] = { tableWidth * 22 / 100, tableWidth * 20 / 100, tableWidth * 20 / 100, tableWidth * 38 / 100 };
-            for (int i = 0; i < 4; ++i) m_samples.SetColumnWidth(i, Px(sampleWidths[i]));
-            ShowPage();m_layout=false; Invalidate(FALSE);
+            const int headingHeight=(std::max)(Px(32),measure(m_heading,width));
+            place(m_heading,left,Px(16),width,headingHeight);
+            y=Px(16)+headingHeight+Px(16);
+            const int searchHeight=Px(44),regexWidth=Px(96),clearWidth=Px(72);
+            place(m_search,left,y,width-regexWidth-clearWidth-Px(16),searchHeight);
+            place(m_regex,right-regexWidth-clearWidth-Px(8),y,regexWidth,searchHeight);
+            place(m_clear,right-clearWidth,y,clearWidth,searchHeight);
+            y+=searchHeight+Px(12);
+            int x=left,rowHeight=0;
+            for(auto* button:{&m_pause,&m_refresh,&m_floatButton})
+            {
+                CString label;button->GetWindowText(label);const int newline=label.Find(L"\r\n");if(newline>=0)label=label.Left(newline);
+                auto* old=dc.SelectObject(&m_font);const int natural=dc.GetTextExtent(label).cx+Px(32);dc.SelectObject(old);
+                const int w=(std::min)(width,(std::max)(Px(132),natural));
+                const int h=(std::max)(Px(38),measure(*button,w-Px(24))+Px(16));
+                if(x>left&&x+w>right){y+=rowHeight+Px(6);x=left;rowHeight=0;}
+                place(*button,x,y,w,h);x+=w+Px(8);rowHeight=(std::max)(rowHeight,h);
+            }
+            y+=rowHeight+Px(8);
+            const int statusHeight=(std::max)(Px(20),measure(m_status,width));
+            place(m_status,left,y,width,statusHeight);y+=statusHeight+Px(10);
+            m_bodyTop=y;m_bodyHeight=(std::max)(Px(80),client.bottom-y-Px(16));
+            place(m_viewport,nav,y,client.right-nav,m_bodyHeight);
+            const int innerWidth=width,innerLeft=inset;
+            int contentY=0;
+            const int summaryHeight=(std::max)(Px(24),measure(m_summary,innerWidth));
+            contentY+=summaryHeight+Px(8);
+            const int dataHeight=Px(264);
+            const int dataY=contentY;contentY+=dataHeight+Px(12);
+            int pageHeight=Px(40);
+            for(auto& button:m_pages)pageHeight=(std::max)(pageHeight,measure(button,(innerWidth-Px(16))/3-Px(24))+Px(16));
+            const int tabsY=contentY;contentY+=pageHeight+Px(10);
+            const int listHeight=(std::max)(Px(220),m_bodyHeight-contentY-Px(24));
+            const int panelY=contentY;contentY+=listHeight+Px(24);
+            m_contentHeight=contentY;m_scroll=(std::clamp)(m_scroll,0,(std::max)(0,m_contentHeight-m_bodyHeight));
+            place(m_summary,innerLeft,-m_scroll,innerWidth,summaryHeight);
+            place(m_data,innerLeft,dataY-m_scroll,innerWidth,dataHeight);
+            for(int i=0;i<3;++i)place(m_pages[i],innerLeft+i*(innerWidth+Px(8))/3,tabsY-m_scroll,(innerWidth-Px(16))/3,pageHeight);
+            place(m_panel,innerLeft,panelY-m_scroll,innerWidth,listHeight);
+            for(CWnd* control:std::array<CWnd*,3>{&m_adapters,&m_samples,&m_details})place(*control,Px(12),Px(12),innerWidth-Px(24),listHeight-Px(24));
+            m_viewport.SetMetrics(m_contentHeight,m_bodyHeight,m_scroll);
+            m_adapters.SyncScroll();m_samples.SyncScroll();m_details.SyncScroll();
+            m_layout=false;Invalidate(FALSE);
         }
         void Workspace::RevealFocus(HWND target)
         {
-            if(!::IsWindow(target))return;CRect r;::GetWindowRect(target,r);ScreenToClient(r);CRect client;GetClientRect(client);
-            if(r.top<0)m_scroll+=MulDiv(r.top,96,m_dpi)-8;else if(r.bottom>client.bottom)m_scroll+=MulDiv(r.bottom-client.bottom,96,m_dpi)+8;Layout();
+            if(!::IsWindow(target)||!::IsChild(m_viewport,target))return;
+            CRect r,view;::GetWindowRect(target,r);m_viewport.GetWindowRect(view);
+            const int old=m_scroll;
+            if(r.Height()>view.Height()||r.top<view.top)m_scroll+=r.top-view.top;
+            else if(r.bottom>view.bottom)m_scroll+=r.bottom-view.bottom;
+            if(old!=m_scroll)Layout();
         }
         void Workspace::ShowPage()
         {
-            const int page = m_tabs.GetCurSel();
-            m_adapters.ShowWindow(page == 0 ? SW_SHOW : SW_HIDE);
-            m_samples.ShowWindow(page == 1 ? SW_SHOW : SW_HIDE);
-            m_details.ShowWindow(page == 2 ? SW_SHOW : SW_HIDE);
+            m_adapters.ShowWindow(m_page==0?SW_SHOW:SW_HIDE);
+            m_samples.ShowWindow(m_page==1?SW_SHOW:SW_HIDE);
+            m_details.ShowWindow(m_page==2?SW_SHOW:SW_HIDE);
+            for(int i=0;i<3;++i)m_pages[i].SetVariant(i==m_page?NativeMaterial::ButtonVariant::Tonal:NativeMaterial::ButtonVariant::Text);
         }
         void Workspace::Start()
         {
@@ -289,40 +355,46 @@ namespace NativeDashboard
         }
         void Workspace::RefreshRows()
         {
-            const int top = m_adapters.GetTopIndex();
-            m_rendering = true; m_adapters.SetRedraw(FALSE); m_adapters.DeleteAllItems();
-            for (std::size_t i = 0; i < m_model.Rows().size(); ++i)
+            const int top=m_adapters.GetTopIndex();
+            m_rendering=true;m_adapters.SetRedraw(FALSE);m_adapters.ResetContent();
+            for(std::size_t i=0;i<m_model.Rows().size();++i)
             {
-                const auto* row = m_model.Row(i); const int index = m_adapters.InsertItem(static_cast<int>(i), row->alias.c_str());
-                m_adapters.SetItemText(index, 1, RateStateText(row->rateState, m_chinese).c_str());
-                m_adapters.SetItemText(index, 2, Rate(row->receivedBytesPerSecond, m_chinese).c_str());
-                m_adapters.SetItemText(index, 3, Rate(row->sentBytesPerSecond, m_chinese).c_str());
-                CString interval; interval.Format(L"%.2f s", row->intervalSeconds); m_adapters.SetItemText(index, 4, interval);
+                const auto* row=m_model.Row(i);CString interval;interval.Format(L"%.2f s",row->intervalSeconds);
+                CString text(row->alias.c_str());text+=L"\r\n";
+                text+=RateStateText(row->rateState,m_chinese).c_str();text+=L"  ·  ";
+                text+=NativePreferences::InlinePair(L"Receive: ",L"接收：");text+=Rate(row->receivedBytesPerSecond,m_chinese).c_str();
+                text+=L"  ·  ";text+=NativePreferences::InlinePair(L"Send: ",L"傳送：");text+=Rate(row->sentBytesPerSecond,m_chinese).c_str();
+                text+=L"\r\n";text+=NativePreferences::InlinePair(L"Interval: ",L"間隔：");text+=interval;
+                m_adapters.AddString(text);
             }
-            const int selected = m_model.SelectedRow();
-            if (selected >= 0) m_adapters.SetItemState(selected, LVIS_SELECTED, LVIS_SELECTED);
-            if (top >= 0 && top < m_adapters.GetItemCount()) m_adapters.EnsureVisible(top, FALSE);
-            m_adapters.SetRedraw(TRUE); m_adapters.Invalidate(); m_rendering = false;
-            RefreshDetails(); Status();Layout(); Invalidate(FALSE);
+            m_adapters.SetCurSel(m_model.SelectedRow());
+            if(top>=0&&top<m_adapters.GetCount())m_adapters.SetTopIndex(top);
+            m_adapters.SetRedraw(TRUE);m_adapters.Invalidate();m_rendering=false;
+            RefreshDetails();Status();Layout();
         }
         void Workspace::RefreshDetails()
         {
-            const auto* row = m_model.Selected();
-            m_details.SetWindowText(Details(row, !m_model.SelectedIdentity().empty(), m_chinese).c_str());
-            m_samples.SetRedraw(FALSE); m_samples.DeleteAllItems();
-            if (row && !row->history.empty())
+            const auto* row=m_model.Selected();
+            const CString details(Details(row,!m_model.SelectedIdentity().empty(),m_chinese).c_str());
+            CString previous;m_details.GetWindowText(previous);
+            if(previous!=details){int first,last;m_details.GetSel(first,last);const int top=m_details.GetFirstVisibleLine();m_details.SetWindowText(details);m_details.SetSel(first,last,TRUE);m_details.LineScroll(top-m_details.GetFirstVisibleLine());m_details.SyncScroll();}
+            const int top=m_samples.GetTopIndex(),selected=m_samples.GetCurSel();
+            m_samples.SetRedraw(FALSE);m_samples.ResetContent();
+            if(row&&!row->history.empty())
             {
-                const auto latest = row->history.back().monotonicMilliseconds;
-                for (auto it = row->history.rbegin(); it != row->history.rend(); ++it)
+                const auto latest=row->history.back().monotonicMilliseconds;
+                for(auto it=row->history.rbegin();it!=row->history.rend();++it)
                 {
-                    CString relative; relative.Format(L"-%.2f s", double(latest - it->monotonicMilliseconds) / 1000);
-                    const int index = m_samples.InsertItem(m_samples.GetItemCount(), relative);
-                    m_samples.SetItemText(index, 1, Rate(it->receivedBytesPerSecond, m_chinese).c_str());
-                    m_samples.SetItemText(index, 2, Rate(it->sentBytesPerSecond, m_chinese).c_str());
-                    m_samples.SetItemText(index, 3, RateStateText(it->state, m_chinese).c_str());
+                    CString text;text.Format(L"-%.2f s",double(latest-it->monotonicMilliseconds)/1000);
+                    text+=L"  ·  ";text+=RateStateText(it->state,m_chinese).c_str();
+                    text+=L"\r\n";text+=NativePreferences::InlinePair(L"Receive: ",L"接收：");text+=Rate(it->receivedBytesPerSecond,m_chinese).c_str();
+                    text+=L"  ·  ";text+=NativePreferences::InlinePair(L"Send: ",L"傳送：");text+=Rate(it->sentBytesPerSecond,m_chinese).c_str();
+                    m_samples.AddString(text);
                 }
             }
-            m_samples.SetRedraw(TRUE); m_samples.Invalidate();
+            if(selected>=0&&selected<m_samples.GetCount())m_samples.SetCurSel(selected);
+            if(top>=0&&top<m_samples.GetCount())m_samples.SetTopIndex(top);
+            m_samples.SetRedraw(TRUE);m_samples.Invalidate();m_data.SetSnapshot(row,m_chinese);
         }
         LRESULT Workspace::OnSnapshot(WPARAM generation, LPARAM)
         {
@@ -335,22 +407,25 @@ namespace NativeDashboard
             else Status();
             return 0;
         }
-        void Workspace::OnAdapterChanged(NMHDR* header, LRESULT* result)
-        {
-            *result = 0; if (m_rendering) return;
-            auto* change = reinterpret_cast<NMLISTVIEW*>(header);
-            if ((change->uChanged & LVIF_STATE) && (change->uNewState & LVIS_SELECTED) && !(change->uOldState & LVIS_SELECTED) && change->iItem >= 0)
-            { m_model.Select(static_cast<std::size_t>(change->iItem)); RefreshDetails(); Status(); Invalidate(FALSE); }
-        }
-        void Workspace::OnTabChanged(NMHDR*, LRESULT* result) { *result = 0; ShowPage(); }
+
         BOOL Workspace::OnCommand(WPARAM wparam, LPARAM lparam)
         {
             const UINT id = LOWORD(wparam);
+            if(id==AdaptersId&&HIWORD(wparam)==LBN_SELCHANGE)
+            {
+                const int selected=m_adapters.GetCurSel();
+                if(!m_rendering&&selected>=0){m_model.Select(selected);RefreshDetails();Status();Layout();}
+                return TRUE;
+            }
             if (id == SearchId && HIWORD(wparam) == EN_CHANGE)
             { m_regexEditor.Close(); CString query; m_search.GetWindowText(query); m_model.Filter(query.GetString()); RefreshRows(); return TRUE; }
             if (HIWORD(wparam) != BN_CLICKED) return CWnd::OnCommand(wparam, lparam);
             switch (id)
             {
+            case MonitorId: m_page=0;ShowPage();Layout();return TRUE;
+            case SetupId: if(::IsWindow(m_owner))Setup::Show(CWnd::FromHandle(m_owner),true);return TRUE;
+            case TabsId: case SamplesPageId: case DetailsPageId:
+                m_page=id==TabsId?0:(id==SamplesPageId?1:2);ShowPage();Layout();return TRUE;
             case HistoryId: case PluginsId: case SettingsId:
                 if (::IsWindow(m_owner)) ::PostMessageW(m_owner, WM_COMMAND, id == HistoryId ? ID_TRAFFIC_HISTORY : (id == PluginsId ? ID_PLUGIN_MANAGE : ID_OPTIONS), 0);
                 return TRUE;
@@ -377,7 +452,7 @@ namespace NativeDashboard
             menu.AppendMenu(MF_STRING, 3, T(L"Restart observational samples", L"重新收集觀察樣本"));
             menu.AppendMenu(MF_STRING, 4, T(L"Resume setup", L"繼續設定"));
             const UINT command = NativeMenus::Track(&menu, TPM_RETURNCMD | TPM_RIGHTBUTTON, point.x, point.y, this);
-            if (command == 1 && m_model.Selected()) { m_tabs.SetCurSel(2); ShowPage(); m_details.SetFocus(); }
+            if (command == 1 && m_model.Selected()) { m_page=2; ShowPage();Layout(); m_details.SetFocus(); }
             else if (command == 2) OnCommand(PauseId, 0);
             else if (command == 3) OnCommand(RefreshId, 0);
             else if (command == 4 && ::IsWindow(m_owner)) Setup::Show(CWnd::FromHandle(m_owner), true);
@@ -392,7 +467,7 @@ namespace NativeDashboard
                     if (next){::SetFocus(next);RevealFocus(next);}
                     return TRUE;
                 }
-                if (message->wParam == VK_F6) { m_tabs.SetFocus();RevealFocus(m_tabs); return TRUE; }
+                if (message->wParam == VK_F6) { m_pages[m_page].SetFocus();RevealFocus(m_pages[m_page]); return TRUE; }
                 if (message->wParam == 'L' && (GetKeyState(VK_CONTROL) & 0x8000)) { m_search.SetFocus();RevealFocus(m_search); return TRUE; }
                 if (message->wParam == VK_ESCAPE)
                 {
@@ -402,7 +477,7 @@ namespace NativeDashboard
                     if (composing) return CWnd::PreTranslateMessage(message);
                     CString query; m_search.GetWindowText(query);
                     if (::GetFocus() == m_search.GetSafeHwnd() && !query.IsEmpty()) m_search.SetWindowText(L"");
-                    else if (m_tabs.GetCurSel() != 0) { m_tabs.SetCurSel(0); ShowPage(); m_adapters.SetFocus(); }
+                    else if (m_page != 0) { m_page=0; ShowPage();Layout(); m_adapters.SetFocus(); }
                     else OnClose();
                     return TRUE;
                 }
@@ -411,22 +486,10 @@ namespace NativeDashboard
         }
         void Workspace::OnPaint()
         {
-            CPaintDC paint(this); CRect bounds; GetClientRect(bounds);
-            if (!m_canvas.Target() && FAILED(m_canvas.Attach(m_hWnd, static_cast<float>(m_dpi)))) return;
-            m_canvas.Resize(bounds.Width(), bounds.Height(), static_cast<float>(m_dpi));
-            const auto colors = NativeMaterial::Palette::Resolve(m_appearance);
-            if (FAILED(m_canvas.Begin(colors.surface))) return;
-            m_canvas.Target()->SetTransform(D2D1::Matrix3x2F::Translation(0,-static_cast<float>(m_scroll)));
-            Microsoft::WRL::ComPtr<IDWriteTextFormat> title;
-            if (SUCCEEDED(m_canvas.TextFormat(23, DWRITE_FONT_WEIGHT_SEMI_BOLD, title.GetAddressOf())))
-            {
-                const CString text = T(L"Network workspace", L"網絡工作區");
-                m_canvas.Target()->DrawText(text, text.GetLength(), title.Get(), D2D1::RectF(24, 10, 740, 42), m_canvas.Brush(colors.onSurface));
-            }
-            const float width = bounds.Width() * 96.0f / m_dpi;
-            DrawData(m_canvas, colors, width, static_cast<float>(m_metricsTop),static_cast<float>(m_chartTop),static_cast<float>(m_chartBottom),m_model.Selected(),m_chinese);
-            m_canvas.Target()->SetTransform(D2D1::Matrix3x2F::Identity());
-            if (FAILED(m_canvas.End())) Invalidate(FALSE);
+            CPaintDC dc(this);CRect r;GetClientRect(r);
+            const auto colors=NativeMaterial::Palette::Resolve(m_appearance);
+            dc.FillSolidRect(r,Color(colors.surface));
+            dc.FillSolidRect(0,0,Px(176),r.Height(),Color(colors.container));
         }
         void Workspace::OnSize(UINT type, int width, int height)
         {
@@ -445,8 +508,10 @@ namespace NativeDashboard
             SetWindowPos(nullptr, bounds->left, bounds->top, bounds->right - bounds->left, bounds->bottom - bounds->top, SWP_NOZORDER | SWP_NOACTIVATE);
             SetFonts(); Layout(); return 0;
         }
-        HBRUSH Workspace::OnCtlColor(CDC* dc, CWnd*, UINT)
+        HBRUSH Workspace::OnCtlColor(CDC* dc, CWnd* child, UINT)
         {
+            if(child==&m_brand){const auto colors=NativeMaterial::Palette::Resolve(m_appearance);dc->SetTextColor(Color(colors.onSurface));dc->SetBkColor(Color(colors.container));return static_cast<HBRUSH>(m_navigationFill.GetSafeHandle());}
+            if(auto* field=DYNAMIC_DOWNCAST(NativeMaterial::TextField,child))return field->Color(dc);
             const auto colors = NativeMaterial::Palette::Resolve(m_appearance);
             dc->SetTextColor(Color(colors.onSurface)); dc->SetBkColor(Color(colors.surface));
             return static_cast<HBRUSH>(m_background.GetSafeHandle());
