@@ -98,3 +98,5 @@ with historical originals retained separately.
 
 - [x] Compile/package leading UTF-8 feed marker compatibility and fixed integrity substages at 6464841107c5b2bc43f15040c3108057ed296caf as local-only 1.0.9012, exit 0.
 - [ ] Verify automatic update behavior when runtime checks are authorized.
+
+- [ ] Produce local 1.0.9013 with explicit BOM-free UTF-8 RELEASES encoding and production readback.

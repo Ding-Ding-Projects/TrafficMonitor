@@ -352,3 +352,12 @@ Static inspection of the public 1.0.23 RELEASES bytes found EF BB BF before its 
 The exact root build-installer.bat -Version 1.0.9012 at 6464841107c5b2bc43f15040c3108057ed296caf exited 0. Native build elapsed 10.20 seconds, with 22 warnings and zero errors. The source-bound local receipt is docs/features/installation/silent-feed-marker-build.json. This is compile/package evidence only; automatic scheduling, safe restart, recovery and full Stage 2 remain unverified.
 
 Exact build.bat --site at 6e1e9938290aca72e8532ebbb462ae125eab77cb exited 0 from a clean pinned producer, with content 84cda65c21b6c9b4c2d00e98bf6082eacec1ada6: 194 complete articles, 1578 history records, zero unavailable local images. The separate receipt is docs/features/installation/silent-feed-marker-site-build.json. npm reported the existing whatwg-encoding deprecation. Deployment, wiki publication and automatic-update acceptance remain unverified.
+
+## Published feed encoding
+
+The supported package writer now explicitly writes RELEASES with strict BOM-free
+UTF-8 before calculating SHA256SUMS and publication metadata. It preserves Squirrel
+row contents, line endings, SHA-1 fields and package bytes, then reads back the
+stored feed to require exact text and absence of the leading marker. Parser support
+for prior valid BOM-prefixed feeds remains. The local 1.0.9012 receipt precedes this
+writer correction; its bytes remain historical. Production 1.0.9013 is pending.

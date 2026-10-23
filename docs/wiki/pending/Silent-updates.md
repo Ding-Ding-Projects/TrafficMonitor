@@ -149,3 +149,12 @@ reviews, audits, interface interaction or screenshots are run in the expedited m
 Automatic scheduling, cooperative restart, recovery and full Stage 2 remain unfinished.
 
 The exact root build-installer.bat -Version 1.0.9012 at 6464841107c5b2bc43f15040c3108057ed296caf exited 0. Native build elapsed 10.20 seconds, with 22 warnings and zero errors. The source-bound local receipt is docs/features/installation/silent-feed-marker-build.json. This is compile/package evidence only; automatic scheduling, safe restart, recovery and full Stage 2 remain unverified.
+
+## Published feed encoding
+
+The supported package writer now explicitly writes RELEASES with strict BOM-free
+UTF-8 before calculating SHA256SUMS and publication metadata. It preserves Squirrel
+row contents, line endings, SHA-1 fields and package bytes, then reads back the
+stored feed to require exact text and absence of the leading marker. Parser support
+for prior valid BOM-prefixed feeds remains. The local 1.0.9012 receipt precedes this
+writer correction; its bytes remain historical. Production 1.0.9013 is pending.

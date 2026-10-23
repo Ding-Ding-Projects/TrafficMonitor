@@ -75,6 +75,17 @@ public static class SquirrelAwareness {
     foreach ($file in @('Setup.exe','RELEASES',"TrafficMonitor-$Version-full.nupkg")) {
         if (!(Test-Path "$RepoRoot/artifacts/releases/$file")) { throw "Squirrel output missing: $file" }
     }
+    # Squirrel 2.0.1 may emit a UTF-8 BOM. Publish the same feed text using an
+    # explicit strict BOM-free encoding before computing public size/hash metadata.
+    # Package bytes, SHA-1 fields, row order and line endings remain unchanged.
+    $feedPath = Join-Path "$RepoRoot/artifacts/releases" 'RELEASES'
+    $utf8NoBom = [System.Text.UTF8Encoding]::new($false, $true)
+    $feedText = $utf8NoBom.GetString([System.IO.File]::ReadAllBytes($feedPath))
+    if ($feedText.StartsWith([string][char]0xFEFF)) { $feedText = $feedText.Substring(1) }
+    [System.IO.File]::WriteAllText($feedPath, $feedText, $utf8NoBom)
+    $storedFeed = [System.IO.File]::ReadAllBytes($feedPath)
+    if (($storedFeed.Length -ge 3 -and $storedFeed[0] -eq 0xEF -and $storedFeed[1] -eq 0xBB -and $storedFeed[2] -eq 0xBF) -or
+        $utf8NoBom.GetString($storedFeed) -cne $feedText) { throw 'Published Squirrel feed encoding readback failed' }
     # Finish hashing before opening the manifest, including on repeated packaging runs.
     $releaseDirectory = "$RepoRoot/artifacts/releases"
     $checksumPath = Join-Path $releaseDirectory 'SHA256SUMS.txt'
