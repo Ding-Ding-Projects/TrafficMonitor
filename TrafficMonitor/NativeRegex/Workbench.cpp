@@ -179,7 +179,7 @@ namespace
         deleteSaved.SetLabel(T(L"Delete",L"刪除"));
         recoverSaved.SetLabel(T(L"Recover backup",L"還原備份"));
         const bool bilingual=NativePreferences::Current().values.language==NativePreferences::Language::Bilingual;
-        heading.SetWindowText(bilingual?L"Build a filter for this search":T(L"Build a filter for this search",L"建立此搜尋專用篩選"));
+        heading.SetWindowText(bilingual?CString(L"Build a filter for this search"):T(L"Build a filter for this search",L"建立此搜尋專用篩選"));
         headingSecondary.SetWindowText(bilingual?L"建立此搜尋專用篩選":L"");
         patternLabel.SetWindowText(T(L"&Pattern / literal query",L"表示式／文字 (&P)"));
         any.SetLabel(T(L"Any .",L"任意 ."));
