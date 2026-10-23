@@ -274,3 +274,9 @@ lane. Static deployment and live interaction remain unverified here. Full native
 conversion, all required features, full regex parity, modeless presentation,
 localization and accessibility acceptance remain unfinished. The coordinating
 task owns the next remote preservation and main integration.
+
+## Silent updater feed repair candidate
+
+The existing local production RELEASES feed spells SHA-1 in uppercase, while the native updater required lowercase and directly compared against its lowercase digest. The repair accepts only forty ASCII hexadecimal characters, normalizes their case and retains exact digest, package length, basename and single-entry checks. It also records fixed stage names, numeric phase/result and HTTP status in installation-local native-update/status.ini. No URL, response body, credentials or arbitrary exception text is recorded. Managed startup rejection remains a failed native status.
+
+Production build/package is pending for this candidate. No tests, reviews, audits, runtime checks or screenshots are authorized in the current expedited mode. The empty diagnostic directory on installed 1.0.19 does not establish a network or admission outcome. Automatic scheduling/restart and full Stage 2 remain unfinished.

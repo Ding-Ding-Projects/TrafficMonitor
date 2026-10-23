@@ -52,3 +52,9 @@ Runtime installation and update acceptance remain separate from source and build
 - Add independent native pattern editing and bounded asynchronous filtering to workspace, Settings and context-menu searches.
 - Add search, literal replacement and split previews, syntax insertion and match-span navigation.
 - Retain explicit unsupported syntax, parity gaps and deferred runtime evidence.
+
+## Pending silent updater feed compatibility
+
+- Accept uppercase and lowercase SHA-1 spelling from Squirrel while retaining exact hash, byte-size and single-package verification.
+- Retain bounded local updater stage, phase, numeric transport result and HTTP status without response bodies or URLs. Managed startup rejection now remains a failed status instead of disappearing as disabled.
+- Compile/package evidence is recorded separately. Automatic scheduling, safe restart and recovery remain unverified.

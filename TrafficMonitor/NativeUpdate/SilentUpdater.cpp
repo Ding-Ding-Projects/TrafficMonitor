@@ -25,6 +25,7 @@ namespace NativeUpdate
             std::atomic<bool> cancel{false}, networkCancel{false};
             std::mutex mutex;std::condition_variable wake;
             bool enabled{},check{true};Status status;
+            DWORD httpStatus{};fs::path root;const wchar_t* stage{L"startup"};
         };
         std::mutex serviceMutex;
         std::shared_ptr<State> service;
@@ -122,7 +123,10 @@ namespace NativeUpdate
             while(std::getline(input,line))
             {
                 if(line.empty()||line=="\r")continue;
-                std::istringstream row(line);if(!(row>>sha>>name>>size)||(row>>extra)||name!=release.package||size!=release.packageSize||!Hex(sha,40))throw std::runtime_error("RELEASES");
+                std::istringstream row(line);if(!(row>>sha>>name>>size)||(row>>extra)||name!=release.package||size!=release.packageSize||sha.size()!=40||sha.find_first_not_of("0123456789abcdefABCDEF")!=std::string::npos)throw std::runtime_error("RELEASES");
+                // Squirrel emits uppercase SHA-1; hexadecimal spelling does not alter
+                // the digest. Normalize only ASCII hex before the exact comparison.
+                std::transform(sha.begin(),sha.end(),sha.begin(),[](unsigned char c){return c>='A'&&c<='F'?static_cast<char>(c-'A'+'a'):static_cast<char>(c);});
                 if(++entries!=1||Digest(package,true)!=sha)throw std::runtime_error("Squirrel integrity");release.releasesSha1=sha;
             }
             if(entries!=1)throw std::runtime_error("empty RELEASES");
@@ -155,9 +159,25 @@ namespace NativeUpdate
             ValidateFeed(release,releases,package);return release;
         }
         void Publish(const std::shared_ptr<State>& state,Phase phase,const std::wstring& version={},DWORD error=0)
-        {std::lock_guard<std::mutex> lock(state->mutex);state->status={phase,version,error};}
+        {
+            {std::lock_guard<std::mutex> lock(state->mutex);state->status={phase,version,error};}
+            // Bounded local diagnostics contain fixed stage names and numeric results,
+            // never response bodies, URLs, credentials or exception text. Diagnostics
+            // are best effort and cannot turn a rejected update into success.
+            try
+            {
+                auto file=Staging(state->root)/L"status.ini";
+                auto attributes=GetFileAttributesW(file.c_str());
+                if(attributes!=INVALID_FILE_ATTRIBUTES&&(attributes&(FILE_ATTRIBUTE_REPARSE_POINT|FILE_ATTRIBUTE_DIRECTORY)))return;
+                WritePrivateProfileStringW(L"update",L"stage",state->stage,file.c_str());
+                WritePrivateProfileStringW(L"update",L"phase",std::to_wstring(static_cast<unsigned>(phase)).c_str(),file.c_str());
+                WritePrivateProfileStringW(L"update",L"error",std::to_wstring(error).c_str(),file.c_str());
+                WritePrivateProfileStringW(L"update",L"http_status",std::to_wstring(state->httpStatus).c_str(),file.c_str());
+            }catch(...){}
+        }
         void Check(const std::shared_ptr<State>& state,const fs::path& root)
         {
+            state->stage=L"pending";
             if(fs::exists(Staging(root)/L"pending"))
             {
                 auto pending=Pending(root);
@@ -166,7 +186,7 @@ namespace NativeUpdate
                     Publish(state,Phase::Failed,Wide(pending.version),GetPrivateProfileIntW(L"update",L"last_exit_code",ERROR_RETRY,attempts.c_str()));
                 else Publish(state,Phase::Ready,Wide(pending.version));return;
             }
-            Publish(state,Phase::Checking);
+            state->stage=L"release-metadata";Publish(state,Phase::Checking);
             auto deadline=GetTickCount64()+120000;
             auto metadata=Fetch(L"https://api.github.com/repos/Ding-Ding-Projects/TrafficMonitor/releases/latest",MetadataLimit,state->networkCancel,deadline);
             auto json=Reader(Text(metadata)).parse();
@@ -174,25 +194,33 @@ namespace NativeUpdate
             auto tag=json.at("tag_name").text();auto split=tag.find("-run");
             if(split!=std::string::npos&&tag.size()>1&&Version(tag.substr(1,split-1)).numbers<=Version(CurrentVersion()).numbers)
             {Publish(state,Phase::Idle);return;}
+            state->stage=L"release-validation";
             auto release=ParseRelease(metadata,CurrentVersion());
             // A normal task-branch preservation release is not the accepted update
             // channel. Require its source to be contained in the owning main history.
+            state->stage=L"main-source";
             auto main=Fetch(L"https://api.github.com/repos/Ding-Ding-Projects/TrafficMonitor/branches/main",65536,state->networkCancel,deadline);
             auto mainSha=MainSource(main);
+            state->stage=L"main-admission";
             auto admission=Fetch(L"https://api.github.com/repos/Ding-Ding-Projects/TrafficMonitor/compare/"+Wide(release.source)+L"..."+Wide(mainSha),MetadataLimit,state->networkCancel,deadline);
+            state->stage=L"admission-validation";
             ValidateAdmission(release,main,admission);
             Publish(state,Phase::Downloading,Wide(release.version));
             const auto base=L"https://github.com/Ding-Ding-Projects/TrafficMonitor/releases/download/"+Wide(release.tag)+L"/";
+            state->stage=L"release-feed";
             auto releases=Fetch(base+L"RELEASES",65536,state->networkCancel,deadline);
+            state->stage=L"package";
             auto package=Fetch(base+Wide(release.package),PackageLimit,state->networkCancel,deadline);
+            state->stage=L"integrity-validation";
             ValidateFeed(release,releases,package);
             if(state->cancel||state->networkCancel)throw std::runtime_error("cancel");
+            state->stage=L"staging";
             auto staging=Staging(root);auto temporary=staging/(L"download-"+std::to_wstring(GetCurrentProcessId())+L"-"+std::to_wstring(GetTickCount64()));
             fs::create_directory(temporary);
             Write(temporary/L"release.json",metadata);Write(temporary/L"main-source.json",main);Write(temporary/L"main-admission.json",admission);Write(temporary/L"RELEASES",releases);Write(temporary/Wide(release.package),package);
             if(state->cancel||state->networkCancel)throw std::runtime_error("cancel");
             if(!MoveFileExW(temporary.c_str(),(staging/L"pending").c_str(),MOVEFILE_WRITE_THROUGH))throw std::runtime_error("publish");
-            Publish(state,Phase::Ready,Wide(release.version));
+            state->stage=L"ready";Publish(state,Phase::Ready,Wide(release.version));
         }
         void Worker(std::shared_ptr<State> state,fs::path root)
         {
@@ -200,8 +228,8 @@ namespace NativeUpdate
             while(!state->cancel)
             {
                 if(!state->enabled){state->status.phase=Phase::Disabled;state->wake.wait(lock,[&]{return state->cancel||state->enabled;});continue;}
-                state->check=false;state->networkCancel=false;auto started=GetTickCount64();lock.unlock();
-                try{Check(state,root);}catch(...){if(!state->cancel)Publish(state,Phase::Failed,{},ERROR_INVALID_DATA);}
+                state->check=false;state->networkCancel=false;state->httpStatus=0;auto started=GetTickCount64();lock.unlock();
+                try{Check(state,root);}catch(const TransportError& error){state->httpStatus=error.httpStatus;if(!state->cancel)Publish(state,Phase::Failed,{},error.code);}catch(...){if(!state->cancel)Publish(state,Phase::Failed,{},ERROR_INVALID_DATA);}
                 lock.lock();
                 auto elapsed=GetTickCount64()-started;
                 auto remaining=elapsed<300000?300000-elapsed:0;
@@ -310,7 +338,15 @@ namespace NativeUpdate
     {
         std::lock_guard<std::mutex> guard(serviceMutex);if(service)return;
 #if defined(_M_X64) && !defined(_DEBUG)
-        try {auto root=Root();auto state=std::make_shared<State>();state->enabled=enabled;state->status.phase=enabled?Phase::Idle:Phase::Disabled;service=state;std::thread(Worker,state,root).detach();}catch(...){}
+        if(!InstallerLifecycle::IsManaged())return;
+        auto state=std::make_shared<State>();state->enabled=enabled;service=state;
+        try
+        {
+            state->root=Root();state->status.phase=enabled?Phase::Idle:Phase::Disabled;
+            Publish(state,state->status.phase);
+            std::thread(Worker,state,state->root).detach();
+        }
+        catch(...){state->status={Phase::Failed,{},ERROR_INVALID_DATA};}
 #endif
     }
     void SetEnabled(bool enabled)
