@@ -104,7 +104,9 @@ namespace InstallerLifecycle
 
     inline DWORD UpdateShortcuts(const std::wstring& event, const std::wstring& directory)
     {
-        if (event == L"--squirrel-obsolete")
+        // Existing Squirrel shortcuts use the stable launcher. Updating them is
+        // unnecessary, and recreating them would undo the user's deletions.
+        if (event == L"--squirrel-obsolete" || event == L"--squirrel-updated")
             return ERROR_SUCCESS;
         const auto startup = StartupCommand(directory);
         const auto endQuote = startup.find(L'"', 1);
@@ -114,8 +116,6 @@ namespace InstallerLifecycle
         std::wstring command = L"\"" + updater + L"\" "
             + (event == L"--squirrel-uninstall" ? L"--removeShortcut" : L"--createShortcut")
             + L" TrafficMonitor.exe";
-        if (event == L"--squirrel-updated")
-            command += L" --updateOnly";
         std::vector<wchar_t> mutableCommand(command.begin(), command.end());
         mutableCommand.push_back(0);
         STARTUPINFOW startupInfo{};
