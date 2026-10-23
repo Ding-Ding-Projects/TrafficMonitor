@@ -12,3 +12,5 @@ This early source checkpoint is uncompiled and unverified. Candidate 1.0.9042 pa
 Candidate 1.0.9042 at 7b8e114ac36ab701beb7f54435cbfb07b6a95d65 compiled and packaged through the root installer entrypoint. The actual child data view was blank in captured normal and minimum states, so those images are rejected visual evidence (TM-WORKSPACE-DATAVIEW-PRINT-001). The new child had used an HWND render target without a print-client path. Candidate 1.0.9043 replaces it with one Direct2D DC drawing path shared by normal painting and print-client handling. Chart discontinuity and observation semantics are unchanged. Corrected pixels remain unverified until the new package runs.
 
 The initial layout also retains text-only navigation rather than the reference's semantic navigation icons. That design-parity gap remains explicit for independent review. No full visual acceptance is claimed.
+
+Candidate 9043 renders the chart but is rejected: the UI stopped answering after bilingual/dark preference apply. See CLOSEOUT_PROMPT.md for exact source/package binding, abnormal teardown deviation and restoration proof. Independent diagnosis is required before acceptance.
