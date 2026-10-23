@@ -2,7 +2,7 @@
 
 The shared native popup reads each caller-owned menu without changing its command IDs, plugin interfaces or saved preferences. Its search is case-insensitive plain text, scoped independently to the current menu level. Back returns to the parent level with its previous query. The original native renderer remains the compatibility route for owner-drawn plugin entries whose labels cannot be retrieved.
 
-The eight integrated consumers are taskbar, display-text settings, calendar history, list history, network details, plugin details, plugin manager, and taskbar style settings. Main-window and tray popup registration belongs to the integrating interface owner.
+The eight integrated consumers are taskbar, display-text settings, calendar history, list history, network details, plugin details, plugin manager, and taskbar style settings. Main-window and tray popup call sites use the same presenter, preserving the original command and menu ownership.
 
 ## Operation
 
@@ -16,7 +16,7 @@ Rows wrap and grow with text. The surface is bounded to the selected monitor wor
 
 ## Verification and limitations
 
-Compilation has passed. A bounded real Plugin Manager popup check covers plain search, no-match, Escape, disabled Enter and agreement between direct IAccessible and IDispatch role/state reads. See [runtime verification](runtime-verification.md). Enabled invocation, remaining keyboard/IME behavior, screen-reader/UI Automation inspection and the complete layout matrix remain pending integration verification. A source-level provider is not proof of a passing UI Automation workflow. The adjacent full regex workbench and RegexBuddy engine/version parity are unfinished. General appearance customization, bilingual mode, and translation of new chrome beyond English/Chinese remain broader product integration work. Native compatibility menus remain a visual conformance gap. No network endpoint is added, so an API/Postman collection is not applicable.
+Compilation has passed. A bounded real Plugin Manager popup check covers plain search, no-match, Escape, disabled Enter and agreement between direct IAccessible and IDispatch role/state reads. See [runtime verification](runtime-verification.md). Enabled direct and dispatched actions and nested opacity navigation were also exercised on the main popup. Remaining keyboard/IME behavior, screen-reader/UI Automation inspection and the complete layout matrix remain pending integration verification. A source-level provider is not proof of a passing UI Automation workflow. The adjacent full regex workbench and RegexBuddy engine/version parity are unfinished. General appearance customization, bilingual mode, and translation of new chrome beyond English/Chinese remain broader product integration work. Native compatibility menus remain a visual conformance gap. No network endpoint is added, so an API/Postman collection is not applicable.
 
 ## Build receipt
 
@@ -28,3 +28,4 @@ The exact root `build.bat --silent` passed for source `a74b441b08acbfd22480653f0
 2. Queue an accessible command, change list selection before delivery, and verify the originally requested command executes, never the new selection. Queue then filter, change level, disable/remove/replace the command, or close the popup: stale actions must execute nothing. Force a failed message post: the accessibility call must return failure.
 3. Repeat each check against an intentionally reverted queue or native-dispatch implementation in an isolated test build. The check must fail before the repaired build is accepted. No such negative runtime test has run yet.
 4. Exercise plugin dynamic commands, disabled commands, radio/check/default states, Back, Escape, Up/Down/Left/Right, IME composition, outside dismissal and focus return on the genuine built surface. Check work-area corners and the complete DPI/theme/language matrix in the design inventory.
+

@@ -23,3 +23,24 @@ Only the matching existing monitor was temporarily closed through WM_CLOSE after
 ## Still unverified
 
 Direct and dispatched default-action execution; queued-action identity races and negative mutations; enabled execution; nested submenus; checked/radio states; focus restoration; real IME composition; actual UI Automation patterns and screen-reader operation; dynamic plugins; seven other integrated consumers; dark/high contrast; remaining languages/scales/work-area tuples; full regex workbench. Read agreement from MSAA is not full UI Automation acceptance. A successful build and this bounded runtime pass do not establish complete Material Design conformance or release readiness.
+
+## Main, tray and enabled-action follow-up
+
+The two main/tray call sites now use the same presenter, source `bfe6ffec867543d8ef63ef867b1180ba7fb422bf`. Only the include and those two calls changed. The exact package entrypoint was repeated for version 1.0.8000. The first run compiled successfully but failed when its checksum generation attempted to read its own existing output file. Preserving that previous checksum outside the release-output directory allowed the same entrypoint to finish with exit 0. The permanent packaging repair is owned by the integration lane.
+
+New executable SHA-256: `f6f20afd2e070c1d629c02af6c4a04b51bb3922cf24fa62e3262f61eb67c2e91`. The candidate again ran in supported portable mode on the off-screen desktop; it was never installed. The existing installation was restored afterwards, with hidden main window, visible taskbar child, unchanged startup registration and unchanged saved configuration.
+
+Observed on the actual main-window context menu:
+
+- Right-click opened the shared searchable native popup.
+- Searching `opacity`, Down, then Right opened the nested opacity menu. Direct and dispatched accessibility reads reported the submenu action.
+- Direct IAccessible default action selected 100%. Reopening showed its checked state and the 80% row unchecked.
+- IDispatch default action selected 80%. Reopening showed 80% checked and 100% unchecked. Both methods therefore executed real enabled commands, not merely property reads.
+- Left returned to the parent and restored its independent `opacity` query. Escape cleared that query; the next Escape dismissed the popup.
+- The actual calendar-history menu opened from its button. Direct accessible action opened its first-day submenu, and dispatched action selected Monday. The original Sunday state and later Monday marker were observed. A later direct action restored Sunday in the portable candidate.
+
+A rendering/evidence discrepancy remains unresolved: the initial calendar submenu image contained Sunday and Monday text, but repeated PrintWindow images of the reopened submenu retained selection/check graphics while omitting those labels. Accessibility still returned the labels. Neither a capture-only cause nor an application rendering cause is established, so visual acceptance for that tuple remains incomplete.
+
+A GetGUIThreadInfo query returned no usable hidden-thread focus result. The disconnected-provider helper did not run because of a helper indentation error; that helper was repaired and syntax checked after safe teardown, but its intended runtime check remains unrun. The list-history menu requires the actual cursor position over its Figure header; posted off-screen mouse messages alone did not exercise that route, and the visible cursor was not moved.
+
+Queued-action race mutation, disconnected-provider invocation, focus restoration, tray callback runtime, remaining consumers, full UI Automation, IME and the full layout matrix remain unfinished. The new enabled-action evidence supersedes only the corresponding earlier unverified item, not the whole acceptance list.
