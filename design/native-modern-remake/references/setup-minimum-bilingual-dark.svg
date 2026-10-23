@@ -4,18 +4,18 @@
 <text x="20" y="34" fill="#E6EDF5" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="17" font-weight="600">TrafficMonitor</text>
 <rect x="12" y="50" width="152" height="52" rx="12" fill="#243D63"/>
 <rect x="12" y="60" width="3" height="36" rx="2" fill="#91B8FF"/>
-<g transform="translate(24 59)" fill="none" stroke="#91B8FF" stroke-width="1.5"><rect width="16" height="14" rx="3"/><path d="M3 10L6 6 9 8 13 3"/></g>
-<text x="50" y="72" fill="#91B8FF" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="13" font-weight="600">1  Welcome</text>
-<text x="50" y="90" fill="#91B8FF" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="600">1  開始設定</text>
-<g transform="translate(24 117)" fill="none" stroke="#A8B7C8" stroke-width="1.5"><rect width="16" height="14" rx="3"/><path d="M3 10L6 6 9 8 13 3"/></g>
-<text x="50" y="130" fill="#A8B7C8" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="13" font-weight="400">2  Monitoring</text>
-<text x="50" y="148" fill="#A8B7C8" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">2  監察選項</text>
-<g transform="translate(24 175)" fill="none" stroke="#A8B7C8" stroke-width="1.5"><rect width="16" height="14" rx="3"/><path d="M3 10L6 6 9 8 13 3"/></g>
-<text x="50" y="188" fill="#A8B7C8" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="13" font-weight="400">3  Startup</text>
-<text x="50" y="206" fill="#A8B7C8" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">3  啟動選項</text>
-<g transform="translate(24 233)" fill="none" stroke="#A8B7C8" stroke-width="1.5"><rect width="16" height="14" rx="3"/><path d="M3 10L6 6 9 8 13 3"/></g>
-<text x="50" y="246" fill="#A8B7C8" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="13" font-weight="400">4  Review</text>
-<text x="50" y="264" fill="#A8B7C8" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">4  檢查設定</text>
+<g transform="translate(24 59)" fill="none" stroke="#91B8FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="7"/></g>
+<text x="50" y="72" fill="#91B8FF" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="600">1  Welcome</text>
+<text x="50" y="91" fill="#91B8FF" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="600">1  開始設定</text>
+<g transform="translate(24 117)" fill="none" stroke="#A8B7C8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="7"/></g>
+<text x="50" y="130" fill="#A8B7C8" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">2  Monitoring</text>
+<text x="50" y="149" fill="#A8B7C8" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">2  監察選項</text>
+<g transform="translate(24 175)" fill="none" stroke="#A8B7C8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="7"/></g>
+<text x="50" y="188" fill="#A8B7C8" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">3  Startup</text>
+<text x="50" y="207" fill="#A8B7C8" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">3  啟動選項</text>
+<g transform="translate(24 233)" fill="none" stroke="#A8B7C8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="7"/></g>
+<text x="50" y="246" fill="#A8B7C8" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">4  Review</text>
+<text x="50" y="265" fill="#A8B7C8" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">4  檢查設定</text>
 <text x="20" y="604" fill="#A8B7C8" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">Native monitor</text>
 <text x="20" y="621" fill="#A8B7C8" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">原生監察</text>
 <text x="200" y="38" fill="#E6EDF5" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="24" font-weight="600">Set up your monitor</text>
@@ -39,10 +39,10 @@
 <text x="200" y="358" fill="#E6EDF5" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="600">Appearance</text>
 <text x="200" y="377" fill="#E6EDF5" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="600">外觀</text>
 <rect x="200" y="402" width="520" height="48" rx="8" fill="#151B23"/>
-<text x="214" y="425" fill="#E6EDF5" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">Dark</text>
+<text x="214" y="425" fill="#E6EDF5" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">Dark / 深色</text>
 <path d="M692 423.0l5 5 5 -5" fill="none" stroke="#A8B7C8" stroke-width="1.5"/>
-<rect x="748" y="154" width="8" height="378" rx="4" fill="#151B23"/>
-<rect x="749" y="166" width="6" height="113.39999999999999" rx="3" fill="#A8B7C8"/>
+<rect x="748" y="154" width="8" height="358" rx="4" fill="#151B23"/>
+<rect x="749" y="166" width="6" height="107.39999999999999" rx="3" fill="#A8B7C8"/>
 <rect x="176" y="526" width="584" height="114" rx="0" fill="#1B2129"/>
 <path d="M176 526H760" stroke="#394758"/>
 <text x="200" y="548" fill="#A8B7C8" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">Unsaved interface changes</text>

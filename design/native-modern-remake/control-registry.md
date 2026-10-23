@@ -6,7 +6,7 @@ The latest acceptance criterion rejects unstyled generic controls and default sc
 
 | Current source/control | Replacement presentation and retained behavior |
 | --- | --- |
-| NativeMaterial Button | Shared Primary, Tonal, Outlined, Text and Icon variants, radius 6, measured label, hover/pressed/disabled/focus states; same HWND and provider, Space/Enter/BM_CLICK behavior |
+| NativeMaterial Button | Shared Primary, Tonal, Outlined, Text and Icon variants, desktop radius 12, measured label, hover/pressed/disabled/focus states; same HWND and provider, Space/Enter/BM_CLICK behavior |
 | Workspace m_search; Settings m_search/SettingEdit; menu EDIT; regex pattern/replacement/savedName | Shared filled or outlined TextField frame with persistent label, input inset, supporting/error text, trailing clear/regex actions where applicable. Native EDIT child has no WS_EX_CLIENTEDGE/default border; retain caret, selection, clipboard, undo, IME, limits and accessible label association |
 | Regex subject/output; workspace m_details; ReadOnlyText | Shared multiline editor frame, line-height and padding, custom scroll adapter; native EDIT retains text semantics and selection. Read-only state is named and selectable, not disabled |
 | NativeMaterial Choice; setup m_choices; regex savedList | Shared outlined selector/button with selected value and chevron, searchable owned popup where required. Retain stable item identity and selection notifications. No exposed default combo dropdown border or scrollbar. Real button/menu role if implemented through a popup, never false combobox semantics |

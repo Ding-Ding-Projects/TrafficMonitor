@@ -44,24 +44,41 @@ def render(surface, size, lang, theme):
                 box(12,yy-22,152,ch+4,"selected",12)
                 box(12,yy-12,3,ch-12,"accent",2)
             ic=p["accent" if i==selected else "muted"]
-            # Small authored line icons supplement, never replace, the full labels.
-            out.append(f'<g transform="translate(24 {yy-13})" fill="none" stroke="{ic}" stroke-width="1.5"><rect width="16" height="14" rx="3"/><path d="M3 10L6 6 9 8 13 3"/></g>')
-            text(50,yy,en,zh,13,"accent" if i==selected else "muted",600 if i==selected else 400)
+            # Authored semantic line icons supplement the full accessible labels.
+            icons={
+                "Monitoring":'<rect width="16" height="13" rx="2"/><path d="M3 9l3 -4 3 2 4 -4M5 16h6M8 13v3"/>',
+                "Monitor":'<rect width="16" height="13" rx="2"/><path d="M3 9l3 -4 3 2 4 -4M5 16h6M8 13v3"/>',
+                "Floating monitor":'<rect x="1" y="1" width="14" height="14" rx="2"/><path d="M1 5h14M9 9h4M9 12h4"/>',
+                "Taskbar":'<rect x="1" y="1" width="14" height="14" rx="2"/><path d="M1 11h14M4 13h2M8 13h4"/>',
+                "Notifications":'<path d="M3 11V7a5 5 0 0110 0v4l2 2H1zM6 15h4"/>',
+                "Interface":'<circle cx="8" cy="8" r="7"/><path d="M8 1v14M8 1a7 7 0 010 14"/>',
+                "All groups":'<rect x="1" y="1" width="5" height="5" rx="1"/><rect x="10" y="1" width="5" height="5" rx="1"/><rect x="1" y="10" width="5" height="5" rx="1"/><rect x="10" y="10" width="5" height="5" rx="1"/>',
+                "History":'<circle cx="8" cy="8" r="7"/><path d="M8 3v5l3 2"/>',
+                "Plugins":'<path d="M2 3h4V1h4v2h4v4h2v4h-2v4H2v-4h3V7H2z"/>',
+                "Settings":'<circle cx="8" cy="8" r="5"/><circle cx="8" cy="8" r="2"/><path d="M8 0v3M8 13v3M0 8h3M13 8h3M2 2l2 2M12 12l2 2M2 14l2 -2M12 4l2 -2"/>',
+                "Setup":'<path d="M2 4h12M2 12h12"/><circle cx="6" cy="4" r="2"/><circle cx="10" cy="12" r="2"/>',
+            }
+            icon=icons.get(en,'<circle cx="8" cy="8" r="7"/>')
+            out.append(f'<g transform="translate(24 {yy-13})" fill="none" stroke="{ic}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">{icon}</g>')
+            text(50,yy,en,zh,14,"accent" if i==selected else "muted",600 if i==selected else 400)
         text(20,h-36,"Native monitor","原生監察",12,"muted")
     box(0,0,w,h,"bg")
     if surface in ("settings","setup"):
         if surface=="settings":
-            nav([("Monitoring","監察"),("Floating monitor","浮動監察"),("Taskbar","工作列"),("Notifications","通知"),("Interface","介面"),("All groups","所有群組")],4)
+            nav([("Monitoring","監察"),("Floating monitor","浮動監察器"),("Taskbar","工作列"),("Notifications","通知"),("Interface","介面"),("All groups","所有組別")],4)
         else:nav([("1  Welcome","1  開始設定"),("2  Monitoring","2  監察選項"),("3  Startup","3  啟動選項"),("4  Review","4  檢查設定")],0)
-        x=200;cw=w-x-24
+        x=200;cw=min(860,w-x-24)
         text(x,38,"Settings" if surface=="settings" else "Set up your monitor","設定" if surface=="settings" else "設定監察工具",24,weight=600)
         sy=82 if lang=="bilingual" else 62
         search(x,sy,cw)
         y=sy+ch+56
-        box(x-12,y-30,cw+8,h-y-(118 if lang=="bilingual" else 100),"panel",16)
+        body_available=h-y-(118 if lang=="bilingual" else 100)
+        desired=390 if lang=="bilingual" else 316
+        box(x-12,y-30,cw+8,min(body_available,desired),"panel",16)
         text(x,y,"Language and appearance","語言與外觀",18,weight=600)
         y+=48 if lang=="bilingual" else 36
-        for en,zh,val in [("Interface language","介面語言","English + 廣東話" if lang=="bilingual" else "廣東話" if lang=="cantonese" else "English"),("Appearance","外觀","Dark" if theme=="dark" else "System")]:
+        appearance=("深色" if theme=="dark" else "跟隨系統") if lang=="cantonese" else ("Dark / 深色" if theme=="dark" else "System / 跟隨系統") if lang=="bilingual" else "Dark" if theme=="dark" else "System"
+        for en,zh,val in [("Interface language","介面語言","English + 廣東話" if lang=="bilingual" else "廣東話" if lang=="cantonese" else "English"),("Appearance","外觀",appearance)]:
             text(x,y,en,zh,14,weight=600)
             wide=cw>=600
             y+=0 if wide else 44 if lang=="bilingual" else 26
@@ -75,7 +92,7 @@ def render(surface, size, lang, theme):
         if available>=64:
             box(x,y,cw-16,min(76,available),"selected",8)
             text(x+14,y+24,"Preview: monitoring is active","預覽：監察運作中",14)
-        scroll(w-12,sy+ch+24,max(90,h-sy-ch-132))
+        if desired>body_available:scroll(w-12,sy+ch+24,max(90,h-sy-ch-(152 if lang=="bilingual" else 132)))
         fy=h-(114 if lang=="bilingual" else 80)
         box(176,fy,w-176,h-fy,"panel");line(176,fy,w,fy)
         text(x,fy+22,"Unsaved interface changes","介面變更尚未儲存",12,"muted")
@@ -123,7 +140,7 @@ def render(surface, size, lang, theme):
         for i,(en,zh) in enumerate([("Test","測試"),("Replace","取代"),("Explain","解說"),("Library","資料庫")]):
             if i==0:box(x+i*116,yy-20,108,ch,"selected",6)
             text(x+i*116+12,yy,en,zh,14,"accent" if i==0 else "muted",500)
-        yy+=ch+16;field(x,yy,cw-112,"Pattern","模式",r"\bEthernet\b",True);button(w-124,yy+8,100,"Flags","選項")
+        yy+=ch;field(x,yy,cw-112,"Pattern","模式",r"\bEthernet\b",True);button(w-124,yy+8,100,"Flags","選項")
         yy+=ch+40
         if w>=880:
             col=(cw-16)/2

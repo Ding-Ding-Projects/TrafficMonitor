@@ -23,3 +23,7 @@ References show principal resting states. Conflict, protected storage, validatio
 ## Review decision requested
 
 Review the composition, component boundaries, all sixty reference tuples, preserved behavior and state inventory. Resolve any rejected layout before implementation. Approval of this design is not approval of runtime quality or a claim of full required-feature delivery. The implementation handoff and acceptance criteria are in `handoff.md`.
+
+## Author validation and limitations
+
+All 62 SVG documents parse successfully. The author rasterized design-only minimum bilingual dark Settings, normal English light Settings, normal English light workspace, minimum bilingual dark regex and the light component sheet through the bundled Sharp renderer. Settings and regex images were visually inspected; the other raster outputs were generated but not inspected in this lane. The first inspected draft exposed a misplaced chevron, bilingual footer overlap and a preview-edge collision; these were corrected in the reference generator. The latest pass also bounds the Settings surface to its content, hides the proposed rail when content fits and uses distinct semantic navigation icons. Final independent visual review remains pending, including all other tuples. Rasterizing an SVG does not launch or verify TrafficMonitor.

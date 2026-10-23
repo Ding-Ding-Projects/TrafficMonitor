@@ -4,16 +4,16 @@
 <text x="20" y="34" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="17" font-weight="600">TrafficMonitor</text>
 <rect x="12" y="50" width="152" height="40" rx="12" fill="#DCE8FF"/>
 <rect x="12" y="60" width="3" height="24" rx="2" fill="#245FC8"/>
-<g transform="translate(24 59)" fill="none" stroke="#245FC8" stroke-width="1.5"><rect width="16" height="14" rx="3"/><path d="M3 10L6 6 9 8 13 3"/></g>
-<text x="50" y="72" fill="#245FC8" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="13" font-weight="600">Monitor</text>
-<g transform="translate(24 105)" fill="none" stroke="#526174" stroke-width="1.5"><rect width="16" height="14" rx="3"/><path d="M3 10L6 6 9 8 13 3"/></g>
-<text x="50" y="118" fill="#526174" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="13" font-weight="400">History</text>
-<g transform="translate(24 151)" fill="none" stroke="#526174" stroke-width="1.5"><rect width="16" height="14" rx="3"/><path d="M3 10L6 6 9 8 13 3"/></g>
-<text x="50" y="164" fill="#526174" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="13" font-weight="400">Plugins</text>
-<g transform="translate(24 197)" fill="none" stroke="#526174" stroke-width="1.5"><rect width="16" height="14" rx="3"/><path d="M3 10L6 6 9 8 13 3"/></g>
-<text x="50" y="210" fill="#526174" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="13" font-weight="400">Settings</text>
-<g transform="translate(24 243)" fill="none" stroke="#526174" stroke-width="1.5"><rect width="16" height="14" rx="3"/><path d="M3 10L6 6 9 8 13 3"/></g>
-<text x="50" y="256" fill="#526174" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="13" font-weight="400">Setup</text>
+<g transform="translate(24 59)" fill="none" stroke="#245FC8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="13" rx="2"/><path d="M3 9l3 -4 3 2 4 -4M5 16h6M8 13v3"/></g>
+<text x="50" y="72" fill="#245FC8" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="600">Monitor</text>
+<g transform="translate(24 105)" fill="none" stroke="#526174" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="7"/><path d="M8 3v5l3 2"/></g>
+<text x="50" y="118" fill="#526174" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">History</text>
+<g transform="translate(24 151)" fill="none" stroke="#526174" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h4V1h4v2h4v4h2v4h-2v4H2v-4h3V7H2z"/></g>
+<text x="50" y="164" fill="#526174" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">Plugins</text>
+<g transform="translate(24 197)" fill="none" stroke="#526174" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="5"/><circle cx="8" cy="8" r="2"/><path d="M8 0v3M8 13v3M0 8h3M13 8h3M2 2l2 2M12 12l2 2M2 14l2 -2M12 4l2 -2"/></g>
+<text x="50" y="210" fill="#526174" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">Settings</text>
+<g transform="translate(24 243)" fill="none" stroke="#526174" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h12M2 12h12"/><circle cx="6" cy="4" r="2"/><circle cx="10" cy="12" r="2"/></g>
+<text x="50" y="256" fill="#526174" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">Setup</text>
 <text x="20" y="564" fill="#526174" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">Native monitor</text>
 <text x="200" y="40" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="24" font-weight="600">Network overview</text>
 <rect x="200" y="62" width="500" height="52" rx="8" fill="#EDF1F6"/>
