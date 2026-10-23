@@ -26,3 +26,22 @@ Context-menu identity and HMENU notification lifecycle stay intact. Opening the 
 ## Verification state
 
 This is a design and implementation handoff, not runtime evidence. Independent review, tests, GUI interaction, screenshots and the DPI/theme/language matrix are deferred by the explicitly selected speed pass. Exact root build/package entrypoints may provide compilation and package evidence only. Full RegexBuddy parity remains unfinished and is tracked separately.
+
+## Modeless presentation continuation
+
+The editor is now an owned modeless native tool window. One caller-owned `NativeRegex::Editor`
+controls its lifetime, duplicate open focuses the existing window, and owner destruction
+cancels and destroys it. The owner remains usable. Moving the owning search repositions the
+editor below or above it, clamped to the monitor work area; a reduced-height viewport retains
+vertical scrolling. This is implementation design, not measured visual evidence.
+
+Apply fetches the current owner corpus, validates it asynchronously and rechecks that corpus
+before transferring accepted options. A changed corpus requires a new Apply. Owner query edits,
+settings-group changes and menu-level navigation cancel the previous editor. Cancel, Escape and
+close leave accepted options alone and return focus only when the editor was active. The menu
+message loop includes modeless keyboard translation and treats the editor as part of its owned
+popup group; HMENU identity checks remain unchanged. Visible owned windows continue to trigger
+the existing automatic-update restart deferral, without updater backend changes.
+
+Runtime proof, focus/DPI/theme/language matrices and full RegexBuddy parity remain unfinished.
+No tests, independent review, audits, GUI interaction or screenshots are authorized in this pass.
