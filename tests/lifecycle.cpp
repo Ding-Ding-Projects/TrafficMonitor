@@ -3,6 +3,14 @@
 #include <cassert>
 #include <iostream>
 
+static int shortcutCalls = 0;
+static DWORD VerifyShortcutRequest(const std::wstring& event, const std::wstring&)
+{
+    if (event != L"--squirrel-obsolete")
+        ++shortcutCalls;
+    return ERROR_SUCCESS;
+}
+
 int wmain()
 {
     using namespace InstallerLifecycle;
@@ -25,19 +33,19 @@ int wmain()
     const auto command = L"\"" + root + L"Update.exe\" --processStart TrafficMonitor.exe";
     assert(StartupCommand(directory) == command);
     int exitCode = -1;
-    assert(!HandleEvent(L"--ordinary", exitCode, directory));
-    assert(HandleEvent(L"--squirrel-install", exitCode, directory) && exitCode == 0);
+    assert(!HandleEvent(L"--ordinary", exitCode, directory, VerifyShortcutRequest));
+    assert(HandleEvent(L"--squirrel-install", exitCode, directory, VerifyShortcutRequest) && exitCode == 0);
     std::wstring value;
     assert(ReadStartup(value) && value == command);
     assert(SetStartup(false, false, directory));
-    assert(HandleEvent(L"--squirrel-updated", exitCode, directory) && exitCode == 0);
+    assert(HandleEvent(L"--squirrel-updated", exitCode, directory, VerifyShortcutRequest) && exitCode == 0);
     assert(!ReadStartup(value));
-    assert(HandleEvent(L"--squirrel-obsolete", exitCode, directory) && exitCode == 0);
+    assert(HandleEvent(L"--squirrel-obsolete", exitCode, directory, VerifyShortcutRequest) && exitCode == 0);
     assert(!ReadStartup(value));
     assert(SetStartup(true, false, directory));
-    assert(HandleEvent(L"--squirrel-updated", exitCode, directory) && exitCode == 0);
+    assert(HandleEvent(L"--squirrel-updated", exitCode, directory, VerifyShortcutRequest) && exitCode == 0);
     assert(ReadStartup(value) && value == command);
-    assert(HandleEvent(L"--squirrel-uninstall", exitCode, directory) && exitCode == 0);
+    assert(HandleEvent(L"--squirrel-uninstall", exitCode, directory, VerifyShortcutRequest) && exitCode == 0);
     assert(!ReadStartup(value));
     assert(SetStartup(true, false, directory));
     assert(SetStartup(false, false, root + L"app-other\\")); // Same install root owns the stable command.
@@ -46,6 +54,7 @@ int wmain()
     assert(ReadStartup(value) && value == command);
     assert(!SetStartup(true, false, root + L"other\\app-1\\"));
 
+    assert(shortcutCalls == 4);
     assert(RegOverridePredefKey(HKEY_CURRENT_USER, nullptr) == ERROR_SUCCESS);
     RegCloseKey(isolated);
     assert(RegDeleteTreeW(HKEY_CURRENT_USER, sandbox.c_str()) == ERROR_SUCCESS);

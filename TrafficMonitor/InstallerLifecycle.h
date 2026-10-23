@@ -94,11 +94,60 @@ namespace InstallerLifecycle
             reinterpret_cast<const BYTE*>(command.c_str()), static_cast<DWORD>((command.size() + 1) * sizeof(wchar_t)))
             : RegDeleteValueW(key, L"TrafficMonitor");
         RegCloseKey(key);
-        return result == ERROR_SUCCESS || (!enabled && result == ERROR_FILE_NOT_FOUND);
+        if (result != ERROR_SUCCESS && (enabled || result != ERROR_FILE_NOT_FOUND))
+            return false;
+        std::wstring stored;
+        const LONG storedResult = ReadStartupStatus(stored);
+        return enabled ? storedResult == ERROR_SUCCESS && stored == command
+            : storedResult == ERROR_FILE_NOT_FOUND || storedResult == ERROR_PATH_NOT_FOUND;
     }
 
+    inline DWORD UpdateShortcuts(const std::wstring& event, const std::wstring& directory)
+    {
+        if (event == L"--squirrel-obsolete")
+            return ERROR_SUCCESS;
+        const auto startup = StartupCommand(directory);
+        const auto endQuote = startup.find(L'"', 1);
+        if (startup.empty() || endQuote == std::wstring::npos)
+            return ERROR_INVALID_NAME;
+        const auto updater = startup.substr(1, endQuote - 1);
+        std::wstring command = L"\"" + updater + L"\" "
+            + (event == L"--squirrel-uninstall" ? L"--removeShortcut" : L"--createShortcut")
+            + L" TrafficMonitor.exe";
+        if (event == L"--squirrel-updated")
+            command += L" --updateOnly";
+        std::vector<wchar_t> mutableCommand(command.begin(), command.end());
+        mutableCommand.push_back(0);
+        STARTUPINFOW startupInfo{};
+        startupInfo.cb = sizeof(startupInfo);
+        startupInfo.dwFlags = STARTF_USESHOWWINDOW;
+        startupInfo.wShowWindow = SW_HIDE;
+        PROCESS_INFORMATION process{};
+        if (!CreateProcessW(updater.c_str(), mutableCommand.data(), nullptr, nullptr, FALSE,
+            CREATE_NO_WINDOW, nullptr, directory.c_str(), &startupInfo, &process))
+            return GetLastError();
+        CloseHandle(process.hThread);
+        // Squirrel gives callback applications approximately 15 seconds to exit.
+        const DWORD wait = WaitForSingleObject(process.hProcess, 10000);
+        DWORD result{};
+        if (wait == WAIT_OBJECT_0)
+        {
+            if (!GetExitCodeProcess(process.hProcess, &result))
+                result = GetLastError();
+        }
+        else
+        {
+            result = wait == WAIT_TIMEOUT ? ERROR_TIMEOUT : GetLastError();
+            TerminateProcess(process.hProcess, result);
+            WaitForSingleObject(process.hProcess, 1000);
+        }
+        CloseHandle(process.hProcess);
+        return result;
+    }
+
+    using ShortcutAction = DWORD (*)(const std::wstring&, const std::wstring&);
     inline bool HandleEvent(const std::wstring& event, int& exitCode,
-        const std::wstring& directory = ModuleDirectory())
+        const std::wstring& directory = ModuleDirectory(), ShortcutAction shortcuts = UpdateShortcuts)
     {
         if (event != L"--squirrel-install" && event != L"--squirrel-updated"
             && event != L"--squirrel-obsolete" && event != L"--squirrel-uninstall")
@@ -110,6 +159,8 @@ namespace InstallerLifecycle
             exitCode = ERROR_ACCESS_DENIED;
         else if (event == L"--squirrel-uninstall" && !SetStartup(false, false, directory))
             exitCode = ERROR_ACCESS_DENIED;
+        if (exitCode == 0)
+            exitCode = static_cast<int>(shortcuts(event, directory));
         // Update and obsolete callbacks preserve the user's startup choice.
         return true;
     }
