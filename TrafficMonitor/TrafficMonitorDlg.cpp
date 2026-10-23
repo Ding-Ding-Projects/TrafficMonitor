@@ -2524,9 +2524,12 @@ LRESULT CTrafficMonitorDlg::OnSilentUpdatePulse(WPARAM, LPARAM)
 
     if (NativeUpdate::PrepareRestart())
     {
-        m_updateUiClosing = true;
-        // The existing close path saves settings and traffic history before normal exit.
-        OnClose();
+        // Dispatch an actual close message: the inherited MFC close handler uses
+        // the current message context, so calling it from this pulse is not closure.
+        if (::PostMessageW(m_hWnd, WM_CLOSE, 0, 0))
+            m_updateUiClosing = true;
+        else
+            NativeUpdate::RestartQueueFailed(::GetLastError());
     }
     return 0;
 }
