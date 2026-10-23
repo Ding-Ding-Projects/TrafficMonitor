@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "4d969ae41eba23219b3ecbe3fc3a639cbe25f8b2",
+  "command": "build.bat --site",
+  "exitCode": 0,
+  "inputState": "Clean natural32 documentation source/index held unchanged throughout production.",
+  "articleCount": 196,
+  "historyRecords": 1635,
+  "unavailableLocalImages": 0,
+  "scope": "Documentation content production only. Local historical release metadata is not actual deployed-release proof. No tests, reviews, audits or screenshots ran in this bounded lane.",
+  "outputs": [
+    {
+      "path": "docs/site/dist/index.html",
+      "bytes": 4911,
+      "sha256": "cac66a14f15c3edbf937f6fde4166ce37e62a928d2afc0b2f74de72ab1f773f6"
+    },
+    {
+      "path": "docs/site/dist/build-receipt.json",
+      "bytes": 611,
+      "sha256": "246a56e45b9b136beaf2e4105cae4cbadee6a320c7841d015115fefd6915d10c"
+    }
+  ]
+}

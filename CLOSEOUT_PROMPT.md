@@ -20,6 +20,8 @@ The [candidate production receipt](docs/features/installation/silent-readiness-b
 
 ## Natural readiness unit continuation
 
+Natural32 acceptance documentation is produced by exact root build.bat --site at source 4d969ae41eba23219b3ecbe3fc3a639cbe25f8b2, exit0, 196 articles, 1635 historical records and zero unavailable local images. The source-bound production receipt is docs/features/installation/silent-natural32-site-build.json. This local producer does not prove current deployment or interaction. The coordinating task has now entered release-grade closeout and owns the wider checks and evidence; this bounded lane added no tests, reviews, audits or screenshots.
+
 One genuine automatic31 to32 transition is verified by the source-bound acceptance receipt. Original installed31 exited naturally, exact released32 replacement and manifest match, readiness exit-permitted/result0, stable-launcher/result0, one apply attempt/exit0. No manual action or preference/attempt/staging changes occurred during observation. Config/startup and historical-record preservation are verified; current counters advanced normally. Negative paths and repeated reliability remain unverified.
 
 Preserve and integrate these scoped acceptance records. Coordinating task owns main push, updated wiki publication and the next normal release/deployment. Do not create another observation target or version-chasing documentation cycle merely because acceptance records create a normal followup release. Existing matching installed-update duties remain separate. No tests, reviews, audits or screenshots ran.
