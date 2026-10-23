@@ -6,19 +6,19 @@ namespace NativePreferences
     bool Editor::Create(CWnd* parent)
     {
         m_parent=parent;const CRect box(0,0,100,40);const DWORD child=WS_CHILD|WS_VISIBLE;
-        if(!m_language.Create(L"",child,box,parent)||!m_appearance.Create(L"",child,box,parent)||!m_scope.Create(L"",child,box,parent)||!m_preview.Create(L"",child,box,parent)||!m_note.Create(L"",child,box,parent))return false;
+        if(!m_language.Create(L"",child,box,parent)||!m_appearance.Create(L"",child,box,parent)||!m_scope.Create(L"",child,box,parent)||!m_preview.Create(box,parent,56210)||!m_note.Create(L"",child,box,parent))return false;
         if(!m_languageChoice.Create(L"",box,parent,LanguageChoice)||!m_appearanceChoice.Create(L"",box,parent,AppearanceChoice)||!m_apply.Create(L"",box,parent,ApplyChoice)||!m_revert.Create(L"",box,parent,RevertChoice)||!m_reset.Create(L"",box,parent,ResetChoice)||!m_reapply.Create(L"",box,parent,ReapplyChoice))return false;
         UseSaved();return true;
     }
-    void Editor::UseSaved(){const auto current=Current();draft={current.values,current.base,false,false};m_status=current.protectedFile?TextId::Protected:current.persisted?TextId::Loaded:TextId::Defaults;Refresh();}
+    void Editor::UseSaved(){const auto current=Current();draft={current.values,current.base,false,false};m_status=current.protectedFile?TextId::Protected:current.persisted?TextId::Loaded:current.origin==Origin::Migrated?TextId::Migrated:TextId::Defaults;Refresh();}
     void Editor::Refresh()
     {
         if(!m_parent)return;
-        if(!draft.dirty&&!Matches(draft.base,Current().base)){const auto current=Current();draft={current.values,current.base,false,false};m_status=current.protectedFile?TextId::Protected:current.persisted?TextId::Loaded:TextId::Defaults;}
+        if(!draft.dirty&&!Matches(draft.base,Current().base)){const auto current=Current();draft={current.values,current.base,false,false};m_status=current.protectedFile?TextId::Protected:current.persisted?TextId::Loaded:current.origin==Origin::Migrated?TextId::Migrated:TextId::Defaults;}
         m_language.SetWindowText(Text(TextId::LanguageLabel));m_appearance.SetWindowText(Text(TextId::AppearanceLabel));
         m_languageChoice.SetLabel(Text(static_cast<TextId>(static_cast<int>(TextId::English)+static_cast<int>(draft.values.language))));
         m_appearanceChoice.SetLabel(Text(static_cast<TextId>(static_cast<int>(TextId::System)+static_cast<int>(draft.values.appearance))));
-        m_scope.SetWindowText(Text(TextId::Scope));m_preview.SetWindowText(Text(TextId::Preview,draft.values.language));
+        m_scope.SetWindowText(Text(TextId::Scope));m_preview.SetWindowText(Text(TextId::Preview,draft.values.language));m_preview.SetAppearance(draft.values.appearance==Appearance::System?EffectiveAppearance():draft.values.appearance==Appearance::Dark?NativeMaterial::Appearance::Dark:NativeMaterial::Appearance::Light);
         m_apply.SetLabel(Text(TextId::Apply));m_revert.SetLabel(Text(TextId::UseSaved));m_reset.SetLabel(Text(TextId::Reset));m_reapply.SetLabel(Text(TextId::Reapply));
         if(draft.dirty&&!Matches(draft.base,Current().base)){draft.conflict=true;m_status=TextId::Conflict;}
         m_note.SetWindowText(Text(m_status));
@@ -29,12 +29,12 @@ namespace NativePreferences
     {
         std::array<CWnd*,11> controls{&m_language,&m_languageChoice,&m_appearance,&m_appearanceChoice,&m_scope,&m_preview,&m_note,&m_apply,&m_revert,&m_reset,&m_reapply};
         for(auto* c:controls)c->ShowWindow(visible?SW_SHOW:SW_HIDE);if(!visible)return 0;
-        const int initial=y;auto px=[&](int n){return MulDiv(n,dpi,96);};CClientDC dc(m_parent);CFont* font=m_parent->GetFont();auto* old=font?dc.SelectObject(font):nullptr;
+        const int initial=y;auto px=[&](int n){return MulDiv(n,dpi,96);};CClientDC dc(m_parent);CFont* font=m_parent->GetFont();if(!font&&m_parent->GetParent())font=m_parent->GetParent()->GetFont();auto* old=font?dc.SelectObject(font):nullptr;
         for(auto* c:controls)
         {
             CString text;c->GetWindowText(text);CRect measured(0,0,px((std::max)(32,width-32)),0);dc.DrawText(text,measured,DT_CALCRECT|DT_WORDBREAK|DT_NOPREFIX);
             const bool action=c==&m_languageChoice||c==&m_appearanceChoice||c==&m_apply||c==&m_revert||c==&m_reset||c==&m_reapply;
-            const int height=(std::max)(action?44:24,MulDiv(measured.Height(),96,dpi)+(action?20:4));
+            const int height=(std::max)(action?44:c==&m_preview?80:24,MulDiv(measured.Height(),96,dpi)+(action?20:4));
             c->MoveWindow(px(x),px(y),px(width),px(height));if(font)c->SetFont(font);y+=height+8;
         }
         if(old)dc.SelectObject(old);return y-initial;

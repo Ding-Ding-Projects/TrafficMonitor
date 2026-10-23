@@ -7,6 +7,7 @@
 #include "../TrafficMonitor.h"
 #include "../NativeMaterial/Controls.h"
 #include <array>
+#include <imm.h>
 
 namespace NativeRegex
 {
@@ -25,6 +26,17 @@ namespace
         void Reanchor();
         NativeMaterial::Appearance appearance{};
     protected:
+        BOOL PreTranslateMessage(MSG* msg) override
+        {
+            if(msg->message==WM_KEYDOWN&&msg->wParam==VK_ESCAPE)
+            {HIMC context=ImmGetContext(msg->hwnd);const bool composing=context&&ImmGetCompositionStringW(context,GCS_COMPSTR,nullptr,0)>0;if(context)ImmReleaseContext(msg->hwnd,context);if(composing)return FALSE;}
+            if(msg->message==WM_KEYDOWN&&msg->wParam==VK_TAB)
+            {
+                HWND next=::GetNextDlgTabItem(m_hWnd,::GetFocus(),(GetKeyState(VK_SHIFT)&0x8000)!=0);
+                if(next){::SetFocus(next);CRect r;::GetWindowRect(next,r);ScreenToClient(r);CRect client;GetClientRect(client);if(r.top<0)scroll+=MulDiv(r.top,96,dpi)-8;else if(r.bottom>client.bottom)scroll+=MulDiv(r.bottom-client.bottom,96,dpi)+8;Layout();}return TRUE;
+            }
+            return CDialog::PreTranslateMessage(msg);
+        }
         BOOL OnInitDialog() override;
         BOOL OnCommand(WPARAM,LPARAM) override;
         void OnCancel() override { Finish(false); }
@@ -35,7 +47,7 @@ namespace
         afx_msg void OnTimer(UINT_PTR);
         afx_msg void OnSize(UINT,int,int){Layout();}
         afx_msg void OnVScroll(UINT code,UINT position,CScrollBar*)
-        {if(code==SB_LINEUP)scroll-=32;else if(code==SB_LINEDOWN)scroll+=32;else if(code==SB_PAGEUP)scroll-=160;else if(code==SB_PAGEDOWN)scroll+=160;else if(code==SB_THUMBTRACK)scroll=position;Layout();}
+        {if(code==SB_LINEUP)scroll-=32;else if(code==SB_LINEDOWN)scroll+=32;else if(code==SB_PAGEUP)scroll-=160;else if(code==SB_PAGEDOWN)scroll+=160;else if(code==SB_THUMBTRACK||code==SB_THUMBPOSITION)scroll=position;Layout();}
         afx_msg BOOL OnMouseWheel(UINT,short delta,CPoint){scroll-=delta/3;Layout();return TRUE;}
         afx_msg void OnPaint(){CPaintDC dc(this);CRect r;GetClientRect(r);dc.FillRect(r,&background);}
         afx_msg BOOL OnEraseBkgnd(CDC*){return TRUE;}
@@ -222,7 +234,7 @@ namespace
             draft=Read();Finish(true);return;
         }
         last=std::move(result);ready=true;apply.EnableWindow(TRUE);results.ResetContent();
-        for(size_t i=0;i<last.matches.size();++i){CString line;line=NativePreferences::Format(L"Match %zu: offset %zu, length %zu",L"符合 %zu：位置 %zu，長度 %zu",i+1,last.matches[i].start,last.matches[i].length);results.AddString(line);}
+        for(size_t i=0;i<last.matches.size();++i){CString line;line=NativePreferences::Format(L"Match %zu: offset %zu, length %zu",L"符合 %zu：位置 %zu，長度 %zu",i+1,last.matches[i].start,last.matches[i].length);line.Replace(L"\r\n",L" / ");results.AddString(line);}
         output.SetWindowText(last.output.c_str());Note(note,L"Preview complete. Select a match to highlight its UTF-16 span. Apply validates all owner rows.",L"預覽完成。選取結果可標示 UTF-16 範圍。套用時會驗證全部來源項目。");
     }
     BOOL Workbench::OnCommand(WPARAM w,LPARAM l)

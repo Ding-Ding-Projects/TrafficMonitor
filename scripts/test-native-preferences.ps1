@@ -19,7 +19,7 @@ try {
     # Exercise the same INI reader, writer and preference initialization used by the application.
     $setupExe=Join-Path $work 'SetupSerializationTests.exe'
     $sources=@('NativePreferences/SetupSerializationTests.cpp','IniHelper.cpp','Common.cpp','NativePreferences/Preferences.cpp','NativePreferences/Subscription.cpp','NativePreferences/Storage.cpp') | ForEach-Object {'"'+(Join-Path $RepoRoot ('TrafficMonitor/'+$_))+'"'}
-    $command='call "'+$vcvars+'" >nul && "'+$compiler+'" /nologo /std:c++17 /EHsc /MD /Gy /D_AFXDLL /D_UNICODE /DUNICODE /DWITHOUT_TEMPERATURE /I"'+(Join-Path $RepoRoot 'include')+'" '+($sources -join ' ')+' /Fe:"'+$setupExe+'" /link /OPT:REF'
+    $command='call "'+$vcvars+'" >nul && "'+$compiler+'" /nologo /std:c++17 /EHsc /MD /Gy /O2 /Zc:inline /D_AFXDLL /D_UNICODE /DUNICODE /DWITHOUT_TEMPERATURE /I"'+(Join-Path $RepoRoot 'include')+'" '+($sources -join ' ')+' /Fe:"'+$setupExe+'" /link /OPT:REF'
     Push-Location $work
     try { & cmd.exe /d /c $command; $compileExit=$LASTEXITCODE } finally { Pop-Location }
     if($compileExit -ne 0){exit $compileExit}

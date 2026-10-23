@@ -19,7 +19,7 @@ namespace NativePreferences
         void Focus(bool appearance){(appearance?m_appearanceChoice:m_languageChoice).SetFocus();}
     private:
         CWnd* m_parent{};
-        CStatic m_language,m_appearance,m_scope,m_preview,m_note;
+        CStatic m_language,m_appearance,m_scope,m_note;NativeMaterial::ReadOnlyText m_preview;
         NativeMaterial::Button m_languageChoice,m_appearanceChoice,m_apply,m_revert,m_reset,m_reapply;
         std::array<NativeRegex::Options,2> m_searches;
         TextId m_status{TextId::Draft};

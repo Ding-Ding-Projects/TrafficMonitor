@@ -9,7 +9,7 @@ namespace NativeDashboard
 {
     std::wstring Rate(const std::optional<double>& value, bool chinese)
     {
-        if (!value || !std::isfinite(*value)) return NativePreferences::Pair(L"Unavailable",L"未有讀數").GetString();
+        if (!value || !std::isfinite(*value)) return NativePreferences::InlinePair(L"Unavailable",L"未有讀數").GetString();
         double amount = *value; const wchar_t* unit = L"B/s";
         if (amount >= 1048576) { amount /= 1048576; unit = L"MiB/s"; }
         else if (amount >= 1024) { amount /= 1024; unit = L"KiB/s"; }
@@ -21,11 +21,11 @@ namespace NativeDashboard
         using NativeMonitoring::RateState;
         switch (state)
         {
-        case RateState::Available: return NativePreferences::Pair(L"Live",L"即時").GetString();
-        case RateState::CollectingFirstSample: return NativePreferences::Pair(L"Collecting first sample",L"正在收集首個樣本").GetString();
-        case RateState::Disconnected: return NativePreferences::Pair(L"Disconnected",L"未連線").GetString();
-        case RateState::IdentityUnavailable: return NativePreferences::Pair(L"Identity unavailable",L"識別資料未能取得").GetString();
-        default: return NativePreferences::Pair(L"Stale",L"讀數已過時").GetString();
+        case RateState::Available: return NativePreferences::InlinePair(L"Live",L"即時").GetString();
+        case RateState::CollectingFirstSample: return NativePreferences::InlinePair(L"Collecting first sample",L"正在收集首個樣本").GetString();
+        case RateState::Disconnected: return NativePreferences::InlinePair(L"Disconnected",L"未連線").GetString();
+        case RateState::IdentityUnavailable: return NativePreferences::InlinePair(L"Identity unavailable",L"識別資料未能取得").GetString();
+        default: return NativePreferences::InlinePair(L"Stale",L"讀數已過時").GetString();
         }
     }
     std::wstring TimeText(std::uint64_t value)
@@ -40,24 +40,24 @@ namespace NativeDashboard
     }
     std::wstring Details(const NativeMonitoring::AdapterSnapshot* row, bool selected, bool chinese)
     {
-        if (!row) return selected ? (NativePreferences::Pair(L"Adapter no longer present. Select another adapter.",L"所選網絡介面已不存在。請重新選擇。").GetString())
-            : (NativePreferences::Pair(L"Select an adapter to inspect its observed details.",L"選擇網絡介面以查看實際資料。").GetString());
+        if (!row) return selected ? (NativePreferences::InlinePair(L"Adapter no longer present. Select another adapter.",L"所選網絡介面已不存在。請重新選擇。").GetString())
+            : (NativePreferences::InlinePair(L"Select an adapter to inspect its observed details.",L"選擇網絡介面以查看實際資料。").GetString());
         std::wostringstream text;
         text << row->alias << L"\r\n" << row->description << L"\r\n\r\n"
-            << (NativePreferences::Pair(L"State: ",L"狀態：").GetString()) << RateStateText(row->rateState, chinese) << L"\r\n"
-            << (NativePreferences::Pair(L"Observed: ",L"觀察時間：").GetString()) << TimeText(row->acquiredAtUtcFileTime) << L"\r\n"
-            << (NativePreferences::Pair(L"Interval: ",L"採樣間隔：").GetString()) << row->intervalSeconds << L" s\r\n"
-            << (NativePreferences::Pair(L"Receiving: ",L"接收：").GetString()) << Rate(row->receivedBytesPerSecond, chinese) << L"\r\n"
-            << (NativePreferences::Pair(L"Sending: ",L"傳送：").GetString()) << Rate(row->sentBytesPerSecond, chinese) << L"\r\n\r\n"
-            << L"GUID: " << (row->hasPersistentIdentity ? row->persistentId : (NativePreferences::Pair(L"Unavailable; not persistent",L"不可持續識別").GetString())) << L"\r\n"
+            << (NativePreferences::InlinePair(L"State: ",L"狀態：").GetString()) << RateStateText(row->rateState, chinese) << L"\r\n"
+            << (NativePreferences::InlinePair(L"Observed: ",L"觀察時間：").GetString()) << TimeText(row->acquiredAtUtcFileTime) << L"\r\n"
+            << (NativePreferences::InlinePair(L"Interval: ",L"採樣間隔：").GetString()) << row->intervalSeconds << L" s\r\n"
+            << (NativePreferences::InlinePair(L"Receiving: ",L"接收：").GetString()) << Rate(row->receivedBytesPerSecond, chinese) << L"\r\n"
+            << (NativePreferences::InlinePair(L"Sending: ",L"傳送：").GetString()) << Rate(row->sentBytesPerSecond, chinese) << L"\r\n\r\n"
+            << L"GUID: " << (row->hasPersistentIdentity ? row->persistentId : (NativePreferences::InlinePair(L"Unavailable; not persistent",L"不可持續識別").GetString())) << L"\r\n"
             << L"LUID: " << row->interfaceLuid << L"\r\n"
-            << (NativePreferences::Pair(L"Receive link speed: ",L"連線接收速度：").GetString()) << row->receiveLinkBitsPerSecond << L" bit/s\r\n"
-            << (NativePreferences::Pair(L"Transmit link speed: ",L"連線傳送速度：").GetString()) << row->transmitLinkBitsPerSecond << L" bit/s\r\n\r\n"
-            << (NativePreferences::Pair(L"Addresses:\r\n",L"位址：\r\n").GetString());
-        if (row->addressError) text << (NativePreferences::Pair(L"Address acquisition error ",L"未能取得位址，代碼 ").GetString()) << row->addressError << L"\r\n";
-        else if (row->addresses.empty()) text << (NativePreferences::Pair(L"No observed addresses",L"沒有已觀察位址").GetString()) << L"\r\n";
+            << (NativePreferences::InlinePair(L"Receive link speed: ",L"連線接收速度：").GetString()) << row->receiveLinkBitsPerSecond << L" bit/s\r\n"
+            << (NativePreferences::InlinePair(L"Transmit link speed: ",L"連線傳送速度：").GetString()) << row->transmitLinkBitsPerSecond << L" bit/s\r\n\r\n"
+            << (NativePreferences::InlinePair(L"Addresses:\r\n",L"位址：\r\n").GetString());
+        if (row->addressError) text << (NativePreferences::InlinePair(L"Address acquisition error ",L"未能取得位址，代碼 ").GetString()) << row->addressError << L"\r\n";
+        else if (row->addresses.empty()) text << (NativePreferences::InlinePair(L"No observed addresses",L"沒有已觀察位址").GetString()) << L"\r\n";
         else for (const auto& address : row->addresses) text << address << L"\r\n";
-        text << L"\r\n" << (NativePreferences::Pair(L"This view is observational. It does not change monitor scope or traffic accounting.",L"此視圖只作觀察，不會改動監察範圍或流量記錄。").GetString());
+        text << L"\r\n" << (NativePreferences::InlinePair(L"This view is observational. It does not change monitor scope or traffic accounting.",L"此視圖只作觀察，不會改動監察範圍或流量記錄。").GetString());
         return text.str();
     }
     namespace
@@ -71,33 +71,33 @@ namespace NativeDashboard
         }
     }
     void DrawData(NativeMaterial::Canvas& canvas, const NativeMaterial::Palette& colors,
-        float width, float chartTop, float chartBottom, const NativeMonitoring::AdapterSnapshot* row, bool chinese)
+        float width, float metricsTop, float chartTop, float chartBottom, const NativeMonitoring::AdapterSnapshot* row, bool chinese)
     {
         auto* target = canvas.Target();
         const float gap = 16, left = 24, right = width - 24, half = (right - left - gap) / 2;
         for (int i = 0; i < 2; ++i)
         {
             const float x = left + i * (half + gap);
-            target->FillRoundedRectangle(D2D1::RoundedRect(D2D1::RectF(x, 188, x + half, 272), 16, 16), canvas.Brush(colors.container));
-            Text(canvas, i ? (NativePreferences::Pair(L"Sending",L"傳送").GetString()) : (NativePreferences::Pair(L"Receiving",L"接收").GetString()), 14,
-                D2D1::RectF(x + 16, 198, x + half - 12, 220), colors.secondaryText);
+            target->FillRoundedRectangle(D2D1::RoundedRect(D2D1::RectF(x, metricsTop, x + half, metricsTop + 96), 16, 16), canvas.Brush(colors.container));
+            Text(canvas, i ? (NativePreferences::InlinePair(L"Sending",L"傳送").GetString()) : (NativePreferences::InlinePair(L"Receiving",L"接收").GetString()), 14,
+                D2D1::RectF(x + 16, metricsTop + 10, x + half - 12, metricsTop + 34), colors.secondaryText);
             Text(canvas, Rate(row ? (i ? row->sentBytesPerSecond : row->receivedBytesPerSecond) : std::optional<double>{}, chinese), 28,
-                D2D1::RectF(x + 16, 224, x + half - 12, 266), colors.onSurface);
+                D2D1::RectF(x + 16, metricsTop + 40, x + half - 12, metricsTop + 90), colors.onSurface);
         }
         target->FillRoundedRectangle(D2D1::RoundedRect(D2D1::RectF(left, chartTop, right, chartBottom), 16, 16), canvas.Brush(colors.container));
-        Text(canvas, NativePreferences::Pair(L"Selected adapter samples · receive solid / send dashed",L"所選介面樣本 · 接收實線 / 傳送短線").GetString(), 14,
-            D2D1::RectF(left + 16, chartTop + 10, right - 16, chartTop + 34), colors.secondaryText);
+        Text(canvas, NativePreferences::InlinePair(L"Selected adapter samples · receive solid / send dashed",L"所選介面樣本 · 接收實線 / 傳送短線").GetString(), 14,
+            D2D1::RectF(left + 16, chartTop + 10, right - 16, chartTop + 46), colors.secondaryText);
         if (!row || row->history.size() < 2)
         {
-            Text(canvas, NativePreferences::Pair(L"Waiting for valid samples",L"正在等待有效樣本").GetString(), 16,
-                D2D1::RectF(left + 16, chartTop + 48, right - 16, chartBottom - 10), colors.secondaryText);
+            Text(canvas, NativePreferences::InlinePair(L"Waiting for valid samples",L"正在等待有效樣本").GetString(), 16,
+                D2D1::RectF(left + 16, chartTop + 56, right - 16, chartBottom - 10), colors.secondaryText);
             return;
         }
         double maximum = 1;
         for (const auto& point : row->history)
             for (const auto& rate : {point.receivedBytesPerSecond, point.sentBytesPerSecond})
                 if (rate && std::isfinite(*rate)) maximum = (std::max)(maximum, *rate);
-        const float x0 = left + 16, x1 = right - 16, y0 = chartTop + 48, y1 = chartBottom - 22;
+        const float x0 = left + 16, x1 = right - 16, y0 = chartTop + 56, y1 = chartBottom - 22;
         target->DrawLine(D2D1::Point2F(x0, y1), D2D1::Point2F(x1, y1), canvas.Brush(colors.outline));
         const auto first = row->history.front().monotonicMilliseconds, last = row->history.back().monotonicMilliseconds;
         if (last <= first) return;

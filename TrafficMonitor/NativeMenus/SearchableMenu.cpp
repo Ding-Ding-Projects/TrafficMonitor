@@ -507,7 +507,7 @@ public:
         expandText=NativePreferences::Pair(L"Open submenu",L"開啟子選單").GetString();
         radioText=NativePreferences::Pair(L"Radio option",L"單選選項").GetString();
         if(back)SetWindowTextW(back,backText.c_str());if(regex)SetWindowTextW(regex,NativePreferences::Pair(L"Regex",L"正規式"));
-        if(edit)SendMessageW(edit,EM_SETCUEBANNER,TRUE,reinterpret_cast<LPARAM>(searchText.c_str()));
+        if(edit){SendMessageW(edit,EM_SETCUEBANNER,TRUE,reinterpret_cast<LPARAM>(searchText.c_str()));IAccPropServices* properties{};if(SUCCEEDED(CoCreateInstance(CLSID_AccPropServices,nullptr,CLSCTX_INPROC_SERVER,IID_PPV_ARGS(&properties)))){properties->SetHwndPropStr(edit,OBJID_CLIENT,CHILDID_SELF,PROPID_ACC_NAME,searchText.c_str());properties->Release();}}
     }
     void PreferencesChanged()
     {

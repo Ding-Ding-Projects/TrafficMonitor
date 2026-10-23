@@ -62,3 +62,22 @@ and the complete accepted base after replacement.
 These paths are source corrections. Actual wizard serialization, startup
 migration and protected-schema close still require production-bound execution;
 the earlier 23 storage/helper checks do not establish those results.
+
+### Runtime candidate layout and verification limits
+
+Workspace action widths and row heights are measured from current labels. Metrics,
+chart and native tables follow the measured header. At minimum size the workspace
+uses vertical scrolling with focus reveal for Tab, F6 and Ctrl+L. Native single-line
+table cells join bilingual labels inline rather than embedding line breaks. The
+regex workbench scrolls focused Tab targets into view and leaves Escape to the IME
+while composition is active. The preference preview paints the draft appearance
+without changing the accepted appearance of the enclosing window.
+
+Startup defaults, migrated setup choices, loaded values and successful Apply have
+separate provenance. Successful-save text remains exclusive to verified Apply.
+
+The production serialization console test is preserved but currently cannot link
+because Common.cpp retains unrelated application symbols even with /Gy, /O2,
+/Zc:inline and /OPT:REF. This is an unverified check, not a passing result. The
+23 storage/helper checks passed before that linker failure. Real wizard restart,
+protected-schema close and the complete visual matrix remain pending.
