@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "command": "build.bat --site",
+  "exitCode": 0,
+  "sourceCommit": "6ed186424956cc528b49596e1a229b21818cc378",
+  "contentSource": "13e008afebfcc0ff3b4726ae83c9c4ba7bdb4c2b",
+  "inputState": "No nonignored changes at producer start; source and manifest unchanged through completion.",
+  "manifestSha256": "1064a808a1688a348137dcb8b664729dab094a8f4ac76062eb35c7defea10c7e",
+  "counts": {
+    "repositoryMarkdownArticles": 166,
+    "wikiMarkdownArticles": 28,
+    "wikiAssets": 75,
+    "wikiTrackedFiles": 103,
+    "articles": 194
+  },
+  "productionReceipt": {
+    "schemaVersion": 1,
+    "sourceCommit": "6ed186424956cc528b49596e1a229b21818cc378",
+    "contentSource": "13e008afebfcc0ff3b4726ae83c9c4ba7bdb4c2b",
+    "wikiSource": {
+      "repository": "https://github.com/zhongyang219/TrafficMonitor.wiki.git",
+      "commit": "cf35274094fe2ffb040ca1f29d6ce73c713d93a2"
+    },
+    "releaseMetadataSHA256": "37e33d17df24ad8a8e1cbb935a1dffd2844b8de4ec0c5f0f14f6e13538e62e0f",
+    "releaseTag": "v1.0.15-run39912330939-1",
+    "releaseSource": "3f573fc0031ef6b6cb123dfbc80c05c33a5063db",
+    "articleCount": 194,
+    "historyCount": 1582,
+    "base": "/TrafficMonitor/",
+    "unresolvedAssets": []
+  },
+  "buildOutput": "Built 194 complete articles; 1582 history records; 0 unavailable local images.",
+  "warning": "npm deprecation: whatwg-encoding@3.1.1. No dependency changes.",
+  "verificationScope": "Documentation production only; no deployment, wiki publication, tests, reviews, audits, runtime probes, interface interaction or screenshots.",
+  "outputs": [
+    {
+      "path": "docs/site/dist/index.html",
+      "bytes": 4911,
+      "sha256": "0cbc359202256de2a16c03e07340f0fe350fffef4f39afb3f1f590e58e7c27de"
+    },
+    {
+      "path": "docs/site/dist/articles/source-docs-features-installation-silent-updates/index.html",
+      "bytes": 15846,
+      "sha256": "6aae52f6d37190b5a3375ba6bfbf8d1e2e2b5e5a55b876d08ebeb1896deae345"
+    },
+    {
+      "path": "docs/site/dist/articles/source-docs-wiki-pending-silent-updates/index.html",
+      "bytes": 15995,
+      "sha256": "18d9171b5346262bdc976aa0bebd1758f793dbf0da1dd3877b3055d5aca47d0d"
+    },
+    {
+      "path": "docs/site/dist/build-receipt.json",
+      "bytes": 611,
+      "sha256": "823554d9b62e99da536f4b2650714585770110279b8dec9f4caaac352b327432"
+    }
+  ]
+}

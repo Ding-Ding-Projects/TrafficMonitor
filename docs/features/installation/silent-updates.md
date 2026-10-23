@@ -117,3 +117,36 @@ automatic cadence, restart deferral and recovery remain unfinished.
 ## Passive status tooltip restart boundary
 
 The existing visible-window restart check also classified the application-owned passive status tooltip as busy. Existing installed metadata records a visible taskbar tooltip, which demonstrates this classification mismatch but does not establish the cause of every previous update delay. The caller now excludes only the exact main/taskbar tooltip handles when their owner and tooltips_class32 class both match. Ordinary workspace, modeless editor, menu, draft, mouse capture and move/size deferrals remain unchanged. No new runtime observations, tests, reviews or screenshots were performed; automatic restart remains unverified.
+
+## UTF-8 feed marker repair
+
+The public 1.0.23 RELEASES file begins with bytes EF BB BF before its valid
+forty-character SHA-1 field. The native reader previously included that UTF-8 marker
+in the field and rejected its length. The repair verifies the original feed length
+and SHA-256 first, then skips only one leading UTF-8 marker for row parsing. Package
+bytes, both package digests, exact basename, single-entry checks and accepted-main
+admission are unchanged. It accepts neither arbitrary prefixes nor a marker inside
+a field. Static package inspection confirmed the public package SHA-1 matches the
+feed; this is format evidence, not execution of the updater or automatic-update proof.
+
+Integrity rejection now retains one fixed local substage: feed-size, feed-sha256,
+package-size, package-sha256, feed-format, feed-entry-count or package-sha1. The
+numeric validation result remains 13. No observed or expected hashes, payload bytes,
+URLs, response text, user content or credentials enter this diagnostic file.
+
+Production evidence for this repair is recorded separately. No tests, runtime probes,
+reviews, audits, interface interaction or screenshots are run in the expedited mode.
+Automatic scheduling, cooperative restart, recovery and full Stage 2 remain unfinished.
+
+The exact root build-installer.bat -Version 1.0.9012 at 6464841107c5b2bc43f15040c3108057ed296caf exited 0. Native build elapsed 10.20 seconds, with 22 warnings and zero errors. The source-bound local receipt is docs/features/installation/silent-feed-marker-build.json. This is compile/package evidence only; automatic scheduling, safe restart, recovery and full Stage 2 remain unverified.
+
+## Published feed encoding
+
+The supported package writer now explicitly writes RELEASES with strict BOM-free
+UTF-8 before calculating SHA256SUMS and publication metadata. It preserves Squirrel
+row contents, line endings, SHA-1 fields and package bytes, then reads back the
+stored feed to require exact text and absence of the leading marker. Parser support
+for prior valid BOM-prefixed feeds remains. The local 1.0.9012 receipt precedes this
+writer correction; its bytes remain historical. Production 1.0.9013 completed as recorded below.
+
+Exact build-installer.bat -Version 1.0.9013 at 58ff5b8226a9da38307a1b3ec3956e0a4ed35119 exited 0, with two LNK4199 warnings, zero errors and native elapsed 3.84 seconds. The supported writer completed its strict BOM-free UTF-8 readback before checksums. Source-bound receipt: docs/features/installation/silent-feed-writer-build.json. This is local production only, not automatic staging, restart, release or installed-update proof.

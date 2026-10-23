@@ -356,3 +356,28 @@ Exact build-installer.bat -Version 1.0.9011, including root build.bat, exited 0 
 ## Native collections final local handoff
 
 Native package 1.0.9011 remains bound to 45850b08266f4d0276056190f86a7f719f54c687, with exact root installer/build exit 0, 114 warnings and zero errors. Complete article content is bound to 48471dfbf031eff93ec27a4dbb162668851a07c3. The clean pinned static producer 35a438071dbeefd53a4dc86e290eefc3c56e4c1d ran exact build.bat --site and exited 0: 196 complete articles (168 repository Markdown plus 28 inherited wiki), 1,579 history records and zero unavailable local images. The new guide and prepared wiki guide account for the two added complete articles. Separate receipt: docs/features/search/native-collections-site-build-receipt.json. The older local release metadata is historical and does not claim publication of this candidate. Wiki publication remains pending. No tests, independent review, audits, runtime checks or screenshots were performed. Unicode persistence, recovery/concurrency, keyboard/display/localization acceptance, full collection compatibility and full regex parity remain unfinished. No updater, passive-tooltip or native engine changes were made. Status Hub session binding remains unavailable. The coordinating task owns preservation, integration, wiki publication and release.
+
+## UTF-8 updater feed marker repair
+
+Static inspection of the public 1.0.23 RELEASES bytes found EF BB BF before its valid uppercase SHA-1. The reader included the marker in its first field and rejected the resulting length. Package SHA-1 matched the published feed. The reader now verifies raw feed bytes and skips only a leading UTF-8 marker for row parsing, preserving every digest/size/source invariant. Fixed local integrity rejection substages retain numeric error 13. Production is pending. No updater code was executed against those files; no runtime, installation or automatic-update acceptance is claimed.
+
+The exact root build-installer.bat -Version 1.0.9012 at 6464841107c5b2bc43f15040c3108057ed296caf exited 0. Native build elapsed 10.20 seconds, with 22 warnings and zero errors. The source-bound local receipt is docs/features/installation/silent-feed-marker-build.json. This is compile/package evidence only; automatic scheduling, safe restart, recovery and full Stage 2 remain unverified.
+
+Exact build.bat --site at 6e1e9938290aca72e8532ebbb462ae125eab77cb exited 0 from a clean pinned producer, with content 84cda65c21b6c9b4c2d00e98bf6082eacec1ada6: 194 complete articles, 1578 history records, zero unavailable local images. The separate receipt is docs/features/installation/silent-feed-marker-site-build.json. npm reported the existing whatwg-encoding deprecation. Deployment, wiki publication and automatic-update acceptance remain unverified.
+
+## Published feed encoding
+
+The supported package writer now explicitly writes RELEASES with strict BOM-free
+UTF-8 before calculating SHA256SUMS and publication metadata. It preserves Squirrel
+row contents, line endings, SHA-1 fields and package bytes, then reads back the
+stored feed to require exact text and absence of the leading marker. Parser support
+for prior valid BOM-prefixed feeds remains. The local 1.0.9012 receipt precedes this
+writer correction; its bytes remain historical. Production 1.0.9013 completed as recorded below.
+
+Exact build-installer.bat -Version 1.0.9013 at 58ff5b8226a9da38307a1b3ec3956e0a4ed35119 exited 0, with two LNK4199 warnings, zero errors and native elapsed 3.84 seconds. The supported writer completed its strict BOM-free UTF-8 readback before checksums. Source-bound receipt: docs/features/installation/silent-feed-writer-build.json. This is local production only, not automatic staging, restart, release or installed-update proof.
+
+Exact final build.bat --site at 6ed186424956cc528b49596e1a229b21818cc378 exited 0 from a clean pinned producer, with content 13e008afebfcc0ff3b4726ae83c9c4ba7bdb4c2b: 194 complete articles, 1582 history records, zero unavailable local images. Receipt: docs/features/installation/silent-feed-writer-site-build.json. Earlier 1.0.9012 and intermediate site receipts remain historical; current native writer package is 1.0.9013 at 58ff5b8226a9da38307a1b3ec3956e0a4ed35119. Parent owns integration, publication, release and installed-update work.
+
+## Collections and feed repair convergence
+
+Merged completed updater parser/writer source 250d06e263372dc1f9f15c6d0395c0109a629e27 with native collections source without manually changing either implementation. Optional leading UTF-8 BOM parsing and explicit BOM-free publisher output are retained. Independent 1.0.9011, 1.0.9012 and 1.0.9013 receipts remain historical and source-bound. New combined production will use its own source and receipt. Complete prepared wiki changes remain pending publication. No tests, reviews, runtime interaction or screenshots are authorized.

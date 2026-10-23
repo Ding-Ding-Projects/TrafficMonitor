@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "58ff5b8226a9da38307a1b3ec3956e0a4ed35119",
+  "command": "build-installer.bat -Version 1.0.9013",
+  "rootBuildEntrypoint": "build.bat",
+  "version": "1.0.9013",
+  "exitCode": 0,
+  "nativeElapsed": "00:00:03.84",
+  "warnings": 2,
+  "errors": 0,
+  "warningCodes": [
+    "LNK4199"
+  ],
+  "feedEncoding": "Strict UTF-8 without BOM, written and read back by the supported production entrypoint before checksum generation.",
+  "feedPrefixHex": "464343",
+  "scope": "Local production only; no tests, reviews, audits, runtime probes, interface interaction or screenshots. No publication or installation proof.",
+  "priorProduction": "Local 1.0.9012 and its documentation receipts retain their original sources.",
+  "outputs": [
+    {
+      "path": "Bin/x64/Release (lite)/TrafficMonitor.exe",
+      "bytes": 2260480,
+      "sha256": "7471f4fd667393a4fdaadcb880c06f62f5362074a85a7d550e32ea238a044b94"
+    },
+    {
+      "path": "artifacts/releases/Setup.exe",
+      "bytes": 8443904,
+      "sha256": "4c9b2832dc51e225413a573cf456f8050c75e3ae6f0c68cee4147dbfa31f7983"
+    },
+    {
+      "path": "artifacts/releases/TrafficMonitor-1.0.9013-full.nupkg",
+      "bytes": 7563816,
+      "sha256": "2865bf33312bbf99c62be5ab5c8e5f9cd2c18fef701d6d339f4130e04fe6a55c"
+    },
+    {
+      "path": "artifacts/releases/RELEASES",
+      "bytes": 920,
+      "sha256": "4c83ff406c3c3b68b8816211769c5a2ed28865cc7761f9163c37dd7eb8e15948"
+    },
+    {
+      "path": "artifacts/releases/SHA256SUMS.txt",
+      "bytes": 1280,
+      "sha256": "73dbd3401fb28965dff918c86757c295e408bf4c5fdec61995fa1b5c49902128"
+    }
+  ]
+}

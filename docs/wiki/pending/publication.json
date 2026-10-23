@@ -34,12 +34,21 @@
     "state": "pending-publication",
     "pages": [
       "Home.md",
-      "Regex-collections.md"
+      "Regex-collections.md",
+      "Silent-updates.md"
     ],
     "previousPublishedCommit": "bb937c4a46a42dcffb7d4a3eaa4df6b91e520c63",
-    "sourceArticle": "docs/features/search/native-collections.md",
-    "sourceCommit": "45850b08266f4d0276056190f86a7f719f54c687",
-    "note": "Complete native collections guide and Home navigation are prepared. Existing publicationProof covers the previous six guides only. Publish through the supported wiki and read back stored blob bytes before marking this update delivered."
+    "sources": [
+      {
+        "article": "docs/features/search/native-collections.md",
+        "commit": "45850b08266f4d0276056190f86a7f719f54c687"
+      },
+      {
+        "article": "docs/features/installation/silent-updates.md",
+        "commit": "250d06e263372dc1f9f15c6d0395c0109a629e27"
+      }
+    ],
+    "note": "Complete collections guide/navigation and optional-BOM parser plus BOM-free writer documentation are prepared together. Earlier publication proofs remain historical. Publish and fetch exact stored wiki content before marking the combined revision delivered."
   },
   "historicalPublicationProof": {
     "fileCount": 5,
@@ -78,6 +87,29 @@
       "relationship": "Task-oriented wiki introduction and navigation remain distinct; the feed repair section mirrors the source guide, with an immutable source link replacing its local receipt link.",
       "preparedWikiHashEncoding": "Historical working-file CRLF bytes, not the stored Git blob hash.",
       "publishedWikiBlobSha256": "2add829a74fcd35dbb9031d69b8cd5d05a73bcf357fbd9916096912c99afbf95"
+    },
+    {
+      "state": "pending-publication",
+      "pages": [
+        "Home.md",
+        "Regex-collections.md"
+      ],
+      "previousPublishedCommit": "bb937c4a46a42dcffb7d4a3eaa4df6b91e520c63",
+      "sourceArticle": "docs/features/search/native-collections.md",
+      "sourceCommit": "45850b08266f4d0276056190f86a7f719f54c687",
+      "note": "Complete native collections guide and Home navigation are prepared. Existing publicationProof covers the previous six guides only. Publish through the supported wiki and read back stored blob bytes before marking this update delivered."
+    },
+    {
+      "state": "pending-publication",
+      "pages": [
+        "Silent-updates.md"
+      ],
+      "previousPublishedCommit": "bb937c4a46a42dcffb7d4a3eaa4df6b91e520c63",
+      "sourceArticle": "docs/features/installation/silent-updates.md",
+      "sourceArticleSha256": "4d56d94a0ba693c936ca96db033dcfb5b44b2cf9fdef462cacdaa319826740ca",
+      "preparedWikiSha256": "8530f1531ff4532c9140e117d4b9ea734299dffd0fd0b971b5dee2e7cb1bb439",
+      "note": "Leading UTF-8 parser compatibility, explicit BOM-free publication writer and local production evidence are prepared; parent must publish and read back the supported wiki before marking this update delivered. Existing publicationProof remains historical.",
+      "relationship": "The UTF-8 feed marker repair section and production summary match exactly; existing task-oriented introductions and navigation remain distinct."
     }
   ]
 }

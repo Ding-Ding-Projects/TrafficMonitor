@@ -70,3 +70,11 @@ Runtime installation and update acceptance remain separate from source and build
 - Add explicit named Save, Load draft, Rename, Delete, Refresh and backup recovery in the existing modeless workbench.
 - Persist bounded engine-bound expression records in the existing data directory without subjects or implicit history.
 - Preserve independent owner filters and current-corpus Apply validation; full parity and runtime acceptance remain unfinished.
+
+## Pending UTF-8 updater feed marker repair
+
+- Verify the original RELEASES bytes before skipping one leading UTF-8 BOM for row parsing.
+- Preserve strict digest, size, basename, entry count and accepted-main checks; record fixed local integrity rejection substages.
+- Runtime automatic-update acceptance remains unverified.
+
+- The supported package writer emits and reads back explicit strict BOM-free UTF-8 RELEASES before public checksum generation, retaining Squirrel row text and package bytes. Prior BOM-prefixed feeds remain supported.

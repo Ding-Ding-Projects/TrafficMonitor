@@ -114,22 +114,36 @@ namespace NativeUpdate
             }
             if(!package||!releases)throw std::runtime_error("missing assets");return result;
         }
+        struct ValidationError : std::runtime_error
+        {
+            const wchar_t* stage;
+            explicit ValidationError(const wchar_t* operation):std::runtime_error("validation"),stage(operation){}
+        };
         void ValidateFeed(Release& release,const std::vector<unsigned char>& releases,const std::vector<unsigned char>& package)
         {
-            if(releases.size()!=release.releasesSize||Digest(releases)!=release.releasesHash||package.size()!=release.packageSize||Digest(package)!=release.packageHash)throw std::runtime_error("integrity");
+            if(releases.size()!=release.releasesSize)throw ValidationError(L"feed-size");
+            if(Digest(releases)!=release.releasesHash)throw ValidationError(L"feed-sha256");
+            if(package.size()!=release.packageSize)throw ValidationError(L"package-size");
+            if(Digest(package)!=release.packageHash)throw ValidationError(L"package-sha256");
             // A single full package and exact safe basename prevents feed path escapes,
             // deltas and unrelated packages from reaching Squirrel's local source reader.
-            std::istringstream input(Text(releases));std::string line,sha,name,extra;unsigned long long size{};unsigned entries{};
+            // PowerShell-generated Squirrel feeds may carry a UTF-8 BOM. Verify
+            // the original bytes above before skipping only this encoding marker
+            // for row parsing; never normalize the bytes used by either digest.
+            auto feed=Text(releases);
+            if(feed.size()>=3&&static_cast<unsigned char>(feed[0])==0xef&&static_cast<unsigned char>(feed[1])==0xbb&&static_cast<unsigned char>(feed[2])==0xbf)feed.erase(0,3);
+            std::istringstream input(feed);std::string line,sha,name,extra;unsigned long long size{};unsigned entries{};
             while(std::getline(input,line))
             {
                 if(line.empty()||line=="\r")continue;
-                std::istringstream row(line);if(!(row>>sha>>name>>size)||(row>>extra)||name!=release.package||size!=release.packageSize||sha.size()!=40||sha.find_first_not_of("0123456789abcdefABCDEF")!=std::string::npos)throw std::runtime_error("RELEASES");
+                std::istringstream row(line);if(!(row>>sha>>name>>size)||(row>>extra)||name!=release.package||size!=release.packageSize||sha.size()!=40||sha.find_first_not_of("0123456789abcdefABCDEF")!=std::string::npos)throw ValidationError(L"feed-format");
                 // Squirrel emits uppercase SHA-1; hexadecimal spelling does not alter
                 // the digest. Normalize only ASCII hex before the exact comparison.
                 std::transform(sha.begin(),sha.end(),sha.begin(),[](unsigned char c){return c>='A'&&c<='F'?static_cast<char>(c-'A'+'a'):static_cast<char>(c);});
-                if(++entries!=1||Digest(package,true)!=sha)throw std::runtime_error("Squirrel integrity");release.releasesSha1=sha;
+                if(++entries!=1)throw ValidationError(L"feed-entry-count");
+                if(Digest(package,true)!=sha)throw ValidationError(L"package-sha1");release.releasesSha1=sha;
             }
-            if(entries!=1)throw std::runtime_error("empty RELEASES");
+            if(entries!=1)throw ValidationError(L"feed-entry-count");
         }
         std::string MainSource(const std::vector<unsigned char>& bytes)
         {
@@ -229,7 +243,7 @@ namespace NativeUpdate
             {
                 if(!state->enabled){state->status.phase=Phase::Disabled;state->wake.wait(lock,[&]{return state->cancel||state->enabled;});continue;}
                 state->check=false;state->networkCancel=false;state->httpStatus=0;auto started=GetTickCount64();lock.unlock();
-                try{Check(state,root);}catch(const TransportError& error){state->httpStatus=error.httpStatus;if(!state->cancel)Publish(state,Phase::Failed,{},error.code);}catch(...){if(!state->cancel)Publish(state,Phase::Failed,{},ERROR_INVALID_DATA);}
+                try{Check(state,root);}catch(const ValidationError& error){state->stage=error.stage;if(!state->cancel)Publish(state,Phase::Failed,{},ERROR_INVALID_DATA);}catch(const TransportError& error){state->httpStatus=error.httpStatus;if(!state->cancel)Publish(state,Phase::Failed,{},error.code);}catch(...){if(!state->cancel)Publish(state,Phase::Failed,{},ERROR_INVALID_DATA);}
                 lock.lock();
                 auto elapsed=GetTickCount64()-started;
                 auto remaining=elapsed<300000?300000-elapsed:0;

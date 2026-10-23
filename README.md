@@ -19,6 +19,14 @@ main/visible taskbar by metadata only. This does not verify automatic timing or 
 See [silent update behavior and evidence limits](docs/features/installation/silent-updates.md).
 The earlier local settings package remains historical compile/package evidence. Native
 MFC conversion and all 110 applicable required features remain unfinished.
+## UTF-8 updater feed repair candidate
+
+The public 1.0.23 feed carries a leading UTF-8 BOM. The native reader now verifies
+its original bytes before skipping that marker for row parsing, retaining every
+integrity and accepted-main check. Fixed local substages distinguish integrity
+rejections. Local production 1.0.9012 at `6464841107c5b2bc43f15040c3108057ed296caf` exited 0, with 22 warnings and zero errors. Automatic-update behavior remains unverified.
+See [repair behavior and evidence](docs/features/installation/silent-updates.md#utf-8-feed-marker-repair).
+
 ## Silent updater feed repair candidate
 
 The updater accepts Squirrel uppercase SHA-1 spelling with unchanged exact integrity and
