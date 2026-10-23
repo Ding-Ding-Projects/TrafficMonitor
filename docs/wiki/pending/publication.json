@@ -2,14 +2,15 @@
   "schemaVersion": 1,
   "destination": "https://github.com/Ding-Ding-Projects/TrafficMonitor.wiki.git",
   "observedWikiCommit": "bb937c4a46a42dcffb7d4a3eaa4df6b91e520c63",
-  "state": "published-verified",
+  "state": "prepared-update-pending",
   "pages": [
     "Home.md",
     "Installation.md",
     "Monitoring.md",
     "Build-and-release.md",
     "Verification.md",
-    "Silent-updates.md"
+    "Silent-updates.md",
+    "Regex-collections.md"
   ],
   "existingContentPolicy": "Preserve the original welcome line and reconcile any later changes before publication.",
   "publicationProof": {
@@ -30,19 +31,15 @@
     "publicationLanguageScan": "Six tracked guides and new history passed with zero findings."
   },
   "preparedUpdate": {
-    "state": "published-verified",
+    "state": "pending-publication",
     "pages": [
-      "Silent-updates.md"
+      "Home.md",
+      "Regex-collections.md"
     ],
-    "previousPublishedCommit": "3d7cfa6917e08d5b387add90c09c187830116cb7",
-    "documentationHome": "https://ding-ding-projects.github.io/TrafficMonitor/",
-    "note": "The coordinating task pushed and fetched the supported wiki master and matched stored Git blob bytes to the recorded source. Prior pending statements are historical; live wiki interface behavior remains unverified.",
-    "sourceArticle": "docs/features/installation/silent-updates.md",
-    "sourceArticleSha256": "5c7974bc46160ff232b1fe0eaae14a18135d56ed79f72c4266f456324f137fd7",
-    "preparedWikiSha256": "65ac2734d041bb91e979adf6d1dd1d5e84a5a49adda2b5619873b4614c22b4b9",
-    "relationship": "Task-oriented wiki introduction and navigation remain distinct; the feed repair section mirrors the source guide, with an immutable source link replacing its local receipt link.",
-    "preparedWikiHashEncoding": "Historical working-file CRLF bytes, not the stored Git blob hash.",
-    "publishedWikiBlobSha256": "2add829a74fcd35dbb9031d69b8cd5d05a73bcf357fbd9916096912c99afbf95"
+    "previousPublishedCommit": "bb937c4a46a42dcffb7d4a3eaa4df6b91e520c63",
+    "sourceArticle": "docs/features/search/native-collections.md",
+    "sourceCommit": "45850b08266f4d0276056190f86a7f719f54c687",
+    "note": "Complete native collections guide and Home navigation are prepared. Existing publicationProof covers the previous six guides only. Publish through the supported wiki and read back stored blob bytes before marking this update delivered."
   },
   "historicalPublicationProof": {
     "fileCount": 5,
@@ -64,6 +61,23 @@
       ],
       "evidenceSource": "Coordinating task publication and fetched exact remote blob readback.",
       "liveInterface": "UNVERIFIED: no live interface interaction in this pass."
+    }
+  ],
+  "preparedUpdateHistory": [
+    {
+      "state": "published-verified",
+      "pages": [
+        "Silent-updates.md"
+      ],
+      "previousPublishedCommit": "3d7cfa6917e08d5b387add90c09c187830116cb7",
+      "documentationHome": "https://ding-ding-projects.github.io/TrafficMonitor/",
+      "note": "The coordinating task pushed and fetched the supported wiki master and matched stored Git blob bytes to the recorded source. Prior pending statements are historical; live wiki interface behavior remains unverified.",
+      "sourceArticle": "docs/features/installation/silent-updates.md",
+      "sourceArticleSha256": "5c7974bc46160ff232b1fe0eaae14a18135d56ed79f72c4266f456324f137fd7",
+      "preparedWikiSha256": "65ac2734d041bb91e979adf6d1dd1d5e84a5a49adda2b5619873b4614c22b4b9",
+      "relationship": "Task-oriented wiki introduction and navigation remain distinct; the feed repair section mirrors the source guide, with an immutable source link replacing its local receipt link.",
+      "preparedWikiHashEncoding": "Historical working-file CRLF bytes, not the stored Git blob hash.",
+      "publishedWikiBlobSha256": "2add829a74fcd35dbb9031d69b8cd5d05a73bcf357fbd9916096912c99afbf95"
     }
   ]
 }
