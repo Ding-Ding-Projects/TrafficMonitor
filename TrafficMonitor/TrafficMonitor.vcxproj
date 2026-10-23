@@ -919,6 +919,7 @@
     <ClCompile Include="LinkStatic.cpp" />
     <ClCompile Include="ColorStatic.cpp" />
     <ClCompile Include="Common.cpp" />
+    <ClCompile Include="CommonText.cpp" />
     <ClCompile Include="CSkinPreviewView.cpp" />
     <ClCompile Include="DrawCommon.cpp" />
     <ClCompile Include="GeneralSettingsDlg.cpp" />

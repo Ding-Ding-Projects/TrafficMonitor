@@ -615,6 +615,9 @@
     <ClCompile Include="Common.cpp">
       <Filter>源文件和头文件\公共的类\Common</Filter>
     </ClCompile>
+    <ClCompile Include="CommonText.cpp">
+      <Filter>源文件和头文件\公共的类\Common</Filter>
+    </ClCompile>
     <ClCompile Include="DrawCommon.cpp">
       <Filter>源文件和头文件\公共的类\DrawCommon</Filter>
     </ClCompile>
