@@ -67,3 +67,10 @@ unverified. Automatic update UI and the full native redesign remain unfinished.
 The complete upstream wiki snapshot and 157-article route inventory are preserved locally in source.
 The documentation website renderer and complete translated changelog are being implemented.
 Workflow-based Pages hosting is configured, but no deployed documentation completion is claimed.
+
+## Documentation deployment, 2026-10-23
+
+The documentation home, JavaScript, stylesheet, article index, changelog and wiki category returned HTTP 200. The deployed receipt binds source 22995be0548441cf72a23ed869f9843503053585. The repository About homepage reads back https://ding-ding-projects.github.io/TrafficMonitor/. Workflow 39905750230 completed successfully, including normal release v1.0.11-run39905750230-1. Installed-update verification for that release remains pending.
+
+The current local documentation build passed with 172 articles, 1471 history records and zero unavailable local images. All 1387 upstream translations are present; 84 fork messages are included verbatim at source 7772ecf. Real browser interaction, complete Material Design 3 conversion, all required features and refreshed UI evidence remain unfinished.
+
