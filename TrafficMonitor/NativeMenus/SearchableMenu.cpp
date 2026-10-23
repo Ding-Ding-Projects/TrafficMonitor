@@ -1,5 +1,7 @@
 ﻿#include "stdafx.h"
 #include "SearchableMenu.h"
+#include "../NativePreferences/Text.h"
+#include "../NativePreferences/Subscription.h"
 #include "../NativeRegex/Workbench.h"
 #include "../TrafficMonitor.h"
 #include <commctrl.h>
@@ -151,6 +153,7 @@ class Popup
 {
 public:
     HWND window{}, owner{}, edit{}, list{}, back{}, empty{}, regex{}, previousFocus{};
+    NativePreferences::Subscription preferences;
     bool done{}, composing{}, rebuilding{}, restoreFocus{}, compatibility{}, chinese{};
     UINT command{}, dpi{96};
     NativeRegex::Editor regexEditor;
@@ -172,6 +175,7 @@ public:
 
     ~Popup()
     {
+        preferences.Detach();
         regexEditor.Close();
         accessibility->popup = nullptr; accessibility->list = nullptr;
         if (IsWindow(window)) DestroyWindow(window);
@@ -189,8 +193,7 @@ public:
     void Colors()
     {
         HIGHCONTRASTW hc{ sizeof(hc) }; SystemParametersInfoW(SPI_GETHIGHCONTRAST, sizeof(hc), &hc, 0);
-        DWORD light = 1, bytes = sizeof(light);
-        RegGetValueW(HKEY_CURRENT_USER, L"Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize", L"AppsUseLightTheme", RRF_RT_REG_DWORD, nullptr, &light, &bytes);
+        const bool light = !NativePreferences::Current().dark;
         if (hc.dwFlags & HCF_HIGHCONTRASTON)
         { surface = GetSysColor(COLOR_WINDOW); ink = GetSysColor(COLOR_WINDOWTEXT); muted = GetSysColor(COLOR_GRAYTEXT); selected = GetSysColor(COLOR_HIGHLIGHT); accent = GetSysColor(COLOR_HIGHLIGHTTEXT); }
         else if (light)
@@ -472,27 +475,27 @@ public:
         case WM_ACTIVATE: if(LOWORD(w)==WA_INACTIVE && !self->regexEditor.Contains(reinterpret_cast<HWND>(l))) self->done=true; return 0;
         case WM_CLOSE: self->done=true; return 0;
         case WM_DPICHANGED: self->dpi=HIWORD(w); self->Fonts(); self->Layout(); return 0;
-        case WM_SETTINGCHANGE: case WM_THEMECHANGED: self->Colors(); InvalidateRect(hwnd,nullptr,TRUE); return 0;
-        case WM_NCDESTROY: self->accessibility->popup=nullptr; self->accessibility->list=nullptr; self->window=nullptr; break;
+        case NativePreferences::ChangedMessage: if(!self->preferences.Accepts(w))return 0; self->Colors(); self->Layout(); InvalidateRect(hwnd,nullptr,TRUE); return 0;
+        case WM_SETTINGCHANGE: case WM_THEMECHANGED: NativePreferences::RefreshSystemAppearance(); self->Colors(); InvalidateRect(hwnd,nullptr,TRUE); return 0;
+        case WM_NCDESTROY: self->preferences.Detach(); self->accessibility->popup=nullptr; self->accessibility->list=nullptr; self->window=nullptr; break;
         }
         return DefWindowProcW(hwnd,message,w,l);
     }
     bool Create()
     {
-        LANGID language=theApp.m_general_data.language.language_id;
-        if(!language) language=GetUserDefaultUILanguage();
-        chinese=PRIMARYLANGID(language)==LANG_CHINESE;
-        searchText=chinese ? L"搜尋選單" : L"Search menu";
-        backText=chinese ? L"返回" : L"Back";
-        emptyText=chinese ? L"沒有符合的指令" : L"No matching commands";
-        invokeText=chinese ? L"執行" : L"Invoke";
-        expandText=chinese ? L"開啟子選單" : L"Open submenu";
-        radioText=chinese ? L"單選選項" : L"Radio option";
+        chinese=NativePreferences::Current().values.language==NativePreferences::Language::Cantonese;
+        searchText=NativePreferences::Pair(L"Search menu",L"搜尋選單").GetString();
+        backText=NativePreferences::Pair(L"Back",L"返回").GetString();
+        emptyText=NativePreferences::Pair(L"No matching commands",L"沒有符合的指令").GetString();
+        invokeText=NativePreferences::Pair(L"Invoke",L"執行").GetString();
+        expandText=NativePreferences::Pair(L"Open submenu",L"開啟子選單").GetString();
+        radioText=NativePreferences::Pair(L"Radio option",L"單選選項").GetString();
         WNDCLASSEXW cls{sizeof(cls)}; cls.lpfnWndProc=WindowProc; cls.hInstance=AfxGetInstanceHandle(); cls.lpszClassName=L"TrafficMonitor.NativeSearchMenu"; cls.hCursor=LoadCursorW(nullptr,IDC_ARROW); cls.style=CS_DROPSHADOW;
         if(!RegisterClassExW(&cls) && GetLastError()!=ERROR_CLASS_ALREADY_EXISTS) return false;
         Colors();
         window=CreateWindowExW(WS_EX_TOOLWINDOW|WS_EX_TOPMOST,cls.lpszClassName,L"TrafficMonitor",WS_POPUP|WS_BORDER,anchor.x,anchor.y,1,1,owner,nullptr,cls.hInstance,this);
         if(!window) return false;
+        preferences.Attach(window);
         using GetDpi=UINT(WINAPI*)(HWND); auto getDpi=reinterpret_cast<GetDpi>(GetProcAddress(GetModuleHandleW(L"user32.dll"),"GetDpiForWindow"));
         if(getDpi) dpi=getDpi(window);
         rowHeight=Px(48);
@@ -576,7 +579,7 @@ HRESULT MenuAccessible::accDoDefaultAction(VARIANT child)
 }
 }
 
-UINT Track(CMenu* menu,UINT flags,int x,int y,CWnd* ownerWindow)
+UINT Track(CMenu* menu,UINT flags,int x,int y,CWnd* ownerWindow,NativeRegex::Options* retainedSearch)
 {
     if(!menu || !IsMenu(menu->GetSafeHmenu()) || !ownerWindow || !IsWindow(ownerWindow->GetSafeHwnd())) return 0;
     HWND owner=ownerWindow->GetSafeHwnd(); HMENU handle=menu->GetSafeHmenu();
@@ -588,6 +591,7 @@ UINT Track(CMenu* menu,UINT flags,int x,int y,CWnd* ownerWindow)
     if(created)
     {
         popup.Open(handle,0);
+        if(retainedSearch&&!popup.levels.empty()){popup.levels.front().filter->options=*retainedSearch;SetWindowTextW(popup.edit,retainedSearch->query.c_str());popup.Filter();}
         if(!popup.done) { ShowWindow(popup.window,SW_SHOW); SetForegroundWindow(popup.window); SetFocus(popup.edit); }
         MSG message{};
         while(!popup.done && IsWindow(owner) && IsWindow(popup.window))
@@ -603,6 +607,7 @@ UINT Track(CMenu* menu,UINT flags,int x,int y,CWnd* ownerWindow)
         }
         popup.restoreFocus=GetForegroundWindow()==popup.window || popup.regexEditor.Contains(GetForegroundWindow());
         popup.regexEditor.Close();
+        if(retainedSearch&&!popup.levels.empty())*retainedSearch=popup.levels.front().filter->options;
         while(!popup.levels.empty())
         { SendMessageW(owner,WM_UNINITMENUPOPUP,reinterpret_cast<WPARAM>(popup.levels.back().menu),0); popup.levels.pop_back(); }
         if(IsWindow(popup.window)) DestroyWindow(popup.window);

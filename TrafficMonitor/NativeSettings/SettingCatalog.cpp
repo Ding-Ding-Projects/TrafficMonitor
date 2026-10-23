@@ -20,9 +20,9 @@ namespace NativeSettings
     }
     const wchar_t* GroupName(int group,bool chinese)
     {
-        static const wchar_t* en[]={L"Monitoring",L"Floating monitor",L"Taskbar",L"Notifications",L"All groups"};
-        static const wchar_t* zh[]={L"監察",L"浮動監察器",L"工作列",L"通知",L"所有組別"};
-        return (chinese?zh:en)[group>=0&&group<5?group:0];
+        static const wchar_t* en[]={L"Monitoring",L"Floating monitor",L"Taskbar",L"Notifications",L"Interface",L"All groups"};
+        static const wchar_t* zh[]={L"監察",L"浮動監察器",L"工作列",L"通知",L"介面",L"所有組別"};
+        return (chinese?zh:en)[group>=0&&group<6?group:0];
     }
     std::wstring FormatValue(const Setting& s,const Values& v,bool chinese)
     {

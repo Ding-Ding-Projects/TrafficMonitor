@@ -1118,4 +1118,17 @@
     <ClInclude Include="NativeRegex\Collections.h" />
     <ClCompile Include="NativeRegex\Collections.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
   </ItemGroup>
+
+  <ItemGroup>
+    <ClInclude Include="NativePreferences\Preferences.h" />
+    <ClCompile Include="NativePreferences\Preferences.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
+    <ClInclude Include="NativePreferences\Storage.h" />
+    <ClCompile Include="NativePreferences\Storage.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
+    <ClInclude Include="NativePreferences\Subscription.h" />
+    <ClCompile Include="NativePreferences\Subscription.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
+    <ClInclude Include="NativePreferences\Editor.h" />
+    <ClCompile Include="NativePreferences\Editor.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
+    <ClInclude Include="NativePreferences\Text.h" />
+    <ClCompile Include="NativePreferences\Text.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
+  </ItemGroup>
 </Project>

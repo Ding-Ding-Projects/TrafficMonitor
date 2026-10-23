@@ -4,6 +4,7 @@
 
 #include "stdafx.h"
 #include "TrafficMonitor.h"
+#include "NativePreferences/Preferences.h"
 #include "TrafficMonitorDlg.h"
 #include "crashtool.h"
 #include "UpdateHelper.h"
@@ -1032,6 +1033,7 @@ BOOL CTrafficMonitorApp::InitInstance()
     //#endif // !_DEBUG
 
     LoadLanguageConfig();
+    NativePreferences::Initialize(m_config_dir, m_general_data.language.language_id);
 
     //初始化界面语言
     CCommon::SetThreadLanguage(m_general_data.language.language_id);
