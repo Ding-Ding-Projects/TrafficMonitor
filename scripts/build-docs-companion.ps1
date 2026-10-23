@@ -15,7 +15,7 @@ try {
     try {
         & $nodePath $npm ci --ignore-scripts --no-audit --no-fund
         if ($LASTEXITCODE -ne 0) { throw "Locked companion dependency acquisition failed with exit $LASTEXITCODE" }
-        & $nodePath stage.mjs
+        & $nodePath stage.mjs $Version
         if ($LASTEXITCODE -ne 0) { throw 'Offline staging failed' }
         & $nodePath node_modules/electron-builder/cli.js --win portable --x64 --publish never "-c.extraMetadata.version=$Version"
         if ($LASTEXITCODE -ne 0) { throw "Portable documentation production failed with exit $LASTEXITCODE" }
