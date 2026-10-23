@@ -24,3 +24,8 @@ The query is UI-thread-only and is not a thread-safe backend input.
 
 This is intended integration behavior. The expedited mode runs no new tests, reviews, audits or
 screenshots. Compilation and packaging belong to the combined backend/UI source candidate.
+
+The coupled Settings controls expose existing automatic checking and separately persisted automatic
+restart, both defaulting on for page reset. Restart preference must save and read back before the
+ordinary settings consumer runs. Failure leaves all controls as draft for retry or revert. The
+read-only two-second status refresh never changes preferences or dismisses the editor.
