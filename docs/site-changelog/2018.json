@@ -1,0 +1,301 @@
+{
+  "entries": [
+    {
+      "sha": "cc6debec6a8cf4c1dc7c8c05bd2c0f6075c7d987",
+      "date": "2018-01-03T23:23:53+08:00",
+      "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/cc6debec6a8cf4c1dc7c8c05bd2c0f6075c7d987",
+      "summary": "Fix stale CPU and memory values in hover tips when both the main and taskbar windows hide those metrics; improve draggable-area detection across display scaling.",
+      "category": "fix",
+      "lineage": "upstream",
+      "originalSubject": "修正当主窗口和任务栏窗口都不显示CPU和内存利用率时，鼠标提示中的CPU和内存不刷新的问题；优化关于不同DPI设置时获取悬浮窗可移动区域的处理。",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "36bd19172438162649e9414f9135fb652235c3cf",
+      "date": "2018-01-04T23:12:53+08:00",
+      "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/36bd19172438162649e9414f9135fb652235c3cf",
+      "summary": "Avoid repositioning a floating window when its width or height is at least as large as the screen.",
+      "category": "fix",
+      "lineage": "upstream",
+      "originalSubject": "修正一个问题",
+      "summaryMethod": "patch-reviewed",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "e430e1cdc130a84e8ca4d4fce5f938f3d9d2defd",
+      "date": "2018-01-18T16:28:32+08:00",
+      "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/e430e1cdc130a84e8ca4d4fce5f938f3d9d2defd",
+      "summary": "Correct taskbar-window placement on pre-Vista systems when a custom toolbar or Quick Launch area occupies the left side.",
+      "category": "fix",
+      "lineage": "upstream",
+      "originalSubject": "修正了当任务栏左侧有自定义工具栏或快速启动栏（Vista以下操作系统）时，任务栏窗口位置不正确的问题。",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "5ddf8604249532004e2d10d28fa7c6f7a9baced1",
+      "date": "2018-01-18T17:04:58+08:00",
+      "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/5ddf8604249532004e2d10d28fa7c6f7a9baced1",
+      "summary": "Refine taskbar metric-label formatting and skip topmost-window checks while the main window is hidden.",
+      "category": "maintenance",
+      "lineage": "upstream",
+      "originalSubject": "一些细节改进",
+      "summaryMethod": "patch-reviewed",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "dd3ae63a7bc63a1f1efd05548516a14de0bff8f2",
+      "date": "2018-01-19T09:12:01+08:00",
+      "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/dd3ae63a7bc63a1f1efd05548516a14de0bff8f2",
+      "summary": "Add version metadata for update releases.",
+      "category": "release",
+      "lineage": "upstream",
+      "originalSubject": "添加version.info",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "cbd39bfb8c219912cdd99c5ba33a62f7e631af25",
+      "date": "2018-01-19T10:44:56+08:00",
+      "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/cbd39bfb8c219912cdd99c5ba33a62f7e631af25",
+      "summary": "Update release metadata in version.info.",
+      "category": "release",
+      "lineage": "upstream",
+      "originalSubject": "更新version.info",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "34d05ffa83fc54a808f5569c1c0b267ae01cd545",
+      "date": "2018-01-19T11:14:57+08:00",
+      "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/34d05ffa83fc54a808f5569c1c0b267ae01cd545",
+      "summary": "Add automatic update checking.",
+      "category": "feature",
+      "lineage": "upstream",
+      "originalSubject": "新增检查更新功能。",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "2aa84c9760ac8cdfe27b2786441d37cdd592402a",
+      "date": "2018-01-19T11:26:58+08:00",
+      "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/2aa84c9760ac8cdfe27b2786441d37cdd592402a",
+      "summary": "Show an error message when update checking fails.",
+      "category": "fix",
+      "lineage": "upstream",
+      "originalSubject": "增加检查更新失败时的提示信息。",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "83699402aebe8906953e65d27db922cad8342f1a",
+      "date": "2018-01-19T15:24:29+08:00",
+      "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/83699402aebe8906953e65d27db922cad8342f1a",
+      "summary": "Add a General section to Options and simplify related code.",
+      "category": "feature",
+      "lineage": "upstream",
+      "originalSubject": "选项设置中增加常规设置；精简部分代码。",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "e994c5fbc827a5a6a85e3c9d535898c2cb169910",
+      "date": "2018-01-19T17:09:00+08:00",
+      "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/e994c5fbc827a5a6a85e3c9d535898c2cb169910",
+      "summary": "Store startup behavior in the registry, remove its context-menu command, and move the setting into Options > General.",
+      "category": "feature",
+      "lineage": "upstream",
+      "originalSubject": "开机自启动功能改为写入注册表实现，去掉右键菜单中的“开机自动运行”项，设置移至选项设置——常规设置。",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "0da55107a73c49e716c193220a10366b2f1b8c5b",
+      "date": "2018-01-20T13:26:44+08:00",
+      "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/0da55107a73c49e716c193220a10366b2f1b8c5b",
+      "summary": "Use a relative configuration-file path in debug mode and refine several details.",
+      "category": "maintenance",
+      "lineage": "upstream",
+      "originalSubject": "设置debug模式下的配置文件路径为相对路径；改进几处细节。",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "133456962025df1bc71356566cd4858bd128a5a8",
+      "date": "2018-01-20T21:43:58+08:00",
+      "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/133456962025df1bc71356566cd4858bd128a5a8",
+      "summary": "Update release metadata in version.info.",
+      "category": "release",
+      "lineage": "upstream",
+      "originalSubject": "更新version.info",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "c4b4ba3ac6f0bef15c5a5705562401582076daf6",
+      "date": "2018-01-20T21:53:12+08:00",
+      "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/c4b4ba3ac6f0bef15c5a5705562401582076daf6",
+      "summary": "Revise release metadata in version.info.",
+      "category": "release",
+      "lineage": "upstream",
+      "originalSubject": "更新version.info",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "f32ccab0c129bf8bf282353d5ce608778bfdc668",
+      "date": "2018-01-20T21:58:21+08:00",
+      "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/f32ccab0c129bf8bf282353d5ce608778bfdc668",
+      "summary": "Show release notes when an update is available.",
+      "category": "feature",
+      "lineage": "upstream",
+      "originalSubject": "新增检查到更新时显示更新内容。",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "6cd265f1a7a8bdf8013a4b4b9c082012f82424b7",
+      "date": "2018-01-21T17:07:57+08:00",
+      "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/6cd265f1a7a8bdf8013a4b4b9c082012f82424b7",
+      "summary": "Allow the taskbar window on the left side of the taskbar and advance the version to 1.67.",
+      "category": "feature",
+      "lineage": "upstream",
+      "originalSubject": "增加任务栏窗口可以放在任务栏的左侧；一些细节方面的改进；版本号升级到1.67",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "bad12c51d1a18f2128a2184f02f58066178eb954",
+      "date": "2018-01-21T19:56:51+08:00",
+      "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/bad12c51d1a18f2128a2184f02f58066178eb954",
+      "summary": "Update release metadata in version.info.",
+      "category": "release",
+      "lineage": "upstream",
+      "originalSubject": "更新version.info",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "f68c7c02edd04f22ff71d82925003c4fb0d75b64",
+      "date": "2018-01-23T15:37:51+08:00",
+      "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/f68c7c02edd04f22ff71d82925003c4fb0d75b64",
+      "summary": "Prevent the main window from flashing for a second at startup when configured to start hidden.",
+      "category": "fix",
+      "lineage": "upstream",
+      "originalSubject": "修正程序启动时如果设置了隐藏主窗口，主窗口还是会显示一秒钟才消失的问题。",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "174f450cfc7fc9e243fd60b9ebcfee5e88711679",
+      "date": "2018-01-24T10:37:51+08:00",
+      "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/174f450cfc7fc9e243fd60b9ebcfee5e88711679",
+      "summary": "Fix initialization-time window movement when the configured position is the top-left corner (0, 0).",
+      "category": "fix",
+      "lineage": "upstream",
+      "originalSubject": "修正当窗口位置为左上角(0,0)时，初始化时移动窗口无效的问题。",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "5a0a6343c10cf80e5b09b3d2ed06a3ef03deaad7",
+      "date": "2018-01-24T10:38:44+08:00",
+      "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/5a0a6343c10cf80e5b09b3d2ed06a3ef03deaad7",
+      "summary": "Repeat the fix for initialization-time window movement at the top-left corner (0, 0).",
+      "category": "fix",
+      "lineage": "upstream",
+      "originalSubject": "修正当窗口位置为左上角(0,0)时，初始化时移动窗口无效的问题。",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "78261cd0d2402b03fdadb5965d730863b912d0eb",
+      "date": "2018-02-10T15:28:33+08:00",
+      "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/78261cd0d2402b03fdadb5965d730863b912d0eb",
+      "summary": "Remove a generated error.log file from the source tree.",
+      "category": "maintenance",
+      "lineage": "upstream",
+      "originalSubject": "Delete error.log",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "6ec9c4df714a477883d9da4ad79189d33a82482b",
+      "date": "2018-02-10T15:28:55+08:00",
+      "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/6ec9c4df714a477883d9da4ad79189d33a82482b",
+      "summary": "Remove a duplicate traffic-history data file from the source tree.",
+      "category": "maintenance",
+      "lineage": "upstream",
+      "originalSubject": "Delete history_traffic - 副本.dat",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "cbabfe2765faa38c4472b7bbd797b5fe93acf896",
+      "date": "2018-02-10T15:29:10+08:00",
+      "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/cbabfe2765faa38c4472b7bbd797b5fe93acf896",
+      "summary": "Remove the traffic-history data file from the source tree.",
+      "category": "maintenance",
+      "lineage": "upstream",
+      "originalSubject": "Delete history_traffic.dat",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "0b1a2e435831ea05ff1bd5792a49d4bd216ed3fc",
+      "date": "2018-02-10T15:29:24+08:00",
+      "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/0b1a2e435831ea05ff1bd5792a49d4bd216ed3fc",
+      "summary": "Remove config.ini from the source tree.",
+      "category": "maintenance",
+      "lineage": "upstream",
+      "originalSubject": "Delete config.ini",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "4a94dd9915af5cf1b8bbd80dda336f862061b777",
+      "date": "2018-02-10T15:42:48+08:00",
+      "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/4a94dd9915af5cf1b8bbd80dda336f862061b777",
+      "summary": "Return early when the taskbar window rectangle is empty and initialize the window-position rectangle before adjustment.",
+      "category": "fix",
+      "lineage": "upstream",
+      "originalSubject": "update",
+      "summaryMethod": "patch-reviewed",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "3bf55fa68629b1b9d4119820e7ebe076c5cd0dd3",
+      "date": "2018-02-10T15:47:22+08:00",
+      "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/3bf55fa68629b1b9d4119820e7ebe076c5cd0dd3",
+      "summary": "Add application screenshots.",
+      "category": "documentation",
+      "lineage": "upstream",
+      "originalSubject": "添加截图",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "71484eb04e2983122eaf9cc84f44c4c44ec33e2b",
+      "date": "2018-02-10T15:59:29+08:00",
+      "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/71484eb04e2983122eaf9cc84f44c4c44ec33e2b",
+      "summary": "Update the project README.",
+      "category": "documentation",
+      "lineage": "upstream",
+      "originalSubject": "Update README.md",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "af5f7358033458c8387ba6d54d4a8daa2504d595",
+      "date": "2018-02-16T20:06:47+08:00",
+      "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/af5f7358033458c8387ba6d54d4a8daa2504d595",
+      "summary": "Do not report registry-key deletion failure when confirming Options with startup disabled.",
+      "category": "fix",
+      "lineage": "upstream",
+      "originalSubject": "修正当没有设置开机自动运行时，进入选项设置后点击确定后，弹出“注册表项删除失败”的问题。",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    }
+  ]
+}
