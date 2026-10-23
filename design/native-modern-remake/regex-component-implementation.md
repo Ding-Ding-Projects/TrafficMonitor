@@ -13,3 +13,7 @@ This source checkpoint has not yet compiled or run. Exact package 1.0.9036, repr
 Below 600 logical client pixels in height, the repeated explanatory heading is omitted; the native window title, pattern label, task navigation and fixed actions remain. The normal heading uses 24-pixel semibold type and a separate 14-pixel bilingual secondary line. Task body overflow is intentional and must remain keyboard/wheel reachable. This is not permission to claim the complete layout matrix from one scale.
 
 The multiline rail is an actual editor child, with its width reserved in the native formatting rectangle. Wheel routing accumulates partial deltas, respects the operating-system line/page preference, does nothing while disabled, and allows read-only output to scroll without editing. Buttons inside a section receive its current surface color by value; the shared default remains unchanged for other owners.
+
+## Candidate verification
+
+The initial uncompiled checkpoint above is historical. Candidate 1.0.9040 at 691522b852ef425e2d99a2e0d3dd5779ff144e8a now has successful exact-root packaging and bounded real wheel, disabled/read-only scrolling and normal/minimum pixel observations. See CLOSEOUT_PROMPT.md for exact hashes, intervals, restoration and limitations. Independent review and the complete acceptance matrix remain pending.
