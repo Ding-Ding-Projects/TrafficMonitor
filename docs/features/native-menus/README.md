@@ -28,4 +28,3 @@ The exact root `build.bat --silent` passed for source `a74b441b08acbfd22480653f0
 2. Queue an accessible command, change list selection before delivery, and verify the originally requested command executes, never the new selection. Queue then filter, change level, disable/remove/replace the command, or close the popup: stale actions must execute nothing. Force a failed message post: the accessibility call must return failure.
 3. Repeat each check against an intentionally reverted queue or native-dispatch implementation in an isolated test build. The check must fail before the repaired build is accepted. No such negative runtime test has run yet.
 4. Exercise plugin dynamic commands, disabled commands, radio/check/default states, Back, Escape, Up/Down/Left/Right, IME composition, outside dismissal and focus return on the genuine built surface. Check work-area corners and the complete DPI/theme/language matrix in the design inventory.
-

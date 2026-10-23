@@ -44,3 +44,11 @@ A rendering/evidence discrepancy remains unresolved: the initial calendar submen
 A GetGUIThreadInfo query returned no usable hidden-thread focus result. The disconnected-provider helper did not run because of a helper indentation error; that helper was repaired and syntax checked after safe teardown, but its intended runtime check remains unrun. The list-history menu requires the actual cursor position over its Figure header; posted off-screen mouse messages alone did not exercise that route, and the visible cursor was not moved.
 
 Queued-action race mutation, disconnected-provider invocation, focus restoration, tray callback runtime, remaining consumers, full UI Automation, IME and the full layout matrix remain unfinished. The new enabled-action evidence supersedes only the corresponding earlier unverified item, not the whole acceptance list.
+
+## Calendar capture-route and provider-lifetime follow-up
+
+The same executable was relaunched for a bounded diagnostic pass. On the actual calendar submenu, a direct PrintWindow capture of its native ListBox rendered both Sunday and Monday correctly, while the corresponding whole-popup PrintWindow capture omitted those labels. This establishes a difference between the two capture targets. It does not establish the cause or prove whole-window visual acceptance, and no speculative product-source rendering change was made.
+
+A retained real IAccessible object was then invoked after its popup was closed through WM_CLOSE. Direct default action returned `CO_E_OBJNOTCONNECTED` (`-2147220995`). The IDispatch call raised `DISP_E_EXCEPTION` (`-2147352567`). Neither call executed a command. This verifies the destroyed-provider rejection path, not the queued-action identity race, whose deterministic runtime mutation check remains unfinished.
+
+The candidate exited gracefully after this pass. Existing version 1.0.12 was restored and read back with its main window hidden, taskbar child visible, startup unchanged and saved configuration unchanged. No hidden candidate remains running.
