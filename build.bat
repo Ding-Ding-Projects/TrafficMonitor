@@ -1,5 +1,6 @@
 @echo off
 setlocal
+if /i "%~1"=="--verify-preferences" goto verifyPreferences
 if /i "%~1"=="--verify-settings" goto verifySettings
 if /i "%~1"=="--docs-companion" goto docsCompanion
 if /i "%~1"=="--verify-updater" goto verifyUpdater
@@ -27,4 +28,8 @@ powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0scripts\te
 exit /b %errorlevel%
 :docsCompanion
 powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0scripts\build-docs-companion.ps1" %2 %3 %4 %5 %6 %7 %8 %9
+exit /b %errorlevel%
+
+:verifyPreferences
+powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0scripts\test-native-preferences.ps1"
 exit /b %errorlevel%

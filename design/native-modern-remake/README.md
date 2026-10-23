@@ -1,0 +1,33 @@
+# Modern native monitoring interface
+
+Design handoff for independent review, not implemented behavior. Source baseline: `f1c6cc59f254ebf37503115636765619b3b35914`. This proposal supersedes the visual composition in `../native-interface-preferences/` while retaining its storage, conflict, migration and lifecycle contracts.
+
+The existing 1.0.9028 interface was rejected visually. Its narrow runtime exercise proved default provenance, searchable draft selection, deferred persistence and a saved bilingual/dark pair in Settings. It did not prove restart, cross-surface refresh, wizard conflict, protected-schema closure or the complete display matrix. The Interface page incorrectly reported no matches while showing controls, used undersized form text, and retained an untranslated footer. Those defects remain open.
+
+## Product direction
+
+TrafficMonitor is a working instrument: see current traffic, identify an adapter, inspect a time interval and change monitoring behavior. The new composition uses a quiet navigation column, a compact command bar, readable data and aligned forms. It removes the wall of equal-priority rounded buttons, oversized empty cards and tiny form captions. No marketing hero, command catalogue or decorative illustration replaces productive controls.
+
+Five native owners share one visual language: monitoring workspace, Settings, setup, searchable menu and regex editor. Native C++/MFC, DirectWrite/Direct2D and actual HWND controls remain. No browser renderer or runtime migration is proposed. Original resource dialogs are explicitly inventoried in `handoff.md`; the five-owner implementation does not silently claim that those dialogs were rebuilt.
+
+## Actual design references
+
+`render_references.py` generates sixty editable SVG references under `references/`: five surfaces × normal/minimum × English/Cantonese/bilingual × light/dark. The SVGs are authored proposals with synthetic example values. They are not application screenshots or runtime evidence. Each has its exact tuple in its filename and an embedded design-only description. They are stored directly with this handoff, not in an external design service.
+
+Start with [workspace](references/workspace-normal-english-light.svg), [Settings](references/settings-normal-english-light.svg), [setup](references/setup-normal-english-light.svg), [menu](references/menu-normal-english-light.svg), and [regex](references/regex-normal-english-light.svg). Compare [minimum bilingual Settings](references/settings-minimum-bilingual-dark.svg) and [minimum bilingual workspace](references/workspace-minimum-bilingual-dark.svg). SVG geometry is in logical pixels; the normal and minimum sizes are stated in `layout-and-tokens.md`.
+
+Two additional component sheets show [light anatomy](references/components-light.svg) and [dark anatomy](references/components-dark.svg), including text fields, action hierarchy, checkbox/switch/range, checked rows and the custom scroll rail. `control-registry.md` maps each raw native control and scrollbar to its replacement and retained accessibility/input behavior. This is a complete visual replacement criterion inside the owned surfaces, not a color-only patch.
+
+Independent-review revision adds 24 state references: twelve setup step-1 scrolled tuples, eight bilingual workspace Sample history/Details tuples, and four minimum bilingual regex subject/results tuples. The total is now 84 surface references plus two component sheets. [Setup controls](references/setup-minimum-bilingual-dark-scrolled.svg), [sample history](references/workspace-minimum-bilingual-dark-samples.svg), [details](references/workspace-minimum-bilingual-dark-details.svg), [regex subject](references/regex-minimum-bilingual-dark-subject.svg) and [regex results](references/regex-minimum-bilingual-dark-results.svg) demonstrate reachable content at declared offsets. `action-destinations.md` maps actual production control IDs and actions to the proposed destinations.
+
+References show principal resting states. Conflict, protected storage, validation, empty results, keyboard focus and high contrast use the same components and are specified in `states.md`. Those states still need real built evidence. An SVG contains no executable preference service, monitoring data, regex engine or native accessibility provider.
+
+## Review decision requested
+
+Review the composition, component boundaries, all sixty reference tuples, preserved behavior and state inventory. Resolve any rejected layout before implementation. Approval of this design is not approval of runtime quality or a claim of full required-feature delivery. The implementation handoff and acceptance criteria are in `handoff.md`.
+
+## Author validation and limitations
+
+All 62 SVG documents parse successfully. The author rasterized design-only minimum bilingual dark Settings, normal English light Settings, normal English light workspace, minimum bilingual dark regex and the light component sheet through the bundled Sharp renderer. Settings and regex images were visually inspected; the other raster outputs were generated but not inspected in this lane. The first inspected draft exposed a misplaced chevron, bilingual footer overlap and a preview-edge collision; these were corrected in the reference generator. The latest pass also bounds the Settings surface to its content, hides the proposed rail when content fits and uses distinct semantic navigation icons. Final independent visual review remains pending, including all other tuples. Rasterizing an SVG does not launch or verify TrafficMonitor.
+
+That paragraph records the earlier 62-reference draft. Independent review rejected it for six concrete geometry/coverage problems. The revision derives form rows from complete primary/secondary/help blocks, includes the preview in content bounds, positions regex text below the clipping boundary, uses a supported literal expression, inventories existing actions and derives scroll-thumb length/visibility from viewport/content. Reset uses text treatment and the Cantonese Settings placeholder is localized. The author inspected revised wide bilingual Settings, minimum English Settings, minimum bilingual workspace, setup's scrolled controls and regex subject/results rasters. All 86 current SVGs are XML-validated; independent recheck and real application evidence remain pending. No new production build or GUI run accompanied this revision.

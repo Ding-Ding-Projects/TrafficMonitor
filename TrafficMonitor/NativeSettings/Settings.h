@@ -1,9 +1,10 @@
-#pragma once
+﻿#pragma once
 #include "../TrafficMonitor.h"
 #include <functional>
 namespace NativeSettings
 {
     // UI-thread query. Every active settings editor blocks automatic restart, even without edits.
+    void OpenInterface(CWnd* owner);
     bool IsSafeToRestart() noexcept;
     struct Values
     {

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <Windows.h>
 #include <d2d1.h>
@@ -8,6 +8,10 @@
 namespace NativeMaterial
 {
     enum class Appearance { Light, Dark };
+
+    // Keeps the operating-system caption, sizing and accessibility behavior.
+    // Unsupported attributes leave the native frame unchanged.
+    HRESULT ApplyNativeFrameAppearance(HWND window, Appearance appearance);
 
     struct Palette
     {

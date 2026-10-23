@@ -1,12 +1,18 @@
-## Full native visual remake, current direction
+# TrafficMonitor implementation handoff
 
-The current visual result was rejected as generic and cluttered. The next implementation must fully remake the native application, including styled controls and scrollbars, coherent navigation, typography, field anatomy, action hierarchy and light/dark presentation. This includes all application-owned legacy dialogs and floating/taskbar presentation, not only the initial five shared owners. Preserve native C++/MFC, monitoring, plugins, saved choices, startup and silent updating. Documentation-website completion remains last.
+## Current native component integration
 
-Shared preference source `f1c6cc59f254ebf37503115636765619b3b35914` and package1.0.9028 are preserved outside main. Narrow runtime checks verified default provenance, searched draft choices, no premature native preference file and explicit bilingual/dark save/readback. The fixture closed normally and installed44 was restored with data/startup preserved. Restart, stale-draft/setup and full-scale runtime acceptance remain unverified. The expanded serialization console target never executed because linking exited2; do not describe its source as a passing test.
+The completed bounded Settings/control correction unit through902cf7c8a2ae72561cd2beec539a4e021692836d is being integrated into main. Independent review accepted the provider-state/lifetime correction, draft-preserving live localization, semantic navigation and native caption update. Production source76a41a4f89d802524501e8cc558f4e7d3ac2fa21 packaged as1.0.9033 through the exact root installer entrypoint, exit0. Candidate hashes and detailed behavior are in [the native component article](docs/features/native-settings/native-components-and-preferences.md).
 
-The design handoff at `4f417141feed85314608f834823690faedf65d6c`, on `ai/feature/20261023-modern-native-remake`, contains62 authored SVG references and a control replacement registry. Independent review inspected all62 at board/component level and critical tuples full-size. Approval was withheld for translated text geometry, preview containment, regex clipping/capability mismatch, missing actual command destinations and inconsistent rail/reset/placeholder states. Corrections are in progress. No new visual implementation starts before revised independent approval. References are design proposals, not runtime screenshots.
+Actual retained UI Automation calls returned80040200 while disabled and80040201 for all five requested element-dependent operations after normal Settings closure. Numeric drafts survived language changes and validation copy refreshed. Native dark-caption readback and pixels passed; explicit color attributes returnedE_INVALIDARG and used the native fallback. Checkbox runtime preservation, complete accessibility/IME/keyboard/hover and the full language/theme/scale matrix remain unverified. Settings exposes24 controls, not the full inventory. These narrow observations are not complete design parity.
 
-Normal release44 targets `61a90e37d71f8988c469f4973634a181ed4635d9`; all workflow40005507584 jobs succeeded. The downloaded four native files, feed, unsigned Setup and tag were verified. An independent post-fixture installed-state read matched the released44 executable/manifest, saved configuration/startup and historical records. See [receipt](docs/features/installation/accepted44-installed-state.json). This is not a continuously observed natural transition.
+The original production INI verification link problem is repaired through unchanged CommonText extraction. Integrated task checks passed23 storage/draft and24 actual serialization cases, with mutation rejection. The new main integration must run its own exact root checks and package, then verify productive consumers, normal release and matching installed update. Never relabel branch candidate images or hashes as a later combined build.
+
+Accepted installation45/sourcef5e8acf98dceefccb350e5ed02aa02908ae36c1c was restored normally after each fixture. Its released bytes and saved state are independently [recorded](docs/features/installation/accepted45-installed-state.json). That receipt is post-publication, while the earlier natural42-to43 receipt has a genuine prepublication baseline. No broad reliability claim follows.
+
+Main application work remains first. Continue workspace/setup/regex and every remaining owned legacy surface, complete Settings and all110 required features, full regex parity, persistence/recovery and actual supported verification. Formal native image promotion requires a truthful native receipt arm and fresh measurements. Browser fields were not fabricated. Current-image refresh remains an explicit acceptance gap. Finish operational/build companions and documentation website/wiki/reader work in their required order, with website completion last.
+
+No cleanup has begun. Current-pass archive destination remains unresolved; retain every active/incomplete checkout and private announcement variant. Goal active and unfinished. The following sections preserve earlier milestones and are historical rather than current integration instructions.
 
 ## Earlier native Settings integration
 
@@ -34,7 +40,6 @@ The next isolated unit is shared native language/appearance preferences, five na
 
 Prioritize the main native C++/MFC application. Complete its interface, Settings and context menus, searches and full regex builders, applicable feature consumers and source-bound runtime acceptance before further documentation-website implementation. Keep installer/startup, saved data, tray/taskbar and silent update behavior intact. Finish documentation website/wiki/offline-reader work last. Existing external delivery runs may finish; previous evidence remains retained with its actual source. Release-grade verification and preservation remain active; cleanup has not started.
 
-# TrafficMonitor implementation handoff
 
 ## Current integration and scope
 

@@ -919,6 +919,7 @@
     <ClCompile Include="LinkStatic.cpp" />
     <ClCompile Include="ColorStatic.cpp" />
     <ClCompile Include="Common.cpp" />
+    <ClCompile Include="CommonText.cpp" />
     <ClCompile Include="CSkinPreviewView.cpp" />
     <ClCompile Include="DrawCommon.cpp" />
     <ClCompile Include="GeneralSettingsDlg.cpp" />
@@ -1117,5 +1118,36 @@
   <ItemGroup>
     <ClInclude Include="NativeRegex\Collections.h" />
     <ClCompile Include="NativeRegex\Collections.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ClInclude Include="NativePreferences\Draft.h" />
+    <ClInclude Include="NativePreferences\SetupState.h" />
+    <ClInclude Include="NativePreferences\Preferences.h" />
+    <ClCompile Include="NativePreferences\Preferences.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
+    <ClInclude Include="NativePreferences\Storage.h" />
+    <ClCompile Include="NativePreferences\Storage.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
+    <ClInclude Include="NativePreferences\Subscription.h" />
+    <ClCompile Include="NativePreferences\Subscription.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
+    <ClInclude Include="NativePreferences\Editor.h" />
+    <ClCompile Include="NativePreferences\Editor.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
+    <ClInclude Include="NativePreferences\Text.h" />
+    <ClCompile Include="NativePreferences\Text.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="NativeMaterial\ScrollRail.h" />
+    <ClCompile Include="NativeMaterial\ScrollRail.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
+    <ClInclude Include="NativeMaterial\ScrollViewport.h" />
+    <ClCompile Include="NativeMaterial\ScrollViewport.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
+    <ClInclude Include="NativeMaterial\TextField.h" />
+    <ClCompile Include="NativeMaterial\TextField.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
+    <ClInclude Include="NativeMaterial\Navigation.h" />
+    <ClCompile Include="NativeMaterial\Navigation.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
+    <ClInclude Include="NativeMaterial\ButtonVisual.h" />
+    <ClCompile Include="NativeMaterial\ButtonVisual.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="NativeMaterial\Panel.h" />
+    <ClCompile Include="NativeMaterial\Panel.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
   </ItemGroup>
 </Project>

@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "utc": "2026-10-23T19:19:17.464596+00:00",
+  "release": {
+    "tagName": "v1.0.45-run40009201518-1",
+    "isDraft": false,
+    "isPrerelease": false,
+    "targetCommitish": "f5e8acf98dceefccb350e5ed02aa02908ae36c1c",
+    "publishedAt": "2026-10-23T19:13:16Z",
+    "url": "https://github.com/Ding-Ding-Projects/TrafficMonitor/releases/tag/v1.0.45-run40009201518-1"
+  },
+  "assets": [
+    {
+      "name": "Setup.exe",
+      "bytes": 8497664,
+      "sha256": "62a331f3db75ac0fb1422c3344d14fa7142618ed245b8b94e71c202acdbad590"
+    },
+    {
+      "name": "RELEASES",
+      "bytes": 81,
+      "sha256": "bd6d954a94c1842286ca7e2dfd86a9c7e4aca1e1968de86f87a95eebe7e64b2b"
+    },
+    {
+      "name": "SHA256SUMS.txt",
+      "bytes": 253,
+      "sha256": "123c086802fa071092b2c440ffd4b6b85fc0bec91fadacaec948a8ac96b55849"
+    },
+    {
+      "name": "TrafficMonitor-1.0.45-full.nupkg",
+      "bytes": 7617806,
+      "sha256": "7a6109b1c722c3591b831d7b368fe1651b7b84e12733dbfc93e70a00e11ffb51"
+    }
+  ],
+  "installedVersion": "1.0.45",
+  "installedSource": "f5e8acf98dceefccb350e5ed02aa02908ae36c1c",
+  "installedExecutableSHA256": "e7c58493da6cfc6953b1ead55b004b5acccec0f2402c8c85e5ae999e849a3f02",
+  "matchesReleasedExecutableAndManifest": true,
+  "identityStableDuringRead": true,
+  "configMatchesStored42Baseline": true,
+  "startupMatchesStored42Baseline": true,
+  "historyComparison": {
+    "historicalRecordsUnchanged": true,
+    "recordCountPreserved": true,
+    "currentRecordRetained": true,
+    "currentCountersNondecreasing": true
+  },
+  "nativeFeedVerified": true,
+  "continuousNaturalTransitionClaim": false,
+  "limitations": [
+    "Post-publication installed-state read, not a continuous natural transition observation.",
+    "No GUI, negative-path or long-term reliability claim.",
+    "No manual updater or lifecycle intervention in this read."
+  ]
+}

@@ -2,7 +2,10 @@
 
 ## Full native visual remake
 
-- [ ] Correct and independently approve the complete design handoff; current4f417141 references are not approved.
+- [x] Independently approve the initial five-surface design direction and86 authored references through final offset correction0c93dd2. These are proposals, not runtime images.
+- [ ] Complete design references and built conversion for the remaining owned legacy surfaces.
+- [x] Independently review bounded Settings/shared-control corrections, actual retained-provider behavior, localized draft preservation and native caption at9032/9033.
+- [ ] Verify the exact combined-source checks, package, productive consumers, release and installed update after integration.
 - [ ] Replace generic control and scrollbar presentation with shared native components, preserving editing, IME, keyboard and accessibility behavior.
 - [ ] Remake workspace, Settings, setup, searchable menus and regex editor with every existing action mapped to a real destination.
 - [ ] Convert remaining application-owned dialogs, history/details/plugin/About surfaces and floating/taskbar presentation; the first five owners do not complete the full request.
@@ -13,7 +16,7 @@
 
 - [x] Integrate bounded Settings discovery/Notifications and verify exact root checks and installer production at source575.
 - [x] Verify normal release43 and one natural matching installed42-to43 update with a prepublication baseline.
-- [ ] Complete shared native language/appearance preferences, conflict-aware setup resume and five consumers; isolated implementation is in progress.
+- [ ] Complete shared native language/appearance preferences, conflict-aware setup resume and five consumers; source is integrated, complete consumer/runtime acceptance remains pending.
 - [ ] Verify real shared-preference interaction, persistence, recovery, accessibility and supported layout matrix.
 - [ ] Finish remaining native conversion and applicable required features before resuming documentation-website implementation.
 

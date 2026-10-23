@@ -1,5 +1,7 @@
 # Native settings
 
+- [Choose language and appearance with shared native controls](native-components-and-preferences.md)
+
 - [Find a setting and configure notifications](notifications-and-discovery.md)
 - [Candidate verification and remaining acceptance](verification.md)
 - [Source-bound migration inventory](migration-inventory.json)

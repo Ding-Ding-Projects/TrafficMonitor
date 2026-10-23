@@ -3,6 +3,7 @@
 #include <afxcmn.h>
 #include <memory>
 #include "Theme.h"
+#include "ButtonVisual.h"
 
 namespace NativeMaterial
 {
@@ -14,6 +15,7 @@ namespace NativeMaterial
         BOOL Create(const CString& label, const RECT& bounds, CWnd* parent, UINT id);
         void SetAppearance(Appearance appearance);
         void SetLabel(const CString& label);
+        void SetVariant(ButtonVariant value){m_variant=value;if(m_hWnd)Invalidate();}
     protected:
         afx_msg void OnPaint();
         afx_msg BOOL OnEraseBkgnd(CDC*);
@@ -40,6 +42,7 @@ namespace NativeMaterial
         HRESULT DrawDC(HDC dc);
         HRESULT m_attachResult{E_PENDING}, m_drawResult{E_PENDING}, m_printResult{E_PENDING};
         Appearance m_appearance{ Appearance::Light };
+        ButtonVariant m_variant{ButtonVariant::Primary};
         bool m_pressed{}, m_hover{};
         std::shared_ptr<ButtonAccess> m_access;
     };

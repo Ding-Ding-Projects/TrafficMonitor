@@ -1,7 +1,12 @@
 ﻿#include "stdafx.h"
 #include "SearchableMenu.h"
+#include "../NativePreferences/Text.h"
+#include "../NativePreferences/Subscription.h"
 #include "../NativeRegex/Workbench.h"
 #include "../TrafficMonitor.h"
+#include "../NativeMaterial/TextField.h"
+#include "../NativeMaterial/Controls.h"
+#include "../NativeMaterial/ScrollRail.h"
 #include <commctrl.h>
 #include <dwmapi.h>
 #include <imm.h>
@@ -69,6 +74,22 @@ bool ReadItem(HMENU menu, UINT position, Item& item)
     const auto tab = item.text.find(L'\t');
     item.label = VisibleText(item.text.substr(0, tab));
     item.shortcut = tab == std::wstring::npos ? L"" : item.text.substr(tab + 1);
+    const wchar_t* en=nullptr;const wchar_t* zh=nullptr;
+    switch(item.id)
+    {
+        case ID_OPTIONS:case ID_OPTIONS2:en=L"Settings";zh=L"設定";break;
+        case ID_TRAFFIC_HISTORY:en=L"Traffic history";zh=L"流量記錄";break;
+        case ID_PLUGIN_MANAGE:en=L"Manage plugins";zh=L"管理外掛程式";break;
+        case ID_ALWAYS_ON_TOP:en=L"Always on top";zh=L"保持最上層";break;
+        case ID_LOCK_WINDOW_POS:en=L"Lock window position";zh=L"鎖定視窗位置";break;
+        case ID_SHOW_NOTIFY_ICON:en=L"Show notification-area icon";zh=L"顯示通知區域圖示";break;
+        case ID_SHOW_TASK_BAR_WND:en=L"Show taskbar monitor";zh=L"顯示工作列監察器";break;
+        case ID_SHOW_MAIN_WND:en=L"Show floating monitor";zh=L"顯示浮動監察器";break;
+        case ID_CHECK_UPDATE:en=L"Check for updates";zh=L"檢查更新";break;
+        default:break;
+    }
+    if(en)item.label=NativePreferences::Pair(en,zh).GetString();
+
     return true;
 }
 
@@ -151,6 +172,10 @@ class Popup
 {
 public:
     HWND window{}, owner{}, edit{}, list{}, back{}, empty{}, regex{}, previousFocus{};
+    NativePreferences::Subscription preferences;
+    NativeMaterial::TextField searchField;
+    NativeMaterial::Button backButton, regexButton;
+    NativeMaterial::ScrollRail scrollRail;
     bool done{}, composing{}, rebuilding{}, restoreFocus{}, compatibility{}, chinese{};
     UINT command{}, dpi{96};
     NativeRegex::Editor regexEditor;
@@ -172,6 +197,7 @@ public:
 
     ~Popup()
     {
+        preferences.Detach();
         regexEditor.Close();
         accessibility->popup = nullptr; accessibility->list = nullptr;
         if (IsWindow(window)) DestroyWindow(window);
@@ -189,17 +215,21 @@ public:
     void Colors()
     {
         HIGHCONTRASTW hc{ sizeof(hc) }; SystemParametersInfoW(SPI_GETHIGHCONTRAST, sizeof(hc), &hc, 0);
-        DWORD light = 1, bytes = sizeof(light);
-        RegGetValueW(HKEY_CURRENT_USER, L"Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize", L"AppsUseLightTheme", RRF_RT_REG_DWORD, nullptr, &light, &bytes);
+        const bool light = !NativePreferences::Current().dark;
         if (hc.dwFlags & HCF_HIGHCONTRASTON)
         { surface = GetSysColor(COLOR_WINDOW); ink = GetSysColor(COLOR_WINDOWTEXT); muted = GetSysColor(COLOR_GRAYTEXT); selected = GetSysColor(COLOR_HIGHLIGHT); accent = GetSysColor(COLOR_HIGHLIGHTTEXT); }
         else if (light)
-        { surface = RGB(247,249,255); ink = RGB(25,28,32); muted = RGB(89,95,106); selected = RGB(217,228,250); accent = RGB(38,86,158); }
+        { surface = RGB(245,247,250); ink = RGB(23,33,47); muted = RGB(82,97,116); selected = RGB(220,232,255); accent = RGB(36,95,200); }
         else
-        { surface = RGB(31,35,43); ink = RGB(229,233,242); muted = RGB(166,176,192); selected = RGB(54,72,102); accent = RGB(173,201,255); }
+        { surface = RGB(16,20,25); ink = RGB(230,237,245); muted = RGB(168,183,200); selected = RGB(40,58,84); accent = RGB(145,184,255); }
         selectedInk=(hc.dwFlags&HCF_HIGHCONTRASTON)?GetSysColor(COLOR_HIGHLIGHTTEXT):ink;
         if (background) DeleteObject(background);
         background = CreateSolidBrush(surface);
+        const auto appearance = NativePreferences::EffectiveAppearance();
+        if (edit) searchField.SetAppearance(appearance);
+        if (back) backButton.SetAppearance(appearance);
+        if (regex) regexButton.SetAppearance(appearance);
+        if (scrollRail.GetSafeHwnd()) scrollRail.SetAppearance(appearance);
     }
     void Fonts()
     {
@@ -209,23 +239,50 @@ public:
         boldFont = CreateFontW(-Px(14),0,0,0,FW_SEMIBOLD,FALSE,FALSE,FALSE,DEFAULT_CHARSET,OUT_DEFAULT_PRECIS,CLIP_DEFAULT_PRECIS,CLEARTYPE_QUALITY,DEFAULT_PITCH,L"Segoe UI");
         for (HWND control : { edit, list, back, empty, regex }) SendMessageW(control, WM_SETFONT, reinterpret_cast<WPARAM>(font), TRUE);
     }
+    void SyncScroll()
+    {
+        if (!list || !scrollRail.GetSafeHwnd()) return;
+        RECT client{};
+        GetClientRect(list, &client);
+        const int top = static_cast<int>(SendMessageW(list, LB_GETTOPINDEX, 0, 0));
+        int page = 0, used = 0;
+        for (int row = top; row < static_cast<int>(visible.size()); ++row)
+        {
+            const int height = static_cast<int>(SendMessageW(list, LB_GETITEMHEIGHT, row, 0));
+            if (height <= 0 || used + height > client.bottom) break;
+            used += height;
+            ++page;
+        }
+        scrollRail.SetMetrics(static_cast<int>(visible.size()), (std::max)(1, page), top);
+    }
     void Layout()
     {
-        MONITORINFO mi{ sizeof(mi) }; GetMonitorInfoW(MonitorFromPoint(anchor, MONITOR_DEFAULTTONEAREST), &mi);
-        width = (std::min)(Px(440), static_cast<int>(mi.rcWork.right-mi.rcWork.left));
+        MONITORINFO mi{sizeof(mi)};
+        GetMonitorInfoW(MonitorFromPoint(anchor, MONITOR_DEFAULTTONEAREST), &mi);
+        width = (std::min)(Px(420), static_cast<int>(mi.rcWork.right - mi.rcWork.left));
         rowHeight = Px(48);
-        height = (std::min)(Px(560), static_cast<int>(mi.rcWork.bottom-mi.rcWork.top));
-        const int x = (std::max)(static_cast<int>(mi.rcWork.left), (std::min)(static_cast<int>(anchor.x), static_cast<int>(mi.rcWork.right)-width));
-        const int y = (std::max)(static_cast<int>(mi.rcWork.top), (std::min)(static_cast<int>(anchor.y), static_cast<int>(mi.rcWork.bottom)-height));
-        SetWindowPos(window, HWND_TOPMOST, x, y, width, height, SWP_NOACTIVATE);
-        const int padding = Px(12), backWidth = levels.size() > 1 ? Px(64) : 0;
-        ShowWindow(back, backWidth ? SW_SHOW : SW_HIDE);
-        MoveWindow(back,padding,padding,backWidth,Px(44),TRUE);
-        MoveWindow(edit,padding+backWidth,padding,(std::max)(1,width-padding*2-backWidth-Px(88)),Px(44),TRUE);
-        MoveWindow(regex,width-padding-Px(80),padding,Px(80),Px(44),TRUE);
-        MoveWindow(list,padding,Px(68),(std::max)(1,width-padding*2),(std::max)(1,height-Px(80)),TRUE);
-        MoveWindow(empty,padding+Px(12),Px(80),(std::max)(1,width-padding*2-Px(24)),Px(64),TRUE);
+        const int padding = Px(12);
+        const int backWidth = levels.size() > 1 ? Px(72) : 0;
+        const int toolbar = NativePreferences::Current().values.language == NativePreferences::Language::Bilingual ? Px(56) : Px(44);
+        const int listTop = padding + toolbar + Px(12);
+        MoveWindow(list, padding, listTop, (std::max)(1, width - padding * 2 - Px(16)), Px(100), FALSE);
         MeasureRows();
+        int contentHeight = 0;
+        for (size_t row = 0; row < visible.size(); ++row)
+            contentHeight += static_cast<int>(SendMessageW(list, LB_GETITEMHEIGHT, row, 0));
+        height = (std::min)((std::min)(Px(480), static_cast<int>(mi.rcWork.bottom - mi.rcWork.top)), listTop + (std::max)(Px(72), contentHeight) + padding);
+        const int x = (std::max)(static_cast<int>(mi.rcWork.left), (std::min)(static_cast<int>(anchor.x), static_cast<int>(mi.rcWork.right) - width));
+        const int y = (std::max)(static_cast<int>(mi.rcWork.top), (std::min)(static_cast<int>(anchor.y), static_cast<int>(mi.rcWork.bottom) - height));
+        SetWindowPos(window, HWND_TOPMOST, x, y, width, height, SWP_NOACTIVATE);
+        ShowWindow(back, backWidth ? SW_SHOW : SW_HIDE);
+        MoveWindow(back, padding, padding, backWidth, toolbar, TRUE);
+        MoveWindow(edit, padding + backWidth, padding, (std::max)(1, width - padding * 2 - backWidth - Px(96)), toolbar, TRUE);
+        MoveWindow(regex, width - padding - Px(88), padding, Px(88), toolbar, TRUE);
+        const int pageHeight = (std::max)(1, height - listTop - padding);
+        MoveWindow(list, padding, listTop, (std::max)(1, width - padding * 2 - Px(16)), pageHeight, TRUE);
+        scrollRail.MoveWindow(width - padding - Px(12), listTop, Px(12), pageHeight);
+        MoveWindow(empty, padding + Px(12), listTop + Px(12), width - padding * 2 - Px(24), Px(64), TRUE);
+        SyncScroll();
     }
     void MeasureRows()
     {
@@ -272,7 +329,7 @@ public:
         SendMessageW(list,LB_SETCURSEL,visible.empty() ? -1 : 0,0);
         SetWindowTextW(empty,filter.status.empty()?emptyText.c_str():filter.status.c_str());
         ShowWindow(empty,visible.empty()?SW_SHOW:SW_HIDE);
-        MeasureRows();
+        Layout();
         SendMessageW(list,WM_SETREDRAW,TRUE,0); InvalidateRect(list,nullptr,TRUE);
         NotifyWinEvent(EVENT_OBJECT_REORDER,list,OBJID_CLIENT,CHILDID_SELF);
     }
@@ -355,7 +412,7 @@ public:
         for (size_t n=0;n<visible.size();++n)
         {
             row=(row+delta+static_cast<int>(visible.size()))%static_cast<int>(visible.size());
-            if (Row(row)->Enabled()) { SendMessageW(list,LB_SETCURSEL,row,0); NotifyWinEvent(EVENT_OBJECT_FOCUS,list,OBJID_CLIENT,row+1); break; }
+            if (Row(row)->Enabled()) { SendMessageW(list,LB_SETCURSEL,row,0); NotifyWinEvent(EVENT_OBJECT_FOCUS,list,OBJID_CLIENT,row+1); SyncScroll(); break; }
         }
     }
     bool Key(MSG& message)
@@ -375,8 +432,14 @@ public:
         if (inList && message.wParam==VK_RIGHT) { const int r=static_cast<int>(SendMessageW(list,LB_GETCURSEL,0,0)); if(Row(r) && Row(r)->submenu) Activate(r); return true; }
         if (message.wParam==VK_TAB)
         {
-            HWND next = inEdit ? regex : (message.hwnd==regex ? list : (inList && levels.size()>1 ? back : edit));
-            if (GetKeyState(VK_SHIFT)<0) next = inEdit ? (levels.size()>1 ? back : list) : (message.hwnd==regex ? edit : (inList ? regex : list));
+            std::vector<HWND> order{edit, regex, list};
+            if (scrollRail.IsWindowVisible()) order.push_back(scrollRail.GetSafeHwnd());
+            if (levels.size() > 1) order.push_back(back);
+            auto current = std::find(order.begin(), order.end(), message.hwnd);
+            int index = current == order.end() ? 0 : static_cast<int>(current - order.begin());
+            const int delta = GetKeyState(VK_SHIFT) < 0 ? -1 : 1;
+            index = (index + delta + static_cast<int>(order.size())) % static_cast<int>(order.size());
+            HWND next = order[index];
             SetFocus(next); return true;
         }
         return false;
@@ -440,6 +503,12 @@ public:
         }
         if(hwnd==self->list && message==WM_CHAR && w>=32)
         { SetFocus(self->edit); SendMessageW(self->edit,message,w,l); return 0; }
+        if (hwnd == self->list && (message == WM_MOUSEWHEEL || message == WM_KEYDOWN))
+        {
+            const auto result = DefSubclassProc(hwnd, message, w, l);
+            self->SyncScroll();
+            return result;
+        }
         if(message==WM_NCDESTROY) RemoveWindowSubclass(hwnd,ChildProc,1);
         return DefSubclassProc(hwnd,message,w,l);
     }
@@ -465,42 +534,71 @@ public:
             return 0;
         case WM_DRAWITEM: self->Draw(*reinterpret_cast<DRAWITEMSTRUCT*>(l)); return TRUE;
         case WM_MEASUREITEM: reinterpret_cast<MEASUREITEMSTRUCT*>(l)->itemHeight=self->rowHeight; return TRUE;
-        case WM_CTLCOLORLISTBOX: case WM_CTLCOLOREDIT: case WM_CTLCOLORSTATIC:
+        case WM_CTLCOLOREDIT:
+            if (reinterpret_cast<HWND>(l) == self->edit) return reinterpret_cast<LRESULT>(self->searchField.Color(CDC::FromHandle(reinterpret_cast<HDC>(w))));
+            break;
+        case WM_CTLCOLORLISTBOX: case WM_CTLCOLORSTATIC:
             SetTextColor(reinterpret_cast<HDC>(w),self->ink); SetBkColor(reinterpret_cast<HDC>(w),self->surface); return reinterpret_cast<LRESULT>(self->background);
         case WM_ERASEBKGND:
             { RECT rect; GetClientRect(hwnd,&rect); FillRect(reinterpret_cast<HDC>(w),&rect,self->background); return TRUE; }
         case WM_ACTIVATE: if(LOWORD(w)==WA_INACTIVE && !self->regexEditor.Contains(reinterpret_cast<HWND>(l))) self->done=true; return 0;
         case WM_CLOSE: self->done=true; return 0;
         case WM_DPICHANGED: self->dpi=HIWORD(w); self->Fonts(); self->Layout(); return 0;
-        case WM_SETTINGCHANGE: case WM_THEMECHANGED: self->Colors(); InvalidateRect(hwnd,nullptr,TRUE); return 0;
-        case WM_NCDESTROY: self->accessibility->popup=nullptr; self->accessibility->list=nullptr; self->window=nullptr; break;
+        case NativePreferences::ChangedMessage: if(!self->preferences.Accepts(w))return 0; self->PreferencesChanged(); InvalidateRect(hwnd,nullptr,TRUE); return 0;
+        case WM_SETTINGCHANGE: case WM_THEMECHANGED: NativePreferences::RefreshSystemAppearance(); self->Colors(); InvalidateRect(hwnd,nullptr,TRUE); return 0;
+        case WM_NCDESTROY: self->preferences.Detach(); self->accessibility->popup=nullptr; self->accessibility->list=nullptr; self->window=nullptr; break;
         }
         return DefWindowProcW(hwnd,message,w,l);
     }
+    void Labels()
+    {
+        chinese=NativePreferences::Current().values.language==NativePreferences::Language::Cantonese;
+        searchText=NativePreferences::Pair(L"Search menu",L"搜尋選單").GetString();
+        if (NativePreferences::Current().values.language == NativePreferences::Language::Bilingual) searchText=L"Search menu · 搜尋選單";
+        backText=NativePreferences::Pair(L"Back",L"返回").GetString();
+        emptyText=NativePreferences::Pair(L"No matching commands",L"沒有符合的指令").GetString();
+        invokeText=NativePreferences::Pair(L"Invoke",L"執行").GetString();
+        expandText=NativePreferences::Pair(L"Open submenu",L"開啟子選單").GetString();
+        radioText=NativePreferences::Pair(L"Radio option",L"單選選項").GetString();
+        if(back)SetWindowTextW(back,backText.c_str());if(regex)SetWindowTextW(regex,NativePreferences::Pair(L"Regex",L"正規式"));
+        if(edit){SendMessageW(edit,EM_SETCUEBANNER,TRUE,reinterpret_cast<LPARAM>(searchText.c_str()));IAccPropServices* properties{};if(SUCCEEDED(CoCreateInstance(CLSID_AccPropServices,nullptr,CLSCTX_INPROC_SERVER,IID_PPV_ARGS(&properties)))){properties->SetHwndPropStr(edit,OBJID_CLIENT,CHILDID_SELF,PROPID_ACC_NAME,searchText.c_str());properties->Release();}}
+    }
+    void PreferencesChanged()
+    {
+        UINT selectedId=0;const auto* selected=Row(static_cast<int>(SendMessageW(list,LB_GETCURSEL,0,0)));if(selected)selectedId=selected->id;
+        Labels();Colors();if(!levels.empty()){ReadLevel();Filter();for(size_t i=0;i<visible.size();++i)if(Row(static_cast<int>(i))->id==selectedId){SendMessageW(list,LB_SETCURSEL,i,0);break;}}Layout();
+    }
     bool Create()
     {
-        LANGID language=theApp.m_general_data.language.language_id;
-        if(!language) language=GetUserDefaultUILanguage();
-        chinese=PRIMARYLANGID(language)==LANG_CHINESE;
-        searchText=chinese ? L"搜尋選單" : L"Search menu";
-        backText=chinese ? L"返回" : L"Back";
-        emptyText=chinese ? L"沒有符合的指令" : L"No matching commands";
-        invokeText=chinese ? L"執行" : L"Invoke";
-        expandText=chinese ? L"開啟子選單" : L"Open submenu";
-        radioText=chinese ? L"單選選項" : L"Radio option";
+        Labels();
         WNDCLASSEXW cls{sizeof(cls)}; cls.lpfnWndProc=WindowProc; cls.hInstance=AfxGetInstanceHandle(); cls.lpszClassName=L"TrafficMonitor.NativeSearchMenu"; cls.hCursor=LoadCursorW(nullptr,IDC_ARROW); cls.style=CS_DROPSHADOW;
         if(!RegisterClassExW(&cls) && GetLastError()!=ERROR_CLASS_ALREADY_EXISTS) return false;
         Colors();
         window=CreateWindowExW(WS_EX_TOOLWINDOW|WS_EX_TOPMOST,cls.lpszClassName,L"TrafficMonitor",WS_POPUP|WS_BORDER,anchor.x,anchor.y,1,1,owner,nullptr,cls.hInstance,this);
         if(!window) return false;
+        preferences.Attach(window);
         using GetDpi=UINT(WINAPI*)(HWND); auto getDpi=reinterpret_cast<GetDpi>(GetProcAddress(GetModuleHandleW(L"user32.dll"),"GetDpiForWindow"));
         if(getDpi) dpi=getDpi(window);
         rowHeight=Px(48);
-        back=CreateWindowExW(0,L"BUTTON",backText.c_str(),WS_CHILD|WS_TABSTOP|BS_PUSHBUTTON,0,0,1,1,window,reinterpret_cast<HMENU>(static_cast<UINT_PTR>(BackId)),cls.hInstance,nullptr);
-        edit=CreateWindowExW(WS_EX_CLIENTEDGE,L"EDIT",L"",WS_CHILD|WS_VISIBLE|WS_TABSTOP|ES_AUTOHSCROLL,0,0,1,1,window,reinterpret_cast<HMENU>(static_cast<UINT_PTR>(EditId)),cls.hInstance,nullptr);
-        list=CreateWindowExW(0,L"LISTBOX",searchText.c_str(),WS_CHILD|WS_VISIBLE|WS_TABSTOP|WS_VSCROLL|LBS_NOTIFY|LBS_OWNERDRAWVARIABLE|LBS_HASSTRINGS|LBS_NOINTEGRALHEIGHT,0,0,1,1,window,reinterpret_cast<HMENU>(static_cast<UINT_PTR>(ListId)),cls.hInstance,nullptr);
+        CWnd* parent = CWnd::FromHandle(window);
+        backButton.Create(backText.c_str(), CRect(0,0,1,1), parent, BackId);
+        backButton.SetVariant(NativeMaterial::ButtonVariant::Text);
+        back = backButton.GetSafeHwnd();
+        searchField.Create(WS_CHILD | WS_VISIBLE | WS_TABSTOP | ES_AUTOHSCROLL, CRect(0,0,1,1), parent, EditId);
+        edit = searchField.GetSafeHwnd();
+        list=CreateWindowExW(0,L"LISTBOX",searchText.c_str(),WS_CHILD|WS_VISIBLE|WS_TABSTOP|LBS_NOTIFY|LBS_OWNERDRAWVARIABLE|LBS_HASSTRINGS|LBS_NOINTEGRALHEIGHT,0,0,1,1,window,reinterpret_cast<HMENU>(static_cast<UINT_PTR>(ListId)),cls.hInstance,nullptr);
         empty=CreateWindowExW(0,L"STATIC",emptyText.c_str(),WS_CHILD|SS_LEFT,0,0,1,1,window,nullptr,cls.hInstance,nullptr);
-        regex=CreateWindowExW(0,L"BUTTON",chinese?L"正規式":L"Regex",WS_CHILD|WS_VISIBLE|WS_TABSTOP|BS_PUSHBUTTON,0,0,1,1,window,reinterpret_cast<HMENU>(static_cast<UINT_PTR>(RegexId)),cls.hInstance,nullptr);
+        regexButton.Create(NativePreferences::Pair(L"Regex",L"正規式"), CRect(0,0,1,1), parent, RegexId);
+        regexButton.SetVariant(NativeMaterial::ButtonVariant::Tonal);
+        regex = regexButton.GetSafeHwnd();
+        scrollRail.Create(parent, 51005);
+        scrollRail.SetStep(1);
+        scrollRail.changed = [this](int position) {
+            SendMessageW(list, LB_SETTOPINDEX, position, 0);
+            SyncScroll();
+            InvalidateRect(list, nullptr, TRUE);
+        };
+        Colors();
         if(!edit || !list || !back || !empty || !regex) return false;
         SetTimer(window,1,40,nullptr);
         SendMessageW(edit,EM_SETCUEBANNER,TRUE,reinterpret_cast<LPARAM>(searchText.c_str()));
@@ -576,7 +674,7 @@ HRESULT MenuAccessible::accDoDefaultAction(VARIANT child)
 }
 }
 
-UINT Track(CMenu* menu,UINT flags,int x,int y,CWnd* ownerWindow)
+UINT Track(CMenu* menu,UINT flags,int x,int y,CWnd* ownerWindow,NativeRegex::Options* retainedSearch)
 {
     if(!menu || !IsMenu(menu->GetSafeHmenu()) || !ownerWindow || !IsWindow(ownerWindow->GetSafeHwnd())) return 0;
     HWND owner=ownerWindow->GetSafeHwnd(); HMENU handle=menu->GetSafeHmenu();
@@ -588,6 +686,7 @@ UINT Track(CMenu* menu,UINT flags,int x,int y,CWnd* ownerWindow)
     if(created)
     {
         popup.Open(handle,0);
+        if(retainedSearch&&!popup.levels.empty()){popup.levels.front().filter->options=*retainedSearch;SetWindowTextW(popup.edit,retainedSearch->query.c_str());popup.Filter();}
         if(!popup.done) { ShowWindow(popup.window,SW_SHOW); SetForegroundWindow(popup.window); SetFocus(popup.edit); }
         MSG message{};
         while(!popup.done && IsWindow(owner) && IsWindow(popup.window))
@@ -603,6 +702,7 @@ UINT Track(CMenu* menu,UINT flags,int x,int y,CWnd* ownerWindow)
         }
         popup.restoreFocus=GetForegroundWindow()==popup.window || popup.regexEditor.Contains(GetForegroundWindow());
         popup.regexEditor.Close();
+        if(retainedSearch&&!popup.levels.empty())*retainedSearch=popup.levels.front().filter->options;
         while(!popup.levels.empty())
         { SendMessageW(owner,WM_UNINITMENUPOPUP,reinterpret_cast<WPARAM>(popup.levels.back().menu),0); popup.levels.pop_back(); }
         if(IsWindow(popup.window)) DestroyWindow(popup.window);

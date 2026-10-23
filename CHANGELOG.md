@@ -2,7 +2,9 @@
 
 ## Unreleased full native visual remake
 
-The owner rejected the current generic visual composition. A full native component and surface remake is now the active priority, including styled scrolling and all application-owned dialogs. The draft design at4f417141 has independent review corrections pending; it is not approved or shipped. Shared preference candidatef1c6cc59 and its narrow1.0.9028 runtime evidence remain separate from accepted releases. Normal44 and its actual restored installation are recorded in the [installed-state receipt](docs/features/installation/accepted44-installed-state.json).
+Integrate the independently reviewed shared native component and Settings correction unit. Add styled text fields, action buttons, selectors and searchable menus, semantic navigation, section panels, discovery lists and custom scroll rails. Preserve native edit operations and expose truthful disabled/destruction behavior through the rail provider. Shared language/appearance preferences use stable configuration storage and conflict-aware drafts. Live language changes refresh labels, defaults and typed messages without taking away numeric drafts. Supported native caption theming retains the operating-system fallback.
+
+Local9032/9033 packages have bounded real96-DPI interaction and retained-provider evidence. The exact integrated build, release and installed update remain pending. This is useful partial native work, not full Settings, full redesign, regex parity or110-item acceptance. Remaining owned surfaces and complete verification stay open. See [behavior and evidence](docs/features/native-settings/native-components-and-preferences.md).
 
 ## Native 1.0.43 delivery and automatic update
 

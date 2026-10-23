@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="400" viewBox="0 0 320 400"><title>menu minimum english light design proposal</title><desc>Authored design reference with synthetic values. Not a running application or screenshot.</desc>
+<rect x="0" y="0" width="320" height="400" rx="0" fill="#F5F7FA"/>
+<rect x="0" y="0" width="320" height="400" rx="10" fill="#FFFFFF" stroke="#D5DEE8"/>
+<text x="20" y="30" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="18" font-weight="600">Interface language</text>
+<rect x="16" y="48" width="212" height="52" rx="8" fill="#EDF1F6"/>
+<path d="M24 100H220" stroke="#D5DEE8" stroke-width="1"/>
+<text x="28" y="65" fill="#526174" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">Search</text>
+<text x="28" y="90" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400"></text>
+<rect x="236" y="56" width="64" height="36" rx="12" fill="#DCE8FF"/>
+<text x="248" y="77" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">Regex</text>
+<text x="20" y="128" fill="#245FC8" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="400"></text>
+<text x="48" y="128" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">English</text>
+<text x="20" y="176" fill="#245FC8" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="400"></text>
+<text x="48" y="176" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">Cantonese</text>
+<rect x="8" y="200" width="296" height="40" rx="6" fill="#DCE8FF"/>
+<text x="20" y="224" fill="#245FC8" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="400">✓</text>
+<text x="48" y="224" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">English + Cantonese</text>
+<path d="M16 352H304" stroke="#D5DEE8"/>
+<text x="16" y="375" fill="#526174" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">Enter selects · Esc cancels</text>
+</svg>

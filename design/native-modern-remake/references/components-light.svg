@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="780" viewBox="0 0 1080 780"><title>Native component anatomy, light, design only</title><rect width="1080" height="780" fill="#F5F7FA"/>
+<text x="32" y="42" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="24" fill="#17212F">Native components / 原生元件</text>
+<text x="32" y="68" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" fill="#526174">Authored design proposal. Native semantics remain on the actual input HWND.</text>
+<rect x="32" y="104" width="320" height="64" rx="6" fill="#FFFFFF" stroke="#D5DEE8" stroke-width="1"/>
+<text x="44" y="124" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" fill="#526174">Pattern / 模式</text>
+<text x="44" y="151" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" fill="#17212F">Ethernet</text>
+<text x="32" y="194" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" fill="#526174">Resting / 一般</text>
+<rect x="376" y="104" width="320" height="64" rx="6" fill="#FFFFFF" stroke="#245FC8" stroke-width="2"/>
+<text x="388" y="124" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" fill="#526174">Pattern / 模式</text>
+<text x="388" y="151" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" fill="#17212F">Ethernet</text>
+<text x="376" y="194" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" fill="#526174">Focused / 焦點</text>
+<rect x="720" y="104" width="320" height="64" rx="6" fill="#FFFFFF" stroke="#C94450" stroke-width="2"/>
+<text x="732" y="124" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" fill="#526174">Pattern / 模式</text>
+<text x="732" y="151" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" fill="#17212F">Ethernet</text>
+<text x="720" y="194" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" fill="#526174">Invalid / 無效</text>
+<text x="32" y="242" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="18" fill="#17212F">Action hierarchy / 操作層級</text>
+<rect x="32" y="264" width="172" height="44" rx="12" fill="#245FC8" stroke="#D5DEE8" stroke-width="1"/>
+<text x="44" y="291" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" fill="#FFFFFF">Apply / 套用</text>
+<rect x="222" y="264" width="240" height="44" rx="12" fill="#DCE8FF" stroke="#D5DEE8" stroke-width="1"/>
+<text x="234" y="291" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" fill="#17212F">Use saved / 用已儲存值</text>
+<rect x="480" y="264" width="172" height="44" rx="12" fill="#FFFFFF" stroke="#D5DEE8" stroke-width="1"/>
+<text x="492" y="291" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" fill="#17212F">Cancel / 取消</text>
+<text x="700" y="291" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" fill="#245FC8">Reset / 重設</text>
+<text x="32" y="346" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="18" fill="#17212F">Selection and range / 選擇與數值</text>
+<rect x="32" y="370" width="20" height="20" rx="3" fill="#245FC8" stroke="#245FC8" stroke-width="1"/>
+<text x="35" y="386" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" fill="#FFFFFF">✓</text>
+<text x="64" y="386" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" fill="#17212F">Show taskbar monitor / 顯示工作列監察</text>
+<rect x="490" y="366" width="44" height="26" rx="13" fill="#245FC8" stroke="#245FC8" stroke-width="1"/>
+<rect x="514" y="369" width="20" height="20" rx="10" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="1"/>
+<text x="548" y="385" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" fill="#17212F">Enabled / 已啟用</text>
+<rect x="32" y="426" width="360" height="4" rx="2" fill="#D5DEE8" stroke="#D5DEE8" stroke-width="1"/>
+<rect x="32" y="426" width="210" height="4" rx="2" fill="#245FC8" stroke="#245FC8" stroke-width="1"/>
+<rect x="232" y="418" width="20" height="20" rx="10" fill="#245FC8" stroke="#245FC8" stroke-width="1"/>
+<text x="410" y="434" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" fill="#17212F">60 s / 秒</text>
+<text x="32" y="484" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="18" fill="#17212F">Scroll rail / 捲動軌</text>
+<text x="32" y="508" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" fill="#526174">Rest · hover · drag · focus. Reserved gutter, never text overlap.</text>
+<rect x="40" y="532" width="12" height="170" rx="6" fill="#EDF1F6" stroke="#EDF1F6" stroke-width="1"/>
+<rect x="43" y="554" width="6" height="58" rx="4" fill="#526174" stroke="#526174" stroke-width="1"/>
+<text x="62" y="574" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" fill="#17212F">Rest</text>
+<rect x="190" y="532" width="12" height="170" rx="6" fill="#EDF1F6" stroke="#EDF1F6" stroke-width="1"/>
+<rect x="192" y="554" width="8" height="58" rx="4" fill="#526174" stroke="#526174" stroke-width="1"/>
+<text x="212" y="574" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" fill="#17212F">Hover</text>
+<rect x="340" y="532" width="12" height="170" rx="6" fill="#EDF1F6" stroke="#EDF1F6" stroke-width="1"/>
+<rect x="342" y="554" width="8" height="58" rx="4" fill="#245FC8" stroke="#526174" stroke-width="1"/>
+<text x="362" y="574" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" fill="#17212F">Drag</text>
+<rect x="490" y="532" width="12" height="170" rx="6" fill="#EDF1F6" stroke="#EDF1F6" stroke-width="1"/>
+<rect x="492" y="554" width="8" height="58" rx="4" fill="#526174" stroke="#245FC8" stroke-width="2"/>
+<text x="512" y="574" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" fill="#17212F">Focus</text>
+<rect x="676" y="524" width="364" height="174" rx="10" fill="#FFFFFF" stroke="#D5DEE8" stroke-width="1"/>
+<rect x="684" y="534" width="348" height="52" rx="6" fill="#DCE8FF" stroke="#DCE8FF" stroke-width="1"/>
+<text x="700" y="556" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" fill="#17212F">✓  English + Cantonese</text>
+<text x="724" y="577" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" fill="#526174">英文 + 廣東話</text>
+<text x="700" y="616" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" fill="#17212F">Cantonese</text>
+<text x="700" y="638" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" fill="#526174">廣東話</text>
+<text x="700" y="676" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" fill="#526174">Checked result row / 已選結果</text>
+<text x="32" y="750" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" fill="#526174">High contrast uses system colors; DPI scales measured geometry. These are not runtime screenshots.</text></svg>
