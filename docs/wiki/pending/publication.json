@@ -133,6 +133,15 @@
       "preparedWikiSha256": "8530f1531ff4532c9140e117d4b9ea734299dffd0fd0b971b5dee2e7cb1bb439",
       "note": "Leading UTF-8 parser compatibility, explicit BOM-free publication writer and local production evidence are prepared; parent must publish and read back the supported wiki before marking this update delivered. Existing publicationProof remains historical.",
       "relationship": "The UTF-8 feed marker repair section and production summary match exactly; existing task-oriented introductions and navigation remain distinct."
+    },
+    {
+      "state": "pending-publication",
+      "pages": [
+        "Silent-updates.md"
+      ],
+      "sourceArticle": "docs/features/installation/silent-updates.md",
+      "sourceCommit": "7fffeb22b26e7f0e6d0cec247f19fb895957213f",
+      "note": "Stale installed staging retention and fixed helper handoff diagnostics are prepared; source and publication proof remain separate."
     }
   ]
 }

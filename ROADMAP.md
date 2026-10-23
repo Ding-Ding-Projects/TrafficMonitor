@@ -108,5 +108,5 @@ with historical originals retained separately.
 
 ## Updater handoff correction
 
-- [ ] Produce the stale-staging correction and bounded helper diagnostics through the supported installer entrypoint.
+- [x] Produce the stale-staging correction and bounded helper diagnostics through the supported installer entrypoint (1.0.9015, compile/package only).
 - [ ] Verify automatic handoff, helper loading, safe restart and recovery in an authorized runtime acceptance pass.

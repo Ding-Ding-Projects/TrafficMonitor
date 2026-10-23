@@ -401,3 +401,5 @@ Metadata/content source 48d397bc53a24f4aea64def41ae129a094c92bbd records the fet
 ## Updater handoff correction in progress
 
 The updater lane incorporates local integration 693ae4d. Validated stale pending packages are retained before discovering later releases. Fixed helper stages and numeric launch/final results preserve previously missing evidence. Prior Ready/attempt-count evidence does not prove the original helper or UI cause. Production is pending; no tests, reviews, audits, runtime checks or screenshots ran.
+
+Installer production 1.0.9015 completed with exit 0 at 7fffeb22b26e7f0e6d0cec247f19fb895957213f. Receipt: docs/features/installation/silent-handoff-build.json. Full article production remains pending. No automatic restart or original handoff cause is claimed verified.

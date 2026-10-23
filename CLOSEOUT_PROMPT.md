@@ -43,3 +43,5 @@ No full-goal completion, comprehensive runtime/visual acceptance, fresh-environm
 ## Current updater lane
 
 Continue the bounded updater correction: validated already-installed staging is retained before subsequent discovery, and fixed helper launch/stage/results are persisted. Original host handoff cause remains unverified. Installer production 1.0.9015 and source-bound documentation production are pending. Do not infer automatic restart acceptance from compile/package results.
+
+Installer production 1.0.9015 completed with exit 0 at 7fffeb22b26e7f0e6d0cec247f19fb895957213f. Receipt: docs/features/installation/silent-handoff-build.json. Full article production remains pending. No automatic restart or original handoff cause is claimed verified.

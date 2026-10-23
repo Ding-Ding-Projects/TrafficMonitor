@@ -190,3 +190,5 @@ handoff cause remains unverified. This correction fixes stale-package discovery 
 retains missing diagnostics; it does not claim automatic-restart acceptance.
 No tests, reviews, audits, runtime quality checks, interface interaction or screenshots
 were performed in this expedited correction.
+
+Local production `build-installer.bat -Version 1.0.9015` at `7fffeb22b26e7f0e6d0cec247f19fb895957213f` completed with exit 0, native elapsed 10.76 seconds, two LNK4199 warnings and zero errors. The [production receipt](silent-handoff-build.json) binds the executable and package. This does not prove helper loading, automatic restart or recovery.
