@@ -1,10 +1,28 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {JSDOM} from 'jsdom';
-import {createNotificationFeedback,validateNotificationPreferences} from '../src/notifications.js';
+import {createNotificationFeedback,validateNotificationPreferences,notificationCapacity} from '../src/notifications.js';
 import {notificationSettings} from '../lib/notification-settings.mjs';
 test('notification preferences reject unsupported values',()=>{
  for(const value of [null,[],{corner:'top',duration:6000},{corner:'right',duration:1},{corner:'right',duration:6000,muted:true}])assert.throws(()=>validateNotificationPreferences(value));
+});
+test('persistent feedback has bounded retention, coalescing and focus preservation',()=>{
+ const dom=new JSDOM('<main id="main" tabindex="-1"></main><div id="notice"></div>',{url:'https://example.org/'});
+ globalThis.localStorage=dom.window.localStorage;const timers=new Map();let sequence=0;
+ const notify=createNotificationFeedback(dom.window.document,{schedule(fn,ms){timers.set(++sequence,{fn,ms});return sequence;},unschedule(key){timers.delete(key);}});
+ const first=notify('Repeated warning',{severity:'warning'}),dismiss=first.querySelector('md-text-button');dismiss.tabIndex=0;dismiss.focus();
+ for(let i=0;i<2000;i++)notify('Repeated warning',{severity:'warning'});
+ assert.equal(dom.window.document.querySelectorAll('.feedback-card').length,1);
+ assert.match(first.textContent,/2001/);
+ for(let i=0;i<2000;i++)notify('Distinct warning '+i,{severity:'warning'});
+ assert.equal(dom.window.document.querySelectorAll('.feedback-card:not(.feedback-overflow)').length,notificationCapacity);
+ assert.equal(dom.window.document.querySelectorAll('.feedback-overflow').length,1);
+ assert.match(dom.window.document.querySelector('.feedback-overflow').textContent,/1996/);
+ assert.equal(dom.window.document.activeElement,dismiss);assert.equal(first.isConnected,true);assert.equal(timers.size,0);
+ dismiss.click();const information=notify('Information');assert.equal(timers.size,1);
+ information.querySelector('md-text-button').click();assert.equal(timers.size,0);
+ assert.equal(dom.window.document.querySelectorAll('.feedback-card').length,notificationCapacity);
+ dom.window.close();delete globalThis.localStorage;
 });
 test('feedback stacks, persists warnings, pauses timers and resets only preferences',()=>{
  const dom=new JSDOM('<main id="main" tabindex="-1">'+notificationSettings()+'</main><div id="notice"></div>',{url:'https://example.org/'});

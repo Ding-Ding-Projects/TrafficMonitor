@@ -20,3 +20,13 @@ its own search/builder, history, bulk operations, optional recovery actions and 
 required-feature acceptance remain unfinished. Native application feedback is not
 changed. Real browser keyboard, timing, persistence, localization and narrow-layout
 verification remains required by the integration owner.
+
+The feedback service retains at most five active message cards and one overflow
+summary. Identical message/severity pairs coalesce with a saturating occurrence
+count. At capacity, new distinct messages are not retained; the persistent summary
+states that loss explicitly and counts occurrences up to the displayed 10000+
+bound. No existing card is evicted, including focused cards. Each message is bounded
+to 4096 UTF-16 code units; oversized input produces a fixed warning. Dismissing a
+card cancels its timer. Pausing and resuming starts a fresh full interval, rather
+than preserving remaining milliseconds. Preference changes also restart eligible
+informational intervals. This behavior does not create a notification history.

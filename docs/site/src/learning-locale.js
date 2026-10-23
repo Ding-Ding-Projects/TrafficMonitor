@@ -1,4 +1,6 @@
 export const learningCantonese={
+'Additional messages were not retained. Count:':'額外訊息未有保留。數目：','Occurrences:':'出現次數：','A feedback message exceeded the display limit.':'有訊息超過顯示上限。',
+
 "Notifications":"通知",
 "Dismiss notification":"關閉通知",
 "Keep feedback readable":"清楚閱讀操作回饋",
