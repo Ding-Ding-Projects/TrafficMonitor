@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "destination": "https://github.com/Ding-Ding-Projects/TrafficMonitor.wiki.git",
-  "observedWikiCommit": "90834942e562c1e9828b5a406b6df46a546ae8fa",
+  "observedWikiCommit": "0b1263c8b709f420b1e293850a075e09e9342750",
   "state": "published-verified",
   "pages": [
     "Home.md",
@@ -17,17 +17,16 @@
     "fileCount": 7,
     "sourceBlobReadbackMatched": true,
     "ref": "refs/heads/master",
-    "commit": "90834942e562c1e9828b5a406b6df46a546ae8fa",
-    "sourceCommit": "91cebecd4974f745751fbfd23aceeec39fbe9d68",
+    "commit": "0b1263c8b709f420b1e293850a075e09e9342750",
+    "sourceCommit": "891fe49f89914d088278c2d29a84d61ce30b43cd",
     "blobs": [
       {
         "path": "Silent-updates.md",
-        "sha256": "76fed5052f49af2e8824464c472b12a72ada3a3433497a59fb6fa95e8c360a39"
+        "sha256": "23a3d33a8cf069636447125a7a2cce74436c2ccf719b5b8379932db3d3be28c9"
       }
     ],
-    "unchangedGuides": "Other six maintained guides retain their preceding stored-content proof.",
-    "evidenceSource": "Coordinating task fetched and matched exact prepared guide bytes; all seven maintained guides and new wiki commit messages passed publication-language scan with zero findings.",
-    "liveInterface": "UNVERIFIED: no live wiki interface interaction."
+    "evidenceSource": "Coordinating task reported exact raw stored byte match, all seven maintained guides publication-language scan with zero findings, and exact remote ref readback.",
+    "liveInterface": "UNVERIFIED: no live wiki interaction."
   },
   "preparedUpdate": {
     "state": "published-verified",
@@ -206,8 +205,26 @@
     "pages": [
       "Silent-updates.md"
     ],
-    "sourceCommit": "c637e4d54b5c53d30236f3e49a32047194a09067",
-    "sha256": "588265a7e170b7bff5a9c00b6f32939010f34ddb44bd6863759616057b72d810",
-    "scope": "Current result 13, separate manual recovery, and identity readiness candidate; existing publication proof remains historical."
-  }
+    "sourceCommit": "891fe49f89914d088278c2d29a84d61ce30b43cd",
+    "sha256": "f0689a1c7f8a9b2dd2ebba177d261ea8be98e67815265b165e3788dda7ac6e66",
+    "scope": "Manual accepted31 installation and release hashes; natural identity readiness remains pending."
+  },
+  "publicationProofHistory": [
+    {
+      "fileCount": 7,
+      "sourceBlobReadbackMatched": true,
+      "ref": "refs/heads/master",
+      "commit": "90834942e562c1e9828b5a406b6df46a546ae8fa",
+      "sourceCommit": "91cebecd4974f745751fbfd23aceeec39fbe9d68",
+      "blobs": [
+        {
+          "path": "Silent-updates.md",
+          "sha256": "76fed5052f49af2e8824464c472b12a72ada3a3433497a59fb6fa95e8c360a39"
+        }
+      ],
+      "unchangedGuides": "Other six maintained guides retain their preceding stored-content proof.",
+      "evidenceSource": "Coordinating task fetched and matched exact prepared guide bytes; all seven maintained guides and new wiki commit messages passed publication-language scan with zero findings.",
+      "liveInterface": "UNVERIFIED: no live wiki interface interaction."
+    }
+  ]
 }

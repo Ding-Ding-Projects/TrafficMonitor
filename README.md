@@ -1,6 +1,6 @@
 [Documentation website](https://ding-ding-projects.github.io/TrafficMonitor/)
 
-Current updater outcome: the later natural 1.0.29 to 1.0.30 attempt failed with helper parent-identity/result 13 after the old client exited. Manual recovery restored verified 1.0.30 with saved data/startup preserved. A bounded identity-readiness handshake is compiled and packaged as local 1.0.9018, with runtime acceptance pending. The real 1.0.28 to 1.0.29 success remains historical. See [current evidence boundaries](docs/features/installation/silent-updates.md#current-updater-outcome).
+Current updater outcome: normal release 1.0.31, source 891fe49f89914d088278c2d29a84d61ce30b43cd, includes the bounded identity-readiness handshake. The matching existing installation was manually updated through supported Squirrel update with saved data/startup preserved and released/installed executable hashes matched. Main-hidden/taskbar-visible readiness is metadata evidence. The new natural handshake remains unverified; a prepublication collector is ready for a later genuine target. The prior natural 1.0.29 to 1.0.30 result 13 and genuine 1.0.28 to 1.0.29 success remain historical. See [current evidence boundaries](docs/features/installation/silent-updates.md#current-updater-outcome).
 
 **English | [简体中文](./README_zh-CN.md)**
 
@@ -237,6 +237,6 @@ Package 1.0.26 is the verified manual installation baseline. Normal startup reta
 
 The current automatic updater synchronously sends a real WM_CLOSE on the already-checked UI thread, correcting the observed message-context mismatch without a queued-input gap. Local 1.0.9017 production passed; prior 1.0.9016 production is historical and a later real automatic transition remains unverified.
 
-Current updater baseline: normal release and manually installed package 1.0.28 carry the synchronous close caller. Exact released executable bytes, post-save data/startup preservation and source are recorded in the [current updater outcome](docs/features/installation/silent-updates.md#current-updater-outcome). No successful automatic restart of that corrected client is claimed; a metadata-only observation is waiting on the next real publication. Earlier package paragraphs above remain historical.
+Current updater baseline: accepted normal 1.0.31 is manually installed, with exact released bytes, post-save data/startup preservation and source recorded in the [sanitized receipt](docs/features/installation/silent-installed31-acceptance.json). No natural restart of its readiness handshake is claimed. The metadata-only collector was started before the next publication; it changes no preferences or attempt state. Earlier package paragraphs above remain historical.
 
 Release 1.0.28 documentation availability is verified: home and required CSS/JavaScript return HTTP 200, the real installer link is present, and About points exactly to the deployed home. The [current updater outcome](docs/features/installation/silent-updates.md#current-updater-outcome) separates that publication from its manual installation and pending automatic transition.

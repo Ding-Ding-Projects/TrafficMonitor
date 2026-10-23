@@ -1,0 +1,45 @@
+{
+  "sourceCommit": "891fe49f89914d088278c2d29a84d61ce30b43cd",
+  "releaseTag": "v1.0.31-run39979408301-1",
+  "assets": [
+    {
+      "name": "RELEASES",
+      "bytes": 81,
+      "sha256": "7e446e1be26a075eb6ab0cdde0318578523a7a4457d7c595a0d6442a68c58860"
+    },
+    {
+      "name": "Setup.exe",
+      "bytes": 8461824,
+      "sha256": "d35b7e5665901511918f7ddb0eda3957f696e816838c5da7308ce2937005298b"
+    },
+    {
+      "name": "SHA256SUMS.txt",
+      "bytes": 253,
+      "sha256": "8a538459cdb60c899b45aac6fbfc98c278f52995b838c512ab19f8c5ba3a882f"
+    },
+    {
+      "name": "TrafficMonitor-1.0.31-full.nupkg",
+      "bytes": 7582038,
+      "sha256": "7d349428e71355dab5fbabe38fe7385381ea1d4fd9ad42e3c838374db23803cb"
+    }
+  ],
+  "manifest": {
+    "version": "1.0.31",
+    "architecture": "x64",
+    "configuration": "Release (lite)",
+    "sourceCommit": "891fe49f89914d088278c2d29a84d61ce30b43cd",
+    "runtime": "MSVC v143 CRT and MFC app-local",
+    "squirrel": "2.0.1"
+  },
+  "releasedExecutableSHA256": "b2f095640fd87f09adb8484c384e2ab62db71d41a712eab8359b3f42d893a6d7",
+  "route": "MANUAL accepted-release update through identity-bound cooperative WM_CLOSE and supported Squirrel update/stable launcher. Not natural automatic-update acceptance.",
+  "updateExitCode": 0,
+  "launcherExitCode": 0,
+  "dataPreservedAgainstPostSaveBaseline": true,
+  "startupPreserved": true,
+  "installedExecutableSHA256": "b2f095640fd87f09adb8484c384e2ab62db71d41a712eab8359b3f42d893a6d7",
+  "mainHidden": true,
+  "taskbarVisible": true,
+  "naturalReadiness": "UNVERIFIED: later source-bound natural transition required",
+  "testsReviewsAuditsScreenshots": "Not run in expedited mode"
+}

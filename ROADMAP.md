@@ -1,5 +1,13 @@
 # TrafficMonitor delivery roadmap
 
+## Readiness release delivery
+
+- [x] Verify normal 1.0.31 tag, source, complete downloaded asset inventory and hashes.
+- [x] Manually apply accepted 1.0.31 through supported Squirrel update, preserving saved data and startup; confirm installed hash and hidden-main/taskbar-visible metadata.
+- [x] Read back readiness wiki master 0b1263c8b709f420b1e293850a075e09e9342750 and exact prepared article bytes.
+- [ ] Observe a later genuine source-bound natural transition from installed 1.0.31; metadata collector and prepublication baseline are prepared.
+- [ ] Publish and read back this installed-1.0.31 documentation amendment; current publication proof covers source 891fe49f89914d088278c2d29a84d61ce30b43cd.
+
 ## Installer and release foundation
 
 - [x] Create the organization fork, preserve upstream history, and establish `main`.

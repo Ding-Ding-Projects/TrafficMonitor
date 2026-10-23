@@ -1,5 +1,9 @@
 # Fork changes
 
+## Accepted readiness release 1.0.31
+
+Normal release 1.0.31 is bound to source 891fe49f89914d088278c2d29a84d61ce30b43cd. All four release assets were downloaded and matched their published sizes and SHA-256 digests. The matching existing installation was manually updated through safe cooperative closure, Squirrel update and stable launcher, each exit 0. Released and installed executable hashes match; saved data and startup registration were preserved. Hidden main/taskbar-visible readiness is metadata proof only. The new identity-readiness handshake still requires a later genuine natural update. See [sanitized acceptance](docs/features/installation/silent-installed31-acceptance.json). Tests, reviews, audits and screenshots were not run.
+
 ## Native task-oriented settings candidate
 
 The settings entrypoint now provides real Monitoring, Floating monitor and Taskbar draft controls,
