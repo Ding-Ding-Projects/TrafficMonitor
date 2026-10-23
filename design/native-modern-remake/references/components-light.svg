@@ -3,15 +3,15 @@
 <text x="32" y="68" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" fill="#526174">Authored design proposal. Native semantics remain on the actual input HWND.</text>
 <rect x="32" y="104" width="320" height="64" rx="6" fill="#FFFFFF" stroke="#D5DEE8" stroke-width="1"/>
 <text x="44" y="124" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" fill="#526174">Pattern / 模式</text>
-<text x="44" y="151" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" fill="#17212F">\bEthernet\b</text>
+<text x="44" y="151" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" fill="#17212F">Ethernet</text>
 <text x="32" y="194" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" fill="#526174">Resting / 一般</text>
 <rect x="376" y="104" width="320" height="64" rx="6" fill="#FFFFFF" stroke="#245FC8" stroke-width="2"/>
 <text x="388" y="124" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" fill="#526174">Pattern / 模式</text>
-<text x="388" y="151" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" fill="#17212F">\bEthernet\b</text>
+<text x="388" y="151" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" fill="#17212F">Ethernet</text>
 <text x="376" y="194" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" fill="#526174">Focused / 焦點</text>
 <rect x="720" y="104" width="320" height="64" rx="6" fill="#FFFFFF" stroke="#C94450" stroke-width="2"/>
 <text x="732" y="124" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" fill="#526174">Pattern / 模式</text>
-<text x="732" y="151" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" fill="#17212F">\bEthernet\b</text>
+<text x="732" y="151" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" fill="#17212F">Ethernet</text>
 <text x="720" y="194" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" fill="#526174">Invalid / 無效</text>
 <text x="32" y="242" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="18" fill="#17212F">Action hierarchy / 操作層級</text>
 <rect x="32" y="264" width="172" height="44" rx="12" fill="#245FC8" stroke="#D5DEE8" stroke-width="1"/>

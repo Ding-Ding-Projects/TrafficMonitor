@@ -15,8 +15,6 @@
 <rect x="8" y="200" width="396" height="40" rx="6" fill="#DCE8FF"/>
 <text x="20" y="224" fill="#245FC8" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="400">✓</text>
 <text x="48" y="224" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">English + Cantonese</text>
-<rect x="408" y="116" width="8" height="320" rx="4" fill="#EDF1F6"/>
-<rect x="409" y="128" width="6" height="96.0" rx="3" fill="#526174"/>
 <path d="M16 432H404" stroke="#D5DEE8"/>
 <text x="16" y="455" fill="#526174" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">Enter selects · Esc cancels</text>
 </svg>

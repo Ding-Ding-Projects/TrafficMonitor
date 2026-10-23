@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="640" viewBox="0 0 760 640"><title>setup minimum english light design proposal</title><desc>Authored design reference with synthetic values. Not a running application or screenshot.</desc>
+<rect x="0" y="0" width="760" height="640" rx="0" fill="#F5F7FA"/>
+<rect x="0" y="0" width="176" height="640" rx="0" fill="#EDF1F6"/>
+<text x="20" y="34" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="17" font-weight="600">TrafficMonitor</text>
+<rect x="12" y="50" width="152" height="40" rx="12" fill="#DCE8FF"/>
+<rect x="12" y="60" width="3" height="24" rx="2" fill="#245FC8"/>
+<g transform="translate(24 59)" fill="none" stroke="#245FC8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="7"/></g>
+<text x="50" y="72" fill="#245FC8" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="600">1  Welcome</text>
+<g transform="translate(24 105)" fill="none" stroke="#526174" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="7"/></g>
+<text x="50" y="118" fill="#526174" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">2  Monitoring</text>
+<g transform="translate(24 151)" fill="none" stroke="#526174" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="7"/></g>
+<text x="50" y="164" fill="#526174" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">3  Startup</text>
+<g transform="translate(24 197)" fill="none" stroke="#526174" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="7"/></g>
+<text x="50" y="210" fill="#526174" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">4  Review</text>
+<text x="20" y="604" fill="#526174" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">Native monitor</text>
+<text x="200" y="38" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="24" font-weight="600">Set up your monitor</text>
+<rect x="200" y="62" width="460" height="52" rx="8" fill="#EDF1F6"/>
+<path d="M208 114H652" stroke="#D5DEE8" stroke-width="1"/>
+<text x="212" y="79" fill="#526174" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">Search</text>
+<text x="212" y="104" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400"></text>
+<rect x="668" y="70" width="64" height="36" rx="12" fill="#DCE8FF"/>
+<text x="680" y="91" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">Regex</text>
+<rect x="188" y="126" width="544" height="418" rx="16" fill="#FFFFFF"/>
+<defs><clipPath id="form"><rect x="188" y="126" width="544" height="418"/></clipPath></defs><g clip-path="url(#form)"><g transform="translate(0 -110)">
+<text x="200" y="150" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="18" font-weight="600">Language and appearance</text>
+<text x="200" y="186" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="600">Interface language</text>
+<rect x="200" y="200" width="520" height="36" rx="8" fill="#EDF1F6"/>
+<text x="214" y="223" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">English</text>
+<path d="M692 215.0l5 5 5 -5" fill="none" stroke="#526174" stroke-width="1.5"/>
+<text x="200" y="274" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="600">Appearance</text>
+<rect x="200" y="288" width="520" height="36" rx="8" fill="#EDF1F6"/>
+<text x="214" y="311" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">System</text>
+<path d="M692 303.0l5 5 5 -5" fill="none" stroke="#526174" stroke-width="1.5"/>
+<rect x="200" y="362" width="520" height="80" rx="8" fill="#DCE8FF"/>
+<text x="214" y="386" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">Preview: monitoring is active</text>
+<rect x="200" y="466" width="200" height="36" rx="12" fill="#245FC8"/>
+<text x="212" y="487" fill="#FFFFFF" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">Apply preferences</text>
+<rect x="408" y="466" width="128" height="36" rx="12" fill="#DCE8FF"/>
+<text x="420" y="487" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">Use saved</text>
+<text x="200" y="534" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="600">English style</text>
+<rect x="200" y="562" width="464" height="4" rx="2" fill="#D5DEE8"/>
+<rect x="200" y="562" width="464" height="4" rx="2" fill="#245FC8"/>
+<rect x="652" y="554" width="20" height="20" rx="10" fill="#245FC8"/>
+<text x="692" y="568" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">5</text>
+<text x="200" y="598" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="600">Cantonese style</text>
+<rect x="200" y="626" width="464" height="4" rx="2" fill="#D5DEE8"/>
+<rect x="200" y="626" width="464" height="4" rx="2" fill="#245FC8"/>
+<rect x="652" y="618" width="20" height="20" rx="10" fill="#245FC8"/>
+<text x="692" y="632" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">5</text>
+</g></g>
+<rect x="748" y="126" width="8" height="418" rx="4" fill="#EDF1F6"/>
+<rect x="749" y="208.10714285714283" width="6" height="312.00714285714287" rx="3" fill="#526174"/>
+<rect x="176" y="560" width="584" height="80" rx="0" fill="#FFFFFF"/>
+<path d="M176 560H760" stroke="#D5DEE8"/>
+<text x="200" y="582" fill="#526174" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">Unsaved interface changes</text>
+<rect x="200" y="592" width="88" height="36" rx="12" fill="#DCE8FF"/>
+<text x="212" y="613" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">Back</text>
+<rect x="296" y="592" width="164" height="36" rx="12" fill="#DCE8FF"/>
+<text x="308" y="613" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">Save and close</text>
+<rect x="648" y="592" width="88" height="36" rx="12" fill="#245FC8"/>
+<text x="660" y="613" fill="#FFFFFF" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">Next</text>
+</svg>

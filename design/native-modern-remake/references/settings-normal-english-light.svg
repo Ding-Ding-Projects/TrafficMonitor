@@ -24,20 +24,22 @@
 <text x="212" y="104" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">Find a setting</text>
 <rect x="992" y="70" width="64" height="36" rx="12" fill="#DCE8FF"/>
 <text x="1004" y="91" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">Regex</text>
-<rect x="188" y="124" width="868" height="316" rx="16" fill="#FFFFFF"/>
-<text x="200" y="154" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="18" font-weight="600">Language and appearance</text>
-<text x="200" y="190" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="600">Interface language</text>
-<rect x="587.0" y="170" width="457.00000000000006" height="36" rx="8" fill="#EDF1F6"/>
-<text x="601.0" y="193" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">English</text>
-<path d="M1016.0 185.0l5 5 5 -5" fill="none" stroke="#526174" stroke-width="1.5"/>
-<text x="200" y="214" fill="#526174" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">Shared across native windows</text>
-<text x="200" y="258" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="600">Appearance</text>
-<rect x="587.0" y="238" width="457.00000000000006" height="36" rx="8" fill="#EDF1F6"/>
-<text x="601.0" y="261" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">System</text>
-<path d="M1016.0 253.0l5 5 5 -5" fill="none" stroke="#526174" stroke-width="1.5"/>
+<rect x="188" y="126" width="868" height="304" rx="16" fill="#FFFFFF"/>
+<defs><clipPath id="form"><rect x="188" y="126" width="868" height="618"/></clipPath></defs><g clip-path="url(#form)"><g transform="translate(0 0)">
+<text x="200" y="150" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="18" font-weight="600">Language and appearance</text>
+<text x="200" y="186" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="600">Interface language</text>
+<rect x="587.0" y="172" width="457.00000000000006" height="36" rx="8" fill="#EDF1F6"/>
+<text x="601.0" y="195" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">English</text>
+<path d="M1016.0 187.0l5 5 5 -5" fill="none" stroke="#526174" stroke-width="1.5"/>
+<text x="200" y="212" fill="#526174" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">Shared across native windows</text>
+<text x="200" y="256" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="600">Appearance</text>
+<rect x="587.0" y="242" width="457.00000000000006" height="36" rx="8" fill="#EDF1F6"/>
+<text x="601.0" y="265" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">System</text>
+<path d="M1016.0 257.0l5 5 5 -5" fill="none" stroke="#526174" stroke-width="1.5"/>
 <text x="200" y="282" fill="#526174" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">Shared across native windows</text>
-<rect x="200" y="326" width="844" height="76" rx="8" fill="#DCE8FF"/>
+<rect x="200" y="326" width="844" height="80" rx="8" fill="#DCE8FF"/>
 <text x="214" y="350" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">Preview: monitoring is active</text>
+</g></g>
 <rect x="176" y="760" width="1104" height="80" rx="0" fill="#FFFFFF"/>
 <path d="M176 760H1280" stroke="#D5DEE8"/>
 <text x="200" y="782" fill="#526174" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">Unsaved interface changes</text>
@@ -45,6 +47,5 @@
 <text x="212" y="813" fill="#FFFFFF" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">Apply</text>
 <rect x="324" y="792" width="128" height="36" rx="12" fill="#DCE8FF"/>
 <text x="336" y="813" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">Use saved</text>
-<rect x="460" y="792" width="96" height="36" rx="12" fill="#DCE8FF"/>
-<text x="472" y="813" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">Reset</text>
+<text x="472" y="813" fill="#245FC8" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">Reset</text>
 </svg>
