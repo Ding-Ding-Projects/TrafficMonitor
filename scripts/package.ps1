@@ -39,8 +39,17 @@ try {
     $inputPackage = "$RepoRoot/artifacts/TrafficMonitor.$Version.nupkg"
     & $nuget pack "$stage/TrafficMonitor.nuspec" -BasePath $stage -OutputDirectory "$RepoRoot/artifacts" -NoPackageAnalysis -NonInteractive
     if ($LASTEXITCODE -ne 0) { throw "NuGet packing failed: $LASTEXITCODE" }
-    & "$squirrel/tools/Squirrel.exe" --releasify $inputPackage --releaseDir "$RepoRoot/artifacts/releases" --no-msi --framework-version net48
-    if ($LASTEXITCODE -ne 0) { throw "Squirrel packaging failed: $LASTEXITCODE" }
+    # Squirrel.exe is a GUI-subsystem executable. Windows PowerShell can return
+    # before it finishes; wait on the actual process rather than stale LASTEXITCODE.
+    $squirrelArguments = '--releasify "{0}" --releaseDir "{1}" --no-msi --framework-version net48' -f $inputPackage, "$RepoRoot/artifacts/releases"
+    $process = Start-Process "$squirrel/tools/Squirrel.exe" -ArgumentList $squirrelArguments -Wait -PassThru -WindowStyle Hidden
+    $squirrelLog = Join-Path $env:LOCALAPPDATA 'SquirrelTemp/SquirrelSetup.log'
+    if (Test-Path $squirrelLog) {
+        New-Item -ItemType Directory -Force "$RepoRoot/artifacts/logs" | Out-Null
+        # Keep packaging diagnostics local; they may contain machine paths.
+        Write-Host 'Squirrel diagnostics are available in the local SquirrelTemp directory.'
+    }
+    if ($process.ExitCode -ne 0) { throw "Squirrel packaging failed: $($process.ExitCode)" }
     foreach ($file in @('Setup.exe','RELEASES',"TrafficMonitor-$Version-full.nupkg")) {
         if (!(Test-Path "$RepoRoot/artifacts/releases/$file")) { throw "Squirrel output missing: $file" }
     }
