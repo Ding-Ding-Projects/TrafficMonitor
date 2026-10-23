@@ -1264,6 +1264,237 @@
       "originalSubject": "Merge pull request #416 from 1466587594/master",
       "summaryMethod": "translated-message",
       "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "6bda0c6beeda5b5cb5788621447e6f35250b33f5",
+      "date": "2020-07-31T11:43:25+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/6bda0c6beeda5b5cb5788621447e6f35250b33f5",
+      "summary": "Keep CPU and memory utilization sampling active when both application windows are hidden|fix",
+      "category": "fix",
+      "lineage": "upstream",
+      "originalSubject": "修正当主窗口和任务栏窗口都不显示时，不统计CPU和内存利用率的问题。",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "4b3b73c6c5cf77e927217fa3086da89a6619d3e4",
+      "date": "2020-08-01T15:54:25+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/4b3b73c6c5cf77e927217fa3086da89a6619d3e4",
+      "summary": "Refresh the title-bar icon|maintenance",
+      "category": "maintenance",
+      "lineage": "upstream",
+      "originalSubject": "标题栏图标更新",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "5fab7d7c6f515b079bf18d37bac412febb7c5fd3",
+      "date": "2020-08-03T17:45:49+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/5fab7d7c6f515b079bf18d37bac412febb7c5fd3",
+      "summary": "Rename the taskbar setting from data digits to network-speed data width|maintenance",
+      "category": "maintenance",
+      "lineage": "upstream",
+      "originalSubject": "选项设置>任务栏窗口设置中“数据位数”改为“网速数据宽度”",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "070e7765dc6bdb35849d4035d0bea1fa2f680187",
+      "date": "2020-08-05T11:13:14+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/070e7765dc6bdb35849d4035d0bea1fa2f680187",
+      "summary": "Fix a registry handle leak|fix",
+      "category": "fix",
+      "lineage": "upstream",
+      "originalSubject": "修正注册表句柄泄漏的问题",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "ab09582403d5710a059a5785e7c2a7227e78ef39",
+      "date": "2020-08-05T11:14:56+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/ab09582403d5710a059a5785e7c2a7227e78ef39",
+      "summary": "Correct the legend text in the historical traffic calendar (#432)|fix",
+      "category": "fix",
+      "lineage": "upstream",
+      "originalSubject": "修正历史流量统计日历视图图例文本错误 #432",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "43eb675737e2a1590c235bb47577eb72474fe9e3",
+      "date": "2020-08-05T20:37:43+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/43eb675737e2a1590c235bb47577eb72474fe9e3",
+      "summary": "Update the version number|release",
+      "category": "release",
+      "lineage": "upstream",
+      "originalSubject": "版本号更新",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "c771f0a0f510fd060e5fc55c9c0483c2e18264b0",
+      "date": "2020-08-05T21:05:21+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/c771f0a0f510fd060e5fc55c9c0483c2e18264b0",
+      "summary": "Update version metadata|release",
+      "category": "fix",
+      "lineage": "upstream",
+      "originalSubject": "version.info更新",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "3e997d42c996a243eae7c8c7fc7d08199be4b3a4",
+      "date": "2020-08-06T16:35:46+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/3e997d42c996a243eae7c8c7fc7d08199be4b3a4",
+      "summary": "Remove the rule that changed network speeds above 1 GB to zero|fix",
+      "category": "fix",
+      "lineage": "upstream",
+      "originalSubject": "删除网速超过1GB时变为0的处理",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "9c80a39dd28287f15502c987b35a7af0f9804f47",
+      "date": "2020-08-06T17:15:30+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/9c80a39dd28287f15502c987b35a7af0f9804f47",
+      "summary": "Fix missing menu icons on 32-bit Windows 7|fix",
+      "category": "fix",
+      "lineage": "upstream",
+      "originalSubject": "修正Win7 32位系统中菜单没有图标的问题",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "5a96843c5955c571e796e8626610aa2bd8312f54",
+      "date": "2020-08-06T17:48:43+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/5a96843c5955c571e796e8626610aa2bd8312f54",
+      "summary": "Fix a compilation error|fix",
+      "category": "fix",
+      "lineage": "upstream",
+      "originalSubject": "修正编译问题",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "cbf3ef26f6db8c686d4a060988bd7c73bf99b42a",
+      "date": "2020-08-10T23:27:54+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/cbf3ef26f6db8c686d4a060988bd7c73bf99b42a",
+      "summary": "Fix a potential file-handle leak|fix",
+      "category": "fix",
+      "lineage": "upstream",
+      "originalSubject": "修正一处可能导致文件句柄泄漏的问题",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "7652bae82787a874f0d7878713ee3a7c82d155cf",
+      "date": "2020-08-11T11:09:00+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/7652bae82787a874f0d7878713ee3a7c82d155cf",
+      "summary": "Update the documentation|documentation",
+      "category": "documentation",
+      "lineage": "upstream",
+      "originalSubject": "文档更新",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "d72d6f721786bbf618d3a595905818098adef6c4",
+      "date": "2020-08-15T20:46:17+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/d72d6f721786bbf618d3a595905818098adef6c4",
+      "summary": "Write an error log when a request fails|feature",
+      "category": "fix",
+      "lineage": "upstream",
+      "originalSubject": "请求失败时写入错误日志",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "d6ebcb47124e4ec0dd072795a90511d301e789b0",
+      "date": "2020-08-16T15:48:16+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/d6ebcb47124e4ec0dd072795a90511d301e789b0",
+      "summary": "Add a link to the project wiki in the documentation|documentation",
+      "category": "documentation",
+      "lineage": "upstream",
+      "originalSubject": "文档中添加Wiki页面的链接",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "53434200dfa33e7f769be8af7bda1c4d516c6453",
+      "date": "2020-08-16T16:10:44+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/53434200dfa33e7f769be8af7bda1c4d516c6453",
+      "summary": "Fix an automatic-build error|fix",
+      "category": "fix",
+      "lineage": "upstream",
+      "originalSubject": "修正自动编译错误",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "00ed155b84d25b3cc3ccba7faac2b5717b2602e9",
+      "date": "2020-08-16T16:18:57+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/00ed155b84d25b3cc3ccba7faac2b5717b2602e9",
+      "summary": "Point the Help command to the wiki and add a Frequently Asked Questions command|feature",
+      "category": "feature",
+      "lineage": "upstream",
+      "originalSubject": "“帮助”命令指向Wiki页面；增加“常见问题”命令",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "d38abb8c4f0d518b5b1b6fd3170281e9c6f25f3c",
+      "date": "2020-08-22T21:32:01+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/d38abb8c4f0d518b5b1b6fd3170281e9c6f25f3c",
+      "summary": "Add the version 1.79 changelog to the UTF-8 version information file|release",
+      "category": "release",
+      "lineage": "upstream",
+      "originalSubject": "将1.79版本的更新日志也添加到 version_utf8.info 中",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "9eaadc1ea0b127d1c84f4612ebb0d229340a7040",
+      "date": "2020-08-23T23:39:40+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/9eaadc1ea0b127d1c84f4612ebb0d229340a7040",
+      "summary": "Correct the documentation|documentation",
+      "category": "fix",
+      "lineage": "upstream",
+      "originalSubject": "文档修正",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "0dc6988cc725e4241fb3b8dcd1add0670363ce45",
+      "date": "2020-08-28T11:01:07+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/0dc6988cc725e4241fb3b8dcd1add0670363ce45",
+      "summary": "Update the documentation|documentation",
+      "category": "documentation",
+      "lineage": "upstream",
+      "originalSubject": "文档更新",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "78224116ad1e11d00469270f7ec8e0b5332cd18a",
+      "date": "2020-09-10T19:25:03+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/78224116ad1e11d00469270f7ec8e0b5332cd18a",
+      "summary": "Disable Restart Manager|maintenance",
+      "category": "fix",
+      "lineage": "upstream",
+      "originalSubject": "关闭RestartManager",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "c633b33b5a6e296f74cd2bda43c77e52eb6c4ebb",
+      "date": "2020-09-21T18:15:14+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/c633b33b5a6e296f74cd2bda43c77e52eb6c4ebb",
+      "summary": "Fix incorrect historical traffic statistics caused by numeric overflow|fix",
+      "category": "fix",
+      "lineage": "upstream",
+      "originalSubject": "修正历史流量统计数值溢出导致统计数值不正确的问题",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
     }
   ]
 }
