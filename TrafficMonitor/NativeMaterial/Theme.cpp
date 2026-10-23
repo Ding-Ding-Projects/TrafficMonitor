@@ -76,6 +76,7 @@ namespace NativeMaterial
         RECT client{};
         if (!GetClientRect(m_window, &client)) return HRESULT_FROM_WIN32(GetLastError());
         auto properties = D2D1::RenderTargetProperties();
+        properties.type = D2D1_RENDER_TARGET_TYPE_HARDWARE;
         properties.dpiX = properties.dpiY = m_dpi;
         const auto windowProperties = D2D1::HwndRenderTargetProperties(m_window,
             D2D1::SizeU(static_cast<UINT>(client.right), static_cast<UINT>(client.bottom)));

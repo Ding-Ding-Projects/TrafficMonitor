@@ -1055,4 +1055,10 @@
       <UserProperties RESOURCE_FILE="TrafficMonitor.rc" />
     </VisualStudio>
   </ProjectExtensions>
+  <ItemGroup>
+    <ClInclude Include="NativeDashboardController.h" />
+    <ClCompile Include="NativeDashboardController.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+  </ItemGroup>
 </Project>

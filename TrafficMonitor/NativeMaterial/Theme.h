@@ -22,6 +22,9 @@ namespace NativeMaterial
     class Canvas final
     {
     public:
+        Canvas() = default;
+        Canvas(const Canvas&) = delete;
+        Canvas& operator=(const Canvas&) = delete;
         HRESULT Attach(HWND window, float dpi);
         void Detach() noexcept;
         HRESULT Resize(UINT width, UINT height, float dpi);
