@@ -1,5 +1,8 @@
 ﻿#include "../stdafx.h"
 #include "SetupFlow.h"
+#include "../NativePreferences/Editor.h"
+#include "../NativePreferences/Subscription.h"
+#include "../NativeSettings/SettingsViewport.h"
 #include "SetupFlowText.h"
 #include "SetupFlowProgress.h"
 #include "../TrafficMonitorDlg.h"
@@ -46,6 +49,7 @@ namespace NativeDashboard::Setup
         int Bound(int value, int low, int high) { return (std::max)(low, (std::min)(high, value)); }
         struct Draft
         {
+            NativePreferences::Draft preferences;bool protectedSchema{};
             int step{}, language{}, english{5}, cantonese{5}, taskbar{}, startup{};
             Selection selection;
             std::array<Result, 3> results{};
@@ -54,16 +58,31 @@ namespace NativeDashboard::Setup
         Draft Load()
         {
             Draft d;
-            LANGID language = theApp.m_general_data.language.language_id;
-            d.language = PRIMARYLANGID(language ? language : GetUserDefaultUILanguage()) == LANG_CHINESE ? 1 : 0;
+            const auto accepted=NativePreferences::Current();d.preferences={accepted.values,accepted.base,false,false};
+            d.language=static_cast<int>(accepted.values.language);
             if (auto* monitor = CTrafficMonitorDlg::Instance()) d.selection = monitor->SetupSelection();
             WIN32_FILE_ATTRIBUTE_DATA attributes{};
-            if (!GetFileAttributesExW(Path().c_str(), GetFileExInfoStandard, &attributes)
-                || attributes.nFileSizeHigh || attributes.nFileSizeLow > 16384) return d;
+            if(!GetFileAttributesExW(Path().c_str(),GetFileExInfoStandard,&attributes)){d.protectedSchema=GetLastError()!=ERROR_FILE_NOT_FOUND;return d;}
+            if(attributes.nFileSizeHigh||attributes.nFileSizeLow>16384){d.protectedSchema=true;return d;}
             CIniHelper ini(Path());
-            if (ini.GetInt(L"setup", L"schemaVersion", 0) != 1) return d;
+            const int schema=ini.GetInt(L"setup",L"schemaVersion",0);
+            if(schema!=1&&schema!=2){d.protectedSchema=true;return d;}
+            std::wstring selected;const bool hasLanguage=ini.GetString(L"setup",L"language",selected)&&NativePreferences::ParseSavedLanguage(selected,d.preferences.values.language);
+            if(hasLanguage)d.preferences.values.language=static_cast<NativePreferences::Language>(selected[0]-L'0');
+            if(schema==2)
+            {
+                const int appearance=ini.GetInt(L"setup",L"appearance",-1),baseLanguage=ini.GetInt(L"setup",L"baseLanguage",-1),baseAppearance=ini.GetInt(L"setup",L"baseAppearance",-1);
+                const auto fingerprint=ini.GetString(L"setup",L"baseFingerprint",L"");
+                if(!hasLanguage||appearance<0||appearance>2||baseLanguage<0||baseLanguage>2||baseAppearance<0||baseAppearance>2||fingerprint.empty()){d.protectedSchema=true;return d;}
+                d.preferences.values.appearance=static_cast<NativePreferences::Appearance>(appearance);
+                d.preferences.base.values={static_cast<NativePreferences::Language>(baseLanguage),static_cast<NativePreferences::Appearance>(baseAppearance)};d.preferences.base.fingerprint=fingerprint;
+                d.preferences.dirty=ini.GetBool(L"setup",L"preferenceDirty",false);
+                NativePreferences::ReconcileResume(d.preferences,accepted);
+            }
+            else d.preferences.dirty=d.preferences.values!=accepted.values;
+
             d.step = Bound(ini.GetInt(L"setup", L"step", 0), 0, 3);
-            d.language = Bound(ini.GetInt(L"setup", L"language", d.language), 0, 2);
+            d.language=static_cast<int>(d.preferences.values.language);
             d.english = Bound(ini.GetInt(L"setup", L"englishStyle", 5), 1, 5);
             d.cantonese = Bound(ini.GetInt(L"setup", L"cantoneseStyle", 5), 1, 5);
             d.taskbar = Bound(ini.GetInt(L"setup", L"taskbar", 0), 0, 2);
@@ -78,9 +97,13 @@ namespace NativeDashboard::Setup
         }
         bool Save(const Draft& d)
         {
+            if(d.protectedSchema)return false;
             const auto temp = Path() + L".tmp";
             DeleteFileW(temp.c_str()); CIniHelper output(temp);
-            output.WriteInt(L"setup", L"schemaVersion", 1); output.WriteInt(L"setup", L"step", d.step);
+            output.WriteInt(L"setup", L"schemaVersion", 2); output.WriteInt(L"setup", L"step", d.step);
+            output.WriteInt(L"setup",L"appearance",static_cast<int>(d.preferences.values.appearance));
+            output.WriteInt(L"setup",L"baseLanguage",static_cast<int>(d.preferences.base.values.language));output.WriteInt(L"setup",L"baseAppearance",static_cast<int>(d.preferences.base.values.appearance));
+            output.WriteString(L"setup",L"baseFingerprint",d.preferences.base.fingerprint);output.WriteBool(L"setup",L"preferenceDirty",d.preferences.dirty);
             output.WriteInt(L"setup", L"language", d.language); output.WriteInt(L"setup", L"englishStyle", d.english);
             output.WriteInt(L"setup", L"cantoneseStyle", d.cantonese); output.WriteInt(L"setup", L"taskbar", d.taskbar);
             output.WriteInt(L"setup", L"startup", d.startup); output.WriteInt(L"setup", L"mode", static_cast<int>(d.selection.mode));
@@ -88,7 +111,7 @@ namespace NativeDashboard::Setup
             for (int i = 0; i < 3; ++i) { const auto key = L"result" + std::to_wstring(i); output.WriteInt(L"setup", key.c_str(), static_cast<int>(d.results[i])); }
             if (!output.Save() || !MoveFileExW(temp.c_str(), Path().c_str(), MOVEFILE_REPLACE_EXISTING | MOVEFILE_WRITE_THROUGH)) return false;
             CIniHelper stored(Path());
-            return stored.GetInt(L"setup", L"schemaVersion", 0) == 1 && stored.GetInt(L"setup", L"step", -1) == d.step
+            return stored.GetInt(L"setup", L"schemaVersion", 0) == 2 && stored.GetInt(L"setup", L"step", -1) == d.step
                 && stored.GetBool(L"setup", L"complete", !d.complete) == d.complete;
         }
         bool StartupEnabled() { return theApp.GetAutoRun(nullptr, theApp.m_installed_mode ? false : theApp.m_general_data.auto_run_by_task_scheduler); }
@@ -112,6 +135,10 @@ namespace NativeDashboard::Setup
             afx_msg void OnHScroll(UINT, UINT, CScrollBar*);
             DECLARE_MESSAGE_MAP()
         private:
+            NativePreferences::Editor m_preferences;NativePreferences::Subscription m_subscription;
+            NativeSettings::SettingsViewport m_preferenceBody;int m_preferenceScroll{},m_preferenceHeight{},m_preferenceView{};
+            LRESULT OnPreferences(WPARAM generation,LPARAM);
+            LRESULT WindowProc(UINT message,WPARAM w,LPARAM l) override {if(message==WM_NCDESTROY)m_subscription.Detach();if(message==WM_SETTINGCHANGE||message==WM_THEMECHANGED)NativePreferences::RefreshSystemAppearance();return CDialog::WindowProc(message,w,l);}
             CString T(Copy id) const { return Text(id, m_draft.language); }
             int Px(int n) const { return MulDiv(n, m_dpi, 96); }
             void Labels(); void Layout(); void Fonts(); void ReadControls(); void ReloadAdapters();
@@ -134,17 +161,20 @@ namespace NativeDashboard::Setup
             ON_WM_GETMINMAXINFO()
             ON_WM_CTLCOLOR()
             ON_WM_HSCROLL()
+            ON_MESSAGE(NativePreferences::ChangedMessage,&Wizard::OnPreferences)
             ON_MESSAGE(WM_DPICHANGED, &Wizard::OnDpi)
         END_MESSAGE_MAP()
         BOOL Wizard::OnInitDialog()
         {
             CDialog::OnInitDialog(); m_dpi = GetDpiForWindow(m_hWnd); if (!m_dpi) m_dpi = 96;
-            DWORD light = 1, bytes = sizeof(light);
-            RegGetValueW(HKEY_CURRENT_USER, L"Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize", L"AppsUseLightTheme", RRF_RT_REG_DWORD, nullptr, &light, &bytes);
-            m_appearance = light ? NativeMaterial::Appearance::Light : NativeMaterial::Appearance::Dark;
+            m_subscription.Attach(m_hWnd);m_appearance=NativePreferences::EffectiveAppearance();
             const auto palette = NativeMaterial::Palette::Resolve(m_appearance);
             m_background.CreateSolidBrush(RGB(BYTE(palette.surface.r*255), BYTE(palette.surface.g*255), BYTE(palette.surface.b*255)));
             CRect box(0, 0, 100, 40); DWORD child = WS_CHILD | WS_VISIBLE;
+            if(!m_preferenceBody.Create(this)||!m_preferences.Create(&m_preferenceBody)){EndDialog(-1);return TRUE;}
+            m_preferences.draft=m_draft.preferences;m_preferences.Refresh();
+            m_preferenceBody.background=[this]{return static_cast<HBRUSH>(m_background.GetSafeHandle());};
+            m_preferenceBody.scroll=[this](UINT code,int position){if(code==SB_LINEUP)m_preferenceScroll-=48;else if(code==SB_LINEDOWN)m_preferenceScroll+=48;else if(code==SB_PAGEUP)m_preferenceScroll-=m_preferenceView;else if(code==SB_PAGEDOWN)m_preferenceScroll+=m_preferenceView;else if(code==SB_THUMBTRACK||code==SB_THUMBPOSITION)m_preferenceScroll=position;Layout();};
             m_heading.Create(L"", child, box, this); m_info.Create(L"", child, box, this); m_note.Create(L"", child, box, this);
             m_review.Create(box, this, 55030);m_review.SetAppearance(m_appearance);
             for (size_t i = 0; i < m_choices.size(); ++i)
@@ -202,7 +232,7 @@ namespace NativeDashboard::Setup
         void Wizard::ReadControls()
         {
             if(m_loading)return;
-            m_draft.language=Bound(m_choices[0].GetCurSel(),0,2);
+            m_draft.preferences=m_preferences.draft;m_draft.language=static_cast<int>(m_preferences.draft.values.language);
             m_draft.english=Bound(m_ranges[0].GetPos(),1,5);m_draft.cantonese=Bound(m_ranges[1].GetPos(),1,5);
             const Mode mode=static_cast<Mode>(Bound(m_choices[3].GetCurSel(),0,2));
             std::wstring guid=m_draft.selection.guid;const int row=m_choices[4].GetCurSel();
@@ -231,9 +261,12 @@ namespace NativeDashboard::Setup
             const int infoHeight=textHeight(m_info,48),contentTop=infoTop+infoHeight+12;
             place(m_heading,24,16,width-48,headingHeight);place(m_info,24,infoTop,width-48,infoHeight);
             int y=contentTop;
+            m_preferenceBody.ShowWindow(m_draft.step==0?SW_SHOW:SW_HIDE);
+            if(m_draft.step==0){m_preferenceView=(std::max)(100,height-contentTop-300);place(m_preferenceBody,24,contentTop,width-48,m_preferenceView);m_preferenceHeight=m_preferences.Layout(0,0,width-80,m_dpi,true);m_preferenceScroll=(std::max)(0,(std::min)(m_preferenceScroll,(std::max)(0,m_preferenceHeight-m_preferenceView)));m_preferences.Layout(0,-m_preferenceScroll,width-80,m_dpi,true);SCROLLINFO scroll{sizeof(scroll),SIF_RANGE|SIF_PAGE|SIF_POS,0,m_preferenceHeight-1,static_cast<UINT>(m_preferenceView),m_preferenceScroll};m_preferenceBody.SetScrollInfo(SB_VERT,&scroll,TRUE);y+=m_preferenceView+8;}
+
             for(int i=0;i<7;++i)
             {
-                bool visible=(m_draft.step==0&&i<3)||(m_draft.step==1&&(i==3||i==4))||(m_draft.step==2&&i>=5);
+                bool visible=(m_draft.step==0&&i>0&&i<3)||(m_draft.step==1&&(i==3||i==4))||(m_draft.step==2&&i>=5);
                 CWnd& choice=(i==1||i==2)?static_cast<CWnd&>(m_ranges[i-1]):static_cast<CWnd&>(m_choices[i]);
                 m_labels[i].ShowWindow(visible?SW_SHOW:SW_HIDE);choice.ShowWindow(visible?SW_SHOW:SW_HIDE);
                 if(visible){place(m_labels[i],24,y,width-48,34);place(choice,24,y+32,width-48,(i==1||i==2)?44:220);y+=80;}
@@ -285,6 +318,7 @@ namespace NativeDashboard::Setup
         {
             auto* monitor=CTrafficMonitorDlg::Instance();if(m_applying||!monitor)return;
             if(m_draft.results[0]!=Result::Applied&&!ValidAdapter())return;
+            if(m_preferences.draft.dirty){m_draft.step=0;Layout();m_note.SetWindowText(NativePreferences::Text(NativePreferences::TextId::Draft));return;}
             m_applying=true;m_draft.complete=false;Layout();Note(Copy::Applying);
             if(!Save(m_draft)){m_applying=false;Layout();Note(Copy::SaveFailed);return;}
             for(int i=0;i<3;++i)
@@ -332,6 +366,7 @@ namespace NativeDashboard::Setup
         BOOL Wizard::OnCommand(WPARAM w,LPARAM l)
         {
             UINT id=LOWORD(w);if(m_applying)return TRUE;
+            if(HIWORD(w)==BN_CLICKED&&m_preferences.Command(id)){ReadControls();Labels();Layout();return TRUE;}
             if(id>=Language&&id<=StartupChoice&&HIWORD(w)==CBN_SELCHANGE)
             {ReadControls();Labels();Layout();m_note.SetWindowText(StyleNote(m_draft.language,m_draft.english,m_draft.cantonese));return TRUE;}
             if(HIWORD(w)!=BN_CLICKED)return CDialog::OnCommand(w,l);
@@ -346,6 +381,8 @@ namespace NativeDashboard::Setup
             }
             return CDialog::OnCommand(w,l);
         }
+        LRESULT Wizard::OnPreferences(WPARAM generation,LPARAM)
+        {if(!m_subscription.Accepts(generation))return 0;m_appearance=NativePreferences::EffectiveAppearance();const auto colors=NativeMaterial::Palette::Resolve(m_appearance);m_background.DeleteObject();m_background.CreateSolidBrush(RGB(BYTE(colors.surface.r*255),BYTE(colors.surface.g*255),BYTE(colors.surface.b*255)));m_preferences.Refresh();for(auto* button:{&m_back,&m_next,&m_save,&m_refresh,&m_keep})button->SetAppearance(m_appearance);m_review.SetAppearance(m_appearance);for(auto& range:m_ranges)range.SetAppearance(m_appearance);for(auto& choice:m_choices)if(choice.GetSafeHwnd())choice.SetAppearance(m_appearance);ReadControls();Labels();Layout();return 0;}
         void Wizard::OnCancel()
         {if(m_applying)return;ReadControls();m_draft.complete=false;if(Save(m_draft))EndDialog(IDCANCEL);else Note(Copy::SaveFailed);}
         BOOL Wizard::PreTranslateMessage(MSG* msg)

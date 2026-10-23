@@ -1,11 +1,11 @@
 ﻿#pragma once
 #include "Text.h"
+#include "Draft.h"
 #include "../NativeMaterial/Controls.h"
 #include "../NativeRegex/Engine.h"
 #include <array>
 namespace NativePreferences
 {
-    struct Draft { Values values; Base base; bool dirty{}, conflict{}; };
     class Editor final
     {
     public:

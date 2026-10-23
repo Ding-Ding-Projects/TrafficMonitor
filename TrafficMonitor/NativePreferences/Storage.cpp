@@ -22,12 +22,12 @@ namespace NativePreferences::Storage
     ReadResult Read(const std::wstring& path)
     {
         ReadResult result;HANDLE file=CreateFileW(path.c_str(),GENERIC_READ,FILE_SHARE_READ,nullptr,OPEN_EXISTING,FILE_ATTRIBUTE_NORMAL,nullptr);
-        if(file==INVALID_HANDLE_VALUE){result.error=GetLastError();result.missing=result.error==ERROR_FILE_NOT_FOUND;result.valid=result.missing;result.fingerprint=result.missing?L"missing":L"";return result;}
+        if(file==INVALID_HANDLE_VALUE){result.error=GetLastError();result.missing=result.error==ERROR_FILE_NOT_FOUND;result.valid=result.missing;if(result.missing)result.error=0;result.protectedFile=!result.missing;result.fingerprint=result.missing?L"missing":L"";return result;}
         LARGE_INTEGER length{};if(!GetFileSizeEx(file,&length)||length.QuadPart<0||length.QuadPart>16384){result.error=ERROR_INVALID_DATA;result.protectedFile=true;CloseHandle(file);return result;}
         std::vector<unsigned char> bytes(static_cast<size_t>(length.QuadPart));DWORD read{};
         bool ok=ReadFile(file,bytes.data(),static_cast<DWORD>(bytes.size()),&read,nullptr)!=FALSE&&read==bytes.size();CloseHandle(file);
-        if(!ok){result.error=ERROR_READ_FAULT;return result;}result.fingerprint=Hash(bytes);
-        if(result.fingerprint.empty()){result.error=ERROR_INVALID_DATA;return result;}
+        if(!ok){result.error=ERROR_READ_FAULT;result.protectedFile=true;return result;}result.fingerprint=Hash(bytes);
+        if(result.fingerprint.empty()){result.error=ERROR_INVALID_DATA;result.protectedFile=true;return result;}
         // Exact bounded schema; neither partial documents nor unknown fields are downgraded.
         std::string text(bytes.begin(),bytes.end());
         for(int language=0;language<3;++language)for(int appearance=0;appearance<3;++appearance)

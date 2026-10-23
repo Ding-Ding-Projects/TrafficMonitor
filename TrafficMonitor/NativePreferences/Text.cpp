@@ -19,7 +19,7 @@ namespace NativePreferences
             {L"Save verification is uncertain. Reload saved preferences before editing again.",L"未能確定儲存驗證結果。請先重新載入偏好再修改。"},
             {L"Applies to the native workspace, setup, settings, menus and search editor. Original dialogs and plugins retain their own wording.",L"套用至原生工作區、設定精靈、設定、選單同搜尋編輯器。原有對話框同外掛程式保留原有文字。"},
             {L"Preview: monitoring ready",L"預覽：監察已就緒"},{L"English",L"English"},{L"Cantonese",L"廣東話"},{L"English + Cantonese",L"English + 廣東話"},
-            {L"System",L"跟隨系統"},{L"Light",L"淺色"},{L"Dark",L"深色"}
+            {L"System",L"跟隨系統"},{L"Light",L"淺色"},{L"Dark",L"深色"},{L"Saved interface preferences loaded. No changes were written.",L"已載入介面偏好，未寫入任何修改。"},{L"Using startup defaults or migrated setup choices. No native preference file has been saved.",L"使用啟動預設或已轉移嘅精靈選項，尚未儲存原生偏好檔。"}
         }};
         const auto index=static_cast<size_t>(id);if(index>=entries.size())return L"";const auto& entry=entries[index];return Pair(entry.english,entry.cantonese,language);
     }

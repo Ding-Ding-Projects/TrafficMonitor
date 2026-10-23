@@ -1120,6 +1120,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ClInclude Include="NativePreferences\Draft.h" />
     <ClInclude Include="NativePreferences\Preferences.h" />
     <ClCompile Include="NativePreferences\Preferences.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
     <ClInclude Include="NativePreferences\Storage.h" />

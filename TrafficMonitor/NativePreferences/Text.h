@@ -4,7 +4,7 @@
 #include <afxstr.h>
 namespace NativePreferences
 {
-    enum class TextId { Interface, LanguageLabel, AppearanceLabel, Apply, Revert, Reset, UseSaved, Reapply, Draft, Saved, Conflict, Protected, WriteFailed, Uncertain, Scope, Preview, English, Cantonese, Bilingual, System, Light, Dark, Count };
+    enum class TextId { Interface, LanguageLabel, AppearanceLabel, Apply, Revert, Reset, UseSaved, Reapply, Draft, Saved, Conflict, Protected, WriteFailed, Uncertain, Scope, Preview, English, Cantonese, Bilingual, System, Light, Dark, Loaded, Defaults, Count };
     CString Text(TextId id, Language language);
     inline CString Text(TextId id){return Text(id,Current().values.language);}
     CString Pair(const wchar_t* english,const wchar_t* cantonese,Language language);

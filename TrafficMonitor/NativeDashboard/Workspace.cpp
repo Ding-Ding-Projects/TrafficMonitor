@@ -1,5 +1,8 @@
 ﻿#include "../stdafx.h"
 #include "Workspace.h"
+#include "../NativePreferences/Text.h"
+#include "../NativePreferences/Subscription.h"
+#include "../NativeSettings/Settings.h"
 #include "ViewModel.h"
 #include "Presentation.h"
 #include "SetupFlow.h"
@@ -54,7 +57,11 @@ namespace NativeDashboard
             void PostNcDestroy() override;
             DECLARE_MESSAGE_MAP()
         private:
-            CString T(const wchar_t* english, const wchar_t* chinese) const { return m_chinese ? chinese : english; }
+            CString T(const wchar_t* english, const wchar_t* chinese) const { return NativePreferences::Pair(english,chinese); }
+            NativePreferences::Subscription m_preferences;
+            LRESULT OnPreferences(WPARAM,LPARAM);
+            void Labels();
+            LRESULT WindowProc(UINT message,WPARAM w,LPARAM l) override {if(message==WM_SETTINGCHANGE||message==WM_THEMECHANGED)NativePreferences::RefreshSystemAppearance();return CWnd::WindowProc(message,w,l);}
             int Px(int value) const { return MulDiv(value, m_dpi, 96); }
             void Layout();
             void ApplyTheme();
@@ -96,19 +103,15 @@ namespace NativeDashboard
             ON_WM_CONTEXTMENU()
             ON_MESSAGE(SnapshotMessage, &Workspace::OnSnapshot)
             ON_MESSAGE(WM_DPICHANGED, &Workspace::OnDpi)
+            ON_MESSAGE(NativePreferences::ChangedMessage,&Workspace::OnPreferences)
             ON_NOTIFY(LVN_ITEMCHANGED, AdaptersId, &Workspace::OnAdapterChanged)
             ON_NOTIFY(TCN_SELCHANGE, TabsId, &Workspace::OnTabChanged)
         END_MESSAGE_MAP()
 
         bool Workspace::CreateWorkspace()
         {
-            LANGID language = theApp.m_general_data.language.language_id;
-            if (!language) language = GetUserDefaultUILanguage();
-            m_chinese = PRIMARYLANGID(language) == LANG_CHINESE;
-            DWORD light = 1, bytes = sizeof(light);
-            RegGetValueW(HKEY_CURRENT_USER, L"Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize",
-                L"AppsUseLightTheme", RRF_RT_REG_DWORD, nullptr, &light, &bytes);
-            m_appearance = light ? NativeMaterial::Appearance::Light : NativeMaterial::Appearance::Dark;
+            m_chinese=NativePreferences::Current().values.language==NativePreferences::Language::Cantonese;
+            m_appearance=NativePreferences::EffectiveAppearance();
             const CString className = AfxRegisterWndClass(CS_HREDRAW | CS_VREDRAW, ::LoadCursor(nullptr, IDC_ARROW), nullptr, AfxGetApp()->LoadIcon(IDR_MAINFRAME));
             MONITORINFO monitor{ sizeof(monitor) };
             GetMonitorInfoW(MonitorFromWindow(m_owner, MONITOR_DEFAULTTONEAREST), &monitor);
@@ -163,9 +166,19 @@ namespace NativeDashboard
             m_samples.InsertColumn(1, T(L"Receiving", L"接收"), LVCFMT_LEFT, 160);
             m_samples.InsertColumn(2, T(L"Sending", L"傳送"), LVCFMT_LEFT, 160);
             m_samples.InsertColumn(3, T(L"State", L"狀態"), LVCFMT_LEFT, 240);
-            SetFonts(); ApplyTheme(); Layout(); Start(); SetTimer(0x4E92,40,nullptr);
+            m_preferences.Attach(m_hWnd);Labels();SetFonts(); ApplyTheme(); Layout(); Start(); SetTimer(0x4E92,40,nullptr);
             return 0;
         }
+        void Workspace::Labels()
+        {
+            SetWindowText(T(L"TrafficMonitor - Network workspace",L"TrafficMonitor - 網絡工作區"));
+            m_history.SetLabel(T(L"History",L"流量記錄"));m_plugins.SetLabel(T(L"Plugins",L"外掛程式"));m_settings.SetLabel(T(L"Settings",L"設定"));m_floatButton.SetLabel(T(L"Toggle floating monitor",L"顯示／隱藏浮動監察器"));m_theme.SetLabel(NativePreferences::Text(NativePreferences::TextId::Interface));m_pause.SetLabel(m_model.Paused()?T(L"Resume display",L"恢復顯示"):T(L"Pause display",L"暫停顯示"));m_refresh.SetLabel(T(L"Restart samples",L"重新採樣"));m_regex.SetLabel(T(L"Regex",L"正規式"));m_clear.SetLabel(T(L"Clear",L"清除"));
+            auto cue=T(L"Search adapter name or description",L"搜尋網絡介面名稱或描述");m_search.SendMessage(EM_SETCUEBANNER,TRUE,reinterpret_cast<LPARAM>(cue.GetString()));
+            const wchar_t* en[]={L"Adapters",L"Sample history",L"Details"};const wchar_t* zh[]={L"網絡介面",L"採樣記錄",L"詳細資料"};
+            for(int i=0;i<3;++i){auto label=T(en[i],zh[i]);label.Replace(L"\r\n",L" / ");TCITEM item{};item.mask=TCIF_TEXT;item.pszText=label.GetBuffer();m_tabs.SetItem(i,&item);label.ReleaseBuffer();}
+        }
+        LRESULT Workspace::OnPreferences(WPARAM generation,LPARAM)
+        {if(!m_preferences.Accepts(generation))return 0;m_chinese=NativePreferences::Current().values.language==NativePreferences::Language::Cantonese;m_appearance=NativePreferences::EffectiveAppearance();Labels();ApplyTheme();Layout();RefreshRows();return 0;}
         void Workspace::SetFonts()
         {
             LOGFONT font{};
@@ -228,17 +241,17 @@ namespace NativeDashboard
         void Workspace::Status()
         {
             CString status;
-            if (FAILED(m_startResult)) status.Format(T(L"Sampling could not start (0x%08X)", L"未能開始採樣 (0x%08X)"), static_cast<unsigned>(m_startResult));
-            else if (m_controller.WorkerError()) status.Format(T(L"Sampling worker error: %lu", L"採樣工作錯誤：%lu"), m_controller.WorkerError());
+            if (FAILED(m_startResult)) status=NativePreferences::Format(L"Sampling could not start (0x%08X)",L"未能開始採樣 (0x%08X)", static_cast<unsigned>(m_startResult));
+            else if (m_controller.WorkerError()) status=NativePreferences::Format(L"Sampling worker error: %lu",L"採樣工作錯誤：%lu", m_controller.WorkerError());
             else if (!m_model.Displayed()) status = T(L"Collecting first sample; restart affects display history only", L"正在收集首個樣本；重新採樣只影響顯示記錄");
             else
             {
                 const auto& snapshot = *m_model.Displayed();
                 if (snapshot.state == NativeMonitoring::SnapshotState::Unavailable)
-                    status.Format(T(L"Discovery unavailable (%u); last rows are stale", L"未能取得介面資料 (%u)；舊讀數已過時"), snapshot.error);
+                    status=NativePreferences::Format(L"Discovery unavailable (%u); last rows are stale",L"未能取得介面資料 (%u)；舊讀數已過時", snapshot.error);
                 else if (snapshot.adapters.empty()) status = T(L"No adapters were discovered", L"未發現網絡介面");
                 else if (m_model.Rows().empty()) status = T(L"No adapters match this search", L"沒有符合搜尋的網絡介面");
-                else status.Format(T(L"%zu adapters shown · observation %llu · %s", L"顯示 %zu 個介面 · 觀察 %llu · %s"), m_model.Rows().size(), snapshot.sequence,
+                else status=NativePreferences::Format(L"%zu adapters shown · observation %llu · %s",L"顯示 %zu 個介面 · 觀察 %llu · %s", m_model.Rows().size(), snapshot.sequence,
                     m_model.Paused() ? T(L"Display paused; collection continues", L"顯示已暫停；採樣繼續").GetString() : T(L"Live display", L"即時顯示").GetString());
             }
             if(!m_model.search.status.empty()) status+=L" | "+CString(m_model.search.status.c_str());
@@ -317,7 +330,7 @@ namespace NativeDashboard
                 if (::IsWindow(m_owner)) ::PostMessageW(m_owner, WM_COMMAND, id == HistoryId ? ID_TRAFFIC_HISTORY : (id == PluginsId ? ID_PLUGIN_MANAGE : ID_OPTIONS), 0);
                 return TRUE;
             case FloatingId: if (::IsWindow(m_owner) && m_floating) m_floating(); return TRUE;
-            case ThemeId: m_appearance = m_appearance == NativeMaterial::Appearance::Light ? NativeMaterial::Appearance::Dark : NativeMaterial::Appearance::Light; ApplyTheme(); return TRUE;
+            case ThemeId: if(::IsWindow(m_owner))NativeSettings::OpenInterface(CWnd::FromHandle(m_owner));return TRUE;
             case PauseId:
                 m_model.SetPaused(!m_model.Paused()); m_pause.SetLabel(m_model.Paused() ? T(L"Resume display", L"恢復顯示") : T(L"Pause display", L"暫停顯示")); RefreshRows(); return TRUE;
             case RefreshId:
@@ -416,6 +429,7 @@ namespace NativeDashboard
         void Workspace::OnClose() { ShowWindow(SW_HIDE); m_controller.Stop(); DestroyWindow(); }
         void Workspace::OnDestroy()
         {
+            m_preferences.Detach();
             m_regexEditor.Close();
             m_controller.Stop(); m_floating = {}; m_canvas.Detach();
             CWnd::OnDestroy();

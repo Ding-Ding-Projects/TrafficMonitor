@@ -10,7 +10,7 @@ namespace NativePreferences
         if(!m_languageChoice.Create(L"",box,parent,LanguageChoice)||!m_appearanceChoice.Create(L"",box,parent,AppearanceChoice)||!m_apply.Create(L"",box,parent,ApplyChoice)||!m_revert.Create(L"",box,parent,RevertChoice)||!m_reset.Create(L"",box,parent,ResetChoice)||!m_reapply.Create(L"",box,parent,ReapplyChoice))return false;
         UseSaved();return true;
     }
-    void Editor::UseSaved(){const auto current=Current();draft={current.values,current.base,false,false};m_status=current.protectedFile?TextId::Protected:TextId::Saved;Refresh();}
+    void Editor::UseSaved(){const auto current=Current();draft={current.values,current.base,false,false};m_status=current.protectedFile?TextId::Protected:current.persisted?TextId::Loaded:TextId::Defaults;Refresh();}
     void Editor::Refresh()
     {
         if(!m_parent)return;
@@ -42,7 +42,7 @@ namespace NativePreferences
     {
         if(reapply){if(!Reload()){m_status=TextId::Protected;Refresh();return;}draft.base=Current().base;}
         const auto result=TryApply(draft.values,draft.base);
-        if(result==Result::Saved){UseSaved();return;}
+        if(result==Result::Saved){UseSaved();m_status=TextId::Saved;Refresh();return;}
         if(result==Result::Conflict){draft.conflict=true;m_status=TextId::Conflict;}
         else m_status=result==Result::Protected?TextId::Protected:result==Result::Uncertain?TextId::Uncertain:TextId::WriteFailed;
         Refresh();
