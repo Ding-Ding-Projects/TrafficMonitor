@@ -71,3 +71,11 @@ with historical originals retained separately.
 - [ ] Verify update, failure, cancellation, recovery, draft deferral and data preservation when runtime checks are authorized again.
 
 - [x] Restrict accepted-channel admission to release commits contained in an exact resolved main SHA, retain bounded offline records, and compile/package source 3e6f8c72fe40a363de70c7ee5e27772ca86b9c6b as local-only 1.0.9005, exit 0.
+
+## Silent update documentation publication
+
+- [x] Refresh the current 1.0.19 supported-update baseline without claiming automatic timing/restart proof.
+- [x] Prepare complete matching silent-update wiki content and navigation while preserving existing guides.
+- [ ] Publish the prepared wiki changes and verify its remote files/navigation.
+- [ ] Build the refreshed complete documentation inventory and publish its deployment with source readback.
+- [ ] Verify automatic updater runtime behavior when runtime checks are authorized again.

@@ -13,12 +13,23 @@ Earlier 1.0.3/1.0.4 checks exercised installation, update, owned startup handlin
 data preservation. Their original evidence remains archived. A 1.0.2 callback-resource problem was
 corrected in 1.0.3; the earlier release is not the accepted installer baseline.
 
+
+## Current supported update baseline
+
+Normal release [1.0.19](https://github.com/Ding-Ding-Projects/TrafficMonitor/releases/tag/v1.0.19-run39942930510-1)
+is bound to source `77435775e46ca78de13859a9e4f2a15732e53415`; its four release jobs
+completed successfully. The separately assigned supported installed-update operation
+reported updater and stable launcher exit 0, post-save data/startup preservation,
+hidden main window and visible taskbar monitor from metadata only. This does not
+prove automatic five-minute timing, cooperative restart, next-launch apply, failure
+recovery or modal/draft deferral. See [[Silent update behavior and limits|Silent-updates]].
+The native MFC conversion and all 110 applicable required features remain unfinished.
 ## Still unverified or unfinished
 
 - A real subsequent interactive sign-in.
 - Automatic taskbar reattachment after an Explorer restart.
 - Fresh-host prerequisite acquisition and installer cancellation.
-- Manual release-page launch interaction and complete automatic update UI.
+- Automatic update cadence, cooperative restart, next-launch apply, modal/draft deferral and failure recovery.
 - The native Material Design 3 interface conversion and all applicable required features.
 - Complete rendered documentation localization, responsive/accessibility matrix and deployed routes.
 - Complete English translation of upstream commit history; fork messages remain bilingual verbatim.

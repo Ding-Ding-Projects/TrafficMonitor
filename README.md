@@ -11,10 +11,14 @@ configuration save path. All settings (legacy) keeps the complete original dialo
 See [settings behavior and limits](docs/features/native-settings/README.md). The exact root build-installer.bat -Version 1.0.9002 at 93b32abc6acb80e13cbc5826d2cb873d9d083d47 exited 0, with 78 warnings and zero errors in its 9.56-second native build. The [local build receipt](docs/features/native-settings/build-receipt.json) binds those bytes to that source. Later documentation/inventory commits require their own release producer; the local candidate is not installed or published. No new tests, reviews, audits or screenshots run in this
 expedited pass; full regex, localization, accessibility and remaining conversion stay unfinished.
 
-The previous normal release [1.0.17](https://github.com/Ding-Ding-Projects/TrafficMonitor/releases/tag/v1.0.17-run39938393354-1)
-is bound to f0d74c476842e1546ef1d7d666e5af914fc06044. All four release jobs succeeded and four
-nonempty downloadable files were verified by the release owner. Installed-update evidence remains
-separate. This prior release does not verify the new settings implementation.
+The current normal release [1.0.19](https://github.com/Ding-Ding-Projects/TrafficMonitor/releases/tag/v1.0.19-run39942930510-1)
+is bound to `77435775e46ca78de13859a9e4f2a15732e53415`, with all four release jobs
+completed successfully. A separate supported installed-update operation applied 1.0.19,
+reported updater/launcher exit 0, preserved post-save data and startup, and verified hidden
+main/visible taskbar by metadata only. This does not verify automatic timing or restart.
+See [silent update behavior and evidence limits](docs/features/installation/silent-updates.md).
+The earlier local settings package remains historical compile/package evidence. Native
+MFC conversion and all 110 applicable required features remain unfinished.
 ## Native network workspace candidate
 
 The explicit main-window action now opens a modeless native network workspace with real immutable

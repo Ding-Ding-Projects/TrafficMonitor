@@ -23,8 +23,10 @@ Supported updates preserve explicit startup/display choices and existing user da
 was installed through the supported updater from 1.0.4; saved configuration bytes and startup
 registration were unchanged. Do not replace installed files by copying an upstream portable archive.
 
-Manual update checks in installed mode open this fork's release page. Automatic checking, staging
-and ready-to-restart UI remain unfinished. Portable-mode update behavior remains upstream behavior.
+Installed builds now include silent checks, verified staging and cooperative restart controls.
+See [[Keep updates quiet and choose restart behavior|Silent-updates]] for settings, integrity
+boundaries and the exact distinction between supported installed-update evidence and unverified
+automatic timing/restart behavior. Portable-mode update behavior remains upstream behavior.
 
 ## Removal and optional hardware monitoring
 

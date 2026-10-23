@@ -191,3 +191,18 @@ taskbar monitor from metadata only. This implementation lane did not repeat that
 or runtime check. The automatic updater is still a source/build candidate; installation
 1.0.18 does not prove its new automatic behavior. The parent read back main at
 fa08759cc4dc78811903aa259988aa2224880ad1 before this candidate's integration.
+
+## Updater guide and wiki preparation, 2026-10-23
+
+The silent update article now records normal release 1.0.19 at source
+77435775e46ca78de13859a9e4f2a15732e53415 and the separately recorded supported installed
+update. Updater/launcher exit 0, post-save data/startup preservation and hidden-main/visible-
+taskbar metadata do not prove automatic cadence, cooperative restart or deferral behavior.
+A complete task-oriented Silent-updates.md wiki article and Home/Installation/Verification
+navigation are prepared in docs/wiki/pending and the supported wiki checkout. Existing
+welcome text, five original guides and inherited upstream snapshot are preserved. The
+previous five-page publication proof remains historical; the prepared update has not been
+published by this lane. Parent owns both remote operations, integration and readback.
+No product code, tests, reviews, audits, runtime checks, screenshots or installations were
+changed or run in this documentation pass. The wider native conversion and all 110
+applicable required features remain unfinished. Status Hub binding is unavailable.

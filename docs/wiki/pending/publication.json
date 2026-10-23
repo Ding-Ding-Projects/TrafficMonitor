@@ -16,5 +16,17 @@
     "sourceBlobReadbackMatched": true,
     "ref": "refs/heads/master",
     "commit": "2788a34224f07372904dd7a6584ea34e75022c14"
+  },
+  "preparedUpdate": {
+    "state": "prepared-not-published",
+    "pages": [
+      "Home.md",
+      "Installation.md",
+      "Verification.md",
+      "Silent-updates.md"
+    ],
+    "previousPublishedCommit": "2788a34224f07372904dd7a6584ea34e75022c14",
+    "documentationHome": "https://ding-ding-projects.github.io/TrafficMonitor/",
+    "note": "Existing five-page publication proof is retained; new article and navigation require separate remote readback."
   }
 }
