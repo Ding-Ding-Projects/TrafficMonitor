@@ -157,6 +157,16 @@
       "sourceCommit": "46b97789b07920748866b7ed63d83aabfa721075",
       "previousPublishedCommit": "0ab91b5d0ba50584dce8d75d2a2cb7c0a0d2a6dd",
       "note": "Real parent-exit timeout, exact MFC close-message correlation and queued WM_CLOSE correction are prepared. Prior stored publication proof is retained; publish/read back this changed guide before claiming delivery."
+    },
+    {
+      "state": "pending-publication",
+      "pages": [
+        "Silent-updates.md"
+      ],
+      "sourceArticle": "docs/features/installation/silent-updates.md",
+      "sourceCommit": "72f1fc929fe5d3a31b7a6e1ee73de20bb61a6ec3",
+      "previousPublishedCommit": "0ab91b5d0ba50584dce8d75d2a2cb7c0a0d2a6dd",
+      "note": "Final synchronous WM_CLOSE refinement and local 1.0.9017 production are prepared. Prior queued 1.0.9016 candidate and stored publication proof remain historical."
     }
   ]
 }

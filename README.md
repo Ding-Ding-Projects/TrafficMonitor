@@ -233,4 +233,4 @@ The verified manual installation baseline is package 1.0.25; automatic restart r
 
 Package 1.0.26 is the verified manual installation baseline. Normal startup retained the obsolete 1.0.24 staging with all five files unchanged and resumed Idle release metadata state. Automatic restart remains unresolved; see the [update record](docs/features/installation/silent-updates.md#verified-manual-package-1026-and-natural-staging-retirement).
 
-The automatic updater now queues an actual WM_CLOSE after its cooperative safety checks, correcting the observed helper parent-exit timeout path. Local 1.0.9016 production passed; a later real automatic transition remains unverified.
+The current automatic updater synchronously sends a real WM_CLOSE on the already-checked UI thread, correcting the observed message-context mismatch without a queued-input gap. Local 1.0.9017 production passed; prior 1.0.9016 production is historical and a later real automatic transition remains unverified.

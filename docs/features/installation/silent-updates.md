@@ -199,7 +199,7 @@ The existing obsolete pending 1.0.24 state was preserved before manual fallback.
 
 The exact wiki stored-source proof remains master `0ab91b5d0ba50584dce8d75d2a2cb7c0a0d2a6dd`, prepared source `99708ed18dc61c996113ed027a3f5d2dea370e4e`, SHA-256 `411488cb8820ab87fead547dcf40e39202a090c754ce6cab368e4768b292b718`; the published guide is unchanged. Native production 1.0.9015 remains bound to `7fffeb22b26e7f0e6d0cec247f19fb895957213f`. This followup changes documentation only.
 
-## Automatic close-message routing correction
+## Historical queued close-message candidate (1.0.9016)
 
 The accepted release 1.0.27 was published at 2026-10-23T13:44:29Z from source `e0debba58fc20da1c40a48d6e8df3983feca3d9d`. The assigned natural-update observation retained metadata from before publication through the first 30-second snapshot after its ten-minute deadline. It observed a correctly staged package, attempt count 1, successful helper creation (launch result 0), and helper stage `parent-exit` ending with result 1460 while the exact original process remained alive. It did not observe automatic application. The subsequent authorized graceful manual Squirrel update and stable launcher each exited 0 and applied package 1.0.27; released and installed executable SHA-256 matched `fa7b1537475cc845821228ab3cd4bade7574ecae3c8ebcbff3d8fce92af6f83e`. Settings, history and startup were preserved against the legitimate post-save baseline. Traffic monitoring and graceful close may update history before that baseline, which is not data loss.
 
@@ -208,3 +208,11 @@ Source correlation establishes the caller mismatch: `OnSilentUpdatePulse`, dispa
 This correction is source and production evidence, not post-correction automatic-restart acceptance. No tests, reviews, audits, interface interaction or screenshots ran. A later real accepted update must establish the repaired transition. Historical 1.0.9015 production remains bound to `7fffeb22b26e7f0e6d0cec247f19fb895957213f`.
 
 Exact `build-installer.bat -Version 1.0.9016`, including root `build.bat`, at `46b97789b07920748866b7ed63d83aabfa721075` completed with exit 0, native elapsed 9.84 seconds, 69 warnings and zero errors. Receipt: `docs/features/installation/silent-close-message-build.json`. This is compile/package evidence only.
+
+## Current synchronous automatic close dispatch
+
+The unpublished queued-close candidate and its 1.0.9016 receipt above remain historical. The final caller now sets closing state before `SendMessageW(window, WM_CLOSE, 0, 0)` on the same already-checked UI thread and returns immediately without touching the potentially destroyed window. This gives normal cooperative save/close handling the real message context without allowing queued input between its safety decision and close dispatch.
+
+The matching MFC `AfxCallWndProc` implementation saves `m_lastSentMsg` for nesting, assigns the nested message, invokes the window procedure, and restores the prior state on return. Therefore inherited default close handling sees the nested `WM_CLOSE`, rather than the outer update pulse. Existing draft/menu/window checks, saves, modal lifetime and helper identity/timeout/attempt bounds are unchanged. No termination is forced. The unused unreleased queue-failure API was removed because this path no longer queues a message. This source correlation is not runtime acceptance.
+
+Exact `build-installer.bat -Version 1.0.9017`, including root `build.bat`, at `72f1fc929fe5d3a31b7a6e1ee73de20bb61a6ec3` exited 0, native elapsed 8.79 seconds, 69 warnings and zero errors. Its source-bound receipt is `docs/features/installation/silent-synchronous-close-build.json`. Native 1.0.9015 and 1.0.9016 sources and receipts remain preserved. No tests, reviews, audits, UI quality work, interface interaction or screenshots were performed. A later real accepted update must still prove automatic handoff and relaunch after this refinement.
