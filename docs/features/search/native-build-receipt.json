@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "265f048da7cb7534cb151519d003c67218a73048",
+  "command": "build-installer.bat -Version 1.0.9006",
+  "includedBuildEntrypoint": "build.bat",
+  "exitCode": 0,
+  "configuration": "Release (lite)|x64",
+  "buildWarnings": 114,
+  "buildErrors": 0,
+  "buildElapsed": "00:00:36.61",
+  "version": "1.0.9006",
+  "published": false,
+  "installed": false,
+  "tests": "NOT RUN: explicitly selected expedited mode",
+  "review": "NOT RUN: explicitly selected expedited mode",
+  "runtime": "UNVERIFIED: no runtime interaction or screenshots",
+  "artifacts": [
+    {
+      "path": "Bin/x64/Release (lite)/TrafficMonitor.exe",
+      "size": 2246144,
+      "sha256": "4bec476c3c531ac05fa95e92df3f2f00e401649aadec32f9230cfc47a1cdb18e"
+    },
+    {
+      "path": "artifacts/releases/Setup.exe",
+      "size": 8439296,
+      "sha256": "9e06a1f728d4147065daa050a19d02343ebe9b90accf9c7d5b16858b6acaea94"
+    },
+    {
+      "path": "artifacts/releases/TrafficMonitor-1.0.9006-full.nupkg",
+      "size": 7559250,
+      "sha256": "ec2d228c0cb63b23c2fb159d31612d0677b651cb09d5a2d90d03ef92408ccd22"
+    },
+    {
+      "path": "artifacts/releases/RELEASES",
+      "size": 86,
+      "sha256": "340c29594b6da6fc901f0a456f6ee72f9f98535633cce9e8e4c90cc49feb3878"
+    },
+    {
+      "path": "artifacts/releases/SHA256SUMS.txt",
+      "size": 255,
+      "sha256": "3dfe5b5af37a7e6745fb786e62f07df75ab90e37c5fd584f9bc61491f3890a23"
+    }
+  ]
+}

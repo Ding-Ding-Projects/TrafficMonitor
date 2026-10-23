@@ -31,3 +31,7 @@ The native layout uses DPI-scaled controls, existing light/dark palettes and ver
 ## 廣東話摘要
 
 原生工作區、設定同每層選單都有自己嘅搜尋狀態。搜尋旁邊嘅 Regex 按鈕會開啟工作台；預覽成功後再套用，取消會保留原有篩選。搜尋、純文字取代同分割只喺記憶體處理，唔會改檔案。背景工作有輸入、步數同時間上限，舊結果唔會套用到新請求。現時只係有明確限制嘅 NFA v1，完整 RegexBuddy 功能、三語模式、無障礙同實機驗證仍未完成。
+
+## Source-bound build result
+
+Exact root `build-installer.bat -Version 1.0.9006` (including `build.bat`) passed at `265f048da7cb7534cb151519d003c67218a73048` with exit 0, 114 warnings and zero errors. [The build receipt](native-build-receipt.json) records SHA-256 values and sizes. The package is local only, not installed or published. The preceding source candidate failed compilation on an unqualified window-rectangle lookup, corrected in this producer commit. No runtime or full-parity claim follows from compilation.
