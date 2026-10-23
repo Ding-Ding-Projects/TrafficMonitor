@@ -2,6 +2,16 @@
 
 ## Current documentation correction
 
+The integrated native-menu source and project registrations built through the exact
+`build-installer.bat -Version 1.0.9000` entrypoint at `0e3a3b82a7602bfcd076c6b080ca128e151838ed`:
+exit 0, 33 compiler/linker warnings, zero errors. This package is a local candidate, not an installed
+or published version. Repeated packaging now excludes the checksum manifest from its own input.
+Reading controls were driven in the real browser at built source `5aa1d2d`: compact density, serif
+font, wide measure, spacious line height and blue accent applied and survived reload. Settings
+regex filtering also changed visible groups. The strict duplicate-key import and notification
+retention corrections have independent source approval; their latest browser proof remains pending.
+All 110 requirement identities remain mapped, with incomplete consumers explicitly unfinished.
+
 The owner requires task-led documentation, a useful capability explorer, an adjacent independent
 regex builder for each search, and actual Settings controls for every applicable requirement.
 An inventory or a language/theme subset does not establish completion. The modern documentation

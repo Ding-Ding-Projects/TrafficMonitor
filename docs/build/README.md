@@ -46,3 +46,7 @@ Safe build logs and release outputs upload even after failure. Source, caches,
 credentials and dependency installations are excluded. Fresh-host bootstrap,
 installation, cancellation, update and uninstall acceptance remain unverified until
 recorded from actual runs.
+# Build and release documentation
+
+- [Documentation download binding](release-download-binding.md): source-bound release metadata and separate publication/runtime verdicts.
+

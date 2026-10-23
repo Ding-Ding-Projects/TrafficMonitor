@@ -1,5 +1,13 @@
 # Continuation handoff
 
+Latest local integration adds native searchable menus and the complete two-call-site main/tray
+connection. Exact installer production at 0e3a3b82 passed with 33 warnings and zero errors. It was
+not installed or published. Reading preferences applied and survived browser reload at source
+5aa1d2d; Settings regex filtering changed visible groups. Duplicate-aware import and bounded
+notification corrections are independently source-approved, with latest browser verification
+pending. Workflow documentation downloads now wait for and bind to the same run's exact verified
+release; hosted behavior remains unverified until the next run and deployed receipt readback.
+
 Latest direction: replace file-catalogue documentation with task-led interactive reading; provide
 independent complete regex builders beside every search and real Settings consumers for all
 applicable requirements. Preserve unfinished inventory entries. Source e2b4c55 includes modern

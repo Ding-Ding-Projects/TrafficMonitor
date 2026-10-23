@@ -43,6 +43,8 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw 'Publication language check failed or incomplete' }
   build-release:
     needs: publication-language
+    outputs:
+      release_tag: ${{ steps.publish.outputs.release_tag }}
     runs-on: windows-2022
     timeout-minutes: 60
     env:
@@ -66,6 +68,7 @@ jobs:
         shell: cmd
         run: build-installer.bat -Version %PACKAGE_VERSION%
       - name: Publish normal source-bound release
+        id: publish
         shell: pwsh
         run: |
           $sha = '${{ github.sha }}'
@@ -91,6 +94,7 @@ jobs:
           $body | Set-Content artifacts/release-notes.md
           gh release edit $env:RELEASE_TAG --notes-file artifacts/release-notes.md
           if ($LASTEXITCODE -ne 0) { throw 'Release timing update failed' }
+          "release_tag=$env:RELEASE_TAG" >> $env:GITHUB_OUTPUT
       - name: Collect safe run context
         if: ${{ always() }}
         continue-on-error: true
@@ -111,7 +115,7 @@ jobs:
           if-no-files-found: warn
           retention-days: 14
   documentation-build:
-    needs: publication-language
+    needs: [publication-language, build-release]
     runs-on: windows-2022
     timeout-minutes: 20
     permissions:
@@ -125,6 +129,23 @@ jobs:
           node-version: '24.10.0'
           cache: npm
           cache-dependency-path: docs/site/package-lock.json
+      - name: Bind documentation downloads to this run's verified release
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ needs.build-release.outputs.release_tag }}
+        run: |
+          if (!$env:RELEASE_TAG) { throw 'Verified release tag is unavailable' }
+          $metadata = gh release view $env:RELEASE_TAG --repo '${{ github.repository }}' --json tagName,isDraft,isPrerelease,targetCommitish,publishedAt,url,assets
+          if ($LASTEXITCODE -ne 0) { throw 'Release metadata readback failed' }
+          $release = $metadata | ConvertFrom-Json
+          if ($release.isDraft -or $release.isPrerelease -or $release.tagName -ne $env:RELEASE_TAG -or $release.targetCommitish -ne '${{ github.sha }}') { throw 'Documentation release source does not match this run' }
+          $expected = @('Setup.exe','RELEASES','SHA256SUMS.txt')
+          foreach ($name in $expected) {
+            if (@($release.assets | Where-Object name -eq $name).Count -ne 1) { throw 'Required download asset is missing or ambiguous' }
+          }
+          if (@($release.assets | Where-Object name -like '*-full.nupkg').Count -ne 1) { throw 'Full package download is missing or ambiguous' }
+          $metadata | Set-Content -Encoding utf8 docs/release-metadata.json
       - name: Build complete static documentation
         shell: cmd
         run: call build.bat --site
