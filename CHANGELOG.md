@@ -1,5 +1,19 @@
 # Fork changes
 
+## Native network workspace candidate
+
+The explicit main-window action now opens a modeless native network workspace with real immutable
+background snapshots, selected-adapter rates and graph, native adapter/sample tables, details,
+plain name/description search, display pause/resume and observational restart. Existing History,
+Plugins and Settings commands remain reachable; the previous floating-window toggle remains a
+workspace button. Startup does not open the workspace or change hidden-main/taskbar/tray defaults.
+See [workspace behavior and limits](docs/features/native-dashboard/README.md).
+
+This source is pending compilation and packaging. The selected expedited mode excludes new tests,
+reviews, audits and screenshots. No new runtime, accessibility or visual acceptance is claimed.
+Native tables and partial English/Chinese chrome do not satisfy full custom table or language
+acceptance. Full regex parity, onboarding and all other unfinished requirements remain open.
+
 ## Installer foundation, in verification
 
 - Add native x64 build and genuine unsigned Squirrel.Windows packaging entrypoints.

@@ -3,6 +3,7 @@
 //
 
 #include "stdafx.h"
+#include "NativeDashboard/Workspace.h"
 #include "TrafficMonitor.h"
 #include "TrafficMonitorDlg.h"
 #include "afxdialogex.h"
@@ -2275,7 +2276,7 @@ void CTrafficMonitorDlg::OnInitMenu(CMenu* pMenu)
     pMenu->CheckMenuItem(ID_SHOW_CPU_MEMORY, MF_BYCOMMAND | (theApp.m_cfg_data.m_show_more_info ? MF_CHECKED : MF_UNCHECKED));
     pMenu->CheckMenuItem(ID_MOUSE_PENETRATE, MF_BYCOMMAND | (theApp.m_main_wnd_data.m_mouse_penetrate ? MF_CHECKED : MF_UNCHECKED));
     pMenu->CheckMenuItem(ID_SHOW_TASK_BAR_WND, MF_BYCOMMAND | (theApp.m_cfg_data.m_show_task_bar_wnd ? MF_CHECKED : MF_UNCHECKED));
-    pMenu->CheckMenuItem(ID_SHOW_MAIN_WND, MF_BYCOMMAND | (!theApp.m_cfg_data.m_hide_main_window ? MF_CHECKED : MF_UNCHECKED));
+    pMenu->CheckMenuItem(ID_SHOW_MAIN_WND, MF_BYCOMMAND | MF_UNCHECKED);
     pMenu->CheckMenuItem(ID_ALOW_OUT_OF_BORDER, MF_BYCOMMAND | (theApp.m_main_wnd_data.m_alow_out_of_border ? MF_CHECKED : MF_UNCHECKED));
 
     //设置“选择连接”子菜单项中各单选项的选择状态
@@ -2614,24 +2615,27 @@ LRESULT CTrafficMonitorDlg::OnTaskBarCreated(WPARAM wParam, LPARAM lParam)
 
 void CTrafficMonitorDlg::OnShowMainWnd()
 {
-    // TODO: 在此添加命令处理程序代码
-    if (!theApp.m_cfg_data.m_hide_main_window)
+    NativeDashboard::Open(this, theApp.m_general_data.monitor_time_span, [this]()
     {
-        ShowWindow(SW_HIDE);
-        theApp.m_cfg_data.m_hide_main_window = true;
-        //隐藏主窗口后，如果没有显示通知栏图标，则将其显示出来
-        if (!theApp.m_general_data.show_notify_icon && theApp.IsForceShowNotifyIcon())
+        // TODO: 在此添加命令处理程序代码
+        if (!theApp.m_cfg_data.m_hide_main_window)
         {
-            AddNotifyIcon();
-            theApp.m_general_data.show_notify_icon = true;
+            ShowWindow(SW_HIDE);
+            theApp.m_cfg_data.m_hide_main_window = true;
+            //隐藏主窗口后，如果没有显示通知栏图标，则将其显示出来
+            if (!theApp.m_general_data.show_notify_icon && theApp.IsForceShowNotifyIcon())
+            {
+                AddNotifyIcon();
+                theApp.m_general_data.show_notify_icon = true;
+            }
         }
-    }
-    else
-    {
-        ShowWindow(SW_RESTORE);
-        theApp.m_cfg_data.m_hide_main_window = false;
-    }
-    theApp.SaveConfig();
+        else
+        {
+            ShowWindow(SW_RESTORE);
+            theApp.m_cfg_data.m_hide_main_window = false;
+        }
+        theApp.SaveConfig();
+    });
 }
 
 

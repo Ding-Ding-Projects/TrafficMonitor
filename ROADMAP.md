@@ -46,3 +46,10 @@ with historical originals retained separately.
 - [ ] Complete keyboard, accessibility and remaining documentation interaction acceptance.
 - [ ] Finish native components, live dashboard, setup, context menus and every remaining surface.
 
+
+## Native network workspace candidate
+
+- [ ] Compile and package the implemented observational native workspace, then deliver through the normal release route.
+- [ ] Verify the new workspace at runtime when testing is enabled again; no new tests, reviews or screenshots run in the current expedited mode.
+- [ ] Complete custom UIA table behavior, full language modes, adjacent full regex workbench and practical onboarding. The partial workspace does not close these requirements.
+

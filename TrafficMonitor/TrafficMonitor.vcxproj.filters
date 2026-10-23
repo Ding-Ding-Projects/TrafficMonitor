@@ -983,4 +983,12 @@
     <ClCompile Include="NativeMenus\SearchableMenu.cpp"><Filter>源文件和头文件</Filter></ClCompile>
   </ItemGroup>
   <ItemGroup><ClCompile Include="NativeMenus\AccessibilityGuids.cpp"><Filter>源文件和头文件</Filter></ClCompile></ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="NativeDashboard\Workspace.h" />
+    <ClCompile Include="NativeDashboard\Workspace.cpp" />
+    <ClInclude Include="NativeDashboard\ViewModel.h" />
+    <ClCompile Include="NativeDashboard\ViewModel.cpp" />
+    <ClInclude Include="NativeDashboard\Presentation.h" />
+    <ClCompile Include="NativeDashboard\Presentation.cpp" />
+  </ItemGroup>
 </Project>
