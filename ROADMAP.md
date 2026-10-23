@@ -222,3 +222,10 @@ with historical originals retained separately.
 - [x] Verify bounded real offline one-file launch, internal routes, search and selected preference persistence for source421/candidate9024.
 - [ ] Complete higher scales, full keyboard/accessibility, all images and exact integrated release verification.
 - [ ] Publish and read back the companion assets on the native source-bound normal release.
+
+## Remaining generic native controls
+
+- [x] Correct and independently review null-foreground menu regex lifetime with red9034/green9035 bounded observations.
+- [x] Verify normal1.0.46 release and matching installed executable, saved settings, startup and history.
+- [ ] Replace remaining workbench stock fields, dropdown, result list and generic scrollbars with accessible native shared components.
+- [ ] Convert workspace/setup and every remaining owned legacy surface, then verify full language/theme/DPI and keyboard behavior.

@@ -1,21 +1,21 @@
 # Native-first continuation
 
-Objective: complete the modern native C++/MFC TrafficMonitor remake and all applicable required features. Preserve monitoring, taskbar/tray/plugins, saved data, installer/startup and silent updating. Main application first; operational/build companions follow; documentation website/wiki/reader completion last. Remaining owned legacy dialogs stay in scope.
+Objective: complete the native C++/MFC TrafficMonitor redesign and every applicable required feature. The main application remains first. Operational companions follow; documentation website/wiki/reader completion remains last. Preserve monitoring, tray/taskbar/plugins, saved choices, installer/startup and silent updates.
 
-## Current completed unit
+## Verified delivery
 
-The independently reviewed shared-component and Settings correction unit is preserved through 902cf7c8a2ae72561cd2beec539a4e021692836d on ai/feature/20261023-modern-native-remake. Production source76a41a4f89d802524501e8cc558f4e7d3ac2fa21 packaged as1.0.9033 through the exact root installer entrypoint, exit0. Native fields, buttons, selector/action menus, semantic navigation and scroll rails have bounded real evidence. Retained UI Automation disable/destruction checks and draft-preserving language refresh passed within their exercised scope. Independent recheck accepted the three corrections and native frame update, not the complete remake.
+Main source4451624f7002e3fa8e767ae1981f815687361018 delivered the bounded shared-component/Settings unit as normal1.0.46. All four release jobs succeeded. Downloaded native asset hashes, RELEASES and manifest passed. Installed1.0.46 matches released executable and manifest; configuration/startup/history comparisons passed. This is a post-publication state observation, not continuous update-transition proof. Integrated root Settings checks passed46 with five deliberate mutation failures then restored46; preferences passed23 storage/draft plus24 actual INI checks. Local9034 contains separate source-bound functional observations.
 
-See docs/features/native-settings/native-components-and-preferences.md for behavior, exact candidate hashes, source bindings and limitations. The final fixture closed normally and restored accepted installation45 with data/startup comparisons passed and unchanged released executable. The accepted45 receipt is separately retained. It is a post-publication observation, not a continuously observed natural update. Earlier natural42-to43 evidence remains source-bound and unchanged.
+## Current integration
 
-## Integration and next verification
+Independently reviewed correction52632cf2a692e84b3da6926a956525df7ec0b161 and handoff9c52f403ba73d0bfbbd4b8649b04b87b3ffea96c preserve menu regex editors when global foreground is null by consulting the owning UI thread active window. Exact-root9035 packaging exited0. Red9034/green9035 diagnostics, preview/Apply, Cancel, retained-query reopen and message-based outside dismissal passed bounded independent recorded-evidence review. This integration still requires its own exact-source production and release proof. Do not reuse9035 hashes for a later integrated binary.
 
-This record accompanies integration of the reviewed unit into main. The combined-source root Settings/preference checks, exact installer build, productive-consumer interaction, normal release and matching installed update remain pending. Do not reuse branch candidate hashes as proof of a new integrated binary. Preserve every producer's exact source/index/refs until terminal.
+## Active unfinished work
 
-The shared preference backend now has23 storage/draft and24 actual production INI serialization checks with mutation rejection, replacing the earlier link-failed target. Full restart/conflict/setup and five-consumer interaction remain unfinished. The approved design references are authored proposals under design/native-modern-remake, not genuine product images.
+The existing isolated native author is replacing workbench stock fields/dropdown/result list and generic scrollbars. Generic controls detected by the user remain accepted unfinished modernization. Only24 settings are currently exposed. Full Settings, all110 applicable feature obligations, full RegexBuddy parity, workspace/setup/legacy surface conversion, complete keyboard/UIA/clipboard/IME/highcontrast/language/theme/DPI matrix and current genuine presentation images remain unfinished.
 
-## Unfinished scope
+Native receipt machinery is being independently repaired/reviewed in the private instruction repository. No historical image has been relabeled as formally promoted. Fresh real native measurements remain required. Preserve every candidate producer's source/index/refs while active.
 
-Only24 settings are exposed by the current native editor. Full Settings and110 required-feature completion, complete RegexBuddy parity, workspace/setup/regex and all legacy owned-surface conversion, checkbox runtime preservation, unequal-height menu overflow, clipboard/IME, hover/full keyboard/UIA, high contrast and every language/theme/DPI tuple remain unfinished. Native image promotion needs an explicit truthful native receipt arm and fresh observations; never fabricate browser fields or relabel historical raw images. Current presentation-image refresh remains an acceptance gap.
+## Recovery and boundaries
 
-No cleanup has started. The current archive destination is unresolved; retain active/incomplete checkouts and every ignored private announcement variant. Deletion requires a complete verified archive plus ownership, preservation, integration and remote-ancestry proof. Goal remains active and unfinished. No host power/login action is authorized.
+No cleanup started. The current archive destination remains unresolved. Retain all active/incomplete checkouts and ignored private announcement variants. Deletion requires a complete verified archive and ownership, preservation, integration and remote-ancestry proof. No host power/login action, Explorer restart, unmute, force push or unrelated cleanup. Goal active and unfinished.

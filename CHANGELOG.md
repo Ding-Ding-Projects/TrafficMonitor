@@ -1,10 +1,18 @@
 # Fork changes
 
-## Unreleased full native visual remake
+## Menu regex activation correction
+
+Keep an owned menu regex editor open when global foreground information is unavailable. The popup checks its own UI thread active window before deciding that activation moved outside. Existing non-null outside activation and cancellation remain unchanged. Local1.0.9034 reproduced premature closure; exact-root1.0.9035 retained the editor and exercised preview, Apply, Cancel, reopen and outside dismissal. Independent recorded-evidence review accepted this bounded correction. Cross-process activation, IME and full visual acceptance remain unverified.
+
+## Native1.0.46 partial redesign delivery
+
+Normal release1.0.46 and its four delivery jobs succeeded at source4451624f7002e3fa8e767ae1981f815687361018. Downloaded installer/feed/package hashes and package manifest passed independent readback; installed executable and manifest match the released bytes. Settings, startup and history comparisons passed. This is a post-publication installed-state observation, not a continuously observed update transition. Generic controls and scrollbars remain unfinished across the remaining native surfaces.
+
+## Partial native visual remake
 
 Integrate the independently reviewed shared native component and Settings correction unit. Add styled text fields, action buttons, selectors and searchable menus, semantic navigation, section panels, discovery lists and custom scroll rails. Preserve native edit operations and expose truthful disabled/destruction behavior through the rail provider. Shared language/appearance preferences use stable configuration storage and conflict-aware drafts. Live language changes refresh labels, defaults and typed messages without taking away numeric drafts. Supported native caption theming retains the operating-system fallback.
 
-Local9032/9033 packages have bounded real96-DPI interaction and retained-provider evidence. The exact integrated build, release and installed update remain pending. This is useful partial native work, not full Settings, full redesign, regex parity or110-item acceptance. Remaining owned surfaces and complete verification stay open. See [behavior and evidence](docs/features/native-settings/native-components-and-preferences.md).
+Local9032/9033 packages have bounded real96-DPI interaction and retained-provider evidence. Integrated source4451624f7002e3fa8e767ae1981f815687361018 passed the exact root Settings and preference checks, produced local1.0.9034 and normal release1.0.46, and has a separately verified matching installed-state receipt. This is useful partial native work, not full Settings, full redesign, regex parity or110-item acceptance. Remaining owned surfaces and complete verification stay open. See [behavior and evidence](docs/features/native-settings/native-components-and-preferences.md).
 
 ## Native 1.0.43 delivery and automatic update
 
