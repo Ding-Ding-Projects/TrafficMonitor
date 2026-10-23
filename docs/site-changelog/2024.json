@@ -1,0 +1,26 @@
+{
+  "entries": [
+    {
+      "sha": "4169c1faf3a5047255fa3b63952893dd2978192b",
+      "date": "2024-03-01T17:00:42+08:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/4169c1faf3a5047255fa3b63952893dd2978192b",
+      "summary": "Add DirectWrite color-font support",
+      "category": "feature",
+      "lineage": "upstream",
+      "originalSubject": "dwrite color font",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "2fd0a6c547e602001e34580d2c4df43ee90e2f81",
+      "date": "2024-12-10T12:59:24+11:00",
+      "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/2fd0a6c547e602001e34580d2c4df43ee90e2f81",
+      "summary": "Update Help.md",
+      "category": "documentation",
+      "lineage": "upstream",
+      "originalSubject": "Update Help.md",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    }
+  ]
+}
