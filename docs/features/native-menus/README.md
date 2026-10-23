@@ -16,7 +16,7 @@ Rows wrap and grow with text. The surface is bounded to the selected monitor wor
 
 ## Verification and limitations
 
-Implementation is preserved, but compilation, runtime keyboard/IME behavior, screen-reader/UI Automation inspection and the complete layout matrix remain pending integration verification. A source-level provider is not proof of a passing UI Automation workflow. The adjacent full regex workbench and RegexBuddy engine/version parity are unfinished. General appearance customization, bilingual mode, and translation of new chrome beyond English/Chinese remain broader product integration work. Native compatibility menus remain a visual conformance gap. No network endpoint is added, so an API/Postman collection is not applicable.
+Compilation has passed. A bounded real Plugin Manager popup check covers plain search, no-match, Escape, disabled Enter and agreement between direct IAccessible and IDispatch role/state reads. See [runtime verification](runtime-verification.md). Enabled invocation, remaining keyboard/IME behavior, screen-reader/UI Automation inspection and the complete layout matrix remain pending integration verification. A source-level provider is not proof of a passing UI Automation workflow. The adjacent full regex workbench and RegexBuddy engine/version parity are unfinished. General appearance customization, bilingual mode, and translation of new chrome beyond English/Chinese remain broader product integration work. Native compatibility menus remain a visual conformance gap. No network endpoint is added, so an API/Postman collection is not applicable.
 
 ## Build receipt
 
