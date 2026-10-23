@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "version": "1.0.4",
+  "sourceCommit": "365402308d47c7a140bc03ab9a07116d3154e36d",
+  "executableSha256": "CF5423D2083619D7A8A2AD645F85310F2B6927C6964E6198E98E04C9A6017E86",
+  "captureSha256": "14A0D18269A7D6120428D8AEF8AACB77C6236D5CE18F66B1C2E3DAB0A2964160",
+  "captureDimensions": [
+    79,
+    32
+  ],
+  "captureMethod": "direct-cheap-cli",
+  "mainWindowVisible": false,
+  "taskbarWindowVisible": true,
+  "taskbarAncestorClasses": [
+    "Shell_TrayWnd",
+    "#32769"
+  ],
+  "explorerAttachmentVerified": true,
+  "startupRegistered": true,
+  "stableLauncherLaunchVerified": true,
+  "updateConfigBytePreservation": true,
+  "updateDisabledStartupPreservation": true,
+  "uninstallOwnedStartupRemoval": true,
+  "uninstallUserDataPreservation": true,
+  "reinstalledWithStartupEnabled": true,
+  "subsequentSignInObserved": false,
+  "explorerRestartPerformed": false,
+  "privacy": "Only traffic values and arrows; no personal identifiers or credentials visible"
+}

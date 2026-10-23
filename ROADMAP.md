@@ -7,14 +7,15 @@
 - [x] Package a genuine unsigned Squirrel.Windows installer with required runtime dependencies.
 - [x] Enable current-user login startup on fresh install through the stable launcher.
 - [x] Default installed taskbar display to visible and main window to hidden.
-- [ ] Preserve explicit choices and data across updates; remove only owned startup registration.
-- [ ] Verify installer, update, runtime display, and release download behavior.
+- [x] Preserve explicit choices and data across updates; remove only owned startup registration.
+- [x] Verify installer, update, runtime display, and release download behavior.
 - [x] Publish and verify the first customized normal release.
 
-Release 1.0.3 and its installer callback/startup-command launch passed current-host checks.
-Real Explorer attachment, subsequent sign-in, update acceptance and fresh-host prerequisites remain
-separate verification gaps. Full-tree publication enforcement is pending inherited encoding and
-literal-collision support; no complete protection verdict is claimed.
+Releases 1.0.3 and 1.0.4 passed current-host installation and update checks. The current taskbar
+monitor is attached to Explorer with its main window hidden. Subsequent sign-in, Explorer restart,
+fresh-host prerequisite acquisition and cancellation remain separately unverified.
+Local publication hooks and the hosted publication job pass; branch-protection enforcement is
+not yet established.
 
 ## Native interface and required features, after the first delivery
 

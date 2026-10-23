@@ -10,10 +10,11 @@ saved settings survive updates. See [installation details](docs/features/install
 The native interface redesign and broader required features follow the installer foundation.
 Upstream documentation and attribution are retained below.
 
-![Installed taskbar display rendered on an isolated desktop](evidence/installer/1.0.3/taskbar-hidden-desktop.png)
+![Installed monitor attached to the current Explorer taskbar](evidence/installer/1.0.4/taskbar-current-desktop.png)
 
-This genuine 1.0.3 capture proves the monitor renders. It does not prove attachment to Explorer's
-taskbar; the [receipt](evidence/installer/1.0.3/runtime.json) keeps that verification limit explicit.
+This genuine 1.0.4 capture accompanies verified Explorer attachment and a hidden main window.
+The [receipt](evidence/installer/1.0.4/runtime.json) records installation, update and startup evidence.
+Earlier isolated-desktop evidence is retained in the [evidence archive](evidence/installer/README.md).
 
 [![Badge](https://img.shields.io/badge/link-996.icu-%23FF4D5B.svg?style=flat-square)](https://996.icu/#/en_US)
 [![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg?style=flat-square)](https://github.com/996icu/996.ICU/blob/master/LICENSE)

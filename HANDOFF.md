@@ -31,8 +31,16 @@ through the supported uninstaller before installing 1.0.3; saved application dat
 
 Organization runner discovery returned HTTP 403, so the pipeline uses a hosted Windows image.
 No host restart or sign-out is authorized for verification.
-Actual Explorer taskbar attachment is not established by a hidden-desktop render. Subsequent sign-in,
-real update preservation, fresh-host prerequisites, cancellation, and owned startup removal still
-require their separate checks. Full-tree publication enforcement remains pending legacy-source
-decoding and exact inherited literal exceptions; the current source is not claimed fully protected.
+Release 1.0.4 subsequently passed the supported real update from 1.0.3: configuration bytes were
+unchanged, and a disabled startup choice remained disabled. The requested enabled state was restored.
+Its supported uninstall removed owned startup registration and executable files while preserving
+saved data. Reinstallation restored startup. The stable launcher then started 1.0.4 on the current
+desktop with the main window hidden and the monitor attached beneath Explorer's `Shell_TrayWnd`.
+See [current desktop evidence](evidence/installer/1.0.4/runtime.json).
+
+Subsequent sign-in, real Explorer restart, fresh-host prerequisite acquisition and cancellation are
+not claimed. No host restart, sign-out or Explorer restart was performed.
+Full-tree local publication checks now pass with exact inherited literal exceptions and reviewed
+legacy decoding. A staged-content negative probe was rejected. The hosted publication job passed
+before its dependent packaging job. Protected-branch enforcement has not yet been established.
 The native interface redesign and wider required-feature implementation have not begun.
