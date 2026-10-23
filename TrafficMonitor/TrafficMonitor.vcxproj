@@ -773,6 +773,7 @@
     <ClInclude Include="..\include\PluginInterface.h" />
     <ClInclude Include="AboutDlg.h" />
     <ClInclude Include="NativeMonitoringSnapshot.h" />
+    <ClInclude Include="NativeMaterial\Theme.h" />
     <ClInclude Include="AdapterCommon.h" />
     <ClInclude Include="AppAlreadyRuningDlg.h" />
     <ClInclude Include="auto_start_helper.h" />
@@ -875,6 +876,9 @@
     <ClInclude Include="WinVersionHelper.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="NativeMaterial\Theme.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="NativeMonitoringSnapshot.cpp">
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>

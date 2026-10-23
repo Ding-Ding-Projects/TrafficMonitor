@@ -966,4 +966,8 @@
       <Filter>资源文件\bitmaps</Filter>
     </Image>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="NativeMaterial\Theme.h" />
+    <ClCompile Include="NativeMaterial\Theme.cpp" />
+  </ItemGroup>
 </Project>

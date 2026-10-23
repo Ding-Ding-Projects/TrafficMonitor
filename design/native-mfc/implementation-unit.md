@@ -1,6 +1,6 @@
 # Native dashboard implementation unit for independent review
 
-Status: proposed implementation boundary, not implemented or runtime verified. This supplements `p1-amendments.md`; it does not replace its setup, identity, menu, accessibility or evidence requirements.
+Status: independently reviewed implementation boundary. The rendering foundation described below is compiled; productive controls and dashboard integration are not implemented or runtime verified. This supplements `p1-amendments.md`; it does not replace its setup, identity, menu, accessibility or evidence requirements.
 
 ## Entry and preservation
 
@@ -12,7 +12,7 @@ The first explicit dashboard open runs the already-designed resumable setup flow
 
 Network contains current-monitor-scope metrics, a bounded live rate chart, a searchable adapter table, pause/resume display, refresh, connection chooser and adapter details. The table renders actual snapshot alias, status, receive/transmit rates and observation interval. Details show identity, addresses, link speeds and sampling state. Empty, collecting, unavailable, stale, disconnected, removed-adapter and paused states are distinct. No synthetic observations enter production.
 
-The existing aggregate metrics remain labelled Current monitor scope. `NativeMonitoring::NetworkSampler` supplies only per-adapter observations and bounded display history. An owned worker samples at the existing cadence and coalesces immutable `shared_ptr<const Snapshot>` delivery to the UI thread. No worker owns a window or draws. Closing signals cancellation, joins the worker and invalidates pending dispatch through an instance generation. No raw pointer is posted through a window message.
+The existing aggregate metrics remain labelled Current monitor scope. `NativeMonitoring::NetworkSampler` supplies only per-adapter observations and bounded display history. An owned worker samples at the existing cadence and coalesces immutable `shared_ptr<const Snapshot>` delivery to the UI thread. No worker owns a window or draws. Closing hides immediately, signals cancellation and invalidates pending dispatch through an instance generation. An asynchronous owner completes the join without blocking the UI. No raw pointer is posted through a window message.
 
 Display pause freezes the selected snapshot pointer while collection continues. Adapter details bind to GUID, not row position. Missing persistent identity is explicitly nonpersistent. An unavailable snapshot retains stale rows with no invented rates. Counter epochs break chart segments. Reordering cannot change the selected adapter. Removed identities display Adapter no longer present.
 
@@ -75,3 +75,9 @@ Snapshot delivery uses a shared latest-const-snapshot mailbox, at most one queue
 Typed selection extraction belongs exclusively to TrafficMonitorDlg. Both legacy and new entry paths use mode, GUID and expected discovery epoch, with fresh GetIfTable2 resolution on the UI thread. Sampling and installer lifecycle implementations are unchanged by this GUI lane.
 
 The first bounded implementation may preserve foundation and observational dashboard work before the entire P1 boundary is finished. Such a checkpoint must list missing setup, custom providers, menu/workbench and parity work explicitly and cannot be labelled a completed P1 release.
+
+## Rendering foundation checkpoint
+
+`NativeMaterial/Theme.h/.cpp` now defines the light/dark semantic palette, system high-contrast resolution and a UI-thread-owned HWND drawing resource manager. The manager uses Direct2D and DirectWrite, falls back to a software target after target creation failure, discards failed drawing targets for recreation on the next paint, and accepts explicit DPI changes. Text formats use Segoe UI with DirectWrite system script fallback. The owner must detach before HWND destruction and request another paint after a target-loss result.
+
+The exact root `build.bat --silent` compiled and linked this foundation on the supported host: 114 warnings, zero errors, 35.80 seconds. This is compilation evidence only. The foundation is not yet called by a product surface, and the build does not establish visual, fallback, device-loss, font, DPI or accessibility behavior. Worker delivery, actual controls/providers, dashboard integration, selection, setup and contextual menus remain unimplemented in this checkpoint. The approved first-release boundary remains unchanged.
