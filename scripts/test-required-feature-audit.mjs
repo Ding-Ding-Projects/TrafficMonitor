@@ -50,4 +50,3 @@ try{
   console.log('PASS diagnostic incomplete / strict rejection / malformed input');cases+=3;
 }finally{fs.rmSync(directory,{recursive:true,force:true});}
 console.log('Required-feature audit regressions: '+cases+' passed; baseline remains incomplete with '+baseline.gaps.length+' gaps. Product acceptance was not executed.');
-

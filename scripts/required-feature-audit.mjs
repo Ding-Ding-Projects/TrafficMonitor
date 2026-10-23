@@ -130,4 +130,3 @@ function main(){
   process.exitCode=report.errors.length||args.includes('--require-complete')&&!report.complete?1:0;
 }
 if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url)){try{main();}catch{console.error('Required-feature audit could not read valid inputs');process.exitCode=1;}}
-
