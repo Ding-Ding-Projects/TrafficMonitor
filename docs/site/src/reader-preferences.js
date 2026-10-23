@@ -1,0 +1,25 @@
+import {storage} from './wording.js';
+
+export const readerDefaults={density:'comfortable',font:'system',measure:'standard',lineHeight:'relaxed',accent:'green',collapseFilters:true};
+const choices={density:['comfortable','compact'],font:['system','serif','sans'],measure:['standard','wide'],lineHeight:['normal','relaxed','spacious'],accent:['green','blue','plum']};
+export function validateReaderPreferences(value){
+ if(!value||typeof value!=='object'||Array.isArray(value)||Object.keys(value).some(k=>!Object.hasOwn(readerDefaults,k)))throw Error('Unexpected reading preference');
+ const next={...readerDefaults};for(const [key,item] of Object.entries(value)){if(key==='collapseFilters'){if(typeof item!=='boolean')throw Error('Invalid filter preference');}else if(!choices[key].includes(item))throw Error('Unsupported reading preference');next[key]=item;}return next;
+}
+export function setupReaderPreferences(notify){
+ let prefs;try{prefs=validateReaderPreferences(storage.read('reader-preferences',readerDefaults));}catch{prefs={...readerDefaults};}
+ const apply=()=>{const root=document.documentElement;for(const key of ['density','measure','lineHeight','accent'])root.dataset[key]=prefs[key];root.style.setProperty('--tm-font-family',prefs.font==='serif'?'Georgia, "Microsoft JhengHei UI", serif':prefs.font==='sans'?'Arial, "Microsoft JhengHei UI", sans-serif':'"Segoe UI", "Microsoft JhengHei UI", Arial, sans-serif');for(const key of Object.keys(readerDefaults)){const field=document.getElementById('reader-'+key);if(field){if(key==='collapseFilters')field.selected=prefs[key];else field.value=prefs[key];}}};
+ const save=next=>{prefs=next;apply();if(!storage.write('reader-preferences',prefs))notify('Reading options apply for this page only because browser storage is unavailable.');};
+ apply();
+ for(const key of Object.keys(readerDefaults)){const field=document.getElementById('reader-'+key);field?.addEventListener('change',()=>save(validateReaderPreferences({...prefs,[key]:key==='collapseFilters'?field.selected:field.value})));}
+ document.getElementById('reader-reset')?.addEventListener('click',()=>{if(!storage.remove('reader-preferences')){notify('Stored reading options could not be cleared.');return;}prefs={...readerDefaults};apply();});
+ document.getElementById('reader-export')?.addEventListener('click',()=>{const data={schemaVersion:1,encoding:'UTF-8',lineEndings:'LF',preferences:prefs};const url=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)+'\n'],{type:'application/json;charset=utf-8'})),a=document.createElement('a');a.href=url;a.download='reading-preferences.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);});
+ document.getElementById('reader-filter-reset')?.addEventListener('click',()=>{try{for(const key of Object.keys(localStorage))if(key.startsWith('trafficmonitor.docs.filters-'))localStorage.removeItem(key);notify('Collection expansion choices cleared. Your default applies on the next page visit.');}catch{notify('Collection expansion choices could not all be cleared.');}});
+ const upload=document.getElementById('reader-file');document.getElementById('reader-import')?.addEventListener('click',()=>upload.click());upload?.addEventListener('change',async()=>{try{const file=upload.files[0];if(!file||file.size>8192)throw Error();const data=JSON.parse(await file.text());if(data.schemaVersion!==1||data.encoding!=='UTF-8'||data.lineEndings!=='LF'||Object.keys(data).some(k=>!['schemaVersion','encoding','lineEndings','preferences'].includes(k)))throw Error();const next=validateReaderPreferences(data.preferences);if(!storage.write('reader-preferences',next))throw Error();prefs=next;apply();notify('Reading options imported locally.');}catch{notify('Reading options were not imported. Existing settings are unchanged.');}finally{upload.value='';}});
+ // Collection options collapse independently of their always-visible search.
+ document.querySelectorAll('.filters').forEach((row,index)=>{
+  const controls=[...row.children].filter(el=>el.tagName==='MD-OUTLINED-SELECT'||(el.tagName==='MD-OUTLINED-TEXT-FIELD'&&el.type==='date'));if(!controls.length)return;
+  const details=document.createElement('details'),summary=document.createElement('summary'),group=document.createElement('div');details.className='collection-options';group.className='filters';const key='filters-'+location.pathname+'-'+index;const saved=storage.read(key,null);details.open=typeof saved==='boolean'?saved:!prefs.collapseFilters;summary.textContent='Collection filters';details.append(summary,group);row.after(details);for(const el of controls)group.append(el);
+  const describe=()=>{const active=[...group.querySelectorAll('md-outlined-select,md-outlined-text-field')].filter(el=>el.value&&!(el.id==='capability-surface'&&el.value==='native-application')).length;summary.replaceChildren(document.createTextNode('Collection filters'),Object.assign(document.createElement('span'),{textContent:active?' ('+active+')':''}));};group.addEventListener('change',describe);group.addEventListener('input',describe);details.addEventListener('toggle',()=>storage.write(key,details.open));describe();
+ });
+}

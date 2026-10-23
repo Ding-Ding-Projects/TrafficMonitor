@@ -1,3 +1,4 @@
+import {setupReaderPreferences} from './reader-preferences.js';
 import '@material/web/button/filled-button.js';
 import '@material/web/button/outlined-button.js';
 import '@material/web/button/text-button.js';
@@ -49,3 +50,5 @@ setupGuide(base,notify);await setupHistory(base,notify);
 setupLearning(base,notify);await setupDocumentationSearch(base);setupCapabilities();
 setupReadingSettings(notify);
 setupRegexWorkbenches(base,createRegexEngine,notify);
+
+setupReaderPreferences(notify);
