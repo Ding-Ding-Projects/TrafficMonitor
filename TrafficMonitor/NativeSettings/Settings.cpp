@@ -47,7 +47,7 @@ namespace
         afx_msg void OnPaint();
         afx_msg void OnTimer(UINT_PTR);
         afx_msg BOOL OnEraseBkgnd(CDC*){return TRUE;}
-        afx_msg void OnSize(UINT,int,int){Layout();}
+        afx_msg void OnSize(UINT,int,int){m_lastFocus=nullptr;Layout();}
         afx_msg void OnGetMinMaxInfo(MINMAXINFO*);
         afx_msg HBRUSH OnCtlColor(CDC*,CWnd*,UINT);
         afx_msg LRESULT OnDpi(WPARAM,LPARAM);
@@ -141,7 +141,16 @@ namespace
         m_navigation.SetWindowText(T(L"Settings sections",L"設定分類"));m_body.SetScrollName(T(L"Scroll settings",L"捲動設定"));m_interface.Refresh();
     }
     LRESULT Editor::OnPreferences(WPARAM generation,LPARAM)
-    {if(!m_preferences.Accepts(generation))return 0;m_chinese=NativePreferences::Current().values.language==NativePreferences::Language::Cantonese;m_appearance=NativePreferences::EffectiveAppearance();Labels();SetTheme();Layout();return 0;}
+    {
+        if (!m_preferences.Accepts(generation)) return 0;
+        m_chinese = NativePreferences::Current().values.language == NativePreferences::Language::Cantonese;
+        m_appearance = NativePreferences::EffectiveAppearance();
+        Labels();
+        SetTheme();
+        m_lastFocus = nullptr;
+        Layout();
+        return 0;
+    }
     void Editor::SetFonts()
     {
         LOGFONT font{};NONCLIENTMETRICS metrics{sizeof(metrics)};if(SystemParametersInfoW(SPI_GETNONCLIENTMETRICS,sizeof(metrics),&metrics,0))font=metrics.lfMessageFont;else wcscpy_s(font.lfFaceName,L"Segoe UI");font.lfHeight=-Px(14);
@@ -368,7 +377,7 @@ namespace
     void Editor::OnPaint(){CPaintDC dc(this);CRect r;GetClientRect(r);dc.FillRect(r,&m_background);}
     HBRUSH Editor::OnCtlColor(CDC* dc,CWnd* window,UINT){if(auto* field=DYNAMIC_DOWNCAST(NativeMaterial::TextField,window))return field->Color(dc);const auto c=NativeMaterial::Palette::Resolve(m_appearance);dc->SetTextColor(RGB(BYTE(c.onSurface.r*255),BYTE(c.onSurface.g*255),BYTE(c.onSurface.b*255)));dc->SetBkColor(RGB(BYTE(c.surface.r*255),BYTE(c.surface.g*255),BYTE(c.surface.b*255)));return static_cast<HBRUSH>(m_background.GetSafeHandle());}
     void Editor::OnGetMinMaxInfo(MINMAXINFO* info){CDialog::OnGetMinMaxInfo(info);RECT r{0,0,Px(760),Px(640)};AdjustWindowRectEx(&r,GetStyle(),FALSE,GetExStyle());info->ptMinTrackSize={r.right-r.left,r.bottom-r.top};}
-    LRESULT Editor::OnDpi(WPARAM dpi,LPARAM value){m_dpi=HIWORD(dpi);const auto* r=reinterpret_cast<const RECT*>(value);SetWindowPos(nullptr,r->left,r->top,r->right-r->left,r->bottom-r->top,SWP_NOZORDER|SWP_NOACTIVATE);SetFonts();Layout();return 0;}
+    LRESULT Editor::OnDpi(WPARAM dpi,LPARAM value){m_dpi=HIWORD(dpi);const auto* r=reinterpret_cast<const RECT*>(value);SetWindowPos(nullptr,r->left,r->top,r->right-r->left,r->bottom-r->top,SWP_NOZORDER|SWP_NOACTIVATE);SetFonts();m_lastFocus=nullptr;Layout();return 0;}
 }
 void OpenInterface(CWnd* owner){if(owner&&::IsWindow(owner->GetSafeHwnd())){openInterface=true;owner->PostMessage(WM_COMMAND,ID_OPTIONS);}}
 bool IsSafeToRestart() noexcept{return activeEditors==0;}
