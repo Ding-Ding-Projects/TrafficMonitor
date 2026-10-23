@@ -2,6 +2,7 @@
 #include "Text.h"
 #include "Draft.h"
 #include "../NativeMaterial/Controls.h"
+#include "../NativeMaterial/Panel.h"
 #include "../NativeRegex/Engine.h"
 #include <array>
 namespace NativePreferences
@@ -21,9 +22,10 @@ namespace NativePreferences
         void UseSaved();
         void Focus(bool appearance){(appearance?m_appearanceChoice:m_languageChoice).SetFocus();}
     private:
-        CWnd* m_parent{};CWnd* m_actionsParent{};CFont* m_font{};CFont m_fallbackFont;UINT m_fontDpi{};
+        CWnd* m_parent{};CWnd* m_actionsParent{};CFont* m_font{};CFont m_fallbackFont,m_sectionFont;UINT m_fontDpi{},m_sectionDpi{};
         bool m_showLanguage{true},m_showAppearance{true};
-        CStatic m_heading,m_language,m_appearance,m_scope,m_note;NativeMaterial::ReadOnlyText m_preview;
+        NativeMaterial::Panel m_languagePanel,m_appearancePanel,m_previewPanel;
+        CStatic m_heading,m_language,m_languageHelp,m_appearance,m_appearanceHelp,m_scope,m_note;NativeMaterial::ReadOnlyText m_preview;
         NativeMaterial::Button m_languageChoice,m_appearanceChoice,m_apply,m_revert,m_reset,m_reapply;
         std::array<NativeRegex::Options,2> m_searches;
         TextId m_status{TextId::Draft};

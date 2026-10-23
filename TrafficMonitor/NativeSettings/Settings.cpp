@@ -136,9 +136,9 @@ namespace
         SetWindowText(T(L"TrafficMonitor settings",L"TrafficMonitor 設定"));m_title.SetWindowText(T(L"Settings",L"設定"));m_theme.SetLabel(NativePreferences::Text(NativePreferences::TextId::Interface));
         m_loading=true;m_navigation.ResetContent();for(int i=0;i<6;++i)m_navigation.AddString(T(GroupName(i,false),GroupName(i,true)));m_navigation.SetCurSel(m_page);m_loading=false;
         m_clear.SetLabel(T(L"Clear",L"清除"));m_regex.SetLabel(T(L"Regex",L"正規式"));m_applyButton.SetLabel(T(L"Apply",L"套用"));m_revert.SetLabel(T(L"Revert",L"還原"));m_reset.SetLabel(T(L"Reset group draft",L"重設本組草稿"));m_legacy.SetLabel(T(L"All settings (legacy)",L"所有設定（舊版）"));m_open.SetLabel(T(L"Open selected setting",L"開啟所選設定"));m_return.SetLabel(T(L"Return to group filter",L"返回本組篩選"));
-        const auto cue=T(L"Search labels, explanations and draft values",L"搜尋名稱、解說同草稿數值");m_search.SendMessage(EM_SETCUEBANNER,TRUE,reinterpret_cast<LPARAM>(cue.GetString()));
+        const auto mode=NativePreferences::Current().values.language;const CString cue=mode==NativePreferences::Language::Bilingual?L"Find a setting · 搜尋設定":mode==NativePreferences::Language::Cantonese?L"搜尋設定":L"Find a setting";m_search.SendMessage(EM_SETCUEBANNER,TRUE,reinterpret_cast<LPARAM>(cue.GetString()));
         for(auto& r:m_rows){const auto& s=*r->setting;if(s.enabled)r->check.SetWindowText(T(s.english,s.chinese));else r->label.SetWindowText(T(s.english,s.chinese));r->description.SetWindowText(T(s.explanation,s.chineseExplanation));r->details.SetLabel(T(L"Details",L"詳情"));}
-        m_interface.Refresh();
+        m_navigation.SetWindowText(T(L"Settings sections",L"設定分類"));m_body.SetScrollName(T(L"Scroll settings",L"捲動設定"));m_interface.Refresh();
     }
     LRESULT Editor::OnPreferences(WPARAM generation,LPARAM)
     {if(!m_preferences.Accepts(generation))return 0;m_chinese=NativePreferences::Current().values.language==NativePreferences::Language::Cantonese;m_appearance=NativePreferences::EffectiveAppearance();Labels();SetTheme();Layout();return 0;}
@@ -201,10 +201,11 @@ namespace
         CRect client;GetClientRect(client);const int width=MulDiv(client.Width(),96,m_dpi),height=MulDiv(client.Height(),96,m_dpi);
         CClientDC headerDC(this);auto* headerFont=headerDC.SelectObject(&m_font);
         auto extent=[&](CWnd& c,int w,int minimum){CString text;c.GetWindowText(text);CRect bounds(0,0,Px(w-32),0);headerDC.DrawText(text,bounds,DT_CALCRECT|DT_WORDBREAK|DT_NOPREFIX);return (std::max)(minimum,MulDiv(bounds.Height(),96,m_dpi)+20);};
-        const int left=200,cw=width-left-24;
-        Place(m_navigation,12,76,176,height-164);Place(m_legacy,12,height-80,176,64);m_theme.ShowWindow(SW_HIDE);
-        Place(m_title,left,20,cw,40);
-        const int searchY=76,searchHeight=(std::max)(extent(m_regex,88,44),extent(m_clear,76,44));
+        const int left=200,cw=(std::min)(860,width-left-24);
+        headerDC.SelectObject(&m_headingFont);const int titleHeight=extent(m_title,cw,40);headerDC.SelectObject(&m_font);const int searchY=20+titleHeight+16;
+        Place(m_navigation,12,searchY,176,height-searchY-88);Place(m_legacy,12,height-80,176,64);m_theme.ShowWindow(SW_HIDE);
+        Place(m_title,left,20,cw,titleHeight);
+        const int searchHeight=(std::max)(extent(m_regex,88,44),extent(m_clear,76,44));
         Place(m_search,left,searchY,cw-180,searchHeight);Place(m_regex,left+cw-172,searchY,88,searchHeight);Place(m_clear,left+cw-76,searchY,76,searchHeight);
         const int statusY=searchY+searchHeight+8,statusHeight=(std::max)(extent(m_status,cw-184,32),extent(m_open,176,40));
         Place(m_status,left,statusY,cw-184,statusHeight);Place(m_open,left+cw-176,statusY,176,statusHeight);Place(m_return,left+cw-176,statusY,176,statusHeight);
@@ -240,6 +241,7 @@ namespace
         m_updateInfo.ShowWindow(m_page==0?SW_SHOW:SW_HIDE);if(m_page==0)Place(m_updateInfo,12,updateTop-state.scroll,bw-24,updateHeight);
         if(m_page==Discovery){Place(m_results,0,0,bw,m_viewHeight);UpdateResults();count=m_results.GetCount();m_body.SetMetrics(0,m_viewHeight,0);m_results.SyncScroll();}
         CString status;status=NativePreferences::Format(L"%s: %d settings shown",L"%s：顯示 %d 項設定",GroupName(m_page,m_chinese),count);
+        if(NativePreferences::Current().values.language==NativePreferences::Language::Bilingual){CString en,zh;en.Format(L"%s: %d settings shown",GroupName(m_page,false),count);zh.Format(L"%s：顯示 %d 項設定",GroupName(m_page,true),count);status=en+L"\r\n"+zh;}
         if(!count)status=T(L"No matches. Clear this group's search or choose All groups.",L"冇符合項目。清除本組搜尋，或者選所有組別。");if(!m_reveal.empty())status+=T(L"; selected setting revealed",L"；已顯示所選設定");
         if(!state.filter.status.empty())status+=L" | "+CString(state.filter.status.c_str());m_status.SetWindowText(status);m_layout=false;m_body.Invalidate();Invalidate(FALSE);
     }
@@ -354,7 +356,7 @@ namespace
         if(msg->message==WM_KEYDOWN)
         {
             HIMC context=ImmGetContext(msg->hwnd);const bool composing=context&&ImmGetCompositionStringW(context,GCS_COMPSTR,nullptr,0)>0;if(context)ImmReleaseContext(msg->hwnd,context);if(composing)return CDialog::PreTranslateMessage(msg);
-            if(msg->wParam==VK_APPS||(msg->wParam==VK_F10&&(GetKeyState(VK_SHIFT)&0x8000))){if(auto* r=Target(::GetFocus(),CPoint(-1,-1))){Menu(*r,CPoint(-1,-1));return TRUE;}}
+            if(msg->wParam==VK_APPS||(msg->wParam==VK_F10&&(GetKeyState(VK_SHIFT)&0x8000))){if(auto* field=DYNAMIC_DOWNCAST(NativeMaterial::TextField,CWnd::FromHandlePermanent(msg->hwnd))){field->SendMessage(WM_CONTEXTMENU,reinterpret_cast<WPARAM>(field->GetSafeHwnd()),-1);return TRUE;}if(auto* r=Target(::GetFocus(),CPoint(-1,-1))){Menu(*r,CPoint(-1,-1));return TRUE;}}
             if(msg->wParam=='L'&&(GetKeyState(VK_CONTROL)&0x8000)){m_search.SetFocus();return TRUE;}
             if(msg->wParam==VK_RETURN&&msg->hwnd==m_results.GetSafeHwnd()){OpenSelected();return TRUE;}
             if(msg->wParam==VK_ESCAPE&&msg->hwnd==m_search.GetSafeHwnd()){CString query;m_search.GetWindowText(query);if(!query.IsEmpty()){m_search.SetWindowText(L"");return TRUE;}}

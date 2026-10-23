@@ -1040,4 +1040,8 @@
     <ClInclude Include="NativeMaterial\ButtonVisual.h" />
     <ClCompile Include="NativeMaterial\ButtonVisual.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="NativeMaterial\Panel.h" />
+    <ClCompile Include="NativeMaterial\Panel.cpp" />
+  </ItemGroup>
 </Project>

@@ -6,8 +6,10 @@ namespace NativePreferences
     bool Editor::Create(CWnd* parent,CWnd* actionsParent)
     {
         m_parent=parent;m_actionsParent=actionsParent?actionsParent:parent;const CRect box(0,0,100,40);const DWORD child=WS_CHILD|WS_VISIBLE;
-        if(!m_heading.Create(L"",child,box,parent)||!m_language.Create(L"",child,box,parent)||!m_appearance.Create(L"",child,box,parent)||!m_scope.Create(L"",child,box,parent)||!m_preview.Create(box,parent,56210)||!m_note.Create(L"",child,box,m_actionsParent))return false;
-        if(!m_languageChoice.Create(L"",box,parent,LanguageChoice)||!m_appearanceChoice.Create(L"",box,parent,AppearanceChoice)||!m_apply.Create(L"",box,m_actionsParent,ApplyChoice)||!m_revert.Create(L"",box,m_actionsParent,RevertChoice)||!m_reset.Create(L"",box,m_actionsParent,ResetChoice)||!m_reapply.Create(L"",box,m_actionsParent,ReapplyChoice))return false;
+        if(!m_languagePanel.Create(parent,56220)||!m_appearancePanel.Create(parent,56221)||!m_previewPanel.Create(parent,56222))return false;
+        if(!m_languageHelp.Create(L"",child,box,&m_languagePanel)||!m_appearanceHelp.Create(L"",child,box,&m_appearancePanel))return false;
+        if(!m_heading.Create(L"",child,box,parent)||!m_language.Create(L"",child,box,&m_languagePanel)||!m_appearance.Create(L"",child,box,&m_appearancePanel)||!m_scope.Create(L"",child,box,parent)||!m_preview.Create(box,&m_previewPanel,56210)||!m_note.Create(L"",child,box,m_actionsParent))return false;
+        if(!m_languageChoice.Create(L"",box,&m_languagePanel,LanguageChoice)||!m_appearanceChoice.Create(L"",box,&m_appearancePanel,AppearanceChoice)||!m_apply.Create(L"",box,m_actionsParent,ApplyChoice)||!m_revert.Create(L"",box,m_actionsParent,RevertChoice)||!m_reset.Create(L"",box,m_actionsParent,ResetChoice)||!m_reapply.Create(L"",box,m_actionsParent,ReapplyChoice))return false;
         m_languageChoice.SetVariant(NativeMaterial::ButtonVariant::Selector);m_appearanceChoice.SetVariant(NativeMaterial::ButtonVariant::Selector);m_revert.SetVariant(NativeMaterial::ButtonVariant::Tonal);m_reset.SetVariant(NativeMaterial::ButtonVariant::Text);m_reapply.SetVariant(NativeMaterial::ButtonVariant::Outlined);m_preview.ModifyStyle(WS_VSCROLL,0,SWP_FRAMECHANGED);UseSaved();return true;
     }
     void Editor::UseSaved(){const auto current=Current();draft={current.values,current.base,false,false};m_status=current.protectedFile?TextId::Protected:current.persisted?TextId::Loaded:current.origin==Origin::Migrated?TextId::Migrated:TextId::Defaults;Refresh();}
@@ -15,6 +17,8 @@ namespace NativePreferences
     {
         if(!m_parent)return;
         if(!draft.dirty&&!Matches(draft.base,Current().base)){const auto current=Current();draft={current.values,current.base,false,false};m_status=current.protectedFile?TextId::Protected:current.persisted?TextId::Loaded:current.origin==Origin::Migrated?TextId::Migrated:TextId::Defaults;}
+        m_languagePanel.SetAppearance(EffectiveAppearance());m_appearancePanel.SetAppearance(EffectiveAppearance());m_previewPanel.SetAppearance(EffectiveAppearance());
+        m_languageHelp.SetWindowText(Pair(L"Choose the language used throughout the native workspace.",L"選擇原生工作區使用嘅語言。"));m_appearanceHelp.SetWindowText(Pair(L"Follow your system, or keep a light or dark interface.",L"跟隨系統，或者固定使用淺色或深色介面。"));
         m_heading.SetWindowText(Text(TextId::Interface));m_language.SetWindowText(Text(TextId::LanguageLabel));m_appearance.SetWindowText(Text(TextId::AppearanceLabel));
         m_languageChoice.SetLabel(Text(static_cast<TextId>(static_cast<int>(TextId::English)+static_cast<int>(draft.values.language))));
         m_appearanceChoice.SetLabel(Text(static_cast<TextId>(static_cast<int>(TextId::System)+static_cast<int>(draft.values.appearance))));
@@ -27,7 +31,7 @@ namespace NativePreferences
     }
     int Editor::Layout(int x,int y,int width,UINT dpi,bool visible)
     {
-        std::array<CWnd*,7> controls{&m_heading,&m_language,&m_languageChoice,&m_appearance,&m_appearanceChoice,&m_scope,&m_preview};
+        std::array<CWnd*,12> controls{&m_heading,&m_language,&m_languageHelp,&m_languageChoice,&m_appearance,&m_appearanceHelp,&m_appearanceChoice,&m_scope,&m_preview,&m_languagePanel,&m_appearancePanel,&m_previewPanel};
         for(auto* c:controls)c->ShowWindow(visible?SW_SHOW:SW_HIDE);
         if(!visible){LayoutActions(0,0,width,dpi,false);return 0;}
         if(!m_font&&m_fontDpi!=dpi){m_fallbackFont.DeleteObject();m_fallbackFont.CreateFont(-MulDiv(14,dpi,96),0,0,0,FW_NORMAL,FALSE,FALSE,0,DEFAULT_CHARSET,OUT_DEFAULT_PRECIS,CLIP_DEFAULT_PRECIS,CLEARTYPE_QUALITY,DEFAULT_PITCH,L"Segoe UI");m_fontDpi=dpi;}
@@ -35,11 +39,11 @@ namespace NativePreferences
         const int initial=y;auto px=[&](int n){return MulDiv(n,dpi,96);};CClientDC dc(m_parent);auto* old=dc.SelectObject(font);
         auto height=[&](CWnd& c,int available,int minimum){CString t;c.GetWindowText(t);CRect r(0,0,px((std::max)(32,available)),0);dc.DrawText(t,r,DT_CALCRECT|DT_WORDBREAK|DT_NOPREFIX);return (std::max)(minimum,MulDiv(r.Height(),96,dpi)+8);};
         auto place=[&](CWnd& c,int left,int top,int w,int h){c.MoveWindow(px(left),px(top),px(w),px(h));};
-        const int heading=height(m_heading,width,32);place(m_heading,x,y,width,heading);y+=heading+20;
-        auto row=[&](CStatic& label,NativeMaterial::Button& choice,bool show){label.ShowWindow(show?SW_SHOW:SW_HIDE);choice.ShowWindow(show?SW_SHOW:SW_HIDE);if(!show)return;const bool wide=width>=600;const int lw=wide?width*42/100:width;const int lh=height(label,lw,24),ch=height(choice,wide?width-lw-32:width-40,40)+12;if(wide){place(label,x,y,lw,lh);place(choice,x+lw+16,y,width-lw-16,ch);y+=(std::max)(lh,ch)+24;}else{place(label,x,y,width,lh);y+=lh+8;place(choice,x,y,width,ch);y+=ch+24;}};
-        row(m_language,m_languageChoice,m_showLanguage);row(m_appearance,m_appearanceChoice,m_showAppearance);
-        const bool any=m_showLanguage||m_showAppearance;m_scope.ShowWindow(any?SW_SHOW:SW_HIDE);m_preview.ShowWindow(any?SW_SHOW:SW_HIDE);
-        if(any){const int sh=height(m_scope,width,32);place(m_scope,x,y,width,sh);y+=sh+16;const int ph=height(m_preview,width-24,80);place(m_preview,x,y,width,ph);y+=ph+20;}
+        if(m_sectionDpi!=dpi){m_sectionFont.DeleteObject();m_sectionFont.CreateFont(-px(18),0,0,0,FW_SEMIBOLD,FALSE,FALSE,0,DEFAULT_CHARSET,OUT_DEFAULT_PRECIS,CLIP_DEFAULT_PRECIS,CLEARTYPE_QUALITY,DEFAULT_PITCH,L"Segoe UI");m_sectionDpi=dpi;}m_heading.SetFont(&m_sectionFont);dc.SelectObject(&m_sectionFont);const int heading=height(m_heading,width,32);dc.SelectObject(font);place(m_heading,x,y,width,heading);y+=heading+20;
+        auto row=[&](NativeMaterial::Panel& panel,CStatic& label,CStatic& help,NativeMaterial::Button& choice,bool show){panel.ShowWindow(show?SW_SHOW:SW_HIDE);if(!show)return;const bool wide=width>=600;const int inner=width-40,lw=wide?inner*46/100:inner,cw=wide?inner-lw-24:inner;const int lh=height(label,lw,24),hh=height(help,lw,24),ch=height(choice,cw-32,36)+8;int ph=0;place(label,20,16,lw,lh);place(help,20,16+lh+4,lw,hh);if(wide){ph=(std::max)(lh+hh+4,ch)+32;place(choice,20+lw+24,(ph-ch)/2,cw,ch);}else{const int cy=16+lh+4+hh+12;place(choice,20,cy,cw,ch);ph=cy+ch+16;}place(panel,x,y,width,ph);y+=ph+12;};
+        row(m_languagePanel,m_language,m_languageHelp,m_languageChoice,m_showLanguage);row(m_appearancePanel,m_appearance,m_appearanceHelp,m_appearanceChoice,m_showAppearance);
+        const bool any=m_showLanguage||m_showAppearance;m_scope.ShowWindow(any?SW_SHOW:SW_HIDE);m_previewPanel.ShowWindow(any?SW_SHOW:SW_HIDE);
+        if(any){const int sh=height(m_scope,width,32);place(m_scope,x,y,width,sh);y+=sh+12;const int ph=height(m_preview,width-40,48);place(m_previewPanel,x,y,width,ph+32);place(m_preview,20,16,width-40,ph);y+=ph+48;}
         dc.SelectObject(old);if(m_actionsParent==m_parent)y+=LayoutActions(x,y,width,dpi,true);return y-initial;
     }
     int Editor::LayoutActions(int x,int y,int width,UINT dpi,bool visible)

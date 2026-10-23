@@ -1146,4 +1146,8 @@
     <ClInclude Include="NativeMaterial\ButtonVisual.h" />
     <ClCompile Include="NativeMaterial\ButtonVisual.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="NativeMaterial\Panel.h" />
+    <ClCompile Include="NativeMaterial\Panel.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
+  </ItemGroup>
 </Project>
