@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "439cde76e052bbb2d316895afad83e9147b4fb2d",
+  "command": "build.bat --site",
+  "exitCode": 0,
+  "inputState": "Clean scoped repair documentation source and index held unchanged throughout production.",
+  "articleCount": 196,
+  "historyRecords": 1638,
+  "unavailableLocalImages": 0,
+  "scope": "Content production only; not deployment, visual or installed-runtime acceptance.",
+  "outputs": [
+    {
+      "path": "docs/site/dist/index.html",
+      "bytes": 4911,
+      "sha256": "cebd37ecc6bead8a313068546b59fbe25908a93887b49849e74e2f148050eaa7"
+    },
+    {
+      "path": "docs/site/dist/build-receipt.json",
+      "bytes": 611,
+      "sha256": "dd8ee662a11656352049b461bcb90f01875b678076b8bba74785ec59a63a52d3"
+    }
+  ]
+}

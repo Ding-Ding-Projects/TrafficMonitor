@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "destination": "https://github.com/Ding-Ding-Projects/TrafficMonitor.wiki.git",
-  "observedWikiCommit": "9689e37ed3926f512c4752bbda2bd24c89a659e9",
+  "observedWikiCommit": "32f961e8090d5b8fc79cc2e108139bae618a3831",
   "state": "published-verified",
   "pages": [
     "Home.md",
@@ -17,15 +17,15 @@
     "fileCount": 7,
     "sourceBlobReadbackMatched": true,
     "ref": "refs/heads/master",
-    "commit": "9689e37ed3926f512c4752bbda2bd24c89a659e9",
-    "sourceCommit": "3a8213e6b99f914e0dc6a0d901911466663d5c81",
+    "commit": "32f961e8090d5b8fc79cc2e108139bae618a3831",
+    "sourceCommit": "2098090699c6029c47fb1e432742b7cc51834350",
     "blobs": [
       {
         "path": "Silent-updates.md",
-        "sha256": "4c3a5f353d015047224a98b9349b186c4129e71a6195bd34c6f7fbbb9a9fe92c"
+        "sha256": "a915e03aba5cb76a3341c75a8dabe14dc3ef00bd5f7857208999b7adbacf804b"
       }
     ],
-    "evidenceSource": "Coordinating task verified exact stored article bytes; exact master ref also independently read back through git ls-remote.",
+    "evidenceSource": "Coordinating task reported stored raw article equal to source209 and publication scan zero across seven maintained guides.",
     "liveInterface": "UNVERIFIED: no live wiki interaction."
   },
   "preparedUpdate": {
@@ -206,7 +206,7 @@
       "Silent-updates.md"
     ],
     "sourceCommit": "204597be2bdf4f3392e6ea44c26ceaa55fd7ed4d",
-    "sha256": "ab9fe71d2c0222d6ca059b87b47d3b505451718ffffd0d91fab4a86c94a83010",
+    "sha256": "f2dea867c1b45504bb839ad8bbc9f51af95a700844d29f24cb17a1f69f114b99",
     "scope": "Preparation budget/trust repair candidate with local negative/regression checks and source-bound production; current-host acceptance pending."
   },
   "publicationProofHistory": [
@@ -239,6 +239,21 @@
         }
       ],
       "evidenceSource": "Coordinating task reported exact raw stored byte match, all seven maintained guides publication-language scan with zero findings, and exact remote ref readback.",
+      "liveInterface": "UNVERIFIED: no live wiki interaction."
+    },
+    {
+      "fileCount": 7,
+      "sourceBlobReadbackMatched": true,
+      "ref": "refs/heads/master",
+      "commit": "9689e37ed3926f512c4752bbda2bd24c89a659e9",
+      "sourceCommit": "3a8213e6b99f914e0dc6a0d901911466663d5c81",
+      "blobs": [
+        {
+          "path": "Silent-updates.md",
+          "sha256": "4c3a5f353d015047224a98b9349b186c4129e71a6195bd34c6f7fbbb9a9fe92c"
+        }
+      ],
+      "evidenceSource": "Coordinating task verified exact stored article bytes; exact master ref also independently read back through git ls-remote.",
       "liveInterface": "UNVERIFIED: no live wiki interaction."
     }
   ]

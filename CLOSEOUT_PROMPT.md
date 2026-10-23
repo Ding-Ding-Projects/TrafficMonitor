@@ -9,6 +9,8 @@ This repair is not installed or naturally accepted. The earlier genuine31-to32 r
 
 ## Active release-grade updater repair
 
+Production/check evidence is preserved in docs/features/installation/preparation-reliability-receipt.json, exact source204597be2bdf4f3392e6ea44c26ceaa55fd7ed4d. Baseline root route exit1/10failed assertions; repaired route exit0/32passed assertions; exact root installer production1.0.9020 exit0. Documentation root production at439cde76e052bbb2d316895afad83e9147b4fb2d exited0,196articles1638history0unavailableimages; separate source-bound receipt records output hashes. No fixture processes remain. This repair has not been applied to the actual installed client. The coordinating task owns next integration, publication, current-host acceptance and wider release-grade completion.
+
 The latest direction is release-grade closeout and scoped cleanup, superseding the
 earlier expedited no-check restriction. Wider completion remains unfinished. Cleanup
 has not started; archive destination for the new pass is awaiting a structured answer.
