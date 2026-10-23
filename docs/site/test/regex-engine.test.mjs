@@ -148,8 +148,9 @@ if (!isMainThread && workerData?.role === 'regex-engine-test-adapter') {
     const old = Object.getOwnPropertyDescriptor(globalThis, 'location');
     Object.defineProperty(globalThis, 'location', { value: { href: 'https://example.test/docs/', origin: 'https://example.test' }, configurable: true });
     try {
-      for (const workerUrl of ['https://other.test/worker.mjs', 'data:text/javascript,0', 'blob:https://example.test/123', 'https://user:pass@example.test/a', 'https://example.test/a#x'])
+      for (const workerUrl of ['https://other.test/worker.mjs', 'data:text/javascript,0', 'blob:https://example.test/123', 'https://user:pass@example.test/a', 'https://example.test/a#x', 'https://example.test/a?x=1'])
         assert.throws(() => createRegexEngine({ workerUrl }));
+      assert.throws(() => createRegexEngine({ workerUrl: '/docs/local-worker.mjs', workerFactory: () => ({}) }));
       const engine = createRegexEngine({ workerUrl: '/docs/local-worker.mjs' }); engine.dispose();
     } finally { if (old) Object.defineProperty(globalThis, 'location', old); else delete globalThis.location; }
   });
@@ -157,6 +158,33 @@ if (!isMainThread && workerData?.role === 'regex-engine-test-adapter') {
     const engine = createRegexEngine({ workerUrl: new URL('../src/regex-engine/worker.mjs', import.meta.url), workerFactory: () => ({}) });
     assert.equal((await engine.execute({ operation: 'search' })).code, 'WORKER_UNAVAILABLE');
     engine.dispose();
+  });
+
+  test('replacement accumulation skips empty values and coalesces small values before healthy recovery', async () => {
+    const { evaluate } = await import('../src/regex-engine/evaluate.mjs');
+    const original = Array.prototype.push;
+    let empty = 0, stringEntries = 0;
+    Array.prototype.push = function (...values) {
+      for (const value of values) if (typeof value === 'string') { ++stringEntries; if (value === '') ++empty; }
+      return Reflect.apply(original, this, values);
+    };
+    let response;
+    try {
+      response = evaluate({ operation: 'replace', pattern: '(z)?a', subject: 'a'.repeat(32), flags: 'g', replacement: '$1'.repeat(512) });
+      assert.equal(response.ok, true); assert.equal(response.result.text, '');
+      response = evaluate({ operation: 'replace', pattern: '(a)', subject: 'a'.repeat(32), flags: 'g', replacement: '$1'.repeat(512) });
+    } finally { Array.prototype.push = original; }
+    assert.equal(empty, 0);
+    assert.ok(stringEntries <= 4, 'small substitutions must not create one array entry per append');
+    assert.equal(response.ok, true); assert.equal(response.result.text, 'a'.repeat(16384));
+    const { engine } = setup();
+    try {
+      const bounded = await engine.execute({ operation: 'replace', pattern: '(z)?a', subject: 'a'.repeat(1000), flags: 'g', replacement: '$1'.repeat(32768) });
+      assert.ok(bounded.ok || bounded.code === 'TIMEOUT');
+      if (bounded.ok) assert.equal(bounded.result.text, '');
+      const healthy = await engine.execute({ operation: 'search', pattern: 'ok', subject: 'ok' });
+      assert.equal(healthy.ok, true); assert.equal(healthy.result.index, 0);
+    } finally { engine.dispose(); }
   });
 
 }

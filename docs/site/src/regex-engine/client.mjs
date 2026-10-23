@@ -4,7 +4,7 @@ function localWorkerUrl(value, testFactory) {
   if (typeof value !== 'string' && !(value instanceof URL)) throw new TypeError('workerUrl must be a local URL.');
   if (typeof location === 'object') {
     const url = new URL(value, location.href);
-    if (!['http:', 'https:'].includes(url.protocol) || url.origin !== location.origin || url.username || url.password || url.hash)
+    if (!['http:', 'https:'].includes(url.protocol) || url.origin !== location.origin || url.username || url.password || url.hash || url.search)
       throw new TypeError('workerUrl must be an uncredentialed same-origin HTTP(S) asset.');
     return url;
   }
@@ -53,6 +53,8 @@ function responseIsBounded(response, request, limits) {
 export function createRegexEngine(options = {}) {
   if (!options || typeof options !== 'object' || Array.isArray(options)) throw new TypeError('Expected engine options.');
   const limits = resolveLimits(options);
+  if (typeof location === 'object' && options.workerFactory !== undefined)
+    throw new TypeError('workerFactory is reserved for the explicit non-browser test adapter.');
   if (options.workerFactory !== undefined && typeof options.workerFactory !== 'function') throw new TypeError('Invalid workerFactory.');
   const workerUrl = localWorkerUrl(options.workerUrl, options.workerFactory);
   const factory = options.workerFactory ?? (url => new Worker(url, { type: 'module', name: 'bounded-regex' }));

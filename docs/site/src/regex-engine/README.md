@@ -1,6 +1,6 @@
 # Bounded local regular-expression execution
 
-Import `createRegexEngine` from `client.mjs`. Supply a same-origin HTTP(S) `workerUrl` pointing to `worker.mjs`. Publish `worker.mjs`, `evaluate.mjs` and `request.mjs` in the same directory. Create one engine per independent owning search or workbench. User expressions are compiled and executed only in a fresh module Worker. The caller must retain its previous working view when a request fails.
+Import `createRegexEngine` from `client.mjs`. Supply a same-origin HTTP(S) `workerUrl` pointing to `worker.mjs`, with no query, fragment or credentials. Publish `worker.mjs`, `evaluate.mjs` and `request.mjs` in the same directory. Create one engine per independent owning search or workbench. User expressions are compiled and executed only in a fresh module Worker. The caller must retain its previous working view when a request fails.
 
 ```js
 const engine = createRegexEngine({ workerUrl: new URL('./regex-engine/worker.mjs', import.meta.url) });
@@ -21,6 +21,6 @@ Configuration defaults and hard ceilings are 250 ms (5000 ms ceiling), 16384 pat
 
 The capabilities operation reports actual current-worker flag and feature probes, browser build identification when exposed, and explicit unknown engine/Unicode versions. No other engine, debugger trace, conversion, encoding support or complete RegexBuddy parity is claimed. The module performs no payload persistence, logging, evaluation of generated code or network requests. Its local module assets are loaded through the browser's ordinary same-origin module mechanism.
 
-Run the focused local checks with `node --test docs/site/test/regex-engine.test.mjs`. The explicit Node Worker adapter proves operation semantics, bounds, actual catastrophic-expression termination, cancellation and recovery. It does not prove browser execution, a built interface or deployed interactions. Those checks remain pending. `workerFactory` and file URLs are supported only for this explicit local test adapter outside a browser.
+Run the focused local checks with `node --test docs/site/test/regex-engine.test.mjs`. The explicit Node Worker adapter proves operation semantics, bounds, actual catastrophic-expression termination, cancellation and recovery. It does not prove browser execution, a built interface or deployed interactions. Those checks remain pending. `workerFactory` and file URLs are supported only for this explicit local test adapter outside a browser. Browser callers cannot provide a factory; the module always constructs its own native Worker. The non-browser adapter is trusted test code and must implement genuine isolation and termination. Small replacement fragments are coalesced into bounded chunks, and empty fragments allocate no chunk entries.
 
 The official online manual topic inventory and remaining functionality are recorded in `docs/features/search/regex-capabilities.json`. Every parity topic remains unfinished. Guided controls, state synchronization, explanation, persistence, accessibility, localization, deployment and browser evidence belong to the owning interface.

@@ -52,12 +52,17 @@ function enumerate(regex, subject, maxMatches, visit) {
   }
 }
 function outputBuilder(maximum) {
-  const chunks = []; let bytes = 0;
+  const chunks = []; let bytes = 0, pending = '';
+  const flush = () => { if (pending) { chunks.push(pending); pending = ''; } };
   return { append(text) {
     if (typeof text !== 'string') throw new TypeError('Invalid replacement value');
+    if (text.length === 0) return;
     if (text.length > maximum || (bytes += byteLength(text)) > maximum) throw new LimitError('OUTPUT_LIMIT');
-    chunks.push(text);
-  }, finish: () => chunks.join('') };
+    // Coalesce small substitutions, bounding metadata independently of append count.
+    if (pending.length + text.length > 4096) flush();
+    if (text.length >= 4096) chunks.push(text);
+    else pending += text;
+  }, finish() { flush(); return chunks.join(''); } };
 }
 // ECMAScript string replacement tokens only. No callback, code or templates execute.
 function substitute(replacement, match, subject, output) {
