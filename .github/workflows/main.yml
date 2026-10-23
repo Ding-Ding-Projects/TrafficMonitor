@@ -110,3 +110,39 @@ jobs:
             artifacts/releases/*
           if-no-files-found: warn
           retention-days: 14
+  documentation-build:
+    needs: publication-language
+    runs-on: windows-2022
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24.10.0'
+          cache: npm
+          cache-dependency-path: docs/site/package-lock.json
+      - name: Build complete static documentation
+        shell: cmd
+        run: call build.bat --site
+      - name: Preserve deployable documentation
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs/site/dist
+  documentation-deploy:
+    needs: documentation-build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy reviewed documentation output
+        id: deployment
+        uses: actions/deploy-pages@v4
