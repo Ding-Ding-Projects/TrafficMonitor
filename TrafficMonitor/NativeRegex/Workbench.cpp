@@ -79,7 +79,7 @@ namespace
         apply.Create(T(L"Apply to search",L"套用至搜尋"),r,this,Apply);cancel.Create(T(L"Cancel",L"取消"),r,this,Cancel);
         for(auto* b:{&mode,&caseButton,&run,&replace,&split,&apply,&cancel,&any,&digit,&word,&group,&start,&end})b->SetAppearance(appearance);
         Fonts();RECT size{0,0,Px(780),Px(700)};AdjustWindowRectEx(&size,GetStyle(),FALSE,GetExStyle());
-        RECT origin{};GetWindowRect(anchor,&origin);MONITORINFO monitor{sizeof(monitor)};GetMonitorInfoW(MonitorFromWindow(anchor,MONITOR_DEFAULTTONEAREST),&monitor);
+        RECT origin{};::GetWindowRect(anchor,&origin);MONITORINFO monitor{sizeof(monitor)};GetMonitorInfoW(MonitorFromWindow(anchor,MONITOR_DEFAULTTONEAREST),&monitor);
         int width=(std::min)(size.right-size.left,monitor.rcWork.right-monitor.rcWork.left),height=(std::min)(size.bottom-size.top,monitor.rcWork.bottom-monitor.rcWork.top);
         SetWindowPos(nullptr,(std::max)(monitor.rcWork.left,(std::min)(origin.left,monitor.rcWork.right-width)),(std::max)(monitor.rcWork.top,(std::min)(origin.bottom,monitor.rcWork.bottom-height)),width,height,SWP_NOZORDER);
         Layout();loading=false;SetTimer(1,40,nullptr);Execute(Operation::Search,false);pattern.SetFocus();return FALSE;
