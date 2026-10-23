@@ -1,5 +1,14 @@
 # TrafficMonitor delivery roadmap
 
+## Full native visual remake
+
+- [ ] Correct and independently approve the complete design handoff; current4f417141 references are not approved.
+- [ ] Replace generic control and scrollbar presentation with shared native components, preserving editing, IME, keyboard and accessibility behavior.
+- [ ] Remake workspace, Settings, setup, searchable menus and regex editor with every existing action mapped to a real destination.
+- [ ] Convert remaining application-owned dialogs, history/details/plugin/About surfaces and floating/taskbar presentation; the first five owners do not complete the full request.
+- [ ] Verify actual built normal/minimum language/theme/DPI states, persistence, recovery and interaction before claiming delivery.
+- [ ] Finish documentation-website/wiki/reader work only after the main native application and operational delivery.
+
 ## Native-first continuation, release 1.0.43
 
 - [x] Integrate bounded Settings discovery/Notifications and verify exact root checks and installer production at source575.

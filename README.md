@@ -22,6 +22,8 @@ See [natural35 evidence](docs/features/installation/silent-natural35-acceptance.
 
 ## Native interface work
 
+The current visuals are not accepted as the finished redesign. A full native remake is in progress, including shared styled controls and scrollbars, coherent navigation, readable forms and every existing workflow. The first five shared surfaces and the remaining application-owned dialogs all remain in scope. Draft design references are being independently revised before implementation; they are not screenshots of delivered behavior. Main application work takes priority over further documentation-website implementation.
+
 The native monitoring backend, taskbar integration, tray and plugin interfaces remain. The new network workspace, task-oriented settings and resumable four-step setup are useful partial implementations. Setup opens through the explicit workspace action, with save/resume and acknowledged partial operations; ordinary sign-in monitoring remains unobtrusive. Setup language/style controls currently apply to the wizard only.
 
 Bounded setup checks cover light theme at actual 96 DPI, three languages, save/resume, Keep-current completion and selected accessibility consumers. Choice expansion, complete keyboard/accessibility behavior, the full theme/scale matrix, full regex-builder parity and the broader required-feature inventory remain unfinished. The indexed 110-item ledger is an obligation inventory, not proof that 110 features shipped.

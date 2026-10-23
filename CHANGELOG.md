@@ -1,5 +1,9 @@
 # Fork changes
 
+## Unreleased full native visual remake
+
+The owner rejected the current generic visual composition. A full native component and surface remake is now the active priority, including styled scrolling and all application-owned dialogs. The draft design at4f417141 has independent review corrections pending; it is not approved or shipped. Shared preference candidatef1c6cc59 and its narrow1.0.9028 runtime evidence remain separate from accepted releases. Normal44 and its actual restored installation are recorded in the [installed-state receipt](docs/features/installation/accepted44-installed-state.json).
+
 ## Native 1.0.43 delivery and automatic update
 
 Source `575c871e0b6a52667bce1b77f69d62634e457455` integrates bounded Settings discovery and Notifications. Exact root verification passed46, rejected five disposable old-binding cases, then restored46; installer1.0.9027 exited0 with22warnings and0errors. Normal release43 and all release jobs succeeded. One natural42-to43 update preserved configuration, startup and historical records against a real prepublication baseline, without manual intervention. See [bounded receipt](docs/features/installation/silent-natural43-acceptance.json). Broader GUI, negative paths and long-term reliability remain unverified.
