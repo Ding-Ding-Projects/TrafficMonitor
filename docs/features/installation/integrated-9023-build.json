@@ -1,0 +1,30 @@
+{
+  "sourceCommit": "cb0add4808a8ece040ffc76668bce290bcf8a65f",
+  "command": "build-installer.bat -Version 1.0.9023",
+  "exitCode": 0,
+  "nativeSeconds": 17.98,
+  "warnings": 78,
+  "errors": 0,
+  "outputs": [
+    {
+      "path": "artifacts/releases/Setup.exe",
+      "bytes": 8486912,
+      "sha256": "45af2dab62ddaef5f060740d210c49081394b85ac6c779fa00332a098dc2b7a8"
+    },
+    {
+      "path": "artifacts/releases/RELEASES",
+      "bytes": 251,
+      "sha256": "9ccfcffb293d20726341d69b01a7ccfb37b7877c8d0cbbedd419735f0786d816"
+    },
+    {
+      "path": "artifacts/releases/TrafficMonitor-1.0.9023-full.nupkg",
+      "bytes": 7606545,
+      "sha256": "18f3bbd0e44c672182ab680dc1bf8848885abca5090243b87d6860f91c7e1f20"
+    },
+    {
+      "path": "Bin/x64/Release (lite)/TrafficMonitor.exe",
+      "bytes": 2362368,
+      "sha256": "8741f1d95d1d4be88138b2a568b0d6721e93d1051bbe6bd4c4a286dd03f12466"
+    }
+  ]
+}

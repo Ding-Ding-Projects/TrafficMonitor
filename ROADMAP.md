@@ -1,12 +1,19 @@
 # TrafficMonitor delivery roadmap
 
+## Integrated natural35 evidence
+
+- [x] Preserve reviewed source-bound natural 1.0.34 to 1.0.35 acceptance and all four release asset byte/hash records.
+- [x] Record integrated source cb0add local root installer production 1.0.9023 separately from normal 1.0.35 release.
+- [ ] Publish/read back this natural35 documentation and wiki amendment through the coordinating task.
+
 ## Preparation reliability candidate
 
 - [x] Separate cancelled/expired preparation and helper creation failure from durable actual-apply attempts.
 - [x] Require complete staging trust before readiness and retain post-exit revalidation.
 - [x] Observe focused baseline regressions red and repaired local helper/budget checks green.
 - [x] Produce exact root unsigned installer candidate1.0.9020.
-- [ ] Accept this repair on the matching current installation and complete broader release-grade verification.
+- [x] Accept installed repair34 through one genuine natural 1.0.34 to 1.0.35 update, exact released bytes and saved-data/startup preservation.
+- [ ] Complete production negative paths, full GUI acceptance and broader release-grade verification.
 - [ ] Complete separately coordinated preservation/archive and scoped cleanup.
 
 ## Readiness release delivery

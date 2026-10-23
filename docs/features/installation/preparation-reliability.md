@@ -30,7 +30,10 @@ installed client. The fixture's Update.exe is deliberately non-executable.
 charges attempts and corrupted staging receives readiness. Both baseline and fixed
 checks are local only; no tests or lint are added to the release workflow.
 
-These checks establish the focused preparation and budget behavior. They do not
-establish a new current-host automatic update, visual behavior, offline recovery,
-full installer acceptance or repeated production reliability. Broader release-grade
-closeout remains unfinished and separately coordinated.
+These local checks establish focused preparation and budget behavior. A separate
+[genuine natural 1.0.34 to 1.0.35 acceptance](silent-natural35-acceptance.json) now verifies
+accepted client 1.0.34 with this repair automatically applying integrated 1.0.35, exact released
+bytes and saved-data/startup preservation. The observation made no manual check, close,
+apply or updater-state change. One successful transition does not establish production
+negative paths, full GUI/installer acceptance, offline recovery or repeated reliability.
+Broader release-grade closeout remains unfinished and separately coordinated.

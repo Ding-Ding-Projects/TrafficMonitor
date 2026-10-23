@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "scope": "One genuine natural accepted34 to35 update, observation-only. No GUI interaction, manual check/close/apply, preferences/attempts/staging edits or automation.",
+  "clientVersion": "1.0.34",
+  "clientSource": "a68856e55c17e3428eca9df1ff93d4367e64a9db",
+  "baselineUTC": "2026-10-23T16:58:45.032292+00:00",
+  "releaseTag": "v1.0.35-run39990833967-1",
+  "releaseSource": "cb0add4808a8ece040ffc76668bce290bcf8a65f",
+  "publishedUTC": "2026-10-23T17:01:31Z",
+  "normalRelease": true,
+  "firstReplacementSnapshotUTC": "2026-10-23T17:02:17.197843+00:00",
+  "terminalUTC": "2026-10-23T17:03:19.599084+00:00",
+  "deadlineUTC": "2026-10-23T17:11:31Z",
+  "observationSamples": 8,
+  "oldProcessExited": true,
+  "singleReplacementProcess": true,
+  "installedVersion": "1.0.35",
+  "installedExecutableSHA256": "a7e8fd7369afa446575aca04595fe601ce36997ee88289a1ea0ce1d39f4c2bc3",
+  "matchesReleasedExecutable": true,
+  "installedManifestSourceMatches": true,
+  "attemptCount": 1,
+  "squirrelExitCode": 0,
+  "helperLaunch": {
+    "stage": "created",
+    "result": 0
+  },
+  "readiness": {
+    "stage": "exit-permitted",
+    "result": 0
+  },
+  "helperTerminal": {
+    "stage": "stable-launcher",
+    "result": 0
+  },
+  "startupPreserved": true,
+  "configBytesPreserved": true,
+  "historicalRecordsUnchanged": true,
+  "currentTrafficRecordRetained": true,
+  "currentTrafficCountersNondecreasing": true,
+  "recordCountPreserved": true,
+  "appliedStagingRetained": true,
+  "pendingAbsent": true,
+  "stagedPackageMatchesRelease": true,
+  "retainedAcceptedMainAdmissionValid": true,
+  "historyAssessment": "Historical records remain identical; current dated counters advanced without regression, with record count preserved. History bytes legitimately changed during monitoring/save.",
+  "assets": [
+    {
+      "name": "RELEASES",
+      "bytes": 81,
+      "sha256": "a93cc036d1a85b2d96b3baf824f29607c29df7d9510c573cc82fe1551665045d"
+    },
+    {
+      "name": "Setup.exe",
+      "bytes": 8485888,
+      "sha256": "39314f2869aec14046b2f2821607c2445e4757ae965b2c8d87643206e2d34a7b"
+    },
+    {
+      "name": "SHA256SUMS.txt",
+      "bytes": 253,
+      "sha256": "99fe6b3155e32f7888a626e7866518c2a555d5e9af512040ef4774ac5b7ca335"
+    },
+    {
+      "name": "TrafficMonitor-1.0.35-full.nupkg",
+      "bytes": 7606131,
+      "sha256": "533e07086147d2c56227c092040a1d54f6acdcd05058e780495437b7b428d837"
+    }
+  ],
+  "workflow": "39990833967",
+  "allFourJobs": "success",
+  "unverified": [
+    "GUI readiness, appearance and interaction",
+    "negative-path production acceptance",
+    "repeated long-term automatic-update reliability"
+  ]
+}

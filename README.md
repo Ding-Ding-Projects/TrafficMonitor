@@ -1,6 +1,6 @@
 [Documentation website](https://ding-ding-projects.github.io/TrafficMonitor/)
 
-Current updater outcome: one genuine natural 1.0.31 to 1.0.32 update now has exact released/installed bytes, readiness exit-permitted/result 0, stable-launcher/result 0, one apply attempt/exit 0 and saved configuration/startup/history preservation evidence. No manual action occurred during observation. Negative paths and repeated future cycles remain unverified. See [current evidence boundaries](docs/features/installation/silent-updates.md#current-updater-outcome).
+Current updater outcome: accepted client1.0.34 with the preparation reliability repair genuinely applied normal1.0.35/source cb0add4808a8ece040ffc76668bce290bcf8a65f. Exact released/installed bytes, helper/readiness results0, one apply attempt/exit 0 and configuration/startup/history preservation are verified. No manual action occurred during observation. Production negative paths, full GUI acceptance and repeated reliability remain unverified. See [current evidence boundaries](docs/features/installation/silent-updates.md#current-updater-outcome).
 
 **English | [简体中文](./README_zh-CN.md)**
 
@@ -229,6 +229,8 @@ The native regex editor now has an owned modeless presentation in source, keepin
 
 The modeless search workbench now provides explicit named local expression storage and reuse, with separate draft loading and owner Apply. See [collection behavior and limits](docs/features/search/native-collections.md). Runtime persistence, keyboard/display acceptance and full RegexBuddy compatibility remain unverified.
 
+## Historical updater milestones
+
 The silent updater retains validated already-installed staging without blocking later release discovery and records bounded fixed-stage helper launch/results. Automatic restart remains unverified; see the [update guide](docs/features/installation/silent-updates.md).
 
 The verified manual installation baseline is package 1.0.25; automatic restart remains unresolved. The updater wiki stored guide now matches source 99708ed at wiki master 0ab91b5; live wiki interaction remains unverified. See the [current updater record](docs/features/installation/silent-updates.md#verified-manual-package-1025-baseline).
@@ -237,7 +239,7 @@ Package 1.0.26 is the verified manual installation baseline. Normal startup reta
 
 The current automatic updater synchronously sends a real WM_CLOSE on the already-checked UI thread, correcting the observed message-context mismatch without a queued-input gap. Local 1.0.9017 production passed; prior 1.0.9016 production is historical and a later real automatic transition remains unverified.
 
-Current updater baseline: normal 1.0.32 is naturally installed; the [sanitized acceptance receipt](docs/features/installation/silent-natural32-acceptance.json) binds publication, original baseline, replacement process, exact released executable/source and preservation. Earlier failed29-to30 and manual31 records remain historical. One success is not a general reliability claim.
+Current updater baseline: normal1.0.35 is naturally installed. The [reviewed acceptance receipt](docs/features/installation/silent-natural35-acceptance.json) binds the prepublication baseline, exact release/source/package, replacement and preservation. Earlier successes, failed29-to30 and manual34 remain historical. No new layout, image or broad reliability claim is made.
 
 Release 1.0.28 documentation availability is verified: home and required CSS/JavaScript return HTTP 200, the real installer link is present, and About points exactly to the deployed home. The [current updater outcome](docs/features/installation/silent-updates.md#current-updater-outcome) separates that publication from its manual installation and pending automatic transition.
 

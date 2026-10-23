@@ -1,5 +1,9 @@
 # Fork changes
 
+## Natural34-to35 acceptance
+
+Accepted client 1.0.34/source a68856e55c17e3428eca9df1ff93d4367e64a9db genuinely applied normal 1.0.35/source cb0add4808a8ece040ffc76668bce290bcf8a65f without manual intervention. Released/installed bytes and manifest match; helper/readiness and one apply attempt returned0; configuration/startup and historical-record preservation passed. Local production 1.0.9023 is recorded separately. This single transition does not establish production negative paths, full GUI acceptance or repeated reliability. See [reviewed evidence](docs/features/installation/silent-natural35-acceptance.json).
+
 ## Update preparation reliability
 
 Cancelled/expired preparation and helper creation failures no longer consume the two actual apply attempts. The helper validates the complete accepted feed/package before acknowledging exit readiness and again after parent exit. Local baseline regressions were observed red, the repaired focused checks pass, and exact root installer production 1.0.9020 exited0. Current-host acceptance of this new repair remains pending. See [behavior and evidence](docs/features/installation/preparation-reliability.md).
