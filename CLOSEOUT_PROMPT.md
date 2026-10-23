@@ -35,3 +35,19 @@ Wiki master 07ffa538ea230fc2cc4facbfcbd160bf82212612 has the exact prepared sour
 Separate required-feature validator 070a6058d7fc6ac270e4b499510e0025ee87fc15 has 141 passing structural checks but independent review found malformed image bytes accepted as screenshot proof. It is not integrated; narrow repair and independent post-repair review are pending. The product's full 110-item inventory, regex parity, complete settings, tools, current-image matrix and build companion remain unfinished. The proposed operational skill is private/uninstalled with currentness/parity work pending.
 
 Next: finish this coherent merge, produce the exact integrated native/documentation packages, verify the normal release and matching installed update, promote only valid source-bound images, then advance the remaining scoped units. Never claim full completion or delete active/incomplete work. Preserve all nonignored work and ignored announcement variants through the verified archive/ancestry workflow. See HANDOFF.md and ROADMAP.md for the factual queue.
+
+## Production INI verification boundary
+
+Source candidate: `e817791178cb2e888c42bbf1d61ba555ce3e9feb` on `ai/fix/20261023-native-ini-verification`.
+
+The existing encoding, ASCII conversion, normalization, splitting and text-resource definitions moved verbatim from `Common.cpp` into production `CommonText.cpp`. Both the application project and the serialization verification target compile that module. No test-only symbol substitutes are used. The optional test target no longer needs linker dead-code elimination to avoid unrelated application dependencies.
+
+Verified on the current Windows host:
+
+- `build.bat --verify-preferences`: exit 0, 23 original checks and 24 production INI serialization checks passed. The deliberate resume-preservation mutation returned 1 at the expected saved-draft assertion; the restored executable passed 23 checks.
+- Extracted definitions compared equal to baseline `f1c6cc59f254ebf37503115636765619b3b35914` after newline normalization.
+- `build.bat --silent`: exit 0, 114 warnings, 0 errors, elapsed 32.68 seconds. Log: `artifacts/logs/build.log`.
+- Built `Bin/x64/Release (lite)/TrafficMonitor.exe` SHA-256: `3488EC491BDF80A0A3DBAF94B252E2796A9C61F2D2B065F45130ADC83B47F22D`.
+- Test executables remain under ignored `artifacts/native-preferences-6d9d1856bdfb45c29fe4a3d7398ece80/`.
+
+Integration and remote preservation belong to the coordinating task. No installer, installed update, GUI, accessibility or screenshot verification is claimed by this extraction. Existing broader continuation requirements remain above.
