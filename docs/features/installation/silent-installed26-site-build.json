@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "command": "build.bat --site",
+  "exitCode": 0,
+  "sourceCommit": "c888121acc70b43fba26f8158ec9847474176e7e",
+  "contentSource": "50b4baa9551aa9103a1ff4364da4f0ad0f44754d",
+  "inputState": "Clean source and tracked manifest unchanged throughout production.",
+  "manifestSha256": "6cc8a1c42caddc3a859494849c5da19c3d7e1f54e2ef104919d1a22314ecc7a2",
+  "counts": {
+    "repositoryMarkdownArticles": 168,
+    "wikiMarkdownArticles": 28,
+    "wikiAssets": 75,
+    "wikiTrackedFiles": 103,
+    "articles": 196
+  },
+  "productionReceipt": {
+    "schemaVersion": 1,
+    "sourceCommit": "c888121acc70b43fba26f8158ec9847474176e7e",
+    "contentSource": "50b4baa9551aa9103a1ff4364da4f0ad0f44754d",
+    "wikiSource": {
+      "repository": "https://github.com/zhongyang219/TrafficMonitor.wiki.git",
+      "commit": "cf35274094fe2ffb040ca1f29d6ce73c713d93a2"
+    },
+    "releaseMetadataSHA256": "37e33d17df24ad8a8e1cbb935a1dffd2844b8de4ec0c5f0f14f6e13538e62e0f",
+    "releaseTag": "v1.0.15-run39912330939-1",
+    "releaseSource": "3f573fc0031ef6b6cb123dfbc80c05c33a5063db",
+    "articleCount": 196,
+    "historyCount": 1606,
+    "base": "/TrafficMonitor/",
+    "unresolvedAssets": []
+  },
+  "buildOutput": "Built 196 complete articles; 1606 history records; 0 unavailable local images.",
+  "installedPackageVersion": "1.0.26",
+  "installedPackageSource": "0485c5bbdd04469153c9bf1a062df57b15f3c0aa",
+  "installedExecutableSha256": "7ce698aed64d500b61dce81f3f44bf753337079f990991384988bbc582f912f2",
+  "installationRoute": "Supported manual Squirrel update and stable launcher; exit 0 each.",
+  "naturalStagingRetirement": "All five retained obsolete 1.0.24 staging files match pre-update bytes.",
+  "wikiStoredProofCommit": "0ab91b5d0ba50584dce8d75d2a2cb7c0a0d2a6dd",
+  "nativeProductionSource": "7fffeb22b26e7f0e6d0cec247f19fb895957213f",
+  "verificationScope": "Static production plus existing assigned installation metadata only; no native build, deployment, tests, reviews, audits, runtime quality checks, interface interaction or screenshots. Automatic restart remains unresolved.",
+  "outputs": [
+    {
+      "path": "docs/site/dist/index.html",
+      "bytes": 4911,
+      "sha256": "a0806071630349dbb2c19f9266e160af044fe06145fe5931a5c9867c4058c9b4"
+    },
+    {
+      "path": "docs/site/dist/articles/source-docs-features-installation-silent-updates/index.html",
+      "bytes": 22857,
+      "sha256": "495279608d3a9ead6fac9970bf5cea75f53ef6099827ea85242d8c86176cb971"
+    },
+    {
+      "path": "docs/site/dist/articles/source-docs-wiki-pending-silent-updates/index.html",
+      "bytes": 18940,
+      "sha256": "4a32c7a29e2ed1b90065a7967e72eb70914cfb0b8bbd868feac2e3c7ba77b6ad"
+    },
+    {
+      "path": "docs/site/dist/build-receipt.json",
+      "bytes": 611,
+      "sha256": "0d57d3c392c338378fb52a967734661ca205e4b9236e971e7b8a6c54943e292b"
+    }
+  ]
+}
