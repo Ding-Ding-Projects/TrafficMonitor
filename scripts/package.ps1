@@ -75,5 +75,13 @@ public static class SquirrelAwareness {
     foreach ($file in @('Setup.exe','RELEASES',"TrafficMonitor-$Version-full.nupkg")) {
         if (!(Test-Path "$RepoRoot/artifacts/releases/$file")) { throw "Squirrel output missing: $file" }
     }
-    Get-ChildItem "$RepoRoot/artifacts/releases" -File | ForEach-Object { "$((Get-FileHash $_.FullName -Algorithm SHA256).Hash)  $($_.Name)" } | Set-Content "$RepoRoot/artifacts/releases/SHA256SUMS.txt"
+    # Finish hashing before opening the manifest, including on repeated packaging runs.
+    $releaseDirectory = "$RepoRoot/artifacts/releases"
+    $checksumPath = Join-Path $releaseDirectory 'SHA256SUMS.txt'
+    $releaseFiles = @(Get-ChildItem -LiteralPath $releaseDirectory -File -ErrorAction Stop |
+        Where-Object { $_.Name -ine 'SHA256SUMS.txt' } | Sort-Object Name)
+    $checksumLines = @($releaseFiles | ForEach-Object {
+        "$((Get-FileHash -LiteralPath $_.FullName -Algorithm SHA256 -ErrorAction Stop).Hash)  $($_.Name)"
+    })
+    Set-Content -LiteralPath $checksumPath -Value $checksumLines -ErrorAction Stop
 } catch { Write-Error $_; exit 1 }
