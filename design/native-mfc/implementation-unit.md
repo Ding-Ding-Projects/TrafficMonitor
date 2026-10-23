@@ -63,3 +63,15 @@ The independently releasable product boundary is the productive dashboard plus a
 Independent review must settle the exact snapshot-worker lifetime, owner for typed selection extraction, UI Automation provider interfaces and native rendering technology before implementation starts. Validate the existing P1 reference geometry at normal and minimum sizes, including a real table body and details layout. No source-only result establishes rendered parity.
 
 Decisive checks cover no-accounting-mutation, first-sample/reset/reorder/removal, selection revalidation, close/reopen and queued-delivery safety, setup resume without duplicate effects, disabled-startup preservation, keyboard focus return and each accessible pattern. Parent owns the exact built capture matrix, installer/release regression and public delivery. Any unavailable result remains unverified.
+
+## Independent review decisions accepted for implementation
+
+The rendering backend is HWND-backed Direct2D with DirectWrite. Recreate device-dependent resources after target loss and attempt the Direct2D software target when hardware creation fails. Text input retains native edit behavior for IME and text accessibility.
+
+Custom accessibility uses an explicit UI Automation fragment root and children. Button actions expose Invoke or Toggle. The eventual custom table exposes Grid, Table and Selection; rows expose GridItem, TableItem, SelectionItem and ScrollItem, with Realize when virtualized. The chart must expose its actual time/rate/state samples in an accessible table, not only a decorative summary. COM providers hold invalidatable shared state and never dereference a destroyed HWND or C++ window object.
+
+Snapshot delivery uses a shared latest-const-snapshot mailbox, at most one queued wake, a window-instance generation and monotonic sequence checks. Posted messages carry no pointers. Closing hides immediately and requests stop, then completes an owned asynchronous join. GetAdaptersAddresses is not cancellable, so the UI must not block joining it and must never use TerminateThread. Aggregate values are copied only on their existing owner thread.
+
+Typed selection extraction belongs exclusively to TrafficMonitorDlg. Both legacy and new entry paths use mode, GUID and expected discovery epoch, with fresh GetIfTable2 resolution on the UI thread. Sampling and installer lifecycle implementations are unchanged by this GUI lane.
+
+The first bounded implementation may preserve foundation and observational dashboard work before the entire P1 boundary is finished. Such a checkpoint must list missing setup, custom providers, menu/workbench and parity work explicitly and cannot be labelled a completed P1 release.

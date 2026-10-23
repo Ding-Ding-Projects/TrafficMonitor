@@ -39,3 +39,15 @@
     --md-sys-color-on-error-container: #ffdad6;
   }
 }
+
+/* Preserve complete localized labels inside each button's owning surface. */
+md-filled-button,
+md-outlined-button,
+md-text-button {
+  max-inline-size: 100%;
+  min-inline-size: 0;
+  block-size: auto;
+  white-space: normal;
+  text-wrap: wrap;
+  overflow-wrap: anywhere;
+}
