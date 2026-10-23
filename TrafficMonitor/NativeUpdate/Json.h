@@ -75,7 +75,17 @@ namespace NativeUpdate::Detail
             result.value=input.substr(start,pos-start);
             if(result.value=="true"||result.value=="false")result.type=Json::Boolean;
             else if(result.value=="null")result.type=Json::Null;
-            else {result.type=Json::Number;if(result.value.empty()||result.value.find_first_not_of("0123456789.-+eE")!=std::string::npos)throw std::runtime_error("number");}
+            else
+            {
+                result.type=Json::Number;const auto& value=result.value;size_t i=0;
+                if(i<value.size()&&value[i]=='-')++i;
+                if(i==value.size())throw std::runtime_error("number");
+                if(value[i]=='0')++i;
+                else {if(value[i]<'1'||value[i]>'9')throw std::runtime_error("number");while(i<value.size()&&value[i]>='0'&&value[i]<='9')++i;}
+                if(i<value.size()&&value[i]=='.'){++i;size_t start=i;while(i<value.size()&&value[i]>='0'&&value[i]<='9')++i;if(i==start)throw std::runtime_error("fraction");}
+                if(i<value.size()&&(value[i]=='e'||value[i]=='E')){++i;if(i<value.size()&&(value[i]=='+'||value[i]=='-'))++i;size_t start=i;while(i<value.size()&&value[i]>='0'&&value[i]<='9')++i;if(i==start)throw std::runtime_error("exponent");}
+                if(i!=value.size())throw std::runtime_error("number trailing");
+            }
             return result;
         }
     public:

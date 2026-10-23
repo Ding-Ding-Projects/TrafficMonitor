@@ -141,7 +141,11 @@ namespace NativeUpdate
         {
             if(fs::exists(Staging(root)/L"pending"))
             {
-                auto pending=Pending(root);Publish(state,Phase::Ready,Wide(pending.version));return;
+                auto pending=Pending(root);
+                auto attempts=Staging(root)/(Wide(pending.version)+L".attempts.ini");
+                if(GetPrivateProfileIntW(L"update",L"attempts",0,attempts.c_str())>=2)
+                    Publish(state,Phase::Failed,Wide(pending.version),GetPrivateProfileIntW(L"update",L"last_exit_code",ERROR_RETRY,attempts.c_str()));
+                else Publish(state,Phase::Ready,Wide(pending.version));return;
             }
             Publish(state,Phase::Checking);
             auto deadline=GetTickCount64()+120000;
@@ -171,10 +175,12 @@ namespace NativeUpdate
             while(!state->cancel)
             {
                 if(!state->enabled){state->status.phase=Phase::Disabled;state->wake.wait(lock,[&]{return state->cancel||state->enabled;});continue;}
-                state->check=false;state->networkCancel=false;lock.unlock();
+                state->check=false;state->networkCancel=false;auto started=GetTickCount64();lock.unlock();
                 try{Check(state,root);}catch(...){if(!state->cancel)Publish(state,Phase::Failed,{},ERROR_INVALID_DATA);}
                 lock.lock();
-                state->wake.wait_for(lock,std::chrono::seconds(300),[&]{return state->cancel||state->check||!state->enabled;});
+                auto elapsed=GetTickCount64()-started;
+                auto remaining=elapsed<300000?300000-elapsed:0;
+                state->wake.wait_for(lock,std::chrono::milliseconds(remaining),[&]{return state->cancel||state->check||!state->enabled;});
             }
             state->status.phase=Phase::Stopped;
         }
@@ -227,7 +233,9 @@ namespace NativeUpdate
         int RunHelper(DWORD pid,unsigned long long expectedCreation,HANDLE old)
         {
             auto root=Root();auto staging=Staging(root);
-            std::wstring mutexName=L"Local\\TrafficMonitor.NativeUpdate."+Wide(Digest(Bytes(root.string())));
+            auto rootText=root.wstring();
+            std::vector<unsigned char> identityBytes(reinterpret_cast<const unsigned char*>(rootText.data()),reinterpret_cast<const unsigned char*>(rootText.data()+rootText.size()));
+            std::wstring mutexName=L"Local\\TrafficMonitor.NativeUpdate."+Wide(Digest(identityBytes));
             HANDLE mutex=CreateMutexW(nullptr,TRUE,mutexName.c_str());
             if(!mutex||GetLastError()==ERROR_ALREADY_EXISTS){if(mutex)CloseHandle(mutex);return ERROR_BUSY;}
             struct Close {HANDLE value;~Close(){if(value)CloseHandle(value);}} mutexOwner{mutex};
@@ -306,7 +314,7 @@ namespace NativeUpdate
         std::lock_guard<std::mutex> guard(serviceMutex);if(!service)return false;
         std::lock_guard<std::mutex> lock(service->mutex);
         if(!service->enabled||service->status.phase!=Phase::Ready||!AutomaticRestartEnabled())return false;
-        try{if(!SpawnHelper())return false;service->status.phase=Phase::Applying;service->cancel=true;service->wake.notify_one();return true;}catch(...){service->status.phase=Phase::Failed;service->status.error=ERROR_INVALID_DATA;return false;}
+        try{if(!SpawnHelper()){service->status.phase=Phase::Failed;service->status.error=ERROR_RETRY;return false;}service->status.phase=Phase::Applying;service->cancel=true;service->networkCancel=true;service->wake.notify_one();return true;}catch(...){service->status.phase=Phase::Failed;service->status.error=ERROR_INVALID_DATA;return false;}
     }
     bool ApplyPendingOnLaunch()
     {try{if(!fs::exists(Staging(Root())/L"pending"))return false;return SpawnHelper();}catch(...){return false;}}

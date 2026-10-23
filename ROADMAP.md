@@ -61,3 +61,11 @@ with historical originals retained separately.
 - [ ] Deliver and verify its draft/apply/revert/reset, persistence and recovery behavior when runtime checks resume.
 - [ ] Finish remaining legacy settings, full adjacent regex, language modes and accessibility acceptance.
 
+
+## Silent installed updater candidate, 2026-10-23
+
+- [x] Implement bounded native background checks at five-minute intervals and verified full-package staging.
+- [x] Add cooperative UI readiness, identity-bound process handoff and next-launch application.
+- [x] Preserve explicit update opt-out and provide persisted automatic-restart preference with save failure reporting.
+- [ ] Compile and package the combined backend and native settings candidate.
+- [ ] Verify update, failure, cancellation, recovery, draft deferral and data preservation when runtime checks are authorized again.

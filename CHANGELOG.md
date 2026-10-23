@@ -39,3 +39,10 @@ acceptance. Full regex parity, onboarding and all other unfinished requirements 
 - Add a source-bound normal-release workflow with retained safe build outputs.
 
 Runtime installation and update acceptance remain separate from source and build verification.
+
+## Pending silent installed updates
+
+- Installed builds check the owning normal release channel every five minutes on a bounded background worker.
+- Download and validate full packages quietly, defer cooperative restart through active editors, and retain next-launch apply.
+- Add a persisted automatic-restart preference; preserve the existing automatic-check opt-out.
+- Runtime update and recovery acceptance remain unverified in the current compile/package-only scope.

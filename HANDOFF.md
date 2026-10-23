@@ -142,3 +142,13 @@ Exact root build.bat acquired the missing verified MSVC v143/MFC/SDK components 
 
 At source 113cc83, the corrected documentation build has 172 articles, 1476 history records and zero unavailable images. Real hidden-desktop settings checks covered 48 tuples across 320/1280 px, three language modes, two themes and four scales: zero full-page overflow and zero observed runtime errors. The earlier bilingual 430px overflow was observed, repaired and repeated. This remains narrow layout evidence, not full accessibility, regex, feature or Material Design 3 conformance.
 
+
+## Silent installed updater candidate, 2026-10-23
+
+Source implements an installed-only native worker, strict normal-release ownership/version/hash checks,
+atomic full-package staging, five-minute cadence, persisted automatic-restart control and an
+identity-bound helper that waits for normal save/exit before using the stable Squirrel updater.
+The native UI owns readiness and never restarts through active settings, modal work or drafts.
+Portable updates remain separate. No current installation was changed by this implementation lane.
+Compile/package results are pending. No new tests, reviews, runtime checks or screenshots run in
+this expedited scope. See docs/features/installation/silent-updates.md for limits and remaining proof.
