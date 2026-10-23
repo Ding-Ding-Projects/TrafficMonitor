@@ -127,11 +127,21 @@ namespace NativeUpdate
             }
             if(entries!=1)throw std::runtime_error("empty RELEASES");
         }
+        void ValidateAdmission(const Release& release,const std::vector<unsigned char>& bytes)
+        {
+            auto comparison=Reader(Text(bytes)).parse();
+            auto status=comparison.at("status").text();
+            if((status!="ahead"&&status!="identical")
+                ||comparison.at("base_commit").at("sha").text()!=release.source
+                ||comparison.at("merge_base_commit").at("sha").text()!=release.source)
+                throw std::runtime_error("release outside accepted main channel");
+        }
         Release Pending(const fs::path& root)
         {
             auto pending=Staging(root)/L"pending";
             if(!PlainDirectory(pending))throw std::runtime_error("pending directory");
             auto release=ParseRelease(Read(pending/L"release.json",MetadataLimit),CurrentVersion());
+            ValidateAdmission(release,Read(pending/L"main-admission.json",MetadataLimit));
             auto releases=Read(pending/L"RELEASES",65536),package=Read(pending/Wide(release.package),PackageLimit);
             ValidateFeed(release,releases,package);return release;
         }
@@ -156,6 +166,10 @@ namespace NativeUpdate
             if(split!=std::string::npos&&tag.size()>1&&Version(tag.substr(1,split-1)).numbers<=Version(CurrentVersion()).numbers)
             {Publish(state,Phase::Idle);return;}
             auto release=ParseRelease(metadata,CurrentVersion());
+            // A normal task-branch preservation release is not the accepted update
+            // channel. Require its source to be contained in the owning main history.
+            auto admission=Fetch(L"https://api.github.com/repos/Ding-Ding-Projects/TrafficMonitor/compare/"+Wide(release.source)+L"...main",MetadataLimit,state->networkCancel,deadline);
+            ValidateAdmission(release,admission);
             Publish(state,Phase::Downloading,Wide(release.version));
             const auto base=L"https://github.com/Ding-Ding-Projects/TrafficMonitor/releases/download/"+Wide(release.tag)+L"/";
             auto releases=Fetch(base+L"RELEASES",65536,state->networkCancel,deadline);
@@ -164,7 +178,7 @@ namespace NativeUpdate
             if(state->cancel||state->networkCancel)throw std::runtime_error("cancel");
             auto staging=Staging(root);auto temporary=staging/(L"download-"+std::to_wstring(GetCurrentProcessId())+L"-"+std::to_wstring(GetTickCount64()));
             fs::create_directory(temporary);
-            Write(temporary/L"release.json",metadata);Write(temporary/L"RELEASES",releases);Write(temporary/Wide(release.package),package);
+            Write(temporary/L"release.json",metadata);Write(temporary/L"main-admission.json",admission);Write(temporary/L"RELEASES",releases);Write(temporary/Wide(release.package),package);
             if(state->cancel||state->networkCancel)throw std::runtime_error("cancel");
             if(!MoveFileExW(temporary.c_str(),(staging/L"pending").c_str(),MOVEFILE_WRITE_THROUGH))throw std::runtime_error("publish");
             Publish(state,Phase::Ready,Wide(release.version));
