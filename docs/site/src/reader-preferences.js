@@ -1,9 +1,10 @@
 import {storage} from './wording.js';
+import {isPlainObject,parseReadingOptions} from './reading-options-parser.js';
 
 export const readerDefaults={density:'comfortable',font:'system',measure:'standard',lineHeight:'relaxed',accent:'green',collapseFilters:true};
 const choices={density:['comfortable','compact'],font:['system','serif','sans'],measure:['standard','wide'],lineHeight:['normal','relaxed','spacious'],accent:['green','blue','plum']};
 export function validateReaderPreferences(value){
- if(!value||typeof value!=='object'||Array.isArray(value)||Object.keys(value).some(k=>!Object.hasOwn(readerDefaults,k)))throw Error('Unexpected reading preference');
+ if(!isPlainObject(value)||Object.keys(value).some(k=>!Object.hasOwn(readerDefaults,k)))throw Error('Unexpected reading preference');
  const next={...readerDefaults};for(const [key,item] of Object.entries(value)){if(key==='collapseFilters'){if(typeof item!=='boolean')throw Error('Invalid filter preference');}else if(!choices[key].includes(item))throw Error('Unsupported reading preference');next[key]=item;}return next;
 }
 export function setupReaderPreferences(notify){
@@ -15,7 +16,7 @@ export function setupReaderPreferences(notify){
  document.getElementById('reader-reset')?.addEventListener('click',()=>{if(!storage.remove('reader-preferences')){notify('Stored reading options could not be cleared.',{severity:'warning'});return;}prefs={...readerDefaults};apply();});
  document.getElementById('reader-export')?.addEventListener('click',()=>{const data={schemaVersion:1,encoding:'UTF-8',lineEndings:'LF',preferences:prefs};const url=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)+'\n'],{type:'application/json;charset=utf-8'})),a=document.createElement('a');a.href=url;a.download='reading-preferences.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);});
  document.getElementById('reader-filter-reset')?.addEventListener('click',()=>{try{for(const key of Object.keys(localStorage))if(key.startsWith('trafficmonitor.docs.filters-'))localStorage.removeItem(key);notify('Collection expansion choices cleared. Your default applies on the next page visit.');}catch{notify('Collection expansion choices could not all be cleared.',{severity:'warning'});}});
- const upload=document.getElementById('reader-file');document.getElementById('reader-import')?.addEventListener('click',()=>upload.click());upload?.addEventListener('change',async()=>{try{const file=upload.files[0];if(!file||file.size>8192)throw Error();const data=JSON.parse(await file.text());if(data.schemaVersion!==1||data.encoding!=='UTF-8'||data.lineEndings!=='LF'||Object.keys(data).some(k=>!['schemaVersion','encoding','lineEndings','preferences'].includes(k)))throw Error();const next=validateReaderPreferences(data.preferences);if(!storage.write('reader-preferences',next))throw Error();prefs=next;apply();notify('Reading options imported locally.');}catch{notify('Reading options were not imported. Existing settings are unchanged.',{severity:'warning'});}finally{upload.value='';}});
+ const upload=document.getElementById('reader-file');document.getElementById('reader-import')?.addEventListener('click',()=>upload.click());upload?.addEventListener('change',async()=>{try{const file=upload.files[0];if(!file||file.size>8192)throw Error();const next=validateReaderPreferences(parseReadingOptions(await file.text()));if(!storage.write('reader-preferences',next))throw Error();prefs=next;apply();notify('Reading options imported locally.');}catch{notify('Reading options were not imported. Existing settings are unchanged.',{severity:'warning'});}finally{upload.value='';}});
  // Collection options collapse independently of their always-visible search.
  document.querySelectorAll('.filters').forEach((row,index)=>{
   const controls=[...row.children].filter(el=>el.tagName==='MD-OUTLINED-SELECT'||(el.tagName==='MD-OUTLINED-TEXT-FIELD'&&el.type==='date'));if(!controls.length)return;
