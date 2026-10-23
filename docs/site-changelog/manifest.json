@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "sourceCommit": "04a9a136ae800c4b1c547cf09c1bf3688ac0265a",
-  "entryCount": 750,
+  "entryCount": 802,
   "files": [
     {
       "count": 8,
@@ -26,20 +26,24 @@
     {
       "count": 281,
       "path": "2021.json"
+    },
+    {
+      "count": 52,
+      "path": "2022.json"
     }
   ],
   "coverage": {
     "complete": false,
     "expectedCount": 1413,
-    "representedCount": 750,
-    "remainingCount": 663,
+    "representedCount": 802,
+    "remainingCount": 611,
     "sourceRef": "main",
     "upstreamBaseline": "930f17533d6098989ebad62f210aa97d75ef174b",
     "upstreamCount": 1387,
     "forkCount": 26,
     "representedLineage": "upstream+fork",
     "candidateShaSet": "The 1,387 upstream/master ancestors through upstreamBaseline plus the 26 fork commits reachable from sourceCommit and not from upstreamBaseline.",
-    "upstreamRepresented": 724,
+    "upstreamRepresented": 776,
     "forkRepresented": 26
   }
 }
