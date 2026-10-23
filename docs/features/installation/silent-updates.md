@@ -2,18 +2,20 @@
 
 ## Current updater outcome
 
-| Evidence boundary | Current verified state |
+| Evidence boundary | Current state |
 | --- | --- |
-| Product source/build | Synchronous WM_CLOSE refinement `72f1fc929fe5d3a31b7a6e1ee73de20bb61a6ec3`; exact root local package 1.0.9017 exited 0 (8.79 seconds, 69 warnings, zero errors). Earlier queued 1.0.9016 and source receipts remain historical. |
-| Normal release | [v1.0.29-run39970237810-1](https://github.com/Ding-Ding-Projects/TrafficMonitor/releases/tag/v1.0.29-run39970237810-1), exact source `50288f54a16fb2b0e92464127bd7de8481567a54`, normal flags false/false, published 2026-10-23T14:35:38Z; all four jobs succeeded. |
-| Installed automatic update | Corrected client 1.0.28 naturally updated to package 1.0.29 without a triggered check, manual close/update or preference change. The old process exited; one new process had the exact released executable SHA-256 `129f47fb6e05d398113b0034bf5f484317d8b58094ef35e16b1b146dfdb44bba` and manifest source 50288f54. Main hidden/taskbar visible readiness was verified by metadata. Embedded executable versions remain 1.8.6.0. |
-| Handoff result | Attempt 1; Squirrel result 0; helper launch created/result 0; final helper stage stable-launcher/result 0. Helper file modification was 14:38:08.403841Z, first new-process snapshot 14:38:30.691627Z, before the 14:45:38Z deadline. Applied staging is retained and active pending is absent. The inherited old result 1460 was replaced by the real successful result. |
-| Preservation | Configuration bytes and startup registration match the prepublication baseline. Historical traffic records are unchanged, the current date record remains and its counters are nondecreasing. Monitoring/graceful saves legitimately advanced current traffic, which is not data loss. |
-| Publication | Parent HTTP readback verified home 200, real release 1.0.29 installer link, deployed source/release source 50288f54, 196 complete articles and zero unavailable assets. Deployment completed 2026-10-23T14:37:01Z. Stored About is exactly `https://ding-ding-projects.github.io/TrafficMonitor/`. Availability proof only. |
-| Published wiki | Final acceptance guide at master `90834942e562c1e9828b5a406b6df46a546ae8fa`, exact prepared source `91cebecd4974f745751fbfd23aceeec39fbe9d68`, stored SHA-256 `76fed5052f49af2e8824464c472b12a72ada3a3433497a59fb6fa95e8c360a39`. All seven maintained guides and new wiki commit messages passed the publication-language scan with zero findings. Prior27e proof remains historical. Stored source proven; live wiki interaction unverified. |
-| Remaining acceptance | One real automatic transition is proven. Offline/corrupt input/cancellation/rollback, busy editor/modal/draft/menu deferral, visual/localization/accessibility and repeated future cadence remain unrun. No broad Stage 2 or required-feature completion claim is made. |
+| Current candidate | Readiness handshake source `40a0454acf59b9d1a523a8bcaeb2582bdf21c9e1`. Root `build-installer.bat -Version 1.0.9018`, including `build.bat`, exited 0: 10.34 seconds native production, 69 warnings, zero errors. Compilation/package proof only; corrected runtime remains unverified. |
+| Latest normal release | [1.0.30](https://github.com/Ding-Ding-Projects/TrafficMonitor/releases/tag/v1.0.30-run39973119676-1), exact source `7169bfd48d368af2ef6265db8180fca22ef2267a`, published 2026-10-23T14:55:15Z. This predates the readiness repair. |
+| Natural 29 to 30 result | FAILED. The preserved pre-recovery terminal snapshot at 14:58:42Z found the original process absent, no replacement application, helper launch created/result 0 and helper parent-identity/result 13. The grouped result does not establish which identity subcheck failed. Later manual-process snapshots are excluded from natural acceptance. |
+| Manual recovery | Supported Squirrel update and stable launcher each exited 0, restoring package 1.0.30. Installed executable SHA-256 `6dc703d7644aa4149edf4d07159aecf0e451573b1077ff2b48be458a3f62d3d2` matches the released full package; manifest source is 7169bfd48. Embedded versions remain 1.8.6.0. Main hidden/taskbar visible readiness was observed through metadata. This is MANUAL recovery, not automatic success. |
+| Preservation | Four saved data files remained byte-identical to the terminal post-save baseline through recovery and launch. Startup registration was unchanged. Private raw receipts retain exact process and data identities. |
+| Concrete ordering repair | Helper creation previously permitted parent exit before the helper completed its PID/creation-time/executable queries. One retained helper now acknowledges complete original identity through inherited unnamed handles. Normal UI preparation uses zero-timeout probes; startup waits at most ten seconds. Only live validated readiness permits the existing synchronous cooperative WM_CLOSE after the same-thread safe UI decision. Timeout, cancellation or early helper exit leaves monitoring running. |
+| Historical success | One genuine 1.0.28 to 1.0.29 natural transition remains proven by the immutable [acceptance receipt](silent-natural29-acceptance.json): exact released bytes, helper stable-launcher/result 0, relaunch and preservation. That one success does not negate the later result 13. |
+| Publication | Parent verified live home 200, actual 1.0.30 Setup link, deployed source/release source 7169bfd48, 196 articles and zero unavailable assets. About remains `https://ding-ding-projects.github.io/TrafficMonitor/`. Availability is separate from installed behavior. |
+| Stored wiki | Published master `90834942e562c1e9828b5a406b6df46a546ae8fa` matches prepared source `91cebecd4974f745751fbfd23aceeec39fbe9d68`, SHA-256 `76fed5052f49af2e8824464c472b12a72ada3a3433497a59fb6fa95e8c360a39`. Seven maintained guides passed publication-language scanning. This newer readiness guide is prepared, publication pending; live interaction remains unverified. |
+| Remaining acceptance | Readiness protocol, timeout/cancellation and later actual natural transition remain unverified. Offline/corrupt input/rollback, busy editor/modal/draft/menu deferral, visual/localization/accessibility and repeated cycles remain unrun. No broad completion claim. |
 
-The bounded natural-update receipt is `docs/features/installation/silent-natural29-acceptance.json`. Source, local production, normal release, stored publication and this one natural update are distinct proof. No tests, audits, reviews, UI quality checks or screenshots ran.
+The [candidate production receipt](silent-readiness-build.json) preserves source and output bindings. No tests, audits, reviews, UI quality checks or screenshots ran.
 
 ## Historical implementation and production records
 
@@ -58,8 +60,11 @@ against Squirrel.Windows tag `2.0.1`, `src/Update/StartupOption.cs` and
 `src/Update/Program.cs`. Squirrel lifecycle callbacks are handled first and do not
 start the network worker.
 
-The helper inherits only a handle to the exact originating process, verifies its
-PID, creation time and executable, and waits for its actual graceful exit. It never
+The helper inherits only four exact owned handles: the originating process and
+unnamed validated, permission and cancellation events. It verifies PID, creation
+time and executable before signaling readiness. The parent checks helper liveness
+and deadline without waiting on the normal UI thread before granting exit permission.
+The helper then waits for the actual graceful parent exit. It never
 terminates that process or a child, restarts Explorer, or changes host power/login
 state. Application-local runtime files remain available in the old version while
 the helper runs. A named installation lock and the regular instance mutex prevent

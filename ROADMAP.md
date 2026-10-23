@@ -125,3 +125,11 @@ with historical originals retained separately.
 
 - [ ] Verify offline/corrupt input/cancellation/rollback paths in an authorized acceptance pass.
 - [ ] Verify busy editor/modal/draft/menu deferral, visual/accessibility/localization and multiple future cadence cycles.
+
+## Validated helper readiness candidate
+
+- [x] Implement complete original-identity acknowledgment before parent exit, nonblocking normal UI polling and bounded early-startup preparation.
+- [x] Produce local 1.0.9018 through the exact root installer/build entrypoints, with source-bound receipt.
+- [x] Restore matching installed 1.0.30 manually after the natural result13 regression, preserving saved data and startup.
+- [ ] Observe the readiness correction in a later actual accepted natural transition; compilation does not discharge this item.
+- [ ] Verify cancellation, timeout, busy/modal/draft deferral and other unrun negative modes when authorized.

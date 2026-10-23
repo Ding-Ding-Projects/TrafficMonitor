@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "40a0454acf59b9d1a523a8bcaeb2582bdf21c9e1",
+  "command": "build-installer.bat -Version 1.0.9018",
+  "rootBuildEntrypoint": "build.bat",
+  "version": "1.0.9018",
+  "exitCode": 0,
+  "nativeElapsed": "00:00:10.34",
+  "warnings": 69,
+  "errors": 0,
+  "inputState": "Clean fixed source unchanged throughout production.",
+  "scope": "Compilation and packaging only. Readiness handshake runtime remains unverified. No tests, reviews, audits, UI quality checks or screenshots.",
+  "outputs": [
+    {
+      "path": "Bin/x64/Release (lite)/TrafficMonitor.exe",
+      "bytes": 2307584,
+      "sha256": "4f42743e2c022489fdb8dfc22870d80397866709c608ab8a3dbea165fec43b03"
+    },
+    {
+      "path": "artifacts/releases/Setup.exe",
+      "bytes": 8462336,
+      "sha256": "331763b508651e4aafe766d45d17a439d46465f0b3e85fb9b7cd9168681b54fd"
+    },
+    {
+      "path": "artifacts/releases/TrafficMonitor-1.0.9018-full.nupkg",
+      "bytes": 7582286,
+      "sha256": "2fd6195e1374350a31734f23fc11bc411e734964249a9f9ee2d26b04806c0810"
+    },
+    {
+      "path": "artifacts/releases/RELEASES",
+      "bytes": 1590,
+      "sha256": "c11072b224a83089b7043d7e3928d97699f338f18d9fb8094d887e4c6ac56a28"
+    },
+    {
+      "path": "artifacts/releases/SHA256SUMS.txt",
+      "bytes": 2100,
+      "sha256": "6d738b7f97cfb429cf7d8a46711db1f63108fc3f7ada007849cabcb36aaa0559"
+    }
+  ]
+}

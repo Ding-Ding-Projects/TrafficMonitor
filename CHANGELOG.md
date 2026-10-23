@@ -93,3 +93,11 @@ Runtime installation and update acceptance remain separate from source and build
 
 - Refine the unpublished queued-close candidate to synchronous WM_CLOSE on the checked UI thread, marking closing before dispatch and returning without later window access. Remove its unused unreleased queue-failure API.
 - Retain 1.0.9016 as historical and record source-bound local 1.0.9017 production. Automatic restart remains unverified.
+
+## Pending validated updater readiness
+
+- Require complete inherited parent PID, creation-time and executable validation before either normal UI close or early startup exit.
+- Retain one helper with zero-timeout UI readiness/exit probes, unnamed exact-handle acknowledgment and cooperative cancellation. Early startup alone may wait up to ten seconds.
+- Keep synchronous cooperative WM_CLOSE, same-thread safe UI checks, accepted-main and package/feed integrity, stable-launcher recovery after trust, and bounded attempts.
+- Split fixed numeric parent diagnostics into handle/PID, time-query/creation, image-query/path and readiness stages.
+- Record later natural 29-to-30 result 13 separately from successful manual recovery; the exact failing identity subcheck remains unproven. Local 9018 production is not runtime acceptance.

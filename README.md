@@ -1,6 +1,6 @@
 [Documentation website](https://ding-ding-projects.github.io/TrafficMonitor/)
 
-Current updater outcome: the corrected installed 1.0.28 client naturally updated to normal package 1.0.29 with exact source/executable bytes, one successful helper/Squirrel/launcher handoff, preserved configuration/startup and retained traffic history. This is one genuine automatic transition; negative, busy/modal, visual and repeated-cadence acceptance remain unrun. See the [current evidence boundaries](docs/features/installation/silent-updates.md#current-updater-outcome). Older version paragraphs below are historical.
+Current updater outcome: the later natural 1.0.29 to 1.0.30 attempt failed with helper parent-identity/result 13 after the old client exited. Manual recovery restored verified 1.0.30 with saved data/startup preserved. A bounded identity-readiness handshake is compiled and packaged as local 1.0.9018, with runtime acceptance pending. The real 1.0.28 to 1.0.29 success remains historical. See [current evidence boundaries](docs/features/installation/silent-updates.md#current-updater-outcome).
 
 **English | [简体中文](./README_zh-CN.md)**
 
