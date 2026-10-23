@@ -179,3 +179,15 @@ evidence/builds/silent-updates/local-1.0.9005.json binds the actual source and h
 Earlier 1.0.9003 and intermediate 1.0.9004 packages are historical and superseded.
 No runtime, tests, reviews, audits or screenshots were run; publication and installed
 application remain the parent task's separately authorized work.
+
+## Matching installation state reported by the parent task
+
+After this lane's 1.0.9005 producer completed, the separately assigned installed-update
+lane reported that accepted normal release 1.0.18 was applied through the stable Squirrel
+updater and launcher, both exit 0. Its installed executable SHA-256 is
+19776bfd7c6995b0eb3ca49a9d5ac99488afb72ce25658b4aeda28aa94ab8642. That lane reported
+post-save configuration/history and startup preservation, hidden main window and visible
+taskbar monitor from metadata only. This implementation lane did not repeat that action
+or runtime check. The automatic updater is still a source/build candidate; installation
+1.0.18 does not prove its new automatic behavior. The parent read back main at
+fa08759cc4dc78811903aa259988aa2224880ad1 before this candidate's integration.

@@ -14,3 +14,9 @@ source preservation to the remote, normal release publication and separately aut
 accepted installed update. Failure/cancellation/draft deferral/preservation runtime
 acceptance remains unverified. The task branch is preserved locally and must not be
 deleted before its source is integrated and the remote ancestry is proven.
+
+The separately assigned installed-update lane has reported accepted 1.0.18 applied with
+stable updater/launcher exit 0, executable SHA-256
+19776bfd7c6995b0eb3ca49a9d5ac99488afb72ce25658b4aeda28aa94ab8642,
+post-save data and startup preserved, hidden main/visible taskbar by metadata only.
+This implementation lane did not repeat or independently verify that action.
