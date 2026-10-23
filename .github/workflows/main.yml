@@ -1,109 +1,72 @@
-name: Release CI
+name: Native x64 release
 on:
   push:
-    tags: ['v*']
+    branches: [main]
   workflow_dispatch:
-
+permissions:
+  contents: write
+concurrency:
+  group: trafficmonitor-release-${{ github.ref }}
+  cancel-in-progress: false
 jobs:
-
-  x64_build:
-    runs-on: windows-latest
-
+  build-release:
+    runs-on: windows-2022
+    timeout-minutes: 60
+    env:
+      GH_TOKEN: ${{ secrets.RELEASE_TOKEN || secrets.ORG_TOKEN || secrets.GITHUB_TOKEN }}
     steps:
-    - uses: actions/checkout@v3
-      
-    - name: Add msbuild to PATH
-      uses: microsoft/setup-msbuild@v2
-      
-    - name: Run msbuild
-      run: msbuild TrafficMonitor_Lite.sln -p:configuration="Release (lite)" -p:platform=x64 -p:platformToolset=v143
-      
-    - name: Get current time
-      uses: josStorer/get-current-time@v2.0.2
-      id: current-time
-      with:
-        format: YYYYMMDD_HHmmss
-        utcOffset: "+08:00"
-      
-    - name : Upload artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: x64_${{ steps.current-time.outputs.formattedTime }}_TrafficMonitor
-        path: |
-          Bin/x64/Release (lite)/TrafficMonitor.exe
-          Bin/x64/Release (lite)/*.dll
-
-    - name : Upload pdb files
-      uses: actions/upload-artifact@v4
-      with:
-        name: x64_${{ steps.current-time.outputs.formattedTime }}_pdb
-        path: Bin/x64/Release (lite)/*.pdb
-
-  x86_build:
-    runs-on: windows-latest
-
-    steps:
-    - uses: actions/checkout@v3
-      
-    - name: Add msbuild to PATH
-      uses: microsoft/setup-msbuild@v2
-      
-    - name: Run msbuild
-      run: msbuild TrafficMonitor_Lite.sln -p:configuration="Release (lite)" -p:platform=x86 -p:platformToolset=v143
-      
-    - name: Get current time
-      uses: josStorer/get-current-time@v2.0.2
-      id: current-time
-      with:
-        format: YYYYMMDD_HHmmss
-        utcOffset: "+08:00"
-      
-    - name : Upload artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: x86_${{ steps.current-time.outputs.formattedTime }}_TrafficMonitor
-        path: |
-          Bin/Release (lite)/TrafficMonitor.exe
-          Bin/Release (lite)/*.dll
-      
-    - name : Upload pdb files
-      uses: actions/upload-artifact@v4
-      with:
-        name: x86_${{ steps.current-time.outputs.formattedTime }}_pdb
-        path: Bin/Release (lite)/*.pdb
-
-  arm64ec_build:
-    runs-on: windows-latest
-
-    steps:
-    - uses: actions/checkout@v3
-      
-    - name: Add msbuild to PATH
-      uses: microsoft/setup-msbuild@v2
-      
-    - name: Run msbuild
-      run: msbuild TrafficMonitor_Lite.sln -p:configuration="Release (lite)" -p:platform=ARM64EC -p:platformToolset=v143
-      
-    - name: Get current time
-      uses: josStorer/get-current-time@v2.0.2
-      id: current-time
-      with:
-        format: YYYYMMDD_HHmmss
-        utcOffset: "+08:00"
-
-    # - name: Move dll file path 
-    #   run: mv Bin/x64/Release/*.dll  Bin/ARM64EC/Release/
-
-    - name : Upload artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: arm64EC_${{ steps.current-time.outputs.formattedTime }}_TrafficMonitor
-        path: |
-          Bin/ARM64EC/Release (lite)/TrafficMonitor.exe
-          Bin/ARM64EC/Release (lite)/*.dll
-
-    - name : Upload pdb files
-      uses: actions/upload-artifact@v4
-      with:
-        name: arm64EC_${{ steps.current-time.outputs.formattedTime }}_pdb
-        path: Bin/ARM64EC/Release (lite)/*.pdb
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Record source and release version
+        shell: pwsh
+        run: |
+          if ('${{ github.ref }}' -ne 'refs/heads/main') { throw 'Publication requires main' }
+          $version = "1.0.${{ github.run_number }}"
+          "PACKAGE_VERSION=$version" >> $env:GITHUB_ENV
+          "RELEASE_TAG=v$version-run${{ github.run_id }}-${{ github.run_attempt }}" >> $env:GITHUB_ENV
+          "WORKFLOW_STARTED=$([DateTime]::UtcNow.ToString('o'))" >> $env:GITHUB_ENV
+      - name: Build native x64
+        shell: cmd
+        run: build.bat /s
+      - name: Build genuine unsigned Squirrel installer
+        shell: cmd
+        run: build-installer.bat -Version %PACKAGE_VERSION%
+      - name: Publish normal source-bound release
+        shell: pwsh
+        run: |
+          $sha = '${{ github.sha }}'
+          git fetch origin main
+          git merge-base --is-ancestor $sha origin/main
+          if ($LASTEXITCODE -ne 0) { throw 'Source is not in main lineage' }
+          $completed = [DateTime]::UtcNow
+          $started = [DateTime]::Parse($env:WORKFLOW_STARTED).ToUniversalTime()
+          $duration = ($completed - $started).ToString('hh\:mm\:ss')
+          $body = "Native x64 Release (lite). Unsigned Squirrel.Windows installer with application-local CRT and MFC. Source: $sha`n`nWorkflow started: $($started.ToString('o'))`nWorkflow completed: $($completed.ToString('o'))`nWorkflow duration: $duration`n`nTiming is measured through publication preparation; final API publication completion is recorded in the workflow output. Dim-sum catalogue selection is unavailable in this build; version-only title used."
+          $body | Set-Content artifacts/release-notes.md
+          gh release create $env:RELEASE_TAG artifacts/releases/Setup.exe artifacts/releases/RELEASES artifacts/releases/*-full.nupkg artifacts/releases/SHA256SUMS.txt --target $sha --title "TrafficMonitor $env:PACKAGE_VERSION" --notes-file artifacts/release-notes.md
+          if ($LASTEXITCODE -ne 0) { throw 'Release publication failed' }
+          $release = gh release view $env:RELEASE_TAG --json isDraft,isPrerelease,assets | ConvertFrom-Json
+          if ($release.isDraft -or $release.isPrerelease -or $release.assets.Count -lt 4) { throw 'Normal release asset verification failed' }
+          $ref = gh api "repos/${{ github.repository }}/git/ref/tags/$env:RELEASE_TAG" | ConvertFrom-Json
+          if ($ref.object.type -ne 'commit' -or $ref.object.sha -ne $sha) { throw 'Release tag source binding failed' }
+          Write-Host "Publication completed $([DateTime]::UtcNow.ToString('o'))"
+      - name: Collect safe run context
+        if: ${{ always() }}
+        continue-on-error: true
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force artifacts/logs | Out-Null
+          @{runId='${{ github.run_id }}';sourceCommit='${{ github.sha }}';jobStatus='${{ job.status }}';runnerOS='${{ runner.os }}';runnerArch='${{ runner.arch }}'} | ConvertTo-Json | Set-Content artifacts/logs/run-context.json
+      - name: Preserve safe outputs
+        if: ${{ always() }}
+        continue-on-error: true
+        uses: actions/upload-artifact@v4
+        with:
+          name: trafficmonitor-x64-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            artifacts/logs/*.log
+            artifacts/logs/run-context.json
+            artifacts/releases/*
+          if-no-files-found: warn
+          retention-days: 14
