@@ -93,3 +93,8 @@ with historical originals retained separately.
 
 - [x] Compile and package uppercase Squirrel SHA-1 compatibility and bounded local status diagnostics at f63e8a456befcd2f6d726712182f6e2a01e9cc11 as local-only 1.0.9007, exit 0.
 - [ ] Observe automatic update behavior, modal/draft deferral and recovery when runtime verification is authorized.
+
+## UTF-8 updater feed marker repair
+
+- [ ] Compile/package leading UTF-8 feed marker compatibility and fixed integrity substages.
+- [ ] Verify automatic update behavior when runtime checks are authorized.

@@ -64,3 +64,9 @@ Runtime installation and update acceptance remain separate from source and build
 - Accept uppercase and lowercase SHA-1 spelling from Squirrel while retaining exact hash, byte-size and single-package verification.
 - Retain bounded local updater stage, phase, numeric transport result and HTTP status without response bodies or URLs. Managed startup rejection now remains a failed status instead of disappearing as disabled.
 - Compile/package evidence is recorded separately. Automatic scheduling, safe restart and recovery remain unverified.
+
+## Pending UTF-8 updater feed marker repair
+
+- Verify the original RELEASES bytes before skipping one leading UTF-8 BOM for row parsing.
+- Preserve strict digest, size, basename, entry count and accepted-main checks; record fixed local integrity rejection substages.
+- Runtime automatic-update acceptance remains unverified.

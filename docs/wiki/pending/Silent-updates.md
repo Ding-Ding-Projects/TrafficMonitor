@@ -127,3 +127,23 @@ reported two LNK4199 warnings, zero errors and elapsed 15.28 seconds. The
 This is local production evidence only, not publication, installation or automatic-update
 acceptance. No tests, reviews, audits, runtime checks or screenshots ran. Full Stage 2,
 automatic cadence, restart deferral and recovery remain unfinished.
+
+## UTF-8 feed marker repair
+
+The public 1.0.23 RELEASES file begins with bytes EF BB BF before its valid
+forty-character SHA-1 field. The native reader previously included that UTF-8 marker
+in the field and rejected its length. The repair verifies the original feed length
+and SHA-256 first, then skips only one leading UTF-8 marker for row parsing. Package
+bytes, both package digests, exact basename, single-entry checks and accepted-main
+admission are unchanged. It accepts neither arbitrary prefixes nor a marker inside
+a field. Static package inspection confirmed the public package SHA-1 matches the
+feed; this is format evidence, not execution of the updater or automatic-update proof.
+
+Integrity rejection now retains one fixed local substage: feed-size, feed-sha256,
+package-size, package-sha256, feed-format, feed-entry-count or package-sha1. The
+numeric validation result remains 13. No observed or expected hashes, payload bytes,
+URLs, response text, user content or credentials enter this diagnostic file.
+
+Production evidence for this repair is recorded separately. No tests, runtime probes,
+reviews, audits, interface interaction or screenshots are run in the expedited mode.
+Automatic scheduling, cooperative restart, recovery and full Stage 2 remain unfinished.

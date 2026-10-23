@@ -344,3 +344,7 @@ Exact build-installer.bat -Version 1.0.9010, including root build.bat, exited 0 
 ## Passive tooltip documentation production and handoff
 
 The final caller correction is packaged as local 1.0.9010 from 5916a1293ba943162a4396629e7b81b0eef4a2bc. Article content is bound to eeeb8a62f3f0f9d78e9c31c6dd058437db66466d; manifest/static producer 5b9ab1588056a105e5ed2afee2cd9af9d350dfdd started clean and remained pinned. Exact build.bat --site exited 0 with 194 complete articles (166 repository and 28 inherited wiki), 1,574 history records and zero unavailable local images. Receipt: docs/features/installation/passive-tooltip-site-build-receipt.json. The narrow source/previous-metadata finding does not establish the cause of all earlier update delays. No new runtime data, tests, review, screenshots, release or installation were collected or performed. Full runtime acceptance remains unfinished; coordinating task owns integration and publication.
+
+## UTF-8 updater feed marker repair
+
+Static inspection of the public 1.0.23 RELEASES bytes found EF BB BF before its valid uppercase SHA-1. The reader included the marker in its first field and rejected the resulting length. Package SHA-1 matched the published feed. The reader now verifies raw feed bytes and skips only a leading UTF-8 marker for row parsing, preserving every digest/size/source invariant. Fixed local integrity rejection substages retain numeric error 13. Production is pending. No updater code was executed against those files; no runtime, installation or automatic-update acceptance is claimed.
