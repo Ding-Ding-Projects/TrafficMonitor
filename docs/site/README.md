@@ -1,0 +1,24 @@
+# Static documentation renderer
+
+Run the repository root `build.bat --site`. It installs the locked dependencies through the repository's pinned Node route and invokes `docs/site/build.mjs`. Output is `docs/site/dist`, with the fixed project base `/TrafficMonitor/`. Generated output and dependency directories are ignored.
+
+## Delivered source
+
+- Task-oriented overview, explanatory display selector, five-step reading walkthrough with browser-local progress, back/next and reset.
+- Complete manifest-selected article pages, category indexes, source links, source-language labels, heading navigation and local image rewriting. Repository articles are read from the exact pinned Git blob and checked against the supplied SHA-256. Wiki originals are read unchanged and checked too.
+- Downloads sourced only from the checked-in normal-release metadata. No runtime latest-release lookup.
+- Changelog renderer accepts complete upstream translations and preserves fork `originalMessage` verbatim. Plain-text search, date, category and lineage filters operate on locally generated JSON.
+- Reading preferences, system/light/dark themes, text scale and reduced motion. English, Cantonese and bilingual navigation labels are available. Long-form walkthrough, settings and feedback localization remains incomplete.
+- Local personal-wording upload accepts the version 1 object mapping schema, rejects duplicate/unsafe keys, wrong types, extra fields and oversized files before application. Stored mappings remain browser-local and are never bundled, logged or exported. Clearing restores original controlled labels.
+
+## Component provenance
+
+`@material/web` 2.5.0 supplies real registered filled, outlined and text buttons, outlined text fields, checkboxes and switches. esbuild bundles those implementations locally, retaining linked legal comments. `package-lock.json` pins exact transitive integrity. Native HTML provides document landmarks, links, selects, file inputs and dates. This is a hybrid document surface, not a claim that every HTML control is a Material component.
+
+marked 18.1.1 parses original Markdown. DOMPurify 3.4.17 with jsdom 30.1.3 sanitizes rendered markup before link processing. External images become explicit original-image links; no remote image asset is silently fetched as a current screenshot. Historical documentation is visibly labelled.
+
+## Verification and remaining delivery
+
+Three focused Node tests passed for wording validation and path containment. The first exact `build.bat --site` attempt stopped in the shared download helper because `Get-FileHash` was unavailable. That entrypoint repair is owned separately. This source checkpoint has no successful rendered-build or browser-evidence claim.
+
+The complete history dataset, refreshed article inventory, deployment, internal link/anchor audit, keyboard and persistence drive, current screenshot promotion, full language coverage and normal/minimum theme/scale visual matrix remain acceptance work. Full regex-workbench parity and the broader required-feature inventory are explicitly unfinished. The current implementation offers plain-text search only and does not execute regular expressions or control the installed application.
