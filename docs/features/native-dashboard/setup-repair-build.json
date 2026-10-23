@@ -1,0 +1,39 @@
+{
+  "checks": {
+    "removedSkipNegative": "expected assertion failure, exit -1073740791",
+    "partialOperationPositive": "passed"
+  },
+  "nativeBuild": {
+    "errors": 0,
+    "warnings": 78,
+    "seconds": 16.3
+  },
+  "command": "build-installer.bat -Version 1.0.9021",
+  "runtime": "pending authorized current-host handoff",
+  "release": "local package only",
+  "outputs": [
+    {
+      "sha256": "6e804f0553c68b2701d4cdd63c28f7cf8cf8773417f686ae3bc33463752b162e",
+      "bytes": 8480768,
+      "path": "artifacts/releases/Setup.exe"
+    },
+    {
+      "sha256": "fa8cd0c827294863ffb137b946a299b44b5afa9fb028c45c3bdc72553e54c0fc",
+      "bytes": 7600171,
+      "path": "artifacts/releases/TrafficMonitor-1.0.9021-full.nupkg"
+    },
+    {
+      "sha256": "00aa270ef8ec2118e6c325d3ead518a9fc0a065d4a98cc47bfa32d31b38b6702",
+      "bytes": 418,
+      "path": "artifacts/releases/RELEASES"
+    },
+    {
+      "sha256": "78fed72ae9db1ea2b7188989c1256eec257fa280326c02bd4cb61ed3f5d28ce6",
+      "bytes": 2351616,
+      "path": "Bin/x64/Release (lite)/TrafficMonitor.exe"
+    }
+  ],
+  "sourceCommit": "4624978c31bdcd0d40e613339c214f39e6a6c550",
+  "exitCode": 0,
+  "schemaVersion": 1
+}

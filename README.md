@@ -240,3 +240,9 @@ The current automatic updater synchronously sends a real WM_CLOSE on the already
 Current updater baseline: normal 1.0.32 is naturally installed; the [sanitized acceptance receipt](docs/features/installation/silent-natural32-acceptance.json) binds publication, original baseline, replacement process, exact released executable/source and preservation. Earlier failed29-to30 and manual31 records remain historical. One success is not a general reliability claim.
 
 Release 1.0.28 documentation availability is verified: home and required CSS/JavaScript return HTTP 200, the real installer link is present, and About points exactly to the deployed home. The [current updater outcome](docs/features/installation/silent-updates.md#current-updater-outcome) separates that publication from its manual installation and pending automatic transition.
+
+## Native first-open setup candidate
+
+The first explicit Open dashboard action now opens a resumable native setup wizard until its four steps are completed. Login and ordinary monitoring launch do not enter setup. Language and message-style controls currently apply to this wizard only. Adapter choices resolve current GUID identities, taskbar changes use an idempotent wrapper around the existing consumer, and startup uses the existing installed/portable registration route. Save and close preserves only the bounded draft. Successful partial operations remain recorded for retry; completion requires saved outcomes.
+
+Source implementation compiled and packaged through the exact root build-installer.bat -Version 1.0.9019 at a500e6c, exit 0 (23.64 seconds, 114 warnings, zero errors). See [production receipt](docs/features/native-dashboard/setup-build.json). Runtime, accessibility, language/theme/DPI and visual acceptance are pending. Broader interface conversion, complete search-builder parity and universal required features remain unfinished. See [first-open setup](docs/features/native-dashboard/setup.md).

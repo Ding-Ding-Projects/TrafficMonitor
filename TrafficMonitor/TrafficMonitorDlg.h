@@ -25,6 +25,7 @@
 #include "PdhHardwareQuery/GpuUsage.h"
 #include "PdhHardwareQuery/DiskUsage.h"
 #include "HistoryTrafficFile.h"
+#include "NativeDashboard/SetupFlow.h"
 
 // CTrafficMonitorDlg 对话框
 class CTrafficMonitorDlg : public CDialog
@@ -36,6 +37,11 @@ public:
     CTaskBarDlg* GetTaskbarWindow() const;
 
     static CTrafficMonitorDlg* Instance();
+    NativeDashboard::Setup::Selection SetupSelection();
+    bool SetupAdapterEligible(ULONG index);
+    bool ApplySetupSelection(const NativeDashboard::Setup::Selection& selection, std::uint64_t expectedEpoch);
+    bool SetSetupTaskbar(bool visible);
+    bool SetupTaskbarMatches(bool visible) const;
 
     // 对话框数据
 #ifdef AFX_DESIGN_TIME

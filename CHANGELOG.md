@@ -113,3 +113,9 @@ Runtime installation and update acceptance remain separate from source and build
 - Keep synchronous cooperative WM_CLOSE, same-thread safe UI checks, accepted-main and package/feed integrity, stable-launcher recovery after trust, and bounded attempts.
 - Split fixed numeric parent diagnostics into handle/PID, time-query/creation, image-query/path and readiness stages.
 - Record later natural 29-to-30 result 13 separately from successful manual recovery; the exact failing identity subcheck remains unproven. Local 9018 production is not runtime acceptance.
+
+## Native first-open setup candidate
+
+The first explicit Open dashboard action now opens a resumable native setup wizard until its four steps are completed. Login and ordinary monitoring launch do not enter setup. Language and message-style controls currently apply to this wizard only. Adapter choices resolve current GUID identities, taskbar changes use an idempotent wrapper around the existing consumer, and startup uses the existing installed/portable registration route. Save and close preserves only the bounded draft. Successful partial operations remain recorded for retry; completion requires saved outcomes.
+
+Source implementation compiled and packaged through the exact root build-installer.bat -Version 1.0.9019 at a500e6c, exit 0 (23.64 seconds, 114 warnings, zero errors). See [production receipt](docs/features/native-dashboard/setup-build.json). Runtime, accessibility, language/theme/DPI and visual acceptance are pending. Broader interface conversion, complete search-builder parity and universal required features remain unfinished. See [first-open setup](docs/features/native-dashboard/setup.md).

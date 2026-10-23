@@ -1,0 +1,42 @@
+{
+  "sourceCommit": "11ad9cd297d56f4884ae044f521a0c154b6ec971",
+  "screenshots": "Private raw captures inspected; blank native-button pixels remain unresolved and are not promoted.",
+  "firstAttempt": {
+    "exitCode": 1,
+    "sourceCommit": "8b6322a40d1ef362f1cb3ed01ea680ae8fef398e",
+    "reason": "C2660 on unqualified NotifyWinEvent, corrected in the production source."
+  },
+  "outputs": [
+    {
+      "bytes": 8481792,
+      "sha256": "baf95821f6465bf2ae33d5018087daa97afd75b6d9fbc2479af810fd122c91c4",
+      "path": "artifacts/releases/Setup.exe"
+    },
+    {
+      "bytes": 7601603,
+      "sha256": "b10e408cd96d8bd739147de4180dd84c867bd691649e3096eb52c7867d24012e",
+      "path": "artifacts/releases/TrafficMonitor-1.0.9020-full.nupkg"
+    },
+    {
+      "bytes": 250,
+      "sha256": "35829eef9abf8d2fcec9c169d3e3a064115b0754cb38abbbca8fd8783372fd54",
+      "path": "artifacts/releases/RELEASES"
+    },
+    {
+      "bytes": 2350592,
+      "sha256": "d0447ab5b69863bd319339abaed50227790713c867b2517883405de14b327c94",
+      "path": "Bin/x64/Release (lite)/TrafficMonitor.exe"
+    }
+  ],
+  "release": "local package only",
+  "nativeBuild": {
+    "seconds": 6.61,
+    "errors": 0,
+    "warnings": 2
+  },
+  "command": "build-installer.bat -Version 1.0.9020",
+  "schemaVersion": 1,
+  "exitCode": 0,
+  "runtime": "Bounded English portable flow verified: first explicit open, next, save and close, reopen at step 2, Keep current taskbar/startup, Apply, complete=true with three successful outcomes, Network workspace opened.",
+  "runtimeBlocker": "Keyboard, UIA, adapter churn, partial failures and complete language/theme/scale layout matrix remain unverified."
+}
