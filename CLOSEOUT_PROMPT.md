@@ -1,5 +1,13 @@
 # Continuation handoff
 
+## Required-feature audit lane
+
+Objective: add a bounded local validator for the reviewed 110 public required-feature identities, eight surfaces and eight proof dimensions, without implementing product features or changing the release workflow. Owning branch: `ai/feature/20261023-required-feature-audit`, based on `f795e86b309cb72f80e030fe7c802ea9c44b4fd2`. Changed scripts: `scripts/required-feature-audit.mjs`, `scripts/test-required-feature-audit.mjs`; contract: `docs/features/required-features/acceptance.md`; direct handoff/roadmap/changelog records updated.
+
+Final unchanged focused command `node scripts/test-required-feature-audit.mjs` exited 0: 141 checks passed. Diagnostic inventory: 110 identities, zero structural errors, 1499 acceptance gaps, complete false. Strict acceptance exited 1. Product implementation and runtime completeness remain unfinished. Source and evidence revisions are independent exact commits; complete receipts require owning feature/surface and immutable file hashes. Shared historical links remain gaps. No tests/lint were added to CI, no GUI action or host change occurred, and no product build was required by this script/documentation-only change.
+
+Next owner: coordinating maintainer independently reviews the final delta and mutation cases, preserves/pushes this lane, integrates completed validator work into main and verifies remote publication. This record is written before its owning commit; commit identity and remote proof must be added in the private handoff after those operations. No remote completion or broader release-grade closeout is claimed here.
+
 ## Current integration
 
 Release-grade completion and scoped cleanup are active and unfinished. This integration combines the updater preparation repair from main with native setup tip 5eb7eaef934943481e0c790a51eb269a3f53d0aa. Their original receipts retain their source bindings. Integrated root build-installer.bat -Version 1.0.9023 at cb0add4808a8ece040ffc76668bce290bcf8a65f exited0, 17.98 seconds native production, 78 warnings and zero errors; see docs/features/installation/integrated-9023-build.json. No new build was run in this documentation turn. No cleanup has started. The fresh archive destination remains awaiting the current-pass answer.

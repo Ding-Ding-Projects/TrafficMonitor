@@ -1,5 +1,13 @@
 # TrafficMonitor delivery roadmap
 
+## Required-feature audit validator
+
+- [x] Add an independent handwritten 110-ID validator retaining eight surface rows and eight proof dimensions.
+- [x] Keep diagnostic unfinished output separate from strict completion acceptance and verify false-complete rejection.
+- [x] Observe 141 focused local mutation/CLI checks pass on unchanged final inputs, with the baseline still reporting 1499 acceptance gaps.
+- [ ] Independently review and integrate the bounded validator; verify remote source/publication.
+- [ ] Supply complete per-surface implementation, source-bound runtime, per-click evidence and item-specific negative acceptance.
+
 ## Integrated natural35 evidence
 
 - [x] Preserve reviewed source-bound natural 1.0.34 to 1.0.35 acceptance and all four release asset byte/hash records.

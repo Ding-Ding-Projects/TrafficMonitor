@@ -1,5 +1,11 @@
 # TrafficMonitor implementation handoff
 
+## Local required-feature audit
+
+Added `scripts/required-feature-audit.mjs` and local-only `scripts/test-required-feature-audit.mjs`; no release workflow changed. The reviewed public 110-ID set, eight surfaces and eight proof dimensions are fixed independently of discovery. Diagnostic mode reports structurally valid unfinished declarations; `--require-complete` rejects incomplete acceptance. Independent per-surface proof and immutable source/evidence receipts are required for complete claims. See [audit contract and remaining gaps](docs/features/required-features/acceptance.md).
+
+Final unchanged local regression run exited 0 with 141 checks passed. Baseline diagnostic state: 110 identities, zero structural errors, 1499 acceptance gaps, complete false. Strict mode exited 1. Identity/surface/dimension removals and restoration, malformed declarations, false complete claims, evidence absence/source/hash/ownership and proof-waiver cases are covered. Earlier mixed-input and 140-check runs are superseded private diagnostics. These results validate the bounded validator, not implementation or runtime acceptance of the required features. Source-specific runtime, full interaction, per-click evidence and item-specific negatives remain unfinished. The coordinating maintainer owns independent review, preservation push, integration and publication.
+
 ## Preparation reliability repair, accepted natural transition
 
 Source 204597be2bdf4f3392e6ea44c26ceaa55fd7ed4d separates preparation from the durable two-apply budget and requires complete staging validation before exit readiness, retaining post-exit revalidation. Exact root `build.bat --verify-updater --baseline` exited 1 on the preserved source with 10 failed assertions; `build.bat --verify-updater` exited 0 with all focused assertions passing, including two actual ten-second permission expiries. Exact root `build-installer.bat -Version 1.0.9020`, including `build.bat`, exited 0: native 10.17 seconds, 69 warnings, zero errors. See [source-bound local receipt](docs/features/installation/preparation-reliability-receipt.json) and [behavior/check route](docs/features/installation/preparation-reliability.md).
