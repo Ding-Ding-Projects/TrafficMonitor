@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "command": "build.bat --site",
+  "exitCode": 0,
+  "sourceCommit": "26ef2c2c90b5084f079cc3254bd0b3b158b2b415",
+  "contentSource": "27e07a3badfdced0c761664851b8cce6865dd3b1",
+  "inputState": "Clean fixed source and tracked manifest unchanged throughout production.",
+  "manifestSha256": "14ab53b3ce2f9c947a678165d2f8f8e5d5e036f88f85a246173aae39f738e6c1",
+  "counts": {
+    "repositoryMarkdownArticles": 168,
+    "wikiMarkdownArticles": 28,
+    "wikiAssets": 75,
+    "wikiTrackedFiles": 103,
+    "articles": 196
+  },
+  "productionReceipt": {
+    "schemaVersion": 1,
+    "sourceCommit": "26ef2c2c90b5084f079cc3254bd0b3b158b2b415",
+    "contentSource": "27e07a3badfdced0c761664851b8cce6865dd3b1",
+    "wikiSource": {
+      "repository": "https://github.com/zhongyang219/TrafficMonitor.wiki.git",
+      "commit": "cf35274094fe2ffb040ca1f29d6ce73c713d93a2"
+    },
+    "releaseMetadataSHA256": "37e33d17df24ad8a8e1cbb935a1dffd2844b8de4ec0c5f0f14f6e13538e62e0f",
+    "releaseTag": "v1.0.15-run39912330939-1",
+    "releaseSource": "3f573fc0031ef6b6cb123dfbc80c05c33a5063db",
+    "articleCount": 196,
+    "historyCount": 1623,
+    "base": "/TrafficMonitor/",
+    "unresolvedAssets": []
+  },
+  "buildOutput": "Built 196 complete articles; 1623 history records; 0 unavailable local images.",
+  "acceptanceReceipt": "docs/features/installation/silent-natural29-acceptance.json",
+  "observedAutomaticTransition": "One real accepted 1.0.28 to 1.0.29 automatic update, exact bytes/helper result and preservation proven by separately assigned metadata observation.",
+  "unrunAcceptance": [
+    "negative/offline/corrupt/cancellation/rollback",
+    "busy editor/modal/draft/menu deferral",
+    "visual/localization/accessibility",
+    "multiple future cycles"
+  ],
+  "verificationScope": "Static production only; no new native build, tests, reviews, audits, UI quality work, screenshots or deployment.",
+  "outputs": [
+    {
+      "path": "docs/site/dist/index.html",
+      "bytes": 4911,
+      "sha256": "bdca66be7cc0147b0033488e64b50da6fdf353301dda29aacf5647859837c289"
+    },
+    {
+      "path": "docs/site/dist/articles/source-docs-features-installation-silent-updates/index.html",
+      "bytes": 31762,
+      "sha256": "048694df29e87e40771c5056c9201dc2042040b9f354a9dd41d60683de337875"
+    },
+    {
+      "path": "docs/site/dist/articles/source-handoff/index.html",
+      "bytes": 70363,
+      "sha256": "9443f15642564480bbf77ef1524f5084e46a4e4ce517726b6f113365ba2b89d0"
+    },
+    {
+      "path": "docs/site/dist/build-receipt.json",
+      "bytes": 611,
+      "sha256": "6dedd6e9c9bd570a3adf4249ae70514a12a365a370926b14de0561abf6270a2c"
+    }
+  ]
+}
