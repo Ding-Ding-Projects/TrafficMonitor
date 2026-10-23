@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "command": "build.bat --site",
+  "exitCode": 0,
+  "sourceCommit": "5f65a8c40456b704aa76b32dd415fbedf8c83e87",
+  "contentSource": "8bf026ca221d4938b52813635d0166ca68231931",
+  "inputState": "No nonignored changes at producer start; source and manifest remained unchanged through completion.",
+  "manifestSha256": "a3077db52e791c0e4c02ef94c10a5b679f47f49d548d07c1f258329df47ae8f1",
+  "counts": {
+    "repositoryMarkdownArticles": 166,
+    "wikiMarkdownArticles": 28,
+    "wikiAssets": 75,
+    "wikiTrackedFiles": 103,
+    "articles": 194
+  },
+  "nativePackageSource": "faa0e8c302fc09e927ad7141415640f782f3dd8a",
+  "productionReceipt": {
+    "schemaVersion": 1,
+    "sourceCommit": "5f65a8c40456b704aa76b32dd415fbedf8c83e87",
+    "contentSource": "8bf026ca221d4938b52813635d0166ca68231931",
+    "wikiSource": {
+      "repository": "https://github.com/zhongyang219/TrafficMonitor.wiki.git",
+      "commit": "cf35274094fe2ffb040ca1f29d6ce73c713d93a2"
+    },
+    "releaseMetadataSHA256": "37e33d17df24ad8a8e1cbb935a1dffd2844b8de4ec0c5f0f14f6e13538e62e0f",
+    "releaseTag": "v1.0.15-run39912330939-1",
+    "releaseSource": "3f573fc0031ef6b6cb123dfbc80c05c33a5063db",
+    "articleCount": 194,
+    "historyCount": 1567,
+    "base": "/TrafficMonitor/",
+    "unresolvedAssets": []
+  },
+  "published": false,
+  "runtime": "UNVERIFIED: no tests, reviews, runtime interaction or screenshots were performed.",
+  "outputs": [
+    {
+      "path": "docs/site/dist/index.html",
+      "size": 4911,
+      "sha256": "5fb60666fdb70100dbb6c82cc3880daca56342b105ee22e22fb3c3229e16462c"
+    },
+    {
+      "path": "docs/site/dist/articles/source-docs-features-search-native-workbench/index.html",
+      "size": 12672,
+      "sha256": "2322b4dd2ec0b07737d58c1a7470ff328271f6669f0e878df038089f2a580467"
+    },
+    {
+      "path": "docs/site/dist/build-receipt.json",
+      "size": 611,
+      "sha256": "a68159dd8a211650932c2666c1da4d8ed73927ba88fde6429031f7fe7c8c7cce"
+    }
+  ],
+  "wikiRepairPublication": "Pending remote proof; earlier wiki publication remains historical.",
+  "warning": "npm reported whatwg-encoding@3.1.1 deprecation."
+}
