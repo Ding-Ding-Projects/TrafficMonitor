@@ -6,3 +6,36 @@
 @media(max-width:760px){header{padding:1rem}.site-layout{display:block}.primary{flex-direction:row;flex-wrap:wrap;padding:.7rem;gap:.2rem}.primary a{font-size:.85rem;padding:.45rem .7rem}main{padding:1.5rem 1rem 3rem}.task-grid,.settings-grid{grid-template-columns:1fr}.article-list li{flex-direction:column;gap:.2rem}.intro{gap:1rem}footer{padding:1rem}.explainer,.panel,.guide-panel{padding:1rem}.version{max-width:100%}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}:root[data-motion=reduced] *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
 .settings-grid md-outlined-select,.filters md-outlined-select{min-width:0;width:100%}.filters md-outlined-select,.filters md-outlined-text-field[type=date]{flex:1;min-width:min(100%,160px)}.step-list md-outlined-button{max-width:100%;--md-outlined-button-container-shape:24px}.step-list md-outlined-button[aria-current]{--md-outlined-button-container-color:var(--md-sys-color-primary-container);background:var(--md-sys-color-primary-container);border-radius:24px}
+
+/* Shared Material Web typography. Shadow controls consume these reference roles. */
+:root {
+  --tm-font-family: "Segoe UI", "Microsoft JhengHei UI", Arial, sans-serif;
+  --md-ref-typeface-brand: var(--tm-font-family);
+  --md-ref-typeface-plain: var(--tm-font-family);
+  font-family: var(--tm-font-family);
+  --md-sys-color-secondary: #526350;
+  --md-sys-color-secondary-container: #d5e8d4;
+  --md-sys-color-on-secondary-container: #102b19;
+  --md-sys-color-surface-container-highest: #dce5da;
+  --md-sys-color-error: #ba1a1a;
+  --md-sys-color-on-error-container: #410002;
+  --md-sys-color-shadow: #000000;
+}
+:root[data-theme="dark"] {
+  --md-sys-color-secondary: #b8ccb6;
+  --md-sys-color-secondary-container: #3b4b3a;
+  --md-sys-color-on-secondary-container: #d4e8d0;
+  --md-sys-color-surface-container-highest: #334036;
+  --md-sys-color-error: #ffb4ab;
+  --md-sys-color-on-error-container: #ffdad6;
+}
+@media (prefers-color-scheme: dark) {
+  :root[data-theme="system"] {
+    --md-sys-color-secondary: #b8ccb6;
+    --md-sys-color-secondary-container: #3b4b3a;
+    --md-sys-color-on-secondary-container: #d4e8d0;
+    --md-sys-color-surface-container-highest: #334036;
+    --md-sys-color-error: #ffb4ab;
+    --md-sys-color-on-error-container: #ffdad6;
+  }
+}

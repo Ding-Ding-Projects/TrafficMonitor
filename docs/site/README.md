@@ -40,3 +40,9 @@ Every build enumerates all commits reachable from its exact source and absent fr
 Upstream translations remain separately reviewed content. The build rejects duplicate identities, missing English summaries and invalid lineage membership. A declared-complete manifest must cover the exact 1,387-commit upstream set. Partial translation counts remain visible alongside the complete current fork count and build source. The generated history JSON is local and source-bound; commit links always identify the exact source commit.
 
 Source-relative extensionless wiki links resolve to their local Markdown articles. Published fork wiki URLs match the manifest's exact `wikiSourceUrl` before historical upstream aliases. Foreign repository links remain external.
+
+## Registered-control typography correction
+
+A real built home-page inspection found the filled-button host and shadow label resolving to `Roboto`, while the body, headings and eyebrow resolved to `Segoe UI, Arial, sans-serif`. No Roboto font was bundled and both Material reference typeface properties were unset. The correction sets `--md-ref-typeface-brand` and `--md-ref-typeface-plain` to the shared local sans-serif stack, including the Traditional Chinese fallback. It does not infer a heading-font defect from appearance alone.
+
+The bundled Material controls also consume secondary-container, highest-surface and error color roles. Those roles now have explicit light/dark values, including system-dark mode, so selection and validation states do not fall back to the package's unrelated default palette. Post-change computed shadow-font values and genuine visual evidence remain the browser-verification lane's responsibility. This is a bounded typography/theme correction, not a full Material conformance verdict.
