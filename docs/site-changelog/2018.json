@@ -1971,7 +1971,7 @@
     },
     {
       "sha": "cf891d3732be40960744ac71a0aef2b2b6b93377",
-      "date": "2018-06-17T10:19:59+08:00",
+      "date": "2018-06-16T22:19:59-04:00",
       "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/cf891d3732be40960744ac71a0aef2b2b6b93377",
       "summary": "Refresh taskbar display resources.",
       "category": "maintenance",
@@ -1982,7 +1982,7 @@
     },
     {
       "sha": "a150259e54b46ec40305b1a597c5681ad23e710f",
-      "date": "2018-06-17T10:50:14+08:00",
+      "date": "2018-06-16T22:50:14-04:00",
       "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/a150259e54b46ec40305b1a597c5681ad23e710f",
       "summary": "Update release metadata.",
       "category": "release",
@@ -1993,7 +1993,7 @@
     },
     {
       "sha": "1a40ee1db924b02d819ec2247c7f851d9d8d1ce5",
-      "date": "2018-06-17T22:12:01+08:00",
+      "date": "2018-06-17T10:12:01-04:00",
       "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/1a40ee1db924b02d819ec2247c7f851d9d8d1ce5",
       "summary": "Add a context-menu command to choose the network connection.",
       "category": "feature",
@@ -2169,7 +2169,7 @@
     },
     {
       "sha": "d6f22d8870910c7c7b35af23ef3e58601fd92c3d",
-      "date": "2018-07-12T15:39:21+08:00",
+      "date": "2018-07-12T03:39:21-04:00",
       "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/d6f22d8870910c7c7b35af23ef3e58601fd92c3d",
       "summary": "Fix network-speed detection on some computers.",
       "category": "fix",
@@ -2637,6 +2637,39 @@
       "category": "maintenance",
       "lineage": "upstream",
       "originalSubject": "添加光标资源",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "e62a68cdc5caf6693a596110874b317d21193478",
+      "date": "2018-12-01T20:44:39+08:00",
+      "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/e62a68cdc5caf6693a596110874b317d21193478",
+      "summary": "Refactor tab control handling and add a derived tab-control class.",
+      "category": "maintenance",
+      "lineage": "upstream",
+      "originalSubject": "代码重构，添加CTabCtrl的派生类",
+      "summaryMethod": "translated-message",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "ea1e2b64ed6040a29e345d9805690aefa4259dbb",
+      "date": "2018-12-01T23:38:24+08:00",
+      "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/ea1e2b64ed6040a29e345d9805690aefa4259dbb",
+      "summary": "Add two implementation details to the derived tab-control class.",
+      "category": "maintenance",
+      "lineage": "upstream",
+      "originalSubject": "更新",
+      "summaryMethod": "patch-reviewed",
+      "verificationStatus": "not-asserted"
+    },
+    {
+      "sha": "6ade7b943567eb66ce1d8b0df5a9b21b314a2f67",
+      "date": "2018-12-06T19:23:00+08:00",
+      "commitUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/commit/6ade7b943567eb66ce1d8b0df5a9b21b314a2f67",
+      "summary": "Fix speed display when the received-byte count is zero.",
+      "category": "fix",
+      "lineage": "upstream",
+      "originalSubject": "修正已接收字节数为0时无法显示网速的问题。",
       "summaryMethod": "translated-message",
       "verificationStatus": "not-asserted"
     }
