@@ -1,0 +1,264 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "421ac841a7825b682f0a67928be117c6b21c6ea4",
+  "version": "1.0.9024",
+  "file": "TrafficMonitor-Documentation-1.0.9024-x64.exe",
+  "bytes": 107228209,
+  "sha256": "8c84df5e042b31c3270ed130ae6d1a403f6e8dac80463bc01a7ac6a12e3e663d",
+  "production": {
+    "command": "build-installer.bat --docs-companion -Version 1.0.9024",
+    "startedAt": "2026-10-23T17:11:41.4151635Z",
+    "completedAt": "2026-10-23T17:14:32.7357662Z",
+    "exitCode": 0,
+    "sourceStable": true
+  },
+  "documentationTests": {
+    "passed": 40,
+    "failed": 0
+  },
+  "runtime": {
+    "route": "cheap-lowlevel-headless",
+    "transport": "direct cheap Python binding with process-bound CDP",
+    "singleExecutableAdjacency": true,
+    "freshProfile": true,
+    "restartReusedOnlyOwnedProfile": true,
+    "savedLanguage": "both",
+    "savedTheme": "dark",
+    "restartPersistenceVerified": true,
+    "normalCloseRuns": 2,
+    "remainingOwnedProcesses": 0,
+    "ownedDesktopsClosed": 2,
+    "monitorActions": 0,
+    "labelCycle": "English to Cantonese to bilingual to English",
+    "externalInstallerAnchor": "Destination retained; activation stayed on the local page with the persistent explanation.",
+    "metadata": "Historical v1.0.15-run39912330939-1 remains a bundled snapshot; documentation source is 421ac84; check time is unavailable.",
+    "displayDpi": 96,
+    "normalOuter": [
+      1180,
+      820
+    ],
+    "minimumOuter": [
+      640,
+      480
+    ],
+    "matrix": [
+      {
+        "id": "35-normal",
+        "language": "en",
+        "bilingual": false,
+        "theme": "light",
+        "viewport": {
+          "width": 1164,
+          "height": 781,
+          "scale": 1
+        },
+        "horizontalOverflow": false,
+        "captureSha256": "5fca722c018a69d3b48b7121c2038ec96bc12e5164bbcdd474a462b7375cc551",
+        "captureStartedAt": "2026-10-23T17:20:10.421Z",
+        "captureCompletedAt": "2026-10-23T17:20:10.494Z",
+        "pixelsInspected": true,
+        "layoutReceiptValidation": "passed"
+      },
+      {
+        "id": "35-minimum",
+        "language": "en",
+        "bilingual": false,
+        "theme": "light",
+        "viewport": {
+          "width": 624,
+          "height": 441,
+          "scale": 1
+        },
+        "horizontalOverflow": false,
+        "captureSha256": "dede8b839bb398c6380c959d7eb677fa24e19e791deb4de872cddd429b6112e4",
+        "captureStartedAt": "2026-10-23T17:20:14.455Z",
+        "captureCompletedAt": "2026-10-23T17:20:14.519Z",
+        "pixelsInspected": true,
+        "layoutReceiptValidation": "passed"
+      },
+      {
+        "id": "34-normal",
+        "language": "yue-Hant",
+        "bilingual": false,
+        "theme": "light",
+        "viewport": {
+          "width": 1164,
+          "height": 781,
+          "scale": 1
+        },
+        "horizontalOverflow": false,
+        "captureSha256": "b37cdaef3d4cc830bdc26a627b6acd35c03ad1f06cb36e5fe69a7d78d4b82fc0",
+        "captureStartedAt": "2026-10-23T17:19:47.990Z",
+        "captureCompletedAt": "2026-10-23T17:19:48.057Z",
+        "pixelsInspected": true,
+        "layoutReceiptValidation": "passed"
+      },
+      {
+        "id": "34-minimum",
+        "language": "yue-Hant",
+        "bilingual": false,
+        "theme": "light",
+        "viewport": {
+          "width": 624,
+          "height": 441,
+          "scale": 1
+        },
+        "horizontalOverflow": false,
+        "captureSha256": "726ecc47e060b42b05c7e024f7e00c7e274ba5f019944b188ea45389ac2b7187",
+        "captureStartedAt": "2026-10-23T17:19:51.636Z",
+        "captureCompletedAt": "2026-10-23T17:19:51.702Z",
+        "pixelsInspected": true,
+        "layoutReceiptValidation": "passed"
+      },
+      {
+        "id": "33-normal",
+        "language": "en",
+        "bilingual": true,
+        "theme": "light",
+        "viewport": {
+          "width": 1164,
+          "height": 781,
+          "scale": 1
+        },
+        "horizontalOverflow": false,
+        "captureSha256": "129df3a8f730b220aa42f598ccc489075b54c0c5b56e4696f2997974dad70432",
+        "captureStartedAt": "2026-10-23T17:19:26.977Z",
+        "captureCompletedAt": "2026-10-23T17:19:27.050Z",
+        "pixelsInspected": true,
+        "layoutReceiptValidation": "passed"
+      },
+      {
+        "id": "33-minimum",
+        "language": "en",
+        "bilingual": true,
+        "theme": "light",
+        "viewport": {
+          "width": 624,
+          "height": 441,
+          "scale": 1
+        },
+        "horizontalOverflow": false,
+        "captureSha256": "64773c1378837d1212b415278dcc3ba663221b78a8c0640257bcbf188ada09be",
+        "captureStartedAt": "2026-10-23T17:19:30.277Z",
+        "captureCompletedAt": "2026-10-23T17:19:30.340Z",
+        "pixelsInspected": true,
+        "layoutReceiptValidation": "passed"
+      },
+      {
+        "id": "30-normal-dark-home",
+        "language": "en",
+        "bilingual": false,
+        "theme": "dark",
+        "viewport": {
+          "width": 1164,
+          "height": 781,
+          "scale": 1
+        },
+        "horizontalOverflow": false,
+        "captureSha256": "fd5f2f62e98681a7eea30ac67d3091672a6e5a16487edfd38b5c13ae473ff839",
+        "captureStartedAt": "2026-10-23T17:18:03.690Z",
+        "captureCompletedAt": "2026-10-23T17:18:03.750Z",
+        "pixelsInspected": true,
+        "layoutReceiptValidation": "passed"
+      },
+      {
+        "id": "28-min-en-warning",
+        "language": "en",
+        "bilingual": false,
+        "theme": "dark",
+        "viewport": {
+          "width": 624,
+          "height": 441,
+          "scale": 1
+        },
+        "horizontalOverflow": false,
+        "captureSha256": "5c6908e64a7a351618ad0f9abe33bdad839eefb4786e7f5c3c0c89e4a3af6163",
+        "captureStartedAt": "2026-10-23T17:17:52.143Z",
+        "captureCompletedAt": "2026-10-23T17:17:52.206Z",
+        "pixelsInspected": true,
+        "layoutReceiptValidation": "passed"
+      },
+      {
+        "id": "31-normal",
+        "language": "yue-Hant",
+        "bilingual": false,
+        "theme": "dark",
+        "viewport": {
+          "width": 1164,
+          "height": 781,
+          "scale": 1
+        },
+        "horizontalOverflow": false,
+        "captureSha256": "1956a88706a50473b36e2a67536cffb228e524649c518f5be063e437326836ca",
+        "captureStartedAt": "2026-10-23T17:18:52.091Z",
+        "captureCompletedAt": "2026-10-23T17:18:52.154Z",
+        "pixelsInspected": true,
+        "layoutReceiptValidation": "passed"
+      },
+      {
+        "id": "31-minimum",
+        "language": "yue-Hant",
+        "bilingual": false,
+        "theme": "dark",
+        "viewport": {
+          "width": 624,
+          "height": 441,
+          "scale": 1
+        },
+        "horizontalOverflow": false,
+        "captureSha256": "1575b916992666dc3b921c2ef1a55893331b0da934909d182d894f37a7ecb53e",
+        "captureStartedAt": "2026-10-23T17:18:55.242Z",
+        "captureCompletedAt": "2026-10-23T17:18:55.305Z",
+        "pixelsInspected": true,
+        "layoutReceiptValidation": "passed"
+      },
+      {
+        "id": "32-normal",
+        "language": "en",
+        "bilingual": true,
+        "theme": "dark",
+        "viewport": {
+          "width": 1164,
+          "height": 781,
+          "scale": 1
+        },
+        "horizontalOverflow": false,
+        "captureSha256": "808769d3e1bcc5f6ce5a2ce9e5833ae54d4a71e2b247595981007172614b69ce",
+        "captureStartedAt": "2026-10-23T17:19:09.487Z",
+        "captureCompletedAt": "2026-10-23T17:19:09.559Z",
+        "pixelsInspected": true,
+        "layoutReceiptValidation": "passed"
+      },
+      {
+        "id": "32-minimum",
+        "language": "en",
+        "bilingual": true,
+        "theme": "dark",
+        "viewport": {
+          "width": 624,
+          "height": 441,
+          "scale": 1
+        },
+        "horizontalOverflow": false,
+        "captureSha256": "edc1c4c69ea41bea95157dfb6b01edb593c6ded429e6adadcd7ee5a500108191",
+        "captureStartedAt": "2026-10-23T17:19:12.724Z",
+        "captureCompletedAt": "2026-10-23T17:19:12.787Z",
+        "pixelsInspected": true,
+        "layoutReceiptValidation": "passed"
+      }
+    ]
+  },
+  "evidence": {
+    "rawImages": 59,
+    "individuallyInspectedImages": 23,
+    "publicImagesPromoted": 0,
+    "rawReceiptSummarySha256": "9d68293aa0e75a6297bb42191bcf2c8a1a4030ace4c994d379451f79788b78b3"
+  },
+  "limitations": [
+    "125%, 150%, and 200% display scales were not exercised.",
+    "DOM clicks prove renderer wiring, not native pointer targeting or complete keyboard accessibility.",
+    "Hosted origin behavior was covered by focused source tests, not a deployed browser run.",
+    "Uninspected transition images remain private. No images were promoted into public documentation.",
+    "The package manifest retains its original runtimeVerification pending field; this separate receipt supplies bounded runtime evidence."
+  ]
+}
