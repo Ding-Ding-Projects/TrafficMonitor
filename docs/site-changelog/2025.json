@@ -2,7 +2,7 @@
   "entries": [
     {
       "sha": "1c46b9b80d1fd385b1080c992842715cc2d0c5b7",
-      "date": "2025-01-07T22:06:45-05:00",
+      "date": "2025-01-08T11:06:45+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/1c46b9b80d1fd385b1080c992842715cc2d0c5b7",
       "summary": "Merge pull request #1582 from BombaxCeiba/windows_web_experience_detector",
       "lineage": "upstream",
@@ -13,7 +13,7 @@
     },
     {
       "sha": "b58791f9e56f5165b97476757cb9946c13254c36",
-      "date": "2025-01-07T22:07:22-05:00",
+      "date": "2025-01-08T11:07:22+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/b58791f9e56f5165b97476757cb9946c13254c36",
       "summary": "Merge pull request #1656 from BombaxCeiba/fix_unexpected_d3d10_1_device_recreation",
       "lineage": "upstream",
@@ -24,7 +24,7 @@
     },
     {
       "sha": "008cbf905dfc50f73eaa1c583b81719942955deb",
-      "date": "2025-01-07T22:07:43-05:00",
+      "date": "2025-01-08T11:07:43+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/008cbf905dfc50f73eaa1c583b81719942955deb",
       "summary": "Merge pull request #1783 from mhqschen/master",
       "lineage": "upstream",
@@ -35,7 +35,7 @@
     },
     {
       "sha": "791f5fc87402e9274adc7998ce670ca17ed9bd38",
-      "date": "2025-01-07T22:58:21-05:00",
+      "date": "2025-01-08T11:58:21+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/791f5fc87402e9274adc7998ce670ca17ed9bd38",
       "summary": "Update CI workflows",
       "lineage": "upstream",
@@ -46,7 +46,7 @@
     },
     {
       "sha": "7e30d8f064bcff373c6b09a4cf0a429ec9ee4af8",
-      "date": "2025-01-07T23:06:52-05:00",
+      "date": "2025-01-08T12:06:52+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/7e30d8f064bcff373c6b09a4cf0a429ec9ee4af8",
       "summary": "Update CI workflows",
       "lineage": "upstream",
@@ -57,7 +57,7 @@
     },
     {
       "sha": "019cbb652310a55064cda9960e2175bb94530f0b",
-      "date": "2025-01-08T02:08:40-05:00",
+      "date": "2025-01-08T15:08:40+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/019cbb652310a55064cda9960e2175bb94530f0b",
       "summary": "Slow trackpad-gesture scrolling in the options dialog",
       "lineage": "upstream",
@@ -68,7 +68,7 @@
     },
     {
       "sha": "fa5c43a983d989b31cb8f62b77757a78051c11d4",
-      "date": "2025-01-09T22:17:32-05:00",
+      "date": "2025-01-10T11:17:32+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/fa5c43a983d989b31cb8f62b77757a78051c11d4",
       "summary": "Merge pull request #1891 from wisdommen/patch-1",
       "lineage": "upstream",
@@ -79,7 +79,7 @@
     },
     {
       "sha": "30be03c8c2c5f50567d57409067aea424105f3ce",
-      "date": "2025-01-11T08:54:37-05:00",
+      "date": "2025-01-11T21:54:37+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/30be03c8c2c5f50567d57409067aea424105f3ce",
       "summary": "Add transparent PNG backgrounds to the main window",
       "lineage": "upstream",
@@ -90,7 +90,7 @@
     },
     {
       "sha": "729009d08052a443782496629d000c6d123c5a58",
-      "date": "2025-01-11T23:05:04-05:00",
+      "date": "2025-01-12T12:05:04+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/729009d08052a443782496629d000c6d123c5a58",
       "summary": "Prevent blank main-window content after changing skins",
       "lineage": "upstream",
@@ -101,7 +101,7 @@
     },
     {
       "sha": "443a90844b53372a1ea34b9eca49b560bf9f262e",
-      "date": "2025-01-12T05:21:44-05:00",
+      "date": "2025-01-12T18:21:44+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/443a90844b53372a1ea34b9eca49b560bf9f262e",
       "summary": "Convert selected skin backgrounds to PNG to reduce edge aliasing",
       "lineage": "upstream",
@@ -112,7 +112,7 @@
     },
     {
       "sha": "7190fc8ad0dc835af311423bfca5256fd03078af",
-      "date": "2025-01-12T07:24:26-05:00",
+      "date": "2025-01-12T20:24:26+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/7190fc8ad0dc835af311423bfca5256fd03078af",
       "summary": "Update the background image for skin 01",
       "lineage": "upstream",
@@ -123,7 +123,7 @@
     },
     {
       "sha": "990e32a9551c211e868e77d132df9c54361574af",
-      "date": "2025-01-12T07:24:35-05:00",
+      "date": "2025-01-12T20:24:35+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/990e32a9551c211e868e77d132df9c54361574af",
       "summary": "Fix ignored multi-line and background options in the GDI+ DrawWindowText helper",
       "lineage": "upstream",
@@ -134,7 +134,7 @@
     },
     {
       "sha": "0c5e86e8126f3eaa3f3b15970a9f8c92a3a5e10e",
-      "date": "2025-01-12T22:38:18-05:00",
+      "date": "2025-01-13T11:38:18+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/0c5e86e8126f3eaa3f3b15970a9f8c92a3a5e10e",
       "summary": "Fix incorrect opacity after changing skins",
       "lineage": "upstream",
@@ -145,7 +145,7 @@
     },
     {
       "sha": "4ef0022f87f095d1fe901af33a0044661981d251",
-      "date": "2025-01-14T01:48:53-05:00",
+      "date": "2025-01-14T14:48:53+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/4ef0022f87f095d1fe901af33a0044661981d251",
       "summary": "Fix GDI-drawn plugin text becoming transparent over a PNG background",
       "lineage": "upstream",
@@ -156,7 +156,7 @@
     },
     {
       "sha": "040596f1f27dbb500ecd2ffa69b003f089c5e31b",
-      "date": "2025-01-15T04:08:08-05:00",
+      "date": "2025-01-15T17:08:08+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/040596f1f27dbb500ecd2ffa69b003f089c5e31b",
       "summary": "Switch skins automatically with the Windows light or dark theme",
       "lineage": "upstream",
@@ -167,7 +167,7 @@
     },
     {
       "sha": "a481974d73d106999bddfbb80c9ca45f17f7ce9e",
-      "date": "2025-01-15T22:50:17-05:00",
+      "date": "2025-01-16T11:50:17+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/a481974d73d106999bddfbb80c9ca45f17f7ce9e",
       "summary": "Update LibreHardwareMonitorLib to 0.9.4",
       "lineage": "upstream",
@@ -178,7 +178,7 @@
     },
     {
       "sha": "8d7631705da3c5971f6984ca98de892f722d9a3d",
-      "date": "2025-01-15T22:58:30-05:00",
+      "date": "2025-01-16T11:58:30+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/8d7631705da3c5971f6984ca98de892f722d9a3d",
       "summary": "Fix CPU-frequency readings in main-window tooltips",
       "lineage": "upstream",
@@ -189,7 +189,7 @@
     },
     {
       "sha": "e28f24cc32ef16fc00ea240b3533ca5d4312a38e",
-      "date": "2025-01-16T01:53:17-05:00",
+      "date": "2025-01-16T14:53:17+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/e28f24cc32ef16fc00ea240b3533ca5d4312a38e",
       "summary": "Fix undefined behavior in the edit-distance algorithm (#1883)",
       "lineage": "upstream",
@@ -200,7 +200,7 @@
     },
     {
       "sha": "4ee5fc360f0cf5370037aa171f56d09d547640c7",
-      "date": "2025-01-16T04:14:09-05:00",
+      "date": "2025-01-16T17:14:09+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/4ee5fc360f0cf5370037aa171f56d09d547640c7",
       "summary": "Add hardware-monitoring-based CPU utilization and expose it in General settings",
       "lineage": "upstream",
@@ -211,7 +211,7 @@
     },
     {
       "sha": "e3a2f0204e518ee8ebf74e7e41c5cfd932ca68ff",
-      "date": "2025-01-16T23:51:41-05:00",
+      "date": "2025-01-17T12:51:41+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/e3a2f0204e518ee8ebf74e7e41c5cfd932ca68ff",
       "summary": "Update the README",
       "lineage": "upstream",
@@ -222,7 +222,7 @@
     },
     {
       "sha": "178dab0cd8499003d7152a112a799f3dce2c8957",
-      "date": "2025-01-17T04:46:57-05:00",
+      "date": "2025-01-17T17:46:57+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/178dab0cd8499003d7152a112a799f3dce2c8957",
       "summary": "Show usage graphs for plugin items in the taskbar (#1077)",
       "lineage": "upstream",
@@ -233,7 +233,7 @@
     },
     {
       "sha": "fe1d505d5582f435b4960bf8baf5d03d03a09627",
-      "date": "2025-01-17T23:26:19-05:00",
+      "date": "2025-01-18T12:26:19+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/fe1d505d5582f435b4960bf8baf5d03d03a09627",
       "summary": "Fix plugin display text from skin files not taking effect (#1813)",
       "lineage": "upstream",
@@ -244,7 +244,7 @@
     },
     {
       "sha": "4bdc15044909535deeaa2a3fe06a6ce02ed40b4b",
-      "date": "2025-01-18T02:48:06-05:00",
+      "date": "2025-01-18T15:48:06+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/4bdc15044909535deeaa2a3fe06a6ce02ed40b4b",
       "summary": "Prevent taskbar overlap with Windows 11 widgets when docked on the right",
       "lineage": "upstream",
@@ -255,7 +255,7 @@
     },
     {
       "sha": "ee3fd751c8866830acb8479ddb5e7d7abe5e8c82",
-      "date": "2025-01-18T03:52:49-05:00",
+      "date": "2025-01-18T16:52:49+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/ee3fd751c8866830acb8479ddb5e7d7abe5e8c82",
       "summary": "Update the acknowledgements",
       "lineage": "upstream",
@@ -266,7 +266,7 @@
     },
     {
       "sha": "44b4b946f4149cacb340ab5659bb725cc07d1d49",
-      "date": "2025-01-18T04:22:12-05:00",
+      "date": "2025-01-18T17:22:12+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/44b4b946f4149cacb340ab5659bb725cc07d1d49",
       "summary": "Fix empty space beside widgets on centered Windows 11 taskbars",
       "lineage": "upstream",
@@ -277,7 +277,7 @@
     },
     {
       "sha": "d2e88e559736fe95be641fc8fdadae1e0b0b8778",
-      "date": "2025-01-18T07:39:22-05:00",
+      "date": "2025-01-18T20:39:22+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/d2e88e559736fe95be641fc8fdadae1e0b0b8778",
       "summary": "Disable incompatible taskbar-position options when Windows 11 taskbar alignment is left",
       "lineage": "upstream",
@@ -288,7 +288,7 @@
     },
     {
       "sha": "df2290d9079c3d2acb377463924fc4c42629c8c5",
-      "date": "2025-01-18T09:23:50-05:00",
+      "date": "2025-01-18T22:23:50+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/df2290d9079c3d2acb377463924fc4c42629c8c5",
       "summary": "Show today's total traffic in the main and taskbar windows (#1174)",
       "lineage": "upstream",
@@ -299,7 +299,7 @@
     },
     {
       "sha": "705f3760e19a632736b7bfaf37b169dbdbbd598b",
-      "date": "2025-01-18T21:49:28-05:00",
+      "date": "2025-01-19T10:49:28+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/705f3760e19a632736b7bfaf37b169dbdbbd598b",
       "summary": "Change sample-plugin item IDs to avoid conflict with the date-and-time plugin",
       "lineage": "upstream",
@@ -310,7 +310,7 @@
     },
     {
       "sha": "de360bddac69306ab8a6e9bd1e07693b0f0f46df",
-      "date": "2025-01-18T22:41:08-05:00",
+      "date": "2025-01-19T11:41:08+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/de360bddac69306ab8a6e9bd1e07693b0f0f46df",
       "summary": "Add an option to use colorful emoji in the taskbar window",
       "lineage": "upstream",
@@ -321,7 +321,7 @@
     },
     {
       "sha": "e1abbbdef4527ddb33e9d32f8b8b2b12e06b03af",
-      "date": "2025-01-18T23:14:25-05:00",
+      "date": "2025-01-19T12:14:25+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/e1abbbdef4527ddb33e9d32f8b8b2b12e06b03af",
       "summary": "Raise the maximum temperature-notification threshold to 120 degrees (#1814)",
       "lineage": "upstream",
@@ -332,7 +332,7 @@
     },
     {
       "sha": "32af6b5428717ab1f09a2a00c088ae563ead1dbc",
-      "date": "2025-01-19T03:26:28-05:00",
+      "date": "2025-01-19T16:26:28+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/32af6b5428717ab1f09a2a00c088ae563ead1dbc",
       "summary": "Hide the notification-area icon again after showing a notification when it is configured as hidden",
       "lineage": "upstream",
@@ -343,7 +343,7 @@
     },
     {
       "sha": "6dde63e4ca8fd53dbec12633f24e6d59b8e2cfc6",
-      "date": "2025-01-19T21:38:09-05:00",
+      "date": "2025-01-20T10:38:09+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/6dde63e4ca8fd53dbec12633f24e6d59b8e2cfc6",
       "summary": "Merge pull request #1703 from ekxs0109/master",
       "lineage": "upstream",
@@ -354,7 +354,7 @@
     },
     {
       "sha": "04f4bb396b36bbf7d3f0b48770778dc03f039145",
-      "date": "2025-01-19T22:07:24-05:00",
+      "date": "2025-01-20T11:07:24+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/04f4bb396b36bbf7d3f0b48770778dc03f039145",
       "summary": "Use C++20 for the ARM64EC configuration",
       "lineage": "upstream",
@@ -365,7 +365,7 @@
     },
     {
       "sha": "655bc9c9281670fbf3883b780142e5f980970334",
-      "date": "2025-01-19T23:06:32-05:00",
+      "date": "2025-01-20T12:06:32+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/655bc9c9281670fbf3883b780142e5f980970334",
       "summary": "Show CPU frequency in the Lite edition and fix ARM64EC frequency readings",
       "lineage": "upstream",
@@ -376,7 +376,7 @@
     },
     {
       "sha": "3da2c8573b73b1ce6af92c31faa05c2b9f1db66a",
-      "date": "2025-01-20T03:41:02-05:00",
+      "date": "2025-01-20T16:41:02+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/3da2c8573b73b1ce6af92c31faa05c2b9f1db66a",
       "summary": "Add CPU frequency to the Lite edition's text-display settings",
       "lineage": "upstream",
@@ -387,7 +387,7 @@
     },
     {
       "sha": "c08ef1121c09660cf20151672826faff3f9b67b5",
-      "date": "2025-01-20T05:43:36-05:00",
+      "date": "2025-01-20T18:43:36+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/c08ef1121c09660cf20151672826faff3f9b67b5",
       "summary": "Use IFileDialog for file selection (#1582)",
       "lineage": "upstream",
@@ -398,7 +398,7 @@
     },
     {
       "sha": "785cf0739823177c0d34a4e5b03ee051627d7c1b",
-      "date": "2025-01-20T06:58:53-05:00",
+      "date": "2025-01-20T19:58:53+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/785cf0739823177c0d34a4e5b03ee051627d7c1b",
       "summary": "Allow choosing batch files for the main and taskbar windows' Open Application double-click action",
       "lineage": "upstream",
@@ -409,7 +409,7 @@
     },
     {
       "sha": "6c05177894c860f8e966670e53d97c7329b291f8",
-      "date": "2025-01-20T08:25:11-05:00",
+      "date": "2025-01-20T21:25:11+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/6c05177894c860f8e966670e53d97c7329b291f8",
       "summary": "Set default text colors for taskbar presets 2 and 3",
       "lineage": "upstream",
@@ -420,7 +420,7 @@
     },
     {
       "sha": "994ecce6aadd4006b54fcb37599898c1fcf689f3",
-      "date": "2025-01-20T08:47:10-05:00",
+      "date": "2025-01-20T21:47:10+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/994ecce6aadd4006b54fcb37599898c1fcf689f3",
       "summary": "Add a disabled-plugin icon in the plugin manager",
       "lineage": "upstream",
@@ -431,7 +431,7 @@
     },
     {
       "sha": "fce61fdbd04e0ed7b6aaeab9526725db98bec32b",
-      "date": "2025-01-20T10:08:50-05:00",
+      "date": "2025-01-20T23:08:50+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/fce61fdbd04e0ed7b6aaeab9526725db98bec32b",
       "summary": "Add plugin commands and icons to the plugin-manager context menu",
       "lineage": "upstream",
@@ -442,7 +442,7 @@
     },
     {
       "sha": "322c0029dca8af1f2a9c0878d3f29d5aee7955e6",
-      "date": "2025-01-20T11:01:25-05:00",
+      "date": "2025-01-21T00:01:25+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/322c0029dca8af1f2a9c0878d3f29d5aee7955e6",
       "summary": "Clear stale plugin commands when switching from a command-enabled plugin to a disabled plugin",
       "lineage": "upstream",
@@ -453,7 +453,7 @@
     },
     {
       "sha": "37a7bbef4038f32b2fee01fb19577852ebfff823",
-      "date": "2025-01-20T11:11:09-05:00",
+      "date": "2025-01-21T00:11:09+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/37a7bbef4038f32b2fee01fb19577852ebfff823",
       "summary": "Add icons to plugin-manager buttons",
       "lineage": "upstream",
@@ -464,7 +464,7 @@
     },
     {
       "sha": "5bc001e94e6fafe81305b7820ece34500aebe035",
-      "date": "2025-01-20T21:36:46-05:00",
+      "date": "2025-01-21T10:36:46+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/5bc001e94e6fafe81305b7820ece34500aebe035",
       "summary": "Support ARM64EC builds in update checks",
       "lineage": "upstream",
@@ -475,7 +475,7 @@
     },
     {
       "sha": "91e410ec6b42f11e2b1a8527c24f7ffdfb0eb34f",
-      "date": "2025-01-20T21:55:32-05:00",
+      "date": "2025-01-21T10:55:32+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/91e410ec6b42f11e2b1a8527c24f7ffdfb0eb34f",
       "summary": "Make Details the default action in the plugin-manager context menu",
       "lineage": "upstream",
@@ -486,7 +486,7 @@
     },
     {
       "sha": "f0516d8097469f9de721826b9a9334e329a36ff3",
-      "date": "2025-01-20T22:13:45-05:00",
+      "date": "2025-01-21T11:13:45+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/f0516d8097469f9de721826b9a9334e329a36ff3",
       "summary": "Refresh the information shown on the crash dialog",
       "lineage": "upstream",
@@ -497,7 +497,7 @@
     },
     {
       "sha": "9a17cf106b77e45deeb85093a3724a39063d6684",
-      "date": "2025-01-20T22:22:38-05:00",
+      "date": "2025-01-21T11:22:38+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/9a17cf106b77e45deeb85093a3724a39063d6684",
       "summary": "Update the version number",
       "lineage": "upstream",
@@ -508,7 +508,7 @@
     },
     {
       "sha": "f7147ea238bccbe1a06086fc31c53a0baf5927cb",
-      "date": "2025-01-21T04:50:34-05:00",
+      "date": "2025-01-21T17:50:34+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/f7147ea238bccbe1a06086fc31c53a0baf5927cb",
       "summary": "Update version information, README, and changelog",
       "lineage": "upstream",
@@ -519,7 +519,7 @@
     },
     {
       "sha": "b6f8ef085f590f0f6f1d43ac5ed9e4d658be1656",
-      "date": "2025-01-21T07:26:30-05:00",
+      "date": "2025-01-21T20:26:30+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/b6f8ef085f590f0f6f1d43ac5ed9e4d658be1656",
       "summary": "Update the changelog",
       "lineage": "upstream",
@@ -530,7 +530,7 @@
     },
     {
       "sha": "6ad9a8320bf80ed45adf311e10ca6f5f20771140",
-      "date": "2025-01-21T07:28:08-05:00",
+      "date": "2025-01-21T20:28:08+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/6ad9a8320bf80ed45adf311e10ca6f5f20771140",
       "summary": "Enable the left-taskbar-position setting when Windows 11 taskbar is restored by StartAllBack",
       "lineage": "upstream",
@@ -541,7 +541,7 @@
     },
     {
       "sha": "1e59b35ed866658cab47fab181b16abca3fa9bb0",
-      "date": "2025-01-22T02:14:20-05:00",
+      "date": "2025-01-22T15:14:20+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/1e59b35ed866658cab47fab181b16abca3fa9bb0",
       "summary": "Fix taskbar-window positioning when the taskbar has no icons (#1913)",
       "lineage": "upstream",
@@ -552,7 +552,7 @@
     },
     {
       "sha": "4734ffd1634f4f5e86bbd34e2be4bb3380177acc",
-      "date": "2025-01-22T02:44:56-05:00",
+      "date": "2025-01-22T15:44:56+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/4734ffd1634f4f5e86bbd34e2be4bb3380177acc",
       "summary": "Revert the earlier fix for taskbar-window overlap with widgets",
       "lineage": "upstream",
@@ -563,7 +563,7 @@
     },
     {
       "sha": "102d0397252e3fc2850d06acfdd2afbd082a6a3c",
-      "date": "2025-01-22T04:36:15-05:00",
+      "date": "2025-01-22T17:36:15+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/102d0397252e3fc2850d06acfdd2afbd082a6a3c",
       "summary": "Add a horizontal taskbar-window offset setting",
       "lineage": "upstream",
@@ -574,7 +574,7 @@
     },
     {
       "sha": "30087f674cb9fce3e824d4f7bfcb371987bc197a",
-      "date": "2025-01-22T04:43:23-05:00",
+      "date": "2025-01-22T17:43:23+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/30087f674cb9fce3e824d4f7bfcb371987bc197a",
       "summary": "Initialize WinRT only on Windows 11",
       "lineage": "upstream",
@@ -585,7 +585,7 @@
     },
     {
       "sha": "31fae2c1aa640a2a29134849755f3561aceb8b71",
-      "date": "2025-01-22T05:01:08-05:00",
+      "date": "2025-01-22T18:01:08+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/31fae2c1aa640a2a29134849755f3561aceb8b71",
       "summary": "Restrict horizontal and vertical taskbar offsets to Windows 11",
       "lineage": "upstream",
@@ -596,7 +596,7 @@
     },
     {
       "sha": "b4ccbcfab5699749ccdf3fd8ba3f94378c5e54b7",
-      "date": "2025-01-22T05:13:56-05:00",
+      "date": "2025-01-22T18:13:56+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/b4ccbcfab5699749ccdf3fd8ba3f94378c5e54b7",
       "summary": "Apply taskbar data-width changes immediately from the taskbar settings dialog (#1916)",
       "lineage": "upstream",
@@ -607,7 +607,7 @@
     },
     {
       "sha": "25a7ca75f4dc8ddbc45bb864191fbe8fd9320a8a",
-      "date": "2025-01-22T05:29:10-05:00",
+      "date": "2025-01-22T18:29:10+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/25a7ca75f4dc8ddbc45bb864191fbe8fd9320a8a",
       "summary": "Prefer PDH for CPU-frequency readings",
       "lineage": "upstream",
@@ -618,7 +618,7 @@
     },
     {
       "sha": "5f18357fb74c5eb78f49f1971155302565d9f2e9",
-      "date": "2025-01-25T04:22:47-05:00",
+      "date": "2025-01-25T17:22:47+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/5f18357fb74c5eb78f49f1971155302565d9f2e9",
       "summary": "Move Windows 11 taskbar settings into a separate dialog and add an option to avoid right-side widget overlap",
       "lineage": "upstream",
@@ -629,7 +629,7 @@
     },
     {
       "sha": "497541b734f9c7e2f24ffb8b24a4c6e04ef77041",
-      "date": "2025-01-28T04:35:49-05:00",
+      "date": "2025-01-28T17:35:49+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/497541b734f9c7e2f24ffb8b24a4c6e04ef77041",
       "summary": "Prevent child windows from staying topmost when the main window is configured as always on top",
       "lineage": "upstream",
@@ -640,7 +640,7 @@
     },
     {
       "sha": "a8c488deff8378ebbe8619e00e045727029df2ef",
-      "date": "2025-01-30T02:52:47-05:00",
+      "date": "2025-01-30T15:52:47+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/a8c488deff8378ebbe8619e00e045727029df2ef",
       "summary": "Keep CPU-utilization retrieval settings when hardware monitoring is disabled",
       "lineage": "upstream",
@@ -651,7 +651,7 @@
     },
     {
       "sha": "0ae70e8d1098cc1baf0de6b63c9e371d3522b669",
-      "date": "2025-02-01T06:38:30-05:00",
+      "date": "2025-02-01T19:38:30+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/0ae70e8d1098cc1baf0de6b63c9e371d3522b669",
       "summary": "Fix garbled text in the acknowledgements dialog",
       "lineage": "upstream",
@@ -662,7 +662,7 @@
     },
     {
       "sha": "4030ab8f67f2a6eca72b9763cd445b67f6c1e0c1",
-      "date": "2025-02-01T07:04:14-05:00",
+      "date": "2025-02-01T20:04:14+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/4030ab8f67f2a6eca72b9763cd445b67f6c1e0c1",
       "summary": "Clear the interface version when switching to a disabled plugin in plugin details",
       "lineage": "upstream",
@@ -673,7 +673,7 @@
     },
     {
       "sha": "621653788312ba69070ccb248bfa9be0feb234ba",
-      "date": "2025-02-01T09:24:48-05:00",
+      "date": "2025-02-01T22:24:48+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/621653788312ba69070ccb248bfa9be0feb234ba",
       "summary": "Do not show the hardware-monitor warning again when monitoring is already enabled",
       "lineage": "upstream",
@@ -684,7 +684,7 @@
     },
     {
       "sha": "1afcd58ebc4b0b663dbdd35721614cc4f27bec2d",
-      "date": "2025-02-01T10:26:40-05:00",
+      "date": "2025-02-01T23:26:40+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/1afcd58ebc4b0b663dbdd35721614cc4f27bec2d",
       "summary": "Use a checkerboard background to preview transparent PNG skins",
       "lineage": "upstream",
@@ -695,7 +695,7 @@
     },
     {
       "sha": "b68bb1ce170e3181fe7fee8adf3a2f72cbf08282",
-      "date": "2025-02-01T10:32:49-05:00",
+      "date": "2025-02-01T23:32:49+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/b68bb1ce170e3181fe7fee8adf3a2f72cbf08282",
       "summary": "Update CI workflows",
       "lineage": "upstream",
@@ -706,7 +706,7 @@
     },
     {
       "sha": "aa1971de5454709a4b4efd94c7937ea0d6a0594b",
-      "date": "2025-02-02T05:36:36-05:00",
+      "date": "2025-02-02T18:36:36+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/aa1971de5454709a4b4efd94c7937ea0d6a0594b",
       "summary": "Set a taskbar-window title so FindWindow can identify it",
       "lineage": "upstream",
@@ -717,7 +717,7 @@
     },
     {
       "sha": "c171afd56dacae31ac5d2a0b58c84c057993bb6b",
-      "date": "2025-02-03T07:11:17-05:00",
+      "date": "2025-02-03T20:11:17+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/c171afd56dacae31ac5d2a0b58c84c057993bb6b",
       "summary": "Prevent exaggerated network speeds when the monitoring interval is very short (#1263, #1674)",
       "lineage": "upstream",
@@ -728,7 +728,7 @@
     },
     {
       "sha": "1981950f542dc37422bb5a1a4b577ab37413350e",
-      "date": "2025-02-04T00:06:06-05:00",
+      "date": "2025-02-04T13:06:06+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/1981950f542dc37422bb5a1a4b577ab37413350e",
       "summary": "Collect monitoring data on one persistent thread instead of creating a new thread each time",
       "lineage": "upstream",
@@ -739,7 +739,7 @@
     },
     {
       "sha": "42eee79cfcdee9f59a3b127f859acd7b7ec8ea0c",
-      "date": "2025-02-04T03:13:33-05:00",
+      "date": "2025-02-04T16:13:33+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/42eee79cfcdee9f59a3b127f859acd7b7ec8ea0c",
       "summary": "Apply monitoring-interval changes from the General settings dialog",
       "lineage": "upstream",
@@ -750,7 +750,7 @@
     },
     {
       "sha": "993c85583b365a61866d1a6ee511a77ca8d96e8e",
-      "date": "2025-02-04T03:51:36-05:00",
+      "date": "2025-02-04T16:51:36+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/993c85583b365a61866d1a6ee511a77ca8d96e8e",
       "summary": "Wait for the monitoring thread to exit during application shutdown",
       "lineage": "upstream",
@@ -761,7 +761,7 @@
     },
     {
       "sha": "50ab2fd234cf4e5a3cbf587a933c7765e737d68b",
-      "date": "2025-02-04T04:42:41-05:00",
+      "date": "2025-02-04T17:42:41+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/50ab2fd234cf4e5a3cbf587a933c7765e737d68b",
       "summary": "Prevent taskbar memory values from clipping when total memory exceeds 100 GB (#1722)",
       "lineage": "upstream",
@@ -772,7 +772,7 @@
     },
     {
       "sha": "4d621b7199b6a5d5963837a2f96584ae86f7daeb",
-      "date": "2025-02-05T22:04:03-05:00",
+      "date": "2025-02-06T11:04:03+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/4d621b7199b6a5d5963837a2f96584ae86f7daeb",
       "summary": "Use a boolean flag instead of a counter to signal whether the monitoring thread should collect data",
       "lineage": "upstream",
@@ -783,7 +783,7 @@
     },
     {
       "sha": "a1f18166a7f18d5e7f3267f39eea72ed2bbb1974",
-      "date": "2025-02-05T23:21:39-05:00",
+      "date": "2025-02-06T12:21:39+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/a1f18166a7f18d5e7f3267f39eea72ed2bbb1974",
       "summary": "Apply the monitoring-interval setting even when its final value equals the initial value",
       "lineage": "upstream",
@@ -794,7 +794,7 @@
     },
     {
       "sha": "db3ca21556ab4ff3cf0cf7d93e860435282e2ea8",
-      "date": "2025-02-05T23:23:17-05:00",
+      "date": "2025-02-06T12:23:17+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/db3ca21556ab4ff3cf0cf7d93e860435282e2ea8",
       "summary": "Improve CPU-frequency readings to better match Task Manager",
       "lineage": "upstream",
@@ -805,7 +805,7 @@
     },
     {
       "sha": "7960ae31289a94d6a0bd6118bb8ec4a361b285a7",
-      "date": "2025-02-06T01:50:33-05:00",
+      "date": "2025-02-06T14:50:33+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/7960ae31289a94d6a0bd6118bb8ec4a361b285a7",
       "summary": "Keep the CPU-frequency query open instead of reopening it for every reading",
       "lineage": "upstream",
@@ -816,7 +816,7 @@
     },
     {
       "sha": "229a686cfc7612cd323168f20de22753dd49fb48",
-      "date": "2025-02-06T03:09:49-05:00",
+      "date": "2025-02-06T16:09:49+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/229a686cfc7612cd323168f20de22753dd49fb48",
       "summary": "Refactor CPU utilization and frequency queries, add a GetSystemTimes fallback, and default CPU utilization to performance counters",
       "lineage": "upstream",
@@ -827,7 +827,7 @@
     },
     {
       "sha": "b172b69f1e812b69c0a2f6fa0a934da5ae04c689",
-      "date": "2025-02-06T11:11:56-05:00",
+      "date": "2025-02-07T00:11:56+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/b172b69f1e812b69c0a2f6fa0a934da5ae04c689",
       "summary": "Disable hardware-monitoring CPU-utilization options in the Lite edition",
       "lineage": "upstream",
@@ -838,7 +838,7 @@
     },
     {
       "sha": "57fe4ee67ee0c680b26fb91ff6a4a863e7f7d01f",
-      "date": "2025-02-06T21:13:02-05:00",
+      "date": "2025-02-07T10:13:02+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/57fe4ee67ee0c680b26fb91ff6a4a863e7f7d01f",
       "summary": "Keep the taskbar window within screen bounds",
       "lineage": "upstream",
@@ -849,7 +849,7 @@
     },
     {
       "sha": "9005cdce82a4a6e0ebc879c30c57766f13062d00",
-      "date": "2025-02-06T22:18:36-05:00",
+      "date": "2025-02-07T11:18:36+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/9005cdce82a4a6e0ebc879c30c57766f13062d00",
       "summary": "Add a compile-time switch for WebExperience detection",
       "lineage": "upstream",
@@ -860,7 +860,7 @@
     },
     {
       "sha": "45d5401322ae05489844c9f277092bbbc688c906",
-      "date": "2025-02-06T22:54:28-05:00",
+      "date": "2025-02-07T11:54:28+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/45d5401322ae05489844c9f277092bbbc688c906",
       "summary": "Avoid retrying PDH initialization after it has failed",
       "lineage": "upstream",
@@ -871,7 +871,7 @@
     },
     {
       "sha": "ba8b05594c41de560701d1fc9dde98e961e365f4",
-      "date": "2025-02-09T09:39:16-05:00",
+      "date": "2025-02-09T22:39:16+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/ba8b05594c41de560701d1fc9dde98e961e365f4",
       "summary": "Try PdhAddCounter first and fall back to PdhAddEnglishCounter",
       "lineage": "upstream",
@@ -882,7 +882,7 @@
     },
     {
       "sha": "1266fbfa42f8a9602f3cdc7dba0859fa8b45b68c",
-      "date": "2025-02-09T22:36:09-05:00",
+      "date": "2025-02-10T11:36:09+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/1266fbfa42f8a9602f3cdc7dba0859fa8b45b68c",
       "summary": "Update the version number",
       "lineage": "upstream",
@@ -893,7 +893,7 @@
     },
     {
       "sha": "11469f2a542f6d598253da1ea632e498991e4230",
-      "date": "2025-02-10T01:16:52-05:00",
+      "date": "2025-02-10T14:16:52+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/11469f2a542f6d598253da1ea632e498991e4230",
       "summary": "Add Windows 11 settings to the English and Traditional Chinese taskbar settings",
       "lineage": "upstream",
@@ -904,7 +904,7 @@
     },
     {
       "sha": "9d62bfba69bc6eae81450f087361525ce8499d13",
-      "date": "2025-02-10T01:19:01-05:00",
+      "date": "2025-02-10T14:19:01+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/9d62bfba69bc6eae81450f087361525ce8499d13",
       "summary": "Merge the upstream master branch into master",
       "lineage": "upstream",
@@ -915,7 +915,7 @@
     },
     {
       "sha": "78cc52827cc63cbd55defcfe26eccf4f605bd5c8",
-      "date": "2025-02-10T03:17:55-05:00",
+      "date": "2025-02-10T16:17:55+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/78cc52827cc63cbd55defcfe26eccf4f605bd5c8",
       "summary": "Skip the periodic always-on-top action while a dialog is open",
       "lineage": "upstream",
@@ -926,7 +926,7 @@
     },
     {
       "sha": "47514ac998e23df31c9c37832d8233910558980a",
-      "date": "2025-02-10T04:34:28-05:00",
+      "date": "2025-02-10T17:34:28+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/47514ac998e23df31c9c37832d8233910558980a",
       "summary": "Update version metadata and the changelog",
       "lineage": "upstream",
@@ -937,7 +937,7 @@
     },
     {
       "sha": "01bad73555d0b35cc836698e0bce0b7462a996cd",
-      "date": "2025-02-10T07:42:13-05:00",
+      "date": "2025-02-10T20:42:13+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/01bad73555d0b35cc836698e0bce0b7462a996cd",
       "summary": "Add issue-form configuration",
       "lineage": "upstream",
@@ -948,7 +948,7 @@
     },
     {
       "sha": "f18999ea18ee7eefde6682029db6b2c6af7bbdd0",
-      "date": "2025-02-10T08:19:08-05:00",
+      "date": "2025-02-10T21:19:08+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/f18999ea18ee7eefde6682029db6b2c6af7bbdd0",
       "summary": "Add the Chinese bug-report issue form",
       "lineage": "upstream",
@@ -959,7 +959,7 @@
     },
     {
       "sha": "5e103a16cd96e052c72f0a60f47c52903c2e4908",
-      "date": "2025-02-10T08:21:40-05:00",
+      "date": "2025-02-10T21:21:40+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/5e103a16cd96e052c72f0a60f47c52903c2e4908",
       "summary": "Fix the Chinese bug-report form layout",
       "lineage": "upstream",
@@ -970,7 +970,7 @@
     },
     {
       "sha": "955e9da5540e72d0320cf4122d37f2874d677014",
-      "date": "2025-02-10T08:23:47-05:00",
+      "date": "2025-02-10T21:23:47+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/955e9da5540e72d0320cf4122d37f2874d677014",
       "summary": "Correct YAML structure in the Chinese bug-report form",
       "lineage": "upstream",
@@ -981,7 +981,7 @@
     },
     {
       "sha": "495c27bbb6029f8bcfb633df46b15d4eb41cfebd",
-      "date": "2025-02-10T08:26:01-05:00",
+      "date": "2025-02-10T21:26:01+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/495c27bbb6029f8bcfb633df46b15d4eb41cfebd",
       "summary": "Fix required-field indentation in the Chinese bug-report form",
       "lineage": "upstream",
@@ -992,7 +992,7 @@
     },
     {
       "sha": "1654f14d0b6b10f6d8795c9cf5a6db592b6bdf5f",
-      "date": "2025-02-10T08:32:07-05:00",
+      "date": "2025-02-10T21:32:07+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/1654f14d0b6b10f6d8795c9cf5a6db592b6bdf5f",
       "summary": "Require the current application version in the Chinese bug-report form",
       "lineage": "upstream",
@@ -1003,7 +1003,7 @@
     },
     {
       "sha": "53c9733f5e71fde55ade29b17f8092e546dff0af",
-      "date": "2025-02-10T08:36:38-05:00",
+      "date": "2025-02-10T21:36:38+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/53c9733f5e71fde55ade29b17f8092e546dff0af",
       "summary": "Add the Chinese feature-request issue form",
       "lineage": "upstream",
@@ -1014,7 +1014,7 @@
     },
     {
       "sha": "e4d1593701ab52ab04eeae270d73ecedd47d65b8",
-      "date": "2025-02-10T08:38:09-05:00",
+      "date": "2025-02-10T21:38:09+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/e4d1593701ab52ab04eeae270d73ecedd47d65b8",
       "summary": "Rename the configuration file",
       "lineage": "upstream",
@@ -1025,7 +1025,7 @@
     },
     {
       "sha": "137825684564f439f5c1d8d8ded9371e6bca4fc3",
-      "date": "2025-02-10T08:40:48-05:00",
+      "date": "2025-02-10T21:40:48+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/137825684564f439f5c1d8d8ded9371e6bca4fc3",
       "summary": "Update the issue-form configuration",
       "lineage": "upstream",
@@ -1036,7 +1036,7 @@
     },
     {
       "sha": "25ec4da7869cd0eaa15089e14bed306fbb2da83b",
-      "date": "2025-02-10T08:41:24-05:00",
+      "date": "2025-02-10T21:41:24+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/25ec4da7869cd0eaa15089e14bed306fbb2da83b",
       "summary": "Correct the Chinese bug-report form",
       "lineage": "upstream",
@@ -1047,7 +1047,7 @@
     },
     {
       "sha": "616e29ae3592bd2c4423b7e18dcb9503889e55a1",
-      "date": "2025-02-10T08:43:26-05:00",
+      "date": "2025-02-10T21:43:26+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/616e29ae3592bd2c4423b7e18dcb9503889e55a1",
       "summary": "Correct the Chinese bug-report form's required labels and descriptions",
       "lineage": "upstream",
@@ -1058,7 +1058,7 @@
     },
     {
       "sha": "29b55b861fc9234cf05f65bd76cdcf5ebff8c284",
-      "date": "2025-02-10T08:45:56-05:00",
+      "date": "2025-02-10T21:45:56+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/29b55b861fc9234cf05f65bd76cdcf5ebff8c284",
       "summary": "Add the English bug-report issue form",
       "lineage": "upstream",
@@ -1069,7 +1069,7 @@
     },
     {
       "sha": "42afcba680bdbe172e25fd249b5b060b02251a68",
-      "date": "2025-02-10T08:47:26-05:00",
+      "date": "2025-02-10T21:47:26+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/42afcba680bdbe172e25fd249b5b060b02251a68",
       "summary": "Add the English feature-request issue form",
       "lineage": "upstream",
@@ -1080,7 +1080,7 @@
     },
     {
       "sha": "5d14b46906871d4eef3a8d21f583d829c6503744",
-      "date": "2025-02-10T09:12:58-05:00",
+      "date": "2025-02-10T22:12:58+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/5d14b46906871d4eef3a8d21f583d829c6503744",
       "summary": "Make the Windows 11 taskbar flag a private application member",
       "lineage": "upstream",
@@ -1091,7 +1091,7 @@
     },
     {
       "sha": "39acf09718f6bd8a3ad7ecc50d611d9d57f9713b",
-      "date": "2025-02-10T09:18:21-05:00",
+      "date": "2025-02-10T22:18:21+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/39acf09718f6bd8a3ad7ecc50d611d9d57f9713b",
       "summary": "Add support for showing the taskbar window on secondary monitors (#1870, #1621, #1529, #1254, #1209, #737)",
       "lineage": "upstream",
@@ -1102,7 +1102,7 @@
     },
     {
       "sha": "c18ebda203c666c996f316677e901a8cb3539f69",
-      "date": "2025-02-10T22:25:08-05:00",
+      "date": "2025-02-11T11:25:08+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/c18ebda203c666c996f316677e901a8cb3539f69",
       "summary": "Reposition the taskbar window at initialization to ensure it appears on secondary monitors in Windows 11",
       "lineage": "upstream",
@@ -1113,7 +1113,7 @@
     },
     {
       "sha": "2f2a527b3b62406c8a75aa0c048730a9cd695de5",
-      "date": "2025-02-11T02:58:57-05:00",
+      "date": "2025-02-11T15:58:57+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/2f2a527b3b62406c8a75aa0c048730a9cd695de5",
       "summary": "Add INI-format string resources",
       "lineage": "upstream",
@@ -1124,7 +1124,7 @@
     },
     {
       "sha": "a18cdf30f53aaae6ddd25a4bd9d97a04c168b2ad",
-      "date": "2025-02-11T04:00:37-05:00",
+      "date": "2025-02-11T17:00:37+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/a18cdf30f53aaae6ddd25a4bd9d97a04c168b2ad",
       "summary": "Move string resources from the resource file into INI files",
       "lineage": "upstream",
@@ -1135,7 +1135,7 @@
     },
     {
       "sha": "a1d9c759f9afc1a3a49062a985fa1fcd7713bf35",
-      "date": "2025-02-11T07:32:08-05:00",
+      "date": "2025-02-11T20:32:08+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/a1d9c759f9afc1a3a49062a985fa1fcd7713bf35",
       "summary": "Check text-resource sizes to prevent trailing garbage characters",
       "lineage": "upstream",
@@ -1146,7 +1146,7 @@
     },
     {
       "sha": "776d03dcbde91b6496824789e1aebb9c765d0fca",
-      "date": "2025-02-11T22:15:57-05:00",
+      "date": "2025-02-12T11:15:57+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/776d03dcbde91b6496824789e1aebb9c765d0fca",
       "summary": "Read About-dialog text from INI-format language files",
       "lineage": "upstream",
@@ -1157,7 +1157,7 @@
     },
     {
       "sha": "682a0c6a37b0e22aa5b7884e2bed852286099eeb",
-      "date": "2025-02-11T22:35:43-05:00",
+      "date": "2025-02-12T11:35:43+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/682a0c6a37b0e22aa5b7884e2bed852286099eeb",
       "summary": "Begin migrating dialog text to INI-format language files",
       "lineage": "upstream",
@@ -1168,7 +1168,7 @@
     },
     {
       "sha": "12ce7ee3c19aa8fabca17637a3410d5956f2af72",
-      "date": "2025-02-12T01:30:06-05:00",
+      "date": "2025-02-12T14:30:06+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/12ce7ee3c19aa8fabca17637a3410d5956f2af72",
       "summary": "Complete migration of dialog-resource text to INI files",
       "lineage": "upstream",
@@ -1179,7 +1179,7 @@
     },
     {
       "sha": "908d4d52b5eff842c055501eb7a2bfc0d82ea204",
-      "date": "2025-02-12T04:05:49-05:00",
+      "date": "2025-02-12T17:05:49+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/908d4d52b5eff842c055501eb7a2bfc0d82ea204",
       "summary": "Use Microsoft YaHei as the default dialog font and adjust dialog sizes and control positions",
       "lineage": "upstream",
@@ -1190,7 +1190,7 @@
     },
     {
       "sha": "85b0242ee5deca1be663c8931d5f20f97c1b01f9",
-      "date": "2025-02-12T09:00:58-05:00",
+      "date": "2025-02-12T22:00:58+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/85b0242ee5deca1be663c8931d5f20f97c1b01f9",
       "summary": "Build the language list by reading available language resources instead of using a fixed enum",
       "lineage": "upstream",
@@ -1201,7 +1201,7 @@
     },
     {
       "sha": "54f094275113c376af84c64f390786968cd3744f",
-      "date": "2025-02-12T09:44:46-05:00",
+      "date": "2025-02-12T22:44:46+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/54f094275113c376af84c64f390786968cd3744f",
       "summary": "Complete migration of menu text to INI files",
       "lineage": "upstream",
@@ -1212,7 +1212,7 @@
     },
     {
       "sha": "a565ab02a281a4ad6d353c7accbe3c37e9a6d6b6",
-      "date": "2025-02-12T22:32:25-05:00",
+      "date": "2025-02-13T11:32:25+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/a565ab02a281a4ad6d353c7accbe3c37e9a6d6b6",
       "summary": "Fix About-dialog artwork scaling when DPI changes",
       "lineage": "upstream",
@@ -1223,7 +1223,7 @@
     },
     {
       "sha": "2c67508a46cb0567fa4479a698ddb06ee58f9218",
-      "date": "2025-02-13T00:09:55-05:00",
+      "date": "2025-02-13T13:09:55+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/2c67508a46cb0567fa4479a698ddb06ee58f9218",
       "summary": "Adjust control positions in the options dialog",
       "lineage": "upstream",
@@ -1234,7 +1234,7 @@
     },
     {
       "sha": "3e38c74509b47f1d8db6213b7c0c678e408d515e",
-      "date": "2025-02-13T02:49:22-05:00",
+      "date": "2025-02-13T15:49:22+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/3e38c74509b47f1d8db6213b7c0c678e408d515e",
       "summary": "Remove unused string resources",
       "lineage": "upstream",
@@ -1245,7 +1245,7 @@
     },
     {
       "sha": "3ccf4fe05d7509f9d96c493aa75d5574a57d3801",
-      "date": "2025-02-13T03:52:09-05:00",
+      "date": "2025-02-13T16:52:09+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/3ccf4fe05d7509f9d96c493aa75d5574a57d3801",
       "summary": "Add Turkish language support",
       "lineage": "upstream",
@@ -1256,7 +1256,7 @@
     },
     {
       "sha": "1556e298298397f13ad98c402d0418aa944141ed",
-      "date": "2025-02-13T04:08:24-05:00",
+      "date": "2025-02-13T17:08:24+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/1556e298298397f13ad98c402d0418aa944141ed",
       "summary": "Correct an English spelling error",
       "lineage": "upstream",
@@ -1267,7 +1267,7 @@
     },
     {
       "sha": "a5966829dcdd3ca315fb12558360c3de786c8afe",
-      "date": "2025-02-13T05:21:32-05:00",
+      "date": "2025-02-13T13:21:32+03:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/a5966829dcdd3ca315fb12558360c3de786c8afe",
       "summary": "Update the Turkish translation",
       "lineage": "upstream",
@@ -1278,7 +1278,7 @@
     },
     {
       "sha": "ab91e8b202f6a6c62be3b2fd0de80abe2788af26",
-      "date": "2025-02-13T06:49:41-05:00",
+      "date": "2025-02-13T19:49:41+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/ab91e8b202f6a6c62be3b2fd0de80abe2788af26",
       "summary": "Merge pull request #1986 from hberkayaktas/master",
       "lineage": "upstream",
@@ -1289,7 +1289,7 @@
     },
     {
       "sha": "8ab5b51bf7d6594df772042d35a2dc74e92d1eb1",
-      "date": "2025-02-13T06:50:33-05:00",
+      "date": "2025-02-13T14:50:33+03:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/8ab5b51bf7d6594df772042d35a2dc74e92d1eb1",
       "summary": "Merge the upstream master branch into master",
       "lineage": "upstream",
@@ -1300,7 +1300,7 @@
     },
     {
       "sha": "e89bcbe35c3622e37e5b02eafca5efcbfb7b27d0",
-      "date": "2025-02-13T06:53:53-05:00",
+      "date": "2025-02-13T19:53:53+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/e89bcbe35c3622e37e5b02eafca5efcbfb7b27d0",
       "summary": "Merge pull request #1986 from hberkayaktas/master",
       "lineage": "upstream",
@@ -1311,7 +1311,7 @@
     },
     {
       "sha": "a6200aa3caba0630d26dd215526af14c1696fe08",
-      "date": "2025-02-13T06:54:17-05:00",
+      "date": "2025-02-13T19:54:17+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/a6200aa3caba0630d26dd215526af14c1696fe08",
       "summary": "Merge the upstream master branch into master",
       "lineage": "upstream",
@@ -1322,7 +1322,7 @@
     },
     {
       "sha": "4a46ef9837498765c8e94d3fb82a5ce01d484764",
-      "date": "2025-02-13T07:05:01-05:00",
+      "date": "2025-02-13T20:05:01+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/4a46ef9837498765c8e94d3fb82a5ce01d484764",
       "summary": "Add Turkish language resources",
       "lineage": "upstream",
@@ -1333,7 +1333,7 @@
     },
     {
       "sha": "872bd78ac9d16d72aceb320b0206d730dab5d89a",
-      "date": "2025-02-13T21:36:51-05:00",
+      "date": "2025-02-14T10:36:51+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/872bd78ac9d16d72aceb320b0206d730dab5d89a",
       "summary": "Prevent opening multiple About dialogs",
       "lineage": "upstream",
@@ -1344,7 +1344,7 @@
     },
     {
       "sha": "7a41153a60b0ad7260cb9f59a38153bab0fee7f5",
-      "date": "2025-02-14T01:28:10-05:00",
+      "date": "2025-02-14T14:28:10+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/7a41153a60b0ad7260cb9f59a38153bab0fee7f5",
       "summary": "Dynamically resize controls to fit their text",
       "lineage": "upstream",
@@ -1355,7 +1355,7 @@
     },
     {
       "sha": "2f3747eb387d57a53919b1ba142febc10730eb44",
-      "date": "2025-02-14T02:25:28-05:00",
+      "date": "2025-02-14T15:25:28+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/2f3747eb387d57a53919b1ba142febc10730eb44",
       "summary": "Load language files from the external language directory",
       "lineage": "upstream",
@@ -1366,7 +1366,7 @@
     },
     {
       "sha": "a96a9c49ac2dac2e6596dfac7544c4c23b7dd35d",
-      "date": "2025-02-14T02:39:30-05:00",
+      "date": "2025-02-14T08:39:30+01:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/a96a9c49ac2dac2e6596dfac7544c4c23b7dd35d",
       "summary": "Update the Italian translation",
       "lineage": "upstream",
@@ -1377,7 +1377,7 @@
     },
     {
       "sha": "a68ca3f170298fee233a61c02669fafd96c3a1ef",
-      "date": "2025-02-14T02:56:11-05:00",
+      "date": "2025-02-14T15:56:11+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/a68ca3f170298fee233a61c02669fafd96c3a1ef",
       "summary": "Use a list box for the skin list",
       "lineage": "upstream",
@@ -1388,7 +1388,7 @@
     },
     {
       "sha": "cc54378c1181c825aa68e61dda84f85028ff87a2",
-      "date": "2025-02-14T03:11:59-05:00",
+      "date": "2025-02-14T09:11:59+01:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/cc54378c1181c825aa68e61dda84f85028ff87a2",
       "summary": "Update the Italian translation",
       "lineage": "upstream",
@@ -1399,7 +1399,7 @@
     },
     {
       "sha": "757aad1b900da2293dae49d36545d33a50ded94d",
-      "date": "2025-02-14T03:20:51-05:00",
+      "date": "2025-02-14T16:20:51+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/757aad1b900da2293dae49d36545d33a50ded94d",
       "summary": "Merge pull request #1988 from bovirus/master",
       "lineage": "upstream",
@@ -1410,7 +1410,7 @@
     },
     {
       "sha": "399395f98788eaa5be2736af9348c92e57fdc19a",
-      "date": "2025-02-14T03:21:40-05:00",
+      "date": "2025-02-14T16:21:40+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/399395f98788eaa5be2736af9348c92e57fdc19a",
       "summary": "Merge the upstream master branch into master",
       "lineage": "upstream",
@@ -1421,7 +1421,7 @@
     },
     {
       "sha": "71df43dcf9f27c75b7d0ad8f9f117cd967c748ae",
-      "date": "2025-02-14T03:28:18-05:00",
+      "date": "2025-02-14T16:28:18+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/71df43dcf9f27c75b7d0ad8f9f117cd967c748ae",
       "summary": "Correct language metadata for externally loaded language files",
       "lineage": "upstream",
@@ -1432,7 +1432,7 @@
     },
     {
       "sha": "3655a6bcfd2b44f3ebb438bd71d285986e16d991",
-      "date": "2025-02-14T03:38:02-05:00",
+      "date": "2025-02-14T16:38:02+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/3655a6bcfd2b44f3ebb438bd71d285986e16d991",
       "summary": "Adjust control positions in General settings",
       "lineage": "upstream",
@@ -1443,7 +1443,7 @@
     },
     {
       "sha": "f28b982c0634c71e09070fb5bf052dbff78cbf1c",
-      "date": "2025-02-14T04:11:01-05:00",
+      "date": "2025-02-14T10:11:01+01:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/f28b982c0634c71e09070fb5bf052dbff78cbf1c",
       "summary": "Update the Italian translation",
       "lineage": "upstream",
@@ -1454,7 +1454,7 @@
     },
     {
       "sha": "afa8bd63f468c2dd606fe580a3805435f32de790",
-      "date": "2025-02-14T04:21:49-05:00",
+      "date": "2025-02-14T17:21:49+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/afa8bd63f468c2dd606fe580a3805435f32de790",
       "summary": "Merge pull request #1990 from bovirus/master",
       "lineage": "upstream",
@@ -1465,7 +1465,7 @@
     },
     {
       "sha": "b988d75c65bf06325b1328bb405d1a7c2f6e2b41",
-      "date": "2025-02-14T04:22:22-05:00",
+      "date": "2025-02-14T17:22:22+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/b988d75c65bf06325b1328bb405d1a7c2f6e2b41",
       "summary": "Allow options-dialog controls to resize dynamically",
       "lineage": "upstream",
@@ -1476,7 +1476,7 @@
     },
     {
       "sha": "dd1df1e95369c61b27509e17957c27b631f503a4",
-      "date": "2025-02-14T04:25:57-05:00",
+      "date": "2025-02-14T17:25:57+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/dd1df1e95369c61b27509e17957c27b631f503a4",
       "summary": "Merge the upstream master branch into master",
       "lineage": "upstream",
@@ -1487,7 +1487,7 @@
     },
     {
       "sha": "e71d12b9f93fb1bdbc3d2e692f107aa03d106d1f",
-      "date": "2025-02-14T04:57:42-05:00",
+      "date": "2025-02-14T17:57:42+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/e71d12b9f93fb1bdbc3d2e692f107aa03d106d1f",
       "summary": "Preserve the scroll position when resizing the options dialog",
       "lineage": "upstream",
@@ -1498,7 +1498,7 @@
     },
     {
       "sha": "cf570bdf80cfeacc817e80f7aabcb6f1544087d2",
-      "date": "2025-02-14T06:14:06-05:00",
+      "date": "2025-02-14T19:14:06+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/cf570bdf80cfeacc817e80f7aabcb6f1544087d2",
       "summary": "Adjust controls in several dialogs",
       "lineage": "upstream",
@@ -1509,7 +1509,7 @@
     },
     {
       "sha": "d17c1d90a32a42fb713cabcf96afde9af1c5f3f5",
-      "date": "2025-02-14T06:42:30-05:00",
+      "date": "2025-02-14T19:42:30+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/d17c1d90a32a42fb713cabcf96afde9af1c5f3f5",
       "summary": "Update language resources and remove unused strings",
       "lineage": "upstream",
@@ -1520,7 +1520,7 @@
     },
     {
       "sha": "f0cdbe7fd7d623c15b69c90f7d4ddd45dbe2c798",
-      "date": "2025-02-14T06:48:15-05:00",
+      "date": "2025-02-14T19:48:15+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/f0cdbe7fd7d623c15b69c90f7d4ddd45dbe2c798",
       "summary": "Add Polish language support",
       "lineage": "upstream",
@@ -1531,7 +1531,7 @@
     },
     {
       "sha": "725abbeaf8a870cb1ff93145eb8d98d58a7c857b",
-      "date": "2025-02-14T07:23:46-05:00",
+      "date": "2025-02-14T20:23:46+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/725abbeaf8a870cb1ff93145eb8d98d58a7c857b",
       "summary": "Adjust control positions",
       "lineage": "upstream",
@@ -1542,7 +1542,7 @@
     },
     {
       "sha": "a9eccf366f11ed65567274c3b1daff69989d798c",
-      "date": "2025-02-14T08:41:23-05:00",
+      "date": "2025-02-14T21:41:23+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/a9eccf366f11ed65567274c3b1daff69989d798c",
       "summary": "Make translator email links clickable and prevent long dialog text from being clipped",
       "lineage": "upstream",
@@ -1553,7 +1553,7 @@
     },
     {
       "sha": "3780953e876d5eaa44f1f873504ad7db21fc6b16",
-      "date": "2025-02-14T08:47:02-05:00",
+      "date": "2025-02-14T21:47:02+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/3780953e876d5eaa44f1f873504ad7db21fc6b16",
       "summary": "Correct skin ordering in the skin-selection dialog",
       "lineage": "upstream",
@@ -1564,7 +1564,7 @@
     },
     {
       "sha": "f14d7f4790a2b9deb2b2fa33b854c18bc2eee704",
-      "date": "2025-02-15T01:12:09-05:00",
+      "date": "2025-02-15T14:12:09+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/f14d7f4790a2b9deb2b2fa33b854c18bc2eee704",
       "summary": "Reload dialog fonts when display DPI changes",
       "lineage": "upstream",
@@ -1575,7 +1575,7 @@
     },
     {
       "sha": "aea3dd98dfad0b119d074523fe91a034128cd6e2",
-      "date": "2025-02-15T03:49:34-05:00",
+      "date": "2025-02-15T16:49:34+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/aea3dd98dfad0b119d074523fe91a034128cd6e2",
       "summary": "Separate Help-menu and Help-submenu translation strings",
       "lineage": "upstream",
@@ -1586,7 +1586,7 @@
     },
     {
       "sha": "16b8126bc67bc0f51d706d8d2ad3e46fca60415b",
-      "date": "2025-02-15T03:59:24-05:00",
+      "date": "2025-02-15T16:59:24+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/16b8126bc67bc0f51d706d8d2ad3e46fca60415b",
       "summary": "Fix skin-preview font sizing across displays with different DPI settings",
       "lineage": "upstream",
@@ -1597,7 +1597,7 @@
     },
     {
       "sha": "503352ac0da792df7800136a6a1b15cd55900132",
-      "date": "2025-02-15T05:08:57-05:00",
+      "date": "2025-02-15T11:08:57+01:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/503352ac0da792df7800136a6a1b15cd55900132",
       "summary": "Update the Italian translation",
       "lineage": "upstream",
@@ -1608,7 +1608,7 @@
     },
     {
       "sha": "1a2094e8cd98d1ac5b4cbbf9c0a34d6f7462a2c3",
-      "date": "2025-02-15T06:16:30-05:00",
+      "date": "2025-02-15T19:16:30+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/1a2094e8cd98d1ac5b4cbbf9c0a34d6f7462a2c3",
       "summary": "Merge pull request #1995 from bovirus/master",
       "lineage": "upstream",
@@ -1619,7 +1619,7 @@
     },
     {
       "sha": "ed90867a0dc18e01dba636601c1ec697ec87f4b0",
-      "date": "2025-02-15T06:26:57-05:00",
+      "date": "2025-02-15T19:26:57+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/ed90867a0dc18e01dba636601c1ec697ec87f4b0",
       "summary": "Select the correct language variant for Help and FAQ links",
       "lineage": "upstream",
@@ -1630,7 +1630,7 @@
     },
     {
       "sha": "2451f70901f7d5100fc358ae39e23ee299465cf3",
-      "date": "2025-02-16T02:16:32-05:00",
+      "date": "2025-02-16T15:16:32+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/2451f70901f7d5100fc358ae39e23ee299465cf3",
       "summary": "Refactor taskbar dialogs into Windows 11 and classic taskbar classes",
       "lineage": "upstream",
@@ -1641,7 +1641,7 @@
     },
     {
       "sha": "b9c27f9d4010e1299858d5bfed42c3695b1853c6",
-      "date": "2025-02-16T02:34:24-05:00",
+      "date": "2025-02-16T15:34:24+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/b9c27f9d4010e1299858d5bfed42c3695b1853c6",
       "summary": "Translate the Windows 11 taskbar settings dialog",
       "lineage": "upstream",
@@ -1652,7 +1652,7 @@
     },
     {
       "sha": "a2a3a04ca96b15512d485ea6f0cb2250af09a4e3",
-      "date": "2025-02-16T02:48:30-05:00",
+      "date": "2025-02-16T15:48:30+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/a2a3a04ca96b15512d485ea6f0cb2250af09a4e3",
       "summary": "Fix positioning when a Windows 11 taskbar window is near icons on a secondary display",
       "lineage": "upstream",
@@ -1663,7 +1663,7 @@
     },
     {
       "sha": "a7b0877c1cb064b98c009d42a6da0f00a1e849bc",
-      "date": "2025-02-16T03:03:25-05:00",
+      "date": "2025-02-16T16:03:25+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/a7b0877c1cb064b98c009d42a6da0f00a1e849bc",
       "summary": "Restore taskbar position after closing the window when the Windows 10 taskbar is docked at the screen edge",
       "lineage": "upstream",
@@ -1674,7 +1674,7 @@
     },
     {
       "sha": "ff1dfd4fa7083967cf9a63a3ef71031b2dc857e8",
-      "date": "2025-02-16T10:28:03-05:00",
+      "date": "2025-02-16T23:28:03+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/ff1dfd4fa7083967cf9a63a3ef71031b2dc857e8",
       "summary": "Update taskbar items and width without closing and reopening the taskbar window",
       "lineage": "upstream",
@@ -1685,7 +1685,7 @@
     },
     {
       "sha": "9a1658928b811acd7952e1d890469f3ad364f2a0",
-      "date": "2025-02-16T21:09:20-05:00",
+      "date": "2025-02-17T10:09:20+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/9a1658928b811acd7952e1d890469f3ad364f2a0",
       "summary": "Initialize the Windows 11 taskbar state before creating the taskbar dialog",
       "lineage": "upstream",
@@ -1696,7 +1696,7 @@
     },
     {
       "sha": "7ecbb6bd62abd2bea09a776260ac0d4933387b09",
-      "date": "2025-02-16T21:39:27-05:00",
+      "date": "2025-02-17T10:39:27+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/7ecbb6bd62abd2bea09a776260ac0d4933387b09",
       "summary": "Dynamically resize and reposition the taskbar window when its calculated width changes",
       "lineage": "upstream",
@@ -1707,7 +1707,7 @@
     },
     {
       "sha": "a5f99daa276d6e8d7afa4a4349bcb70261e0fdf6",
-      "date": "2025-02-16T21:39:54-05:00",
+      "date": "2025-02-17T10:39:54+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/a5f99daa276d6e8d7afa4a4349bcb70261e0fdf6",
       "summary": "Update ignore rules",
       "lineage": "upstream",
@@ -1718,7 +1718,7 @@
     },
     {
       "sha": "7d1a81c1d5f21ac29989daf1416975674a7f90cc",
-      "date": "2025-02-16T21:53:29-05:00",
+      "date": "2025-02-17T10:53:29+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/7d1a81c1d5f21ac29989daf1416975674a7f90cc",
       "summary": "Right-align taskbar values by default and increase default item spacing to 8",
       "lineage": "upstream",
@@ -1729,7 +1729,7 @@
     },
     {
       "sha": "3d2621522973a52f3db11d469cf18393ad723a91",
-      "date": "2025-02-17T01:02:01-05:00",
+      "date": "2025-02-17T14:02:01+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/3d2621522973a52f3db11d469cf18393ad723a91",
       "summary": "Handle failures to embed the taskbar window on Windows 11",
       "lineage": "upstream",
@@ -1740,7 +1740,7 @@
     },
     {
       "sha": "81de62dda252202b7bf74a929d4bc1b0319f04cc",
-      "date": "2025-02-17T01:25:01-05:00",
+      "date": "2025-02-17T14:25:01+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/81de62dda252202b7bf74a929d4bc1b0319f04cc",
       "summary": "Use the correct font DPI for dialogs opened from a secondary-display taskbar with different DPI",
       "lineage": "upstream",
@@ -1751,7 +1751,7 @@
     },
     {
       "sha": "60a25dfe518b9dda0d6655b8dfb6317d70982a79",
-      "date": "2025-02-17T01:42:15-05:00",
+      "date": "2025-02-17T14:42:15+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/60a25dfe518b9dda0d6655b8dfb6317d70982a79",
       "summary": "Use the correct DPI for the main window on a secondary display",
       "lineage": "upstream",
@@ -1762,7 +1762,7 @@
     },
     {
       "sha": "0c80d3415e0dad85fcb7d7a8be53d41c1d167b4c",
-      "date": "2025-02-17T02:10:06-05:00",
+      "date": "2025-02-17T15:10:06+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/0c80d3415e0dad85fcb7d7a8be53d41c1d167b4c",
       "summary": "Check whether DPIFromRect succeeds before using its result",
       "lineage": "upstream",
@@ -1773,7 +1773,7 @@
     },
     {
       "sha": "c6e877487bc7da2092a6e4ebb81e121cff54e755",
-      "date": "2025-02-17T02:50:51-05:00",
+      "date": "2025-02-17T15:50:51+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/c6e877487bc7da2092a6e4ebb81e121cff54e755",
       "summary": "Avoid reopening the taskbar window whenever options are applied",
       "lineage": "upstream",
@@ -1784,7 +1784,7 @@
     },
     {
       "sha": "730ff64963d49ba28276fb2e716c7b76a6ff33be",
-      "date": "2025-02-17T03:39:38-05:00",
+      "date": "2025-02-17T16:39:38+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/730ff64963d49ba28276fb2e716c7b76a6ff33be",
       "summary": "Store DPI on each base dialog",
       "lineage": "upstream",
@@ -1795,7 +1795,7 @@
     },
     {
       "sha": "1928560cddc57d98d4aa59b617c72d230ea61c06",
-      "date": "2025-02-17T04:50:45-05:00",
+      "date": "2025-02-17T17:50:45+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/1928560cddc57d98d4aa59b617c72d230ea61c06",
       "summary": "Use TrayNotifyWnd width changes to position taskbar windows on Windows 10 and earlier, avoiding conflicts that could hide taskbar buttons",
       "lineage": "upstream",
@@ -1806,7 +1806,7 @@
     },
     {
       "sha": "bb33063eaefc2728408d7db8d8c1f710f2bcc92d",
-      "date": "2025-02-17T05:21:10-05:00",
+      "date": "2025-02-17T18:21:10+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/bb33063eaefc2728408d7db8d8c1f710f2bcc92d",
       "summary": "Use a fallback notification-area position on Windows 11 and remove the taskbar-boundary clamp (#1967)",
       "lineage": "upstream",
@@ -1817,7 +1817,7 @@
     },
     {
       "sha": "c81f80277215f1708d2e5c932e9e260847221fb5",
-      "date": "2025-02-17T07:48:50-05:00",
+      "date": "2025-02-17T20:48:50+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/c81f80277215f1708d2e5c932e9e260847221fb5",
       "summary": "Continue using MSTaskListWClass width changes on pre-Windows 10 systems",
       "lineage": "upstream",
@@ -1828,7 +1828,7 @@
     },
     {
       "sha": "3e9546ef342e09c8a1ac9f9b868cb1c07b47142c",
-      "date": "2025-02-17T08:04:10-05:00",
+      "date": "2025-02-17T21:04:10+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/3e9546ef342e09c8a1ac9f9b868cb1c07b47142c",
       "summary": "Show the hardware-acquisition error text instead of its string identifier (#1997)",
       "lineage": "upstream",
@@ -1839,7 +1839,7 @@
     },
     {
       "sha": "2e5ac385fdf57282e279664282e0a4c019e14587",
-      "date": "2025-02-17T10:50:52-05:00",
+      "date": "2025-02-17T23:50:52+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/2e5ac385fdf57282e279664282e0a4c019e14587",
       "summary": "Fix a compilation error",
       "lineage": "upstream",
@@ -1850,7 +1850,7 @@
     },
     {
       "sha": "e02ecc657ded695135ed1222326c2f21e24d27d3",
-      "date": "2025-02-17T11:17:58-05:00",
+      "date": "2025-02-18T00:17:58+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/e02ecc657ded695135ed1222326c2f21e24d27d3",
       "summary": "Release GDI+ during application shutdown",
       "lineage": "upstream",
@@ -1861,7 +1861,7 @@
     },
     {
       "sha": "65a9f8a3484bbf7c0e251573659dc26dddfff8c5",
-      "date": "2025-02-17T22:33:35-05:00",
+      "date": "2025-02-18T11:33:35+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/65a9f8a3484bbf7c0e251573659dc26dddfff8c5",
       "summary": "Keep the taskbar window visible when Windows changes the all-displays taskbar setting",
       "lineage": "upstream",
@@ -1872,7 +1872,7 @@
     },
     {
       "sha": "3d4d4ac01d8b2002360bd976cfe475450517b125",
-      "date": "2025-02-19T21:47:55-05:00",
+      "date": "2025-02-20T10:47:55+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/3d4d4ac01d8b2002360bd976cfe475450517b125",
       "summary": "Adjust several control sizes",
       "lineage": "upstream",
@@ -1883,7 +1883,7 @@
     },
     {
       "sha": "78ad037dd947919640074d1f6471a0593ff1da9e",
-      "date": "2025-02-20T03:40:09-05:00",
+      "date": "2025-02-20T16:40:09+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/78ad037dd947919640074d1f6471a0593ff1da9e",
       "summary": "Allow choosing the monitor for the taskbar window",
       "lineage": "upstream",
@@ -1894,7 +1894,7 @@
     },
     {
       "sha": "a0b577e9bdced9a830d2750e11d8e7487a635924",
-      "date": "2025-02-21T21:41:57-05:00",
+      "date": "2025-02-22T10:41:57+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/a0b577e9bdced9a830d2750e11d8e7487a635924",
       "summary": "Load plugins after initializing the interface language",
       "lineage": "upstream",
@@ -1905,7 +1905,7 @@
     },
     {
       "sha": "7a729ddde4db755cb45e29d4beea9484288c1266",
-      "date": "2025-02-21T21:53:13-05:00",
+      "date": "2025-02-22T10:53:13+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/7a729ddde4db755cb45e29d4beea9484288c1266",
       "summary": "Finish editing instead of closing the dialog when Enter is pressed in text-display settings",
       "lineage": "upstream",
@@ -1916,7 +1916,7 @@
     },
     {
       "sha": "bc2fa4df48bf3cdaf4459e91a12f118b72eb4f62",
-      "date": "2025-02-22T03:24:26-05:00",
+      "date": "2025-02-22T16:24:26+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/bc2fa4df48bf3cdaf4459e91a12f118b72eb4f62",
       "summary": "Reinitialize network connections after resuming from sleep",
       "lineage": "upstream",
@@ -1927,7 +1927,7 @@
     },
     {
       "sha": "eaf77891d3c82c2cf4c6637b85d32508b0d5f049",
-      "date": "2025-02-22T04:34:05-05:00",
+      "date": "2025-02-22T17:34:05+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/eaf77891d3c82c2cf4c6637b85d32508b0d5f049",
       "summary": "Restart the taskbar window when the secondary-display taskbar count changes",
       "lineage": "upstream",
@@ -1938,7 +1938,7 @@
     },
     {
       "sha": "d22940e7c83f0d2302ea48464989322d8f66735c",
-      "date": "2025-02-23T06:12:05-05:00",
+      "date": "2025-02-23T12:12:05+01:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/d22940e7c83f0d2302ea48464989322d8f66735c",
       "summary": "Update the Italian translation",
       "lineage": "upstream",
@@ -1949,7 +1949,7 @@
     },
     {
       "sha": "72b9533650ad87fe65052e48e603da4cac7d51ee",
-      "date": "2025-02-24T00:50:34-05:00",
+      "date": "2025-02-24T13:50:34+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/72b9533650ad87fe65052e48e603da4cac7d51ee",
       "summary": "Replace the Alipay donation QR code with a collection code",
       "lineage": "upstream",
@@ -1960,7 +1960,7 @@
     },
     {
       "sha": "f36321f658d4207e1e3ea82aa98cf5b32938066d",
-      "date": "2025-02-24T03:26:49-05:00",
+      "date": "2025-02-24T16:26:49+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/f36321f658d4207e1e3ea82aa98cf5b32938066d",
       "summary": "Merge pull request #2011 from bovirus/master",
       "lineage": "upstream",
@@ -1971,7 +1971,7 @@
     },
     {
       "sha": "3d33d8adc96a78adcfb6fea15148b8e98374fa13",
-      "date": "2025-02-24T03:27:23-05:00",
+      "date": "2025-02-24T16:27:23+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/3d33d8adc96a78adcfb6fea15148b8e98374fa13",
       "summary": "Merge the upstream master branch into master",
       "lineage": "upstream",
@@ -1982,7 +1982,7 @@
     },
     {
       "sha": "349857a92179aba7d1f965d69e1b60236c7079ca",
-      "date": "2025-02-26T22:43:55-05:00",
+      "date": "2025-02-27T11:43:55+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/349857a92179aba7d1f965d69e1b60236c7079ca",
       "summary": "Revert positioning taskbar windows using TrayNotifyWnd width on systems before Windows 10",
       "lineage": "upstream",
@@ -1993,7 +1993,7 @@
     },
     {
       "sha": "a1f53297e25d109ddd74664adcc4ebd62dd3b1d8",
-      "date": "2025-02-26T22:56:06-05:00",
+      "date": "2025-02-27T11:56:06+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/a1f53297e25d109ddd74664adcc4ebd62dd3b1d8",
       "summary": "Fix saving the update-source setting (#2020, #1561, #1119)",
       "lineage": "upstream",
@@ -2004,7 +2004,7 @@
     },
     {
       "sha": "e6776b66b15a654a9668571c542de3c96e78d936",
-      "date": "2025-02-27T00:20:38-05:00",
+      "date": "2025-02-27T06:20:38+01:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/e6776b66b15a654a9668571c542de3c96e78d936",
       "summary": "Add files via upload",
       "lineage": "upstream",
@@ -2015,7 +2015,7 @@
     },
     {
       "sha": "8fd5878f94d953fcbec2efc0111d213cffe8f2c2",
-      "date": "2025-02-27T00:22:03-05:00",
+      "date": "2025-02-27T06:22:03+01:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/8fd5878f94d953fcbec2efc0111d213cffe8f2c2",
       "summary": "Merge pull request #1 from bege10/bege10-patch-1",
       "lineage": "upstream",
@@ -2026,7 +2026,7 @@
     },
     {
       "sha": "bbce65c06792996d24ba7aeac62dda306514e22a",
-      "date": "2025-02-27T02:15:47-05:00",
+      "date": "2025-02-27T15:15:47+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/bbce65c06792996d24ba7aeac62dda306514e22a",
       "summary": "Fix DPI selection when moving the floating window between displays",
       "lineage": "upstream",
@@ -2037,7 +2037,7 @@
     },
     {
       "sha": "bab442bb259e3564cf402e7fcf426e3167a4b3c4",
-      "date": "2025-02-27T02:50:34-05:00",
+      "date": "2025-02-27T15:50:34+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/bab442bb259e3564cf402e7fcf426e3167a4b3c4",
       "summary": "Allow removing every built-in taskbar item when plugin items are shown (#1965)",
       "lineage": "upstream",
@@ -2048,7 +2048,7 @@
     },
     {
       "sha": "565e680c444d56ee0fbdb4c92584084c29ad316e",
-      "date": "2025-02-27T03:27:52-05:00",
+      "date": "2025-02-27T16:27:52+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/565e680c444d56ee0fbdb4c92584084c29ad316e",
       "summary": "Correct an English spelling error",
       "lineage": "upstream",
@@ -2059,7 +2059,7 @@
     },
     {
       "sha": "a9d5df453e6908c48c401f714054fe96cd9a592d",
-      "date": "2025-02-27T05:18:30-05:00",
+      "date": "2025-02-27T18:18:30+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/a9d5df453e6908c48c401f714054fe96cd9a592d",
       "summary": "Match the taskbar usage-graph background to the Windows theme",
       "lineage": "upstream",
@@ -2070,7 +2070,7 @@
     },
     {
       "sha": "bc871c8bf053622c7453d5b7205c31cbdb3c5b92",
-      "date": "2025-02-27T10:16:40-05:00",
+      "date": "2025-02-27T16:16:40+01:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/bc871c8bf053622c7453d5b7205c31cbdb3c5b92",
       "summary": "Update the Italian translation",
       "lineage": "upstream",
@@ -2081,7 +2081,7 @@
     },
     {
       "sha": "395405410c05377558cb25c3cec67fcf8712e6db",
-      "date": "2025-02-27T11:06:24-05:00",
+      "date": "2025-02-27T17:06:24+01:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/395405410c05377558cb25c3cec67fcf8712e6db",
       "summary": "Update the Italian translation",
       "lineage": "upstream",
@@ -2092,7 +2092,7 @@
     },
     {
       "sha": "cbb4ed4a1e3abcaeb2d15afeee8e8683cc78d60d",
-      "date": "2025-02-27T21:13:48-05:00",
+      "date": "2025-02-28T10:13:48+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/cbb4ed4a1e3abcaeb2d15afeee8e8683cc78d60d",
       "summary": "Merge pull request #2025 from bovirus/master",
       "lineage": "upstream",
@@ -2103,7 +2103,7 @@
     },
     {
       "sha": "701696d9ddac2c77576b387e9392ebe2c5cb0b43",
-      "date": "2025-02-27T21:32:41-05:00",
+      "date": "2025-02-28T10:32:41+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/701696d9ddac2c77576b387e9392ebe2c5cb0b43",
       "summary": "Remove the unused default-language resource identifier",
       "lineage": "upstream",
@@ -2114,7 +2114,7 @@
     },
     {
       "sha": "b7613bce7d97e59d368baffff5cb4e96498a08eb",
-      "date": "2025-02-27T21:58:48-05:00",
+      "date": "2025-02-28T10:58:48+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/b7613bce7d97e59d368baffff5cb4e96498a08eb",
       "summary": "Sort built-in languages by BCP 47 tag",
       "lineage": "upstream",
@@ -2125,7 +2125,7 @@
     },
     {
       "sha": "77683a653ed1b4a1cd5aec15d8e578f54cd908f2",
-      "date": "2025-02-28T02:33:30-05:00",
+      "date": "2025-02-28T15:33:30+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/77683a653ed1b4a1cd5aec15d8e578f54cd908f2",
       "summary": "Adjust the plugin-manager dialog layout",
       "lineage": "upstream",
@@ -2136,7 +2136,7 @@
     },
     {
       "sha": "06974fb9bfc89c1ec854860322630b5c368fbd5c",
-      "date": "2025-02-28T04:33:30-05:00",
+      "date": "2025-02-28T17:33:30+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/06974fb9bfc89c1ec854860322630b5c368fbd5c",
       "summary": "Use the standard dialog font in the color dialog",
       "lineage": "upstream",
@@ -2147,7 +2147,7 @@
     },
     {
       "sha": "cc470476707d1f3e5920d0006667753c647a1f5e",
-      "date": "2025-02-28T04:37:35-05:00",
+      "date": "2025-02-28T17:37:35+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/cc470476707d1f3e5920d0006667753c647a1f5e",
       "summary": "Revert removal of the default-language resource identifier",
       "lineage": "upstream",
@@ -2158,7 +2158,7 @@
     },
     {
       "sha": "23db5251a313df216baa2ab8e2b3812b902f9f0e",
-      "date": "2025-02-28T14:25:39-05:00",
+      "date": "2025-02-28T20:25:39+01:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/23db5251a313df216baa2ab8e2b3812b902f9f0e",
       "summary": "Merge zhongyang219:master into master",
       "lineage": "upstream",
@@ -2169,7 +2169,7 @@
     },
     {
       "sha": "9ed4559c9fedd0da54a2188e11a70b767807f046",
-      "date": "2025-02-28T14:38:21-05:00",
+      "date": "2025-02-28T20:38:21+01:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/9ed4559c9fedd0da54a2188e11a70b767807f046",
       "summary": "Update the German translation",
       "lineage": "upstream",
@@ -2180,7 +2180,7 @@
     },
     {
       "sha": "1f97d6dc525a4a573eba9b01f05983a9642e94cc",
-      "date": "2025-03-01T01:30:54-05:00",
+      "date": "2025-03-01T14:30:54+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/1f97d6dc525a4a573eba9b01f05983a9642e94cc",
       "summary": "Save fonts, text colors, and displayed items separately for each skin",
       "lineage": "upstream",
@@ -2191,7 +2191,7 @@
     },
     {
       "sha": "0c35899f4c293b09014ea5b07331175ca578c701",
-      "date": "2025-03-01T02:15:29-05:00",
+      "date": "2025-03-01T15:15:29+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/0c35899f4c293b09014ea5b07331175ca578c701",
       "summary": "Add a Restore skin defaults button to main-window settings",
       "lineage": "upstream",
@@ -2202,7 +2202,7 @@
     },
     {
       "sha": "a455945cfee8a369b2131349343b0cf2cc91a17f",
-      "date": "2025-03-01T02:47:36-05:00",
+      "date": "2025-03-01T15:47:36+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/a455945cfee8a369b2131349343b0cf2cc91a17f",
       "summary": "Remove options that let skins override font and displayed-text settings",
       "lineage": "upstream",
@@ -2213,7 +2213,7 @@
     },
     {
       "sha": "4558fa9a395472717b597de06391aca82352eb7d",
-      "date": "2025-03-01T03:41:25-05:00",
+      "date": "2025-03-01T16:41:25+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/4558fa9a395472717b597de06391aca82352eb7d",
       "summary": "Match skin-preview fonts and text to the actual skin appearance",
       "lineage": "upstream",
@@ -2224,7 +2224,7 @@
     },
     {
       "sha": "7b0a11f514e905bc9f51c08c50f2c8196ff3bd4b",
-      "date": "2025-03-01T04:04:52-05:00",
+      "date": "2025-03-01T17:04:52+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/7b0a11f514e905bc9f51c08c50f2c8196ff3bd4b",
       "summary": "Save plugin display text in per-skin settings",
       "lineage": "upstream",
@@ -2235,7 +2235,7 @@
     },
     {
       "sha": "cf49d9b6942e84b15477c338dab21e96b4f3aa1d",
-      "date": "2025-03-01T04:07:28-05:00",
+      "date": "2025-03-01T17:07:28+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/cf49d9b6942e84b15477c338dab21e96b4f3aa1d",
       "summary": "Match plugin display text in previews to the skin file",
       "lineage": "upstream",
@@ -2246,7 +2246,7 @@
     },
     {
       "sha": "ff2d4d01830a237e4da0bb2c46f2ae96b87d3333",
-      "date": "2025-03-01T06:32:14-05:00",
+      "date": "2025-03-01T19:32:14+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/ff2d4d01830a237e4da0bb2c46f2ae96b87d3333",
       "summary": "Show only items present in the current skin in main-window text settings",
       "lineage": "upstream",
@@ -2257,7 +2257,7 @@
     },
     {
       "sha": "c1d1d00da584df8246d2086991e0e68fdd6514b0",
-      "date": "2025-03-01T07:35:08-05:00",
+      "date": "2025-03-01T20:35:08+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/c1d1d00da584df8246d2086991e0e68fdd6514b0",
       "summary": "Use const accessors for display strings and save only items present in each skin",
       "lineage": "upstream",
@@ -2268,7 +2268,7 @@
     },
     {
       "sha": "bf57aefd55eddc6cfc080d7b7c1a88ae348d9f4c",
-      "date": "2025-03-01T22:18:57-05:00",
+      "date": "2025-03-02T11:18:57+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/bf57aefd55eddc6cfc080d7b7c1a88ae348d9f4c",
       "summary": "Remove a leading slash when loading skin names from configuration",
       "lineage": "upstream",
@@ -2279,7 +2279,7 @@
     },
     {
       "sha": "a45791f7dae86ba945351fd2b3c70ac5bd5d44d8",
-      "date": "2025-03-01T22:21:19-05:00",
+      "date": "2025-03-02T11:21:19+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/a45791f7dae86ba945351fd2b3c70ac5bd5d44d8",
       "summary": "Merge pull request #2023 from bege10/master",
       "lineage": "upstream",
@@ -2290,7 +2290,7 @@
     },
     {
       "sha": "fc57d508e2aafc64a8f058247814d8c8fa0051cd",
-      "date": "2025-03-01T22:22:08-05:00",
+      "date": "2025-03-02T11:22:08+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/fc57d508e2aafc64a8f058247814d8c8fa0051cd",
       "summary": "Merge pull request #1968 from QingFeng-awa/master",
       "lineage": "upstream",
@@ -2301,7 +2301,7 @@
     },
     {
       "sha": "ee2a5eb463b4785cee72343a1f5d8b39cd70ab57",
-      "date": "2025-03-01T22:34:23-05:00",
+      "date": "2025-03-02T11:34:23+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/ee2a5eb463b4785cee72343a1f5d8b39cd70ab57",
       "summary": "Update the Polish translation",
       "lineage": "upstream",
@@ -2312,7 +2312,7 @@
     },
     {
       "sha": "345e6dc28ba9e74c8e5643b5b808eb91377b681f",
-      "date": "2025-03-02T03:40:40-05:00",
+      "date": "2025-03-02T16:40:40+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/345e6dc28ba9e74c8e5643b5b808eb91377b681f",
       "summary": "Stop saving skin-specific text, font, and display settings in the global configuration",
       "lineage": "upstream",
@@ -2323,7 +2323,7 @@
     },
     {
       "sha": "6fe32fa0c0023f80a3fdc8515328b5aa6b9435b7",
-      "date": "2025-03-02T03:56:25-05:00",
+      "date": "2025-03-02T16:56:25+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/6fe32fa0c0023f80a3fdc8515328b5aa6b9435b7",
       "summary": "Move application-settings reads and writes into CSettingsHelper",
       "lineage": "upstream",
@@ -2334,7 +2334,7 @@
     },
     {
       "sha": "104c9810cb229ea1ac9e5833985ac40c98f30bec",
-      "date": "2025-03-02T04:19:14-05:00",
+      "date": "2025-03-02T17:19:14+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/104c9810cb229ea1ac9e5833985ac40c98f30bec",
       "summary": "Use default skin settings when no overrides exist and show text when no skin file is present",
       "lineage": "upstream",
@@ -2345,7 +2345,7 @@
     },
     {
       "sha": "6ef0a7a7c46e5bf422dc85fca0b43938ed3bfb51",
-      "date": "2025-03-02T05:17:39-05:00",
+      "date": "2025-03-02T18:17:39+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/6ef0a7a7c46e5bf422dc85fca0b43938ed3bfb51",
       "summary": "Ignore display items absent from the current skin when loading main-window text settings",
       "lineage": "upstream",
@@ -2356,7 +2356,7 @@
     },
     {
       "sha": "f8a4dd3df4fc5e5aeb5d369efb30d7eeb563fc98",
-      "date": "2025-03-02T06:30:38-05:00",
+      "date": "2025-03-02T19:30:38+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/f8a4dd3df4fc5e5aeb5d369efb30d7eeb563fc98",
       "summary": "Read and write main-window text colors only for items present in the current skin",
       "lineage": "upstream",
@@ -2367,7 +2367,7 @@
     },
     {
       "sha": "df486724bac50b3150e35b27d9e7db3261add696",
-      "date": "2025-03-02T06:52:06-05:00",
+      "date": "2025-03-02T19:52:06+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/df486724bac50b3150e35b27d9e7db3261add696",
       "summary": "Show only colors for items present in the current skin",
       "lineage": "upstream",
@@ -2378,7 +2378,7 @@
     },
     {
       "sha": "2e9362c909f23df92b1e10beda77080b753e4dff",
-      "date": "2025-03-02T06:52:40-05:00",
+      "date": "2025-03-02T19:52:40+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/2e9362c909f23df92b1e10beda77080b753e4dff",
       "summary": "Ignore saved per-skin settings for skins that no longer exist",
       "lineage": "upstream",
@@ -2389,7 +2389,7 @@
     },
     {
       "sha": "705d31ef68b8ece727fd67561677a8674a1c4411",
-      "date": "2025-03-02T07:16:01-05:00",
+      "date": "2025-03-02T20:16:01+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/705d31ef68b8ece727fd67561677a8674a1c4411",
       "summary": "Remove settings for missing skins when saving per-skin configuration",
       "lineage": "upstream",
@@ -2400,7 +2400,7 @@
     },
     {
       "sha": "766db86071120b26201dc21195b65dcaf2dc8b0a",
-      "date": "2025-03-02T08:12:01-05:00",
+      "date": "2025-03-02T21:12:01+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/766db86071120b26201dc21195b65dcaf2dc8b0a",
       "summary": "Improve color swatches and remove excess blank space when more than eight colors are shown",
       "lineage": "upstream",
@@ -2411,7 +2411,7 @@
     },
     {
       "sha": "50b738b8cc79344f40a448aea2b5ecc302fcb8d3",
-      "date": "2025-03-02T08:27:30-05:00",
+      "date": "2025-03-02T21:27:30+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/50b738b8cc79344f40a448aea2b5ecc302fcb8d3",
       "summary": "Apply font-size changes immediately in main-window and taskbar settings",
       "lineage": "upstream",
@@ -2422,7 +2422,7 @@
     },
     {
       "sha": "8ee955785b59a8910d3b7433d7052f715e8755f0",
-      "date": "2025-03-02T08:37:23-05:00",
+      "date": "2025-03-02T21:37:23+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/8ee955785b59a8910d3b7433d7052f715e8755f0",
       "summary": "Restore the default skin font size to 10",
       "lineage": "upstream",
@@ -2433,7 +2433,7 @@
     },
     {
       "sha": "fc3e1aa593db266b92fe18e7cf8f1bb8fd7e263a",
-      "date": "2025-03-02T08:54:53-05:00",
+      "date": "2025-03-02T21:54:53+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/fc3e1aa593db266b92fe18e7cf8f1bb8fd7e263a",
       "summary": "Add Plugin Manager to the taskbar context menu",
       "lineage": "upstream",
@@ -2444,7 +2444,7 @@
     },
     {
       "sha": "5c20ba753e86cb534e33842aa0be4f4159deeed5",
-      "date": "2025-03-02T20:54:21-05:00",
+      "date": "2025-03-03T09:54:21+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/5c20ba753e86cb534e33842aa0be4f4159deeed5",
       "summary": "Clear saved item rectangles when taskbar items change to keep plugin menus correct",
       "lineage": "upstream",
@@ -2455,7 +2455,7 @@
     },
     {
       "sha": "2b920eec8268f64d414a093fcf96a8e6952ea101",
-      "date": "2025-03-02T21:34:44-05:00",
+      "date": "2025-03-03T10:34:44+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/2b920eec8268f64d414a093fcf96a8e6952ea101",
       "summary": "Save skin settings only when skin-related options change",
       "lineage": "upstream",
@@ -2466,7 +2466,7 @@
     },
     {
       "sha": "bca2def3ebf4649427f653f22a5390be1ed6cb35",
-      "date": "2025-03-02T21:48:26-05:00",
+      "date": "2025-03-03T10:48:26+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/bca2def3ebf4649427f653f22a5390be1ed6cb35",
       "summary": "Disable network-selection controls when all network connections are shown",
       "lineage": "upstream",
@@ -2477,7 +2477,7 @@
     },
     {
       "sha": "fcc0c0841a0721ea28152f6849c71edd495c9ac7",
-      "date": "2025-03-02T23:00:28-05:00",
+      "date": "2025-03-03T12:00:28+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/fcc0c0841a0721ea28152f6849c71edd495c9ac7",
       "summary": "Clean up INI-helper header includes",
       "lineage": "upstream",
@@ -2488,7 +2488,7 @@
     },
     {
       "sha": "4f8bf978308564756f1b6d1746d072450f26e127",
-      "date": "2025-03-03T00:42:19-05:00",
+      "date": "2025-03-03T13:42:19+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/4f8bf978308564756f1b6d1746d072450f26e127",
       "summary": "Fix compiler warnings",
       "lineage": "upstream",
@@ -2499,7 +2499,7 @@
     },
     {
       "sha": "13c58443eac1f7794e5fe96c3564f03a91897a27",
-      "date": "2025-03-03T03:25:32-05:00",
+      "date": "2025-03-03T16:25:32+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/13c58443eac1f7794e5fe96c3564f03a91897a27",
       "summary": "Use the skin font for main-window drawing and match preview text to the user's font",
       "lineage": "upstream",
@@ -2510,7 +2510,7 @@
     },
     {
       "sha": "946e92e5b0ab94ea86fd0fa3c0e074d916f278d9",
-      "date": "2025-03-03T20:28:01-05:00",
+      "date": "2025-03-04T09:28:01+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/946e92e5b0ab94ea86fd0fa3c0e074d916f278d9",
       "summary": "Fix duplicate control IDs affecting controls when all connections are shown",
       "lineage": "upstream",
@@ -2521,7 +2521,7 @@
     },
     {
       "sha": "2cc782596819d46428244512a874b5d8eaba3225",
-      "date": "2025-03-03T20:30:11-05:00",
+      "date": "2025-03-04T09:30:11+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/2cc782596819d46428244512a874b5d8eaba3225",
       "summary": "Use the configured speed unit in taskbar tooltips",
       "lineage": "upstream",
@@ -2532,7 +2532,7 @@
     },
     {
       "sha": "d45fbdaf51e2a9164526f867ba3e595ca4b2150a",
-      "date": "2025-03-03T21:12:16-05:00",
+      "date": "2025-03-04T10:12:16+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/d45fbdaf51e2a9164526f867ba3e595ca4b2150a",
       "summary": "Match preview font color and displayed text to the actual skin",
       "lineage": "upstream",
@@ -2543,7 +2543,7 @@
     },
     {
       "sha": "cd42dab8fe2beab12389a308770adac5126a1a1a",
-      "date": "2025-03-03T21:38:14-05:00",
+      "date": "2025-03-04T10:38:14+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/cd42dab8fe2beab12389a308770adac5126a1a1a",
       "summary": "Remove NONE_STR and represent missing display strings by absent map keys",
       "lineage": "upstream",
@@ -2554,7 +2554,7 @@
     },
     {
       "sha": "52d6e686b05b595d3268adb6ad11797f56922a3e",
-      "date": "2025-03-03T22:19:13-05:00",
+      "date": "2025-03-04T11:19:13+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/52d6e686b05b595d3268adb6ad11797f56922a3e",
       "summary": "Refactor shared display-item code",
       "lineage": "upstream",
@@ -2565,7 +2565,7 @@
     },
     {
       "sha": "c96dc7bdba51396da33ab139ef029dc31e6f2bcd",
-      "date": "2025-03-04T03:08:44-05:00",
+      "date": "2025-03-04T16:08:44+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/c96dc7bdba51396da33ab139ef029dc31e6f2bcd",
       "summary": "Move CommonDisplayItem into DisplayItem.h and DisplayItem.cpp",
       "lineage": "upstream",
@@ -2576,7 +2576,7 @@
     },
     {
       "sha": "52cd77980c8f6edb35c4c4f6d1cef104c19719f1",
-      "date": "2025-03-04T06:41:01-05:00",
+      "date": "2025-03-04T19:41:01+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/52cd77980c8f6edb35c4c4f6d1cef104c19719f1",
       "summary": "Replace bit-combined display-item enums with DisplayItemSet",
       "lineage": "upstream",
@@ -2587,7 +2587,7 @@
     },
     {
       "sha": "23ab56283a0fca22b4d243a464a98513f68b2151",
-      "date": "2025-03-04T06:53:28-05:00",
+      "date": "2025-03-04T19:53:28+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/23ab56283a0fca22b4d243a464a98513f68b2151",
       "summary": "Update the per-item-color checkbox when restoring default skin settings",
       "lineage": "upstream",
@@ -2598,7 +2598,7 @@
     },
     {
       "sha": "87d8dd722f5bfd5eeb81d3b886a40f0d2818533d",
-      "date": "2025-03-05T07:33:46-05:00",
+      "date": "2025-03-05T20:33:46+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/87d8dd722f5bfd5eeb81d3b886a40f0d2818533d",
       "summary": "Add mouse-wheel events to plugin mouse input",
       "lineage": "upstream",
@@ -2609,7 +2609,7 @@
     },
     {
       "sha": "dab77a760b952f0cb82a7f6fd0319d2b374e1f7d",
-      "date": "2025-03-05T21:25:30-05:00",
+      "date": "2025-03-06T10:25:30+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/dab77a760b952f0cb82a7f6fd0319d2b374e1f7d",
       "summary": "Add a version column to the plugin manager",
       "lineage": "upstream",
@@ -2620,7 +2620,7 @@
     },
     {
       "sha": "999620390547279c8a89c79af740b62e25e13f24",
-      "date": "2025-03-06T07:09:13-05:00",
+      "date": "2025-03-06T20:09:13+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/999620390547279c8a89c79af740b62e25e13f24",
       "summary": "Added an update check for installed plugins",
       "category": "feature",
@@ -2631,7 +2631,7 @@
     },
     {
       "sha": "1b5060e9b7ee1ba5f5055383a01a1941be4f6aaa",
-      "date": "2025-03-06T08:19:58-05:00",
+      "date": "2025-03-06T21:19:58+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/1b5060e9b7ee1ba5f5055383a01a1941be4f6aaa",
       "summary": "Fixed conversion from an integer value to DisplayItemSet",
       "category": "fix",
@@ -2642,7 +2642,7 @@
     },
     {
       "sha": "e37d980332475256d70644ead5732579a54ea829",
-      "date": "2025-03-06T11:01:35-05:00",
+      "date": "2025-03-06T17:01:35+01:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/e37d980332475256d70644ead5732579a54ea829",
       "summary": "Updated the Italian translation",
       "category": "translation",
@@ -2653,7 +2653,7 @@
     },
     {
       "sha": "7925227008447095f3fc89b0595f533629a516f4",
-      "date": "2025-03-07T02:22:35-05:00",
+      "date": "2025-03-07T15:22:35+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/7925227008447095f3fc89b0595f533629a516f4",
       "summary": "Stopped displaying version numbers for disabled plugins in the manager",
       "category": "fix",
@@ -2664,7 +2664,7 @@
     },
     {
       "sha": "48bbb4e07b1ec057d74a855dd94df3f62c06d31b",
-      "date": "2025-03-08T00:59:09-05:00",
+      "date": "2025-03-08T13:59:09+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/48bbb4e07b1ec057d74a855dd94df3f62c06d31b",
       "summary": "Opened plugin downloads from Gitee when Gitee is the selected update source",
       "category": "feature",
@@ -2675,7 +2675,7 @@
     },
     {
       "sha": "1343a3258f0870b28a5a7b0f99ff3f185877c748",
-      "date": "2025-03-08T22:23:00-05:00",
+      "date": "2025-03-09T11:23:00+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/1343a3258f0870b28a5a7b0f99ff3f185877c748",
       "summary": "Set the taskbar window as the parent of plugin options opened from the taskbar",
       "category": "fix",
@@ -2686,7 +2686,7 @@
     },
     {
       "sha": "eb4513bebb6f6f5b319e47ccae3e8d26f15daec2",
-      "date": "2025-03-09T04:03:30-04:00",
+      "date": "2025-03-09T16:03:30+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/eb4513bebb6f6f5b319e47ccae3e8d26f15daec2",
       "summary": "Passed EI_DRAW_TASKBAR_WND to plugins that do not draw their own taskbar window",
       "category": "fix",
@@ -2697,7 +2697,7 @@
     },
     {
       "sha": "4629207c5ff1c6f02f1761f17fed2f3377b906bf",
-      "date": "2025-03-09T08:09:36-04:00",
+      "date": "2025-03-09T20:09:36+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/4629207c5ff1c6f02f1761f17fed2f3377b906bf",
       "summary": "Added crash diagnostics showing the call stack and each module path",
       "category": "feature",
@@ -2708,7 +2708,7 @@
     },
     {
       "sha": "e575fb6804f3b281eefe10e2d766eeb9c1caeeaa",
-      "date": "2025-03-09T09:09:49-04:00",
+      "date": "2025-03-09T21:09:49+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/e575fb6804f3b281eefe10e2d766eeb9c1caeeaa",
       "summary": "Fixed the x86 build failure",
       "category": "fix",
@@ -2719,7 +2719,7 @@
     },
     {
       "sha": "566c36984b070f4252d33ef21d209fab254d8fe4",
-      "date": "2025-03-10T04:57:29-04:00",
+      "date": "2025-03-10T16:57:29+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/566c36984b070f4252d33ef21d209fab254d8fe4",
       "summary": "Updated the frequently asked questions",
       "category": "documentation",
@@ -2730,7 +2730,7 @@
     },
     {
       "sha": "97a8dac875db98942efa3c9e9cff3ba832cb12f0",
-      "date": "2025-03-10T05:55:58-04:00",
+      "date": "2025-03-10T17:55:58+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/97a8dac875db98942efa3c9e9cff3ba832cb12f0",
       "summary": "Updated the frequently asked questions",
       "category": "documentation",
@@ -2741,7 +2741,7 @@
     },
     {
       "sha": "88aa456cd8dfb0144dbfaf5c265a72ab53554c67",
-      "date": "2025-03-10T07:51:40-04:00",
+      "date": "2025-03-10T19:51:40+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/88aa456cd8dfb0144dbfaf5c265a72ab53554c67",
       "summary": "Separated the skin alignment setting from the drawing alignment enum",
       "category": "maintenance",
@@ -2752,7 +2752,7 @@
     },
     {
       "sha": "bee35943c3e722399aaee105e9a592821fa92209",
-      "date": "2025-03-12T03:53:37-04:00",
+      "date": "2025-03-12T15:53:37+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/bee35943c3e722399aaee105e9a592821fa92209",
       "summary": "Merged pull request #2039, including the Italian translation update",
       "category": "merge",
@@ -2763,7 +2763,7 @@
     },
     {
       "sha": "b05d615e31836ba256f71ee55ad749cdada00054",
-      "date": "2025-03-12T04:20:14-04:00",
+      "date": "2025-03-12T16:20:14+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/b05d615e31836ba256f71ee55ad749cdada00054",
       "summary": "Avoided a pure-black default taskbar background on Windows 8 and 8.1",
       "category": "fix",
@@ -2774,7 +2774,7 @@
     },
     {
       "sha": "3cc1cf8b88876ca360e8e011b8a97259385b6c16",
-      "date": "2025-03-12T04:30:49-04:00",
+      "date": "2025-03-12T16:30:49+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/3cc1cf8b88876ca360e8e011b8a97259385b6c16",
       "summary": "Applied the number-unit spacing preference to CPU frequency",
       "category": "fix",
@@ -2785,7 +2785,7 @@
     },
     {
       "sha": "833842c93938214da5d3953bc4aff343741f0a5b",
-      "date": "2025-03-16T03:28:58-04:00",
+      "date": "2025-03-16T09:28:58+02:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/833842c93938214da5d3953bc4aff343741f0a5b",
       "summary": "Added the Hebrew language file",
       "category": "translation",
@@ -2796,7 +2796,7 @@
     },
     {
       "sha": "056494101d0b3e67d341c22c1d86f9ace3e0d607",
-      "date": "2025-03-17T05:40:34-04:00",
+      "date": "2025-03-17T17:40:34+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/056494101d0b3e67d341c22c1d86f9ace3e0d607",
       "summary": "Kept only one language version in the version information",
       "category": "maintenance",
@@ -2807,7 +2807,7 @@
     },
     {
       "sha": "a09eafc89a2ed1121b1718be664bc4bcd07c81a6",
-      "date": "2025-03-17T06:25:40-04:00",
+      "date": "2025-03-17T18:25:40+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/a09eafc89a2ed1121b1718be664bc4bcd07c81a6",
       "summary": "Added 28-by-28 icons to improve display at 175% scaling",
       "category": "fix",
@@ -2818,7 +2818,7 @@
     },
     {
       "sha": "bd1f8e18f21dae5a6652a6f72d83c9c18a455dd3",
-      "date": "2025-03-19T22:40:32-04:00",
+      "date": "2025-03-19T23:40:32-03:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/bd1f8e18f21dae5a6652a6f72d83c9c18a455dd3",
       "summary": "Added Brazilian Portuguese translation",
       "category": "translation",
@@ -2829,7 +2829,7 @@
     },
     {
       "sha": "c2bb9b41df8c003d4016b43e9a175bc530e291e8",
-      "date": "2025-03-19T22:40:32-04:00",
+      "date": "2025-03-19T23:40:32-03:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/c2bb9b41df8c003d4016b43e9a175bc530e291e8",
       "summary": "Added Brazilian Portuguese translation",
       "category": "translation",
@@ -2840,7 +2840,7 @@
     },
     {
       "sha": "f90c8a466c920656bc72492caa26e5afbdfd3e0f",
-      "date": "2025-03-19T22:51:21-04:00",
+      "date": "2025-03-19T23:51:21-03:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/f90c8a466c920656bc72492caa26e5afbdfd3e0f",
       "summary": "Merged the Brazilian Portuguese language contribution from the upstream mirror",
       "category": "merge",
@@ -2851,7 +2851,7 @@
     },
     {
       "sha": "d8dacdde0d8c8628a8ffb68c67b4480be5c9872d",
-      "date": "2025-03-19T22:51:21-04:00",
+      "date": "2025-03-19T23:51:21-03:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/d8dacdde0d8c8628a8ffb68c67b4480be5c9872d",
       "summary": "Merged the Brazilian Portuguese language contribution from the upstream mirror",
       "category": "merge",
@@ -2862,7 +2862,7 @@
     },
     {
       "sha": "d497881798c2fe3d23249a4e0c0bae05fc74b16a",
-      "date": "2025-03-19T22:54:50-04:00",
+      "date": "2025-03-19T23:54:50-03:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/d497881798c2fe3d23249a4e0c0bae05fc74b16a",
       "summary": "Merged the upstream mirror merge into the main history",
       "category": "merge",
@@ -2873,7 +2873,7 @@
     },
     {
       "sha": "9007973727c018d95dedf370e2a2ecdc2c75ec94",
-      "date": "2025-03-25T20:33:51-04:00",
+      "date": "2025-03-25T21:33:51-03:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/9007973727c018d95dedf370e2a2ecdc2c75ec94",
       "summary": "Added the translator name and changed the translation file encoding to UTF-8",
       "category": "translation",
@@ -2884,7 +2884,7 @@
     },
     {
       "sha": "d7bdd86044e5a84ebd44672967f2e5fa1b6d965c",
-      "date": "2025-03-28T10:16:22-04:00",
+      "date": "2025-03-28T22:16:22+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/d7bdd86044e5a84ebd44672967f2e5fa1b6d965c",
       "summary": "Merged pull request #2050, adding the Hebrew language file",
       "category": "merge",
@@ -2895,7 +2895,7 @@
     },
     {
       "sha": "b87b9575ce05fd45087b6b40aba9c12daf668ea2",
-      "date": "2025-03-28T10:16:33-04:00",
+      "date": "2025-03-28T22:16:33+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/b87b9575ce05fd45087b6b40aba9c12daf668ea2",
       "summary": "Merged pull request #2055, adding the Brazilian Portuguese translation",
       "category": "merge",
@@ -2906,7 +2906,7 @@
     },
     {
       "sha": "2b688bc3306dc7b41f8227aa4cf1e4b22dfc64b8",
-      "date": "2025-03-28T12:56:22-04:00",
+      "date": "2025-03-28T17:56:22+01:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/2b688bc3306dc7b41f8227aa4cf1e4b22dfc64b8",
       "summary": "Corrected errors in the Polish translation",
       "category": "translation",
@@ -2917,7 +2917,7 @@
     },
     {
       "sha": "64e3433296872a612709efb1f68f25610d1b4cfa",
-      "date": "2025-04-19T07:31:41-04:00",
+      "date": "2025-04-19T19:31:41+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/64e3433296872a612709efb1f68f25610d1b4cfa",
       "summary": "Made the selected network connection the bold default item when “Select all” is not set",
       "category": "fix",
@@ -2928,7 +2928,7 @@
     },
     {
       "sha": "f646981f1f59dab1c733d1933c902413c2646214",
-      "date": "2025-05-03T07:48:39-04:00",
+      "date": "2025-05-03T19:48:39+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/f646981f1f59dab1c733d1933c902413c2646214",
       "summary": "Merged pull request #2063, including the Polish translation corrections",
       "category": "merge",
@@ -2939,7 +2939,7 @@
     },
     {
       "sha": "6ce91c68f83e2f39616d71c02caece8361d416f1",
-      "date": "2025-05-03T08:01:57-04:00",
+      "date": "2025-05-03T20:01:57+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/6ce91c68f83e2f39616d71c02caece8361d416f1",
       "summary": "Displayed plugin load errors in the plugin manager",
       "category": "feature",
@@ -2950,7 +2950,7 @@
     },
     {
       "sha": "d5dd07590148b378aa13f3ef226aedebd8f65cd2",
-      "date": "2025-05-03T08:12:49-04:00",
+      "date": "2025-05-03T20:12:49+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/d5dd07590148b378aa13f3ef226aedebd8f65cd2",
       "summary": "Always read language files as UTF-8",
       "category": "fix",
@@ -2961,7 +2961,7 @@
     },
     {
       "sha": "2d3f942294bfb1bd6df23daac4f3757fa65ca3d0",
-      "date": "2025-05-03T08:52:43-04:00",
+      "date": "2025-05-03T20:52:43+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/2d3f942294bfb1bd6df23daac4f3757fa65ca3d0",
       "summary": "Used the Gitee skin download link when Gitee is the selected update source",
       "category": "fix",
@@ -2972,7 +2972,7 @@
     },
     {
       "sha": "7fcaefd844b041ead04fbbe85099242da705e92b",
-      "date": "2025-05-17T23:11:09-04:00",
+      "date": "2025-05-18T11:11:09+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/7fcaefd844b041ead04fbbe85099242da705e92b",
       "summary": "Updated the issue templates",
       "category": "documentation",
@@ -2983,7 +2983,7 @@
     },
     {
       "sha": "0a807b16d3b028e9a443d45af63fb22bc88a0376",
-      "date": "2025-05-21T04:19:10-04:00",
+      "date": "2025-05-21T16:19:10+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/0a807b16d3b028e9a443d45af63fb22bc88a0376",
       "summary": "Added a context menu to restore individual text-display settings to their defaults",
       "category": "feature",
@@ -2994,7 +2994,7 @@
     },
     {
       "sha": "a46a5b9daa539b02319a987c68023b666236af02",
-      "date": "2025-05-21T13:48:20-04:00",
+      "date": "2025-05-21T19:48:20+02:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/a46a5b9daa539b02319a987c68023b666236af02",
       "summary": "Updated the Italian translation",
       "category": "translation",
@@ -3005,7 +3005,7 @@
     },
     {
       "sha": "4065508d48bd898e60fbcaabfe5d99982d73b92e",
-      "date": "2025-05-21T23:29:10-04:00",
+      "date": "2025-05-22T11:29:10+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/4065508d48bd898e60fbcaabfe5d99982d73b92e",
       "summary": "Merged pull request #2096, including the Italian translation update",
       "category": "merge",
@@ -3016,7 +3016,7 @@
     },
     {
       "sha": "88a0d48ea5330a5c8cf93ea559b6f1fe612a6e68",
-      "date": "2025-05-24T05:14:12-04:00",
+      "date": "2025-05-24T17:14:12+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/88a0d48ea5330a5c8cf93ea559b6f1fe612a6e68",
       "summary": "Used taskbar_right_space_win11 when the Windows 11 notification-area position is unavailable",
       "category": "fix",
@@ -3027,7 +3027,7 @@
     },
     {
       "sha": "d12c2dccc52b0ba9e68796df86110444242ffec1",
-      "date": "2025-05-24T05:27:05-04:00",
+      "date": "2025-05-24T17:27:05+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/d12c2dccc52b0ba9e68796df86110444242ffec1",
       "summary": "Updated the issue template",
       "category": "documentation",
@@ -3038,7 +3038,7 @@
     },
     {
       "sha": "641bff48f604b925ca78cad23c558bbbf319be5b",
-      "date": "2025-05-31T05:40:40-04:00",
+      "date": "2025-05-31T17:40:40+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/641bff48f604b925ca78cad23c558bbbf319be5b",
       "summary": "Positioned the options dialog relative to the taskbar window when opened from it",
       "category": "fix",
@@ -3049,7 +3049,7 @@
     },
     {
       "sha": "3afd8e943644749cfd4ae52ab4ad5a7c93ecdab1",
-      "date": "2025-06-01T04:33:54-04:00",
+      "date": "2025-06-01T16:33:54+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/3afd8e943644749cfd4ae52ab4ad5a7c93ecdab1",
       "summary": "Prevented a crash when plugin update checks encounter nonnumeric version text",
       "category": "fix",
@@ -3060,7 +3060,7 @@
     },
     {
       "sha": "d8144e4112dec9acb2035115a2d1cce00bf08e91",
-      "date": "2025-06-01T05:10:58-04:00",
+      "date": "2025-06-01T17:10:58+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/d8144e4112dec9acb2035115a2d1cce00bf08e91",
       "summary": "Re-enabled the Windows 11 option to avoid overlap with right-side widgets",
       "category": "fix",
@@ -3071,7 +3071,7 @@
     },
     {
       "sha": "b1b76082ec60e6d55019074bf184402329cbd902",
-      "date": "2025-06-02T05:09:27-04:00",
+      "date": "2025-06-02T17:09:27+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/b1b76082ec60e6d55019074bf184402329cbd902",
       "summary": "Hid the main window for fullscreen mode only when its own monitor is fullscreen",
       "category": "fix",
@@ -3082,7 +3082,7 @@
     },
     {
       "sha": "26b76dde77e521376e8fab1aa93759d011fd3f08",
-      "date": "2025-06-03T07:45:08-04:00",
+      "date": "2025-06-03T19:45:08+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/26b76dde77e521376e8fab1aa93759d011fd3f08",
       "summary": "Fixed a code error",
       "category": "fix",
@@ -3093,7 +3093,7 @@
     },
     {
       "sha": "73c990227c81f5ea543c8efe626abd6128bde762",
-      "date": "2025-06-08T08:56:40-04:00",
+      "date": "2025-06-08T20:56:40+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/73c990227c81f5ea543c8efe626abd6128bde762",
       "summary": "Extended the plugin API with OnInitialize and the ITrafficMonitor interface",
       "category": "feature",
@@ -3104,7 +3104,7 @@
     },
     {
       "sha": "0d5fdbd31c479faf4b8a40bac6616e146078478e",
-      "date": "2025-06-09T04:03:16-04:00",
+      "date": "2025-06-09T16:03:16+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/0d5fdbd31c479faf4b8a40bac6616e146078478e",
       "summary": "Adjusted the options dialog size",
       "category": "maintenance",
@@ -3115,7 +3115,7 @@
     },
     {
       "sha": "72572ae8145aa3ee53f92c0bc874dc8041b66130",
-      "date": "2025-06-09T04:04:19-04:00",
+      "date": "2025-06-09T16:04:19+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/72572ae8145aa3ee53f92c0bc874dc8041b66130",
       "summary": "Called the plugin initialization function when loading a plugin",
       "category": "feature",
@@ -3126,7 +3126,7 @@
     },
     {
       "sha": "1e3369d965978de0e98ffc9e19e9f353c8fcea49",
-      "date": "2025-06-09T04:44:35-04:00",
+      "date": "2025-06-09T16:44:35+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/1e3369d965978de0e98ffc9e19e9f353c8fcea49",
       "summary": "Added a version getter to the ITrafficMonitor plugin interface",
       "category": "feature",
@@ -3137,7 +3137,7 @@
     },
     {
       "sha": "f9157eb358b2b2d4d8e63586eaf34307a0affc91",
-      "date": "2025-06-10T01:57:16-04:00",
+      "date": "2025-06-10T07:57:16+02:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/f9157eb358b2b2d4d8e63586eaf34307a0affc91",
       "summary": "Updated the Italian translation",
       "category": "translation",
@@ -3148,7 +3148,7 @@
     },
     {
       "sha": "80dce96511f42a223507456a8bb3d7d18a34afa9",
-      "date": "2025-06-12T22:21:22-04:00",
+      "date": "2025-06-13T10:21:22+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/80dce96511f42a223507456a8bb3d7d18a34afa9",
       "summary": "Used the default color for newly added taskbar text-color items instead of copying the first item’s color",
       "category": "fix",
@@ -3159,7 +3159,7 @@
     },
     {
       "sha": "45759a09568642febab77120059286f59d60bec4",
-      "date": "2025-06-13T11:26:27-04:00",
+      "date": "2025-06-13T17:26:27+02:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/45759a09568642febab77120059286f59d60bec4",
       "summary": "Added the Hungarian language file",
       "category": "translation",
@@ -3170,7 +3170,7 @@
     },
     {
       "sha": "54885fddf5833aecb78f7f4d4b34722dc8d6fb0a",
-      "date": "2025-06-14T04:34:35-04:00",
+      "date": "2025-06-14T16:34:35+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/54885fddf5833aecb78f7f4d4b34722dc8d6fb0a",
       "summary": "Merged pull request #2104, including the Italian translation update",
       "category": "merge",
@@ -3181,7 +3181,7 @@
     },
     {
       "sha": "ca857d12fe4e90eb6fd6d116159fcba1ff83acaf",
-      "date": "2025-06-14T04:40:11-04:00",
+      "date": "2025-06-14T16:40:11+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/ca857d12fe4e90eb6fd6d116159fcba1ff83acaf",
       "summary": "Merged pull request #2105, adding the Hungarian language file",
       "category": "merge",
@@ -3192,7 +3192,7 @@
     },
     {
       "sha": "f968cb7a69db19a0f0460f696fa3f8e62a62da17",
-      "date": "2025-06-29T05:11:44-04:00",
+      "date": "2025-06-29T17:11:44+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/f968cb7a69db19a0f0460f696fa3f8e62a62da17",
       "summary": "Adjusted plugin interface naming",
       "category": "maintenance",
@@ -3203,7 +3203,7 @@
     },
     {
       "sha": "1aba06d665616304ba9f34b822b53fce28d28145",
-      "date": "2025-06-29T09:36:47-04:00",
+      "date": "2025-06-29T21:36:47+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/1aba06d665616304ba9f34b822b53fce28d28145",
       "summary": "Moved built-in display-value and sample-text handling into CommonDisplayItem, and fixed clipping at 100% CPU or memory usage",
       "category": "fix",
@@ -3214,7 +3214,7 @@
     },
     {
       "sha": "2e1b1a1b1bedf995d0c5fa1448c128a15956aacf",
-      "date": "2025-06-29T09:52:26-04:00",
+      "date": "2025-06-29T21:52:26+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/2e1b1a1b1bedf995d0c5fa1448c128a15956aacf",
       "summary": "Changed CommonDisplayItem from a struct to a class and made its members private",
       "category": "maintenance",
@@ -3225,7 +3225,7 @@
     },
     {
       "sha": "336965dc5c1cbaf3cdbb4ba083de1647085fadf1",
-      "date": "2025-06-29T10:10:47-04:00",
+      "date": "2025-06-29T22:10:47+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/336965dc5c1cbaf3cdbb4ba083de1647085fadf1",
       "summary": "Fixed a plugin resource-usage graph that could exceed its bounds",
       "category": "fix",
@@ -3236,7 +3236,7 @@
     },
     {
       "sha": "da7fed6e9e06b21b6728cda336b513a50312ed8d",
-      "date": "2025-06-29T20:52:29-04:00",
+      "date": "2025-06-30T08:52:29+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/da7fed6e9e06b21b6728cda336b513a50312ed8d",
       "summary": "Merged upstream changes, including taskbar and plugin display fixes",
       "category": "merge",
@@ -3247,7 +3247,7 @@
     },
     {
       "sha": "bd364ffdbb0424f23072a514de3acd2d43cc5bc1",
-      "date": "2025-06-29T22:53:26-04:00",
+      "date": "2025-06-30T10:53:26+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/bd364ffdbb0424f23072a514de3acd2d43cc5bc1",
       "summary": "Added a plugin API method to retrieve monitoring information as text",
       "category": "feature",
@@ -3258,7 +3258,7 @@
     },
     {
       "sha": "82cc431def252f5d48e1c84a6ea9bd22a2f02393",
-      "date": "2025-06-29T22:55:14-04:00",
+      "date": "2025-06-30T10:55:14+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/82cc431def252f5d48e1c84a6ea9bd22a2f02393",
       "summary": "Fixed hidden skin text labels so they no longer suppress other displayed information after the refactor",
       "category": "fix",
@@ -3269,7 +3269,7 @@
     },
     {
       "sha": "2b4cc56f7fe0214afd4060400c73a4954a2ab8d6",
-      "date": "2025-07-02T05:15:58-04:00",
+      "date": "2025-07-02T17:15:58+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/2b4cc56f7fe0214afd4060400c73a4954a2ab8d6",
       "summary": "Kept taskbar usage percentages fully visible at 100% without dynamically changing the taskbar window width",
       "category": "fix",
@@ -3280,7 +3280,7 @@
     },
     {
       "sha": "4e6889db2528fd95dbf63942ed9ccbb75ec2528f",
-      "date": "2025-07-03T04:57:26-04:00",
+      "date": "2025-07-03T16:57:26+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/4e6889db2528fd95dbf63942ed9ccbb75ec2528f",
       "summary": "Removed a redundant line of code",
       "category": "maintenance",
@@ -3291,7 +3291,7 @@
     },
     {
       "sha": "12852652fd36ba18d477fb006195da9a0d04687b",
-      "date": "2025-07-05T10:06:05-04:00",
+      "date": "2025-07-05T22:06:05+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/12852652fd36ba18d477fb006195da9a0d04687b",
       "summary": "Fixed PNG-skin text becoming transparent by checking pixel opacity before and after text drawing",
       "category": "fix",
@@ -3302,7 +3302,7 @@
     },
     {
       "sha": "a1acee874457ab10429b2fa6a1d440c2bb0a4494",
-      "date": "2025-07-05T10:16:22-04:00",
+      "date": "2025-07-05T22:16:22+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/a1acee874457ab10429b2fa6a1d440c2bb0a4494",
       "summary": "Detected Wine and hid menu icons in that environment",
       "category": "feature",
@@ -3313,7 +3313,7 @@
     },
     {
       "sha": "dcc883d168c88e6d927512ef793f3aa6b83726f7",
-      "date": "2025-07-05T23:34:20-04:00",
+      "date": "2025-07-06T11:34:20+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/dcc883d168c88e6d927512ef793f3aa6b83726f7",
       "summary": "Positioned the taskbar window at the lower-right of the desktop when running under Wine",
       "category": "feature",
@@ -3324,7 +3324,7 @@
     },
     {
       "sha": "20cbad2cfc49d22287a76ca9d4226c3219fce46c",
-      "date": "2025-07-06T23:19:26-04:00",
+      "date": "2025-07-07T11:19:26+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/20cbad2cfc49d22287a76ca9d4226c3219fce46c",
       "summary": "Merged upstream changes, including fixes and updates to history-log and plugin drawing",
       "category": "merge",
@@ -3335,7 +3335,7 @@
     },
     {
       "sha": "822af54b8beaad5ef70685bd18d7612641f206c7",
-      "date": "2025-07-09T02:37:46-04:00",
+      "date": "2025-07-09T14:37:46+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/822af54b8beaad5ef70685bd18d7612641f206c7",
       "summary": "Adjusted the drawing area position in the traffic-history log view",
       "category": "maintenance",
@@ -3346,7 +3346,7 @@
     },
     {
       "sha": "9cdf4d175617cdd2b90174d1e56881897f012ba0",
-      "date": "2025-07-09T02:39:31-04:00",
+      "date": "2025-07-09T14:39:31+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/9cdf4d175617cdd2b90174d1e56881897f012ba0",
       "summary": "Restored the default font after drawing each plugin item, preventing one plugin's custom font from affecting the next",
       "category": "fix",
@@ -3357,7 +3357,7 @@
     },
     {
       "sha": "d196c2ebdf049ed0b223117b72a9ca618da1391a",
-      "date": "2025-07-12T09:38:53-04:00",
+      "date": "2025-07-12T21:38:53+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/d196c2ebdf049ed0b223117b72a9ca618da1391a",
       "summary": "Moved several string utility function definitions from Common.h into a source file",
       "category": "maintenance",
@@ -3368,7 +3368,7 @@
     },
     {
       "sha": "c24f53a37412ee40a1f1e3d31b1ee2349598fb64",
-      "date": "2025-07-12T09:52:09-04:00",
+      "date": "2025-07-12T21:52:09+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/c24f53a37412ee40a1f1e3d31b1ee2349598fb64",
       "summary": "Added the ValidateValue function to Common",
       "category": "feature",
@@ -3379,7 +3379,7 @@
     },
     {
       "sha": "a766a5e1372f6472bdd3a71b0e492160197fac1b",
-      "date": "2025-07-12T10:33:39-04:00",
+      "date": "2025-07-12T22:33:39+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/a766a5e1372f6472bdd3a71b0e492160197fac1b",
       "summary": "Repositioned the message-dialog icon and removed blank space above the acknowledgements dialog",
       "category": "fix",
@@ -3390,7 +3390,7 @@
     },
     {
       "sha": "04477dd732ce29f670345b0b9cfa8f0ebbb3b41c",
-      "date": "2025-07-13T09:48:05-04:00",
+      "date": "2025-07-13T21:48:05+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/04477dd732ce29f670345b0b9cfa8f0ebbb3b41c",
       "summary": "Fixed control positioning when resizing the message dialog",
       "category": "fix",
@@ -3401,7 +3401,7 @@
     },
     {
       "sha": "3873fdb115074dc2c2236f70f478486079081f73",
-      "date": "2025-07-13T11:36:24-04:00",
+      "date": "2025-07-13T23:36:24+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/3873fdb115074dc2c2236f70f478486079081f73",
       "summary": "Fixed a build failure after updating Visual Studio",
       "category": "fix",
@@ -3412,7 +3412,7 @@
     },
     {
       "sha": "6fc6ef86132a5fb890e2ba6d6ac37b7e3735588e",
-      "date": "2025-07-14T01:40:26-04:00",
+      "date": "2025-07-14T13:40:26+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/6fc6ef86132a5fb890e2ba6d6ac37b7e3735588e",
       "summary": "Moved spacing after plugin labels into the default label text so users can remove it in text-display settings",
       "category": "fix",
@@ -3423,7 +3423,7 @@
     },
     {
       "sha": "05dd1884f14a8c363cc9069ca506077a849aa6e8",
-      "date": "2025-07-17T21:41:04-04:00",
+      "date": "2025-07-18T09:41:04+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/05dd1884f14a8c363cc9069ca506077a849aa6e8",
       "summary": "Followed the taskbar-left setting for the taskbar window position under Wine and kept the window on top",
       "category": "fix",
@@ -3434,7 +3434,7 @@
     },
     {
       "sha": "b4865f892291f54f5782ca3a2b23b0a790578062",
-      "date": "2025-07-20T04:18:54-04:00",
+      "date": "2025-07-20T16:18:54+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/b4865f892291f54f5782ca3a2b23b0a790578062",
       "summary": "Added a divider to stack-trace crash messages",
       "category": "maintenance",
@@ -3445,7 +3445,7 @@
     },
     {
       "sha": "7512c764057697afb58133ffc54a786cdfaef0c6",
-      "date": "2025-07-31T02:56:46-04:00",
+      "date": "2025-07-31T14:56:46+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/7512c764057697afb58133ffc54a786cdfaef0c6",
       "summary": "Handled XML skin parse failures without leaving the main window blank, and displayed the error in skin previews",
       "category": "fix",
@@ -3456,7 +3456,7 @@
     },
     {
       "sha": "45c2208321283a0d21dd3376bc3b89ed5d228e91",
-      "date": "2025-07-31T05:34:44-04:00",
+      "date": "2025-07-31T17:34:44+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/45c2208321283a0d21dd3376bc3b89ed5d228e91",
       "summary": "Fixed Chinese font-name lookup and XML skin parsing logic",
       "category": "fix",
@@ -3467,7 +3467,7 @@
     },
     {
       "sha": "facc62ccb8b8dfee5ff835127e35d324e5ac4a08",
-      "date": "2025-08-21T06:50:31-04:00",
+      "date": "2025-08-21T18:50:31+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/facc62ccb8b8dfee5ff835127e35d324e5ac4a08",
       "summary": "Removed the donation dialog and its associated content",
       "category": "maintenance",
@@ -3478,7 +3478,7 @@
     },
     {
       "sha": "e6211109c8176a4c70ac9b257b0bee389d3e4c7f",
-      "date": "2025-08-21T07:07:51-04:00",
+      "date": "2025-08-21T19:07:51+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/e6211109c8176a4c70ac9b257b0bee389d3e4c7f",
       "summary": "Stopped automatically adding labels in issue templates",
       "category": "maintenance",
@@ -3489,7 +3489,7 @@
     },
     {
       "sha": "8505f4c4ae9602d3f1737073d2491c889a51f9b9",
-      "date": "2025-09-10T05:25:49-04:00",
+      "date": "2025-09-10T17:25:49+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/8505f4c4ae9602d3f1737073d2491c889a51f9b9",
       "summary": "Corrected text in a user-facing string",
       "category": "fix",
@@ -3500,7 +3500,7 @@
     },
     {
       "sha": "6b37b989929117e051f7c2d53208f53be67670b0",
-      "date": "2025-09-30T09:55:41-04:00",
+      "date": "2025-09-30T21:55:41+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/6b37b989929117e051f7c2d53208f53be67670b0",
       "summary": "Fixed hover tooltips losing their always-on-top state in some cases",
       "category": "fix",
@@ -3511,7 +3511,7 @@
     },
     {
       "sha": "1097682ee2534a9bdc5fc60850dcea218245ee0b",
-      "date": "2025-10-04T22:52:25-04:00",
+      "date": "2025-10-05T10:52:25+08:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/1097682ee2534a9bdc5fc60850dcea218245ee0b",
       "summary": "Also wrote crash details to the log when a crash occurs",
       "category": "feature",
@@ -3522,7 +3522,7 @@
     },
     {
       "sha": "f71f672c9e173c9d9b455d61fd5a1c6d80c7b418",
-      "date": "2025-10-09T00:16:09-04:00",
+      "date": "2025-10-09T01:16:09-03:00",
       "commitUrl": "https://github.com/zhongyang219/TrafficMonitor/commit/f71f672c9e173c9d9b455d61fd5a1c6d80c7b418",
       "summary": "Updated Brazilian Portuguese translations with additional lines",
       "category": "translation",
