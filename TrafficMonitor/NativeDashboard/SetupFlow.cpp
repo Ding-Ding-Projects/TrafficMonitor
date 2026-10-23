@@ -234,7 +234,7 @@ namespace NativeDashboard::Setup
         void Wizard::Note(Copy id)
         {
             m_note.SetWindowText(T(id)+L"\r\n"+StyleNote(m_draft.language,m_draft.english,m_draft.cantonese));
-            NotifyWinEvent(EVENT_OBJECT_NAMECHANGE,m_note.GetSafeHwnd(),OBJID_CLIENT,CHILDID_SELF);
+            ::NotifyWinEvent(EVENT_OBJECT_NAMECHANGE,m_note.GetSafeHwnd(),OBJID_CLIENT,CHILDID_SELF);
         }
         void Wizard::Review()
         {
