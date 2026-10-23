@@ -1,0 +1,3219 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "04a9a136ae800c4b1c547cf09c1bf3688ac0265a",
+  "wikiSource": {
+    "repository": "https://github.com/zhongyang219/TrafficMonitor.wiki.git",
+    "commit": "cf35274094fe2ffb040ca1f29d6ce73c713d93a2"
+  },
+  "articles": [
+    {
+      "id": "source-agents",
+      "title": "Agent conversation vocabulary",
+      "category": "contributor-records",
+      "language": "en",
+      "sourcePath": "AGENTS.md",
+      "originalSourcePath": "AGENTS.md",
+      "route": "/articles/source-agents/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/AGENTS.md",
+      "sourceSha256": "dca69fe82abcb77e08cce5d5a34f4b21ca3856c7611af608e63f8e7372c026d1",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-changelog",
+      "title": "Fork changes",
+      "category": "releases",
+      "language": "en",
+      "sourcePath": "CHANGELOG.md",
+      "originalSourcePath": "CHANGELOG.md",
+      "route": "/articles/source-changelog/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/CHANGELOG.md",
+      "sourceSha256": "c8ff7b5ab24805c81be32369d64c5d61a5c6d9bc33ec277947e3405b951495b1",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-handoff",
+      "title": "TrafficMonitor implementation handoff",
+      "category": "contributor-records",
+      "language": "en",
+      "sourcePath": "HANDOFF.md",
+      "originalSourcePath": "HANDOFF.md",
+      "route": "/articles/source-handoff/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/HANDOFF.md",
+      "sourceSha256": "d6da9f93da81343c718ea2a4897c302dc6e0b0c9e590f3b865f20c1b1e3ad9cd",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-help",
+      "title": "TrafficMonitor 常见问题",
+      "category": "help",
+      "language": "zh-Hans",
+      "sourcePath": "Help.md",
+      "originalSourcePath": "Help.md",
+      "route": "/articles/source-help/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/Help.md",
+      "sourceSha256": "d8d36e5f50bdca57e40a7281921b5e87e43c004843bc5d67e7d9a59bac482639",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-help-en-us",
+      "title": "TrafficMonitor Frequently Asked Questions",
+      "category": "help",
+      "language": "en",
+      "sourcePath": "Help_en-us.md",
+      "originalSourcePath": "Help_en-us.md",
+      "route": "/articles/source-help-en-us/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/Help_en-us.md",
+      "sourceSha256": "23aabd69cb10c627607a4ac22d02c56681a30243e87ea80009feecfad8cc0538",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-readme",
+      "title": "This fork: installer delivery first",
+      "category": "overview",
+      "language": "en",
+      "sourcePath": "README.md",
+      "originalSourcePath": "README.md",
+      "route": "/articles/source-readme/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/README.md",
+      "sourceSha256": "fc4f583408065c0fab54db794cb3615a5c801c456d2479086c3d4d4711a908b4",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-readme-en-us",
+      "title": "This fork: installer delivery first",
+      "category": "overview",
+      "language": "en",
+      "sourcePath": "README_en-us.md",
+      "originalSourcePath": "README_en-us.md",
+      "route": "/articles/source-readme-en-us/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/README_en-us.md",
+      "sourceSha256": "fc4f583408065c0fab54db794cb3615a5c801c456d2479086c3d4d4711a908b4",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-readme-zh-cn",
+      "title": "此分支先完成安裝及發佈",
+      "category": "overview",
+      "language": "zh-Hans",
+      "sourcePath": "README_zh-CN.md",
+      "originalSourcePath": "README_zh-CN.md",
+      "route": "/articles/source-readme-zh-cn/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/README_zh-CN.md",
+      "sourceSha256": "494bbcee18ca39c718c7dd70a8106958b32a17ea996248b6dc375b1c36056bef",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-roadmap",
+      "title": "TrafficMonitor delivery roadmap",
+      "category": "contributor-records",
+      "language": "en",
+      "sourcePath": "ROADMAP.md",
+      "originalSourcePath": "ROADMAP.md",
+      "route": "/articles/source-roadmap/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/ROADMAP.md",
+      "sourceSha256": "4315ee08d638979b8384ba4581f2ddefc869e7e124c08f41b9254254d19db37f",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-updatelog-update-log",
+      "title": "TrafficMonitor 更新日志",
+      "category": "releases",
+      "language": "zh-Hans",
+      "sourcePath": "UpdateLog/update_log.md",
+      "originalSourcePath": "UpdateLog/update_log.md",
+      "route": "/articles/source-updatelog-update-log/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/UpdateLog/update_log.md",
+      "sourceSha256": "d08907715175859a6327621a9dd05b2d7a52656cfa1009bc042fedcad7286b8a",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": true
+    },
+    {
+      "id": "source-updatelog-update-log-en-us",
+      "title": "TrafficMonitor Update log",
+      "category": "releases",
+      "language": "en",
+      "sourcePath": "UpdateLog/update_log_en-us.md",
+      "originalSourcePath": "UpdateLog/update_log_en-us.md",
+      "route": "/articles/source-updatelog-update-log-en-us/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/UpdateLog/update_log_en-us.md",
+      "sourceSha256": "ec563a4423b7822da19ad9db0b3d1bbe9c1e839ba7e8103adca68d5a06e3916e",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": true
+    },
+    {
+      "id": "source-updatelog-update-log-zh-tw",
+      "title": "TrafficMonitor 更新日誌",
+      "category": "releases",
+      "language": "zh-Hant",
+      "sourcePath": "UpdateLog/update_log_zh-tw.md",
+      "originalSourcePath": "UpdateLog/update_log_zh-tw.md",
+      "route": "/articles/source-updatelog-update-log-zh-tw/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/UpdateLog/update_log_zh-tw.md",
+      "sourceSha256": "0d977909aa572b1ef13297f9e4f39933e761757f87534afaf4959f62e2714b78",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": true
+    },
+    {
+      "id": "source-docs-build-readme",
+      "title": "Native build and Squirrel packaging",
+      "category": "build",
+      "language": "en",
+      "sourcePath": "docs/build/README.md",
+      "originalSourcePath": "docs/build/README.md",
+      "route": "/articles/source-docs-build-readme/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/build/README.md",
+      "sourceSha256": "e8e6af5b3671c1bdf49a44a36b16a4145a217dfa5a6f9d9339be8a2ecded018f",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-installation-readme",
+      "title": "Installation and startup",
+      "category": "installation",
+      "language": "en",
+      "sourcePath": "docs/features/installation/README.md",
+      "originalSourcePath": "docs/features/installation/README.md",
+      "route": "/articles/source-docs-features-installation-readme/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/installation/README.md",
+      "sourceSha256": "05e82420ba84361967db2235a64a4268baf60ee7932a7fe3dc3aa7449885b8cd",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-readme",
+      "title": "Complete required-feature applicability inventory",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/README.md",
+      "originalSourcePath": "docs/features/required-features/README.md",
+      "route": "/articles/source-docs-features-required-features-readme/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/README.md",
+      "sourceSha256": "2dc4230851506fbebc6039b99bce8e547720d54c23b32bfe368a766925acf94f",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-acceptance",
+      "title": "Inventory acceptance and remaining executable checks",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/acceptance.md",
+      "originalSourcePath": "docs/features/required-features/acceptance.md",
+      "route": "/articles/source-docs-features-required-features-acceptance/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/acceptance.md",
+      "sourceSha256": "1ac9427d97221fc0fa70e1ea015b80c67adf44798cb9ccd70f12eff627b87fcc",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-accessibility-sizing",
+      "title": "Accessibility, sizing, and layout without layout clipping defect",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/accessibility-sizing.md",
+      "originalSourcePath": "docs/features/required-features/accessibility-sizing.md",
+      "route": "/articles/source-docs-features-required-features-accessibility-sizing/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/accessibility-sizing.md",
+      "sourceSha256": "cf530ff80396e36061f02f6146186d9f98fe9e1b9fdc8b370ef5302d6b5c819b",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-adhd-modes",
+      "title": "ADHD modes",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/adhd-modes.md",
+      "originalSourcePath": "docs/features/required-features/adhd-modes.md",
+      "route": "/articles/source-docs-features-required-features-adhd-modes/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/adhd-modes.md",
+      "sourceSha256": "feb3ce1c0ade2d989cfd1cbbe7e91fc961f6bd32dc6ed853e3ecb934be3f1f68",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-agents-md-vocabulary-block",
+      "title": "Sanitized vocabulary-discipline block in AGENTS.md",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/agents-md-vocabulary-block.md",
+      "originalSourcePath": "docs/features/required-features/agents-md-vocabulary-block.md",
+      "route": "/articles/source-docs-features-required-features-agents-md-vocabulary-block/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/agents-md-vocabulary-block.md",
+      "sourceSha256": "ac7091b030b7076479b0d3df04283ee5e360c5a1ccdd31b043ac8ca832fdbc2b",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-app-icon",
+      "title": "Original logo and packaged icon",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/app-icon.md",
+      "originalSourcePath": "docs/features/required-features/app-icon.md",
+      "route": "/articles/source-docs-features-required-features-app-icon/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/app-icon.md",
+      "sourceSha256": "413828592aaad54492b4a9623474c871f89a7bcfa25a5f394b4698671cfbf6bc",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-appearance-editor",
+      "title": "Per-element appearance editor",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/appearance-editor.md",
+      "originalSourcePath": "docs/features/required-features/appearance-editor.md",
+      "route": "/articles/source-docs-features-required-features-appearance-editor/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/appearance-editor.md",
+      "sourceSha256": "944bd96bcf19e0882b28309715cfd28254cdb904c44533998f222a31a05c44ef",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-authenticator",
+      "title": "Built-in authenticator",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/authenticator.md",
+      "originalSourcePath": "docs/features/required-features/authenticator.md",
+      "route": "/articles/source-docs-features-required-features-authenticator/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/authenticator.md",
+      "sourceSha256": "8dae1e64e465320dd2f32ac92c4a1ffe95230617954cc3bf102dca8c573308ee",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-auto-updates",
+      "title": "Chrome-style automatic updates",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/auto-updates.md",
+      "originalSourcePath": "docs/features/required-features/auto-updates.md",
+      "route": "/articles/source-docs-features-required-features-auto-updates/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/auto-updates.md",
+      "sourceSha256": "03f8eead55c9bf80798bb4080ac0e63960e813324bd651ee04962fe0ca8eeef1",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-blank-editors",
+      "title": "Presets for blank-slate editors",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/blank-editors.md",
+      "originalSourcePath": "docs/features/required-features/blank-editors.md",
+      "route": "/articles/source-docs-features-required-features-blank-editors/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/blank-editors.md",
+      "sourceSha256": "895e02a397e160aa80d50b90167371185065edcb3ef6a47460a274ab53acb211",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-build-entrypoints",
+      "title": "Root build.bat and build-installer.bat",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/build-entrypoints.md",
+      "originalSourcePath": "docs/features/required-features/build-entrypoints.md",
+      "route": "/articles/source-docs-features-required-features-build-entrypoints/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/build-entrypoints.md",
+      "sourceSha256": "2f637c1ab08b4471d5740cbf2ab58cd8e12b4173ed4860fc2d09298b15f06405",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-bulk-actions",
+      "title": "Bulk actions everywhere",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/bulk-actions.md",
+      "originalSourcePath": "docs/features/required-features/bulk-actions.md",
+      "route": "/articles/source-docs-features-required-features-bulk-actions/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/bulk-actions.md",
+      "sourceSha256": "a6cc8be05bcf119ee077cb0cd08c05979cb53ac5d72bb99e3627516875643504",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-bundled-dependencies",
+      "title": "Every application bundles its dependencies and prerequisites",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/bundled-dependencies.md",
+      "originalSourcePath": "docs/features/required-features/bundled-dependencies.md",
+      "route": "/articles/source-docs-features-required-features-bundled-dependencies/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/bundled-dependencies.md",
+      "sourceSha256": "9f2db4d282f901aa23efc9677e293b4a6826dfd848b482472704533355073b02",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-changelog",
+      "title": "Changelog viewer",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/changelog.md",
+      "originalSourcePath": "docs/features/required-features/changelog.md",
+      "route": "/articles/source-docs-features-required-features-changelog/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/changelog.md",
+      "sourceSha256": "16edbb046f0f81cc55bade938850028ee265215742c405d2f313a5894fbbf713",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-ci-bootstrap",
+      "title": "GitHub Actions dependency or prerequisite bootstrap and safe outputs",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/ci-bootstrap.md",
+      "originalSourcePath": "docs/features/required-features/ci-bootstrap.md",
+      "route": "/articles/source-docs-features-required-features-ci-bootstrap/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/ci-bootstrap.md",
+      "sourceSha256": "a935f42283a37cc88cee6b8756cee8a8126afa5b17149b4e9a2ad668f15d97d0",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-closeout-prompt",
+      "title": "pushed CLOSEOUT_PROMPT.md",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/closeout-prompt.md",
+      "originalSourcePath": "docs/features/required-features/closeout-prompt.md",
+      "route": "/articles/source-docs-features-required-features-closeout-prompt/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/closeout-prompt.md",
+      "sourceSha256": "ddd3d8d6c86efa4d064314e9faeb8d2d9491d3d1d7bacfb2e0ae39c7913860b5",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-collapse-filters",
+      "title": "Collapsible filters and statistics",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/collapse-filters.md",
+      "originalSourcePath": "docs/features/required-features/collapse-filters.md",
+      "route": "/articles/source-docs-features-required-features-collapse-filters/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/collapse-filters.md",
+      "sourceSha256": "db9a46b0cb4625b780844b6375972c66eae03822d3f2946df6b2ce5ff987203f",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-color-picker",
+      "title": "Infinite colour picker and translator",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/color-picker.md",
+      "originalSourcePath": "docs/features/required-features/color-picker.md",
+      "route": "/articles/source-docs-features-required-features-color-picker/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/color-picker.md",
+      "sourceSha256": "ab5bbee806088d40ecd8c7b078dde5a4f16999b2a94ee232fcf54df8c7a649c9",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-command-palette",
+      "title": "Ctrl+Shift+F command palette",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/command-palette.md",
+      "originalSourcePath": "docs/features/required-features/command-palette.md",
+      "route": "/articles/source-docs-features-required-features-command-palette/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/command-palette.md",
+      "sourceSha256": "cc0fa2be2e8b66d8987d04bbd53a4897b1d728f541069eb24159a72075a319c5",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-completeness-parity",
+      "title": "Per-surface completeness inventory and parity",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/completeness-parity.md",
+      "originalSourcePath": "docs/features/required-features/completeness-parity.md",
+      "route": "/articles/source-docs-features-required-features-completeness-parity/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/completeness-parity.md",
+      "sourceSha256": "d5a22b4de3c332bfeeb89184c77a6d12b7734a1830af49c29296d0e442fff891",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-context-menus",
+      "title": "A context menu on every element",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/context-menus.md",
+      "originalSourcePath": "docs/features/required-features/context-menus.md",
+      "route": "/articles/source-docs-features-required-features-context-menus/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/context-menus.md",
+      "sourceSha256": "9cd8bee4ee3179a4b270f560db99a66f9cac522b2c283b6289e2b935089b12a0",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-dependency-fetcher",
+      "title": "One-click dependency or prerequisite fetcher",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/dependency-fetcher.md",
+      "originalSourcePath": "docs/features/required-features/dependency-fetcher.md",
+      "route": "/articles/source-docs-features-required-features-dependency-fetcher/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/dependency-fetcher.md",
+      "sourceSha256": "f639fdfe22339c7f79b056bca6a1d87b5cde245af18f310453541c95d00dc14f",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-design-folder",
+      "title": "Design surfaces live in the repository",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/design-folder.md",
+      "originalSourcePath": "docs/features/required-features/design-folder.md",
+      "route": "/articles/source-docs-features-required-features-design-folder/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/design-folder.md",
+      "sourceSha256": "7edc8f8eb0cc6bb10ea188971d5898719adc3ea9a898ea570027be63b2528b06",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-design-reference-parity",
+      "title": "Checked-in design-reference parity",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/design-reference-parity.md",
+      "originalSourcePath": "docs/features/required-features/design-reference-parity.md",
+      "route": "/articles/source-docs-features-required-features-design-reference-parity/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/design-reference-parity.md",
+      "sourceSha256": "d59d833b0ec0fd5784a8da448d4de85c2bea0702ea563948f26dc321f3e61139",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-dim-sum-code-names",
+      "title": "Dim sum release code names",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/dim-sum-code-names.md",
+      "originalSourcePath": "docs/features/required-features/dim-sum-code-names.md",
+      "route": "/articles/source-docs-features-required-features-dim-sum-code-names/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/dim-sum-code-names.md",
+      "sourceSha256": "8f239b0c2c66f3b94d958ff6ad473b4e4148ca18b61f504f4f37ee951c4ea892",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-dim-sum-photo-source",
+      "title": "Public dim-sum photo source",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/dim-sum-photo-source.md",
+      "originalSourcePath": "docs/features/required-features/dim-sum-photo-source.md",
+      "route": "/articles/source-docs-features-required-features-dim-sum-photo-source/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/dim-sum-photo-source.md",
+      "sourceSha256": "529f254f01236e09e1dec92c3a3c21d6b058442480646e85e47e72cf08c39754",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-dim-sum",
+      "title": "Dim sum surprise",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/dim-sum.md",
+      "originalSourcePath": "docs/features/required-features/dim-sum.md",
+      "route": "/articles/source-docs-features-required-features-dim-sum/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/dim-sum.md",
+      "sourceSha256": "f6c8867b86bab026958ae3f1ac46a6d76d6765681a0ed955e40e044c0d940826",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-discord-status-bridge",
+      "title": "Shared status-service Discord bridge",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/discord-status-bridge.md",
+      "originalSourcePath": "docs/features/required-features/discord-status-bridge.md",
+      "route": "/articles/source-docs-features-required-features-discord-status-bridge/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/discord-status-bridge.md",
+      "sourceSha256": "b08b66484659aaa5c3c3b4c84a72cf4d9dcc69c1cf9fbafbc2fde8c905bb8e2a",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-discussion-records",
+      "title": "Discussions as the running record",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/discussion-records.md",
+      "originalSourcePath": "docs/features/required-features/discussion-records.md",
+      "route": "/articles/source-docs-features-required-features-discussion-records/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/discussion-records.md",
+      "sourceSha256": "95b9fe1ff0c2c3dd9d08e767aa75370b098980c17c5986a4da252236f6b6f531",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-display-name",
+      "title": "Renaming the application",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/display-name.md",
+      "originalSourcePath": "docs/features/required-features/display-name.md",
+      "route": "/articles/source-docs-features-required-features-display-name/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/display-name.md",
+      "sourceSha256": "e17cd8759612daa7dc5be25cfa5936d86ca78feaa0112c059bebb1282e05a5e8",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-documentation-companion",
+      "title": "Portable documentation companion",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/documentation-companion.md",
+      "originalSourcePath": "docs/features/required-features/documentation-companion.md",
+      "route": "/articles/source-docs-features-required-features-documentation-companion/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/documentation-companion.md",
+      "sourceSha256": "1b705d93ad040fb5ee83610dfb89e257c4f3327c48c25d4a674d580d33cf4385",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-download-handoff",
+      "title": "Browser-extension download hand-off surfaces",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/download-handoff.md",
+      "originalSourcePath": "docs/features/required-features/download-handoff.md",
+      "route": "/articles/source-docs-features-required-features-download-handoff/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/download-handoff.md",
+      "sourceSha256": "aa41f43c06f09d5bbfeff59eb342e7e5f6c5cc4b534ebbdd69e86bf48c7bc21d",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-element-locks",
+      "title": "Toy locks on every element",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/element-locks.md",
+      "originalSourcePath": "docs/features/required-features/element-locks.md",
+      "route": "/articles/source-docs-features-required-features-element-locks/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/element-locks.md",
+      "sourceSha256": "4bb3723cb3d2201b56aa642b4b8aff078689efba5b940a56373ba13ab40d9a2c",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-encrypted-public-builder",
+      "title": "Encrypted public builder for private repositories",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/encrypted-public-builder.md",
+      "originalSourcePath": "docs/features/required-features/encrypted-public-builder.md",
+      "route": "/articles/source-docs-features-required-features-encrypted-public-builder/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/encrypted-public-builder.md",
+      "sourceSha256": "49fdba2e5467ab9aae6c71a3f491957109e1820a5bbbec1e82170b50bc5b5cd2",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-exports",
+      "title": "Export everything, in every format",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/exports.md",
+      "originalSourcePath": "docs/features/required-features/exports.md",
+      "route": "/articles/source-docs-features-required-features-exports/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/exports.md",
+      "sourceSha256": "ff6bb9506f0d2b052f200f711912d5a8cf2c6cd28008f4ffab875a3c539c5d76",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-external-editor",
+      "title": "External editor and VS Code hand-off",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/external-editor.md",
+      "originalSourcePath": "docs/features/required-features/external-editor.md",
+      "route": "/articles/source-docs-features-required-features-external-editor/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/external-editor.md",
+      "sourceSha256": "7a998b3a3fe34d9230144ac9e0aa0cc2a70c582aa3c7b8fc3272fe12fb02122e",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-feature-articles",
+      "title": "One detailed article per feature on the GitHub Pages",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/feature-articles.md",
+      "originalSourcePath": "docs/features/required-features/feature-articles.md",
+      "route": "/articles/source-docs-features-required-features-feature-articles/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/feature-articles.md",
+      "sourceSha256": "daf8798d2a58b0fea9384ebdb4550c82c16fd785d9c560d5405529851ccd3ec5",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-feature-docs",
+      "title": "One Markdown file per feature",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/feature-docs.md",
+      "originalSourcePath": "docs/features/required-features/feature-docs.md",
+      "route": "/articles/source-docs-features-required-features-feature-docs/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/feature-docs.md",
+      "sourceSha256": "690b17b7ea751810d585dae597c41ee2fb411761b74c34214fc87d0041ea5b8f",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-file-converter",
+      "title": "Universal local file converter",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/file-converter.md",
+      "originalSourcePath": "docs/features/required-features/file-converter.md",
+      "route": "/articles/source-docs-features-required-features-file-converter/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/file-converter.md",
+      "sourceSha256": "35fa195c7a3795b654c27431f7ee25b92cf34e87f5cd87db591c5b8575786dff",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-forge-publishing",
+      "title": "Publishing to a forge",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/forge-publishing.md",
+      "originalSourcePath": "docs/features/required-features/forge-publishing.md",
+      "route": "/articles/source-docs-features-required-features-forge-publishing/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/forge-publishing.md",
+      "sourceSha256": "df84f72fdc1cd6de380cf01d45133b26f27f5c0f401a05018a19b8d74043c59e",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-fresh-build-run-command",
+      "title": "One fresh Microsoft Windows build-and-run command",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/fresh-build-run-command.md",
+      "originalSourcePath": "docs/features/required-features/fresh-build-run-command.md",
+      "route": "/articles/source-docs-features-required-features-fresh-build-run-command/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/fresh-build-run-command.md",
+      "sourceSha256": "75ac40f11acc54930ff1791c62e2032ccbe1c9890389ae8dfe2346f6b6e798f0",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-front-provenance",
+      "title": "Front-screen version and updated-at provenance",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/front-provenance.md",
+      "originalSourcePath": "docs/features/required-features/front-provenance.md",
+      "route": "/articles/source-docs-features-required-features-front-provenance/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/front-provenance.md",
+      "sourceSha256": "ffca870781e44a0a9fd993f36b27f4a55a718f1cdf4837a1723fd9b13ea73caf",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-functional-ui",
+      "title": "Functional UI and truthful empty states",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/functional-ui.md",
+      "originalSourcePath": "docs/features/required-features/functional-ui.md",
+      "route": "/articles/source-docs-features-required-features-functional-ui/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/functional-ui.md",
+      "sourceSha256": "708969a2adebe84af16caee6c467134d4e87745e6ea0e5f285528b0ed5fe886c",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-funny-emoji",
+      "title": "Funny-level sliders and the dialog emoji switch",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/funny-emoji.md",
+      "originalSourcePath": "docs/features/required-features/funny-emoji.md",
+      "route": "/articles/source-docs-features-required-features-funny-emoji/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/funny-emoji.md",
+      "sourceSha256": "c2925a32dd5dbd62e28fd08642626100bd6410b59beb8e25fc67f62de7624c43",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-guided-forms",
+      "title": "Guided forms",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/guided-forms.md",
+      "originalSourcePath": "docs/features/required-features/guided-forms.md",
+      "route": "/articles/source-docs-features-required-features-guided-forms/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/guided-forms.md",
+      "sourceSha256": "28d4933542eff74d8c716911e0128b23c3a01d17d4202aaa28789fc1ae976894",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-handoff-record",
+      "title": "HANDOFF.md and the GitHub handoff section",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/handoff-record.md",
+      "originalSourcePath": "docs/features/required-features/handoff-record.md",
+      "route": "/articles/source-docs-features-required-features-handoff-record/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/handoff-record.md",
+      "sourceSha256": "f0bb5c56fcc1d939472eb217de34259bb175a4fd41c9878aa852a04bac083cbc",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-homepage-link",
+      "title": "The GitHub Pages linked from the repository",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/homepage-link.md",
+      "originalSourcePath": "docs/features/required-features/homepage-link.md",
+      "route": "/articles/source-docs-features-required-features-homepage-link/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/homepage-link.md",
+      "sourceSha256": "b7a3872c9b025a6039e876e7f30529b6ccf1db9c98d7c650f8c8900e245ff8c2",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-honest-monetization",
+      "title": "Free by default, honest when paid, never nagging",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/honest-monetization.md",
+      "originalSourcePath": "docs/features/required-features/honest-monetization.md",
+      "route": "/articles/source-docs-features-required-features-honest-monetization/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/honest-monetization.md",
+      "sourceSha256": "7cab88ddf1dade02a2031c2cd1f45b008bc63e52befef61d8cff875fcafbc6dd",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-human-time-estimate",
+      "title": "How long a human would have taken",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/human-time-estimate.md",
+      "originalSourcePath": "docs/features/required-features/human-time-estimate.md",
+      "route": "/articles/source-docs-features-required-features-human-time-estimate/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/human-time-estimate.md",
+      "sourceSha256": "a99cc3901749b6213f82fed86c9db71eea77364bed972b58fb852f65acef69b4",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-implementation-plan",
+      "title": "Native implementation phases and independent delivery surfaces",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/implementation-plan.md",
+      "originalSourcePath": "docs/features/required-features/implementation-plan.md",
+      "route": "/articles/source-docs-features-required-features-implementation-plan/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/implementation-plan.md",
+      "sourceSha256": "005d533cbc1907979934706df3895732f8453e26369a87c857fd8e05d1f845f5",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-info-icon-guidance",
+      "title": "Per-control info icon buttons",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/info-icon-guidance.md",
+      "originalSourcePath": "docs/features/required-features/info-icon-guidance.md",
+      "route": "/articles/source-docs-features-required-features-info-icon-guidance/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/info-icon-guidance.md",
+      "sourceSha256": "6ac953c1fc5c25e70171b32155b3396fa79d6a8583f1f9d686ee62a4572d9916",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-installer-download-button",
+      "title": "Verified installer download on Home",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/installer-download-button.md",
+      "originalSourcePath": "docs/features/required-features/installer-download-button.md",
+      "route": "/articles/source-docs-features-required-features-installer-download-button/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/installer-download-button.md",
+      "sourceSha256": "27eb82464b685ddedf7b89ff98edcca5712eec2889bb4f3c9302b7f30487e11f",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-instruction-corpus-editions",
+      "title": "Instruction-source portable editions",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/instruction-corpus-editions.md",
+      "originalSourcePath": "docs/features/required-features/instruction-corpus-editions.md",
+      "route": "/articles/source-docs-features-required-features-instruction-corpus-editions/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/instruction-corpus-editions.md",
+      "sourceSha256": "e6e98c82922a3b5942acd4a2211c88372f6bbd68c4362459728e61210c71cdce",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-job-experience-document-label",
+      "title": "Job Experience Document default product wording",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/job-experience-document-label.md",
+      "originalSourcePath": "docs/features/required-features/job-experience-document-label.md",
+      "route": "/articles/source-docs-features-required-features-job-experience-document-label/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/job-experience-document-label.md",
+      "sourceSha256": "d4ee925415a0c71e0759973aba07731b158bdbe61053b50c1366956d091924aa",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-landing-site",
+      "title": "A Material Design 3 GitHub Pages carrying every feature",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/landing-site.md",
+      "originalSourcePath": "docs/features/required-features/landing-site.md",
+      "route": "/articles/source-docs-features-required-features-landing-site/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/landing-site.md",
+      "sourceSha256": "a6bf5313779b95813ee11ffd3ad475db919a1f63c45388447165dfe6df719a48",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-language",
+      "title": "Language modes",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/language.md",
+      "originalSourcePath": "docs/features/required-features/language.md",
+      "route": "/articles/source-docs-features-required-features-language/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/language.md",
+      "sourceSha256": "2e83d189c64cc15bf7596491198b3ef13f583f2d71cbf0c0605a98dbf153f0da",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-layout-verification-matrix",
+      "title": "layout clipping defect matrix for every built surface",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/layout-verification-matrix.md",
+      "originalSourcePath": "docs/features/required-features/layout-verification-matrix.md",
+      "route": "/articles/source-docs-features-required-features-layout-verification-matrix/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/layout-verification-matrix.md",
+      "sourceSha256": "48bdbe79d40c471a29c38497896d2b92bf921a1d8b532ef1f1f299c02852fd3e",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-local-history",
+      "title": "Local version history",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/local-history.md",
+      "originalSourcePath": "docs/features/required-features/local-history.md",
+      "route": "/articles/source-docs-features-required-features-local-history/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/local-history.md",
+      "sourceSha256": "fe438c0062dfc96b694b316236f465ce1d369a5d9f606bd15949d100e238d7dc",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-logo-customization",
+      "title": "application logo customization",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/logo-customization.md",
+      "originalSourcePath": "docs/features/required-features/logo-customization.md",
+      "route": "/articles/source-docs-features-required-features-logo-customization/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/logo-customization.md",
+      "sourceSha256": "21e119123e26bb980914126c02ce79f8c3bc8734cd7826e4f98eac31c1adc0e8",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-material-design",
+      "title": "Material Design 3 conformance",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/material-design.md",
+      "originalSourcePath": "docs/features/required-features/material-design.md",
+      "route": "/articles/source-docs-features-required-features-material-design/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/material-design.md",
+      "sourceSha256": "8984ca5175016547a4c763762dd1f0c8706a2962405fb0e56e42e6a73fffece8",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-menu-shortcuts",
+      "title": "Context menus show working shortcuts",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/menu-shortcuts.md",
+      "originalSourcePath": "docs/features/required-features/menu-shortcuts.md",
+      "route": "/articles/source-docs-features-required-features-menu-shortcuts/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/menu-shortcuts.md",
+      "sourceSha256": "7303066d0c577961d78625d52465ab8a6d20bfecb03db41ec8b8889f5424027d",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-minecraft-server-manager",
+      "title": "Full Minecraft server creator and manager",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/minecraft-server-manager.md",
+      "originalSourcePath": "docs/features/required-features/minecraft-server-manager.md",
+      "route": "/articles/source-docs-features-required-features-minecraft-server-manager/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/minecraft-server-manager.md",
+      "sourceSha256": "170606cd21c041bc09c0969810cacba29aa3d69588ad3b62b99e5e945e4fad22",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-motion",
+      "title": "Material Design 3 motion with a complete reduced-motion path",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/motion.md",
+      "originalSourcePath": "docs/features/required-features/motion.md",
+      "route": "/articles/source-docs-features-required-features-motion/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/motion.md",
+      "sourceSha256": "8d9be1ecd3c3d697efcac7733b6357eb67169735ddd804e90245784ce69115a3",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-narration",
+      "title": "Spoken narrator and voice pickers",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/narration.md",
+      "originalSourcePath": "docs/features/required-features/narration.md",
+      "route": "/articles/source-docs-features-required-features-narration/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/narration.md",
+      "sourceSha256": "2e2c3123539c2e8ce8e18266b9333ac641e8ab82c0da76bb138a14d6c1fda3af",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-notifications",
+      "title": "Non-blocking notifications and their centre",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/notifications.md",
+      "originalSourcePath": "docs/features/required-features/notifications.md",
+      "route": "/articles/source-docs-features-required-features-notifications/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/notifications.md",
+      "sourceSha256": "ab0d7b28a78ebea862711525852686195f4e0288fa71eaf9d558af667b44326b",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-offline-docs",
+      "title": "Offline documentation browser in every application",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/offline-docs.md",
+      "originalSourcePath": "docs/features/required-features/offline-docs.md",
+      "route": "/articles/source-docs-features-required-features-offline-docs/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/offline-docs.md",
+      "sourceSha256": "680674d59cae383fd98db03a7718bd0428f348eee5ac5b48911eb25c92ca24a9",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-ollama-suite",
+      "title": "Universal local Ollama suite manager",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/ollama-suite.md",
+      "originalSourcePath": "docs/features/required-features/ollama-suite.md",
+      "route": "/articles/source-docs-features-required-features-ollama-suite/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/ollama-suite.md",
+      "sourceSha256": "468d626225ca0612db1236a99c029ab1a4700d6a022b27022cf8b387b8ecf140",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-onboarding-wizard",
+      "title": "Practical in-app onboarding",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/onboarding-wizard.md",
+      "originalSourcePath": "docs/features/required-features/onboarding-wizard.md",
+      "route": "/articles/source-docs-features-required-features-onboarding-wizard/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/onboarding-wizard.md",
+      "sourceSha256": "e5f0145f34b9d3c6ae1ff3c87c72b4f672971de18a7df6e2a9a32a8fa3687b78",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-operational-skill",
+      "title": "repository operational skill",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/operational-skill.md",
+      "originalSourcePath": "docs/features/required-features/operational-skill.md",
+      "route": "/articles/source-docs-features-required-features-operational-skill/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/operational-skill.md",
+      "sourceSha256": "1681280cff1b35ebb5e2c25e39128e5a5205198f8046d060a98190310c77c9e3",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-overlay-panels",
+      "title": "Overlays and panels",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/overlay-panels.md",
+      "originalSourcePath": "docs/features/required-features/overlay-panels.md",
+      "route": "/articles/source-docs-features-required-features-overlay-panels/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/overlay-panels.md",
+      "sourceSha256": "d121db3eb4b591b79dc531f9ac9fcb8539a872b95592df1d7a2b3b5453b9e830",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-panic-webhooks",
+      "title": "Shared status-service incident dispatch",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/panic-webhooks.md",
+      "originalSourcePath": "docs/features/required-features/panic-webhooks.md",
+      "route": "/articles/source-docs-features-required-features-panic-webhooks/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/panic-webhooks.md",
+      "sourceSha256": "c20877fc983bae70bd7d19fd511d0f13abc9da1100e6fdf7101e2dd5c21ae465",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-personal-vocabulary",
+      "title": "Local personal-vocabulary JSON upload",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/personal-vocabulary.md",
+      "originalSourcePath": "docs/features/required-features/personal-vocabulary.md",
+      "route": "/articles/source-docs-features-required-features-personal-vocabulary/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/personal-vocabulary.md",
+      "sourceSha256": "d3e39a8fbb1fe48def1142a1b8917ae615e980a6b68bf8cc7e76432c342ab13d",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-postman-collections",
+      "title": "Postman collections for HTTP APIs",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/postman-collections.md",
+      "originalSourcePath": "docs/features/required-features/postman-collections.md",
+      "route": "/articles/source-docs-features-required-features-postman-collections/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/postman-collections.md",
+      "sourceSha256": "2a854b3507c0e743c8048fc6233b12cc50887d081e866d47150b10f7e2260857",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-product-evidence",
+      "title": "Real screenshots wherever a surface is described",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/product-evidence.md",
+      "originalSourcePath": "docs/features/required-features/product-evidence.md",
+      "route": "/articles/source-docs-features-required-features-product-evidence/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/product-evidence.md",
+      "sourceSha256": "42ec5d2178b090a841db9e6e904038bc3a8cb1e1170a91f3c21721ab0c4b4c16",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-progress-recovery",
+      "title": "Progress where it started, recovery where it broke",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/progress-recovery.md",
+      "originalSourcePath": "docs/features/required-features/progress-recovery.md",
+      "route": "/articles/source-docs-features-required-features-progress-recovery/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/progress-recovery.md",
+      "sourceSha256": "613b9a0922474dcf0b467d5354734de018097afff528e0be30c5e2054a2e32b7",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-project-board",
+      "title": "GitHub Project linked to the repository",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/project-board.md",
+      "originalSourcePath": "docs/features/required-features/project-board.md",
+      "route": "/articles/source-docs-features-required-features-project-board/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/project-board.md",
+      "sourceSha256": "f9ce51c5caa5b52765723f6e2e205f2a8331478a05a35eae75fa1c953f2a8066",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-project-profile",
+      "title": "Instruction-source project profiles",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/project-profile.md",
+      "originalSourcePath": "docs/features/required-features/project-profile.md",
+      "route": "/articles/source-docs-features-required-features-project-profile/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/project-profile.md",
+      "sourceSha256": "4710a2309f8fd91955a30ba5797c7196968315d566677b4d50e909e775953b3e",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-public-screenshot-gallery",
+      "title": "Public screenshot gallery at usage limit reached",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/public-screenshot-gallery.md",
+      "originalSourcePath": "docs/features/required-features/public-screenshot-gallery.md",
+      "route": "/articles/source-docs-features-required-features-public-screenshot-gallery/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/public-screenshot-gallery.md",
+      "sourceSha256": "bdd6c74989c10258e0518f33c9f3f88bb66249473358fe99a1a6a7b560874fc8",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-qr-pairing",
+      "title": "QR pairing for OTP registration",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/qr-pairing.md",
+      "originalSourcePath": "docs/features/required-features/qr-pairing.md",
+      "route": "/articles/source-docs-features-required-features-qr-pairing/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/qr-pairing.md",
+      "sourceSha256": "24627624e3fcd0069c8e133a8d7240f3e569d2d9edd3a42a573d0dfb8a84ada1",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-readme-prompt-banner",
+      "title": "Instruction-source prompt banner",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/readme-prompt-banner.md",
+      "originalSourcePath": "docs/features/required-features/readme-prompt-banner.md",
+      "route": "/articles/source-docs-features-required-features-readme-prompt-banner/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/readme-prompt-banner.md",
+      "sourceSha256": "a3ebe46f50970c7c461842d65126271d36fdc497c8a131a989d67311c50a6411",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-regex-search",
+      "title": "Regex builder on every search surface",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/regex-search.md",
+      "originalSourcePath": "docs/features/required-features/regex-search.md",
+      "route": "/articles/source-docs-features-required-features-regex-search/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/regex-search.md",
+      "sourceSha256": "48d71db8cfff00247cc3e288e3c1648d6176799bdba226b703d666db3723f3b8",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-release-dim-sum-photo",
+      "title": "Public dim-sum photo references in releases",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/release-dim-sum-photo.md",
+      "originalSourcePath": "docs/features/required-features/release-dim-sum-photo.md",
+      "route": "/articles/source-docs-features-required-features-release-dim-sum-photo/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/release-dim-sum-photo.md",
+      "sourceSha256": "a52bf4781aac34cd863e042edaaaa4714e476a7d6362a507e114b009a858a5b9",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-release-line-counts",
+      "title": "Line counts counted by GitHub Actions",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/release-line-counts.md",
+      "originalSourcePath": "docs/features/required-features/release-line-counts.md",
+      "route": "/articles/source-docs-features-required-features-release-line-counts/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/release-line-counts.md",
+      "sourceSha256": "aa6ce7512cb4c35f2f85e7afc8f4330b5209d7f10bf8a6c34353e17b444495c5",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-release-timing",
+      "title": "End-to-end workflow timing in release notes",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/release-timing.md",
+      "originalSourcePath": "docs/features/required-features/release-timing.md",
+      "route": "/articles/source-docs-features-required-features-release-timing/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/release-timing.md",
+      "sourceSha256": "dcf826a528e3868e8c018e33d5ab4a9504bec37d0475b17fa5aea6a9e570ac4d",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-release-workflow",
+      "title": "A real release on every push",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/release-workflow.md",
+      "originalSourcePath": "docs/features/required-features/release-workflow.md",
+      "route": "/articles/source-docs-features-required-features-release-workflow/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/release-workflow.md",
+      "sourceSha256": "482f0505fd91611b48030081feb82636c5193a69e0a57002cb741792581ee37b",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-rendered-provider-text",
+      "title": "Provider-authored text is rendered",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/rendered-provider-text.md",
+      "originalSourcePath": "docs/features/required-features/rendered-provider-text.md",
+      "route": "/articles/source-docs-features-required-features-rendered-provider-text/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/rendered-provider-text.md",
+      "sourceSha256": "3bcbdd9779739b213ae9546d38c61e30a32cd6b762b766bdf29801404e169e1a",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-responsive-documentation",
+      "title": "A mobile-friendly GitHub Pages",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/responsive-documentation.md",
+      "originalSourcePath": "docs/features/required-features/responsive-documentation.md",
+      "route": "/articles/source-docs-features-required-features-responsive-documentation/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/responsive-documentation.md",
+      "sourceSha256": "da17511b40070287041bd4005b24518cc777affaed01eac31053cb3b21f9cf78",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-rich-controls",
+      "title": "Rich controls wherever a value is shown",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/rich-controls.md",
+      "originalSourcePath": "docs/features/required-features/rich-controls.md",
+      "route": "/articles/source-docs-features-required-features-rich-controls/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/rich-controls.md",
+      "sourceSha256": "f92647cc1b4f59002dd715000a64d86244e9c2fe110c323ca3c23225cab3076c",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-roadmap-checklist",
+      "title": "ROADMAP.md checklist",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/roadmap-checklist.md",
+      "originalSourcePath": "docs/features/required-features/roadmap-checklist.md",
+      "route": "/articles/source-docs-features-required-features-roadmap-checklist/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/roadmap-checklist.md",
+      "sourceSha256": "c73407c6bbe564714bcf0462c6d608321ddbfe8a3a401e5c1cc9a8c9aaf00a7e",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-roblox-model-catalogue",
+      "title": "Every shared Roblox model, meaningfully used",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/roblox-model-catalogue.md",
+      "originalSourcePath": "docs/features/required-features/roblox-model-catalogue.md",
+      "route": "/articles/source-docs-features-required-features-roblox-model-catalogue/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/roblox-model-catalogue.md",
+      "sourceSha256": "3093fa0130f52fd7c68402b3de98b314dd8e84eed9164e40d1a24f82f4237d96",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-roblox-visual-realism",
+      "title": "Roblox visual realism",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/roblox-visual-realism.md",
+      "originalSourcePath": "docs/features/required-features/roblox-visual-realism.md",
+      "route": "/articles/source-docs-features-required-features-roblox-visual-realism/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/roblox-visual-realism.md",
+      "sourceSha256": "141e71cb88cff78839210249126dd1d18519f744b4a4305f595938bf2f1594ef",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-runner-selection",
+      "title": "Live GitHub Actions runner selection",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/runner-selection.md",
+      "originalSourcePath": "docs/features/required-features/runner-selection.md",
+      "route": "/articles/source-docs-features-required-features-runner-selection/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/runner-selection.md",
+      "sourceSha256": "c4671e9463526b69882fecfe60205243236ae0f15a346a9498bd78d4a01eefd4",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-sanitized-instruction-copy",
+      "title": "Sanitized instruction mirror",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/sanitized-instruction-copy.md",
+      "originalSourcePath": "docs/features/required-features/sanitized-instruction-copy.md",
+      "route": "/articles/source-docs-features-required-features-sanitized-instruction-copy/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/sanitized-instruction-copy.md",
+      "sourceSha256": "b7fb6b9be0d68c70275f4aef71e4182bd2f9b72d546fda7034338857ab1fb0b8",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-scheduled-settings",
+      "title": "Scheduled and external settings sources",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/scheduled-settings.md",
+      "originalSourcePath": "docs/features/required-features/scheduled-settings.md",
+      "route": "/articles/source-docs-features-required-features-scheduled-settings/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/scheduled-settings.md",
+      "sourceSha256": "7a89f2583054578d05d2bd71f556ce135605f76d054dc6dacc1a0b4fb7ca467f",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-school-mode",
+      "title": "Universal School mode",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/school-mode.md",
+      "originalSourcePath": "docs/features/required-features/school-mode.md",
+      "route": "/articles/source-docs-features-required-features-school-mode/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/school-mode.md",
+      "sourceSha256": "2b270eed7930069f979bd0bf14f502102de834b7250a139d5bfe666c639acaec",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-screen-recording",
+      "title": "committed screen recording",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/screen-recording.md",
+      "originalSourcePath": "docs/features/required-features/screen-recording.md",
+      "route": "/articles/source-docs-features-required-features-screen-recording/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/screen-recording.md",
+      "sourceSha256": "2c70cd4771f9a5c6e33758ea9c5c4fdad5aa0888db89b2ef6832d3b6f126528a",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-self-signing",
+      "title": "Required-format self-signing only",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/self-signing.md",
+      "originalSourcePath": "docs/features/required-features/self-signing.md",
+      "route": "/articles/source-docs-features-required-features-self-signing/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/self-signing.md",
+      "sourceSha256": "911f3603dc0884d13512ea6b7187f654f2b9b8cfc8cf53ef2c2a1ecfbf4b439b",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-settings-explanations",
+      "title": "Settings that explain themselves",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/settings-explanations.md",
+      "originalSourcePath": "docs/features/required-features/settings-explanations.md",
+      "route": "/articles/source-docs-features-required-features-settings-explanations/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/settings-explanations.md",
+      "sourceSha256": "7388d5456cbe8f877ece07b3de2e49c32a529d8778328b9c7fef4fed3ef8921d",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-shared-link-embed",
+      "title": "A real picture when a link is pasted into Discord",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/shared-link-embed.md",
+      "originalSourcePath": "docs/features/required-features/shared-link-embed.md",
+      "route": "/articles/source-docs-features-required-features-shared-link-embed/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/shared-link-embed.md",
+      "sourceSha256": "940e98e6c417b17f3c13c4516a3a626b6a9eb8f539b58d2758bea993a77a9b51",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-squirrel-installer",
+      "title": "Genuine Squirrel.Windows installers",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/squirrel-installer.md",
+      "originalSourcePath": "docs/features/required-features/squirrel-installer.md",
+      "route": "/articles/source-docs-features-required-features-squirrel-installer/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/squirrel-installer.md",
+      "sourceSha256": "f5d8e59dc6ce78963b8a5072ade12c13bd4be0079deeaffe3c5eca1145725508",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-status-hub",
+      "title": "Status Hub registration and status surface",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/status-hub.md",
+      "originalSourcePath": "docs/features/required-features/status-hub.md",
+      "route": "/articles/source-docs-features-required-features-status-hub/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/status-hub.md",
+      "sourceSha256": "dd8c28eb04dfc946036f2f41eb19c4ca9c0336a6c9b237e787f0790a123b10aa",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-super-confirmation",
+      "title": "Two-key super confirmation",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/super-confirmation.md",
+      "originalSourcePath": "docs/features/required-features/super-confirmation.md",
+      "route": "/articles/source-docs-features-required-features-super-confirmation/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/super-confirmation.md",
+      "sourceSha256": "4a702dcbcd4d405a17bf45b135bc2447f3a9acbdb4065649e5c6070c50b86777",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-support-tickets",
+      "title": "Support Tickets recovery desk",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/support-tickets.md",
+      "originalSourcePath": "docs/features/required-features/support-tickets.md",
+      "route": "/articles/source-docs-features-required-features-support-tickets/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/support-tickets.md",
+      "sourceSha256": "bfd50c7e40f961734e61c4dc0be497bda3f807dd97adbe23c15dc785fd0cefdd",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-tabbed-readme",
+      "title": "A tabbed README, not a scroll",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/tabbed-readme.md",
+      "originalSourcePath": "docs/features/required-features/tabbed-readme.md",
+      "route": "/articles/source-docs-features-required-features-tabbed-readme/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/tabbed-readme.md",
+      "sourceSha256": "4cb8e52dfb10d4551527912da4e9e60ecc0b8b92c4c8fc80e3e9a4ca27dd6d04",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-tabs",
+      "title": "Browser-style tabbed navigation",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/tabs.md",
+      "originalSourcePath": "docs/features/required-features/tabs.md",
+      "route": "/articles/source-docs-features-required-features-tabs/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/tabs.md",
+      "sourceSha256": "cb8b42651ce7c2fe08176ca2ba92dc998e81618a714f2a161df8bf36ac34d6fe",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-tidbyt-displays",
+      "title": "Shared status-service hardware displays",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/tidbyt-displays.md",
+      "originalSourcePath": "docs/features/required-features/tidbyt-displays.md",
+      "route": "/articles/source-docs-features-required-features-tidbyt-displays/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/tidbyt-displays.md",
+      "sourceSha256": "02b224a02545695e7f57f4f940f5901a1f2061d11006e2ba4a895cbbf0763d47",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-unlock-ladder",
+      "title": "The unlock ladder",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/unlock-ladder.md",
+      "originalSourcePath": "docs/features/required-features/unlock-ladder.md",
+      "route": "/articles/source-docs-features-required-features-unlock-ladder/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/unlock-ladder.md",
+      "sourceSha256": "60b4f937a2b699cd8f2d3457190b0e5e8b379da2cd0e096bf5cec0a574e1fa99",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-vendored-fonts",
+      "title": "Complete, scripted font vendoring",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/vendored-fonts.md",
+      "originalSourcePath": "docs/features/required-features/vendored-fonts.md",
+      "route": "/articles/source-docs-features-required-features-vendored-fonts/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/vendored-fonts.md",
+      "sourceSha256": "7b4923c69ec3422fa0f8e204d66cf192dc68ab6f99c79df911227bd99f22b2c1",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-vocabulary-drop-apply",
+      "title": "Drop a personal-vocabulary JSON onto the application",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/vocabulary-drop-apply.md",
+      "originalSourcePath": "docs/features/required-features/vocabulary-drop-apply.md",
+      "route": "/articles/source-docs-features-required-features-vocabulary-drop-apply/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/vocabulary-drop-apply.md",
+      "sourceSha256": "30a5b6f168fa8e8b79763d55fa998ab1739b8cbc469b7c688138dd5810c6f63c",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-vocabulary-hash-lock",
+      "title": "Vocabulary hash lock",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/vocabulary-hash-lock.md",
+      "originalSourcePath": "docs/features/required-features/vocabulary-hash-lock.md",
+      "route": "/articles/source-docs-features-required-features-vocabulary-hash-lock/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/vocabulary-hash-lock.md",
+      "sourceSha256": "1d7759a2d2a088cc1692479048c9bacd24d3c7843a68961b9dcf916b355f6dd3",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-vocabulary-unlock-boundary",
+      "title": "private vocabulary only after authentication",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/vocabulary-unlock-boundary.md",
+      "originalSourcePath": "docs/features/required-features/vocabulary-unlock-boundary.md",
+      "route": "/articles/source-docs-features-required-features-vocabulary-unlock-boundary/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/vocabulary-unlock-boundary.md",
+      "sourceSha256": "0ca08882e0e868c67eff5f2e4ac37710c2dbaafe6eb2f00ed36a007c2f975a58",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-wiki-documentation-sync",
+      "title": "Wiki and GitHub Pages source kept current",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/wiki-documentation-sync.md",
+      "originalSourcePath": "docs/features/required-features/wiki-documentation-sync.md",
+      "route": "/articles/source-docs-features-required-features-wiki-documentation-sync/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/wiki-documentation-sync.md",
+      "sourceSha256": "5f41737fcd7a38a88c44c0cbfcb032cd7f9393cbd6ba024f59949d0e872f80c0",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-docs-features-required-features-workflow-navigation",
+      "title": "Workflow navigation and window chrome",
+      "category": "required-features",
+      "language": "en",
+      "sourcePath": "docs/features/required-features/workflow-navigation.md",
+      "originalSourcePath": "docs/features/required-features/workflow-navigation.md",
+      "route": "/articles/source-docs-features-required-features-workflow-navigation/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/docs/features/required-features/workflow-navigation.md",
+      "sourceSha256": "2ee76681b9d5374f5a74d6fd27f7c4b34816d03bd32d977000411677804b8b95",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-evidence-installer-readme",
+      "title": "Installer evidence archive",
+      "category": "evidence",
+      "language": "en",
+      "sourcePath": "evidence/installer/README.md",
+      "originalSourcePath": "evidence/installer/README.md",
+      "route": "/articles/source-evidence-installer-readme/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/evidence/installer/README.md",
+      "sourceSha256": "ec111eaab5aacdc0ccbca0334e53c379accb0dcb5d05e4c87fb3d37e64d6705d",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "source-皮肤制作教程",
+      "title": "皮肤制作教程",
+      "category": "help",
+      "language": "zh-Hans",
+      "sourcePath": "皮肤制作教程.md",
+      "originalSourcePath": "皮肤制作教程.md",
+      "route": "/articles/source-皮肤制作教程/",
+      "sourceUrl": "https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/04a9a136ae800c4b1c547cf09c1bf3688ac0265a/%E7%9A%AE%E8%82%A4%E5%88%B6%E4%BD%9C%E6%95%99%E7%A8%8B.md",
+      "sourceSha256": "881ae1fe7bc2952c9552b3bec552c2f212232df57032689aa0db9edfb5090705",
+      "provenanceKind": "repository-markdown",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": false
+    },
+    {
+      "id": "wiki-change-skin-function",
+      "title": "Change Skin Function",
+      "category": "wiki",
+      "language": "en",
+      "sourcePath": "docs/wiki/upstream/Change Skin Function.md",
+      "originalSourcePath": "Change Skin Function.md",
+      "route": "/wiki/change-skin-function/",
+      "sourceUrl": "https://github.com/zhongyang219/TrafficMonitor/wiki/Change-Skin-Function",
+      "sourceSha256": "4bdb60246a4f1cd2221b1d9aa14cabc7ef9c36c714483ff9f12b83d01482f119",
+      "provenanceKind": "upstream-wiki",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": true
+    },
+    {
+      "id": "wiki-context-menu",
+      "title": "Main window context menu",
+      "category": "wiki",
+      "language": "en",
+      "sourcePath": "docs/wiki/upstream/Context Menu.md",
+      "originalSourcePath": "Context Menu.md",
+      "route": "/wiki/context-menu/",
+      "sourceUrl": "https://github.com/zhongyang219/TrafficMonitor/wiki/Context-Menu",
+      "sourceSha256": "c53a2ab067d07c497e9e08df033b17e6c878df74b37838d38560519a65235b15",
+      "provenanceKind": "upstream-wiki",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": true
+    },
+    {
+      "id": "wiki-hardware-monitoring-function",
+      "title": "Hardware Monitoring Function",
+      "category": "wiki",
+      "language": "en",
+      "sourcePath": "docs/wiki/upstream/Hardware Monitoring Function.md",
+      "originalSourcePath": "Hardware Monitoring Function.md",
+      "route": "/wiki/hardware-monitoring-function/",
+      "sourceUrl": "https://github.com/zhongyang219/TrafficMonitor/wiki/Hardware-Monitoring-Function",
+      "sourceSha256": "7f5a6fe74be9d8db67502022a3989b1d2d56dff2beddb3c3b1b89cd966e31018",
+      "provenanceKind": "upstream-wiki",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": true
+    },
+    {
+      "id": "wiki-home",
+      "title": "Home",
+      "category": "wiki",
+      "language": "zh-Hans",
+      "sourcePath": "docs/wiki/upstream/Home.md",
+      "originalSourcePath": "Home.md",
+      "route": "/wiki/home/",
+      "sourceUrl": "https://github.com/zhongyang219/TrafficMonitor/wiki/Home",
+      "sourceSha256": "039a96e5427ec461c44aceb5646355981eac8d31087469b3b2bf00ad9bfbf4e7",
+      "provenanceKind": "upstream-wiki",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": true
+    },
+    {
+      "id": "wiki-home-en",
+      "title": "Home en",
+      "category": "wiki",
+      "language": "en",
+      "sourcePath": "docs/wiki/upstream/Home_en.md",
+      "originalSourcePath": "Home_en.md",
+      "route": "/wiki/home-en/",
+      "sourceUrl": "https://github.com/zhongyang219/TrafficMonitor/wiki/Home_en",
+      "sourceSha256": "047bff4c605309de98484366a7ed4c451d69936ca98098e8acc532019508120a",
+      "provenanceKind": "upstream-wiki",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": true
+    },
+    {
+      "id": "wiki-main-window",
+      "title": "TrafficMonitor main window description (desktop suspension window)",
+      "category": "wiki",
+      "language": "en",
+      "sourcePath": "docs/wiki/upstream/Main Window.md",
+      "originalSourcePath": "Main Window.md",
+      "route": "/wiki/main-window/",
+      "sourceUrl": "https://github.com/zhongyang219/TrafficMonitor/wiki/Main-Window",
+      "sourceSha256": "2ae13b480186086afd3f8e4ae9c18bb80de7d831b500dabbd41ae2b59006ed5f",
+      "provenanceKind": "upstream-wiki",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": true
+    },
+    {
+      "id": "wiki-option-settings",
+      "title": "Main Window Settings",
+      "category": "wiki",
+      "language": "en",
+      "sourcePath": "docs/wiki/upstream/Option Settings.md",
+      "originalSourcePath": "Option Settings.md",
+      "route": "/wiki/option-settings/",
+      "sourceUrl": "https://github.com/zhongyang219/TrafficMonitor/wiki/Option-Settings",
+      "sourceSha256": "5d5395fee8b9ab134333cd1338dbb59275780d03028b7ad205cc549de9250f27",
+      "provenanceKind": "upstream-wiki",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": true
+    },
+    {
+      "id": "wiki-plugin-development-guide",
+      "title": "Ready to work",
+      "category": "wiki",
+      "language": "en",
+      "sourcePath": "docs/wiki/upstream/Plugin Development Guide.md",
+      "originalSourcePath": "Plugin Development Guide.md",
+      "route": "/wiki/plugin-development-guide/",
+      "sourceUrl": "https://github.com/zhongyang219/TrafficMonitor/wiki/Plugin-Development-Guide",
+      "sourceSha256": "536227341bd806298037199a06986cec56ad991aca6654a9af8b8ecdccdaebb0",
+      "provenanceKind": "upstream-wiki",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": true
+    },
+    {
+      "id": "wiki-select-the-monitoring-network-connections",
+      "title": "Select the Monitoring Network Connections",
+      "category": "wiki",
+      "language": "en",
+      "sourcePath": "docs/wiki/upstream/Select the Monitoring Network Connections.md",
+      "originalSourcePath": "Select the Monitoring Network Connections.md",
+      "route": "/wiki/select-the-monitoring-network-connections/",
+      "sourceUrl": "https://github.com/zhongyang219/TrafficMonitor/wiki/Select-the-Monitoring-Network-Connections",
+      "sourceSha256": "e4128fbc8f7b9fdde5c5b2ad142cd7bc7be0c0d795aeb84a2bca97ccf8b626be",
+      "provenanceKind": "upstream-wiki",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": true
+    },
+    {
+      "id": "wiki-skin-making-up-tutorial",
+      "title": "Skin making Procedure",
+      "category": "wiki",
+      "language": "en",
+      "sourcePath": "docs/wiki/upstream/Skin Making-up Tutorial.md",
+      "originalSourcePath": "Skin Making-up Tutorial.md",
+      "route": "/wiki/skin-making-up-tutorial/",
+      "sourceUrl": "https://github.com/zhongyang219/TrafficMonitor/wiki/Skin-Making-up-Tutorial",
+      "sourceSha256": "f98560ea5ae417279d70671be3921eae5e3e5041839bd6717a6139a4afeffc2c",
+      "provenanceKind": "upstream-wiki",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": true
+    },
+    {
+      "id": "wiki-taskbar-window",
+      "title": "Taskbar window description",
+      "category": "wiki",
+      "language": "en",
+      "sourcePath": "docs/wiki/upstream/Taskbar Window.md",
+      "originalSourcePath": "Taskbar Window.md",
+      "route": "/wiki/taskbar-window/",
+      "sourceUrl": "https://github.com/zhongyang219/TrafficMonitor/wiki/Taskbar-Window",
+      "sourceSha256": "644330d9cd8f53ec41c10786e7ad1549bf5a271b2809cbc22ed4aa0a6ebcbcdb",
+      "provenanceKind": "upstream-wiki",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": true
+    },
+    {
+      "id": "wiki-footer",
+      "title": " Footer",
+      "category": "wiki",
+      "language": "mixed",
+      "sourcePath": "docs/wiki/upstream/_Footer.md",
+      "originalSourcePath": "_Footer.md",
+      "route": "/wiki/footer/",
+      "sourceUrl": "https://github.com/zhongyang219/TrafficMonitor/wiki/_Footer",
+      "sourceSha256": "c692a44a82b7ba9ab5c01fbf83a562fb3902f3476bd7e6b020bf0ed2e03b1c56",
+      "provenanceKind": "upstream-wiki",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": true
+    },
+    {
+      "id": "wiki-sidebar",
+      "title": "TrafficMonitor Wiki 导航",
+      "category": "wiki",
+      "language": "mixed",
+      "sourcePath": "docs/wiki/upstream/_Sidebar.md",
+      "originalSourcePath": "_Sidebar.md",
+      "route": "/wiki/sidebar/",
+      "sourceUrl": "https://github.com/zhongyang219/TrafficMonitor/wiki/_Sidebar",
+      "sourceSha256": "075c28390b66d1a36eb09a64eed19440a611ef551ce7d18124362d8853b92ac5",
+      "provenanceKind": "upstream-wiki",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": true
+    },
+    {
+      "id": "wiki-主窗口",
+      "title": "TrafficMonitor主窗口（桌面悬浮窗）说明",
+      "category": "wiki",
+      "language": "zh-Hans",
+      "sourcePath": "docs/wiki/upstream/主窗口.md",
+      "originalSourcePath": "主窗口.md",
+      "route": "/wiki/%E4%B8%BB%E7%AA%97%E5%8F%A3/",
+      "sourceUrl": "https://github.com/zhongyang219/TrafficMonitor/wiki/%E4%B8%BB%E7%AA%97%E5%8F%A3",
+      "sourceSha256": "1a83bb29e3b230706f5c2e03d3648c1d8a040233170cb8fbe0b2f384896a6949",
+      "provenanceKind": "upstream-wiki",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": true
+    },
+    {
+      "id": "wiki-任务栏窗口",
+      "title": "任务栏窗口说明",
+      "category": "wiki",
+      "language": "zh-Hans",
+      "sourcePath": "docs/wiki/upstream/任务栏窗口.md",
+      "originalSourcePath": "任务栏窗口.md",
+      "route": "/wiki/%E4%BB%BB%E5%8A%A1%E6%A0%8F%E7%AA%97%E5%8F%A3/",
+      "sourceUrl": "https://github.com/zhongyang219/TrafficMonitor/wiki/%E4%BB%BB%E5%8A%A1%E6%A0%8F%E7%AA%97%E5%8F%A3",
+      "sourceSha256": "ae8e5a7be4dec223bfac10a3982aaec15e8464e67d76f87934da58af0ac99173",
+      "provenanceKind": "upstream-wiki",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": true
+    },
+    {
+      "id": "wiki-历史流量统计",
+      "title": "历史流量统计",
+      "category": "wiki",
+      "language": "zh-Hans",
+      "sourcePath": "docs/wiki/upstream/历史流量统计.md",
+      "originalSourcePath": "历史流量统计.md",
+      "route": "/wiki/%E5%8E%86%E5%8F%B2%E6%B5%81%E9%87%8F%E7%BB%9F%E8%AE%A1/",
+      "sourceUrl": "https://github.com/zhongyang219/TrafficMonitor/wiki/%E5%8E%86%E5%8F%B2%E6%B5%81%E9%87%8F%E7%BB%9F%E8%AE%A1",
+      "sourceSha256": "282457674cf0bb55b9c9e89aee471f9d1502e3a2835e82f858b073a8409081a9",
+      "provenanceKind": "upstream-wiki",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": true
+    },
+    {
+      "id": "wiki-右键菜单",
+      "title": "主窗口右键菜单",
+      "category": "wiki",
+      "language": "zh-Hans",
+      "sourcePath": "docs/wiki/upstream/右键菜单.md",
+      "originalSourcePath": "右键菜单.md",
+      "route": "/wiki/%E5%8F%B3%E9%94%AE%E8%8F%9C%E5%8D%95/",
+      "sourceUrl": "https://github.com/zhongyang219/TrafficMonitor/wiki/%E5%8F%B3%E9%94%AE%E8%8F%9C%E5%8D%95",
+      "sourceSha256": "e08254f3662f62b9373e7c7b3b67bcdcc601f063169a9ee224968264948ba785",
+      "provenanceKind": "upstream-wiki",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": true
+    },
+    {
+      "id": "wiki-已知问题",
+      "title": "已知问题",
+      "category": "wiki",
+      "language": "zh-Hans",
+      "sourcePath": "docs/wiki/upstream/已知问题.md",
+      "originalSourcePath": "已知问题.md",
+      "route": "/wiki/%E5%B7%B2%E7%9F%A5%E9%97%AE%E9%A2%98/",
+      "sourceUrl": "https://github.com/zhongyang219/TrafficMonitor/wiki/%E5%B7%B2%E7%9F%A5%E9%97%AE%E9%A2%98",
+      "sourceSha256": "63ce3214567fcc2087e6f11381bf3c828cf43edc492fc977ffd5541ef8452104",
+      "provenanceKind": "upstream-wiki",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": true
+    },
+    {
+      "id": "wiki-插件功能",
+      "title": "插件下载和使用",
+      "category": "wiki",
+      "language": "zh-Hans",
+      "sourcePath": "docs/wiki/upstream/插件功能.md",
+      "originalSourcePath": "插件功能.md",
+      "route": "/wiki/%E6%8F%92%E4%BB%B6%E5%8A%9F%E8%83%BD/",
+      "sourceUrl": "https://github.com/zhongyang219/TrafficMonitor/wiki/%E6%8F%92%E4%BB%B6%E5%8A%9F%E8%83%BD",
+      "sourceSha256": "d720f1f3e3a46020f7475d1c5c9ebcd62dd33809d339c5944e1d41bda92e912b",
+      "provenanceKind": "upstream-wiki",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": true
+    },
+    {
+      "id": "wiki-插件开发指南",
+      "title": "准备工作",
+      "category": "wiki",
+      "language": "zh-Hans",
+      "sourcePath": "docs/wiki/upstream/插件开发指南.md",
+      "originalSourcePath": "插件开发指南.md",
+      "route": "/wiki/%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97/",
+      "sourceUrl": "https://github.com/zhongyang219/TrafficMonitor/wiki/%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97",
+      "sourceSha256": "13ecdc2acc756a6a32adb15086da5a523d37f83d0c572460a917d87d192c9e95",
+      "provenanceKind": "upstream-wiki",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": true
+    },
+    {
+      "id": "wiki-旧版本的皮肤制作教程",
+      "title": "TrafficMonotor 皮肤制作教程",
+      "category": "wiki",
+      "language": "zh-Hans",
+      "sourcePath": "docs/wiki/upstream/旧版本的皮肤制作教程.md",
+      "originalSourcePath": "旧版本的皮肤制作教程.md",
+      "route": "/wiki/%E6%97%A7%E7%89%88%E6%9C%AC%E7%9A%84%E7%9A%AE%E8%82%A4%E5%88%B6%E4%BD%9C%E6%95%99%E7%A8%8B/",
+      "sourceUrl": "https://github.com/zhongyang219/TrafficMonitor/wiki/%E6%97%A7%E7%89%88%E6%9C%AC%E7%9A%84%E7%9A%AE%E8%82%A4%E5%88%B6%E4%BD%9C%E6%95%99%E7%A8%8B",
+      "sourceSha256": "ffb25e4da71ad6ac868527b7c9525b6e70d26a7352e4eb1c70097de69c4829cd",
+      "provenanceKind": "upstream-wiki",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": true
+    },
+    {
+      "id": "wiki-更换皮肤功能",
+      "title": "更换皮肤功能",
+      "category": "wiki",
+      "language": "zh-Hans",
+      "sourcePath": "docs/wiki/upstream/更换皮肤功能.md",
+      "originalSourcePath": "更换皮肤功能.md",
+      "route": "/wiki/%E6%9B%B4%E6%8D%A2%E7%9A%AE%E8%82%A4%E5%8A%9F%E8%83%BD/",
+      "sourceUrl": "https://github.com/zhongyang219/TrafficMonitor/wiki/%E6%9B%B4%E6%8D%A2%E7%9A%AE%E8%82%A4%E5%8A%9F%E8%83%BD",
+      "sourceSha256": "125808142508737f7de59e0a2de345f3acf66baeb4ffe79a5c136cc961ce0351",
+      "provenanceKind": "upstream-wiki",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": true
+    },
+    {
+      "id": "wiki-皮肤制作教程",
+      "title": "皮肤制作步骤",
+      "category": "wiki",
+      "language": "zh-Hans",
+      "sourcePath": "docs/wiki/upstream/皮肤制作教程.md",
+      "originalSourcePath": "皮肤制作教程.md",
+      "route": "/wiki/%E7%9A%AE%E8%82%A4%E5%88%B6%E4%BD%9C%E6%95%99%E7%A8%8B/",
+      "sourceUrl": "https://github.com/zhongyang219/TrafficMonitor/wiki/%E7%9A%AE%E8%82%A4%E5%88%B6%E4%BD%9C%E6%95%99%E7%A8%8B",
+      "sourceSha256": "6b7b03bf0c07c72ab513f1ec1c3cc2c33adfc9b51f6ee9ec128b189d5b2d9ba2",
+      "provenanceKind": "upstream-wiki",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": true
+    },
+    {
+      "id": "wiki-硬件监控功能",
+      "title": "硬件监控功能",
+      "category": "wiki",
+      "language": "zh-Hans",
+      "sourcePath": "docs/wiki/upstream/硬件监控功能.md",
+      "originalSourcePath": "硬件监控功能.md",
+      "route": "/wiki/%E7%A1%AC%E4%BB%B6%E7%9B%91%E6%8E%A7%E5%8A%9F%E8%83%BD/",
+      "sourceUrl": "https://github.com/zhongyang219/TrafficMonitor/wiki/%E7%A1%AC%E4%BB%B6%E7%9B%91%E6%8E%A7%E5%8A%9F%E8%83%BD",
+      "sourceSha256": "4cc4d4541a2382f90ed02cf4cd911558842c2d2b7b77b9812c71f02f6f508962",
+      "provenanceKind": "upstream-wiki",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": true
+    },
+    {
+      "id": "wiki-选择监控的网络连接",
+      "title": "选择监控的网络连接",
+      "category": "wiki",
+      "language": "zh-Hans",
+      "sourcePath": "docs/wiki/upstream/选择监控的网络连接.md",
+      "originalSourcePath": "选择监控的网络连接.md",
+      "route": "/wiki/%E9%80%89%E6%8B%A9%E7%9B%91%E6%8E%A7%E7%9A%84%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5/",
+      "sourceUrl": "https://github.com/zhongyang219/TrafficMonitor/wiki/%E9%80%89%E6%8B%A9%E7%9B%91%E6%8E%A7%E7%9A%84%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5",
+      "sourceSha256": "fb1d767ade5fb69b0128b974c15f116dcd97ab12f3fd0a9c9cf5d91595580e6c",
+      "provenanceKind": "upstream-wiki",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": true
+    },
+    {
+      "id": "wiki-选项设置",
+      "title": "主窗口设置",
+      "category": "wiki",
+      "language": "zh-Hans",
+      "sourcePath": "docs/wiki/upstream/选项设置.md",
+      "originalSourcePath": "选项设置.md",
+      "route": "/wiki/%E9%80%89%E9%A1%B9%E8%AE%BE%E7%BD%AE/",
+      "sourceUrl": "https://github.com/zhongyang219/TrafficMonitor/wiki/%E9%80%89%E9%A1%B9%E8%AE%BE%E7%BD%AE",
+      "sourceSha256": "faaddbc8479552efb6e826f605a811f2e16273ce08b62c662a50bbeff1245a13",
+      "provenanceKind": "upstream-wiki",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": true
+    },
+    {
+      "id": "wiki-通知区图标",
+      "title": "通知区图标",
+      "category": "wiki",
+      "language": "zh-Hans",
+      "sourcePath": "docs/wiki/upstream/通知区图标.md",
+      "originalSourcePath": "通知区图标.md",
+      "route": "/wiki/%E9%80%9A%E7%9F%A5%E5%8C%BA%E5%9B%BE%E6%A0%87/",
+      "sourceUrl": "https://github.com/zhongyang219/TrafficMonitor/wiki/%E9%80%9A%E7%9F%A5%E5%8C%BA%E5%9B%BE%E6%A0%87",
+      "sourceSha256": "9260a33a62e68e9a713390d4565768308afc782be8632ce2d72dd3ec562132be",
+      "provenanceKind": "upstream-wiki",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": true
+    },
+    {
+      "id": "wiki-配置和数据文件",
+      "title": "配置和数据文件",
+      "category": "wiki",
+      "language": "zh-Hans",
+      "sourcePath": "docs/wiki/upstream/配置和数据文件.md",
+      "originalSourcePath": "配置和数据文件.md",
+      "route": "/wiki/%E9%85%8D%E7%BD%AE%E5%92%8C%E6%95%B0%E6%8D%AE%E6%96%87%E4%BB%B6/",
+      "sourceUrl": "https://github.com/zhongyang219/TrafficMonitor/wiki/%E9%85%8D%E7%BD%AE%E5%92%8C%E6%95%B0%E6%8D%AE%E6%96%87%E4%BB%B6",
+      "sourceSha256": "d23b4dfb980b8d307806ded8b89e2d3595c2a80e73b96bb01f3471e8420be1a5",
+      "provenanceKind": "upstream-wiki",
+      "contentStatus": "complete-source-article",
+      "historicalPresentation": true
+    }
+  ],
+  "wikiAliases": [
+    {
+      "alias": "Change Skin Function.md",
+      "articleId": "wiki-change-skin-function"
+    },
+    {
+      "alias": "Change Skin Function",
+      "articleId": "wiki-change-skin-function"
+    },
+    {
+      "alias": "Change-Skin-Function",
+      "articleId": "wiki-change-skin-function"
+    },
+    {
+      "alias": "https://github.com/zhongyang219/TrafficMonitor/wiki/Change-Skin-Function",
+      "articleId": "wiki-change-skin-function"
+    },
+    {
+      "alias": "Context Menu.md",
+      "articleId": "wiki-context-menu"
+    },
+    {
+      "alias": "Context Menu",
+      "articleId": "wiki-context-menu"
+    },
+    {
+      "alias": "Context-Menu",
+      "articleId": "wiki-context-menu"
+    },
+    {
+      "alias": "https://github.com/zhongyang219/TrafficMonitor/wiki/Context-Menu",
+      "articleId": "wiki-context-menu"
+    },
+    {
+      "alias": "Hardware Monitoring Function.md",
+      "articleId": "wiki-hardware-monitoring-function"
+    },
+    {
+      "alias": "Hardware Monitoring Function",
+      "articleId": "wiki-hardware-monitoring-function"
+    },
+    {
+      "alias": "Hardware-Monitoring-Function",
+      "articleId": "wiki-hardware-monitoring-function"
+    },
+    {
+      "alias": "https://github.com/zhongyang219/TrafficMonitor/wiki/Hardware-Monitoring-Function",
+      "articleId": "wiki-hardware-monitoring-function"
+    },
+    {
+      "alias": "Home.md",
+      "articleId": "wiki-home"
+    },
+    {
+      "alias": "Home",
+      "articleId": "wiki-home"
+    },
+    {
+      "alias": "Home",
+      "articleId": "wiki-home"
+    },
+    {
+      "alias": "https://github.com/zhongyang219/TrafficMonitor/wiki/Home",
+      "articleId": "wiki-home"
+    },
+    {
+      "alias": "Home_en.md",
+      "articleId": "wiki-home-en"
+    },
+    {
+      "alias": "Home_en",
+      "articleId": "wiki-home-en"
+    },
+    {
+      "alias": "Home_en",
+      "articleId": "wiki-home-en"
+    },
+    {
+      "alias": "https://github.com/zhongyang219/TrafficMonitor/wiki/Home_en",
+      "articleId": "wiki-home-en"
+    },
+    {
+      "alias": "Main Window.md",
+      "articleId": "wiki-main-window"
+    },
+    {
+      "alias": "Main Window",
+      "articleId": "wiki-main-window"
+    },
+    {
+      "alias": "Main-Window",
+      "articleId": "wiki-main-window"
+    },
+    {
+      "alias": "https://github.com/zhongyang219/TrafficMonitor/wiki/Main-Window",
+      "articleId": "wiki-main-window"
+    },
+    {
+      "alias": "Option Settings.md",
+      "articleId": "wiki-option-settings"
+    },
+    {
+      "alias": "Option Settings",
+      "articleId": "wiki-option-settings"
+    },
+    {
+      "alias": "Option-Settings",
+      "articleId": "wiki-option-settings"
+    },
+    {
+      "alias": "https://github.com/zhongyang219/TrafficMonitor/wiki/Option-Settings",
+      "articleId": "wiki-option-settings"
+    },
+    {
+      "alias": "Plugin Development Guide.md",
+      "articleId": "wiki-plugin-development-guide"
+    },
+    {
+      "alias": "Plugin Development Guide",
+      "articleId": "wiki-plugin-development-guide"
+    },
+    {
+      "alias": "Plugin-Development-Guide",
+      "articleId": "wiki-plugin-development-guide"
+    },
+    {
+      "alias": "https://github.com/zhongyang219/TrafficMonitor/wiki/Plugin-Development-Guide",
+      "articleId": "wiki-plugin-development-guide"
+    },
+    {
+      "alias": "Select the Monitoring Network Connections.md",
+      "articleId": "wiki-select-the-monitoring-network-connections"
+    },
+    {
+      "alias": "Select the Monitoring Network Connections",
+      "articleId": "wiki-select-the-monitoring-network-connections"
+    },
+    {
+      "alias": "Select-the-Monitoring-Network-Connections",
+      "articleId": "wiki-select-the-monitoring-network-connections"
+    },
+    {
+      "alias": "https://github.com/zhongyang219/TrafficMonitor/wiki/Select-the-Monitoring-Network-Connections",
+      "articleId": "wiki-select-the-monitoring-network-connections"
+    },
+    {
+      "alias": "Skin Making-up Tutorial.md",
+      "articleId": "wiki-skin-making-up-tutorial"
+    },
+    {
+      "alias": "Skin Making-up Tutorial",
+      "articleId": "wiki-skin-making-up-tutorial"
+    },
+    {
+      "alias": "Skin-Making-up-Tutorial",
+      "articleId": "wiki-skin-making-up-tutorial"
+    },
+    {
+      "alias": "https://github.com/zhongyang219/TrafficMonitor/wiki/Skin-Making-up-Tutorial",
+      "articleId": "wiki-skin-making-up-tutorial"
+    },
+    {
+      "alias": "Taskbar Window.md",
+      "articleId": "wiki-taskbar-window"
+    },
+    {
+      "alias": "Taskbar Window",
+      "articleId": "wiki-taskbar-window"
+    },
+    {
+      "alias": "Taskbar-Window",
+      "articleId": "wiki-taskbar-window"
+    },
+    {
+      "alias": "https://github.com/zhongyang219/TrafficMonitor/wiki/Taskbar-Window",
+      "articleId": "wiki-taskbar-window"
+    },
+    {
+      "alias": "_Footer.md",
+      "articleId": "wiki-footer"
+    },
+    {
+      "alias": "_Footer",
+      "articleId": "wiki-footer"
+    },
+    {
+      "alias": "_Footer",
+      "articleId": "wiki-footer"
+    },
+    {
+      "alias": "https://github.com/zhongyang219/TrafficMonitor/wiki/_Footer",
+      "articleId": "wiki-footer"
+    },
+    {
+      "alias": "_Sidebar.md",
+      "articleId": "wiki-sidebar"
+    },
+    {
+      "alias": "_Sidebar",
+      "articleId": "wiki-sidebar"
+    },
+    {
+      "alias": "_Sidebar",
+      "articleId": "wiki-sidebar"
+    },
+    {
+      "alias": "https://github.com/zhongyang219/TrafficMonitor/wiki/_Sidebar",
+      "articleId": "wiki-sidebar"
+    },
+    {
+      "alias": "主窗口.md",
+      "articleId": "wiki-主窗口"
+    },
+    {
+      "alias": "主窗口",
+      "articleId": "wiki-主窗口"
+    },
+    {
+      "alias": "主窗口",
+      "articleId": "wiki-主窗口"
+    },
+    {
+      "alias": "https://github.com/zhongyang219/TrafficMonitor/wiki/主窗口",
+      "articleId": "wiki-主窗口"
+    },
+    {
+      "alias": "任务栏窗口.md",
+      "articleId": "wiki-任务栏窗口"
+    },
+    {
+      "alias": "任务栏窗口",
+      "articleId": "wiki-任务栏窗口"
+    },
+    {
+      "alias": "任务栏窗口",
+      "articleId": "wiki-任务栏窗口"
+    },
+    {
+      "alias": "https://github.com/zhongyang219/TrafficMonitor/wiki/任务栏窗口",
+      "articleId": "wiki-任务栏窗口"
+    },
+    {
+      "alias": "历史流量统计.md",
+      "articleId": "wiki-历史流量统计"
+    },
+    {
+      "alias": "历史流量统计",
+      "articleId": "wiki-历史流量统计"
+    },
+    {
+      "alias": "历史流量统计",
+      "articleId": "wiki-历史流量统计"
+    },
+    {
+      "alias": "https://github.com/zhongyang219/TrafficMonitor/wiki/历史流量统计",
+      "articleId": "wiki-历史流量统计"
+    },
+    {
+      "alias": "右键菜单.md",
+      "articleId": "wiki-右键菜单"
+    },
+    {
+      "alias": "右键菜单",
+      "articleId": "wiki-右键菜单"
+    },
+    {
+      "alias": "右键菜单",
+      "articleId": "wiki-右键菜单"
+    },
+    {
+      "alias": "https://github.com/zhongyang219/TrafficMonitor/wiki/右键菜单",
+      "articleId": "wiki-右键菜单"
+    },
+    {
+      "alias": "已知问题.md",
+      "articleId": "wiki-已知问题"
+    },
+    {
+      "alias": "已知问题",
+      "articleId": "wiki-已知问题"
+    },
+    {
+      "alias": "已知问题",
+      "articleId": "wiki-已知问题"
+    },
+    {
+      "alias": "https://github.com/zhongyang219/TrafficMonitor/wiki/已知问题",
+      "articleId": "wiki-已知问题"
+    },
+    {
+      "alias": "插件功能.md",
+      "articleId": "wiki-插件功能"
+    },
+    {
+      "alias": "插件功能",
+      "articleId": "wiki-插件功能"
+    },
+    {
+      "alias": "插件功能",
+      "articleId": "wiki-插件功能"
+    },
+    {
+      "alias": "https://github.com/zhongyang219/TrafficMonitor/wiki/插件功能",
+      "articleId": "wiki-插件功能"
+    },
+    {
+      "alias": "插件开发指南.md",
+      "articleId": "wiki-插件开发指南"
+    },
+    {
+      "alias": "插件开发指南",
+      "articleId": "wiki-插件开发指南"
+    },
+    {
+      "alias": "插件开发指南",
+      "articleId": "wiki-插件开发指南"
+    },
+    {
+      "alias": "https://github.com/zhongyang219/TrafficMonitor/wiki/插件开发指南",
+      "articleId": "wiki-插件开发指南"
+    },
+    {
+      "alias": "旧版本的皮肤制作教程.md",
+      "articleId": "wiki-旧版本的皮肤制作教程"
+    },
+    {
+      "alias": "旧版本的皮肤制作教程",
+      "articleId": "wiki-旧版本的皮肤制作教程"
+    },
+    {
+      "alias": "旧版本的皮肤制作教程",
+      "articleId": "wiki-旧版本的皮肤制作教程"
+    },
+    {
+      "alias": "https://github.com/zhongyang219/TrafficMonitor/wiki/旧版本的皮肤制作教程",
+      "articleId": "wiki-旧版本的皮肤制作教程"
+    },
+    {
+      "alias": "更换皮肤功能.md",
+      "articleId": "wiki-更换皮肤功能"
+    },
+    {
+      "alias": "更换皮肤功能",
+      "articleId": "wiki-更换皮肤功能"
+    },
+    {
+      "alias": "更换皮肤功能",
+      "articleId": "wiki-更换皮肤功能"
+    },
+    {
+      "alias": "https://github.com/zhongyang219/TrafficMonitor/wiki/更换皮肤功能",
+      "articleId": "wiki-更换皮肤功能"
+    },
+    {
+      "alias": "皮肤制作教程.md",
+      "articleId": "wiki-皮肤制作教程"
+    },
+    {
+      "alias": "皮肤制作教程",
+      "articleId": "wiki-皮肤制作教程"
+    },
+    {
+      "alias": "皮肤制作教程",
+      "articleId": "wiki-皮肤制作教程"
+    },
+    {
+      "alias": "https://github.com/zhongyang219/TrafficMonitor/wiki/皮肤制作教程",
+      "articleId": "wiki-皮肤制作教程"
+    },
+    {
+      "alias": "硬件监控功能.md",
+      "articleId": "wiki-硬件监控功能"
+    },
+    {
+      "alias": "硬件监控功能",
+      "articleId": "wiki-硬件监控功能"
+    },
+    {
+      "alias": "硬件监控功能",
+      "articleId": "wiki-硬件监控功能"
+    },
+    {
+      "alias": "https://github.com/zhongyang219/TrafficMonitor/wiki/硬件监控功能",
+      "articleId": "wiki-硬件监控功能"
+    },
+    {
+      "alias": "选择监控的网络连接.md",
+      "articleId": "wiki-选择监控的网络连接"
+    },
+    {
+      "alias": "选择监控的网络连接",
+      "articleId": "wiki-选择监控的网络连接"
+    },
+    {
+      "alias": "选择监控的网络连接",
+      "articleId": "wiki-选择监控的网络连接"
+    },
+    {
+      "alias": "https://github.com/zhongyang219/TrafficMonitor/wiki/选择监控的网络连接",
+      "articleId": "wiki-选择监控的网络连接"
+    },
+    {
+      "alias": "选项设置.md",
+      "articleId": "wiki-选项设置"
+    },
+    {
+      "alias": "选项设置",
+      "articleId": "wiki-选项设置"
+    },
+    {
+      "alias": "选项设置",
+      "articleId": "wiki-选项设置"
+    },
+    {
+      "alias": "https://github.com/zhongyang219/TrafficMonitor/wiki/选项设置",
+      "articleId": "wiki-选项设置"
+    },
+    {
+      "alias": "通知区图标.md",
+      "articleId": "wiki-通知区图标"
+    },
+    {
+      "alias": "通知区图标",
+      "articleId": "wiki-通知区图标"
+    },
+    {
+      "alias": "通知区图标",
+      "articleId": "wiki-通知区图标"
+    },
+    {
+      "alias": "https://github.com/zhongyang219/TrafficMonitor/wiki/通知区图标",
+      "articleId": "wiki-通知区图标"
+    },
+    {
+      "alias": "配置和数据文件.md",
+      "articleId": "wiki-配置和数据文件"
+    },
+    {
+      "alias": "配置和数据文件",
+      "articleId": "wiki-配置和数据文件"
+    },
+    {
+      "alias": "配置和数据文件",
+      "articleId": "wiki-配置和数据文件"
+    },
+    {
+      "alias": "https://github.com/zhongyang219/TrafficMonitor/wiki/配置和数据文件",
+      "articleId": "wiki-配置和数据文件"
+    }
+  ],
+  "assets": [
+    {
+      "originalPath": "images/image-20211112165246213.png",
+      "sourcePath": "docs/wiki/upstream/images/image-20211112165246213.png",
+      "sha256": "57b77c7fb17a1ace372fed2ed74527bbb9da45c62d6c4aba6ce7d48921fbb0fc",
+      "bytes": 33187,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image-20211112165501363.png",
+      "sourcePath": "docs/wiki/upstream/images/image-20211112165501363.png",
+      "sha256": "078865cbcf43c9a7820cbb4308ca24e07e4df08a3b60a7c3d59313421fd1d388",
+      "bytes": 216489,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image-20211112194635969.png",
+      "sourcePath": "docs/wiki/upstream/images/image-20211112194635969.png",
+      "sha256": "3862c34ec8c76bd25711af3765b5996963cfa55ad80609364bc4762ae782a6d0",
+      "bytes": 84566,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image-20211112195145679.png",
+      "sourcePath": "docs/wiki/upstream/images/image-20211112195145679.png",
+      "sha256": "1ec4085d553b93768ef950a385f2446631e9de02efca4bc4d8c36724138674fe",
+      "bytes": 45160,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image-20220912181026156.png",
+      "sourcePath": "docs/wiki/upstream/images/image-20220912181026156.png",
+      "sha256": "9b010b48111915cb416eae0624c436668708979138ca3a2a4a3f35430ba7f559",
+      "bytes": 17582,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image-20220912181129041.png",
+      "sourcePath": "docs/wiki/upstream/images/image-20220912181129041.png",
+      "sha256": "3d9b38911efb1c18bb7527236b3ee39eeb125874c1544f219eb4eac40cdb8951",
+      "bytes": 14406,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image-20220912181152487.png",
+      "sourcePath": "docs/wiki/upstream/images/image-20220912181152487.png",
+      "sha256": "0bea3ccd38756fce9bd10af6058badccbbd3c7b98447725b2d4c77c2887f8673",
+      "bytes": 11930,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image-20220912181220356.png",
+      "sourcePath": "docs/wiki/upstream/images/image-20220912181220356.png",
+      "sha256": "083282b4e6634bc9adc0f572e4c1fb483524c9afb2fea5b5f0978391d3be758c",
+      "bytes": 11748,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image-20221013203124953.png",
+      "sourcePath": "docs/wiki/upstream/images/image-20221013203124953.png",
+      "sha256": "89800294f55e987009a16358cca6134ffcd9de092adb1fd239322aaf6737e73d",
+      "bytes": 33411,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image-20221013203353499.png",
+      "sourcePath": "docs/wiki/upstream/images/image-20221013203353499.png",
+      "sha256": "7dd4fddcf2dd56c6c1ba595eb8ddd4acbde524dacdf94dfea2ffb41aa46cd501",
+      "bytes": 182620,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image-20221013203527593.png",
+      "sourcePath": "docs/wiki/upstream/images/image-20221013203527593.png",
+      "sha256": "99a99c2ebae266a23147562a423be0ccce5c385b8b9e9a2d699aea43adc21649",
+      "bytes": 75305,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image-20221013203621714.png",
+      "sourcePath": "docs/wiki/upstream/images/image-20221013203621714.png",
+      "sha256": "f81f4cc1eba24af9bb935540263d75d24a186659a6be288babb0342fac7a2990",
+      "bytes": 22419,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image-20221119110942905.png",
+      "sourcePath": "docs/wiki/upstream/images/image-20221119110942905.png",
+      "sha256": "c0107bc00ee512e8048be0b8a82ed7491b199b5b8afe55dff9f5c858a9edb184",
+      "bytes": 66301,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image-20221119111702829.png",
+      "sourcePath": "docs/wiki/upstream/images/image-20221119111702829.png",
+      "sha256": "6005466a32b43201270a9b2e64eb659c35b9de1d2457c06760841e18b2916b61",
+      "bytes": 78749,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image-20221119113434068.png",
+      "sourcePath": "docs/wiki/upstream/images/image-20221119113434068.png",
+      "sha256": "9aa2666fff8d309b41611a736ad20da180527dbe9ea14d3a431b4bfb9ac57592",
+      "bytes": 151729,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image-20221119144742238.png",
+      "sourcePath": "docs/wiki/upstream/images/image-20221119144742238.png",
+      "sha256": "e005fb62f013600b406659999614f625fa6c5dd5f7a868ce9fab5e4f78d8c8da",
+      "bytes": 59083,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image-20221126165353931.png",
+      "sourcePath": "docs/wiki/upstream/images/image-20221126165353931.png",
+      "sha256": "923b7219e9d3b6f6dab05763cf8662ad52062c56ba983e3357bc857983d7688c",
+      "bytes": 37099,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image1.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image1.jpg",
+      "sha256": "e22ea695a1f47adf665720d9cf69aae5d9bb328ccd28ebcc67d30672f9a88f50",
+      "bytes": 21801,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image10.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image10.jpg",
+      "sha256": "22e9ae4ca3b8c920eab3aec5d6fe39329f8cbf32d98a23cf226f3355e56b3025",
+      "bytes": 104071,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image11.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image11.jpg",
+      "sha256": "84bbdcb2d590b772755b5f3bd5a72a62c4534de9273313338d9979be5ddc5c9a",
+      "bytes": 31448,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image12.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image12.jpg",
+      "sha256": "8b22053960801918704427593b66650efe0dc377168a5844d8d17dccdceb62ab",
+      "bytes": 9943,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image13.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image13.jpg",
+      "sha256": "689d8a4d914e6f2651bc77209ebeb9ec5d8c0267cc4fd708797ba23bf7f7dee4",
+      "bytes": 19362,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image14.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image14.jpg",
+      "sha256": "cb182836417442ffa5afd223f8c291a989478db993030fdaa081c3191dd62056",
+      "bytes": 9796,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image15.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image15.jpg",
+      "sha256": "f1376d4265cafcad8db75a9f15be42ca4a69c17f85476ea833643277d3ad7904",
+      "bytes": 38332,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image16.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image16.jpg",
+      "sha256": "44746eb96988dfd10ca023d7fb8a524f6bdd6e59d7d8b27bd8b9487682438a0b",
+      "bytes": 17161,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image17.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image17.jpg",
+      "sha256": "71b405a2df8f44b445b538be1700d0bb0f89315c864fcedebb6a90299597693e",
+      "bytes": 165315,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image18.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image18.jpg",
+      "sha256": "8d3b145fe93a446810e382ff25812f843d1b6f94ff7433460f29ed41633b45fb",
+      "bytes": 31368,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image19.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image19.jpg",
+      "sha256": "ed86ea91723b7393692c671106d6027afaaf18982e94230364f8ff10db4cc10d",
+      "bytes": 9309,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image2.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image2.jpg",
+      "sha256": "aa3f4e06a262b789438994b1b8b04748ae4d88a508cf827eff8186da99f4c631",
+      "bytes": 10539,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image20.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image20.jpg",
+      "sha256": "c529ff22b8e6d9625305737813961c2b37f50741c54240ffcf16d49aa941d736",
+      "bytes": 8809,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image21.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image21.jpg",
+      "sha256": "0dba8fb5899192bce14d7a08455e52ee58ae0d6d8eae0f4157b68eff9c7b71d8",
+      "bytes": 9874,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image22.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image22.jpg",
+      "sha256": "12b8f6c2c93b2acb53e21012a45c83b04730c301df1187c182e5172c80390745",
+      "bytes": 6255,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image23.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image23.jpg",
+      "sha256": "a68baad2566766459051e33ddbde36d46a14c3f07c92a7782c57581f3e85fc81",
+      "bytes": 114910,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image24.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image24.jpg",
+      "sha256": "78cc4893ff1370c47c396a34e177ec74582a323fdc49b5ad635caef26f9cea96",
+      "bytes": 7915,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image25.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image25.jpg",
+      "sha256": "a76d977328cc694920bd68416dc8da4a34226d1ffa1e50448e37443ca8c71415",
+      "bytes": 8296,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image26.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image26.jpg",
+      "sha256": "970161e29536d73d79ad19a576ecd8880796d0f54c6ef496c2a78f37bf2cb2a4",
+      "bytes": 31997,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image27.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image27.jpg",
+      "sha256": "8149e222d835191c3ea280306f9f321763f626f35b95ec3b4fe04a6198f1a352",
+      "bytes": 20232,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image28.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image28.jpg",
+      "sha256": "480ea9010f90a50e63d1dc9ab7899761502abb2997831c41a5406ef35203aaf4",
+      "bytes": 28311,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image29.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image29.jpg",
+      "sha256": "920819f46e07ac8781b3d4bdc94d34cfb5fbfac1e1ca9e22f31a2d2db193320c",
+      "bytes": 9139,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image3.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image3.jpg",
+      "sha256": "dc431fb2e19e1cd5ffe4ab6e2c5efb9604602432acd84da82d95f9590435d05e",
+      "bytes": 8131,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image30.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image30.jpg",
+      "sha256": "46ee6a4815a830d71be2408cfa611aa515699d4bfb671eb9af65d005f61933a9",
+      "bytes": 7316,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image31.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image31.jpg",
+      "sha256": "34cc73543f1aaadd26e98f23f14edc9f5ae5e8c0b0ce18ae2b1b29b97574f56d",
+      "bytes": 15793,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image32.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image32.jpg",
+      "sha256": "db124029a660d8d1a8fa4dd5e79a889fc0d951ee1cbf0431af96f61d9c477242",
+      "bytes": 33237,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image33.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image33.jpg",
+      "sha256": "9db0ec894354ad6ce0a6bb95e035349be112e7e1fd8412af02a1e83eed6891e9",
+      "bytes": 95404,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image34.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image34.jpg",
+      "sha256": "4d2c310b976c245027e09f6f8280940316e5a19ef0ac33e943492969feb03eef",
+      "bytes": 14063,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image35.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image35.jpg",
+      "sha256": "0ecafb692793ec3cc83b7075f909ada41f9a5ee2670083518da5549b1b84644d",
+      "bytes": 47286,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image36.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image36.jpg",
+      "sha256": "110ab3fb8d2c1ef37aa3757c0db71544565cf2d6304a3b8ca4f3ae361aacc007",
+      "bytes": 105395,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image37.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image37.jpg",
+      "sha256": "256bcfda94648b12c7f6941a88b828105a870ff8b01ba8395ab69fea1a859b03",
+      "bytes": 186662,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image38.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image38.jpg",
+      "sha256": "d0c21cd63668c1085f1ef181ad4e56a10ac985008a91e40df530eced8e7709e2",
+      "bytes": 70367,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image39.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image39.jpg",
+      "sha256": "4f1275c6e282dd8ffd9e749e9f79c1931fa73a8ffa716bfd75a5beb404419310",
+      "bytes": 28553,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image4.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image4.jpg",
+      "sha256": "47b22f8344b7259ac95f2380b3e1c83d917575a3d19d40abf6c51f06dd92b37f",
+      "bytes": 23514,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image40.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image40.jpg",
+      "sha256": "4bce505f153211ebcb3237da2acba4423771606283b9ade8ca875d4b653e90e3",
+      "bytes": 24455,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image41.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image41.jpg",
+      "sha256": "6f99a791639ea7eef3c98c0a0fd74543dca51c72c319561688337487709f842b",
+      "bytes": 58466,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image42.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image42.jpg",
+      "sha256": "ff9c05b1c9f608fc0648038837cd1cde91ec88f86ad07d5291d069918077511f",
+      "bytes": 69411,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image43.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image43.jpg",
+      "sha256": "a2c19fb28e483177b9fde79ccfb3e656107487209047546f4b3e146e1cda726d",
+      "bytes": 22609,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image44.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image44.jpg",
+      "sha256": "d5152b71e268d2fdb3250749e2582ac6235dbf99864bb75debe348f51b51407a",
+      "bytes": 36942,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image45.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image45.jpg",
+      "sha256": "49d59119f5895452339cf02921012d4c441e1f99df08b10c3cabc1f7c9d5bca5",
+      "bytes": 96162,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image46.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image46.jpg",
+      "sha256": "787147679f06f35c0831c8703c1069660f3e3d5370849cdb2c57f3eef5b8baf5",
+      "bytes": 111041,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image47.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image47.jpg",
+      "sha256": "a83b33c03adc3c9421dd651a40dc517f173039b3ba17c842cae3a4028c96d4b9",
+      "bytes": 158937,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image48.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image48.jpg",
+      "sha256": "4110806686b495b5da55b2ab931ce3250f14b83dbab1af614472f3002dda5ad7",
+      "bytes": 10125,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image49.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image49.jpg",
+      "sha256": "1fb39ec956a38e5209f348caef8e3f2225f2563a97fdfaf27c6f6a638588277c",
+      "bytes": 94968,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image5.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image5.jpg",
+      "sha256": "35caa92af6cade068c06261949b5c803a023797de5230effbb43cdb10ba546a9",
+      "bytes": 6605,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image50.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image50.jpg",
+      "sha256": "f75f76b17a10c025a236efd83589fec14f24d2b6e0b9032b68b65e4e5694abe2",
+      "bytes": 23645,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image51.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image51.jpg",
+      "sha256": "109ac3c73eb9115162e1ebb12d905e09d330da0293e7b9854a00b721312d0b79",
+      "bytes": 65816,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image52.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image52.jpg",
+      "sha256": "d46e63048873c49dd8d54c114b53fcb38d7a01185503ca73560bfedcf7d47118",
+      "bytes": 124057,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image53.png",
+      "sourcePath": "docs/wiki/upstream/images/image53.png",
+      "sha256": "ff15980d85a8696c92eb7d8ef96e5e20619a4f875cc56f9e72929e2783a19482",
+      "bytes": 73066,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image6.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image6.jpg",
+      "sha256": "4e1ff3d72b857896d0d7efac104678a77f91cdead3ce07b20bb8095fcc5e5b99",
+      "bytes": 46690,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image7.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image7.jpg",
+      "sha256": "dfd6c88048798a15706c4d2b4e936a7eb58c48ce7f8a9f418c021848da6cfacc",
+      "bytes": 51094,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image8.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image8.jpg",
+      "sha256": "24605e4260ce32d15acabfafde6da0190a436e01be04060a5ae72e0b51f2508e",
+      "bytes": 96085,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image9.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image9.jpg",
+      "sha256": "3d42de576ec094b82d5e8eca79ddd17114ceba79eee4a564873ae6b205875269",
+      "bytes": 24055,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/main_window.gif",
+      "sourcePath": "docs/wiki/upstream/images/main_window.gif",
+      "sha256": "1068c3f4bdafb1cd608c10b078c8cabc93db7eab6fae447268aa6039b9bced29",
+      "bytes": 52216,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/mask_image.png",
+      "sourcePath": "docs/wiki/upstream/images/mask_image.png",
+      "sha256": "8105b1c802ec4684a93c31af085b9fa9c509e95e7909bcc06d8fca4f0e2bfbd1",
+      "bytes": 52995,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/notify_icon.gif",
+      "sourcePath": "docs/wiki/upstream/images/notify_icon.gif",
+      "sha256": "425cea045795837bb2cc4c96314a71969c3e1399b18baec1aad171400895f889",
+      "bytes": 21779,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/skin.gif",
+      "sourcePath": "docs/wiki/upstream/images/skin.gif",
+      "sha256": "41ec6f6302239396dcc89558c7366e4807357e2fc242c0d5ddcbb3a99901f928",
+      "bytes": 235576,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/skin_ini.png",
+      "sourcePath": "docs/wiki/upstream/images/skin_ini.png",
+      "sha256": "267b0ec7f9da779f0a04396592a9157eebdd8ead51a30765b2fd77cc49973d82",
+      "bytes": 23969,
+      "kind": "asset"
+    }
+  ],
+  "missing": [],
+  "unavailable": [
+    {
+      "kind": "translation",
+      "description": "No new Cantonese or bilingual translations were authored. Language labels describe existing source content only."
+    },
+    {
+      "kind": "current-interface-evidence",
+      "description": "Upstream wiki screenshots are historical source content, not evidence for the redesigned application. Current presentation replacements require genuine rebuilt states."
+    },
+    {
+      "kind": "remote-linked-content",
+      "description": "External destinations remain source links; no live external service or remotely linked image download is proved by this byte-preserved source inventory."
+    }
+  ],
+  "counts": {
+    "repositoryMarkdownArticles": 129,
+    "wikiMarkdownArticles": 28,
+    "wikiAssets": 75,
+    "wikiTrackedFiles": 103,
+    "articles": 157
+  },
+  "categories": [
+    "build",
+    "contributor-records",
+    "evidence",
+    "help",
+    "installation",
+    "overview",
+    "releases",
+    "required-features",
+    "wiki"
+  ],
+  "completenessScope": "All Markdown files in the pinned source tree and all tracked files in the pinned upstream wiki. This is content inventory, not deployed-route, translation or runtime acceptance."
+}

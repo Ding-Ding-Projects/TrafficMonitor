@@ -1,0 +1,762 @@
+{
+  "schemaVersion": 1,
+  "repository": "https://github.com/zhongyang219/TrafficMonitor.wiki.git",
+  "commit": "cf35274094fe2ffb040ca1f29d6ce73c713d93a2",
+  "files": [
+    {
+      "originalPath": "Change Skin Function.md",
+      "sourcePath": "docs/wiki/upstream/Change Skin Function.md",
+      "sha256": "4bdb60246a4f1cd2221b1d9aa14cabc7ef9c36c714483ff9f12b83d01482f119",
+      "bytes": 1239,
+      "kind": "article"
+    },
+    {
+      "originalPath": "Context Menu.md",
+      "sourcePath": "docs/wiki/upstream/Context Menu.md",
+      "sha256": "c53a2ab067d07c497e9e08df033b17e6c878df74b37838d38560519a65235b15",
+      "bytes": 6299,
+      "kind": "article"
+    },
+    {
+      "originalPath": "Hardware Monitoring Function.md",
+      "sourcePath": "docs/wiki/upstream/Hardware Monitoring Function.md",
+      "sha256": "7f5a6fe74be9d8db67502022a3989b1d2d56dff2beddb3c3b1b89cd966e31018",
+      "bytes": 997,
+      "kind": "article"
+    },
+    {
+      "originalPath": "Home.md",
+      "sourcePath": "docs/wiki/upstream/Home.md",
+      "sha256": "039a96e5427ec461c44aceb5646355981eac8d31087469b3b2bf00ad9bfbf4e7",
+      "bytes": 1174,
+      "kind": "article"
+    },
+    {
+      "originalPath": "Home_en.md",
+      "sourcePath": "docs/wiki/upstream/Home_en.md",
+      "sha256": "047bff4c605309de98484366a7ed4c451d69936ca98098e8acc532019508120a",
+      "bytes": 1363,
+      "kind": "article"
+    },
+    {
+      "originalPath": "Main Window.md",
+      "sourcePath": "docs/wiki/upstream/Main Window.md",
+      "sha256": "2ae13b480186086afd3f8e4ae9c18bb80de7d831b500dabbd41ae2b59006ed5f",
+      "bytes": 1061,
+      "kind": "article"
+    },
+    {
+      "originalPath": "Option Settings.md",
+      "sourcePath": "docs/wiki/upstream/Option Settings.md",
+      "sha256": "5d5395fee8b9ab134333cd1338dbb59275780d03028b7ad205cc549de9250f27",
+      "bytes": 25002,
+      "kind": "article"
+    },
+    {
+      "originalPath": "Plugin Development Guide.md",
+      "sourcePath": "docs/wiki/upstream/Plugin Development Guide.md",
+      "sha256": "536227341bd806298037199a06986cec56ad991aca6654a9af8b8ecdccdaebb0",
+      "bytes": 17873,
+      "kind": "article"
+    },
+    {
+      "originalPath": "Select the Monitoring Network Connections.md",
+      "sourcePath": "docs/wiki/upstream/Select the Monitoring Network Connections.md",
+      "sha256": "e4128fbc8f7b9fdde5c5b2ad142cd7bc7be0c0d795aeb84a2bca97ccf8b626be",
+      "bytes": 1517,
+      "kind": "article"
+    },
+    {
+      "originalPath": "Skin Making-up Tutorial.md",
+      "sourcePath": "docs/wiki/upstream/Skin Making-up Tutorial.md",
+      "sha256": "f98560ea5ae417279d70671be3921eae5e3e5041839bd6717a6139a4afeffc2c",
+      "bytes": 9213,
+      "kind": "article"
+    },
+    {
+      "originalPath": "Taskbar Window.md",
+      "sourcePath": "docs/wiki/upstream/Taskbar Window.md",
+      "sha256": "644330d9cd8f53ec41c10786e7ad1549bf5a271b2809cbc22ed4aa0a6ebcbcdb",
+      "bytes": 2437,
+      "kind": "article"
+    },
+    {
+      "originalPath": "_Footer.md",
+      "sourcePath": "docs/wiki/upstream/_Footer.md",
+      "sha256": "c692a44a82b7ba9ab5c01fbf83a562fb3902f3476bd7e6b020bf0ed2e03b1c56",
+      "bytes": 422,
+      "kind": "article"
+    },
+    {
+      "originalPath": "_Sidebar.md",
+      "sourcePath": "docs/wiki/upstream/_Sidebar.md",
+      "sha256": "075c28390b66d1a36eb09a64eed19440a611ef551ce7d18124362d8853b92ac5",
+      "bytes": 1785,
+      "kind": "article"
+    },
+    {
+      "originalPath": "images/image-20211112165246213.png",
+      "sourcePath": "docs/wiki/upstream/images/image-20211112165246213.png",
+      "sha256": "57b77c7fb17a1ace372fed2ed74527bbb9da45c62d6c4aba6ce7d48921fbb0fc",
+      "bytes": 33187,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image-20211112165501363.png",
+      "sourcePath": "docs/wiki/upstream/images/image-20211112165501363.png",
+      "sha256": "078865cbcf43c9a7820cbb4308ca24e07e4df08a3b60a7c3d59313421fd1d388",
+      "bytes": 216489,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image-20211112194635969.png",
+      "sourcePath": "docs/wiki/upstream/images/image-20211112194635969.png",
+      "sha256": "3862c34ec8c76bd25711af3765b5996963cfa55ad80609364bc4762ae782a6d0",
+      "bytes": 84566,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image-20211112195145679.png",
+      "sourcePath": "docs/wiki/upstream/images/image-20211112195145679.png",
+      "sha256": "1ec4085d553b93768ef950a385f2446631e9de02efca4bc4d8c36724138674fe",
+      "bytes": 45160,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image-20220912181026156.png",
+      "sourcePath": "docs/wiki/upstream/images/image-20220912181026156.png",
+      "sha256": "9b010b48111915cb416eae0624c436668708979138ca3a2a4a3f35430ba7f559",
+      "bytes": 17582,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image-20220912181129041.png",
+      "sourcePath": "docs/wiki/upstream/images/image-20220912181129041.png",
+      "sha256": "3d9b38911efb1c18bb7527236b3ee39eeb125874c1544f219eb4eac40cdb8951",
+      "bytes": 14406,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image-20220912181152487.png",
+      "sourcePath": "docs/wiki/upstream/images/image-20220912181152487.png",
+      "sha256": "0bea3ccd38756fce9bd10af6058badccbbd3c7b98447725b2d4c77c2887f8673",
+      "bytes": 11930,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image-20220912181220356.png",
+      "sourcePath": "docs/wiki/upstream/images/image-20220912181220356.png",
+      "sha256": "083282b4e6634bc9adc0f572e4c1fb483524c9afb2fea5b5f0978391d3be758c",
+      "bytes": 11748,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image-20221013203124953.png",
+      "sourcePath": "docs/wiki/upstream/images/image-20221013203124953.png",
+      "sha256": "89800294f55e987009a16358cca6134ffcd9de092adb1fd239322aaf6737e73d",
+      "bytes": 33411,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image-20221013203353499.png",
+      "sourcePath": "docs/wiki/upstream/images/image-20221013203353499.png",
+      "sha256": "7dd4fddcf2dd56c6c1ba595eb8ddd4acbde524dacdf94dfea2ffb41aa46cd501",
+      "bytes": 182620,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image-20221013203527593.png",
+      "sourcePath": "docs/wiki/upstream/images/image-20221013203527593.png",
+      "sha256": "99a99c2ebae266a23147562a423be0ccce5c385b8b9e9a2d699aea43adc21649",
+      "bytes": 75305,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image-20221013203621714.png",
+      "sourcePath": "docs/wiki/upstream/images/image-20221013203621714.png",
+      "sha256": "f81f4cc1eba24af9bb935540263d75d24a186659a6be288babb0342fac7a2990",
+      "bytes": 22419,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image-20221119110942905.png",
+      "sourcePath": "docs/wiki/upstream/images/image-20221119110942905.png",
+      "sha256": "c0107bc00ee512e8048be0b8a82ed7491b199b5b8afe55dff9f5c858a9edb184",
+      "bytes": 66301,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image-20221119111702829.png",
+      "sourcePath": "docs/wiki/upstream/images/image-20221119111702829.png",
+      "sha256": "6005466a32b43201270a9b2e64eb659c35b9de1d2457c06760841e18b2916b61",
+      "bytes": 78749,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image-20221119113434068.png",
+      "sourcePath": "docs/wiki/upstream/images/image-20221119113434068.png",
+      "sha256": "9aa2666fff8d309b41611a736ad20da180527dbe9ea14d3a431b4bfb9ac57592",
+      "bytes": 151729,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image-20221119144742238.png",
+      "sourcePath": "docs/wiki/upstream/images/image-20221119144742238.png",
+      "sha256": "e005fb62f013600b406659999614f625fa6c5dd5f7a868ce9fab5e4f78d8c8da",
+      "bytes": 59083,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image-20221126165353931.png",
+      "sourcePath": "docs/wiki/upstream/images/image-20221126165353931.png",
+      "sha256": "923b7219e9d3b6f6dab05763cf8662ad52062c56ba983e3357bc857983d7688c",
+      "bytes": 37099,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image1.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image1.jpg",
+      "sha256": "e22ea695a1f47adf665720d9cf69aae5d9bb328ccd28ebcc67d30672f9a88f50",
+      "bytes": 21801,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image10.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image10.jpg",
+      "sha256": "22e9ae4ca3b8c920eab3aec5d6fe39329f8cbf32d98a23cf226f3355e56b3025",
+      "bytes": 104071,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image11.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image11.jpg",
+      "sha256": "84bbdcb2d590b772755b5f3bd5a72a62c4534de9273313338d9979be5ddc5c9a",
+      "bytes": 31448,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image12.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image12.jpg",
+      "sha256": "8b22053960801918704427593b66650efe0dc377168a5844d8d17dccdceb62ab",
+      "bytes": 9943,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image13.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image13.jpg",
+      "sha256": "689d8a4d914e6f2651bc77209ebeb9ec5d8c0267cc4fd708797ba23bf7f7dee4",
+      "bytes": 19362,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image14.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image14.jpg",
+      "sha256": "cb182836417442ffa5afd223f8c291a989478db993030fdaa081c3191dd62056",
+      "bytes": 9796,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image15.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image15.jpg",
+      "sha256": "f1376d4265cafcad8db75a9f15be42ca4a69c17f85476ea833643277d3ad7904",
+      "bytes": 38332,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image16.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image16.jpg",
+      "sha256": "44746eb96988dfd10ca023d7fb8a524f6bdd6e59d7d8b27bd8b9487682438a0b",
+      "bytes": 17161,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image17.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image17.jpg",
+      "sha256": "71b405a2df8f44b445b538be1700d0bb0f89315c864fcedebb6a90299597693e",
+      "bytes": 165315,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image18.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image18.jpg",
+      "sha256": "8d3b145fe93a446810e382ff25812f843d1b6f94ff7433460f29ed41633b45fb",
+      "bytes": 31368,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image19.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image19.jpg",
+      "sha256": "ed86ea91723b7393692c671106d6027afaaf18982e94230364f8ff10db4cc10d",
+      "bytes": 9309,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image2.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image2.jpg",
+      "sha256": "aa3f4e06a262b789438994b1b8b04748ae4d88a508cf827eff8186da99f4c631",
+      "bytes": 10539,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image20.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image20.jpg",
+      "sha256": "c529ff22b8e6d9625305737813961c2b37f50741c54240ffcf16d49aa941d736",
+      "bytes": 8809,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image21.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image21.jpg",
+      "sha256": "0dba8fb5899192bce14d7a08455e52ee58ae0d6d8eae0f4157b68eff9c7b71d8",
+      "bytes": 9874,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image22.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image22.jpg",
+      "sha256": "12b8f6c2c93b2acb53e21012a45c83b04730c301df1187c182e5172c80390745",
+      "bytes": 6255,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image23.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image23.jpg",
+      "sha256": "a68baad2566766459051e33ddbde36d46a14c3f07c92a7782c57581f3e85fc81",
+      "bytes": 114910,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image24.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image24.jpg",
+      "sha256": "78cc4893ff1370c47c396a34e177ec74582a323fdc49b5ad635caef26f9cea96",
+      "bytes": 7915,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image25.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image25.jpg",
+      "sha256": "a76d977328cc694920bd68416dc8da4a34226d1ffa1e50448e37443ca8c71415",
+      "bytes": 8296,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image26.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image26.jpg",
+      "sha256": "970161e29536d73d79ad19a576ecd8880796d0f54c6ef496c2a78f37bf2cb2a4",
+      "bytes": 31997,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image27.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image27.jpg",
+      "sha256": "8149e222d835191c3ea280306f9f321763f626f35b95ec3b4fe04a6198f1a352",
+      "bytes": 20232,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image28.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image28.jpg",
+      "sha256": "480ea9010f90a50e63d1dc9ab7899761502abb2997831c41a5406ef35203aaf4",
+      "bytes": 28311,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image29.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image29.jpg",
+      "sha256": "920819f46e07ac8781b3d4bdc94d34cfb5fbfac1e1ca9e22f31a2d2db193320c",
+      "bytes": 9139,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image3.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image3.jpg",
+      "sha256": "dc431fb2e19e1cd5ffe4ab6e2c5efb9604602432acd84da82d95f9590435d05e",
+      "bytes": 8131,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image30.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image30.jpg",
+      "sha256": "46ee6a4815a830d71be2408cfa611aa515699d4bfb671eb9af65d005f61933a9",
+      "bytes": 7316,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image31.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image31.jpg",
+      "sha256": "34cc73543f1aaadd26e98f23f14edc9f5ae5e8c0b0ce18ae2b1b29b97574f56d",
+      "bytes": 15793,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image32.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image32.jpg",
+      "sha256": "db124029a660d8d1a8fa4dd5e79a889fc0d951ee1cbf0431af96f61d9c477242",
+      "bytes": 33237,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image33.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image33.jpg",
+      "sha256": "9db0ec894354ad6ce0a6bb95e035349be112e7e1fd8412af02a1e83eed6891e9",
+      "bytes": 95404,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image34.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image34.jpg",
+      "sha256": "4d2c310b976c245027e09f6f8280940316e5a19ef0ac33e943492969feb03eef",
+      "bytes": 14063,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image35.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image35.jpg",
+      "sha256": "0ecafb692793ec3cc83b7075f909ada41f9a5ee2670083518da5549b1b84644d",
+      "bytes": 47286,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image36.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image36.jpg",
+      "sha256": "110ab3fb8d2c1ef37aa3757c0db71544565cf2d6304a3b8ca4f3ae361aacc007",
+      "bytes": 105395,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image37.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image37.jpg",
+      "sha256": "256bcfda94648b12c7f6941a88b828105a870ff8b01ba8395ab69fea1a859b03",
+      "bytes": 186662,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image38.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image38.jpg",
+      "sha256": "d0c21cd63668c1085f1ef181ad4e56a10ac985008a91e40df530eced8e7709e2",
+      "bytes": 70367,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image39.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image39.jpg",
+      "sha256": "4f1275c6e282dd8ffd9e749e9f79c1931fa73a8ffa716bfd75a5beb404419310",
+      "bytes": 28553,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image4.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image4.jpg",
+      "sha256": "47b22f8344b7259ac95f2380b3e1c83d917575a3d19d40abf6c51f06dd92b37f",
+      "bytes": 23514,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image40.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image40.jpg",
+      "sha256": "4bce505f153211ebcb3237da2acba4423771606283b9ade8ca875d4b653e90e3",
+      "bytes": 24455,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image41.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image41.jpg",
+      "sha256": "6f99a791639ea7eef3c98c0a0fd74543dca51c72c319561688337487709f842b",
+      "bytes": 58466,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image42.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image42.jpg",
+      "sha256": "ff9c05b1c9f608fc0648038837cd1cde91ec88f86ad07d5291d069918077511f",
+      "bytes": 69411,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image43.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image43.jpg",
+      "sha256": "a2c19fb28e483177b9fde79ccfb3e656107487209047546f4b3e146e1cda726d",
+      "bytes": 22609,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image44.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image44.jpg",
+      "sha256": "d5152b71e268d2fdb3250749e2582ac6235dbf99864bb75debe348f51b51407a",
+      "bytes": 36942,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image45.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image45.jpg",
+      "sha256": "49d59119f5895452339cf02921012d4c441e1f99df08b10c3cabc1f7c9d5bca5",
+      "bytes": 96162,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image46.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image46.jpg",
+      "sha256": "787147679f06f35c0831c8703c1069660f3e3d5370849cdb2c57f3eef5b8baf5",
+      "bytes": 111041,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image47.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image47.jpg",
+      "sha256": "a83b33c03adc3c9421dd651a40dc517f173039b3ba17c842cae3a4028c96d4b9",
+      "bytes": 158937,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image48.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image48.jpg",
+      "sha256": "4110806686b495b5da55b2ab931ce3250f14b83dbab1af614472f3002dda5ad7",
+      "bytes": 10125,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image49.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image49.jpg",
+      "sha256": "1fb39ec956a38e5209f348caef8e3f2225f2563a97fdfaf27c6f6a638588277c",
+      "bytes": 94968,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image5.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image5.jpg",
+      "sha256": "35caa92af6cade068c06261949b5c803a023797de5230effbb43cdb10ba546a9",
+      "bytes": 6605,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image50.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image50.jpg",
+      "sha256": "f75f76b17a10c025a236efd83589fec14f24d2b6e0b9032b68b65e4e5694abe2",
+      "bytes": 23645,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image51.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image51.jpg",
+      "sha256": "109ac3c73eb9115162e1ebb12d905e09d330da0293e7b9854a00b721312d0b79",
+      "bytes": 65816,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image52.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image52.jpg",
+      "sha256": "d46e63048873c49dd8d54c114b53fcb38d7a01185503ca73560bfedcf7d47118",
+      "bytes": 124057,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image53.png",
+      "sourcePath": "docs/wiki/upstream/images/image53.png",
+      "sha256": "ff15980d85a8696c92eb7d8ef96e5e20619a4f875cc56f9e72929e2783a19482",
+      "bytes": 73066,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image6.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image6.jpg",
+      "sha256": "4e1ff3d72b857896d0d7efac104678a77f91cdead3ce07b20bb8095fcc5e5b99",
+      "bytes": 46690,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image7.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image7.jpg",
+      "sha256": "dfd6c88048798a15706c4d2b4e936a7eb58c48ce7f8a9f418c021848da6cfacc",
+      "bytes": 51094,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image8.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image8.jpg",
+      "sha256": "24605e4260ce32d15acabfafde6da0190a436e01be04060a5ae72e0b51f2508e",
+      "bytes": 96085,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/image9.jpg",
+      "sourcePath": "docs/wiki/upstream/images/image9.jpg",
+      "sha256": "3d42de576ec094b82d5e8eca79ddd17114ceba79eee4a564873ae6b205875269",
+      "bytes": 24055,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/main_window.gif",
+      "sourcePath": "docs/wiki/upstream/images/main_window.gif",
+      "sha256": "1068c3f4bdafb1cd608c10b078c8cabc93db7eab6fae447268aa6039b9bced29",
+      "bytes": 52216,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/mask_image.png",
+      "sourcePath": "docs/wiki/upstream/images/mask_image.png",
+      "sha256": "8105b1c802ec4684a93c31af085b9fa9c509e95e7909bcc06d8fca4f0e2bfbd1",
+      "bytes": 52995,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/notify_icon.gif",
+      "sourcePath": "docs/wiki/upstream/images/notify_icon.gif",
+      "sha256": "425cea045795837bb2cc4c96314a71969c3e1399b18baec1aad171400895f889",
+      "bytes": 21779,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/skin.gif",
+      "sourcePath": "docs/wiki/upstream/images/skin.gif",
+      "sha256": "41ec6f6302239396dcc89558c7366e4807357e2fc242c0d5ddcbb3a99901f928",
+      "bytes": 235576,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "images/skin_ini.png",
+      "sourcePath": "docs/wiki/upstream/images/skin_ini.png",
+      "sha256": "267b0ec7f9da779f0a04396592a9157eebdd8ead51a30765b2fd77cc49973d82",
+      "bytes": 23969,
+      "kind": "asset"
+    },
+    {
+      "originalPath": "主窗口.md",
+      "sourcePath": "docs/wiki/upstream/主窗口.md",
+      "sha256": "1a83bb29e3b230706f5c2e03d3648c1d8a040233170cb8fbe0b2f384896a6949",
+      "bytes": 980,
+      "kind": "article"
+    },
+    {
+      "originalPath": "任务栏窗口.md",
+      "sourcePath": "docs/wiki/upstream/任务栏窗口.md",
+      "sha256": "ae8e5a7be4dec223bfac10a3982aaec15e8464e67d76f87934da58af0ac99173",
+      "bytes": 2321,
+      "kind": "article"
+    },
+    {
+      "originalPath": "历史流量统计.md",
+      "sourcePath": "docs/wiki/upstream/历史流量统计.md",
+      "sha256": "282457674cf0bb55b9c9e89aee471f9d1502e3a2835e82f858b073a8409081a9",
+      "bytes": 2369,
+      "kind": "article"
+    },
+    {
+      "originalPath": "右键菜单.md",
+      "sourcePath": "docs/wiki/upstream/右键菜单.md",
+      "sha256": "e08254f3662f62b9373e7c7b3b67bcdcc601f063169a9ee224968264948ba785",
+      "bytes": 5688,
+      "kind": "article"
+    },
+    {
+      "originalPath": "已知问题.md",
+      "sourcePath": "docs/wiki/upstream/已知问题.md",
+      "sha256": "63ce3214567fcc2087e6f11381bf3c828cf43edc492fc977ffd5541ef8452104",
+      "bytes": 3348,
+      "kind": "article"
+    },
+    {
+      "originalPath": "插件功能.md",
+      "sourcePath": "docs/wiki/upstream/插件功能.md",
+      "sha256": "d720f1f3e3a46020f7475d1c5c9ebcd62dd33809d339c5944e1d41bda92e912b",
+      "bytes": 5527,
+      "kind": "article"
+    },
+    {
+      "originalPath": "插件开发指南.md",
+      "sourcePath": "docs/wiki/upstream/插件开发指南.md",
+      "sha256": "13ecdc2acc756a6a32adb15086da5a523d37f83d0c572460a917d87d192c9e95",
+      "bytes": 15223,
+      "kind": "article"
+    },
+    {
+      "originalPath": "旧版本的皮肤制作教程.md",
+      "sourcePath": "docs/wiki/upstream/旧版本的皮肤制作教程.md",
+      "sha256": "ffb25e4da71ad6ac868527b7c9525b6e70d26a7352e4eb1c70097de69c4829cd",
+      "bytes": 6824,
+      "kind": "article"
+    },
+    {
+      "originalPath": "更换皮肤功能.md",
+      "sourcePath": "docs/wiki/upstream/更换皮肤功能.md",
+      "sha256": "125808142508737f7de59e0a2de345f3acf66baeb4ffe79a5c136cc961ce0351",
+      "bytes": 1158,
+      "kind": "article"
+    },
+    {
+      "originalPath": "皮肤制作教程.md",
+      "sourcePath": "docs/wiki/upstream/皮肤制作教程.md",
+      "sha256": "6b7b03bf0c07c72ab513f1ec1c3cc2c33adfc9b51f6ee9ec128b189d5b2d9ba2",
+      "bytes": 8443,
+      "kind": "article"
+    },
+    {
+      "originalPath": "硬件监控功能.md",
+      "sourcePath": "docs/wiki/upstream/硬件监控功能.md",
+      "sha256": "4cc4d4541a2382f90ed02cf4cd911558842c2d2b7b77b9812c71f02f6f508962",
+      "bytes": 875,
+      "kind": "article"
+    },
+    {
+      "originalPath": "选择监控的网络连接.md",
+      "sourcePath": "docs/wiki/upstream/选择监控的网络连接.md",
+      "sha256": "fb1d767ade5fb69b0128b974c15f116dcd97ab12f3fd0a9c9cf5d91595580e6c",
+      "bytes": 1337,
+      "kind": "article"
+    },
+    {
+      "originalPath": "选项设置.md",
+      "sourcePath": "docs/wiki/upstream/选项设置.md",
+      "sha256": "faaddbc8479552efb6e826f605a811f2e16273ce08b62c662a50bbeff1245a13",
+      "bytes": 21663,
+      "kind": "article"
+    },
+    {
+      "originalPath": "通知区图标.md",
+      "sourcePath": "docs/wiki/upstream/通知区图标.md",
+      "sha256": "9260a33a62e68e9a713390d4565768308afc782be8632ce2d72dd3ec562132be",
+      "bytes": 1909,
+      "kind": "article"
+    },
+    {
+      "originalPath": "配置和数据文件.md",
+      "sourcePath": "docs/wiki/upstream/配置和数据文件.md",
+      "sha256": "d23b4dfb980b8d307806ded8b89e2d3595c2a80e73b96bb01f3471e8420be1a5",
+      "bytes": 2961,
+      "kind": "article"
+    }
+  ],
+  "fileCount": 103,
+  "totalBytes": 4223460,
+  "sourceProjectLicense": {
+    "path": "docs/wiki/SOURCE-PROJECT-LICENSE",
+    "sourceCommit": "04a9a136ae800c4b1c547cf09c1bf3688ac0265a",
+    "sha256": "7523fa7601abdf090a91ca365d3a768e5418292dc151038d0629e67240a33fe6",
+    "scopeNote": "License copied unchanged from the source project. The wiki snapshot has no separate tracked license file; this record does not invent one."
+  },
+  "externalLinks": [
+    "https://gitee.com/zhongyang219/TrafficMonitorPlugins",
+    "https://github.com/LibreHardwareMonitor/LibreHardwareMonitor",
+    "https://github.com/zhongyang219/TrafficMonitor/blob/master/Help.md",
+    "https://github.com/zhongyang219/TrafficMonitor/blob/master/Help_en-us.md",
+    "https://github.com/zhongyang219/TrafficMonitor/blob/master/PluginDemo/PluginDemo.cpp",
+    "https://github.com/zhongyang219/TrafficMonitor/blob/master/PluginDemo/PluginDemo.h",
+    "https://github.com/zhongyang219/TrafficMonitor/blob/master/PluginDemo/PluginSystemDate.cpp",
+    "https://github.com/zhongyang219/TrafficMonitor/blob/master/PluginDemo/PluginSystemDate.h",
+    "https://github.com/zhongyang219/TrafficMonitor/blob/master/PluginDemo/PluginSystemTime.cpp",
+    "https://github.com/zhongyang219/TrafficMonitor/blob/master/PluginDemo/PluginSystemTime.h",
+    "https://github.com/zhongyang219/TrafficMonitor/blob/master/UpdateLog/update_log.md",
+    "https://github.com/zhongyang219/TrafficMonitor/blob/master/UpdateLog/update_log_en-us.md",
+    "https://github.com/zhongyang219/TrafficMonitor/blob/master/include/PluginInterface.h",
+    "https://github.com/zhongyang219/TrafficMonitor/issues/652",
+    "https://github.com/zhongyang219/TrafficMonitor/issues/716",
+    "https://github.com/zhongyang219/TrafficMonitor/tree/master/PluginDemo",
+    "https://github.com/zhongyang219/TrafficMonitorPlugins",
+    "https://github.com/zhongyang219/TrafficMonitorPlugins/blob/main/download/plugin_download.md",
+    "https://github.com/zhongyang219/TrafficMonitorPlugins/tree/main/PluginTemplate",
+    "https://github.com/zhongyang219/TrafficMonitorPlugins/wiki/插件测试器",
+    "https://github.com/zhongyang219/TrafficMonitorSkin/blob/master/皮肤下载.md",
+    "https://github.com/zhongyang219/TrafficMonitorSkinEditor/blob/master/README.md",
+    "https://github.com/zhongyang219/TrafficMonitorSkinEditor/releases"
+  ],
+  "historicalImageNotice": "All upstream screenshots remain historical documentation supplied by upstream; they do not document the redesigned application."
+}
