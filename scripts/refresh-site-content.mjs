@@ -12,6 +12,16 @@ const sourceCommit = git('rev-parse', 'HEAD').toString().trim();
 if (!/^[a-f0-9]{40}$/.test(sourceCommit)) throw new Error('Invalid source revision');
 const files = git('ls-tree', '-rz', '--name-only', sourceCommit).toString().split('\0').filter(Boolean);
 const existing = new Map(previous.articles.map(article => [article.sourcePath, article]));
+const publicationPath = 'docs/wiki/pending/publication.json';
+const publication = files.includes(publicationPath) ? JSON.parse(git('show', `${sourceCommit}:${publicationPath}`).toString()) : null;
+const wikiUrls = new Map();
+if (publication?.state === 'published-verified') {
+  if (!/^https:\/\/github\.com\/[^/]+\/[^/]+\.wiki\.git$/.test(publication.destination) || !/^[a-f0-9]{40}$/.test(publication.publicationProof?.commit ?? '')) throw new Error('Invalid published wiki provenance');
+  for (const page of publication.pages) {
+    if (!/^[\p{L}\p{N}_ -]+\.md$/u.test(page)) throw new Error('Invalid wiki page name');
+    wikiUrls.set(`docs/wiki/pending/${page}`, `${publication.destination.replace(/\.wiki\.git$/, '/wiki')}/${encodeURIComponent(page.slice(0, -3))}`);
+  }
+}
 const repositoryPaths = files.filter(path => /\.md$/i.test(path) && !path.startsWith('docs/wiki/upstream/'));
 const categoryFor = path => {
   if (/^design\//.test(path)) return 'design-reference';
@@ -41,6 +51,7 @@ const articles = repositoryPaths.map(path => {
     provenanceKind: 'repository-markdown',
     contentStatus: 'complete-source-article',
     historicalPresentation: original?.historicalPresentation ?? false,
+    ...(wikiUrls.has(path) ? { wikiSourceUrl: wikiUrls.get(path) } : {}),
   };
 });
 articles.push(...previous.articles.filter(article => article.provenanceKind !== 'repository-markdown'));
