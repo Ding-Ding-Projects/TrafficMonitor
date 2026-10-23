@@ -1,3 +1,7 @@
+## Validator integration state
+
+Preserved validator e647d839d30887fb786cb8fd53068348b8f774f0 adds the independent local 110-ID acceptance checker, bounded image decoding and focused negative regressions. Full local153 passed, independent final6 passed. Product remains incomplete with1499 baseline gaps. This integration does not prove runtime or feature completion. Main native application priority remains first, documentation-website implementation last.
+
 # Current continuation priority
 
 Owner direction: main native C++/MFC application FIRST, documentation website LAST. Complete native Material workflows, full Settings/context menus/search/regex builders and applicable required-feature consumers with real built verification. Preserve installer/runtime dependencies, startup, tray/taskbar, saved choices, silent five-minute updating and safe application restart. Then finish build companion and operational release work. Only after main application completion resume remaining documentation website/wiki/offline-reader implementation and final verification. Existing delivery runs may finish. No new documentation implementation lane is authorized ahead of native completion.

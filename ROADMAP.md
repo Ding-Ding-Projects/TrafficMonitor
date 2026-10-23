@@ -1,5 +1,14 @@
 # TrafficMonitor delivery roadmap
 
+## Required-feature acceptance validator
+
+- [x] Add the independent 110-ID, eight-surface and eight-dimension local inventory validator.
+- [x] Separate diagnostic incomplete output from strict acceptance; preserve 1499 baseline acceptance gaps.
+- [x] Reject malformed PNG bytes and reversed optional palette/transparency order; preserve baseline red and final 153-check green evidence.
+- [x] Complete independent post-repair review, including six final focused cases at e647d839d30887fb786cb8fd53068348b8f774f0.
+- [ ] Verify integrated source publication. Full product implementation, genuine execution/provenance and complete interaction evidence remain unfinished.
+
+
 ## Current delivery priority, 2026-10-23
 
 - [ ] Complete the main native C++/MFC application first: reusable Material components, productive monitoring workflows, onboarding, complete Settings, context menus, search and independent full regex builders.

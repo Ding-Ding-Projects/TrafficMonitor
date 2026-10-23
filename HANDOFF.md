@@ -1,3 +1,7 @@
+## Integrated local acceptance validator
+
+The completed bounded validator lane e647d839d30887fb786cb8fd53068348b8f774f0 is preserved on its remote task branch. It adds scripts/required-feature-audit.mjs and local-only scripts/test-required-feature-audit.mjs plus the acceptance contract. Final local suite: 153 checks passed; independent final narrow review: six cases passed. Diagnostic baseline: 110 identities, zero structural errors, 1499 acceptance gaps, complete false. Strict mode rejects incomplete acceptance. PNG byte decoding proves structure within documented bounds, never genuine screenshots, runtime execution or human inspection. Unknown ancillary, color-management and animation semantics are not exhaustively interpreted. No CI tests/lint were added. Detailed intermediate history remains on the merged task branch.
+
 ## Current owner direction, 2026-10-23
 
 Prioritize the main native C++/MFC application. Complete its interface, Settings and context menus, searches and full regex builders, applicable feature consumers and source-bound runtime acceptance before further documentation-website implementation. Keep installer/startup, saved data, tray/taskbar and silent update behavior intact. Finish documentation website/wiki/offline-reader work last. Existing external delivery runs may finish; previous evidence remains retained with its actual source. Release-grade verification and preservation remain active; cleanup has not started.
