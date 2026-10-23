@@ -220,19 +220,28 @@ namespace NativeDashboard::Setup
             auto place=[&](CWnd& child,int x,int y,int w,int h){child.MoveWindow(Px(x),Px(y),Px((std::max)(1,w)),Px(h));};
             m_heading.SetWindowText(T(static_cast<Copy>(static_cast<int>(Copy::LanguageStep)+m_draft.step)));
             m_info.SetWindowText(T(static_cast<Copy>(static_cast<int>(Copy::LanguageInfo)+m_draft.step)));
-            place(m_heading,24,16,width-48,54);place(m_info,24,78,width-48,68);
-            int y=154;
+            auto textHeight=[&](CWnd& control,int minimum)
+            {
+                CClientDC dc(&control);auto old=dc.SelectObject(control.GetFont());
+                CString text;control.GetWindowText(text);CRect measured(0,0,Px(width-48),0);
+                dc.DrawText(text,measured,DT_CALCRECT|DT_WORDBREAK|DT_NOPREFIX);
+                dc.SelectObject(old);return (std::max)(minimum,MulDiv(measured.Height(),96,m_dpi)+4);
+            };
+            const int headingHeight=textHeight(m_heading,30),infoTop=16+headingHeight+12;
+            const int infoHeight=textHeight(m_info,48),contentTop=infoTop+infoHeight+12;
+            place(m_heading,24,16,width-48,headingHeight);place(m_info,24,infoTop,width-48,infoHeight);
+            int y=contentTop;
             for(int i=0;i<7;++i)
             {
                 bool visible=(m_draft.step==0&&i<3)||(m_draft.step==1&&(i==3||i==4))||(m_draft.step==2&&i>=5);
                 CWnd& choice=(i==1||i==2)?static_cast<CWnd&>(m_ranges[i-1]):static_cast<CWnd&>(m_choices[i]);
                 m_labels[i].ShowWindow(visible?SW_SHOW:SW_HIDE);choice.ShowWindow(visible?SW_SHOW:SW_HIDE);
-                if(visible){place(m_labels[i],24,y,width-48,34);place(choice,24,y+36,width-48,(i==1||i==2)?44:220);y+=88;}
+                if(visible){place(m_labels[i],24,y,width-48,34);place(choice,24,y+32,width-48,(i==1||i==2)?44:220);y+=80;}
             }
             m_choices[4].EnableWindow(m_draft.selection.mode==Mode::One&&!m_applying);
             m_refresh.ShowWindow(m_draft.step==1?SW_SHOW:SW_HIDE);place(m_refresh,24,y+8,width-48,44);
             m_review.ShowWindow(m_draft.step>=2?SW_SHOW:SW_HIDE);
-            if(m_draft.step>=2){Review();place(m_review,24,m_draft.step==2?338:154,width-48,height-(m_draft.step==2?338:154)-208);}
+            if(m_draft.step>=2){Review();place(m_review,24,m_draft.step==2?contentTop+168:contentTop,width-48,height-(m_draft.step==2?contentTop+168:contentTop)-208);}
             m_keep.ShowWindow(m_draft.step==3?SW_SHOW:SW_HIDE);place(m_keep,24,height-200,width-48,44);
             place(m_note,24,height-148,width-48,78);
             const int button=(width-72)/3;place(m_back,24,height-62,button,44);place(m_save,36+button,height-62,button,44);place(m_next,48+2*button,height-62,button,44);

@@ -7,6 +7,7 @@
 namespace NativeMaterial
 {
     struct ButtonAccess;
+    struct ValueAccess;
     class Button final : public CWnd
     {
     public:
@@ -36,6 +37,7 @@ namespace NativeMaterial
     private:
         Canvas m_canvas;
         void Draw(ID2D1RenderTarget* target);
+        HRESULT DrawDC(HDC dc);
         HRESULT m_attachResult{E_PENDING}, m_drawResult{E_PENDING}, m_printResult{E_PENDING};
         Appearance m_appearance{ Appearance::Light };
         bool m_pressed{}, m_hover{};
@@ -51,8 +53,11 @@ namespace NativeMaterial
         void SetAppearance(Appearance value) { m_appearance=value; Invalidate(); }
         void DrawItem(LPDRAWITEMSTRUCT item) override;
         void MeasureItem(LPMEASUREITEMSTRUCT item) override;
+    protected:
+        LRESULT WindowProc(UINT message, WPARAM wparam, LPARAM lparam) override;
     private:
         Appearance m_appearance{Appearance::Light};
+        std::shared_ptr<ValueAccess> m_access;
     };
 
     class RangeValue final : public CSliderCtrl
@@ -62,9 +67,11 @@ namespace NativeMaterial
         void SetAppearance(Appearance value) { m_appearance=value; Invalidate(); }
     protected:
         afx_msg void OnCustomDraw(NMHDR*, LRESULT*);
+        LRESULT WindowProc(UINT message, WPARAM wparam, LPARAM lparam) override;
         DECLARE_MESSAGE_MAP()
     private:
         Appearance m_appearance{Appearance::Light};
+        std::shared_ptr<ValueAccess> m_access;
     };
 
     class ReadOnlyText final : public CEdit
