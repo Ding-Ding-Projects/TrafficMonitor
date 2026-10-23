@@ -1,6 +1,7 @@
 ﻿#include "../stdafx.h"
 #include "SetupFlow.h"
 #include "../NativePreferences/Editor.h"
+#include "../NativePreferences/SetupState.h"
 #include "../NativePreferences/Subscription.h"
 #include "../NativeSettings/SettingsViewport.h"
 #include "SetupFlowText.h"
@@ -65,18 +66,13 @@ namespace NativeDashboard::Setup
             if(!GetFileAttributesExW(Path().c_str(),GetFileExInfoStandard,&attributes)){d.protectedSchema=GetLastError()!=ERROR_FILE_NOT_FOUND;return d;}
             if(attributes.nFileSizeHigh||attributes.nFileSizeLow>16384){d.protectedSchema=true;return d;}
             CIniHelper ini(Path());
-            const int schema=ini.GetInt(L"setup",L"schemaVersion",0);
+            const auto schemaText=ini.GetString(L"setup",L"schemaVersion",L"");const int schema=schemaText==L"1"?1:schemaText==L"2"?2:0;
             if(schema!=1&&schema!=2){d.protectedSchema=true;return d;}
             std::wstring selected;const bool hasLanguage=ini.GetString(L"setup",L"language",selected)&&NativePreferences::ParseSavedLanguage(selected,d.preferences.values.language);
             if(hasLanguage)d.preferences.values.language=static_cast<NativePreferences::Language>(selected[0]-L'0');
             if(schema==2)
             {
-                const int appearance=ini.GetInt(L"setup",L"appearance",-1),baseLanguage=ini.GetInt(L"setup",L"baseLanguage",-1),baseAppearance=ini.GetInt(L"setup",L"baseAppearance",-1);
-                const auto fingerprint=ini.GetString(L"setup",L"baseFingerprint",L"");
-                if(!hasLanguage||appearance<0||appearance>2||baseLanguage<0||baseLanguage>2||baseAppearance<0||baseAppearance>2||fingerprint.empty()){d.protectedSchema=true;return d;}
-                d.preferences.values.appearance=static_cast<NativePreferences::Appearance>(appearance);
-                d.preferences.base.values={static_cast<NativePreferences::Language>(baseLanguage),static_cast<NativePreferences::Appearance>(baseAppearance)};d.preferences.base.fingerprint=fingerprint;
-                d.preferences.dirty=ini.GetBool(L"setup",L"preferenceDirty",false);
+                if(!NativePreferences::ReadSetupPreferences(ini,d.preferences)){d.protectedSchema=true;return d;}
                 NativePreferences::ReconcileResume(d.preferences,accepted);
             }
             else d.preferences.dirty=d.preferences.values!=accepted.values;
@@ -100,11 +96,7 @@ namespace NativeDashboard::Setup
             if(d.protectedSchema)return false;
             const auto temp = Path() + L".tmp";
             DeleteFileW(temp.c_str()); CIniHelper output(temp);
-            output.WriteInt(L"setup", L"schemaVersion", 2); output.WriteInt(L"setup", L"step", d.step);
-            output.WriteInt(L"setup",L"appearance",static_cast<int>(d.preferences.values.appearance));
-            output.WriteInt(L"setup",L"baseLanguage",static_cast<int>(d.preferences.base.values.language));output.WriteInt(L"setup",L"baseAppearance",static_cast<int>(d.preferences.base.values.appearance));
-            output.WriteString(L"setup",L"baseFingerprint",d.preferences.base.fingerprint);output.WriteBool(L"setup",L"preferenceDirty",d.preferences.dirty);
-            output.WriteInt(L"setup", L"language", d.language); output.WriteInt(L"setup", L"englishStyle", d.english);
+            NativePreferences::WriteSetupPreferences(output,d.preferences);output.WriteInt(L"setup",L"step",d.step); output.WriteInt(L"setup", L"englishStyle", d.english);
             output.WriteInt(L"setup", L"cantoneseStyle", d.cantonese); output.WriteInt(L"setup", L"taskbar", d.taskbar);
             output.WriteInt(L"setup", L"startup", d.startup); output.WriteInt(L"setup", L"mode", static_cast<int>(d.selection.mode));
             output.WriteString(L"setup", L"adapter", d.selection.guid); output.WriteBool(L"setup", L"complete", d.complete);

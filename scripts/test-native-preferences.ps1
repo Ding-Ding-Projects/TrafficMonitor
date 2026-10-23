@@ -1,4 +1,4 @@
-﻿$ErrorActionPreference='Stop'
+$ErrorActionPreference='Stop'
 . "$PSScriptRoot/build-tools.ps1"
 try {
     $installation=Get-BuildInstallation
@@ -15,6 +15,15 @@ try {
     try { & cmd.exe /d /c $command; $compileExit=$LASTEXITCODE } finally { Pop-Location }
     if($compileExit -ne 0){exit $compileExit}
     & $exe
+    if($LASTEXITCODE -ne 0){exit $LASTEXITCODE}
+    # Exercise the same INI reader, writer and preference initialization used by the application.
+    $setupExe=Join-Path $work 'SetupSerializationTests.exe'
+    $sources=@('NativePreferences/SetupSerializationTests.cpp','IniHelper.cpp','Common.cpp','NativePreferences/Preferences.cpp','NativePreferences/Subscription.cpp','NativePreferences/Storage.cpp') | ForEach-Object {'"'+(Join-Path $RepoRoot ('TrafficMonitor/'+$_))+'"'}
+    $command='call "'+$vcvars+'" >nul && "'+$compiler+'" /nologo /std:c++17 /EHsc /utf-8 /MD /Gy /D_AFXDLL /D_UNICODE /DUNICODE /DTRAFFICMONITOR_LITE '+($sources -join ' ')+' /Fe:"'+$setupExe+'" /link /OPT:REF'
+    Push-Location $work
+    try { & cmd.exe /d /c $command; $compileExit=$LASTEXITCODE } finally { Pop-Location }
+    if($compileExit -ne 0){exit $compileExit}
+    & $setupExe
     if($LASTEXITCODE -ne 0){exit $LASTEXITCODE}
     $header=Join-Path $RepoRoot 'TrafficMonitor/NativePreferences/Draft.h'
     $original=[IO.File]::ReadAllText($header)
