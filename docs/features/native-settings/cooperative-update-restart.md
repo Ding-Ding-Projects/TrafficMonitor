@@ -16,3 +16,17 @@ This UI hook is coupled to NativeUpdate/SilentUpdater.h and requires the combine
 It has no standalone build or runtime verdict. No new tests, reviews, audits or screenshots run
 in the expedited pass. Busy-state, draft preservation, restart, update and fallback behavior remain
 unverified until separately exercised under an authorized verification mode.
+
+## Update preferences
+
+Monitoring includes the existing automatic-check preference and a separate automatic-restart
+preference, enabled by default. When automatic checking is enabled, silent checks run every five
+minutes. Turning off automatic restart still allows staging; pending updates apply on the next
+normal launch. Read-only service status refreshes every two seconds while Settings is open.
+
+These controls participate in drafts. Apply validates the interval first, then saves and reads
+back a changed restart preference through the backend API before invoking the existing settings
+consumer. A failed restart-preference save retains the draft, reports the failure and does not
+apply other settings. Revert reads current preferences. Reset page draft stages both update
+choices as enabled but writes nothing until Apply. Backend persistence and update execution stay
+owned by the updater; this UI does not introduce a second preference file or write path.

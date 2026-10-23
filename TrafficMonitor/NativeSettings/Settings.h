@@ -9,6 +9,7 @@ namespace NativeSettings
     {
         int interval{1000};
         bool tray{true};
+        bool automaticCheck{true}, automaticRestart{true};
         bool floatingCompact{}, floatingBytes{true}, floatingSpace{true}, floatingTips{true}, top{}, locked{};
         bool taskbarCompact{}, taskbarBytes{true}, taskbarSpace{true}, taskbarTips{true}, right{}, horizontal{true};
         static Values Current();

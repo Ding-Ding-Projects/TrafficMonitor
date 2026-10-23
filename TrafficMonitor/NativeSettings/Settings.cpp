@@ -1,5 +1,6 @@
 ﻿#include "../stdafx.h"
 #include "Settings.h"
+#include "../NativeUpdate/SilentUpdater.h"
 #include "../NativeMaterial/Controls.h"
 #include "../NativeMaterial/SettingsControls.h"
 #include <array>
@@ -26,6 +27,7 @@ namespace NativeSettings
             void OnOK() override { ApplyDraft(); }
             BOOL PreTranslateMessage(MSG*) override;
             afx_msg void OnPaint();
+            afx_msg void OnTimer(UINT_PTR id) { if(id==0x4E91) UpdateInfo(); else CDialog::OnTimer(id); }
             afx_msg BOOL OnEraseBkgnd(CDC*) { return TRUE; }
             afx_msg void OnSize(UINT,int,int) { Layout(); }
             afx_msg void OnGetMinMaxInfo(MINMAXINFO* info);
@@ -39,19 +41,21 @@ namespace NativeSettings
             int Px(int n) const { return MulDiv(n,m_dpi,96); }
             void Layout(); void Reload(); void SetFonts(); void SetTheme(); void ApplyDraft(); void ResetPage();
             bool CanDiscard();
+            void UpdateInfo();
             void Note(const CString& text) { m_note.SetWindowText(text); }
             int m_page{}; UINT m_dpi{96}; bool m_chinese{},m_loading{},m_dirty{};
             Values m_values;
             std::function<void(const Values&)> m_apply;
             NativeMaterial::Appearance m_appearance{NativeMaterial::Appearance::Light};
             CFont m_font; CBrush m_background;
-            CStatic m_title,m_note,m_intervalLabel,m_results;
+            CStatic m_title,m_note,m_intervalLabel,m_results,m_updateInfo;
             CEdit m_search,m_interval;
             NativeMaterial::Button m_monitor,m_floating,m_taskbar,m_clear,m_applyButton,m_revert,m_reset,m_legacy,m_theme;
             std::vector<Entry> m_entries;
         };
         BEGIN_MESSAGE_MAP(Editor,CDialog)
             ON_WM_PAINT()
+            ON_WM_TIMER()
             ON_WM_ERASEBKGND()
             ON_WM_SIZE()
             ON_WM_GETMINMAXINFO()
@@ -74,6 +78,7 @@ namespace NativeSettings
             SetWindowText(T(L"TrafficMonitor settings",L"TrafficMonitor 設定")); SetIcon(theApp.GetMenuIcon(IDI_SETTINGS),FALSE);
             const CRect box(0,0,100,40); const DWORD child=WS_CHILD|WS_VISIBLE;
             m_title.Create(T(L"Settings for your monitoring workflow",L"監察工作設定"),child,box,this);
+            m_updateInfo.Create(L"",child,box,this);
             m_note.Create(L"",child,box,this); m_results.Create(L"",child,box,this);
             m_intervalLabel.Create(T(L"Sample interval (200-30000 ms, in steps of 100)",L"採樣間隔（200-30000 毫秒，每次 100）"),child,box,this);
             m_search.CreateEx(WS_EX_CLIENTEDGE,L"EDIT",L"",child|WS_TABSTOP|ES_AUTOHSCROLL,box,this,Search);
@@ -85,6 +90,8 @@ namespace NativeSettings
             m_revert.Create(T(L"Revert",L"還原"),box,this,Revert); m_reset.Create(T(L"Reset page draft",L"重設本頁草稿"),box,this,Reset);
             m_legacy.Create(T(L"All settings (legacy)",L"所有設定（舊版）"),box,this,Legacy);
             Add(0,L"Show notification-area icon",L"顯示通知區域圖示",&Values::tray);
+            Add(0,L"Check for updates automatically every five minutes",L"每五分鐘自動檢查更新",&Values::automaticCheck);
+            Add(0,L"Restart automatically when an update is ready and the interface is idle",L"更新就緒且介面閒置時自動重新啟動",&Values::automaticRestart);
             Add(1,L"Compact network-speed text",L"精簡網速文字",&Values::floatingCompact);
             Add(1,L"Use bytes instead of bits",L"以位元組取代位元",&Values::floatingBytes);
             Add(1,L"Separate values and units with a space",L"數值與單位之間留空格",&Values::floatingSpace);
@@ -100,6 +107,7 @@ namespace NativeSettings
             SetFonts(); SetTheme(); Reload();
             RECT size{0,0,Px(800),Px(680)}; AdjustWindowRectEx(&size,GetStyle(),FALSE,GetExStyle());
             SetWindowPos(nullptr,0,0,size.right-size.left,size.bottom-size.top,SWP_NOMOVE|SWP_NOZORDER); CenterWindow(); Layout();
+            SetTimer(0x4E91,2000,nullptr); UpdateInfo();
             m_search.SetFocus(); return FALSE;
         }
         void Editor::SetFonts()
@@ -152,14 +160,43 @@ namespace NativeSettings
             m_results.SetWindowText(results); place(m_results,24,y+4,width-48,26);
             place(m_note,24,height-112,width-48,48);
             place(m_applyButton,24,height-52,96,40);place(m_revert,132,height-52,96,40);place(m_reset,240,height-52,180,40);place(m_legacy,432,height-52,width-456,40);
-            Invalidate(FALSE);
+            m_updateInfo.ShowWindow(m_page==0?SW_SHOW:SW_HIDE);
+            if(m_page==0)place(m_updateInfo,24,y+34,width-48,88);
+            UpdateInfo(); Invalidate(FALSE);
+        }
+        void Editor::UpdateInfo()
+        {
+            if(!m_updateInfo.GetSafeHwnd())return;
+            const auto status=NativeUpdate::GetStatus(); CString phase;
+            switch(status.phase)
+            {
+            case NativeUpdate::Phase::Disabled:phase=T(L"Disabled",L"已停用");break;
+            case NativeUpdate::Phase::Idle:phase=T(L"Waiting for next check",L"等待下次檢查");break;
+            case NativeUpdate::Phase::Checking:phase=T(L"Checking",L"檢查中");break;
+            case NativeUpdate::Phase::Downloading:phase=T(L"Downloading",L"下載中");break;
+            case NativeUpdate::Phase::Ready:phase=T(L"Ready; restart deferred while Settings is open",L"已就緒；設定開啟期間延後重新啟動");break;
+            case NativeUpdate::Phase::Applying:phase=T(L"Applying",L"套用中");break;
+            case NativeUpdate::Phase::Failed:phase.Format(T(L"Update unavailable (code %lu)",L"更新暫不可用（代碼 %lu）"),status.error);break;
+            default:phase=T(L"Stopped",L"已停止");break;
+            }
+            CString text=T(L"Silent checks run every five minutes when enabled. Turning off automatic restart keeps staging enabled; pending updates apply on the next launch. Current service: ",
+                L"啟用後每五分鐘靜默檢查。關閉自動重新啟動仍可準備更新；待處理更新會在下次啟動套用。目前狀態：");
+            text+=phase; m_updateInfo.SetWindowText(text);
         }
         void Editor::ApplyDraft()
         {
             CString input;m_interval.GetWindowText(input); wchar_t* end{};long value=wcstol(input,&end,10);
             if(input.IsEmpty()||!end||*end||value<MONITOR_TIME_SPAN_MIN||value>MONITOR_TIME_SPAN_MAX||value%100)
             {Note(T(L"Enter an interval from 200 to 30000 ms in steps of 100. Nothing was applied.",L"請輸入 200 至 30000 毫秒，並以 100 為倍數。尚未套用任何更改。"));m_page=0;m_search.SetWindowText(L"");Layout();m_interval.SetFocus();return;}
-            m_values.interval=static_cast<int>(value); m_apply(m_values); Reload();
+            m_values.interval=static_cast<int>(value);
+            if(m_values.automaticRestart != NativeUpdate::AutomaticRestartEnabled()
+                && !NativeUpdate::SaveAutomaticRestart(m_values.automaticRestart))
+            {
+                m_dirty=true;
+                Note(T(L"Automatic restart preference could not be saved and read back. Draft retained; other settings were not applied. Retry Apply or Revert.",L"未能儲存並讀回自動重新啟動偏好。草稿已保留，其餘設定未套用。請重試套用或還原。"));
+                return;
+            }
+            m_apply(m_values); Reload();
             Note(T(L"Applied through the existing settings consumer. A required recovery tray icon stays visible.",L"已經原有設定流程套用。復原操作所需嘅通知區域圖示會保持顯示。"));
         }
         void Editor::ResetPage()

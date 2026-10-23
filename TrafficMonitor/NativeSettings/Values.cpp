@@ -1,10 +1,13 @@
 #include "../stdafx.h"
 #include "Settings.h"
+#include "../NativeUpdate/SilentUpdater.h"
 namespace NativeSettings
 {
     Values Values::Current()
     {
         Values v; const auto& m = theApp.m_main_wnd_data; const auto& t = theApp.m_taskbar_data;
+        v.automaticCheck = theApp.m_general_data.check_update_when_start;
+        v.automaticRestart = NativeUpdate::AutomaticRestartEnabled();
         v.interval = theApp.m_general_data.monitor_time_span; v.tray = theApp.m_general_data.show_notify_icon;
         v.floatingCompact=m.speed_short_mode; v.floatingBytes=m.unit_byte; v.floatingSpace=m.separate_value_unit_with_space;
         v.floatingTips=m.show_tool_tip; v.top=m.m_always_on_top; v.locked=m.m_lock_window_pos;
@@ -14,6 +17,7 @@ namespace NativeSettings
     }
     void Values::Patch(MainWndSettingData& m, TaskBarSettingData& t, GeneralSettingData& g) const
     {
+        g.check_update_when_start=automaticCheck;
         g.monitor_time_span=interval; g.show_notify_icon=tray;
         m.speed_short_mode=floatingCompact; m.unit_byte=floatingBytes; m.separate_value_unit_with_space=floatingSpace;
         m.show_tool_tip=floatingTips; m.m_always_on_top=top; m.m_lock_window_pos=locked;
