@@ -1,5 +1,21 @@
 # Keep TrafficMonitor updated quietly
 
+## Current verified automatic update
+
+The corrected installed client 1.0.28 naturally updated to accepted normal [package 1.0.29](https://github.com/Ding-Ding-Projects/TrafficMonitor/releases/tag/v1.0.29-run39970237810-1), exact source `50288f54a16fb2b0e92464127bd7de8481567a54`, without a triggered check, manual close/update or preference change. The release was published at 2026-10-23T14:35:38Z; the prepublication baseline was saved at 14:23:25.952947Z and the first new-process snapshot was 14:38:30.691627Z, before the 14:45:38Z deadline. All four release jobs succeeded.
+
+The old client process exited and one new process had package version 1.0.29, that exact manifest source, and executable SHA-256 `129f47fb6e05d398113b0034bf5f484317d8b58094ef35e16b1b146dfdb44bba`, matching the released package. Attempt count was 1 and Squirrel result was 0. The helper recorded launch created/result 0 and final stable-launcher/result 0; the final result file time was 14:38:08.403841Z. This is a new successful result, distinct from older timeout records. Main hidden/taskbar visible readiness was verified by metadata. Applied staging was retained and active pending staging absent.
+
+Configuration bytes and startup registration matched the preserved baseline. Earlier traffic records remained unchanged, the current date record remained and its counters were nondecreasing. Legitimate monitoring and graceful-save writes advanced current traffic, which was not classified as data loss. This proves one real automatic transition and preservation, not every update mode.
+
+The [bounded acceptance receipt](https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/4024e49a4301b25b840153a56f7f8d590fb101e4/docs/features/installation/silent-natural29-acceptance.json) and [separate full-article production receipt](https://github.com/Ding-Ding-Projects/TrafficMonitor/blob/4024e49a4301b25b840153a56f7f8d590fb101e4/docs/features/installation/silent-natural29-site-build.json) preserve source bindings and limits. Native 1.0.9017 remains bound to synchronous caller source `72f1fc929fe5d3a31b7a6e1ee73de20bb61a6ec3`.
+
+Unrun acceptance remains explicit: offline/corrupt input/cancellation/rollback; busy editor/modal/draft/menu deferral; visual/localization/accessibility; and multiple future periodic cycles. No tests, reviews, audits, UI quality checks or screenshots ran. No broad required-feature or Stage 2 completion is claimed.
+
+## Historical implementation and production records
+
+Earlier package versions, queued-close candidates, manual fallbacks, timeout results and unverified/pending statements below retain their original source context. They do not replace the current successful automatic transition above. In particular, helper parent-exit result 1460 belongs to the old caller; it is not the final corrected-client outcome.
+
 Use the installed edition's native Monitoring settings to keep automatic checks enabled
 and choose whether it may restart automatically. The check preference controls automatic
 checking and next-launch application. The separate restart preference defaults on;
