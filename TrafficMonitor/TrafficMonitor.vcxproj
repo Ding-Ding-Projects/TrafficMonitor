@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug (lite)|ARM64EC">
@@ -1091,6 +1091,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="NativeSettings\Settings.h" />
+    <ClInclude Include="NativeSettings\SettingCatalog.h" />
+    <ClInclude Include="NativeSettings\SettingsViewport.h" />
+    <ClCompile Include="NativeSettings\SettingCatalog.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
     <ClInclude Include="NativeMaterial\SettingsControls.h" />
     <ClCompile Include="NativeSettings\Settings.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
     <ClCompile Include="NativeSettings\Values.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>

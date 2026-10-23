@@ -12,6 +12,8 @@ namespace NativeSettings
         bool automaticCheck{true}, automaticRestart{true};
         bool floatingCompact{}, floatingBytes{true}, floatingSpace{true}, floatingTips{true}, top{}, locked{};
         bool taskbarCompact{}, taskbarBytes{true}, taskbarSpace{true}, taskbarTips{true}, right{}, horizontal{true};
+        bool trafficNotice{}, memoryNotice{}, cpuNotice{}, gpuNotice{}, diskNotice{}, boardNotice{};
+        int trafficLimit{200}, trafficUnit{}, memoryLimit{80}, cpuLimit{80}, gpuLimit{80}, diskLimit{80}, boardLimit{80};
         static Values Current();
         void Patch(MainWndSettingData& main, TaskBarSettingData& taskbar, GeneralSettingData& general) const;
     };
