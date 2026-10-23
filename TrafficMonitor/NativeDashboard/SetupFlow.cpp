@@ -1,6 +1,7 @@
 ﻿#include "../stdafx.h"
 #include "SetupFlow.h"
 #include "SetupFlowText.h"
+#include "SetupFlowProgress.h"
 #include "../TrafficMonitorDlg.h"
 #include "../NativeMaterial/Controls.h"
 #include <afxcmn.h>
@@ -40,7 +41,7 @@ namespace NativeDashboard::Setup
     {
         enum : UINT { Language=55001, EnglishStyle, CantoneseStyle, ModeChoice, AdapterChoice, TaskbarChoice, StartupChoice,
             Back, Next, SaveClose, Refresh, KeepRemaining };
-        enum class Result { Pending, Applying, Applied, Failed };
+        using Result = OperationResult;
         std::wstring Path() { return theApp.m_config_dir + L"dashboard-setup.ini"; }
         int Bound(int value, int low, int high) { return (std::max)(low, (std::min)(high, value)); }
         struct Draft
@@ -108,6 +109,7 @@ namespace NativeDashboard::Setup
             afx_msg void OnGetMinMaxInfo(MINMAXINFO* info);
             afx_msg HBRUSH OnCtlColor(CDC*, CWnd*, UINT);
             afx_msg LRESULT OnDpi(WPARAM, LPARAM);
+            afx_msg void OnHScroll(UINT, UINT, CScrollBar*);
             DECLARE_MESSAGE_MAP()
         private:
             CString T(Copy id) const { return Text(id, m_draft.language); }
@@ -117,11 +119,12 @@ namespace NativeDashboard::Setup
             Draft m_draft; Discovery m_discovery;
             UINT m_dpi{96}; bool m_loading{}, m_applying{};
             NativeMaterial::Appearance m_appearance{NativeMaterial::Appearance::Light};
-            CFont m_font; CBrush m_background;
+            CFont m_font, m_titleFont, m_labelFont; CBrush m_background;
             CStatic m_heading, m_info, m_note;
-            CEdit m_review;
+            NativeMaterial::ReadOnlyText m_review;
             std::array<CStatic, 7> m_labels;
-            std::array<CComboBox, 7> m_choices;
+            std::array<NativeMaterial::Choice, 7> m_choices;
+            std::array<NativeMaterial::RangeValue, 2> m_ranges;
             NativeMaterial::Button m_back, m_next, m_save, m_refresh, m_keep;
         };
         BEGIN_MESSAGE_MAP(Wizard, CDialog)
@@ -130,6 +133,7 @@ namespace NativeDashboard::Setup
             ON_WM_SIZE()
             ON_WM_GETMINMAXINFO()
             ON_WM_CTLCOLOR()
+            ON_WM_HSCROLL()
             ON_MESSAGE(WM_DPICHANGED, &Wizard::OnDpi)
         END_MESSAGE_MAP()
         BOOL Wizard::OnInitDialog()
@@ -142,17 +146,18 @@ namespace NativeDashboard::Setup
             m_background.CreateSolidBrush(RGB(BYTE(palette.surface.r*255), BYTE(palette.surface.g*255), BYTE(palette.surface.b*255)));
             CRect box(0, 0, 100, 40); DWORD child = WS_CHILD | WS_VISIBLE;
             m_heading.Create(L"", child, box, this); m_info.Create(L"", child, box, this); m_note.Create(L"", child, box, this);
-            m_review.Create(child|WS_TABSTOP|ES_MULTILINE|ES_READONLY|ES_AUTOVSCROLL|WS_VSCROLL, box, this, 55030);
+            m_review.Create(box, this, 55030);m_review.SetAppearance(m_appearance);
             for (size_t i = 0; i < m_choices.size(); ++i)
             {
                 m_labels[i].Create(L"", child, box, this);
-                m_choices[i].Create(child|WS_TABSTOP|CBS_DROPDOWNLIST|WS_VSCROLL, box, this, Language + static_cast<UINT>(i));
+                if(i==1||i==2){m_ranges[i-1].Create(box,this,Language+static_cast<UINT>(i));m_ranges[i-1].SetAppearance(m_appearance);}
+                else{m_choices[i].Create(child|WS_TABSTOP|CBS_DROPDOWNLIST|WS_VSCROLL, box, this, Language + static_cast<UINT>(i));m_choices[i].SetAppearance(m_appearance);}
             }
             m_back.Create(L"", box, this, Back); m_next.Create(L"", box, this, Next); m_save.Create(L"", box, this, SaveClose);
             m_refresh.Create(L"", box, this, Refresh); m_keep.Create(L"", box, this, KeepRemaining);
             for (auto* button : {&m_back, &m_next, &m_save, &m_refresh, &m_keep}) button->SetAppearance(m_appearance);
             Fonts(); Labels(); ReloadAdapters();
-            RECT r{0,0,Px(860),Px(760)}; AdjustWindowRectEx(&r,GetStyle(),FALSE,GetExStyle());
+            RECT r{0,0,Px(760),Px(640)}; AdjustWindowRectEx(&r,GetStyle(),FALSE,GetExStyle());
             SetWindowPos(nullptr,0,0,r.right-r.left,r.bottom-r.top,SWP_NOMOVE|SWP_NOZORDER); CenterWindow(); Layout();
             m_next.SetFocus(); return FALSE;
         }
@@ -165,18 +170,21 @@ namespace NativeDashboard::Setup
             auto previous=static_cast<HFONT>(m_font.Detach());m_font.Attach(next);
             for(CWnd* child=GetWindow(GW_CHILD);child;child=child->GetNextWindow())child->SetFont(&m_font);
             if(previous)DeleteObject(previous);
+            m_titleFont.DeleteObject();font.lfHeight=-Px(22);font.lfWeight=FW_SEMIBOLD;m_titleFont.CreateFontIndirect(&font);m_heading.SetFont(&m_titleFont);
+            m_labelFont.DeleteObject();font.lfHeight=-Px(14);font.lfWeight=FW_MEDIUM;m_labelFont.CreateFontIndirect(&font);
+            for(auto& label:m_labels)label.SetFont(&m_labelFont);
         }
         void Wizard::Labels()
         {
             m_loading=true; SetWindowText(T(Copy::Title));
             const Copy labels[] = {Copy::Language,Copy::EnglishStyle,Copy::CantoneseStyle,Copy::ModeLabel,Copy::AdapterLabel,Copy::TaskbarLabel,Copy::StartupLabel};
             for(size_t i=0;i<m_labels.size();++i)m_labels[i].SetWindowText(T(labels[i]));
-            for (int i : {0,1,2,3,5,6}) m_choices[i].ResetContent();
+            for (int i : {0,3,5,6}) m_choices[i].ResetContent();
             for(const auto* label:{L"English",L"廣東話",L"English / 廣東話"})m_choices[0].AddString(label);
-            for(int i=1;i<=5;++i){CString value;value.Format(L"%d",i);m_choices[1].AddString(value);m_choices[2].AddString(value);}
+            m_ranges[0].SetWindowText(T(Copy::EnglishStyle));m_ranges[1].SetWindowText(T(Copy::CantoneseStyle));
             for(auto label:{Copy::Automatic,Copy::All,Copy::One})m_choices[3].AddString(T(label));
             for(int i:{5,6})for(auto label:{Copy::Keep,Copy::Enable,Copy::Disable})m_choices[i].AddString(T(label));
-            m_choices[0].SetCurSel(m_draft.language);m_choices[1].SetCurSel(m_draft.english-1);m_choices[2].SetCurSel(m_draft.cantonese-1);
+            m_choices[0].SetCurSel(m_draft.language);m_ranges[0].SetPos(m_draft.english);m_ranges[1].SetPos(m_draft.cantonese);
             m_choices[3].SetCurSel(static_cast<int>(m_draft.selection.mode));m_choices[5].SetCurSel(m_draft.taskbar);m_choices[6].SetCurSel(m_draft.startup);
             m_back.SetLabel(T(Copy::Back));m_save.SetLabel(T(Copy::SaveClose));m_refresh.SetLabel(T(Copy::Refresh));m_keep.SetLabel(T(Copy::KeepRemaining));
             m_loading=false;
@@ -195,7 +203,7 @@ namespace NativeDashboard::Setup
         {
             if(m_loading)return;
             m_draft.language=Bound(m_choices[0].GetCurSel(),0,2);
-            m_draft.english=Bound(m_choices[1].GetCurSel()+1,1,5);m_draft.cantonese=Bound(m_choices[2].GetCurSel()+1,1,5);
+            m_draft.english=Bound(m_ranges[0].GetPos(),1,5);m_draft.cantonese=Bound(m_ranges[1].GetPos(),1,5);
             const Mode mode=static_cast<Mode>(Bound(m_choices[3].GetCurSel(),0,2));
             std::wstring guid=m_draft.selection.guid;const int row=m_choices[4].GetCurSel();
             if(row>=0&&static_cast<size_t>(row)<m_discovery.adapters.size())guid=m_discovery.adapters[row].guid;
@@ -212,24 +220,25 @@ namespace NativeDashboard::Setup
             auto place=[&](CWnd& child,int x,int y,int w,int h){child.MoveWindow(Px(x),Px(y),Px((std::max)(1,w)),Px(h));};
             m_heading.SetWindowText(T(static_cast<Copy>(static_cast<int>(Copy::LanguageStep)+m_draft.step)));
             m_info.SetWindowText(T(static_cast<Copy>(static_cast<int>(Copy::LanguageInfo)+m_draft.step)));
-            place(m_heading,24,16,width-48,52);place(m_info,24,74,width-48,112);
-            int y=194;
+            place(m_heading,24,16,width-48,54);place(m_info,24,78,width-48,68);
+            int y=154;
             for(int i=0;i<7;++i)
             {
                 bool visible=(m_draft.step==0&&i<3)||(m_draft.step==1&&(i==3||i==4))||(m_draft.step==2&&i>=5);
-                m_labels[i].ShowWindow(visible?SW_SHOW:SW_HIDE);m_choices[i].ShowWindow(visible?SW_SHOW:SW_HIDE);
-                if(visible){place(m_labels[i],24,y,width-48,44);place(m_choices[i],24,y+46,width-48,220);y+=100;}
+                CWnd& choice=(i==1||i==2)?static_cast<CWnd&>(m_ranges[i-1]):static_cast<CWnd&>(m_choices[i]);
+                m_labels[i].ShowWindow(visible?SW_SHOW:SW_HIDE);choice.ShowWindow(visible?SW_SHOW:SW_HIDE);
+                if(visible){place(m_labels[i],24,y,width-48,34);place(choice,24,y+36,width-48,(i==1||i==2)?44:220);y+=88;}
             }
             m_choices[4].EnableWindow(m_draft.selection.mode==Mode::One&&!m_applying);
             m_refresh.ShowWindow(m_draft.step==1?SW_SHOW:SW_HIDE);place(m_refresh,24,y+8,width-48,44);
             m_review.ShowWindow(m_draft.step>=2?SW_SHOW:SW_HIDE);
-            if(m_draft.step>=2){Review();place(m_review,24,m_draft.step==2?410:194,width-48,height-(m_draft.step==2?410:194)-208);}
+            if(m_draft.step>=2){Review();place(m_review,24,m_draft.step==2?338:154,width-48,height-(m_draft.step==2?338:154)-208);}
             m_keep.ShowWindow(m_draft.step==3?SW_SHOW:SW_HIDE);place(m_keep,24,height-200,width-48,44);
             place(m_note,24,height-148,width-48,78);
             const int button=(width-72)/3;place(m_back,24,height-62,button,44);place(m_save,36+button,height-62,button,44);place(m_next,48+2*button,height-62,button,44);
             m_back.EnableWindow(m_draft.step>0&&!m_applying);m_save.EnableWindow(!m_applying);m_next.EnableWindow(!m_applying);
             m_next.SetLabel(T(m_draft.step==3?Copy::Apply:Copy::Next));
-            RedrawWindow(nullptr,nullptr,RDW_INVALIDATE|RDW_ALLCHILDREN);
+            RedrawWindow(nullptr,nullptr,RDW_INVALIDATE|RDW_ERASE|RDW_ALLCHILDREN|RDW_UPDATENOW);
         }
         void Wizard::Note(Copy id)
         {
@@ -260,17 +269,29 @@ namespace NativeDashboard::Setup
         {
             if(m_applying)return;ReadControls();
             if(m_draft.step==3){Apply();return;}
-            if(m_draft.step==1&&!ValidAdapter())return;
+            if(m_draft.step==1&&m_draft.results[0]!=Result::Applied&&!ValidAdapter())return;
             ++m_draft.step;if(!Save(m_draft)){--m_draft.step;Note(Copy::SaveFailed);return;}Layout();m_next.SetFocus();
         }
         void Wizard::Apply()
         {
-            auto* monitor=CTrafficMonitorDlg::Instance();if(m_applying||!monitor||!ValidAdapter())return;
+            auto* monitor=CTrafficMonitorDlg::Instance();if(m_applying||!monitor)return;
+            if(m_draft.results[0]!=Result::Applied&&!ValidAdapter())return;
             m_applying=true;m_draft.complete=false;Layout();Note(Copy::Applying);
             if(!Save(m_draft)){m_applying=false;Layout();Note(Copy::SaveFailed);return;}
             for(int i=0;i<3;++i)
             {
-                m_draft.results[i]=Result::Applying;if(!Save(m_draft)){m_applying=false;Layout();Note(Copy::SaveFailed);return;}
+                const bool saved=RunOperation(m_draft.results[i],[&]{return Save(m_draft);},[&]
+                {
+                    if(i==0)
+                    {
+                        const auto current=monitor->SetupSelection();
+                        return current.mode==m_draft.selection.mode
+                            &&(current.mode!=Mode::One||current.guid==m_draft.selection.guid);
+                    }
+                    if(i==1)return m_draft.taskbar==0||monitor->SetupTaskbarMatches(m_draft.taskbar==1);
+                    return m_draft.startup==0||StartupEnabled()==(m_draft.startup==1);
+                },[&]
+                {
                 Review();m_review.UpdateWindow();
                 bool ok=false;
                 if(i==0)ok=monitor->ApplySetupSelection(m_draft.selection,m_discovery.epoch);
@@ -284,13 +305,20 @@ namespace NativeDashboard::Setup
                     ok=ok&&StartupEnabled()==desired;
                     if(ok){theApp.m_general_data.auto_run=desired;theApp.SaveConfig();}
                 }
-                m_draft.results[i]=ok?Result::Applied:Result::Failed;
-                if(!Save(m_draft)){m_applying=false;Layout();Note(Copy::SaveFailed);return;}
+                return ok;
+                });
+                if(!saved){m_applying=false;Layout();Note(Copy::SaveFailed);return;}
             }
             m_applying=false;
             m_draft.complete=std::all_of(m_draft.results.begin(),m_draft.results.end(),[](Result r){return r==Result::Applied;});
             if(!Save(m_draft)){m_draft.complete=false;Layout();Note(Copy::SaveFailed);return;}
             if(m_draft.complete)EndDialog(IDOK);else{Layout();Note(Copy::Incomplete);}
+        }
+        void Wizard::OnHScroll(UINT code,UINT position,CScrollBar* bar)
+        {
+            CDialog::OnHScroll(code,position,bar);
+            if(m_loading||m_applying)return;ReadControls();
+            m_note.SetWindowText(StyleNote(m_draft.language,m_draft.english,m_draft.cantonese));
         }
         BOOL Wizard::OnCommand(WPARAM w,LPARAM l)
         {
@@ -318,7 +346,7 @@ namespace NativeDashboard::Setup
             return CDialog::PreTranslateMessage(msg);
         }
         void Wizard::OnGetMinMaxInfo(MINMAXINFO* info)
-        {CDialog::OnGetMinMaxInfo(info);RECT r{0,0,Px(760),Px(720)};AdjustWindowRectEx(&r,GetStyle(),FALSE,GetExStyle());info->ptMinTrackSize={r.right-r.left,r.bottom-r.top};}
+        {CDialog::OnGetMinMaxInfo(info);RECT r{0,0,Px(720),Px(600)};AdjustWindowRectEx(&r,GetStyle(),FALSE,GetExStyle());info->ptMinTrackSize={r.right-r.left,r.bottom-r.top};}
         HBRUSH Wizard::OnCtlColor(CDC* dc,CWnd*,UINT)
         {const auto p=NativeMaterial::Palette::Resolve(m_appearance);dc->SetTextColor(RGB(BYTE(p.onSurface.r*255),BYTE(p.onSurface.g*255),BYTE(p.onSurface.b*255)));dc->SetBkColor(RGB(BYTE(p.surface.r*255),BYTE(p.surface.g*255),BYTE(p.surface.b*255)));return static_cast<HBRUSH>(m_background.GetSafeHandle());}
         LRESULT Wizard::OnDpi(WPARAM dpi,LPARAM value)

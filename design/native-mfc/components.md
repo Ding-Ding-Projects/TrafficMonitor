@@ -54,3 +54,9 @@ The embedded taskbar meter is an ambient display constrained by Explorer geometr
 ## First implementation boundary
 
 Implement the root, typography, button, panel, metric, status and disclosure registrations before the dashboard. Establish token, layout and UIA tests, including a deliberately unregistered visible child that must fail the inventory check. Then bind the dashboard to immutable real snapshots. Do not begin broad Options conversion by replacing `CBaseDialog::OnCtlColor`; that path cannot supply new anatomy, input semantics, layout or accessible patterns. Convert dialogs one cohesive workflow at a time through adapters around existing consumers.
+
+## Setup repair implementation registrations
+
+Choice: NativeMaterial::Choice, owner-drawn native selection HWND and popup, retaining the operating system selection and expand/collapse providers. Range: NativeMaterial::RangeValue, themed track/channel/thumb and visible bounded value on a real trackbar HWND, range 1 through 5 with native arrows/Home/End. Review: NativeMaterial::ReadOnlyText, tonal read-only text with native text selection and scrolling. Headings use a separate 22-DIP semibold role. These are implemented candidates, not accepted conformance: provider inspection, complete action-state references and the language/theme/scale matrix remain pending. Specification provenance remains the catalog and UI Automation references above; no new official-specification review is claimed.
+
+Buttons share one Draw function between the HWND render target and the native WM_PRINTCLIENT DC target. Numeric creation/draw/print HRESULT diagnostics are available via WM_APP+0x521 (wParam 0, 1, 2). Hover, pressed, keyboard focus, disabled and capture-loss cancellation states are explicit; their runtime references remain pending.

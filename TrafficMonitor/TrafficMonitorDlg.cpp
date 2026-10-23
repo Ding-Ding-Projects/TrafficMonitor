@@ -2297,6 +2297,11 @@ bool CTrafficMonitorDlg::SetSetupTaskbar(bool visible)
 {
     if (theApp.m_cfg_data.m_show_task_bar_wnd != visible) OnShowTaskBarWnd();
     else theApp.SaveConfig();
+    return SetupTaskbarMatches(visible);
+}
+
+bool CTrafficMonitorDlg::SetupTaskbarMatches(bool visible) const
+{
     CIniHelper stored(theApp.m_config_path);
     return theApp.m_cfg_data.m_show_task_bar_wnd == visible
         && (m_tBarDlg != nullptr && ::IsWindow(m_tBarDlg->GetSafeHwnd())) == visible

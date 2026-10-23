@@ -7,6 +7,77 @@
 
 namespace NativeMaterial
 {
+    namespace
+    {
+        COLORREF Color(D2D1_COLOR_F c){return RGB(BYTE(c.r*255),BYTE(c.g*255),BYTE(c.b*255));}
+    }
+    BOOL Choice::Create(DWORD style,const RECT& bounds,CWnd* parent,UINT id)
+    {
+        const BOOL ok=CComboBox::Create(style|CBS_OWNERDRAWFIXED|CBS_HASSTRINGS,bounds,parent,id);
+        if(ok){const int height=MulDiv(36,GetDpiForWindow(m_hWnd),96);SetItemHeight(-1,height);SetItemHeight(0,height);}
+        return ok;
+    }
+    void Choice::MeasureItem(LPMEASUREITEMSTRUCT item)
+    {item->itemHeight=MulDiv(36,GetDpiForWindow(m_hWnd),96);}
+    void Choice::DrawItem(LPDRAWITEMSTRUCT item)
+    {
+        if(!item->hDC)return;
+        CDC dc;dc.Attach(item->hDC);CRect rect(item->rcItem);
+        const auto colors=Palette::Resolve(m_appearance);
+        const bool selected=(item->itemState&ODS_SELECTED)!=0;
+        dc.FillSolidRect(rect,Color(selected?colors.primary:colors.container));
+        dc.SetBkMode(TRANSPARENT);dc.SetTextColor(Color(!IsWindowEnabled()?colors.secondaryText:selected?colors.onPrimary:colors.onSurface));
+        CString value;if(item->itemID!=UINT(-1))GetLBText(item->itemID,value);
+        CFont* old=GetFont()?dc.SelectObject(GetFont()):nullptr;
+        rect.DeflateRect(MulDiv(12,GetDpiForWindow(m_hWnd),96),0);
+        dc.DrawText(value,rect,DT_SINGLELINE|DT_VCENTER|DT_END_ELLIPSIS|DT_NOPREFIX);
+        if(item->itemState&ODS_FOCUS)dc.DrawFocusRect(rect);
+        if(old)dc.SelectObject(old);dc.Detach();
+    }
+    BEGIN_MESSAGE_MAP(RangeValue,CSliderCtrl)
+        ON_NOTIFY_REFLECT(NM_CUSTOMDRAW,&RangeValue::OnCustomDraw)
+    END_MESSAGE_MAP()
+    BOOL RangeValue::Create(const RECT& bounds,CWnd* parent,UINT id)
+    {
+        const BOOL ok=CSliderCtrl::Create(WS_CHILD|WS_VISIBLE|WS_TABSTOP|TBS_HORZ|TBS_NOTICKS,bounds,parent,id);
+        if(ok){SetRange(1,5);SetLineSize(1);SetPageSize(1);SetPos(5);}
+        return ok;
+    }
+    void RangeValue::OnCustomDraw(NMHDR* header,LRESULT* result)
+    {
+        auto* draw=reinterpret_cast<NMCUSTOMDRAW*>(header);
+        *result=CDRF_DODEFAULT;
+        if(draw->dwDrawStage!=CDDS_PREPAINT)return;
+        CDC dc;dc.Attach(draw->hdc);CRect bounds;GetClientRect(bounds);
+        const auto colors=Palette::Resolve(m_appearance);
+        dc.FillSolidRect(bounds,Color(colors.surface));
+        CRect channel,thumb;GetChannelRect(channel);GetThumbRect(thumb);
+        const int dpi=GetDpiForWindow(m_hWnd),radius=MulDiv(9,dpi,96);
+        channel.top=bounds.CenterPoint().y-MulDiv(3,dpi,96);channel.bottom=channel.top+MulDiv(6,dpi,96);
+        dc.FillSolidRect(channel,Color(colors.container));
+        CRect active=channel;active.right=thumb.CenterPoint().x;
+        dc.FillSolidRect(active,Color(IsWindowEnabled()?colors.primary:colors.outline));
+        const auto center=CPoint(thumb.CenterPoint().x,bounds.CenterPoint().y);
+        CBrush brush(Color(IsWindowEnabled()?colors.primary:colors.outline));
+        auto oldBrush=dc.SelectObject(&brush);auto oldPen=dc.SelectStockObject(NULL_PEN);
+        dc.Ellipse(center.x-radius,center.y-radius,center.x+radius,center.y+radius);
+        dc.SelectObject(oldBrush);dc.SelectObject(oldPen);
+        CString value;value.Format(L"%d",GetPos());dc.SetBkMode(TRANSPARENT);dc.SetTextColor(Color(colors.onPrimary));
+        CRect number(center.x-radius,center.y-radius,center.x+radius,center.y+radius);
+        dc.DrawText(value,number,DT_CENTER|DT_VCENTER|DT_SINGLELINE);
+        if(GetFocus()==this){bounds.DeflateRect(1,1);dc.DrawFocusRect(bounds);}
+        dc.Detach();*result=CDRF_SKIPDEFAULT;
+    }
+    BEGIN_MESSAGE_MAP(ReadOnlyText,CEdit)
+        ON_WM_CTLCOLOR_REFLECT()
+    END_MESSAGE_MAP()
+    BOOL ReadOnlyText::Create(const RECT& bounds,CWnd* parent,UINT id)
+    {return CEdit::Create(WS_CHILD|WS_VISIBLE|WS_TABSTOP|ES_MULTILINE|ES_READONLY|ES_AUTOVSCROLL|WS_VSCROLL,bounds,parent,id);}
+    void ReadOnlyText::SetAppearance(Appearance value)
+    {m_appearance=value;m_background.DeleteObject();m_background.CreateSolidBrush(Color(Palette::Resolve(value).container));Invalidate();}
+    HBRUSH ReadOnlyText::CtlColor(CDC* dc,UINT)
+    {const auto colors=Palette::Resolve(m_appearance);dc->SetTextColor(Color(colors.onSurface));dc->SetBkColor(Color(colors.container));return static_cast<HBRUSH>(m_background.GetSafeHandle());}
+
     struct ButtonAccess
     {
         std::mutex mutex;
@@ -95,6 +166,9 @@ namespace NativeMaterial
         ON_WM_ERASEBKGND()
         ON_WM_LBUTTONDOWN()
         ON_WM_LBUTTONUP()
+        ON_WM_MOUSEMOVE()
+        ON_WM_CAPTURECHANGED()
+        ON_MESSAGE(WM_MOUSELEAVE, &Button::OnMouseLeave)
         ON_WM_KEYDOWN()
         ON_WM_KEYUP()
         ON_WM_SETFOCUS()
@@ -104,6 +178,9 @@ namespace NativeMaterial
         ON_WM_GETDLGCODE()
         ON_MESSAGE(WM_GETOBJECT, &Button::OnGetObject)
         ON_MESSAGE(BM_CLICK, &Button::OnClick)
+        ON_MESSAGE(WM_PRINTCLIENT, &Button::OnPrintClient)
+        ON_MESSAGE(WM_PRINT, &Button::OnPrintClient)
+        ON_MESSAGE(WM_APP + 0x521, &Button::OnRenderStatus)
     END_MESSAGE_MAP()
 
     BOOL Button::Create(const CString& label, const RECT& bounds, CWnd* parent, UINT id)
@@ -128,33 +205,77 @@ namespace NativeMaterial
         CPaintDC paint(this);
         const auto colors = Palette::Resolve(m_appearance);
         const float dpi = static_cast<float>(GetDpiForWindow(m_hWnd));
-        if (!m_canvas.Target() && FAILED(m_canvas.Attach(m_hWnd, dpi))) return;
+        if (!m_canvas.Target())
+        {
+            m_attachResult=m_canvas.Attach(m_hWnd,dpi);
+            if(FAILED(m_attachResult))return;
+        }
         CRect bounds; GetClientRect(bounds);
         m_canvas.Resize(bounds.Width(), bounds.Height(), dpi);
         if (FAILED(m_canvas.Begin(colors.surface))) return;
-        const auto size = m_canvas.Target()->GetSize();
+        Draw(m_canvas.Target());
+        m_drawResult=m_canvas.End();
+        if (FAILED(m_drawResult)) Invalidate(FALSE);
+    }
+    void Button::Draw(ID2D1RenderTarget* target)
+    {
+        const auto colors=Palette::Resolve(m_appearance);
+        Microsoft::WRL::ComPtr<ID2D1SolidColorBrush> brush;
+        if(FAILED(target->CreateSolidColorBrush(colors.primary,brush.GetAddressOf())))return;
+        auto color=[&](D2D1_COLOR_F value){brush->SetColor(value);return brush.Get();};
+        const auto size = target->GetSize();
         const auto rect = D2D1::RectF(3, 3, size.width - 3, size.height - 3);
         const auto shape = D2D1::RoundedRect(rect, 20, 20);
-        m_canvas.Target()->FillRoundedRectangle(shape, m_canvas.Brush(IsWindowEnabled() ? colors.primary : colors.outline));
-        if (m_pressed)
+        target->FillRoundedRectangle(shape, color(IsWindowEnabled() ? colors.primary : colors.outline));
+        if ((m_pressed||m_hover)&&IsWindowEnabled())
         {
-            auto state = colors.onPrimary; state.a = 0.12f;
-            m_canvas.Target()->FillRoundedRectangle(shape, m_canvas.Brush(state));
+            auto state = colors.onPrimary; state.a = m_pressed?0.12f:0.08f;
+            target->FillRoundedRectangle(shape, color(state));
         }
-        if (GetFocus() == this) m_canvas.Target()->DrawRoundedRectangle(
-            D2D1::RoundedRect(D2D1::RectF(1, 1, size.width - 1, size.height - 1), 22, 22), m_canvas.Brush(colors.primary), 2);
+        if (GetFocus() == this) target->DrawRoundedRectangle(
+            D2D1::RoundedRect(D2D1::RectF(1, 1, size.width - 1, size.height - 1), 22, 22), color(colors.primary), 2);
         Microsoft::WRL::ComPtr<IDWriteTextFormat> format;
-        if (SUCCEEDED(m_canvas.TextFormat(14, DWRITE_FONT_WEIGHT_MEDIUM, format.GetAddressOf())))
+        Microsoft::WRL::ComPtr<IDWriteFactory> text;
+        if (SUCCEEDED(DWriteCreateFactory(DWRITE_FACTORY_TYPE_SHARED,__uuidof(IDWriteFactory),reinterpret_cast<IUnknown**>(text.GetAddressOf())))
+            &&SUCCEEDED(text->CreateTextFormat(L"Segoe UI",nullptr,DWRITE_FONT_WEIGHT_MEDIUM,DWRITE_FONT_STYLE_NORMAL,DWRITE_FONT_STRETCH_NORMAL,14,L"",format.GetAddressOf())))
         {
             format->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_CENTER);
             format->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_CENTER);
             CString label; GetWindowText(label);
-            m_canvas.Target()->DrawText(label, label.GetLength(), format.Get(),
-                D2D1::RectF(16, 5, size.width - 16, size.height - 5), m_canvas.Brush(colors.onPrimary));
+            target->DrawText(label, label.GetLength(), format.Get(),
+                D2D1::RectF(16, 5, size.width - 16, size.height - 5), color(colors.onPrimary));
         }
-        if (FAILED(m_canvas.End())) Invalidate(FALSE);
     }
+    LRESULT Button::OnPrintClient(WPARAM dc, LPARAM flags)
+    {
+        if(!dc||((flags&PRF_CHECKVISIBLE)&&!IsWindowVisible()))return 0;
+        Microsoft::WRL::ComPtr<ID2D1Factory> factory;
+        Microsoft::WRL::ComPtr<ID2D1DCRenderTarget> target;
+        m_printResult=D2D1CreateFactory(D2D1_FACTORY_TYPE_SINGLE_THREADED,factory.GetAddressOf());
+        const float dpi=static_cast<float>(GetDpiForWindow(m_hWnd));
+        auto properties=D2D1::RenderTargetProperties(D2D1_RENDER_TARGET_TYPE_SOFTWARE,
+            D2D1::PixelFormat(DXGI_FORMAT_B8G8R8A8_UNORM,D2D1_ALPHA_MODE_IGNORE),dpi,dpi);
+        if(SUCCEEDED(m_printResult))m_printResult=factory->CreateDCRenderTarget(&properties,target.GetAddressOf());
+        CRect bounds;GetClientRect(bounds);
+        if(SUCCEEDED(m_printResult))m_printResult=target->BindDC(reinterpret_cast<HDC>(dc),bounds);
+        if(SUCCEEDED(m_printResult))
+        {
+            target->BeginDraw();target->Clear(Palette::Resolve(m_appearance).surface);
+            Draw(target.Get());m_printResult=target->EndDraw();
+        }
+        return 0;
+    }
+    LRESULT Button::OnRenderStatus(WPARAM field, LPARAM)
+    {return field==0?m_attachResult:field==1?m_drawResult:m_printResult;}
     void Button::OnLButtonDown(UINT, CPoint) { if (IsWindowEnabled()) { SetFocus(); SetCapture(); m_pressed = true; Invalidate(); } }
+    void Button::OnMouseMove(UINT flags,CPoint point)
+    {
+        CRect bounds;GetClientRect(bounds);m_hover=bounds.PtInRect(point)!=FALSE;
+        TRACKMOUSEEVENT track{sizeof(track),TME_LEAVE,m_hWnd,0};TrackMouseEvent(&track);Invalidate(FALSE);
+        CWnd::OnMouseMove(flags,point);
+    }
+    LRESULT Button::OnMouseLeave(WPARAM,LPARAM){m_hover=false;Invalidate(FALSE);return 0;}
+    void Button::OnCaptureChanged(CWnd* next){m_pressed=false;Invalidate(FALSE);CWnd::OnCaptureChanged(next);}
     void Button::OnLButtonUp(UINT, CPoint point)
     {
         const bool pressed = m_pressed; m_pressed = false;
