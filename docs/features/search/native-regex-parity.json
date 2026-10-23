@@ -619,7 +619,7 @@
       "title": "Storing Regexes in Libraries",
       "sourceUrl": "https://www.regexbuddy.com/manual/library.html",
       "status": "UNFINISHED",
-      "reason": "Saved collections, descriptions, parameters and lossless import/export are not implemented.",
+      "reason": "Named native expression save/reuse/rename/delete and backup recovery are implemented as a staged subset, with runtime acceptance unverified. Descriptions, parameters and lossless import/export compatibility remain unfinished.",
       "implementation": "TrafficMonitor/NativeRegex",
       "verification": "NOT RUN: expedited mode excludes tests, review and runtime interaction."
     },
@@ -628,7 +628,7 @@
       "title": "Parameterized Library Regexes",
       "sourceUrl": "https://www.regexbuddy.com/manual/library-params.html",
       "status": "UNFINISHED",
-      "reason": "Saved collections, descriptions, parameters and lossless import/export are not implemented.",
+      "reason": "Named native expression save/reuse/rename/delete and backup recovery are implemented as a staged subset, with runtime acceptance unverified. Descriptions, parameters and lossless import/export compatibility remain unfinished.",
       "implementation": "TrafficMonitor/NativeRegex",
       "verification": "NOT RUN: expedited mode excludes tests, review and runtime interaction."
     },
@@ -637,7 +637,7 @@
       "title": "Using a Regex from a Library",
       "sourceUrl": "https://www.regexbuddy.com/manual/library-use.html",
       "status": "UNFINISHED",
-      "reason": "Saved collections, descriptions, parameters and lossless import/export are not implemented.",
+      "reason": "Named native expression save/reuse/rename/delete and backup recovery are implemented as a staged subset, with runtime acceptance unverified. Descriptions, parameters and lossless import/export compatibility remain unfinished.",
       "implementation": "TrafficMonitor/NativeRegex",
       "verification": "NOT RUN: expedited mode excludes tests, review and runtime interaction."
     },

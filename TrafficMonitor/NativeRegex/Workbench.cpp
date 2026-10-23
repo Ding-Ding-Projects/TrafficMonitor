@@ -1,5 +1,7 @@
 ﻿#include "../stdafx.h"
 #include "Workbench.h"
+#include "Collections.h"
+#include "../TrafficMonitor.h"
 #include "../NativeMaterial/Controls.h"
 #include <array>
 
@@ -8,7 +10,7 @@ namespace NativeRegex
 struct EditorState { HWND window{}; };
 namespace
 {
-    enum : UINT { Pattern=55001, Subject, Replacement, Mode, Case, Run, Replace, Split, Apply, Cancel, Results, InsertAny, InsertDigit, InsertWord, InsertGroup, InsertStart, InsertEnd };
+    enum : UINT { Pattern=55001, Subject, Replacement, Mode, Case, Run, Replace, Split, Apply, Cancel, Results, InsertAny, InsertDigit, InsertWord, InsertGroup, InsertStart, InsertEnd, SavedList, SavedName, SaveNew, LoadSaved, RenameSaved, DeleteSaved, RecoverSaved, RefreshSaved };
     class Workbench final : public CDialog
     {
     public:
@@ -24,9 +26,9 @@ namespace
         BOOL OnCommand(WPARAM,LPARAM) override;
         void OnCancel() override { Finish(false); }
         void PostNcDestroy() override { if(state && state->window==m_hWnd)state->window=nullptr;if(autoDelete)delete this; }
-        afx_msg void OnDestroy() { session.Cancel();KillTimer(1);if(state)state->window=nullptr;CDialog::OnDestroy(); }
+        afx_msg void OnDestroy() { session.Cancel();collectionValidation.Cancel();KillTimer(1);if(state)state->window=nullptr;CDialog::OnDestroy(); }
         afx_msg void OnClose() { Finish(false); }
-        void OnOK() override { Execute(Operation::Search,false); }
+        void OnOK() override { Execute(operation,false); }
         afx_msg void OnTimer(UINT_PTR);
         afx_msg void OnSize(UINT,int,int){Layout();}
         afx_msg void OnVScroll(UINT code,UINT position,CScrollBar*)
@@ -43,6 +45,13 @@ namespace
         int Px(int n) const{return MulDiv(n,dpi,96);}
         void Layout();void Fonts();void Execute(Operation,bool);void Changed();Options Read();
         void Finish(bool commit);
+        void CollectionStart(CollectionAction,const SavedExpression& = {},const std::wstring& = L"");
+        void CollectionPoll();void CollectionValidate(bool save);void CollectionControls(bool enabled);
+        SavedExpression pendingRecord;bool validatingCollection{},savingCollection{},confirmDelete{},confirmRecovery{};
+        Operation operation{Operation::Search};
+        std::vector<SavedExpression> savedRecords;std::future<CollectionResult> collectionWorker;Session collectionValidation;
+        CComboBox savedList;CEdit savedName;CStatic savedLabel,nameLabel,collectionNote;
+        NativeMaterial::Button saveNew,loadSaved,renameSaved,deleteSaved,recoverSaved,refreshSaved;
         RECT previousAnchor{};
         UINT dpi{96};int scroll{};bool loading{true},applying{},ready{};
         CFont font;CBrush background;
@@ -71,6 +80,17 @@ namespace
         auto colors=NativeMaterial::Palette::Resolve(appearance);
         background.CreateSolidBrush(RGB(BYTE(colors.surface.r*255),BYTE(colors.surface.g*255),BYTE(colors.surface.b*255)));
         DWORD child=WS_CHILD|WS_VISIBLE;CRect r(0,0,100,32);
+        collectionNote.Create(L"",child,r,this);
+        savedLabel.Create(T(L"Saved expressions (local only)",L"已儲存表示式，只限本機"),child,r,this);
+        savedList.Create(child|WS_TABSTOP|CBS_DROPDOWNLIST|WS_VSCROLL,r,this,SavedList);
+        loadSaved.Create(T(L"&Load draft",L"載入草稿 (&L)"),r,this,LoadSaved);
+        refreshSaved.Create(T(L"Refresh",L"重新整理"),r,this,RefreshSaved);
+        nameLabel.Create(T(L"Collection &name",L"儲存名稱 (&N)"),child,r,this);
+        savedName.CreateEx(WS_EX_CLIENTEDGE,L"EDIT",L"",child|WS_TABSTOP|ES_AUTOHSCROLL,r,this,SavedName);savedName.SetLimitText(96);
+        saveNew.Create(T(L"Save new",L"儲存新項目"),r,this,SaveNew);
+        renameSaved.Create(T(L"Rename",L"重新命名"),r,this,RenameSaved);
+        deleteSaved.Create(T(L"Delete",L"刪除"),r,this,DeleteSaved);
+        recoverSaved.Create(T(L"Recover backup",L"還原備份"),r,this,RecoverSaved);
         heading.Create(T(L"Build a filter for this search",L"建立此搜尋專用篩選"),child,r,this);
         engine.Create(L"TrafficMonitor bounded NFA v1 | UTF-16 | ASCII case folding | leftmost-longest",child,r,this);
         patternLabel.Create(T(L"&Pattern / literal query",L"表示式／文字 (&P)"),child,r,this);
@@ -90,12 +110,12 @@ namespace
         output.CreateEx(WS_EX_CLIENTEDGE,L"EDIT",L"",child|WS_TABSTOP|ES_MULTILINE|ES_READONLY|ES_AUTOVSCROLL|WS_VSCROLL,r,this,0);
         note.Create(L"",child,r,this);
         apply.Create(T(L"Apply to search",L"套用至搜尋"),r,this,Apply);cancel.Create(T(L"Cancel",L"取消"),r,this,Cancel);
-        for(auto* b:{&mode,&caseButton,&run,&replace,&split,&apply,&cancel,&any,&digit,&word,&group,&start,&end})b->SetAppearance(appearance);
-        Fonts();RECT size{0,0,Px(780),Px(700)};AdjustWindowRectEx(&size,GetStyle(),FALSE,GetExStyle());
+        for(auto* b:{&mode,&caseButton,&run,&replace,&split,&apply,&cancel,&any,&digit,&word,&group,&start,&end,&saveNew,&loadSaved,&renameSaved,&deleteSaved,&recoverSaved,&refreshSaved})b->SetAppearance(appearance);
+        Fonts();RECT size{0,0,Px(780),Px(900)};AdjustWindowRectEx(&size,GetStyle(),FALSE,GetExStyle());
         MONITORINFO monitor{sizeof(monitor)};GetMonitorInfoW(MonitorFromWindow(anchor,MONITOR_DEFAULTTONEAREST),&monitor);
         int width=(std::min)(size.right-size.left,monitor.rcWork.right-monitor.rcWork.left),height=(std::min)(size.bottom-size.top,monitor.rcWork.bottom-monitor.rcWork.top);
         SetWindowPos(nullptr,0,0,width,height,SWP_NOMOVE|SWP_NOZORDER|SWP_NOACTIVATE);Reanchor();
-        Layout();loading=false;SetTimer(1,40,nullptr);Execute(Operation::Search,false);pattern.SetFocus();return FALSE;
+        Layout();loading=false;SetTimer(1,40,nullptr);Execute(Operation::Search,false);CollectionStart(CollectionAction::Read);pattern.SetFocus();return FALSE;
     }
     void Workbench::Finish(bool commit)
     {
@@ -126,32 +146,37 @@ namespace
     }
     void Workbench::Layout()
     {
-        if(!pattern.GetSafeHwnd())return;CRect r;GetClientRect(r);int w=MulDiv(r.Width(),96,dpi),viewport=MulDiv(r.Height(),96,dpi),h=(std::max)(700,viewport);
+        if(!pattern.GetSafeHwnd())return;CRect r;GetClientRect(r);int w=MulDiv(r.Width(),96,dpi),viewport=MulDiv(r.Height(),96,dpi),h=(std::max)(900,viewport);
         scroll=(std::max)(0,(std::min)(scroll,h-viewport));SCROLLINFO si{sizeof(si),SIF_RANGE|SIF_PAGE|SIF_POS,0,h-1,static_cast<UINT>(viewport),scroll};SetScrollInfo(SB_VERT,&si,TRUE);
-        auto put=[&](CWnd& c,int x,int y,int width,int height){c.MoveWindow(Px(x),Px(y-scroll),Px((std::max)(1,width)),Px((std::max)(1,height)));};
+        auto put=[&](CWnd& c,int x,int y,int width,int height){c.MoveWindow(Px(x),Px(y+200-scroll),Px((std::max)(1,width)),Px((std::max)(1,height)));};
+        put(savedLabel,20,-188,w-40,22);put(savedList,20,-164,w-310,180);put(loadSaved,w-280,-164,130,36);put(refreshSaved,w-140,-164,120,36);
+        put(nameLabel,20,-124,180,22);put(savedName,200,-124,w-220,30);
+        put(saveNew,20,-84,130,36);put(renameSaved,160,-84,120,36);put(deleteSaved,290,-84,110,36);put(recoverSaved,410,-84,w-430,36);
+        put(collectionNote,20,-42,w-40,40);
         put(heading,20,12,w-40,28);put(engine,20,42,w-40,38);put(patternLabel,20,82,w-40,22);put(pattern,20,106,w-40,34);
         put(mode,20,146,170,40);put(caseButton,202,146,230,40);
         int tokenWidth=(w-65)/6;int x=20;for(auto* b:{&any,&digit,&word,&group,&start,&end}){put(*b,x,192,tokenWidth,40);x+=tokenWidth+5;}
         put(help,20,240,w-40,82);put(subjectLabel,20,328,w-40,22);put(subject,20,352,w-40,70);
         put(replacementLabel,20,428,w-40,22);put(replacement,20,452,w-40,32);
         put(run,20,490,120,40);put(replace,152,490,180,40);put(split,344,490,180,40);
-        put(results,20,538,(w-52)/2,h-638);put(output,32+(w-52)/2,538,(w-52)/2,h-638);
-        put(note,20,h-92,w-40,40);put(apply,20,h-48,210,40);put(cancel,w-140,h-48,120,40);Invalidate(FALSE);
+        put(results,20,538,(w-52)/2,h-838);put(output,32+(w-52)/2,538,(w-52)/2,h-638);
+        put(note,20,h-292,w-40,40);put(apply,20,h-248,210,40);put(cancel,w-140,h-248,120,40);Invalidate(FALSE);
     }
     Options Workbench::Read(){CString text;pattern.GetWindowText(text);auto value=draft;value.query=text.GetString();return value;}
-    void Workbench::Changed(){if(loading)return;session.Cancel();ready=false;applying=false;apply.EnableWindow(FALSE);note.SetWindowText(T(L"Draft changed. Run a preview before applying.",L"草稿已更改。請先執行預覽再套用。"));}
-    void Workbench::Execute(Operation operation,bool commit)
+    void Workbench::Changed(){if(loading)return;collectionValidation.Cancel();validatingCollection=false;confirmDelete=false;confirmRecovery=false;session.Cancel();ready=false;applying=false;apply.EnableWindow(FALSE);note.SetWindowText(T(L"Draft changed. Run a preview before applying.",L"草稿已更改。請先執行預覽再套用。"));}
+    void Workbench::Execute(Operation requestedOperation,bool commit)
     {
+        if(!commit)operation=requestedOperation;
         CString sample,repl;subject.GetWindowText(sample);replacement.GetWindowText(repl);
         if(commit)subjects=readSubjects();
         applying=commit;ready=false;apply.EnableWindow(FALSE);note.SetWindowText(T(L"Evaluating locally; Cancel retains the accepted search.",L"正在本機處理；取消會保留已套用搜尋。"));
-        session.Request(Read(),commit?subjects:std::vector<std::wstring>{sample.GetString()},commit?Operation::Filter:operation,repl.GetString());
+        session.Request(Read(),commit?subjects:std::vector<std::wstring>{sample.GetString()},commit?Operation::Filter:requestedOperation,repl.GetString());
     }
     void Workbench::OnTimer(UINT_PTR id)
     {
         if(id!=1){CDialog::OnTimer(id);return;}
         if(!::IsWindow(owner)||!::IsWindow(anchor)||!::IsWindowVisible(owner)){Finish(false);return;}
-        Reanchor();
+        Reanchor();CollectionPoll();
         if(!::IsWindowEnabled(owner))
         {session.Cancel();applying=false;ready=false;apply.EnableWindow(FALSE);note.SetWindowText(T(L"Owner is busy. Run a preview again when it is available.",L"來源視窗忙碌中。待可用時請重新預覽。"));return;}
         Result result;if(!session.Poll(result))return;
@@ -168,11 +193,25 @@ namespace
     BOOL Workbench::OnCommand(WPARAM w,LPARAM l)
     {
         UINT id=LOWORD(w),code=HIWORD(w);
+        if(id==SavedList&&code==CBN_SELCHANGE){confirmDelete=false;confirmRecovery=false;int selected=savedList.GetCurSel();if(selected>=0&&static_cast<size_t>(selected)<savedRecords.size())savedName.SetWindowText(savedRecords[selected].name.c_str());return TRUE;}
+        if(id==SavedName&&code==EN_CHANGE){collectionValidation.Cancel();validatingCollection=false;confirmDelete=false;confirmRecovery=false;return TRUE;}
         if((id==Pattern||id==Subject||id==Replacement)&&code==EN_CHANGE){Changed();return TRUE;}
         if(id==Results&&code==LBN_SELCHANGE){int row=results.GetCurSel();if(row>=0&&static_cast<size_t>(row)<last.matches.size()){auto s=last.matches[row];subject.SetSel(static_cast<int>(s.start),static_cast<int>(s.start+s.length));subject.SetFocus();}return TRUE;}
         if(code!=BN_CLICKED)return CDialog::OnCommand(w,l);
         switch(id)
         {
+        case SaveNew:CollectionValidate(true);return TRUE;
+        case LoadSaved:CollectionValidate(false);return TRUE;
+        case RefreshSaved:CollectionStart(CollectionAction::Read);return TRUE;
+        case RecoverSaved:
+            if(!confirmRecovery){confirmRecovery=true;collectionNote.SetWindowText(T(L"Press Recover backup again to replace saved records with the previous file. Draft stays unchanged.",L"再次按還原備份，以之前版本取代儲存項目；草稿不變。"));}
+            else{confirmRecovery=false;CollectionStart(CollectionAction::Recover);}return TRUE;
+        case RenameSaved:case DeleteSaved:
+        {
+            int selected=savedList.GetCurSel();if(selected<0||static_cast<size_t>(selected)>=savedRecords.size()){note.SetWindowText(T(L"Select a saved expression first.",L"請先選取已儲存表示式。"));return TRUE;}
+            if(id==DeleteSaved&&!confirmDelete){confirmDelete=true;collectionNote.SetWindowText(T(L"Press Delete again to remove the selected saved expression. Draft stays unchanged.",L"再次按刪除以移除已選項目；草稿不變。"));return TRUE;}
+            confirmDelete=false;CString name;savedName.GetWindowText(name);CollectionStart(id==DeleteSaved?CollectionAction::Delete:CollectionAction::Rename,savedRecords[selected],name.GetString());return TRUE;
+        }
         case Cancel:OnCancel();return TRUE;
         case Apply:if(ready)Execute(Operation::Filter,true);return TRUE;
         case Run:Execute(Operation::Search,false);return TRUE;
@@ -188,6 +227,50 @@ namespace
             draft.regex=true;mode.SetLabel(T(L"Mode: regex",L"模式：正規式"));pattern.ReplaceSel(tokens[id-InsertAny],TRUE);Changed();pattern.SetFocus();return TRUE;
         }
         return CDialog::OnCommand(w,l);
+    }
+    void Workbench::CollectionControls(bool enabled)
+    {
+        for(auto* button:{&saveNew,&loadSaved,&renameSaved,&deleteSaved,&recoverSaved,&refreshSaved})button->EnableWindow(enabled);
+        savedList.EnableWindow(enabled);savedName.EnableWindow(enabled);
+    }
+    void Workbench::CollectionStart(CollectionAction action,const SavedExpression& record,const std::wstring& newName)
+    {
+        if(collectionWorker.valid())return;
+        collectionValidation.Cancel();validatingCollection=false;confirmDelete=false;confirmRecovery=false;
+        CollectionControls(false);const auto directory=theApp.m_config_dir;
+        try{collectionWorker=std::async(std::launch::async,[directory,action,record,newName]{return UpdateCollection(directory,action,record,newName);});}
+        catch(...){CollectionControls(true);collectionNote.SetWindowText(T(L"Cannot start collection storage. Draft is unchanged.",L"無法啟動儲存工作；草稿不變。"));}
+    }
+    void Workbench::CollectionValidate(bool save)
+    {
+        if(collectionWorker.valid())return;
+        confirmDelete=false;confirmRecovery=false;
+        session.Cancel();applying=false;ready=false;apply.EnableWindow(FALSE);
+        if(save){CString name,repl;savedName.GetWindowText(name);replacement.GetWindowText(repl);pendingRecord={name.GetString(),Read(),operation,repl.GetString()};}
+        else{int selected=savedList.GetCurSel();if(selected<0||static_cast<size_t>(selected)>=savedRecords.size()){collectionNote.SetWindowText(T(L"Select a saved expression first.",L"請先選取已儲存表示式。"));return;}pendingRecord=savedRecords[selected];}
+        savingCollection=save;validatingCollection=true;
+        collectionValidation.Request(pendingRecord.options,{},Operation::Search,pendingRecord.replacement);
+        collectionNote.SetWindowText(T(L"Validating the named expression locally; owner filter is unchanged.",L"正在本機驗證表示式；來源篩選不變。"));
+    }
+    void Workbench::CollectionPoll()
+    {
+        if(collectionWorker.valid()&&collectionWorker.wait_for(std::chrono::milliseconds(0))==std::future_status::ready)
+        {
+            auto result=collectionWorker.get();CollectionControls(true);
+            if(!result.complete){collectionNote.SetWindowText(result.error.c_str());return;}
+            savedRecords=std::move(result.records);savedList.ResetContent();for(const auto& item:savedRecords)savedList.AddString(item.name.c_str());
+            collectionNote.SetWindowText(T(L"Saved collection ready. Select and Load draft explicitly; Apply remains separate.",L"儲存項目已就緒。請選取並載入草稿；套用為獨立操作。"));
+        }
+        Result checked;if(!validatingCollection||!collectionValidation.Poll(checked))return;validatingCollection=false;
+        if(!checked.complete){collectionNote.SetWindowText(checked.error.c_str());return;}
+        if(savingCollection){CollectionStart(CollectionAction::Save,pendingRecord);return;}
+        loading=true;draft=pendingRecord.options;operation=pendingRecord.operation;
+        pattern.SetWindowText(draft.query.c_str());replacement.SetWindowText(pendingRecord.replacement.c_str());
+        mode.SetLabel(draft.regex?T(L"Mode: regex",L"模式：正規式"):T(L"Mode: literal",L"模式：文字"));
+        caseButton.SetLabel(draft.ignoreCase?T(L"ASCII case: ignore",L"忽略 ASCII 大小寫"):T(L"Case: exact",L"區分大小寫"));
+        loading=false;Changed();
+        collectionNote.SetWindowText(operation==Operation::Replace?T(L"Loaded draft: Replace. Owner filter unchanged.",L"已載入取代草稿；來源篩選不變。"):operation==Operation::Split?T(L"Loaded draft: Split. Owner filter unchanged.",L"已載入分割草稿；來源篩選不變。"):T(L"Loaded draft: Search. Owner filter unchanged.",L"已載入搜尋草稿；來源篩選不變。"));
+        Execute(operation,false);pattern.SetFocus();
     }
     HBRUSH Workbench::OnCtlColor(CDC* dc,CWnd*,UINT)
     {auto c=NativeMaterial::Palette::Resolve(appearance);dc->SetTextColor(RGB(BYTE(c.onSurface.r*255),BYTE(c.onSurface.g*255),BYTE(c.onSurface.b*255)));dc->SetBkColor(RGB(BYTE(c.surface.r*255),BYTE(c.surface.g*255),BYTE(c.surface.b*255)));return static_cast<HBRUSH>(background.GetSafeHandle());}

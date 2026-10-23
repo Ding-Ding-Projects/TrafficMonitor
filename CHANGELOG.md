@@ -64,3 +64,9 @@ Runtime installation and update acceptance remain separate from source and build
 - Accept uppercase and lowercase SHA-1 spelling from Squirrel while retaining exact hash, byte-size and single-package verification.
 - Retain bounded local updater stage, phase, numeric transport result and HTTP status without response bodies or URLs. Managed startup rejection now remains a failed status instead of disappearing as disabled.
 - Compile/package evidence is recorded separately. Automatic scheduling, safe restart and recovery remain unverified.
+
+## Native expression collections candidate
+
+- Add explicit named Save, Load draft, Rename, Delete, Refresh and backup recovery in the existing modeless workbench.
+- Persist bounded engine-bound expression records in the existing data directory without subjects or implicit history.
+- Preserve independent owner filters and current-corpus Apply validation; full parity and runtime acceptance remain unfinished.

@@ -54,3 +54,7 @@ all focus/keyboard/accessibility/DPI/theme/language combinations and full parity
 ## Modeless package production result
 
 Exact root `build-installer.bat -Version 1.0.9008`, including `build.bat`, passed at `97a3cd2fb1866adb9bb412c8a7a421acf466ac1b` with exit 0, two linker warnings, zero errors and 9.18 seconds native compilation. Hashes and sizes are in `docs/features/search/native-modeless-build-receipt.json`. This is a local candidate, not an installed or published release. Later documentation commits do not relabel the producer.
+
+## Named local expressions
+
+The modeless editor now includes explicit local Save new, select/Load draft, Rename, Delete, Refresh and Recover backup controls. See [collection behavior, storage and limits](native-collections.md). Loading affects only the draft; Apply retains current-corpus validation. Full collection compatibility and runtime acceptance remain unfinished.

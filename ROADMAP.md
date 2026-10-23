@@ -93,3 +93,8 @@ with historical originals retained separately.
 
 - [x] Compile and package uppercase Squirrel SHA-1 compatibility and bounded local status diagnostics at f63e8a456befcd2f6d726712182f6e2a01e9cc11 as local-only 1.0.9007, exit 0.
 - [ ] Observe automatic update behavior, modal/draft deferral and recovery when runtime verification is authorized.
+
+## Named native expression collections
+
+- [ ] Verify explicit save/reuse/rename/delete/recovery, Unicode persistence, concurrency, keyboard access and localization in the built editor. Source implemented; runtime acceptance remains unverified.
+- [ ] Complete collection import/export compatibility, descriptions, parameters and remaining RegexBuddy library topics.

@@ -214,3 +214,7 @@ The domain `www.trafficmonitor.cn` has **no relation** to the author. TrafficMon
 The native workspace, Settings and context menus now have adjacent pattern workbench entrypoints with bounded background NFA evaluation. [Behavior and unfinished parity](docs/features/search/native-workbench.md) distinguish this source candidate from full RegexBuddy delivery. Runtime and visual verification were not run in the expedited pass.
 
 The native regex editor now has an owned modeless presentation in source, keeping its search usable and canceling stale owner drafts. Runtime acceptance remains unverified.
+
+### Named native expressions
+
+The modeless search workbench now provides explicit named local expression storage and reuse, with separate draft loading and owner Apply. See [collection behavior and limits](docs/features/search/native-collections.md). Runtime persistence, keyboard/display acceptance and full RegexBuddy compatibility remain unverified.

@@ -1104,4 +1104,8 @@
     <ClInclude Include="NativeRegex\Workbench.h" />
     <ClCompile Include="NativeRegex\Workbench.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="NativeRegex\Collections.h" />
+    <ClCompile Include="NativeRegex\Collections.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
+  </ItemGroup>
 </Project>
