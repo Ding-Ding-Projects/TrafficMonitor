@@ -7,3 +7,5 @@ Setup choices now use the reusable NativeMaterial::Choice owner-drawn native com
 
 The revised layout intent is a 760 by 640 DIP normal client area and 720 by 600 DIP minimum, retaining 44-DIP actions. This explicitly supersedes the original 720 by 540 design size and the first implementation's 860 by 760 default. Reference images remain historical design references until updated and independently reviewed. Complete language/theme/scale, keyboard, UIA and rendering acceptance remains pending. This source candidate has not yet completed production or runtime verification.
 Hold for coordinating-task preservation and exact root production. No current-host fixture is active or authorized to this lane. Previous 9020 receipts remain historical, bound to their own source.
+
+Production repair receipt: exact build-installer.bat -Version 1.0.9021 at 4624978c31bdcd0d40e613339c214f39e6a6c550 exited 0, native 16.30 seconds, 78 warnings, zero errors. See docs/features/native-dashboard/setup-repair-build.json. Runtime and visual acceptance remain pending; the earlier 9020 run is not evidence for this changed candidate.
