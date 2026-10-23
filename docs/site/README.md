@@ -24,3 +24,11 @@ Five focused Node tests passed for wording validation and path containment. The 
 The generated-link audit passed for local destination existence. Anchor validation remains pending. The complete history dataset, refreshed article inventory, deployment, keyboard and persistence drive, current screenshot promotion, full language coverage and normal/minimum theme/scale visual matrix remain acceptance work. Full regex-workbench parity and the broader required-feature inventory are explicitly unfinished. The current implementation offers plain-text search only and does not execute regular expressions or control the installed application.
 
 
+
+## Localized interface and registered controls
+
+The interface language layer covers overview explanations, guided reading steps, settings, validation feedback, navigation labels, article-reader framing, download metadata and search result counts in English, Cantonese and bilingual modes. It preserves source articles, quoted code, authored changelog messages and original article titles. Mode changes and personal wording restore the original controlled text without translating URLs, option values or content records.
+
+Settings and filter selects use registered Material Web outlined selects and select options; guided-step actions use Material outlined buttons. The file picker is activated by a Material button and remains a native operating-system picker. Date filters use Material outlined text-field hosts with native date inputs, a type the dependency marks as unsupported for full design conformance. That date-picker limitation remains explicit and requires browser verification.
+
+Focused DOM tests verify language switching and restoration, protected article/history text, localized accessible labels, dynamic counts, stable option values and Material select registration in generated markup. These tests do not establish screen-reader, layout or browser interaction acceptance. The parent verification lane owns genuine built browser evidence and deployment.
