@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "destination": "https://github.com/Ding-Ding-Projects/TrafficMonitor.wiki.git",
-  "observedWikiCommit": "3d7cfa6917e08d5b387add90c09c187830116cb7",
-  "state": "prepared-update-pending",
+  "observedWikiCommit": "bb937c4a46a42dcffb7d4a3eaa4df6b91e520c63",
+  "state": "published-verified",
   "pages": [
     "Home.md",
     "Installation.md",
@@ -16,33 +16,54 @@
     "fileCount": 6,
     "sourceBlobReadbackMatched": true,
     "ref": "refs/heads/master",
-    "commit": "3d7cfa6917e08d5b387add90c09c187830116cb7",
-    "silentUpdatesSha256": "74cc44d218bd0941cda183623f68019bc075d60238bdfee0b756f1d2a521b941",
+    "commit": "bb937c4a46a42dcffb7d4a3eaa4df6b91e520c63",
+    "silentUpdatesSha256": "2add829a74fcd35dbb9031d69b8cd5d05a73bcf357fbd9916096912c99afbf95",
     "navigation": [
       "Home.md",
       "Installation.md",
       "Verification.md"
     ],
     "evidenceSource": "Coordinating task publication and fetched exact remote blob readback.",
-    "liveInterface": "UNVERIFIED: no live interface interaction in this pass."
+    "liveInterface": "UNVERIFIED: no live wiki interface interaction in this pass.",
+    "sourceCommit": "ebf0c2655dee1fa5861ebde20aa3142ca0803f11",
+    "sourcePath": "docs/wiki/pending/Silent-updates.md",
+    "publicationLanguageScan": "Six tracked guides and new history passed with zero findings."
   },
   "preparedUpdate": {
-    "state": "pending-publication",
+    "state": "published-verified",
     "pages": [
       "Silent-updates.md"
     ],
     "previousPublishedCommit": "3d7cfa6917e08d5b387add90c09c187830116cb7",
     "documentationHome": "https://ding-ding-projects.github.io/TrafficMonitor/",
-    "note": "The silent updater feed repair and local diagnostics are prepared. Parent must reconcile the supported wiki, publish and read back exact content before marking this update published. Existing publicationProof remains historical evidence for its recorded content.",
+    "note": "The coordinating task pushed and fetched the supported wiki master and matched stored Git blob bytes to the recorded source. Prior pending statements are historical; live wiki interface behavior remains unverified.",
     "sourceArticle": "docs/features/installation/silent-updates.md",
     "sourceArticleSha256": "5c7974bc46160ff232b1fe0eaae14a18135d56ed79f72c4266f456324f137fd7",
     "preparedWikiSha256": "65ac2734d041bb91e979adf6d1dd1d5e84a5a49adda2b5619873b4614c22b4b9",
-    "relationship": "Task-oriented wiki introduction and navigation remain distinct; the feed repair section mirrors the source guide, with an immutable source link replacing its local receipt link."
+    "relationship": "Task-oriented wiki introduction and navigation remain distinct; the feed repair section mirrors the source guide, with an immutable source link replacing its local receipt link.",
+    "preparedWikiHashEncoding": "Historical working-file CRLF bytes, not the stored Git blob hash.",
+    "publishedWikiBlobSha256": "2add829a74fcd35dbb9031d69b8cd5d05a73bcf357fbd9916096912c99afbf95"
   },
   "historicalPublicationProof": {
     "fileCount": 5,
     "sourceBlobReadbackMatched": true,
     "ref": "refs/heads/master",
     "commit": "2788a34224f07372904dd7a6584ea34e75022c14"
-  }
+  },
+  "publicationHistory": [
+    {
+      "fileCount": 6,
+      "sourceBlobReadbackMatched": true,
+      "ref": "refs/heads/master",
+      "commit": "3d7cfa6917e08d5b387add90c09c187830116cb7",
+      "silentUpdatesSha256": "74cc44d218bd0941cda183623f68019bc075d60238bdfee0b756f1d2a521b941",
+      "navigation": [
+        "Home.md",
+        "Installation.md",
+        "Verification.md"
+      ],
+      "evidenceSource": "Coordinating task publication and fetched exact remote blob readback.",
+      "liveInterface": "UNVERIFIED: no live interface interaction in this pass."
+    }
+  ]
 }
