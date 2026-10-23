@@ -1,3 +1,4 @@
+import {applyOfflineReleaseLabels} from './offline-release.js';
 import {createNotificationFeedback} from './notifications.js';
 import {setupReaderPreferences} from './reader-preferences.js';
 import '@material/web/button/filled-button.js';
@@ -33,6 +34,7 @@ function apply(){
  localizer?.apply();
 }
 apply();
+applyOfflineReleaseLabels(document,location.href);
 localizer=createLocalizer(document,()=>({mode:prefs.language??'en',entries:wording?.entries??{}}));
 for(const a of document.querySelectorAll('.primary a'))if(new URL(a.href).pathname===location.pathname)a.setAttribute('aria-current','page');
 for(const [id,key] of [['language','language'],['theme','theme'],['text-size','size'],['motion','motion']]){

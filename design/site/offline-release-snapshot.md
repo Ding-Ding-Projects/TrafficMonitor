@@ -51,3 +51,11 @@ A narrow additional runtime path is necessary: `docs/site/src/app.js` must selec
 Reuse existing style rules if they already wrap the header. Any required `docs/site/src/style.css` edit must be separately scoped to wrapping the release label and explained from actual measured bounds. No styling edit is assumed in this handoff.
 
 Independent review must approve this amendment and its runtime-path scope before implementation. Then build through the exact root entrypoints, retain source-bound genuine before/after captures with actual capture timestamps, verify the hosted negative case and record remaining gaps. No design preview or prose document is runtime proof.
+
+## Independent review and implementation status
+
+The coordinating task reported independent design approval with these constraints: select only parsed `traffic-docs:` plus host `reader`, no port or credentials, before creating the localizer; keep literal release values separate from localized label nodes; preserve HTTPS behavior; retain persistent adjacent external-link explanations and genuine link semantics; do not add speculative CSS, packaging changes or invented package identity. The additional focused `docs/site/src/offline-release.js` module was explicitly approved to isolate this behavior and make production logic directly testable.
+
+Implementation now adds narrowly marked release/provenance nodes in pages.mjs and invokes the focused initializer from app.js before createLocalizer. The initializer uses the existing data-en/data-yue localization mechanism, protects literal values with data-original-content, and is idempotent. Existing Material links retain their href and shadow-anchor semantics. No style, content-security-policy or packaging change was made.
+
+Focused checks passed: six offline-label tests and three existing localization tests. They cover exact origin, wrong host and port, HTTPS, escaped long tags, absent and supplied check time, no invented identity, English/Cantonese/bilingual/English restoration, stable link names and the existing hosted release-summary translation. This is source verification only. The historical 1.0.9021 runtime observations do not verify this implementation. A new exact-source production build and bounded offline/hosted runtime comparison remain pending assignment.

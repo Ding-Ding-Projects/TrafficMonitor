@@ -15,3 +15,9 @@ Packaging is not runtime verification. The output manifest explicitly marks runt
 Local production at source `c4231a8776e884c629274fb075068763e1c77fb9` exited zero through the installer entrypoint, producing the unsigned 1.0.9021 executable. Its 199 articles and all 337 inventoried bundled files were checked against exact source or archive hashes. The current-article omission check and altered-content-hash check both rejected their deliberately invalid inputs. See the [candidate receipt](offline-documentation-production.json). Run `node scripts/test-docs-companion-content.mjs` after building the exact checked-out source to repeat the focused content checks. That receipt does not verify a later revision or any runtime behavior.
 
 Primary packaging references: [runtime protocol](https://www.electronjs.org/docs/latest/api/protocol), [runtime security guidance](https://www.electronjs.org/docs/latest/tutorial/security), [portable target](https://www.electron.build/docs/targets/), and [runtime releases](https://releases.electronjs.org/).
+
+## Offline release labeling candidate
+
+The reader now distinguishes bundled release metadata from a current-release claim through an exact-origin initializer. Its header, home and Downloads label the bundled release snapshot; documentation source and recorded check time remain separate, and missing check time is explicit. No companion package identity or build date is invented. HTTPS presentation and existing link destinations remain unchanged. External links remain blocked by the existing companion policy, with persistent explanations beside the home and Downloads release information.
+
+The focused source checks passed six offline-label cases and three existing localization cases, including the complete language cycle and hosted negative cases. A new production package and runtime verification of this implementation are pending. The earlier 1.0.9021 runtime receipt applies only to its original source.
