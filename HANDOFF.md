@@ -38,15 +38,20 @@ build completed with 114 warnings and zero errors; exact root installer producti
 candidate 1.0.9044 with two build warnings and zero errors. See
 `docs/evidence/build-recovery-9044.json` for source binding and hashes. Runtime acceptance and
 the workspace stall cause remain unverified. Keep `.release-hold` in place. The local hidden-desktop
-transport was unavailable at the first preflight and recovery is underway.
+transport was unavailable at the first preflight and was restored through its existing supported
+loopback HTTP route. The required-tool preflight passed. Runtime launch remains pending because
+an existing responsive release instance holds the application's fixed release mutex. Portable
+configuration and a separate desktop do not isolate that mutex. The existing instance was left
+untouched; retry only after its normal owner-controlled exit and a fresh mutex-absence check.
+No candidate interaction or diagnostic counters have been collected yet.
 
 Local publication hooks were restored at the already configured location. Twelve exact-line
 exceptions were individually reviewed for existing C++ identifiers, literal Git commands
 and French text. The complete primary source scan passed (895 text files, 174 binary files)
 before integration; this is publication evidence, not runtime acceptance.
 
-1. Establish the existing producer's real terminal state and verify MFC availability. Do not duplicate or force-stop an installer.
-2. Build/package the diagnostic source through exact root entrypoints, establish the stall cause, then make and verify the bounded repair.
+1. Recheck the existing release mutex after normal owner-controlled exit; never force-stop the existing instance.
+2. Run the built diagnostic candidate 9044 through the restored hidden-desktop route, establish the stall cause, then make and verify the bounded repair.
 3. Independently re-review the corrected design and implement it in shared native controls, Settings/setup and the remaining owners after responsiveness is resolved.
 4. Replace the before-state images with genuine corrected-build evidence, preserving these originals and their provenance.
 5. Complete Settings, every remaining owned native surface, full RegexBuddy parity and applicable required features. The inventory still has 110 identities and remains incomplete.

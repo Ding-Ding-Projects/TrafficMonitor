@@ -11,7 +11,11 @@ the existing operation before starting another. Later readback established succe
 strict readiness and root build completion (114 warnings, zero errors). Exact root packaging
 then produced local candidate 1.0.9044 (two build warnings, zero errors). Source and hashes are
 in docs/evidence/build-recovery-9044.json. No runtime acceptance or stall repair is claimed.
-The initial Lowlevel loopback preflight was unavailable; supported transport recovery is underway.
+The Lowlevel loopback transport has been restored and its required-tool preflight passed.
+Runtime launch is pending: an existing responsive TrafficMonitor release instance holds the
+fixed release mutex, which is shared across portable folders and desktops. No candidate was
+launched and no existing instance was changed. Retry after normal owner-controlled exit and
+a fresh mutex-absence check. Source diagnosis may continue without claiming runtime cause.
 
 Local publication hooks were restored and twelve existing literal/natural-language collisions
 were individually reviewed with exact-line hashes. Main retains .release-hold. The shared
