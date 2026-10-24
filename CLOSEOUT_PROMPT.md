@@ -1,81 +1,37 @@
 # TrafficMonitor continuation handoff
 
-Use scripts/prepare-portable-diagnostic.ps1 for future fixtures. Its 15 synthetic checks pass;
-the private receipt is BOM-free and includes consistent retained profile bytes. Never print that
-receipt wholesale, and never launch after a failed preparation/parser check. Source/package
-association still requires the independent build receipt. Compact Interface candidate9046 is
-under actual portable GUI verification, with no installation authorized by the latest direction.
+Complete the native C++/MFC application first, preserving monitoring, plugins, saved preferences/history, startup and native caption controls. The owner authorizes normal closure of task-targeted TrafficMonitor sessions. Diagnostic candidates remain portable and uninstalled. Keep .release-hold until the required native and release acceptance is complete. Hosted documentation, wiki and documentation companion completion remain last.
 
-Latest result: corrected portable9045 verified bilingual/dark Apply at120 history rows/50 adapters,
-workspace refresh632.5234/590.9424ms and all sampled liveness probes within1s. Normal exit released
-the process/mutex/desktop and preserved all5 normal-profile hashes plus startup absence. See
-docs/evidence/list-responsiveness-9045.json for source/hash binding and limitations. A dark workspace
-image remains rejected as stable visual evidence. Next implement the independently reviewed
-native visual refinement, preserving this repair and the proven portable fixture isolation.
+## Completed, bounded evidence
 
-Newest work: shared native list measurement repair c5d0f2a passes real HWND regression and
-independent review. 120 appends require 240 measurements instead of 7380; a disposable restoration
-of the old loop is rejected. Local candidate 1.0.9045 built/packaged successfully with two warnings
-and zero errors. A corrected portable runtime comparison is in progress, not yet complete.
+- The supported build tools were recovered at a TrafficMonitor-owned destination. Strict compiler/MFC/SDK22621 discovery and exact root build/package entrypoints succeeded. Candidate9044 was diagnostic output, not a release.
+- Source c5d0f2a49c3d84503a093033957137e2ef8d8a34 fixes quadratic shared-list measurement. The real HWND regression uses240 measurements for120 appends; restoring the former loop produces7380 and is rejected. Corrected portable9045 completed bilingual/dark Apply at120 history rows, with workspace refresh632.5234/590.9424ms, bounded liveness, unchanged five-file normal profile/startup and normal exit. See docs/evidence/list-responsiveness-9045.json.
+- Source cdd0e7c40b13e48989e5c546b7ce0afaa58c4d0f implements compact shared Interface rows and transient Details. Local candidate9046 passed12 language/theme/client-size tuples at96DPI with24 inspected collapsed/expanded images. Mouse/Enter/Space and minimum scroll reachability worked. Normal-profile hashes/startup remained unchanged through exit. See docs/evidence/compact-interface-9046.json.
+- Existing preference verification passed23 preference and24 setup-serialization cases, the expected mutation rejection and corrected repeat. These checks are separate from UI/provider acceptance.
+- scripts/prepare-portable-diagnostic.ps1 now creates new ignored fixtures only, verifies supplied package/executable hashes, omits managed markers/updaters, preserves consistent private profile baselines and never launches. Its15 synthetic checks pass. An independent build receipt still supplies source/package association.
+- The required-feature inventory is reconciled to111 identities. All155 validator regressions pass, but1544 acceptance gaps remain. Action sounds remain unfinished.
+- Independent design review verified122 SVGs and inspected10 representative renders. The bounded refinement is ready for implementation; references are not runtime evidence.
 
-Diagnostic 9044 accidentally used normal application data because its extracted managed marker
-overrode portable mode. No installer ran; current files were preserved before/after normal exit,
-but original prelaunch bytes are unknown and restoration is unverified. Its process/mutex are
-gone and its empty desktop handle was released. Do not call this run portable acceptance.
-The 9045 fixture omits the marker/updater and has verified portable configuration, exact hashes,
-English/light seed and a normal-profile baseline that remains unchanged at initial readback.
+## Immediate next work
 
-Current owner direction authorizes normal closure of task-targeted running TrafficMonitor
-instances without another confirmation. Diagnostic candidates remain portable and uninstalled.
-The previous instance had already exited at the fresh 2026-10-24 23:05 UTC inspection; the
-release mutex was absent and the supported loopback hidden-desktop preflight passed. Candidate
-9044 runtime diagnosis resumed with new process/window identities. Earlier pending-exit wording
-below is historical and does not represent a current permission blocker.
+1. Complete notification grouping and the unified setup step viewport using the reviewed release48 refinement, then finish remaining shared roles/components and owned native surfaces.
+2. Verify Details UIA-client idempotence and legacy accessibility. Hidden-desktop observer access was unavailable or timed out; no runtime provider pass is claimed.
+3. Complete actual DirectWrite glyph/font/text-area and custom-scroll observations for native layout/promotion receipts. Raw images are retained privately and are not promoted through incomplete receipts.
+4. Cover higher physical DPI, restart persistence, high contrast, remaining keyboard/IME/accessibility and the broader feature inventory. The96DPI matrix does not prove125/150/200 percent scaling.
+5. Complete operational installer/updater negative paths and companions after native acceptance, then documentation delivery. No candidate installation is authorized by the latest direction.
 
-Latest continuation: required-feature inventory reconciled to 111 identities, adding only the
-missing action-sound-effects topic as unfinished. Candidate 75e30fc passed 155 validator regressions;
-1544 acceptance gaps remain and product acceptance was not executed. Independent design review
-verified 122 SVGs and visually inspected ten representative current renders, accepting the bounded
-correction pass for later implementation. Review and hashes are under design/native-modern-remake/
-review-20261024.md and review-20261024.json. Native runtime diagnosis still waits for the existing
-release instance to exit normally; no speculative stall repair or native redesign was made.
+## Data-preservation incident and future fixtures
 
-2026-10-24 continuation: build recovery source bee8cb6 is integrated with this record.
-Both registered Build Tools paths were absent and their instances incomplete. The recovery
-selector now includes incomplete 2022 instances, modifies only an existing directory, and
-otherwise uses a TrafficMonitor-owned installation destination while preserving stale
-registrations. Strict readiness requires compiler, MFC and SDK 22621. The focused regression
-and publication scan passed. Exact root build.bat reached native elevation request in the
-retained responsiveness checkout; acquisition and compilation are still unverified. Inspect
-the existing operation before starting another. Later readback established successful acquisition,
-strict readiness and root build completion (114 warnings, zero errors). Exact root packaging
-then produced local candidate 1.0.9044 (two build warnings, zero errors). Source and hashes are
-in docs/evidence/build-recovery-9044.json. No runtime acceptance or stall repair is claimed.
-The Lowlevel loopback transport has been restored and its required-tool preflight passed.
-Runtime launch is pending: an existing responsive TrafficMonitor release instance holds the
-fixed release mutex, which is shared across portable folders and desktops. No candidate was
-launched and no existing instance was changed. Retry after normal owner-controlled exit and
-a fresh mutex-absence check. Source diagnosis may continue without claiming runtime cause.
+The first9044 fixture mistakenly retained installed-mode.ini, so it wrote normal application data despite a portable-mode file. No installer ran. Four current files were preserved before normal exit and five afterward, but no prelaunch baseline exists; restoration remains unverified and none was guessed. Preserve those private snapshots and original diagnostic evidence.
 
-Local publication hooks were restored and twelve existing literal/natural-language collisions
-were individually reviewed with exact-line hashes. Main retains .release-hold. The shared
-instruction checkout has unrelated local changes and is 30 commits behind its fetched main;
-its accompanying push cannot be safely completed without reconciling that owned work.
+The corrected9045 and9046 runs excluded that marker and proved their five-file normal-profile baselines unchanged. Use the preparation helper, inspect only allowlisted receipt fields, stop on every preparation/parser failure, and compare profile/startup state after launch, meaningful actions and exit. Never print encoded baseline contents. Record seeded setup state as fixture preparation, not onboarding proof.
 
-Resume the native-first TrafficMonitor objective, including all applicable items in the retained 110-identity inventory. Latest owner direction: keep native window caption controls; use consistent Material Design 3 controls, reduce clutter and generic presentation; show genuine application images in the README. The owner then requested preservation and cleanup. No full-completion claim is made.
+The9044/9045/9046 processes and release mutexes were absent after their normal exits, and owned empty desktop handles were released. Revalidate all live identities before any new action. A temporary loopback Lowlevel service remains task-owned; do not infer reusable PIDs from this handoff.
 
-Accepted release baseline is 1.0.48 at ddcf441f4c3cab2a5e3b62e9ff6aff1babf3bdfa. Six real English/light/96-DPI before-state images and sanitized source/hash/native-state inventory are retained under evidence/ui/native-release48 and linked from README.md. Existing portable state was normally restored. The public gallery is https://ding-ding-projects.github.io/TrafficMonitor-gallery/; verify its current source/deployment again before making new claims.
+## Delivery and preservation
 
-The owner's updated closeout direction requires unfinished work on the original repository main. The workspace/diagnostic snapshot eae4d77243e53cc25df57ccb9ef6f9a665a33562 and design snapshot9806afaa9f29f6bb0d3fdfa7a90df1a28166c37b are being preserved on main as explicitly incomplete work. The .release-hold file blocks automatic product release and dependent documentation deployment; publication-language validation remains active. Candidate9043 stalled after bilingual/dark Settings Apply. Numeric diagnostics are reviewed but the causal run, repair and candidate9044 remain unproduced. The exact-root acquisition operation is still pending at the last receipt after modifying existing stable Build Tools and self-updating its installer. Preserve its source/index/refs until the actual terminal result is known; do not duplicate or force-stop it.
+The last accepted normal release remains1.0.48 at ddcf441f4c3cab2a5e3b62e9ff6aff1babf3bdfa. Its six before-state images retain their original provenance. Local904x candidates are not published releases or completed redesigns.
 
-Corrected design proposals are on codex/native-material-design-20261023. They contain122 editable references and corrections for translated text size, Interface Details and complete unavailable-control styling. Final independent re-review and native implementation remain pending. Read its own CLOSEOUT_PROMPT.md and design/native-modern-remake/release48-refinement.md before resuming.
+This record is preserved with its enclosing main integration; verify the actual remote head before resuming. Retain active task branches/worktrees and private evidence. No force push, unrelated process termination, host power/login action, destructive replacement or deletion of unmerged work is authorized.
 
-Next: verify the existing build's terminal state and MFC readiness; build/package through exact root entrypoints; reproduce with the corrected identity-bound driver; repair only the demonstrated cause; re-review and implement the native visual refinement; take new real images; then complete the remaining native workflows, operational companions and finally hosted documentation/wiki/reader work.
-
-Preserve monitoring, plugins, settings/history/startup, explicit choices and the accepted installation. No host power/login action, force push, generic process termination, private-data publication or deletion of unmerged work. Retain active/incomplete branches and worktrees. A native screenshot does not prove the full language/theme/DPI/accessibility matrix. Keep each verdict bound to its exact source and bytes.
-
-The owner-requested closeout began with32% verified account allowance remaining. The goal tool reported no current active goal during that readback; the underlying objective remains unfinished. Do not invent a completed, paused or blocked goal state. Use at most three materially unchanged attempts and one hour observing an external operation. At10% or less verified remaining allowance, stop new work and preserve. Missing allowance remains unknown.
-
-Status Hub authenticated reporting remains unavailable; GitHub Projects lacked read:project scope. Reuse Discussion2 and issue1 for progress/handoff. This file records state up to its own commit; verify the enclosing main revision and task-branch heads on the remote before resuming.
-
-The one-hour installer observation window has elapsed without a completed build verdict at the last receipt. Do not restart or duplicate that operation blindly. Reconcile the retained110-identity inventory with the latest required-feature contract, including configurable action sounds, before claiming completeness. Remove .release-hold only after an explicitly reviewed, verified release candidate is ready.
+The corresponding shared-instruction synchronization remains incomplete: that checkout has unrelated local changes and was31 commits behind its last fetched main. Do not overwrite that work. Reuse issue1 and Discussion2 for progress. Earlier Status Hub/Project access limitations require fresh verification before claiming reporting success.

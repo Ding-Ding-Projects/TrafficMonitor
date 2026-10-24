@@ -4,6 +4,8 @@
 
 The current [list measurement repair](docs/features/native-dashboard/list-layout-responsiveness.md) passes its native regression and local candidate build. A bounded portable comparison verified bilingual/dark Apply, responsive windows and unchanged normal-profile files; the full display matrix and finished remake remain incomplete.
 
+The [compact Interface candidate](docs/features/native-settings/compact-interface-details.md) adds measured rows and a working contextual Details disclosure. Its 12-tuple 96-DPI interaction pass is recorded separately from still-unverified accessibility-client, higher-DPI and complete design acceptance.
+
 A native C++/MFC network monitor for Windows, with a compact taskbar display, tray access and a floating monitor. This fork delivers the maintained x64 edition, preserves upstream attribution and supports the existing optional plugin interfaces.
 
 [Documentation website](https://ding-ding-projects.github.io/TrafficMonitor/) · [Verified native 1.0.48 release](https://github.com/Ding-Ding-Projects/TrafficMonitor/releases/tag/v1.0.48-run40021045002-1) · [Native interface images](#released-native-interface-images) · [Installation](docs/features/installation/README.md) · [Changelog](CHANGELOG.md) · [Required-feature status](docs/features/required-features/README.md) · [简体中文](README_zh-CN.md)

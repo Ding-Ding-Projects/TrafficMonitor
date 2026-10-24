@@ -8,7 +8,7 @@ namespace NativeMaterial
     {
         m_appearance=value;
         const auto colors=Palette::Resolve(value);
-        m_surfaceColor=colors.highContrast?GetSysColor(COLOR_WINDOW)
+        m_surfaceColor=m_flat?Rgb(colors.surface):colors.highContrast?GetSysColor(COLOR_WINDOW)
             :value==Appearance::Dark?RGB(27,33,41):RGB(255,255,255);
         m_fill.DeleteObject();
         m_fill.CreateSolidBrush(m_surfaceColor);
@@ -27,7 +27,7 @@ namespace NativeMaterial
         }
         if(message==WM_CTLCOLORSTATIC){auto* dc=CDC::FromHandle(reinterpret_cast<HDC>(w));dc->SetTextColor(Rgb(Palette::Resolve(m_appearance).onSurface));dc->SetBkMode(TRANSPARENT);return reinterpret_cast<LRESULT>(m_fill.GetSafeHandle());}
         if(message==WM_ERASEBKGND)return TRUE;
-        if(message==WM_PAINT){CPaintDC dc(this);CRect r;GetClientRect(r);const auto c=Palette::Resolve(m_appearance);dc.FillSolidRect(r,Rgb(c.surface));auto* b=dc.SelectObject(&m_fill);auto* p=dc.SelectStockObject(NULL_PEN);const int radius=MulDiv(32,GetDpiForWindow(m_hWnd),96);dc.RoundRect(r,CPoint(radius,radius));dc.SelectObject(b);dc.SelectObject(p);return 0;}
+        if(message==WM_PAINT){CPaintDC dc(this);CRect r;GetClientRect(r);const auto c=Palette::Resolve(m_appearance);dc.FillSolidRect(r,Rgb(c.surface));if(m_flat){const int line=(std::max)(1,MulDiv(1,GetDpiForWindow(m_hWnd),96));dc.FillSolidRect(0,r.bottom-line,r.Width(),line,Rgb(c.outline));return 0;}auto* b=dc.SelectObject(&m_fill);auto* p=dc.SelectStockObject(NULL_PEN);const int radius=MulDiv(32,GetDpiForWindow(m_hWnd),96);dc.RoundRect(r,CPoint(radius,radius));dc.SelectObject(b);dc.SelectObject(p);return 0;}
         return CWnd::WindowProc(message,w,l);
     }
 }

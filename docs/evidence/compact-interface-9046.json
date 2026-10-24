@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "kind": "bounded-native-interaction",
+  "sourceCommit": "cdd0e7c40b13e48989e5c546b7ce0afaa58c4d0f",
+  "candidateVersion": "1.0.9046",
+  "packageSHA256": "20a2efb4d359581dd65401ba9329650b957fc41e74eb75981a0b055f46ed1658",
+  "executableSHA256": "51b07a52242b05ca46f192ce53cf3abb42c0107be2d3f436081868cdce375612",
+  "finishedUtc": "2026-10-24T23:47:22.407242+00:00",
+  "build": {"entrypoint": "build-installer.bat -Version 1.0.9046", "exitCode": 0, "warnings": 2, "errors": 0},
+  "preferenceVerification": {"entrypoint": "build.bat --verify-preferences", "exitCode": 0, "preferenceCases": 23, "setupSerializationCases": 24, "mutationRejected": true, "correctedRepeatPassed": true},
+  "matrix": {"languages": ["English", "Cantonese", "Bilingual"], "themes": ["light", "dark"], "clientSizes": [[1280,840],[760,640]], "dpi": 96, "tupleCount": 12, "states": ["collapsed", "expanded"], "matrixImagesInspected": 24},
+  "interactions": {"mouseDisclosure": true, "enterCollapse": true, "spaceExpand": true, "initialDisclosureIniUnchanged": true, "minimumBilingualRailEndHome": true, "uiaClientExpandCollapse": "unverified"},
+  "preservation": {"installed": false, "normalProfileFilesCompared": 5, "normalProfileUnchanged": true, "startupAbsentBeforeAndAfter": true, "normalExit": true, "processAndChildrenAbsent": true, "mutexAbsent": true, "desktopEmptyAndClosed": true},
+  "fullAcceptance": false,
+  "limitations": ["Only actual 96 DPI tested", "UIA observer access unavailable or timed out", "DirectWrite glyph/font/available-area observations incomplete", "Native layout v2 and image promotion v3 not validated", "Restart persistence and complete high-contrast/accessibility coverage unverified", "Setup used a prior completed fixture seed, not new onboarding proof", "Full unified setup viewport, notification grouping and broader shared-component refinement remain unfinished"]
+}

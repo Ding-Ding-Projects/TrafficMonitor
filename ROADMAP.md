@@ -27,6 +27,9 @@
 
 ## Full native visual remake
 
+- [x] Implement compact shared Interface rows and transient Details; verify 12 language/theme/client-size tuples at 96 DPI, mouse/Enter/Space, minimum scrolling and unchanged normal-profile files in portable candidate 9046.
+- [ ] Complete Details UIA-client idempotence, legacy accessibility, higher physical DPI, restart persistence and native renderer-specific promotion evidence.
+- [ ] Finish notification grouping, the unified setup step viewport and remaining shared component roles/anatomy.
 - [x] Independently approve the initial five-surface design direction and86 authored references through final offset correction0c93dd2. These are proposals, not runtime images.
 - [ ] Complete design references and built conversion for the remaining owned legacy surfaces.
 - [x] Independently review bounded Settings/shared-control corrections, actual retained-provider behavior, localized draft preservation and native caption at9032/9033.

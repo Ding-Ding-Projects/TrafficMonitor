@@ -379,7 +379,7 @@ namespace
     void Editor::OnContextMenu(CWnd* window,CPoint point){if(auto* row=Target(window?window->GetSafeHwnd():nullptr,point))Menu(*row,point);}
     BOOL Editor::OnCommand(WPARAM w,LPARAM l)
     {
-        const UINT id=LOWORD(w),code=HIWORD(w);if(code==BN_CLICKED&&m_interface.Command(id)){Layout();return TRUE;}if(m_loading)return CDialog::OnCommand(w,l);
+        const UINT id=LOWORD(w),code=HIWORD(w);if(code==BN_CLICKED&&m_interface.Command(id)){if(id==NativePreferences::Editor::InterfaceDetails)m_searches[Interface].scroll=0;Layout();return TRUE;}if(m_loading)return CDialog::OnCommand(w,l);
         if(id==Search&&code==EN_CHANGE){m_regexEditor.Close();m_binding.Invalidate();m_reveal.clear();CString text;m_search.GetWindowText(text);m_searches[m_page].filter.options.query=text.GetString();m_searches[m_page].scroll=0;Layout();return TRUE;}
         if(id==PageFirst&&code==LBN_SELCHANGE){const int group=m_navigation.GetCurSel();if(group!=LB_ERR)SwitchGroup(group);return TRUE;}
         if(id==Results&&code==LBN_DBLCLK){OpenSelected();return TRUE;}

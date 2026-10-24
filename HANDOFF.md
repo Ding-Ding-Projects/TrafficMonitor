@@ -1,5 +1,15 @@
 # Native-first continuation
 
+Current compact Interface result: source cdd0e7c, local uninstalled candidate 9046, completed
+12 English/Cantonese/bilingual × light/dark × normal/minimum client-size tuples at 96 DPI,
+with 24 collapsed/expanded matrix images inspected. Mouse/Enter/Space disclosure and minimum
+scroll reachability were observed; all five normal-profile hashes and startup absence survived
+normal exit. See docs/evidence/compact-interface-9046.json. UIA client access remained unavailable,
+renderer-specific native layout/promotion receipts are incomplete, and other physical DPI scales
+remain unverified. This does not finish the full native remake. Next: notification grouping,
+the unified setup step viewport and remaining shared component refinement, with those acceptance
+gaps retained explicitly. All candidates remain uninstalled under the latest owner direction.
+
 Portable preparation is now a reusable preparation-only script, with 15 synthetic causal checks
 and independent review. It rejects invalid hashes/paths/archives, omits managed markers, preserves
 a consistent private baseline and writes BOM-free receipts. It does not launch or establish
