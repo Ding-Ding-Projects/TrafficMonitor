@@ -1,10 +1,24 @@
 # TrafficMonitor delivery roadmap
 
+## Incomplete source preservation
+
+- [x] Preserve unfinished native implementation and corrected design references on main with explicit incomplete status.
+- [x] Hold automatic product publication while .release-hold exists; retain the publication-language check.
+- [ ] Verify the preserved source through the native build, causal responsiveness diagnosis and full acceptance.
+- [ ] Reconcile the existing feature inventory with the current action-sound and task-led documentation contract.
+
+## Workspace responsiveness continuation
+
+- [x] Independently review opt-in numeric instrumentation without claiming a runtime repair.
+- [ ] Build the exact diagnostic source and establish the cause of the rejected1.0.9043 stall.
+- [ ] Repair the demonstrated cause and verify native interactions and supported display states.
+- [ ] Preserve the selected native frame, integrate accepted work and verify release and installed state.
+
 ## Native image and preservation closeout
 
 - [x] Retain six inspected, unchanged release1.0.48 native images with exact source/hash/native-state inventory.
 - [x] Verify normal fixture exit and restoration of the pre-existing portable installation.
-- [ ] Publish the updated README and verify its exact remote image/gallery links.
+- [ ] Read back the published README and exact image/gallery links for the final preservation revision.
 - [ ] Finish the workspace causal repair and final independent design re-review/implementation.
 - [ ] Verify the pending native acquisition/build and remaining required-feature acceptance.
 

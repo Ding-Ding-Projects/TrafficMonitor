@@ -1,5 +1,7 @@
 # Native network workspace
 
+- [Workspace responsiveness diagnostics and limits](responsiveness-diagnostics.md)
+
 - [Released native interface images and verification limits](released-interface-evidence.md)
 
 Choose **Open monitoring workspace** from the existing tray, taskbar or floating-monitor menu.
@@ -41,8 +43,8 @@ screen-reader behavior. English and Traditional Chinese workspace text are imple
 language modes and all localized workspace strings remain unfinished. Existing menu action labels
 are updated in all bundled language resources.
 
-The selected delivery mode prohibits new tests, audits, reviews and screenshots. This source
-change carries no new runtime, keyboard, accessibility, IME, high-DPI or visual acceptance proof.
+The original workspace milestone carried no new tests, reviews or screenshots. The current preserved
+workspace candidate still lacks complete runtime, keyboard, accessibility, IME and high-DPI acceptance.
 Compilation and packaging results are recorded separately in the handoff. Existing historical
 menu evidence does not verify this new workspace. Full regex workbench parity, practical onboarding,
 complete settings/dialog conversion and the remaining required features stay unfinished.

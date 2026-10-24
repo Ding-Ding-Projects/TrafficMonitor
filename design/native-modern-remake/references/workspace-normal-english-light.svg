@@ -1,53 +1,54 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1280" height="840" viewBox="0 0 1280 840"><title>workspace normal english light design proposal</title><desc>Authored design reference with synthetic values. Not a running application or screenshot.</desc>
-<rect x="0" y="0" width="1280" height="840" rx="0" fill="#F5F7FA"/>
-<rect x="0" y="0" width="176" height="840" rx="0" fill="#EDF1F6"/>
-<text x="20" y="34" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="17" font-weight="600">TrafficMonitor</text>
-<rect x="12" y="50" width="152" height="40" rx="12" fill="#DCE8FF"/>
-<rect x="12" y="60" width="3" height="24" rx="2" fill="#245FC8"/>
-<g transform="translate(24 59)" fill="none" stroke="#245FC8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="13" rx="2"/><path d="M3 9l3 -4 3 2 4 -4M5 16h6M8 13v3"/></g>
-<text x="50" y="72" fill="#245FC8" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="600">Monitor</text>
-<g transform="translate(24 105)" fill="none" stroke="#526174" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="7"/><path d="M8 3v5l3 2"/></g>
-<text x="50" y="118" fill="#526174" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">History</text>
-<g transform="translate(24 151)" fill="none" stroke="#526174" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h4V1h4v2h4v4h2v4h-2v4H2v-4h3V7H2z"/></g>
-<text x="50" y="164" fill="#526174" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">Plugins</text>
-<g transform="translate(24 197)" fill="none" stroke="#526174" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="5"/><circle cx="8" cy="8" r="2"/><path d="M8 0v3M8 13v3M0 8h3M13 8h3M2 2l2 2M12 12l2 2M2 14l2 -2M12 4l2 -2"/></g>
-<text x="50" y="210" fill="#526174" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">Settings</text>
-<g transform="translate(24 243)" fill="none" stroke="#526174" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h12M2 12h12"/><circle cx="6" cy="4" r="2"/><circle cx="10" cy="12" r="2"/></g>
-<text x="50" y="256" fill="#526174" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">Setup</text>
-<text x="20" y="804" fill="#526174" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">Native monitor</text>
-<text x="200" y="40" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="24" font-weight="600">Network overview</text>
-<rect x="200" y="62" width="980" height="52" rx="8" fill="#EDF1F6"/>
-<path d="M208 114H1172" stroke="#D5DEE8" stroke-width="1"/>
-<text x="212" y="79" fill="#526174" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">Search</text>
-<text x="212" y="104" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400"></text>
-<rect x="1188" y="70" width="64" height="36" rx="12" fill="#DCE8FF"/>
-<text x="1200" y="91" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">Regex</text>
-<rect x="200" y="126" width="132" height="36" rx="12" fill="#DCE8FF"/>
-<text x="212" y="147" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">Pause display</text>
-<rect x="340" y="126" width="156" height="36" rx="12" fill="#DCE8FF"/>
-<text x="352" y="147" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">Restart samples</text>
-<rect x="504" y="126" width="204" height="36" rx="12" fill="#DCE8FF"/>
-<text x="516" y="147" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">Floating monitor</text>
-<defs><clipPath id="monitor"><rect x="200" y="174" width="1056" height="650"/></clipPath></defs><g clip-path="url(#monitor)"><g transform="translate(0 0)">
-<text x="200.0" y="194" fill="#526174" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">Download</text>
-<text x="200.0" y="236" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="24" font-weight="600">24.8 MB/s</text>
-<text x="552.0" y="194" fill="#526174" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">Upload</text>
-<text x="552.0" y="236" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="24" font-weight="600">1.2 MB/s</text>
-<path d="M538.0 182L538.0 256" stroke="#D5DEE8"/>
-<text x="904.0" y="194" fill="#526174" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">Today</text>
-<text x="904.0" y="236" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="24" font-weight="600">8.46 GB</text>
-<path d="M890.0 182L890.0 256" stroke="#D5DEE8"/>
-<rect x="200" y="278" width="1056" height="120" rx="10" fill="#FFFFFF"/>
-<text x="216" y="303" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="600">Traffic · last 60 seconds</text>
-<path d="M216 326.0H1240" stroke="#D5DEE8"/>
-<path d="M216 356.0H1240" stroke="#D5DEE8"/>
-<path d="M216 380.0H1240" stroke="#D5DEE8"/>
-<polyline fill="none" stroke="#245FC8" stroke-width="2.5" points="216.0,371.6 280.0,368.40000000000003 344.0,362.0 408.0,366.0 472.0,347.6 536.0,335.6 600.0,346.0 664.0,350.0 728.0,327.6 792.0,319.6 856.0,341.20000000000005 920.0,339.6 984.0,329.20000000000005 1048.0,349.20000000000005 1112.0,322.0 1176.0,331.6 1240.0,325.20000000000005"/>
-<rect x="200" y="414" width="158" height="36" rx="8" fill="#DCE8FF"/>
-<text x="212" y="435" fill="#245FC8" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">Adapters</text>
-<text x="378" y="435" fill="#526174" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">Sample history</text>
-<text x="544" y="435" fill="#526174" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">Details</text>
-<rect x="200" y="462" width="1056" height="52" rx="8" fill="#FFFFFF"/>
-<text x="212" y="482" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">Ethernet</text>
+<rect x="0" y="0" width="1280" height="840" rx="0" fill="#F9F9FF"/>
+<rect x="0" y="0" width="176" height="840" rx="0" fill="#E9EDF5"/>
+<text x="20" y="34" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="17" font-weight="600">TrafficMonitor</text>
+<rect x="12" y="50" width="152" height="44" rx="12" fill="#D6E3FF"/>
+<rect x="12" y="60" width="3" height="28" rx="2" fill="#345E9C"/>
+<g transform="translate(24 59)" fill="none" stroke="#345E9C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="13" rx="2"/><path d="M3 9l3 -4 3 2 4 -4M5 16h6M8 13v3"/></g>
+<text x="50" y="72" fill="#345E9C" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="600">Monitor</text>
+<g transform="translate(24 105)" fill="none" stroke="#43474E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="7"/><path d="M8 3v5l3 2"/></g>
+<text x="50" y="118" fill="#43474E" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">History</text>
+<g transform="translate(24 151)" fill="none" stroke="#43474E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h4V1h4v2h4v4h2v4h-2v4H2v-4h3V7H2z"/></g>
+<text x="50" y="164" fill="#43474E" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">Plugins</text>
+<g transform="translate(24 197)" fill="none" stroke="#43474E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="5"/><circle cx="8" cy="8" r="2"/><path d="M8 0v3M8 13v3M0 8h3M13 8h3M2 2l2 2M12 12l2 2M2 14l2 -2M12 4l2 -2"/></g>
+<text x="50" y="210" fill="#43474E" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">Settings</text>
+<g transform="translate(24 243)" fill="none" stroke="#43474E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h12M2 12h12"/><circle cx="6" cy="4" r="2"/><circle cx="10" cy="12" r="2"/></g>
+<text x="50" y="256" fill="#43474E" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">Setup</text>
+<text x="20" y="804" fill="#43474E" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">Native monitor</text>
+<text x="200" y="40" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="24" font-weight="600">Network overview</text>
+<rect x="200" y="62" width="904" height="56" rx="8" fill="#E9EDF5"/>
+<path d="M208 118H1096" stroke="#73777F" stroke-width="1"/>
+<text x="212" y="79" fill="#43474E" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">Search</text>
+<text x="212" y="108" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400"></text>
+<rect x="1112" y="70" width="68" height="40" rx="20.0" fill="#D6E3FF"/>
+<text x="1124" y="91" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">Regex</text>
+<text x="1196" y="91" fill="#345E9C" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">Clear</text>
+<rect x="200" y="130" width="132" height="40" rx="20.0" fill="#D6E3FF"/>
+<text x="212" y="151" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">Pause display</text>
+<rect x="340" y="130" width="156" height="40" rx="20.0" fill="#D6E3FF"/>
+<text x="352" y="151" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">Restart samples</text>
+<rect x="504" y="130" width="204" height="40" rx="20.0" fill="#D6E3FF"/>
+<text x="516" y="151" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">Floating monitor</text>
+<defs><clipPath id="monitor"><rect x="200" y="182" width="1056" height="642"/></clipPath></defs><g clip-path="url(#monitor)"><g transform="translate(0 0)">
+<text x="200.0" y="202" fill="#43474E" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">Download</text>
+<text x="200.0" y="244" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="24" font-weight="600">24.8 MB/s</text>
+<text x="552.0" y="202" fill="#43474E" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">Upload</text>
+<text x="552.0" y="244" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="24" font-weight="600">1.2 MB/s</text>
+<path d="M538.0 190L538.0 264" stroke="#C3C6CF"/>
+<text x="904.0" y="202" fill="#43474E" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">Today</text>
+<text x="904.0" y="244" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="24" font-weight="600">8.46 GB</text>
+<path d="M890.0 190L890.0 264" stroke="#C3C6CF"/>
+<rect x="200" y="286" width="1056" height="120" rx="10" fill="#F0F3FA"/>
+<text x="216" y="311" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="600">Traffic · last 60 seconds</text>
+<path d="M216 334.0H1240" stroke="#C3C6CF"/>
+<path d="M216 364.0H1240" stroke="#C3C6CF"/>
+<path d="M216 388.0H1240" stroke="#C3C6CF"/>
+<polyline fill="none" stroke="#345E9C" stroke-width="2.5" points="216.0,379.6 280.0,376.40000000000003 344.0,370.0 408.0,374.0 472.0,355.6 536.0,343.6 600.0,354.0 664.0,358.0 728.0,335.6 792.0,327.6 856.0,349.20000000000005 920.0,347.6 984.0,337.20000000000005 1048.0,357.20000000000005 1112.0,330.0 1176.0,339.6 1240.0,333.20000000000005"/>
+<rect x="200" y="422" width="158" height="40" rx="8" fill="#D6E3FF"/>
+<text x="212" y="443" fill="#345E9C" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">Adapters</text>
+<text x="378" y="443" fill="#43474E" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">Sample history</text>
+<text x="544" y="443" fill="#43474E" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">Details</text>
+<rect x="200" y="474" width="1056" height="52" rx="8" fill="#F0F3FA"/>
+<text x="212" y="494" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">Ethernet</text>
 </g></g>
 </svg>

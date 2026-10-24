@@ -1,5 +1,7 @@
 # Native component replacement registry
 
+Current visual refinement: [release 48 refinement](release48-refinement.md), based on source `eae4d77243e53cc25df57ccb9ef6f9a665a33562`. Its visual decisions supersede conflicting earlier dimensions below; historical evidence and behavior contracts remain unchanged. Independent review and native runtime acceptance are pending.
+
 The latest acceptance criterion rejects unstyled generic controls and default scrollbar appearance across the owned native surfaces. Merely recoloring a standard border or making every action a pill does not meet it. This registry names the actual classes and styles found in the source baseline. Native editing and accessibility behavior remain mandatory.
 
 ## Component anatomy and source mapping

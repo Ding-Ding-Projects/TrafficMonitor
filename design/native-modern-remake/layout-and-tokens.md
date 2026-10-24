@@ -1,5 +1,7 @@
 # Layout and component specification
 
+Current visual refinement: [release 48 refinement](release48-refinement.md), based on source `eae4d77243e53cc25df57ccb9ef6f9a665a33562`. Its visual decisions supersede conflicting earlier dimensions below; historical evidence and behavior contracts remain unchanged. Independent review and native runtime acceptance are pending.
+
 All sizes below are device-independent pixels. Scale once from the window's actual DPI, recreate owned fonts on DPI change and measure actual selected fonts with the same renderer used for painting. Never assume CWnd::GetFont returns the font sent through WM_SETFONT to a custom viewport. Each reusable component receives an explicit typography context with a lifetime owned by its top-level window.
 
 ## Shared visual tokens

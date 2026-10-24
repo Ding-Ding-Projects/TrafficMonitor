@@ -1,4 +1,5 @@
 ﻿#include "../stdafx.h"
+#include "../NativeMaterial/ResponsivenessDiagnostics.h"
 #include "Preferences.h"
 #include "SetupState.h"
 #include "Storage.h"
@@ -8,7 +9,7 @@ namespace NativePreferences
 {
     namespace { Snapshot accepted; Values defaults, missingFallback;Origin startupOrigin{Origin::Defaults}; std::wstring path; bool initialized{}; DWORD thread{};
         bool Dark(Values value){if(value.appearance!=Appearance::System)return value.appearance==Appearance::Dark;DWORD light=1,size=sizeof(light);RegGetValueW(HKEY_CURRENT_USER,L"Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize",L"AppsUseLightTheme",RRF_RT_REG_DWORD,nullptr,&light,&size);return light==0;}
-        void Publish(){accepted.dark=Dark(accepted.values);accepted.base.values=accepted.values;++accepted.base.revision;NotifySubscribers();}
+        void Publish(){NativeDiagnostics::Scope diagnostic(NativeDiagnostics::Operation::Publish);accepted.dark=Dark(accepted.values);accepted.base.values=accepted.values;++accepted.base.revision;NotifySubscribers();}
     }
     void Initialize(const std::wstring& directory,LANGID legacyLanguage)
     {
@@ -31,6 +32,7 @@ namespace NativePreferences
     }
     Result TryApply(Values value,const Base& expected)
     {
+        NativeDiagnostics::Scope diagnostic(NativeDiagnostics::Operation::Apply);
         if(!initialized||GetCurrentThreadId()!=thread||!Valid(value))return Result::Invalid;
         if(accepted.protectedFile)return Result::Protected;
         if(!Matches(expected,accepted.base))return Result::Conflict;
@@ -39,5 +41,5 @@ namespace NativePreferences
         else if(result==Result::Uncertain){accepted.protectedFile=true;accepted.origin=Origin::Uncertain;accepted.error=ERROR_READ_FAULT;}
         return result;
     }
-    void RefreshSystemAppearance(){if(initialized&&GetCurrentThreadId()==thread){accepted.dark=Dark(accepted.values);NotifySubscribers();}}
+    void RefreshSystemAppearance(){NativeDiagnostics::Scope diagnostic(NativeDiagnostics::Operation::SystemAppearance);if(initialized&&GetCurrentThreadId()==thread){accepted.dark=Dark(accepted.values);NotifySubscribers();}}
 }

@@ -1,4 +1,5 @@
 ﻿#include "../stdafx.h"
+#include "../NativeMaterial/ResponsivenessDiagnostics.h"
 #include "Settings.h"
 #include "../NativePreferences/Editor.h"
 #include "../NativePreferences/Subscription.h"
@@ -58,7 +59,7 @@ namespace
         NativePreferences::Editor m_interface;NativePreferences::Subscription m_preferences;
         LRESULT OnPreferences(WPARAM,LPARAM);
         void Labels();
-        LRESULT WindowProc(UINT message,WPARAM w,LPARAM l) override {if(message==WM_NCDESTROY)m_preferences.Detach();if(message==WM_SETTINGCHANGE||message==WM_THEMECHANGED)NativePreferences::RefreshSystemAppearance();return CDialog::WindowProc(message,w,l);}
+        LRESULT WindowProc(UINT message,WPARAM w,LPARAM l) override {if(message==WM_NCDESTROY)m_preferences.Detach();if(message==WM_SETTINGCHANGE||message==WM_THEMECHANGED){NativeDiagnostics::Scope messageDiagnostic(message==WM_SETTINGCHANGE?NativeDiagnostics::Operation::SettingsSettingMessage:NativeDiagnostics::Operation::SettingsThemeMessage);NativePreferences::RefreshSystemAppearance();}return CDialog::WindowProc(message,w,l);}
         int Px(int n)const{return MulDiv(n,m_dpi,96);}
         void Place(CWnd& c,int x,int y,int w,int h){c.MoveWindow(Px(x),Px(y),Px((std::max)(1,w)),Px((std::max)(1,h)));}
         void Layout();void SetFonts();void SetTheme();void Reload();void SyncRow(Row&);
@@ -153,6 +154,7 @@ namespace
     LRESULT Editor::OnPreferences(WPARAM generation,LPARAM)
     {
         if (!m_preferences.Accepts(generation)) return 0;
+        NativeDiagnostics::Scope diagnostic(NativeDiagnostics::Operation::SettingsReceive);
         m_chinese = NativePreferences::Current().values.language == NativePreferences::Language::Cantonese;
         m_appearance = NativePreferences::EffectiveAppearance();
         Labels();

@@ -1,4 +1,5 @@
-﻿#include "Theme.h"
+﻿#include "../NativeMaterial/ResponsivenessDiagnostics.h"
+#include "Theme.h"
 #include <cmath>
 #include <dwmapi.h>
 #pragma comment(lib, "dwmapi.lib")
@@ -42,6 +43,7 @@ namespace NativeMaterial
 
     HRESULT ApplyNativeFrameAppearance(HWND window, Appearance appearance)
     {
+        NativeDiagnostics::Scope diagnostic(NativeDiagnostics::Operation::FrameAppearance);
         if (!IsWindow(window)) return E_INVALIDARG;
         const auto palette = Palette::Resolve(appearance);
         const BOOL dark = !palette.highContrast && appearance == Appearance::Dark;

@@ -1,52 +1,54 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="640" height="400" viewBox="0 0 640 400"><title>regex minimum bilingual light design proposal</title><desc>Authored design reference with synthetic values. Not a running application or screenshot.</desc>
-<rect x="0" y="0" width="640" height="400" rx="0" fill="#F5F7FA"/>
-<text x="24" y="38" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="24" font-weight="600">Regular expression</text>
-<text x="24" y="67" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="22" font-weight="600">正則表達式</text>
-<rect x="24" y="84" width="516" height="64" rx="8" fill="#EDF1F6"/>
-<path d="M32 148H532" stroke="#D5DEE8" stroke-width="1"/>
-<text x="36" y="101" fill="#526174" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">Search</text>
-<text x="36" y="118" fill="#526174" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">搜尋</text>
-<text x="36" y="138" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400"></text>
-<rect x="548" y="92" width="64" height="48" rx="12" fill="#DCE8FF"/>
-<text x="560" y="113" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">Regex</text>
-<text x="560" y="132" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="500">正則</text>
-<defs><clipPath id="body"><rect x="0" y="156" width="624" height="130"/></clipPath></defs><g clip-path="url(#body)"><g transform="translate(0 0)">
-<rect x="24" y="158" width="108" height="48" rx="6" fill="#DCE8FF"/>
-<text x="36" y="178" fill="#245FC8" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">Test</text>
-<text x="36" y="197" fill="#245FC8" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="500">測試</text>
-<text x="152" y="178" fill="#526174" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">Replace</text>
-<text x="152" y="197" fill="#526174" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="500">取代</text>
-<text x="268" y="178" fill="#526174" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">Explain</text>
-<text x="268" y="197" fill="#526174" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="500">解說</text>
-<text x="384" y="178" fill="#526174" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">Library</text>
-<text x="384" y="197" fill="#526174" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="500">資料庫</text>
-<rect x="24" y="234" width="480" height="64" rx="8" fill="#DCE8FF"/>
-<path d="M32 298H496" stroke="#245FC8" stroke-width="2"/>
-<text x="36" y="251" fill="#526174" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">Pattern</text>
-<text x="36" y="268" fill="#526174" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">模式</text>
-<text x="36" y="288" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">Ethernet</text>
-<rect x="516" y="242" width="100" height="48" rx="12" fill="#DCE8FF"/>
-<text x="528" y="263" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">Flags</text>
-<text x="528" y="282" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="500">選項</text>
-<rect x="24" y="322" width="592" height="110" rx="8" fill="#FFFFFF" stroke="#D5DEE8"/>
-<text x="36" y="346" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">Test text</text>
-<text x="36" y="365" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">測試文字</text>
-<text x="36" y="398" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">Ethernet</text>
-<rect x="24" y="448" width="592" height="100" rx="8" fill="#FFFFFF" stroke="#D5DEE8"/>
-<text x="36" y="472" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">Matches</text>
-<text x="36" y="491" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">相符結果</text>
-<text x="36" y="524" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">0..8  Ethernet</text>
+<rect x="0" y="0" width="640" height="400" rx="0" fill="#F9F9FF"/>
+<text x="24" y="38" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="24" font-weight="600">Regular expression</text>
+<text x="24" y="70" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="22" font-weight="600">正則表達式</text>
+<rect x="24" y="84" width="440" height="72" rx="8" fill="#E9EDF5"/>
+<path d="M32 156H456" stroke="#73777F" stroke-width="1"/>
+<text x="36" y="101" fill="#43474E" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">Search</text>
+<text x="36" y="121" fill="#43474E" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">搜尋</text>
+<text x="36" y="146" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400"></text>
+<rect x="472" y="92" width="68" height="56" rx="28.0" fill="#D6E3FF"/>
+<text x="484" y="113" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">Regex</text>
+<text x="484" y="133" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">正則</text>
+<text x="556" y="113" fill="#345E9C" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">Clear</text>
+<text x="556" y="133" fill="#345E9C" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">清除</text>
+<defs><clipPath id="body"><rect x="0" y="164" width="624" height="122"/></clipPath></defs><g clip-path="url(#body)"><g transform="translate(0 0)">
+<rect x="24" y="166" width="108" height="56" rx="6" fill="#D6E3FF"/>
+<text x="36" y="186" fill="#345E9C" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">Test</text>
+<text x="36" y="206" fill="#345E9C" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">測試</text>
+<text x="152" y="186" fill="#43474E" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">Replace</text>
+<text x="152" y="206" fill="#43474E" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">取代</text>
+<text x="268" y="186" fill="#43474E" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">Explain</text>
+<text x="268" y="206" fill="#43474E" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">解說</text>
+<text x="384" y="186" fill="#43474E" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">Library</text>
+<text x="384" y="206" fill="#43474E" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">資料庫</text>
+<rect x="24" y="250" width="480" height="72" rx="8" fill="#D6E3FF"/>
+<path d="M32 322H496" stroke="#345E9C" stroke-width="2"/>
+<text x="36" y="267" fill="#43474E" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">Pattern</text>
+<text x="36" y="287" fill="#43474E" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">模式</text>
+<text x="36" y="312" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">Ethernet</text>
+<rect x="516" y="258" width="100" height="56" rx="28.0" fill="#D6E3FF"/>
+<text x="528" y="279" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">Flags</text>
+<text x="528" y="299" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">選項</text>
+<rect x="24" y="346" width="592" height="110" rx="8" fill="#F0F3FA" stroke="#73777F"/>
+<text x="36" y="370" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">Test text</text>
+<text x="36" y="390" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">測試文字</text>
+<text x="36" y="422" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">Ethernet</text>
+<rect x="24" y="472" width="592" height="100" rx="8" fill="#F0F3FA" stroke="#73777F"/>
+<text x="36" y="496" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">Matches</text>
+<text x="36" y="516" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">相符結果</text>
+<text x="36" y="548" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">0..8  Ethernet</text>
 </g></g>
-<rect x="628" y="156" width="8" height="130" rx="4" fill="#EDF1F6"/>
-<rect x="629" y="156.0" width="6" height="41.42156862745098" rx="3" fill="#526174"/>
-<rect x="0" y="286" width="640" height="114" rx="0" fill="#FFFFFF"/>
-<path d="M0 286H640" stroke="#D5DEE8"/>
-<text x="24" y="308" fill="#526174" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">1 match · bounded local execution</text>
-<text x="24" y="325" fill="#526174" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">1 個結果 · 本機限時執行</text>
-<rect x="340" y="340" width="128" height="48" rx="12" fill="#DCE8FF"/>
-<text x="352" y="361" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">Cancel</text>
-<text x="352" y="380" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="500">取消</text>
-<rect x="476" y="340" width="140" height="48" rx="12" fill="#245FC8"/>
+<rect x="628" y="164" width="8" height="122" rx="4" fill="#E9EDF5"/>
+<rect x="629" y="164.0" width="6" height="35.10377358490566" rx="3" fill="#43474E"/>
+<rect x="0" y="286" width="640" height="114" rx="0" fill="#F0F3FA"/>
+<path d="M0 286H640" stroke="#C3C6CF"/>
+<text x="24" y="308" fill="#43474E" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">1 match · bounded local execution</text>
+<text x="24" y="328" fill="#43474E" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">1 個結果 · 本機限時執行</text>
+<rect x="340" y="340" width="128" height="56" rx="28.0" fill="#D6E3FF"/>
+<text x="352" y="361" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">Cancel</text>
+<text x="352" y="381" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">取消</text>
+<rect x="476" y="340" width="140" height="56" rx="28.0" fill="#345E9C"/>
 <text x="488" y="361" fill="#FFFFFF" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">Use pattern</text>
-<text x="488" y="380" fill="#FFFFFF" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="500">採用模式</text>
+<text x="488" y="381" fill="#FFFFFF" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">採用模式</text>
 </svg>

@@ -1,4 +1,5 @@
 ﻿#include "../stdafx.h"
+#include "../NativeMaterial/ResponsivenessDiagnostics.h"
 #include "Navigation.h"
 namespace NativeMaterial
 {
@@ -11,6 +12,7 @@ namespace NativeMaterial
     void ResultList::SetAppearance(Appearance value){m_appearance=value;m_rail.SetAppearance(value);Invalidate();}
     void ResultList::MeasureItem(LPMEASUREITEMSTRUCT item)
     {
+        NativeDiagnostics::Scope diagnostic(NativeDiagnostics::Operation::Measure);
         CString text;if(item->itemID!=static_cast<UINT>(-1)&&item->itemID<static_cast<UINT>(GetCount()))GetText(item->itemID,text);
         const int dpi=GetDpiForWindow(m_hWnd);CRect r;GetClientRect(r);CClientDC dc(this);auto* font=GetFont();auto* old=font?dc.SelectObject(font):nullptr;
         CRect measure(0,0,(std::max)(40,r.Width()-MulDiv(m_navigation?48:36,dpi,96)),0);dc.DrawText(text,measure,DT_CALCRECT|DT_WORDBREAK|DT_NOPREFIX);if(old)dc.SelectObject(old);
