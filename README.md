@@ -2,7 +2,7 @@
 
 A native C++/MFC network monitor for Windows, with a compact taskbar display, tray access and a floating monitor. This fork delivers the maintained x64 edition, preserves upstream attribution and supports the existing optional plugin interfaces.
 
-[Documentation website](https://ding-ding-projects.github.io/TrafficMonitor/) · [Native 1.0.47 release](https://github.com/Ding-Ding-Projects/TrafficMonitor/releases/tag/v1.0.47-run40017259830-1) · [Installation](docs/features/installation/README.md) · [Changelog](CHANGELOG.md) · [Required-feature status](docs/features/required-features/README.md) · [简体中文](README_zh-CN.md)
+[Documentation website](https://ding-ding-projects.github.io/TrafficMonitor/) · [Verified native 1.0.48 release](https://github.com/Ding-Ding-Projects/TrafficMonitor/releases/tag/v1.0.48-run40021045002-1) · [Native interface images](#released-native-interface-images) · [Installation](docs/features/installation/README.md) · [Changelog](CHANGELOG.md) · [Required-feature status](docs/features/required-features/README.md) · [简体中文](README_zh-CN.md)
 
 ## Install and start monitoring
 
@@ -12,7 +12,7 @@ Startup and shortcuts use the stable installation launcher. Uninstall removes on
 
 ## Silent updates and verified boundaries
 
-The latest separately verified accepted installation is **1.0.47**, source `eb2b515930776e568a8420f2d04a87830227162b`, with exact released executable/manifest bytes and preserved configuration/startup/history. Its [post-publication receipt](docs/features/installation/accepted47-installed-state.json) is separate from the genuine natural transition below. All four1.0.47 delivery jobs succeeded. The subsequent workbench replacement retains its separate candidate verification boundary.
+The retained **1.0.48** installed-state receipt records source `ddcf441f4c3cab2a5e3b62e9ff6aff1babf3bdfa`, matching released executable/manifest bytes and preserved configuration/startup/history. Its [post-publication receipt](docs/evidence/accepted48-installed-state.json) is separate from the genuine natural transition below. All four 1.0.48 delivery jobs succeeded. The new native images below come from a separately verified portable 1.0.48 session, not a claim about a current managed installation.
 
 A genuine bounded update moved naturally from **1.0.42 to 1.0.43**, source `575c871e0b6a52667bce1b77f69d62634e457455`. A real prepublication baseline and nine bounded observations verified matching released executable bytes, one successful apply, readiness and stable-launcher results, preserved configuration/startup and unchanged historical traffic records. No manual check, close, apply or launch occurred during that observation. All jobs in release workflow 40003469175 succeeded. See the [source-bound receipt](docs/features/installation/silent-natural43-acceptance.json). This proves one observed transition, not full GUI acceptance, negative production paths or long-term reliability. Earlier observations below retain their original scope.
 
@@ -54,24 +54,51 @@ Run root `build.bat` for the maintained x64 native build and `build-installer.ba
 
 Use `build.bat --site` for the complete article/wiki website. Article production derives its inventory and immutable content from the held source, rather than silently reusing a historical manifest. See [build instructions](docs/build/README.md) and [build feature documentation](docs/features/build/README.md).
 
-## Current and historical images
+## Released native interface images
 
-Current rebuilt-native-interface image promotion remains pending complete timestamp/source receipts. Earlier taskbar and upstream interface images are historical and are preserved with their provenance in the [README and image archive](docs/history/README-before-offline-companion.md). No historical image is relabeled as evidence for a newer build. Two reviewed documentation-companion images below passed strict promotion at their actual producing source. They remain candidate evidence, not proof of a later build or complete feature acceptance.
+[Public native-interface gallery](https://ding-ding-projects.github.io/TrafficMonitor-gallery/) provides the same reviewed images with source details.
+
+These are genuine, unedited native-window screenshots from **release 1.0.48**, captured on **2026-10-24 UTC**, in English/light appearance at **96 DPI**. They show the released interface **before the ongoing Material Design 3 refinement**. Oversized containers, generic controls and remaining visual inconsistencies are still being corrected; these images do not claim that the redesign is finished.
+
+The six-image [source, hash and state inventory](evidence/ui/native-release48/inventory.json) and [verification boundaries](docs/features/native-dashboard/released-interface-evidence.md) distinguish real images from design proposals. A workspace image was excluded for privacy and incomplete chart rendering. No image was redacted or reconstructed.
+
+<details open>
+<summary>Find settings and inspect notification controls</summary>
+
+![Released TrafficMonitor 1.0.48 Interface settings, English light appearance at 96 DPI](evidence/ui/native-release48/settings-interface.png)
+
+![Released TrafficMonitor 1.0.48 Notifications settings with unavailable hardware controls, English light appearance at 96 DPI](evidence/ui/native-release48/settings-notifications.png)
+
+</details>
+
+<details>
+<summary>Use the first-run setup workflow</summary>
+
+![Released TrafficMonitor 1.0.48 first-run language and message-style step, English light appearance at 96 DPI](evidence/ui/native-release48/setup-language.png)
+
+![Released TrafficMonitor 1.0.48 startup and taskbar review with both choices kept unchanged](evidence/ui/native-release48/setup-startup.png)
+
+</details>
+
+<details>
+<summary>Test a pattern and preview a replacement</summary>
+
+![Released TrafficMonitor 1.0.48 regex Test view showing two matches for a harmless local example](evidence/ui/native-release48/regex-test-valid.png)
+
+![Released TrafficMonitor 1.0.48 Replace view showing a literal local replacement preview](evidence/ui/native-release48/regex-replace-valid.png)
+
+</details>
+
+Earlier taskbar/upstream images remain in the [original README archive](docs/history/README-before-offline-companion.md). Earlier documentation-reader images retain their exact source and capture dates in the [documentation image archive](docs/history/documentation-companion-9024-images.md).
 
 ## Upstream and licence
 
 TrafficMonitor originates from [zhongyang219/TrafficMonitor](https://github.com/zhongyang219/TrafficMonitor). This fork retains the [original licence](LICENSE) and upstream attribution. The complete earlier introduction, usage, skins, plugins, related links and image presentation remain available in the [historical README archive](docs/history/README-before-offline-companion.md); current operational guidance is organized in the documentation linked above.
 
-## Source-bound offline reader images
+## Documentation image archive
 
-These exact raw images show local documentation candidate 1.0.9024 built from 421ac841a7825b682f0a67928be117c6b21c6ea4, not a later release. The inventory retains actual UTC capture times, original hashes and the bounded 96-DPI state. Higher scales and full keyboard/accessibility remain unverified. The minimum image shows the header and heading; lower content continues by normal vertical scrolling.
+Earlier reader images and their original provenance are retained in the [documentation image archive](docs/history/documentation-companion-9024-images.md). They are not substituted for native application evidence.
 
-![Offline documentation candidate 1.0.9024 showing English bundled-release labels and the external-link explanation at 1164 by 781](evidence/ui/docs-companion-9024/home-en-light.png)
-
-![Offline documentation candidate 1.0.9024 showing a wrapped bilingual snapshot header and Downloads heading at 624 by 441](evidence/ui/docs-companion-9024/downloads-bilingual-minimum.png)
-
-[Source/hash/state inventory](evidence/ui/docs-companion-9024/inventory.json).
-
-### Work with patterns in task-focused views
+## Work with patterns in task-focused views
 
 The native workbench now separates Test, Replace, Explain and Library. A fixed pattern/options area and Apply/Cancel actions surround an independently scrolling task body. Styled native editing controls, selectable results, searchable expression selection and client scroll rails replace the previous stock control chrome. Source691 and local1.0.9040 have independent source/visual review and current-binary result selection, explicit Load, Apply/Cancel, forward-Tab and scrolling observations. Higher display scales, full keyboard/UIA/IME, formal image promotion and complete RegexBuddy parity remain unfinished. See [behavior and bounded evidence](docs/features/search/native-workbench.md#modern-native-workbench).

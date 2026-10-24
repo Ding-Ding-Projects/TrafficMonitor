@@ -1,5 +1,13 @@
 # TrafficMonitor delivery roadmap
 
+## Native image and preservation closeout
+
+- [x] Retain six inspected, unchanged release1.0.48 native images with exact source/hash/native-state inventory.
+- [x] Verify normal fixture exit and restoration of the pre-existing portable installation.
+- [ ] Publish the updated README and verify its exact remote image/gallery links.
+- [ ] Finish the workspace causal repair and final independent design re-review/implementation.
+- [ ] Verify the pending native acquisition/build and remaining required-feature acceptance.
+
 ## Full native visual remake
 
 - [x] Independently approve the initial five-surface design direction and86 authored references through final offset correction0c93dd2. These are proposals, not runtime images.

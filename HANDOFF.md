@@ -1,23 +1,32 @@
 # Native-first continuation
 
-Objective: finish the native C++/MFC TrafficMonitor redesign and all110 applicable required-feature obligations. Main application first; operational companions follow; documentation website/wiki/reader completion last. Preserve monitoring, tray/taskbar/plugins, saved settings/history, genuine installer/startup and silent five-minute updating. All remaining owned legacy dialogs remain in scope.
+## Current closeout
 
-## Delivered baseline
+The owner requested preservation and cleanup before the remaining implementation was complete. Keep the productive application native C++/MFC and retain native caption controls. The latest visual direction requires consistent Material Design 3 controls with less clutter and no generic stock presentation. Main application work remains first, operational delivery follows, and documentation-website/wiki/reader completion remains last.
 
-Normal1.0.47 at eb2b515930776e568a8420f2d04a87830227162b completed all four delivery jobs. All eight downloadable files passed size/hash readback. Native feed/checksum entries/tag/manifest passed. Installed1.0.47 matches released executable and source, with settings/startup/history preserved. This is post-publication state proof, not a continuous natural-update observation. Earlier natural42-to43 proof remains separately bound to its original source.
+## Published baseline and actual images
 
-## Current independently reviewed unit
+Release 1.0.48 targets `ddcf441f4c3cab2a5e3b62e9ff6aff1babf3bdfa`. Its package and executable were independently rechecked. Six genuine native-window images were captured from that release, inspected and retained unchanged under `evidence/ui/native-release48/`, with exact hashes, timestamps, native geometry and limited acceptance scope. The README labels them as released before-state evidence. They do not establish the requested finished redesign.
 
-Production691522b852ef425e2d99a2e0d3dd5779ff144e8a and factual dd1f3f5eed0c7a534c4d1ec49767263689029877 replace workbench stock chrome with native shared components, four task views and client scroll rails. Independent source/visual review accepted this bounded unit. Exact-root9040 exited0; package and executable hashes were independently verified. A48-action visual pass and separate44-action unchanged-binary consumer pass cover wheel accumulation, disabled/read-only scrolling, End/drag, current result highlight, saved selection versus Load, Apply/Cancel, forward Tab and Explain overflow. Fixtures/helpers closed normally and restored accepted47 with data/startup comparisons passed.
+The temporary release fixture exited normally. The pre-existing portable 1.8.6 instance was restored and verified responsive; settings and the history state produced by its normal close were preserved. Private original-state and process receipts remain outside public source.
 
-See docs/features/search/native-workbench.md#modern-native-workbench and design/native-modern-remake/regex-component-implementation.md for exact scope, candidate hashes and remaining proof. This integration needs its own exact-source production, normal release and matching installed-state verdicts; never relabel9040 as integrated-binary proof.
+## Preserved unaccepted implementation
 
-## Unfinished scope
+- `codex/workspace-responsiveness-20261023` at `eae4d77243e53cc25df57ccb9ef6f9a665a33562` contains the preserved rejected workspace source, independently reviewed opt-in numeric diagnostics and the supported existing-Build-Tools component acquisition repair.
+- Candidate 9043's stall after bilingual/dark Settings Apply remains causally unproved. Candidate 9044 has not been produced.
+- The exact root build started against eae4d77 after native consent. The installer entered modification of the existing stable Build Tools instance, self-updated and handed off to setup processes. At the last inspection no root result or compiler verdict existed. Preserve this producer and its immutable source until its real terminal result is established; never treat the old bootstrapper exit as build success.
+- `codex/native-material-design-20261023` contains 122 editable design references and the subsequent readable-text, visible-Details and disabled-state corrections. They remain proposals, with final independent re-review and implementation pending.
 
-The640x400 bilingual body has108 logical pixels and provisional reachability; taller fields are top-anchored. Physical Shift+Tab remains unverified because the supported message-based modifier advanced forward. Native previous-control behavior is separate proof. Full keyboard/UIA/provider, clipboard/IME, high contrast and the complete48-tuple language/theme/DPI matrix remain unfinished. Fresh native measurement/promotion is still needed; no fake browser counters or retroactive historical receipt acceptance.
+## Next safe work
 
-Workspace/setup and every owned legacy surface still need full conversion. Only24 settings are exposed. Full Settings, all110 required-feature obligations and complete RegexBuddy parity remain unfinished. Existing staged design references are not product images. Current presentation-image replacement remains an acceptance gap. Documentation website/wiki/reader completion remains last.
+1. Establish the existing producer's real terminal state and verify MFC availability. Do not duplicate or force-stop an installer.
+2. Build/package the diagnostic source through exact root entrypoints, establish the stall cause, then make and verify the bounded repair.
+3. Independently re-review the corrected design and implement it in shared native controls, Settings/setup and the remaining owners after responsiveness is resolved.
+4. Replace the before-state images with genuine corrected-build evidence, preserving these originals and their provenance.
+5. Complete Settings, every remaining owned native surface, full RegexBuddy parity and applicable required features. The inventory still has 110 identities and remains incomplete.
 
-## Preservation and next steps
+## Preservation boundaries
 
-Preserve exact producer source/index/refs while active. Build/package through the root entrypoints, verify integrated output separately, push coherent units and read back exact main. Continue the next bounded native owner after this unit is preserved. Keep all active/incomplete checkouts and ignored private announcement variants. No cleanup has started; current archive destination remains unresolved, and deletion requires verified complete archive plus ownership/preservation/integration/remote-ancestry proof. No host power/login action, Explorer restart, unmute, force push or unrelated cleanup. Goal active and unfinished.
+Main contains only accepted baseline documentation/evidence work from this closeout. Unaccepted workspace source is not integrated as finished behavior. Retain both task branches and linked worktrees while they contain unmerged or unverified work. Cleanup requires a verified complete archive, ownership and remote-ancestry proof; no deletion is implied by a clean working tree. Existing unrelated work and the running installer remain protected.
+
+Status Hub authenticated reporting is unavailable because the deployed helper lacks the current v2 interface. GitHub Project access lacks the required scope and was not retried. The rolling progress record is [Discussion 2](https://github.com/Ding-Ding-Projects/TrafficMonitor/discussions/2), with handoff on [issue 1](https://github.com/Ding-Ding-Projects/TrafficMonitor/issues/1).
