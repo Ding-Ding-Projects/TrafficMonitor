@@ -1,5 +1,12 @@
 # TrafficMonitor delivery roadmap
 
+## Workspace responsiveness continuation
+
+- [x] Independently review opt-in numeric instrumentation without claiming a runtime repair.
+- [ ] Build the exact diagnostic source and establish the cause of the rejected 1.0.9043 stall.
+- [ ] Repair the demonstrated cause and verify the original reproduction, native interactions and supported display matrix.
+- [ ] Preserve the selected native frame, integrate accepted work and verify release and installed state.
+
 ## Full native visual remake
 
 - [x] Independently approve the initial five-surface design direction and86 authored references through final offset correction0c93dd2. These are proposals, not runtime images.

@@ -1,4 +1,5 @@
 ﻿#include "../stdafx.h"
+#include "../NativeMaterial/ResponsivenessDiagnostics.h"
 #include "Presentation.h"
 #include "../NativePreferences/Text.h"
 #include <cmath>
@@ -50,6 +51,7 @@ namespace NativeDashboard
     }
     HRESULT DataView::DrawDC(HDC dc)
     {
+        NativeDiagnostics::Scope diagnostic(NativeDiagnostics::Operation::Draw);
         Microsoft::WRL::ComPtr<ID2D1Factory> factory;
         Microsoft::WRL::ComPtr<IDWriteFactory> text;
         Microsoft::WRL::ComPtr<ID2D1DCRenderTarget> target;

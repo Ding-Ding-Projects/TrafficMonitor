@@ -1,5 +1,11 @@
 # Native-first continuation
 
+## Current responsiveness checkpoint
+
+Resume from preserved source `f828df1d03bb9f55b7a0504928706bb1f6d13d1d` in the isolated `codex/workspace-responsiveness-20261023` branch. The diagnostic-only change adds opt-in numeric counters and timing, independently reviewed at schema 2. It is not yet compiled and establishes no stall cause or repair. See `docs/features/native-dashboard/responsiveness-diagnostics.md`.
+
+The current host has a running TrafficMonitor process whose executable identity is not yet validated, and the discovered Visual Studio 2022 installation lacks the required MFC component. Preserve that process and use the supported root build acquisition route. Do not relabel the historical accepted 1.0.48 receipt as fresh host proof. Keep the native window frame, as explicitly selected for this continuation. Documentation-website completion remains last.
+
 Objective: finish the native C++/MFC TrafficMonitor redesign and all110 applicable required-feature obligations. Main application first; operational companions follow; documentation website/wiki/reader completion last. Preserve monitoring, tray/taskbar/plugins, saved settings/history, genuine installer/startup and silent five-minute updating. All remaining owned legacy dialogs remain in scope.
 
 ## Delivered baseline

@@ -1,4 +1,5 @@
 ﻿#include "../stdafx.h"
+#include "../NativeMaterial/ResponsivenessDiagnostics.h"
 #include "Workspace.h"
 #include "../NativePreferences/Text.h"
 #include "../NativePreferences/Subscription.h"
@@ -67,7 +68,7 @@ namespace NativeDashboard
             NativePreferences::Subscription m_preferences;
             LRESULT OnPreferences(WPARAM,LPARAM);
             void Labels();
-            LRESULT WindowProc(UINT message,WPARAM w,LPARAM l) override {if(message==WM_SETTINGCHANGE||message==WM_THEMECHANGED)NativePreferences::RefreshSystemAppearance();return CWnd::WindowProc(message,w,l);}
+            LRESULT WindowProc(UINT message,WPARAM w,LPARAM l) override {if(message==WM_SETTINGCHANGE||message==WM_THEMECHANGED){NativeDiagnostics::Scope messageDiagnostic(message==WM_SETTINGCHANGE?NativeDiagnostics::Operation::WorkspaceSettingMessage:NativeDiagnostics::Operation::WorkspaceThemeMessage);NativePreferences::RefreshSystemAppearance();}return CWnd::WindowProc(message,w,l);}
             int Px(int value) const { return MulDiv(value, m_dpi, 96); }
             void Layout();void RevealFocus(HWND);
             int m_scroll{},m_contentHeight{},m_metricsTop{},m_chartTop{},m_chartBottom{};bool m_layout{};
@@ -205,7 +206,7 @@ namespace NativeDashboard
             for(int i=0;i<3;++i)m_pages[i].SetLabel(T(en[i],zh[i]));
         }
         LRESULT Workspace::OnPreferences(WPARAM generation,LPARAM)
-        {if(!m_preferences.Accepts(generation))return 0;m_chinese=NativePreferences::Current().values.language==NativePreferences::Language::Cantonese;m_appearance=NativePreferences::EffectiveAppearance();Labels();ApplyTheme();Layout();RefreshRows();return 0;}
+        {if(!m_preferences.Accepts(generation))return 0;NativeDiagnostics::Scope diagnostic(NativeDiagnostics::Operation::Receive);m_chinese=NativePreferences::Current().values.language==NativePreferences::Language::Cantonese;m_appearance=NativePreferences::EffectiveAppearance();Labels();ApplyTheme();Layout();RefreshRows();return 0;}
         void Workspace::SetFonts()
         {
             LOGFONT font{};font.lfHeight=-Px(14);font.lfCharSet=DEFAULT_CHARSET;
@@ -245,6 +246,7 @@ namespace NativeDashboard
         }
         void Workspace::Layout()
         {
+            NativeDiagnostics::Scope diagnostic(NativeDiagnostics::Operation::Layout);
             if(!m_search.GetSafeHwnd()||m_layout)return;
             m_layout=true;
             CRect client;GetClientRect(client);
@@ -355,6 +357,7 @@ namespace NativeDashboard
         }
         void Workspace::RefreshRows()
         {
+            NativeDiagnostics::Scope diagnostic(NativeDiagnostics::Operation::RefreshRows);
             const int top=m_adapters.GetTopIndex();
             m_rendering=true;m_adapters.SetRedraw(FALSE);m_adapters.ResetContent();
             for(std::size_t i=0;i<m_model.Rows().size();++i)
@@ -374,6 +377,7 @@ namespace NativeDashboard
         }
         void Workspace::RefreshDetails()
         {
+            NativeDiagnostics::Scope diagnostic(NativeDiagnostics::Operation::RefreshDetails);
             const auto* row=m_model.Selected();
             const CString details(Details(row,!m_model.SelectedIdentity().empty(),m_chinese).c_str());
             CString previous;m_details.GetWindowText(previous);

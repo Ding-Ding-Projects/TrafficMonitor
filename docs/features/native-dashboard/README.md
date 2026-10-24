@@ -1,5 +1,7 @@
 # Native network workspace
 
+- [Diagnose workspace responsiveness](responsiveness-diagnostics.md)
+
 Choose **Open monitoring workspace** from the existing tray, taskbar or floating-monitor menu.
 The workspace opens only after this explicit action. Repeating the action focuses its existing
 window. Closing it leaves the existing taskbar, tray and traffic accounting running.
