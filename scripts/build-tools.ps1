@@ -15,13 +15,22 @@ function Get-TrustedFile($Url, $Destination, $Hash) {
 }
 function Get-BuildInstallation {
     $vswhere = Join-Path ${env:ProgramFiles(x86)} 'Microsoft Visual Studio\Installer\vswhere.exe'
+    $existingInstallation = $null
     if (Test-Path $vswhere) {
         $installation = & $vswhere -latest -products '*' -version '[17.0,18.0)' -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 Microsoft.VisualStudio.Component.VC.ATLMFC -property installationPath
         if ($installation) { return $installation }
+        # The Build Tools bootstrapper cannot install over an existing instance.
+        # Add missing components to its matching stable product instead.
+        $existingInstallation = & $vswhere -latest -products Microsoft.VisualStudio.Product.BuildTools -version '[17.0,18.0)' -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath
     }
     $bootstrap = Join-Path $ToolsRoot 'vs_buildtools.exe'
     Get-TrustedFile 'https://aka.ms/vs/17/release/vs_buildtools.exe' $bootstrap $null
     $arguments = '--quiet --wait --norestart --nocache --add Microsoft.VisualStudio.Workload.VCTools --add Microsoft.VisualStudio.Component.VC.ATLMFC --add Microsoft.VisualStudio.Component.Windows11SDK.22621 --includeRecommended'
+    if ($existingInstallation) {
+        if (!(Test-Path -LiteralPath $existingInstallation -PathType Container) -or $existingInstallation.Contains('"')) { throw 'Invalid existing Build Tools installation directory' }
+        $arguments = 'modify --installPath "{0}" --channelId Microsoft.VisualStudio.17.Release --quiet --wait --norestart --nocache --add Microsoft.VisualStudio.Component.VC.ATLMFC --add Microsoft.VisualStudio.Component.Windows11SDK.22621' -f $existingInstallation
+        Write-Host 'Visual Studio acquisition mode: add components to existing stable Build Tools instance'
+    }
     $admin = ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
     if (!$admin -and ($Silent -or $env:CI -eq 'true')) { throw 'Missing MSVC/MFC requires administrator installation. Silent mode cannot request native consent.' }
     $launchStage = if ($admin) { 'installer-launch' } else { 'native-elevation-request' }
