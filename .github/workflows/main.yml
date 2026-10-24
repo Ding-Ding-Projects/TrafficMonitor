@@ -12,6 +12,8 @@ jobs:
   publication-language:
     runs-on: windows-2022
     timeout-minutes: 30
+    outputs:
+      release_allowed: ${{ steps.release_admission.outputs.allowed }}
     permissions:
       contents: read
     steps:
@@ -41,8 +43,19 @@ jobs:
         run: |
           node -e "const {spawnSync}=require('node:child_process'); const path=require('node:path'); const fs=require('node:fs'); const os=require('node:os'); const input=process.env.PUBLICATION_LANGUAGE_DATA; const exceptions=process.env.PUBLICATION_LANGUAGE_EXCEPTIONS; delete process.env.PUBLICATION_LANGUAGE_DATA; delete process.env.PUBLICATION_LANGUAGE_EXCEPTIONS; if(!input||!exceptions){console.error('Publication rule or reviewed exception input missing; check incomplete.');process.exit(2)} const dir=fs.mkdtempSync(path.join(os.tmpdir(),'publication-policy-')); try{const file=path.join(dir,'exceptions.json'); fs.writeFileSync(file,exceptions,{mode:384}); const args=[path.resolve('trusted-scanner/scripts/publication/run-publication-language-ci.mjs'),'--root',path.resolve('candidate'),'--tip',process.env.EVENT_TIP,'--exceptions-file',file]; if(process.env.EVENT_NAME==='push'){args.push('--base',process.env.EVENT_BASE)}else{args.push('--mode','current-tree-only')} const result=spawnSync(process.execPath,args,{input,stdio:['pipe','inherit','inherit'],windowsHide:true});process.exitCode=result.status??2;}finally{fs.rmSync(dir,{recursive:true,force:true})}"
           if ($LASTEXITCODE -ne 0) { throw 'Publication language check failed or incomplete' }
+      - name: Determine release admission
+        id: release_admission
+        shell: pwsh
+        run: |
+          if (Test-Path -LiteralPath 'candidate/.release-hold') {
+            'allowed=false' >> $env:GITHUB_OUTPUT
+            Write-Host 'Automatic release is held: the source contains an explicitly incomplete preservation snapshot.'
+          } else {
+            'allowed=true' >> $env:GITHUB_OUTPUT
+          }
   build-release:
     needs: publication-language
+    if: needs.publication-language.outputs.release_allowed == 'true'
     outputs:
       release_tag: ${{ steps.publish.outputs.release_tag }}
     runs-on: windows-2022
