@@ -1,5 +1,7 @@
 # TrafficMonitor
 
+> **Incomplete preservation snapshot:** main includes unfinished native workspace and design work. Automatic product release is held by `.release-hold` while runtime verification remains incomplete. The release1.0.48 images below remain explicitly labelled before-state evidence.
+
 A native C++/MFC network monitor for Windows, with a compact taskbar display, tray access and a floating monitor. This fork delivers the maintained x64 edition, preserves upstream attribution and supports the existing optional plugin interfaces.
 
 [Documentation website](https://ding-ding-projects.github.io/TrafficMonitor/) · [Verified native 1.0.48 release](https://github.com/Ding-Ding-Projects/TrafficMonitor/releases/tag/v1.0.48-run40021045002-1) · [Native interface images](#released-native-interface-images) · [Installation](docs/features/installation/README.md) · [Changelog](CHANGELOG.md) · [Required-feature status](docs/features/required-features/README.md) · [简体中文](README_zh-CN.md)
