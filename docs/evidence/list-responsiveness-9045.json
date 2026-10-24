@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "c5d0f2a49c3d84503a093033957137e2ef8d8a34",
+  "candidateVersion": "1.0.9045",
+  "packageSHA256": "b918bbd5c2faf9f8bae878c0470c053dabab6ac9eb711a4599d838e3f0554c45",
+  "executableSHA256": "e22db598194118bef7ab0f9ae9410d271c928cf981d2e872139603de9e7fe7a7",
+  "build": {"entrypoint": "build-installer.bat -Version 1.0.9045", "exitCode": 0, "warnings": 2, "errors": 0},
+  "nativeRegression": {"entrypoint": "build.bat --verify-result-list", "exitCode": 0, "appendCount": 120, "correctedMeasurementCalls": 240, "restoredQuadraticMeasurementCalls": 7380, "mutationRejectedExitCode": 1, "restoredCorrectedExitCode": 0},
+  "runtime": {
+    "mode": "uninstalled portable diagnostic fixture",
+    "managedMarkerExcluded": true,
+    "initialLanguage": "English",
+    "initialAppearance": "Light",
+    "adapterCount": 50,
+    "historyRows": 120,
+    "outerWindowPixels": {"width": 1296, "height": 879},
+    "dpi": 96,
+    "bilingualApply": {"workspaceReceiveMs": 632.5234, "settingsReceiveMs": 45.9408, "workspaceProbeMs": 25.6126, "settingsProbeMs": 632.5515},
+    "darkApply": {"workspaceReceiveMs": 590.9424, "settingsReceiveMs": 48.4650, "workspaceProbeMs": 27.4074, "settingsProbeMs": 590.9659},
+    "livenessProbeBoundMs": 1000,
+    "allSampledProbesResponded": true,
+    "normalProfileFilesCompared": 5,
+    "normalProfileUnchanged": true,
+    "startupAbsentBeforeAndAfter": true,
+    "normalExitVerified": true,
+    "releaseMutexAbsent": true,
+    "desktopClosed": true,
+    "closedUtc": "2026-10-24T23:26:33.381811+00:00",
+    "finalFixturePreferences": {"language": 2, "appearance": 2}
+  },
+  "limitations": [
+    "Two Apply paths at one viewport, DPI and population; not complete native acceptance.",
+    "History alignment differs from the earlier 9044 observation; no controlled speedup ratio is claimed.",
+    "A live dark workspace capture showed an empty adapter region and is rejected as stable visual evidence.",
+    "The first prelaunch parser rejected a UTF-8 BOM but the shell continued; the parent independently inspected configuration before authorization and immediate postlaunch comparison passed before GUI input. This sequencing deviation is retained.",
+    "The earlier 9044 run used the normal profile accidentally. Its original prelaunch bytes are unknown, current files were preserved, and restoration is not claimed.",
+    "Cross-monitor DPI, full language/theme/accessibility coverage and restart persistence remain unverified."
+  ]
+}

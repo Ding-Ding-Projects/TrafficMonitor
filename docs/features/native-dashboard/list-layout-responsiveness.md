@@ -8,7 +8,7 @@ The corrected control measures only the successfully inserted row after its text
 
 The first diagnostic 9044 run recorded a 6.3507 ms preference save and a 7,791.1899 ms workspace preference refresh, with growing measurement counts and no observed theme-message activity. That observation supports the list-cost investigation, not a notification-loop repair. Its package marker accidentally selected the normal application profile, so it is not valid portable-isolation acceptance. A prelaunch profile baseline was unavailable; current files were preserved before and after normal exit, with no guessed restoration.
 
-Candidate 9045 contains the bounded repair and completed exact-root build/packaging. Its corrected portable runtime comparison remains separately recorded and must establish actual workspace latency before broad acceptance is claimed. Keep automatic release held until the required native acceptance is complete.
+Candidate 9045 contains the bounded repair and completed exact-root build/packaging. Its [portable runtime receipt](../../evidence/list-responsiveness-9045.json) records bilingual and dark Apply at 120 history rows and 50 adapters: workspace refreshes completed in 632.5234 ms and 590.9424 ms, with all sampled liveness probes within one second. Normal exit, five unchanged normal-profile files and unchanged startup absence were verified. This is a bounded responsiveness result, not a controlled speedup ratio, full display matrix or finished redesign. A dark workspace capture caught an empty adapter region during live refresh and is rejected as stable visual evidence. Keep automatic release held until the required native acceptance is complete.
 
 ## Portable diagnostic preparation
 

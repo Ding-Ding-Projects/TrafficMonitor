@@ -1,5 +1,12 @@
 # TrafficMonitor continuation handoff
 
+Latest result: corrected portable9045 verified bilingual/dark Apply at120 history rows/50 adapters,
+workspace refresh632.5234/590.9424ms and all sampled liveness probes within1s. Normal exit released
+the process/mutex/desktop and preserved all5 normal-profile hashes plus startup absence. See
+docs/evidence/list-responsiveness-9045.json for source/hash binding and limitations. A dark workspace
+image remains rejected as stable visual evidence. Next implement the independently reviewed
+native visual refinement, preserving this repair and the proven portable fixture isolation.
+
 Newest work: shared native list measurement repair c5d0f2a passes real HWND regression and
 independent review. 120 appends require 240 measurements instead of 7380; a disposable restoration
 of the old loop is rejected. Local candidate 1.0.9045 built/packaged successfully with two warnings

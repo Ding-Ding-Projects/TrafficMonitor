@@ -1,5 +1,13 @@
 # Native-first continuation
 
+Latest runtime result: corrected portable candidate 9045 completed bilingual and dark Apply at
+120 history rows and 50 adapters. Workspace refreshes took 632.5234 ms and 590.9424 ms; all sampled
+liveness probes responded within one second. All five normal-profile files and startup absence
+were unchanged after normal exit, and the mutex/owned desktop were released. The receipt is
+docs/evidence/list-responsiveness-9045.json. One dark workspace image is rejected as stable visual
+evidence because it caught an empty region during live refresh. The bounded performance repair
+is verified; full native design, physical DPI/accessibility and restart acceptance remain open.
+
 ## Current list responsiveness repair
 
 Source c5d0f2a corrects quadratic shared-list measurement while retaining post-insertion text

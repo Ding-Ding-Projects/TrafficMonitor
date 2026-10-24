@@ -2,7 +2,7 @@
 
 > **Incomplete preservation snapshot:** main includes unfinished native workspace and design work. Automatic product release is held by `.release-hold` while runtime verification remains incomplete. The release1.0.48 images below remain explicitly labelled before-state evidence.
 
-The current [list measurement repair](docs/features/native-dashboard/list-layout-responsiveness.md) passes its native regression and local candidate build. The corrected portable workspace comparison is in progress; no finished-remake or release claim is made.
+The current [list measurement repair](docs/features/native-dashboard/list-layout-responsiveness.md) passes its native regression and local candidate build. A bounded portable comparison verified bilingual/dark Apply, responsive windows and unchanged normal-profile files; the full display matrix and finished remake remain incomplete.
 
 A native C++/MFC network monitor for Windows, with a compact taskbar display, tray access and a floating monitor. This fork delivers the maintained x64 edition, preserves upstream attribution and supports the existing optional plugin interfaces.
 
