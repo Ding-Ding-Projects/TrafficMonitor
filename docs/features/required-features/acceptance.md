@@ -2,7 +2,7 @@
 
 ## Inventory structure
 
-The explicit expected list is [expected-ids.json](expected-ids.json), with 110 public stable IDs. [inventory.json](inventory.json) must contain each exactly once, and the category README must link all 110 articles. Each item must preserve all eight named surfaces and all eight proof dimensions. The local validator additionally retains an independent handwritten 110-ID list, so changing discovery or the expected file cannot silently remove an identity. These are the reviewed public identities; private naming data is neither required nor shipped.
+The explicit expected list is [expected-ids.json](expected-ids.json), with 111 public stable IDs. [inventory.json](inventory.json) must contain each exactly once, and the category README must link all 111 articles. Each item must preserve all eight named surfaces and all eight proof dimensions. The local validator additionally retains an independent handwritten 111-ID list, so changing discovery or the expected file cannot silently remove an identity. These are the reviewed public identities; private naming data is neither required nor shipped.
 
 Required proof dimensions are implementation, documentation, localization, persistence, focusedTests, negativeRegression, builtInteraction and screenshots. Each has status, expected evidence and evidence references. Empty evidence lists and UNFINISHED states deliberately remain visible. PARTIAL is not an acceptance state. An item cannot be accepted merely because this folder exists or a static schema validation passes.
 
@@ -29,6 +29,8 @@ The PNG regression uses a genuine small tracked skin image as its positive forma
 Run `node scripts/test-required-feature-audit.mjs` locally for the focused mutation checks. The script removes every required identity, every named surface and every dimension in isolated inventory copies, observes rejection, and verifies restoration. Additional cases cover duplicates, invalid applicability, empty reasons, missing evidence arrays/files, stale evidence source, wrong hashes, unrelated evidence ownership, unsupported completion claims and diagnostic/strict CLI outcomes. No production inventory files are edited.
 
 ## Remaining executable product checks
+
+The action-sound-effects identity remains explicitly unfinished on all four user-facing surfaces. Its structural regression removes the row and expected-file identity together, then also reduces the declared count, and requires rejection by the independent validator list. This proves inventory omission detection only. It does not prove playback, mute behavior, timing, persistence or unavailable-device recovery. Each surface still needs the action-to-cue map, asset or synthesis provenance and real audio observations alongside its visual evidence.
 
 - [x] Reject removal of every expected ID, surface record and proof dimension, duplicate identity and malformed applicability; restoration returns the diagnostic inventory to structurally valid.
 - [x] Reject absent evidence arrays/files, stale source identities, wrong evidence digests, unrelated evidence ownership and complete claims without independent proof.
