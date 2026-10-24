@@ -63,6 +63,12 @@
 - [ ] Complete full product implementation, genuine execution/provenance and complete interaction evidence.
 
 
+## Build acquisition recovery, 2026-10-24
+
+- [x] Separate strict readiness from incomplete-instance recovery and preserve missing-directory registrations through an explicit project-owned installation destination; focused acquisition regression passed.
+- [ ] Verify native consent, actual component acquisition and exact root build completion for recovery source bee8cb6.
+- [ ] Produce diagnostic candidate 9044 and establish the workspace responsiveness cause before accepting its repair.
+
 ## Current delivery priority, 2026-10-23
 
 - [ ] Complete the main native C++/MFC application first: reusable Material components, productive monitoring workflows, onboarding, complete Settings, context menus, search and independent full regex builders.

@@ -19,6 +19,26 @@ The temporary release fixture exited normally. The pre-existing portable 1.8.6 i
 
 ## Next safe work
 
+### Build recovery continuation, 2026-10-24
+
+Current inspection found both registered Build Tools instances incomplete, not launchable,
+and pointing to absent directories. The earlier installer self-update exited zero, but the
+subsequent modify operation has no retained terminal receipt. No matching active acquisition
+worker or installer was found. Do not reinterpret that self-update result as component readiness.
+
+Source `bee8cb6` separates strict readiness (2022 compiler, MFC and SDK 22621) from recovery
+discovery, which includes incomplete 2022 Build Tools registrations. Existing directories use
+supported modification with the full required workload; missing directories use a project-owned
+installation destination without recreating another application's directory or deleting its
+registration. The focused acquisition regression and publication scan passed. The exact root
+build reached native elevation request; installation, compilation and candidate 9044 remain
+unverified. Keep `.release-hold` in place.
+
+Local publication hooks were restored at the already configured location. Twelve exact-line
+exceptions were individually reviewed for existing C++ identifiers, literal Git commands
+and French text. The complete primary source scan passed (895 text files, 174 binary files)
+before integration; this is publication evidence, not runtime acceptance.
+
 1. Establish the existing producer's real terminal state and verify MFC availability. Do not duplicate or force-stop an installer.
 2. Build/package the diagnostic source through exact root entrypoints, establish the stall cause, then make and verify the bounded repair.
 3. Independently re-review the corrected design and implement it in shared native controls, Settings/setup and the remaining owners after responsiveness is resolved.

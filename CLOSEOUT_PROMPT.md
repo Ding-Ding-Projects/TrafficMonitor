@@ -1,5 +1,19 @@
 # TrafficMonitor continuation handoff
 
+2026-10-24 continuation: build recovery source bee8cb6 is integrated with this record.
+Both registered Build Tools paths were absent and their instances incomplete. The recovery
+selector now includes incomplete 2022 instances, modifies only an existing directory, and
+otherwise uses a TrafficMonitor-owned installation destination while preserving stale
+registrations. Strict readiness requires compiler, MFC and SDK 22621. The focused regression
+and publication scan passed. Exact root build.bat reached native elevation request in the
+retained responsiveness checkout; acquisition and compilation are still unverified. Inspect
+the existing operation before starting another. Candidate 9044 remains unproduced.
+
+Local publication hooks were restored and twelve existing literal/natural-language collisions
+were individually reviewed with exact-line hashes. Main retains .release-hold. The shared
+instruction checkout has unrelated local changes and is 30 commits behind its fetched main;
+its accompanying push cannot be safely completed without reconciling that owned work.
+
 Resume the native-first TrafficMonitor objective, including all applicable items in the retained 110-identity inventory. Latest owner direction: keep native window caption controls; use consistent Material Design 3 controls, reduce clutter and generic presentation; show genuine application images in the README. The owner then requested preservation and cleanup. No full-completion claim is made.
 
 Accepted release baseline is 1.0.48 at ddcf441f4c3cab2a5e3b62e9ff6aff1babf3bdfa. Six real English/light/96-DPI before-state images and sanitized source/hash/native-state inventory are retained under evidence/ui/native-release48 and linked from README.md. Existing portable state was normally restored. The public gallery is https://ding-ding-projects.github.io/TrafficMonitor-gallery/; verify its current source/deployment again before making new claims.
