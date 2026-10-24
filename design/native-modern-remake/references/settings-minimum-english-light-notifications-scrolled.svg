@@ -26,65 +26,89 @@
 <text x="604" y="93" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">Regex</text>
 <text x="676" y="93" fill="#345E9C" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">Clear</text>
 <text x="200" y="140" fill="#43474E" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">6 settings</text>
-<defs><clipPath id="form"><rect x="200" y="148" width="536" height="388"/></clipPath></defs><g clip-path="url(#form)"><g transform="translate(0 -540)">
+<defs><clipPath id="form"><rect x="200" y="148" width="536" height="388"/></clipPath></defs><g clip-path="url(#form)"><g transform="translate(0 -572)">
 <text x="200" y="168" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="18" font-weight="600">Notification thresholds</text>
-<rect x="200" y="198" width="18" height="18" rx="2" fill="#F9F9FF" stroke="#73777F"/>
-<text x="232" y="212" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="500">Daily traffic</text>
-<text x="656" y="211" fill="#345E9C" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">Details</text>
-<text x="232" y="268" fill="#43474E" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">Threshold</text>
-<rect x="528" y="244" width="132" height="40" rx="4" fill="#F9F9FF" stroke="#73777F"/>
-<text x="540" y="269" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="400">200</text>
-<rect x="668" y="244" width="68" height="40" rx="4" fill="#F9F9FF" stroke="#73777F"/>
-<text x="680" y="269" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">MB</text>
-<path d="M716 262.0l4 4 4 -4" fill="none" stroke="#43474E"/>
-<path d="M200 328H736" stroke="#C3C6CF"/>
-<rect x="200" y="342" width="18" height="18" rx="2" fill="#F9F9FF" stroke="#73777F"/>
-<text x="232" y="356" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="500">Memory use</text>
-<text x="656" y="355" fill="#345E9C" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">Details</text>
-<text x="232" y="412" fill="#43474E" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">Threshold</text>
-<rect x="528" y="388" width="132" height="40" rx="4" fill="#F9F9FF" stroke="#73777F"/>
-<text x="540" y="413" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="400">80</text>
-<text x="676" y="413" fill="#43474E" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">%</text>
-<path d="M200 472H736" stroke="#C3C6CF"/>
-<rect x="200" y="486" width="18" height="18" rx="2" fill="#F9F9FF" stroke="#73777F"/>
-<text x="232" y="500" fill="#43474E" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="500">CPU temperature</text>
-<text x="656" y="499" fill="#345E9C" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">Details</text>
-<text x="232" y="556" fill="#43474E" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">Threshold</text>
-<rect x="528" y="532" width="132" height="40" rx="4" fill="#F9F9FF" stroke="#73777F"/>
-<text x="540" y="557" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="400">80</text>
-<text x="676" y="557" fill="#43474E" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">°C</text>
-<text x="232" y="596" fill="#43474E" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">Unavailable in this build</text>
-<path d="M200 616H736" stroke="#C3C6CF"/>
-<rect x="200" y="630" width="18" height="18" rx="2" fill="#F9F9FF" stroke="#73777F"/>
-<text x="232" y="644" fill="#43474E" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="500">GPU temperature</text>
-<text x="656" y="643" fill="#345E9C" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">Details</text>
-<text x="232" y="700" fill="#43474E" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">Threshold</text>
-<rect x="528" y="676" width="132" height="40" rx="4" fill="#F9F9FF" stroke="#73777F"/>
-<text x="540" y="701" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="400">80</text>
-<text x="676" y="701" fill="#43474E" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">°C</text>
-<text x="232" y="740" fill="#43474E" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">Unavailable in this build</text>
-<path d="M200 760H736" stroke="#C3C6CF"/>
-<rect x="200" y="774" width="18" height="18" rx="2" fill="#F9F9FF" stroke="#73777F"/>
-<text x="232" y="788" fill="#43474E" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="500">Disk temperature</text>
-<text x="656" y="787" fill="#345E9C" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">Details</text>
-<text x="232" y="844" fill="#43474E" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">Threshold</text>
-<rect x="528" y="820" width="132" height="40" rx="4" fill="#F9F9FF" stroke="#73777F"/>
-<text x="540" y="845" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="400">80</text>
-<text x="676" y="845" fill="#43474E" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">°C</text>
-<text x="232" y="884" fill="#43474E" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">Unavailable in this build</text>
-<path d="M200 904H736" stroke="#C3C6CF"/>
-<rect x="200" y="918" width="18" height="18" rx="2" fill="#F9F9FF" stroke="#73777F"/>
-<text x="232" y="932" fill="#43474E" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="500">Mainboard temperature</text>
-<text x="656" y="931" fill="#345E9C" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">Details</text>
-<text x="232" y="988" fill="#43474E" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">Threshold</text>
-<rect x="528" y="964" width="132" height="40" rx="4" fill="#F9F9FF" stroke="#73777F"/>
-<text x="540" y="989" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="400">80</text>
-<text x="676" y="989" fill="#43474E" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">°C</text>
-<text x="232" y="1028" fill="#43474E" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">Unavailable in this build</text>
-<path d="M200 1048H736" stroke="#C3C6CF"/>
+<rect x="200" y="202" width="18" height="18" rx="2" fill="#F9F9FF" stroke="#73777F"/>
+<text x="232" y="216" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="500">Daily traffic</text>
+<text x="656" y="215" fill="#345E9C" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">Details</text>
+<text x="232" y="276" fill="#43474E" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">Threshold</text>
+<rect x="528" y="252" width="132" height="40" rx="4" fill="#F9F9FF" stroke="#73777F"/>
+<text x="540" y="277" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="400">200</text>
+<rect x="668" y="252" width="68" height="40" rx="4" fill="#F9F9FF" stroke="#73777F"/>
+<text x="680" y="277" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">MB</text>
+<path d="M716 270.0l4 4 4 -4" fill="none" stroke="#43474E"/>
+<path d="M200 340H736" stroke="#C3C6CF"/>
+<rect x="200" y="354" width="18" height="18" rx="2" fill="#F9F9FF" stroke="#73777F"/>
+<text x="232" y="368" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="500">Memory use</text>
+<text x="656" y="367" fill="#345E9C" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">Details</text>
+<text x="232" y="428" fill="#43474E" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">Threshold</text>
+<rect x="528" y="404" width="132" height="40" rx="4" fill="#F9F9FF" stroke="#73777F"/>
+<text x="540" y="429" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="400">80</text>
+<text x="676" y="429" fill="#43474E" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">%</text>
+<path d="M200 492H736" stroke="#C3C6CF"/>
+<g opacity="0.38" data-state="disabled" aria-disabled="true">
+<rect x="200" y="506" width="18" height="18" rx="2" fill="#F9F9FF" stroke="#191C20"/>
+<text x="232" y="520" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="500">CPU temperature</text>
+</g>
+<text x="656" y="519" fill="#345E9C" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">Details</text>
+<g opacity="0.12" data-state="disabled-container">
+<rect x="528" y="556" width="132" height="40" rx="4" fill="#191C20"/>
+</g><g opacity="0.38" data-state="disabled" aria-disabled="true">
+<text x="232" y="580" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">Threshold</text>
+<rect x="528" y="556" width="132" height="40" rx="4" fill="none" stroke="#191C20"/>
+<text x="540" y="581" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="400">80</text>
+<text x="676" y="581" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">°C</text>
+</g>
+<text x="232" y="620" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">Unavailable in this build</text>
+<path d="M200 644H736" stroke="#C3C6CF"/>
+<g opacity="0.38" data-state="disabled" aria-disabled="true">
+<rect x="200" y="658" width="18" height="18" rx="2" fill="#F9F9FF" stroke="#191C20"/>
+<text x="232" y="672" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="500">GPU temperature</text>
+</g>
+<text x="656" y="671" fill="#345E9C" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">Details</text>
+<g opacity="0.12" data-state="disabled-container">
+<rect x="528" y="708" width="132" height="40" rx="4" fill="#191C20"/>
+</g><g opacity="0.38" data-state="disabled" aria-disabled="true">
+<text x="232" y="732" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">Threshold</text>
+<rect x="528" y="708" width="132" height="40" rx="4" fill="none" stroke="#191C20"/>
+<text x="540" y="733" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="400">80</text>
+<text x="676" y="733" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">°C</text>
+</g>
+<text x="232" y="772" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">Unavailable in this build</text>
+<path d="M200 796H736" stroke="#C3C6CF"/>
+<g opacity="0.38" data-state="disabled" aria-disabled="true">
+<rect x="200" y="810" width="18" height="18" rx="2" fill="#F9F9FF" stroke="#191C20"/>
+<text x="232" y="824" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="500">Disk temperature</text>
+</g>
+<text x="656" y="823" fill="#345E9C" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">Details</text>
+<g opacity="0.12" data-state="disabled-container">
+<rect x="528" y="860" width="132" height="40" rx="4" fill="#191C20"/>
+</g><g opacity="0.38" data-state="disabled" aria-disabled="true">
+<text x="232" y="884" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">Threshold</text>
+<rect x="528" y="860" width="132" height="40" rx="4" fill="none" stroke="#191C20"/>
+<text x="540" y="885" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="400">80</text>
+<text x="676" y="885" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">°C</text>
+</g>
+<text x="232" y="924" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">Unavailable in this build</text>
+<path d="M200 948H736" stroke="#C3C6CF"/>
+<g opacity="0.38" data-state="disabled" aria-disabled="true">
+<rect x="200" y="962" width="18" height="18" rx="2" fill="#F9F9FF" stroke="#191C20"/>
+<text x="232" y="976" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="500">Mainboard temperature</text>
+</g>
+<text x="656" y="975" fill="#345E9C" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">Details</text>
+<g opacity="0.12" data-state="disabled-container">
+<rect x="528" y="1012" width="132" height="40" rx="4" fill="#191C20"/>
+</g><g opacity="0.38" data-state="disabled" aria-disabled="true">
+<text x="232" y="1036" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">Threshold</text>
+<rect x="528" y="1012" width="132" height="40" rx="4" fill="none" stroke="#191C20"/>
+<text x="540" y="1037" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="400">80</text>
+<text x="676" y="1037" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">°C</text>
+</g>
+<text x="232" y="1076" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">Unavailable in this build</text>
+<path d="M200 1100H736" stroke="#C3C6CF"/>
 </g></g>
 <rect x="740" y="148" width="8" height="388" rx="4" fill="#E9EDF5"/>
-<rect x="741" y="373.7758620689655" width="6" height="162.22413793103448" rx="3" fill="#43474E"/>
+<rect x="741" y="379.18333333333334" width="6" height="156.81666666666666" rx="3" fill="#43474E"/>
 <rect x="184" y="552" width="576" height="88" rx="0" fill="#F9F9FF"/>
 <path d="M200 552H736" stroke="#C3C6CF"/>
 <text x="200" y="574" fill="#43474E" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">Unsaved changes</text>

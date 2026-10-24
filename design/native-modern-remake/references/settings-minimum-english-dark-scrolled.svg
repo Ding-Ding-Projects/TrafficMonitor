@@ -28,16 +28,17 @@
 <text x="200" y="140" fill="#C3C6CF" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">2 settings</text>
 <defs><clipPath id="form"><rect x="200" y="148" width="536" height="388"/></clipPath></defs><g clip-path="url(#form)"><g transform="translate(0 0)">
 <text x="200" y="168" fill="#E1E2E9" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="18" font-weight="600">Language and appearance</text>
-<text x="200" y="208" fill="#E1E2E9" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="500">Interface language</text>
-<rect x="200" y="220" width="536" height="40" rx="4" fill="#111318" stroke="#8D9199"/>
-<text x="216" y="246" fill="#E1E2E9" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="400">English</text>
-<path d="M704 237.0l6 6 6 -6" fill="none" stroke="#C3C6CF" stroke-width="2"/>
-<text x="200" y="296" fill="#E1E2E9" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="500">Appearance</text>
-<rect x="200" y="308" width="536" height="40" rx="4" fill="#111318" stroke="#8D9199"/>
-<text x="216" y="334" fill="#E1E2E9" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="400">Dark</text>
-<path d="M704 325.0l6 6 6 -6" fill="none" stroke="#C3C6CF" stroke-width="2"/>
-<rect x="200" y="376" width="536" height="48" rx="12" fill="#1D2026"/>
-<text x="216" y="400" fill="#E1E2E9" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">Preview: monitoring ready</text>
+<text x="656" y="167" fill="#A8C8FF" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">Details</text>
+<text x="200" y="212" fill="#E1E2E9" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="500">Interface language</text>
+<rect x="200" y="228" width="536" height="40" rx="4" fill="#111318" stroke="#8D9199"/>
+<text x="216" y="254" fill="#E1E2E9" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="400">English</text>
+<path d="M704 245.0l6 6 6 -6" fill="none" stroke="#C3C6CF" stroke-width="2"/>
+<text x="200" y="300" fill="#E1E2E9" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="500">Appearance</text>
+<rect x="200" y="316" width="536" height="40" rx="4" fill="#111318" stroke="#8D9199"/>
+<text x="216" y="342" fill="#E1E2E9" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="400">Dark</text>
+<path d="M704 333.0l6 6 6 -6" fill="none" stroke="#C3C6CF" stroke-width="2"/>
+<rect x="200" y="380" width="536" height="48" rx="12" fill="#1D2026"/>
+<text x="216" y="404" fill="#E1E2E9" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">Preview: monitoring ready</text>
 </g></g>
 <rect x="184" y="552" width="576" height="88" rx="0" fill="#111318"/>
 <path d="M200 552H736" stroke="#43474E"/>

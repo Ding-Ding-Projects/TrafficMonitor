@@ -28,18 +28,19 @@
 <text x="200" y="140" fill="#43474E" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">2 settings</text>
 <defs><clipPath id="form"><rect x="200" y="148" width="840" height="588"/></clipPath></defs><g clip-path="url(#form)"><g transform="translate(0 0)">
 <text x="200" y="168" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="18" font-weight="600">Language and appearance</text>
-<text x="200" y="208" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="500">Interface language</text>
-<rect x="578.0" y="188" width="462.00000000000006" height="40" rx="4" fill="#F9F9FF" stroke="#73777F"/>
-<text x="594.0" y="214" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="400">English</text>
-<path d="M1008.0 205.0l6 6 6 -6" fill="none" stroke="#43474E" stroke-width="2"/>
-<path d="M200 248H1040" stroke="#C3C6CF"/>
-<text x="200" y="272" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="500">Appearance</text>
-<rect x="578.0" y="252" width="462.00000000000006" height="40" rx="4" fill="#F9F9FF" stroke="#73777F"/>
-<text x="594.0" y="278" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="400">System</text>
-<path d="M1008.0 269.0l6 6 6 -6" fill="none" stroke="#43474E" stroke-width="2"/>
-<path d="M200 312H1040" stroke="#C3C6CF"/>
-<rect x="200" y="328" width="840" height="48" rx="12" fill="#F0F3FA"/>
-<text x="216" y="352" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">Preview: monitoring ready</text>
+<text x="960" y="167" fill="#345E9C" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">Details</text>
+<text x="200" y="212" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="500">Interface language</text>
+<rect x="578.0" y="192" width="462.00000000000006" height="40" rx="4" fill="#F9F9FF" stroke="#73777F"/>
+<text x="594.0" y="218" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="400">English</text>
+<path d="M1008.0 209.0l6 6 6 -6" fill="none" stroke="#43474E" stroke-width="2"/>
+<path d="M200 252H1040" stroke="#C3C6CF"/>
+<text x="200" y="276" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="500">Appearance</text>
+<rect x="578.0" y="256" width="462.00000000000006" height="40" rx="4" fill="#F9F9FF" stroke="#73777F"/>
+<text x="594.0" y="282" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="400">System</text>
+<path d="M1008.0 273.0l6 6 6 -6" fill="none" stroke="#43474E" stroke-width="2"/>
+<path d="M200 316H1040" stroke="#C3C6CF"/>
+<rect x="200" y="332" width="840" height="48" rx="12" fill="#F0F3FA"/>
+<text x="216" y="356" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">Preview: monitoring ready</text>
 </g></g>
 <rect x="184" y="752" width="1096" height="88" rx="0" fill="#F9F9FF"/>
 <path d="M200 752H1040" stroke="#C3C6CF"/>

@@ -14,11 +14,11 @@
 <text x="50" y="210" fill="#43474E" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">設定</text>
 <g transform="translate(24 243)" fill="none" stroke="#43474E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h12M2 12h12"/><circle cx="6" cy="4" r="2"/><circle cx="10" cy="12" r="2"/></g>
 <text x="50" y="256" fill="#43474E" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">初始設定</text>
-<text x="20" y="564" fill="#43474E" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">原生監察</text>
+<text x="20" y="564" fill="#43474E" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">原生監察</text>
 <text x="200" y="40" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="24" font-weight="600">網絡總覽</text>
 <rect x="200" y="62" width="424" height="56" rx="8" fill="#E9EDF5"/>
 <path d="M208 118H616" stroke="#73777F" stroke-width="1"/>
-<text x="212" y="79" fill="#43474E" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">搜尋</text>
+<text x="212" y="79" fill="#43474E" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">搜尋</text>
 <text x="212" y="108" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400"></text>
 <rect x="632" y="70" width="68" height="40" rx="20.0" fill="#D6E3FF"/>
 <text x="644" y="91" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">正則</text>
@@ -30,12 +30,12 @@
 <rect x="504" y="130" width="204" height="40" rx="20.0" fill="#D6E3FF"/>
 <text x="516" y="151" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">浮動監察器</text>
 <defs><clipPath id="monitor"><rect x="200" y="182" width="576" height="402"/></clipPath></defs><g clip-path="url(#monitor)"><g transform="translate(0 0)">
-<text x="200.0" y="202" fill="#43474E" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">下載</text>
+<text x="200.0" y="202" fill="#43474E" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">下載</text>
 <text x="200.0" y="244" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="24" font-weight="600">24.8 MB/s</text>
-<text x="392.0" y="202" fill="#43474E" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">上載</text>
+<text x="392.0" y="202" fill="#43474E" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">上載</text>
 <text x="392.0" y="244" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="24" font-weight="600">1.2 MB/s</text>
 <path d="M378.0 190L378.0 264" stroke="#C3C6CF"/>
-<text x="584.0" y="202" fill="#43474E" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">今日</text>
+<text x="584.0" y="202" fill="#43474E" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">今日</text>
 <text x="584.0" y="244" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="24" font-weight="600">8.46 GB</text>
 <path d="M570.0 190L570.0 264" stroke="#C3C6CF"/>
 <rect x="200" y="286" width="576" height="120" rx="10" fill="#F0F3FA"/>

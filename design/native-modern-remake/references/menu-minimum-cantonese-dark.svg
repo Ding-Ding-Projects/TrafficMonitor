@@ -4,7 +4,7 @@
 <text x="20" y="30" fill="#E1E2E9" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="18" font-weight="600">介面語言</text>
 <rect x="16" y="48" width="136" height="56" rx="8" fill="#272A31"/>
 <path d="M24 104H144" stroke="#8D9199" stroke-width="1"/>
-<text x="28" y="65" fill="#C3C6CF" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">搜尋</text>
+<text x="28" y="65" fill="#C3C6CF" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">搜尋</text>
 <text x="28" y="94" fill="#E1E2E9" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400"></text>
 <rect x="160" y="56" width="68" height="40" rx="20.0" fill="#19467F"/>
 <text x="172" y="77" fill="#E1E2E9" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">正則</text>
@@ -17,5 +17,5 @@
 <text x="20" y="236" fill="#A8C8FF" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="400">✓</text>
 <text x="48" y="236" fill="#E1E2E9" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">英文 + 廣東話</text>
 <path d="M16 352H304" stroke="#43474E"/>
-<text x="16" y="375" fill="#C3C6CF" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">Enter 選擇 · Esc 取消</text>
+<text x="16" y="375" fill="#C3C6CF" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">Enter 選擇 · Esc 取消</text>
 </svg>

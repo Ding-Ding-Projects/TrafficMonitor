@@ -4,43 +4,44 @@
 <text x="24" y="68" fill="#C3C6CF" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">Language, appearance and message style</text>
 <defs><clipPath id="form"><rect x="24" y="96" width="840" height="560"/></clipPath></defs><g clip-path="url(#form)"><g transform="translate(0 0)">
 <text x="24" y="116" fill="#E1E2E9" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="18" font-weight="600">Language and appearance</text>
-<text x="24" y="156" fill="#E1E2E9" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="500">Interface language</text>
-<rect x="402.0" y="136" width="462.00000000000006" height="40" rx="4" fill="#111318" stroke="#8D9199"/>
-<text x="418.0" y="162" fill="#E1E2E9" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="400">English</text>
-<path d="M832.0 153.0l6 6 6 -6" fill="none" stroke="#C3C6CF" stroke-width="2"/>
-<path d="M24 196H864" stroke="#43474E"/>
-<text x="24" y="220" fill="#E1E2E9" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="500">Appearance</text>
-<rect x="402.0" y="200" width="462.00000000000006" height="40" rx="4" fill="#111318" stroke="#8D9199"/>
-<text x="418.0" y="226" fill="#E1E2E9" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="400">Dark</text>
-<path d="M832.0 217.0l6 6 6 -6" fill="none" stroke="#C3C6CF" stroke-width="2"/>
-<path d="M24 260H864" stroke="#43474E"/>
-<rect x="24" y="276" width="840" height="48" rx="12" fill="#1D2026"/>
-<text x="40" y="300" fill="#E1E2E9" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">Preview: monitoring ready</text>
-<rect x="24" y="348" width="188" height="40" rx="20.0" fill="#A8C8FF"/>
-<text x="36" y="369" fill="#003064" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">Apply preferences</text>
-<text x="232" y="369" fill="#A8C8FF" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">Use saved</text>
-<text x="368" y="369" fill="#A8C8FF" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">Reset</text>
-<text x="24" y="424" fill="#E1E2E9" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="500">English message style</text>
-<text x="832" y="424" fill="#E1E2E9" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="600">5</text>
-<rect x="32" y="460" width="808" height="4" rx="2" fill="#19467F"/>
-<rect x="32" y="460" width="808" height="4" rx="2" fill="#A8C8FF"/>
-<rect x="31.0" y="461" width="2" height="2" rx="1" fill="#003064"/>
-<rect x="233.0" y="461" width="2" height="2" rx="1" fill="#003064"/>
-<rect x="435.0" y="461" width="2" height="2" rx="1" fill="#003064"/>
-<rect x="637.0" y="461" width="2" height="2" rx="1" fill="#003064"/>
-<rect x="839.0" y="461" width="2" height="2" rx="1" fill="#003064"/>
-<rect x="830" y="452" width="20" height="20" rx="10" fill="#A8C8FF"/>
-<text x="24" y="500" fill="#E1E2E9" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="500">Cantonese message style</text>
-<text x="832" y="500" fill="#E1E2E9" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="600">5</text>
-<rect x="32" y="536" width="808" height="4" rx="2" fill="#19467F"/>
-<rect x="32" y="536" width="808" height="4" rx="2" fill="#A8C8FF"/>
-<rect x="31.0" y="537" width="2" height="2" rx="1" fill="#003064"/>
-<rect x="233.0" y="537" width="2" height="2" rx="1" fill="#003064"/>
-<rect x="435.0" y="537" width="2" height="2" rx="1" fill="#003064"/>
-<rect x="637.0" y="537" width="2" height="2" rx="1" fill="#003064"/>
-<rect x="839.0" y="537" width="2" height="2" rx="1" fill="#003064"/>
-<rect x="830" y="528" width="20" height="20" rx="10" fill="#A8C8FF"/>
-<text x="24" y="576" fill="#C3C6CF" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">Message style applies to this setup</text>
+<text x="784" y="115" fill="#A8C8FF" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">Details</text>
+<text x="24" y="160" fill="#E1E2E9" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="500">Interface language</text>
+<rect x="402.0" y="140" width="462.00000000000006" height="40" rx="4" fill="#111318" stroke="#8D9199"/>
+<text x="418.0" y="166" fill="#E1E2E9" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="400">English</text>
+<path d="M832.0 157.0l6 6 6 -6" fill="none" stroke="#C3C6CF" stroke-width="2"/>
+<path d="M24 200H864" stroke="#43474E"/>
+<text x="24" y="224" fill="#E1E2E9" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="500">Appearance</text>
+<rect x="402.0" y="204" width="462.00000000000006" height="40" rx="4" fill="#111318" stroke="#8D9199"/>
+<text x="418.0" y="230" fill="#E1E2E9" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="400">Dark</text>
+<path d="M832.0 221.0l6 6 6 -6" fill="none" stroke="#C3C6CF" stroke-width="2"/>
+<path d="M24 264H864" stroke="#43474E"/>
+<rect x="24" y="280" width="840" height="48" rx="12" fill="#1D2026"/>
+<text x="40" y="304" fill="#E1E2E9" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">Preview: monitoring ready</text>
+<rect x="24" y="352" width="188" height="40" rx="20.0" fill="#A8C8FF"/>
+<text x="36" y="373" fill="#003064" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">Apply preferences</text>
+<text x="232" y="373" fill="#A8C8FF" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">Use saved</text>
+<text x="368" y="373" fill="#A8C8FF" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">Reset</text>
+<text x="24" y="428" fill="#E1E2E9" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="500">English message style</text>
+<text x="832" y="428" fill="#E1E2E9" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="600">5</text>
+<rect x="32" y="468" width="808" height="4" rx="2" fill="#19467F"/>
+<rect x="32" y="468" width="808" height="4" rx="2" fill="#A8C8FF"/>
+<rect x="31.0" y="469" width="2" height="2" rx="1" fill="#003064"/>
+<rect x="233.0" y="469" width="2" height="2" rx="1" fill="#003064"/>
+<rect x="435.0" y="469" width="2" height="2" rx="1" fill="#003064"/>
+<rect x="637.0" y="469" width="2" height="2" rx="1" fill="#003064"/>
+<rect x="839.0" y="469" width="2" height="2" rx="1" fill="#003064"/>
+<rect x="830" y="460" width="20" height="20" rx="10" fill="#A8C8FF"/>
+<text x="24" y="508" fill="#E1E2E9" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="500">Cantonese message style</text>
+<text x="832" y="508" fill="#E1E2E9" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="600">5</text>
+<rect x="32" y="548" width="808" height="4" rx="2" fill="#19467F"/>
+<rect x="32" y="548" width="808" height="4" rx="2" fill="#A8C8FF"/>
+<rect x="31.0" y="549" width="2" height="2" rx="1" fill="#003064"/>
+<rect x="233.0" y="549" width="2" height="2" rx="1" fill="#003064"/>
+<rect x="435.0" y="549" width="2" height="2" rx="1" fill="#003064"/>
+<rect x="637.0" y="549" width="2" height="2" rx="1" fill="#003064"/>
+<rect x="839.0" y="549" width="2" height="2" rx="1" fill="#003064"/>
+<rect x="830" y="540" width="20" height="20" rx="10" fill="#A8C8FF"/>
+<text x="24" y="588" fill="#C3C6CF" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">Message style applies to this setup</text>
 </g></g>
 <rect x="8" y="672" width="952" height="88" rx="0" fill="#111318"/>
 <path d="M24 672H864" stroke="#43474E"/>

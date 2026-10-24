@@ -19,9 +19,12 @@ def render(surface, size, lang, theme, state="initial"):
     def line(x,y,x2,y2):
         out.append(f'<path d="M{x} {y}H{x2}" stroke="{p["divider"]}"/>' if y==y2 else f'<path d="M{x} {y}L{x2} {y2}" stroke="{p["divider"]}"/>')
     def text(x,y,en,zh="",sz=14,color="text",weight=400):
-        values = [(en,sz)] if lang=="english" or not zh else [(zh,sz)] if lang=="cantonese" else [(en,sz),(zh,max(12,sz-2))]
+        # The secondary language never falls below body-medium size.
+        # Use the matching line box rather than shrinking translated copy.
+        line_height = 20 if sz<=14 else 24 if sz<=16 else 28 if sz<=22 else 32
+        values = [(en,sz)] if lang=="english" or not zh else [(zh,max(14,sz))] if lang=="cantonese" else [(en,sz),(zh,max(14,sz-2))]
         for i,(value,fs) in enumerate(values):
-            out.append(f'<text x="{x}" y="{y+i*(sz+5)}" fill="{p[color]}" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="{fs}" font-weight="{weight}">{escape(value)}</text>')
+            out.append(f'<text x="{x}" y="{y+i*line_height}" fill="{p[color]}" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="{fs}" font-weight="{weight}">{escape(value)}</text>')
     ch = 56 if lang=="bilingual" else 40
     def button(x,y,bw,en,zh="",primary=False,plain=False):
         if not plain:box(x,y,bw,ch,"accent" if primary else "selected",ch/2,None)
@@ -44,7 +47,7 @@ def render(surface, size, lang, theme, state="initial"):
     def nav(items,selected=0):
         box(0,0,176,h,"nav");text(20,34,"TrafficMonitor",sz=17,weight=600)
         for i,(en,zh) in enumerate(items):
-            yy=72+i*(58 if lang=="bilingual" else 46)
+            yy=72+i*(64 if lang=="bilingual" else 46)
             if i==selected:
                 box(12,yy-22,152,ch+4,"selected",12)
                 box(12,yy-12,3,ch-12,"accent",2)
@@ -87,11 +90,11 @@ def render(surface, size, lang, theme, state="initial"):
             footer_height=112 if bilingual else 88
         fy=h-footer_height;view=fy-top-16
         wide=cw>=640
-        label_height=40 if bilingual else 20
-        row_height=(80 if bilingual else 64) if wide else (112 if bilingual else 88)
+        label_height=48 if bilingual else 24
+        row_height=(88 if bilingual else 64) if wide else (120 if bilingual else 88)
         if state.startswith("notifications"):
-            row_height=192 if bilingual else 144
-            content=6*row_height+64
+            row_height=208 if bilingual else 152
+            content=6*row_height+label_height+24
         else:
             content=label_height+20+2*row_height+(72 if bilingual else 48)+16
             if surface=="setup":content+=ch+36+2*(label_height+56)+48
@@ -102,23 +105,34 @@ def render(surface, size, lang, theme, state="initial"):
             text(x,y,"Notification thresholds","通知門檻",18,weight=600);y+=label_height+24
             rows=[("Daily traffic","每日流量","200","MB",False),("Memory use","記憶體用量","80","%",False),("CPU temperature","CPU 溫度","80","°C",True),("GPU temperature","GPU 溫度","80","°C",True),("Disk temperature","磁碟溫度","80","°C",True),("Mainboard temperature","主機板溫度","80","°C",True)]
             for en,zh,value,unit,unavailable in rows:
-                box(x,y-14,18,18,"bg",2,"line")
-                text(x+32,y,en,zh,16,"muted" if unavailable else "text",500)
+                if unavailable:out.append('<g opacity="0.38" data-state="disabled" aria-disabled="true">')
+                box(x,y-14,18,18,"bg",2,"text" if unavailable else "line")
+                text(x+32,y,en,zh,16,"text",500)
+                if unavailable:out.append('</g>')
                 button(x+cw-92,y-22,88,"Details","詳細資料",plain=True)
                 yy=y+label_height+12
-                text(x+32,yy+24,"Threshold","門檻",14,"muted")
-                box(x+cw-208,yy,132,ch,"bg",4,"line")
+                if unavailable:
+                    out.append('<g opacity="0.12" data-state="disabled-container">')
+                    box(x+cw-208,yy,132,ch,"text",4)
+                    out.append('</g><g opacity="0.38" data-state="disabled" aria-disabled="true">')
+                text(x+32,yy+24,"Threshold","門檻",14,"text" if unavailable else "muted")
+                box(x+cw-208,yy,132,ch,"none" if unavailable else "bg",4,"text" if unavailable else "line")
                 text(x+cw-196,yy+25,value,sz=16)
                 if unit=="MB":
                     box(x+cw-68,yy,68,ch,"bg",4,"line")
                     text(x+cw-56,yy+25,unit,sz=14)
                     out.append(f'<path d="M{x+cw-20} {yy+ch/2-2}l4 4 4 -4" fill="none" stroke="{p["muted"]}"/>')
-                else:text(x+cw-60,yy+25,unit,sz=14,color="muted")
-                if unavailable:text(x+32,yy+ch+24,"Unavailable in this build","此版本未提供",12,"muted")
+                else:text(x+cw-60,yy+25,unit,sz=14,color="text" if unavailable else "muted")
+                if unavailable:
+                    out.append('</g>')
+                    text(x+32,yy+ch+24,"Unavailable in this build","此版本未提供",14,"text")
                 line(x,y+row_height-28,x+cw,y+row_height-28)
                 y+=row_height
         else:
-            text(x,y,"Language and appearance","語言與外觀",18,weight=600);y+=label_height+20
+            text(x,y,"Language and appearance","語言與外觀",18,weight=600)
+            # A real disclosure entry owns scope/provenance; it is not decorative help.
+            button(x+cw-92,y-22,88,"Details","詳細資料",plain=True)
+            y+=label_height+20
             appearance=("深色" if theme=="dark" else "跟隨系統") if lang=="cantonese" else ("Dark / 深色" if theme=="dark" else "System / 跟隨系統") if bilingual else "Dark" if theme=="dark" else "System"
             for en,zh,val in [("Interface language","介面語言","English + 廣東話" if bilingual else "廣東話" if lang=="cantonese" else "English"),("Appearance","外觀",appearance)]:
                 text(x,y,en,zh,16,weight=500)
@@ -250,6 +264,7 @@ def components(theme):
     p=PALETTES[theme]
     parts=[f'<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="780" viewBox="0 0 1080 780"><title>Native component anatomy, {theme}, design only</title><rect width="1080" height="780" fill="{p["bg"]}"/>']
     def t(x,y,s,size=14,color="text"):
+        if any("\u3400" <= char <= "\u9fff" for char in s):size=max(14,size)
         parts.append(f'<text x="{x}" y="{y}" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="{size}" fill="{p[color]}">{escape(s)}</text>')
     def r(x,y,w,h,fill="panel",stroke="line",radius=6,sw=1):
         parts.append(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="{radius}" fill="{p.get(fill,fill)}" stroke="{p.get(stroke,stroke)}" stroke-width="{sw}"/>')
