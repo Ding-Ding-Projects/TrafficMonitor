@@ -32,7 +32,13 @@ supported modification with the full required workload; missing directories use 
 installation destination without recreating another application's directory or deleting its
 registration. The focused acquisition regression and publication scan passed. The exact root
 build reached native elevation request; installation, compilation and candidate 9044 remain
-unverified. Keep `.release-hold` in place.
+unverified at that initial checkpoint. Acquisition subsequently exited zero and strict discovery
+confirmed a complete, launchable 17.14.37806.7 instance without a required restart. Exact root
+build completed with 114 warnings and zero errors; exact root installer production created local
+candidate 1.0.9044 with two build warnings and zero errors. See
+`docs/evidence/build-recovery-9044.json` for source binding and hashes. Runtime acceptance and
+the workspace stall cause remain unverified. Keep `.release-hold` in place. The local hidden-desktop
+transport was unavailable at the first preflight and recovery is underway.
 
 Local publication hooks were restored at the already configured location. Twelve exact-line
 exceptions were individually reviewed for existing C++ identifiers, literal Git commands

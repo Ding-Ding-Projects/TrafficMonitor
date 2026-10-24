@@ -7,7 +7,11 @@ otherwise uses a TrafficMonitor-owned installation destination while preserving 
 registrations. Strict readiness requires compiler, MFC and SDK 22621. The focused regression
 and publication scan passed. Exact root build.bat reached native elevation request in the
 retained responsiveness checkout; acquisition and compilation are still unverified. Inspect
-the existing operation before starting another. Candidate 9044 remains unproduced.
+the existing operation before starting another. Later readback established successful acquisition,
+strict readiness and root build completion (114 warnings, zero errors). Exact root packaging
+then produced local candidate 1.0.9044 (two build warnings, zero errors). Source and hashes are
+in docs/evidence/build-recovery-9044.json. No runtime acceptance or stall repair is claimed.
+The initial Lowlevel loopback preflight was unavailable; supported transport recovery is underway.
 
 Local publication hooks were restored and twelve existing literal/natural-language collisions
 were individually reviewed with exact-line hashes. Main retains .release-hold. The shared

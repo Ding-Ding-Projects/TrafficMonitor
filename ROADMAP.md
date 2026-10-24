@@ -66,8 +66,9 @@
 ## Build acquisition recovery, 2026-10-24
 
 - [x] Separate strict readiness from incomplete-instance recovery and preserve missing-directory registrations through an explicit project-owned installation destination; focused acquisition regression passed.
-- [ ] Verify native consent, actual component acquisition and exact root build completion for recovery source bee8cb6.
-- [ ] Produce diagnostic candidate 9044 and establish the workspace responsiveness cause before accepting its repair.
+- [x] Verify native consent, component acquisition and exact root build completion for recovery source bee8cb6 on the current host; 114 warnings and zero errors.
+- [x] Produce local diagnostic candidate 9044 through the exact installer entrypoint and record hashes; package build had two warnings and zero errors.
+- [ ] Establish the workspace responsiveness cause and verify its repair; candidate 9044 is build evidence only.
 
 ## Current delivery priority, 2026-10-23
 

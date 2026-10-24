@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "bee8cb628521256994e8342f071c3c9c1a7ec781",
+  "candidateVersion": "1.0.9044",
+  "verificationDate": "2026-10-24",
+  "scope": "Current-host toolchain acquisition, native build and local packaging only",
+  "toolchain": {
+    "version": "17.14.37806.7",
+    "complete": true,
+    "launchable": true,
+    "rebootRequired": false,
+    "requiredComponents": ["Microsoft.VisualStudio.Component.VC.Tools.x86.x64", "Microsoft.VisualStudio.Component.VC.ATLMFC", "Microsoft.VisualStudio.Component.Windows11SDK.22621"],
+    "acquisitionExitCode": 0
+  },
+  "build": {"entrypoint": "build.bat", "exitCode": 0, "warnings": 114, "errors": 0},
+  "package": {"entrypoint": "build-installer.bat -Version 1.0.9044", "exitCode": 0, "buildWarnings": 2, "buildErrors": 0},
+  "sha256": {
+    "Setup.exe": "08c30259b4a624034fccb1d48e94b870067b6d69a61109bb5719d1baa3d2c985",
+    "TrafficMonitor-1.0.9044-full.nupkg": "c5de95311cb5a911ee008b194fe9e28b38adeacbf3c3baf4d0bdec402e5a66a1",
+    "TrafficMonitor.exe": "8bbc36c6a75c5c55013a959c77bbf8e189cb992f8f0b95deb041bc2acfdf34f4"
+  },
+  "runtimeAcceptance": "unverified",
+  "workspaceStallCause": "unproved",
+  "publication": "local diagnostic candidate only; release hold retained"
+}
