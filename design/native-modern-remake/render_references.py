@@ -5,8 +5,8 @@ from html import escape
 ROOT = Path(__file__).parent / "references"
 ROOT.mkdir(exist_ok=True)
 PALETTES = {
-    "light": dict(bg="#F5F7FA", panel="#FFFFFF", nav="#EDF1F6", text="#17212F", muted="#526174", line="#D5DEE8", accent="#245FC8", selected="#DCE8FF", ink="#FFFFFF"),
-    "dark": dict(bg="#101419", panel="#1B2129", nav="#151B23", text="#E6EDF5", muted="#A8B7C8", line="#394758", accent="#91B8FF", selected="#243D63", ink="#101419"),
+    "light": dict(bg="#F9F9FF", panel="#F0F3FA", nav="#E9EDF5", text="#191C20", muted="#43474E", line="#73777F", divider="#C3C6CF", accent="#345E9C", selected="#D6E3FF", ink="#FFFFFF"),
+    "dark": dict(bg="#111318", panel="#1D2026", nav="#272A31", text="#E1E2E9", muted="#C3C6CF", line="#8D9199", divider="#43474E", accent="#A8C8FF", selected="#19467F", ink="#003064"),
 }
 SIZES = {"workspace": ((1280,840),(800,600)), "settings": ((1280,840),(760,640)), "setup": ((960,760),(760,640)), "menu": ((420,480),(320,400)), "regex": ((1280,840),(640,400))}
 
@@ -17,14 +17,14 @@ def render(surface, size, lang, theme, state="initial"):
     def box(x,y,bw,bh,fill="panel",r=0,stroke=None):
         out.append(f'<rect x="{x}" y="{y}" width="{bw}" height="{bh}" rx="{r}" fill="{p.get(fill,fill)}"'+(f' stroke="{p[stroke]}"' if stroke else '')+'/>')
     def line(x,y,x2,y2):
-        out.append(f'<path d="M{x} {y}H{x2}" stroke="{p["line"]}"/>' if y==y2 else f'<path d="M{x} {y}L{x2} {y2}" stroke="{p["line"]}"/>')
+        out.append(f'<path d="M{x} {y}H{x2}" stroke="{p["divider"]}"/>' if y==y2 else f'<path d="M{x} {y}L{x2} {y2}" stroke="{p["divider"]}"/>')
     def text(x,y,en,zh="",sz=14,color="text",weight=400):
         values = [(en,sz)] if lang=="english" or not zh else [(zh,sz)] if lang=="cantonese" else [(en,sz),(zh,max(12,sz-2))]
         for i,(value,fs) in enumerate(values):
             out.append(f'<text x="{x}" y="{y+i*(sz+5)}" fill="{p[color]}" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="{fs}" font-weight="{weight}">{escape(value)}</text>')
-    ch = 48 if lang=="bilingual" else 36
+    ch = 56 if lang=="bilingual" else 40
     def button(x,y,bw,en,zh="",primary=False,plain=False):
-        if not plain:box(x,y,bw,ch,"accent" if primary else "selected",12,None)
+        if not plain:box(x,y,bw,ch,"accent" if primary else "selected",ch/2,None)
         text(x+12,y+21,en,zh,14,"accent" if plain else "ink" if primary else "text",500)
     def field(x,y,bw,en,zh="",value="",selected=False):
         box(x,y,bw,ch+16,"selected" if selected else "nav",8,None)
@@ -38,8 +38,9 @@ def render(surface, size, lang, theme, state="initial"):
         box(x,y,8,bh,"nav",4);box(x+1,y+offset,6,thumb,"muted",3)
     def search(x,y,bw):
         placeholder=("尋找設定" if lang=="cantonese" else "Find a setting" if lang=="english" else "Find a setting / 尋找設定") if surface=="settings" else ""
-        field(x,y,bw-76,"Search","搜尋",placeholder)
-        button(x+bw-68,y+8,64,"Regex","正則")
+        field(x,y,bw-152,"Search","搜尋",placeholder)
+        button(x+bw-144,y+8,68,"Regex","正則")
+        button(x+bw-72,y+8,68,"Clear","清除",plain=True)
     def nav(items,selected=0):
         box(0,0,176,h,"nav");text(20,34,"TrafficMonitor",sz=17,weight=600)
         for i,(en,zh) in enumerate(items):
@@ -65,59 +66,96 @@ def render(surface, size, lang, theme, state="initial"):
             icon=icons.get(en,'<circle cx="8" cy="8" r="7"/>')
             out.append(f'<g transform="translate(24 {yy-13})" fill="none" stroke="{ic}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">{icon}</g>')
             text(50,yy,en,zh,14,"accent" if i==selected else "muted",600 if i==selected else 400)
-        text(20,h-36,"Native monitor","原生監察",12,"muted")
+        text(20,h-36,"All settings (legacy)" if surface=="settings" else "Native monitor","所有設定（舊版）" if surface=="settings" else "原生監察",12,"accent" if surface=="settings" else "muted")
     box(0,0,w,h,"bg")
     if surface in ("settings","setup"):
+        bilingual=lang=="bilingual"
         if surface=="settings":
-            nav([("Monitoring","監察"),("Floating monitor","浮動監察器"),("Taskbar","工作列"),("Notifications","通知"),("Interface","介面"),("All groups","所有組別")],4)
-        else:nav([("1  Welcome","1  開始設定"),("2  Monitoring","2  監察選項"),("3  Startup","3  啟動選項"),("4  Review","4  檢查設定")],0)
-        x=200;cw=min(860,w-x-24)
-        text(x,38,"Settings" if surface=="settings" else "Set up your monitor","設定" if surface=="settings" else "設定監察工具",24,weight=600)
-        sy=82 if lang=="bilingual" else 62
-        search(x,sy,cw)
-        fy=h-(114 if lang=="bilingual" else 80)
-        top=sy+ch+28;view=fy-top-16
-        wide=cw>=600
-        label_height=39 if lang=="bilingual" else 20
-        help_height=35 if lang=="bilingual" else 18
-        row_height=max(label_height+8+help_height,ch)+24 if wide else label_height+8+ch+24
-        content=24+(48 if lang=="bilingual" else 36)+2*row_height+80+24
-        if surface=="setup":content+=ch+32+2*(label_height+44)+24
-        offset=max(0,content-view-32) if state=="scrolled" else 0
-        box(x-12,top,cw+8,min(view,content),"panel",16)
-        out.append(f'<defs><clipPath id="form"><rect x="{x-12}" y="{top}" width="{cw+8}" height="{view}"/></clipPath></defs><g clip-path="url(#form)"><g transform="translate(0 {-offset})">')
-        y=top+24
-        text(x,y,"Language and appearance","語言與外觀",18,weight=600)
-        y+=48 if lang=="bilingual" else 36
-        appearance=("深色" if theme=="dark" else "跟隨系統") if lang=="cantonese" else ("Dark / 深色" if theme=="dark" else "System / 跟隨系統") if lang=="bilingual" else "Dark" if theme=="dark" else "System"
-        for en,zh,val in [("Interface language","介面語言","English + 廣東話" if lang=="bilingual" else "廣東話" if lang=="cantonese" else "English"),("Appearance","外觀",appearance)]:
-            text(x,y,en,zh,14,weight=600)
-            bx=x+cw*.45 if wide else x;by=y-14 if wide else y-14+label_height+8;bw=cw*.55-16 if wide else cw-16
-            box(bx,by,bw,ch,"nav",8)
-            text(bx+14,by+23,val,sz=14,weight=500)
-            out.append(f'<path d="M{bx+bw-28} {by+ch/2-3}l5 5 5 -5" fill="none" stroke="{p["muted"]}" stroke-width="1.5"/>')
-            if wide:text(x,y-14+label_height+8+12,"Shared across native windows","套用到原生視窗",12,"muted")
-            y+=row_height
-        box(x,y,cw-16,80,"selected",8)
-        text(x+14,y+24,"Preview: monitoring is active","預覽：監察運作中",14)
-        y+=104
-        if surface=="setup":
-            button(x,y,200,"Apply preferences","套用介面偏好",True)
-            button(x+208,y,128,"Use saved","用已儲存值")
-            y+=ch+32
-            for en,zh in [("English style","英文風格"),("Cantonese style","廣東話風格")]:
-                text(x,y,en,zh,14,weight=600);y+=label_height+8
-                box(x,y,cw-72,4,"line",2);box(x,y,cw-72,4,"accent",2);box(x+cw-84,y-8,20,20,"accent",10)
-                text(x+cw-44,y+6,"5",sz=14);y+=36
-        out.append('</g></g>')
-        scroll(w-12,top,view,content,offset)
-        box(176,fy,w-176,h-fy,"panel");line(176,fy,w,fy)
-        text(x,fy+22,"Unsaved interface changes","介面變更尚未儲存",12,"muted")
-        by=fy+(54 if lang=="bilingual" else 32)
-        if surface=="settings":
-            button(x,by,116,"Apply","套用",True);button(x+124,by,128,"Use saved","用已儲存值");button(x+260,by,96,"Reset","重設",plain=True)
+            nav([("Monitoring","監察"),("Floating monitor","浮動監察器"),("Taskbar","工作列"),("Notifications","通知"),("Interface","介面"),("All groups","所有組別")],3 if state.startswith("notifications") else 4)
+            x=200;cw=min(840,w-x-24)
+            text(x,40,"Settings","設定",24,weight=600)
+            sy=88 if bilingual else 64;search(x,sy,cw)
+            text(x,sy+ch+36,"6 settings" if state.startswith("notifications") else "2 settings","6 項設定" if state.startswith("notifications") else "2 項設定",12,"muted")
+            top=sy+ch+(64 if bilingual else 44)
+            footer_height=112 if bilingual else 88
         else:
-            button(x,by,88,"Back","上一步");button(x+96,by,164,"Save and close","儲存並關閉");button(w-112,by,88,"Next","下一步",True)
+            # Setup is a single measured step body, not a settings page inside a page.
+            x=24;cw=min(840,w-48)
+            text(x,36,"1 of 4 · Make it yours","第 1 步，共 4 步 · 介面偏好",24,weight=600)
+            text(x,88 if bilingual else 68,"Language, appearance and message style","語言、外觀及訊息風格",14,"muted")
+            top=128 if bilingual else 96
+            footer_height=112 if bilingual else 88
+        fy=h-footer_height;view=fy-top-16
+        wide=cw>=640
+        label_height=40 if bilingual else 20
+        row_height=(80 if bilingual else 64) if wide else (112 if bilingual else 88)
+        if state.startswith("notifications"):
+            row_height=192 if bilingual else 144
+            content=6*row_height+64
+        else:
+            content=label_height+20+2*row_height+(72 if bilingual else 48)+16
+            if surface=="setup":content+=ch+36+2*(label_height+56)+48
+        offset=max(0,content-view) if state.endswith("scrolled") else 0
+        out.append(f'<defs><clipPath id="form"><rect x="{x}" y="{top}" width="{cw}" height="{view}"/></clipPath></defs><g clip-path="url(#form)"><g transform="translate(0 {-offset})">')
+        y=top+20
+        if state.startswith("notifications"):
+            text(x,y,"Notification thresholds","通知門檻",18,weight=600);y+=label_height+24
+            rows=[("Daily traffic","每日流量","200","MB",False),("Memory use","記憶體用量","80","%",False),("CPU temperature","CPU 溫度","80","°C",True),("GPU temperature","GPU 溫度","80","°C",True),("Disk temperature","磁碟溫度","80","°C",True),("Mainboard temperature","主機板溫度","80","°C",True)]
+            for en,zh,value,unit,unavailable in rows:
+                box(x,y-14,18,18,"bg",2,"line")
+                text(x+32,y,en,zh,16,"muted" if unavailable else "text",500)
+                button(x+cw-92,y-22,88,"Details","詳細資料",plain=True)
+                yy=y+label_height+12
+                text(x+32,yy+24,"Threshold","門檻",14,"muted")
+                box(x+cw-208,yy,132,ch,"bg",4,"line")
+                text(x+cw-196,yy+25,value,sz=16)
+                if unit=="MB":
+                    box(x+cw-68,yy,68,ch,"bg",4,"line")
+                    text(x+cw-56,yy+25,unit,sz=14)
+                    out.append(f'<path d="M{x+cw-20} {yy+ch/2-2}l4 4 4 -4" fill="none" stroke="{p["muted"]}"/>')
+                else:text(x+cw-60,yy+25,unit,sz=14,color="muted")
+                if unavailable:text(x+32,yy+ch+24,"Unavailable in this build","此版本未提供",12,"muted")
+                line(x,y+row_height-28,x+cw,y+row_height-28)
+                y+=row_height
+        else:
+            text(x,y,"Language and appearance","語言與外觀",18,weight=600);y+=label_height+20
+            appearance=("深色" if theme=="dark" else "跟隨系統") if lang=="cantonese" else ("Dark / 深色" if theme=="dark" else "System / 跟隨系統") if bilingual else "Dark" if theme=="dark" else "System"
+            for en,zh,val in [("Interface language","介面語言","English + 廣東話" if bilingual else "廣東話" if lang=="cantonese" else "English"),("Appearance","外觀",appearance)]:
+                text(x,y,en,zh,16,weight=500)
+                bx=x+cw*.45 if wide else x
+                by=y-20 if wide else y-16+label_height+8
+                bw=cw*.55 if wide else cw
+                box(bx,by,bw,ch,"bg",4,"line")
+                text(bx+16,by+26,val,sz=16)
+                out.append(f'<path d="M{bx+bw-32} {by+ch/2-3}l6 6 6 -6" fill="none" stroke="{p["muted"]}" stroke-width="2"/>')
+                y+=row_height
+                if wide:line(x,y-24,x+cw,y-24)
+            # The preview is a compact representative row, never an empty card.
+            box(x,y-8,cw,72 if bilingual else 48,"panel",12)
+            text(x+16,y+16,"Preview: monitoring ready","預覽：監察已準備好",14)
+            y+=88 if bilingual else 64
+            if surface=="setup":
+                button(x,y,188,"Apply preferences","套用介面偏好",True)
+                button(x+196,y,128,"Use saved","用已儲存值",plain=True)
+                button(x+332,y,88,"Reset","重設",plain=True)
+                y+=ch+36
+                for en,zh in [("English message style","英文訊息風格"),("Cantonese message style","廣東話訊息風格")]:
+                    text(x,y,en,zh,16,weight=500);text(x+cw-32,y,"5",sz=16,weight=600)
+                    y+=label_height+16
+                    box(x+8,y,cw-32,4,"selected",2)
+                    box(x+8,y,cw-32,4,"accent",2)
+                    for tick in range(5):box(x+8+tick*(cw-32)/4-1,y+1,2,2,"ink",1)
+                    box(x+cw-34,y-8,20,20,"accent",10);y+=40
+                text(x,y,"Message style applies to this setup","訊息風格套用於此設定流程",12,"muted")
+        out.append('</g></g>')
+        scroll(x+cw+4,top,view,content,offset)
+        box(x-16,fy,w-x+16,h-fy,"bg");line(x,fy,x+cw,fy)
+        text(x,fy+22,"Unsaved changes" if surface=="settings" else "Progress saved when you continue","變更尚未儲存" if surface=="settings" else "繼續時儲存進度",12,"muted")
+        by=fy+(52 if bilingual else 36)
+        if surface=="settings":
+            button(x,by,112,"Apply","套用",True);button(x+120,by,128,"Use saved","用已儲存值");button(x+256,by,88,"Reset","重設",plain=True)
+        else:
+            button(x,by,88,"Back","上一步",plain=True);button(x+96,by,164,"Save and close","儲存並關閉",plain=True);button(x+cw-88,by,88,"Next","下一步",True)
     elif surface=="workspace":
         nav([("Monitor","監察"),("History","歷史"),("Plugins","外掛"),("Settings","設定"),("Setup","初始設定")])
         x=200;cw=w-x-24
@@ -220,7 +258,7 @@ def components(theme):
         x=32+i*344;r(x,104,320,64,stroke=color,sw=2 if i else 1);t(x+12,124,"Pattern / 模式",12,"muted");t(x+12,151,"Ethernet");t(x,194,label,12,"muted")
     t(32,242,"Action hierarchy / 操作層級",18)
     for x,label,fill,ink in [(32,"Apply / 套用","accent","ink"),(222,"Use saved / 用已儲存值","selected","text"),(480,"Cancel / 取消","panel","text")]:
-        r(x,264,172 if x!=222 else 240,44,fill,radius=12);t(x+12,291,label,14,ink)
+        r(x,264,172 if x!=222 else 240,44,fill,radius=22);t(x+12,291,label,14,ink)
     t(700,291,"Reset / 重設",14,"accent");t(32,346,"Selection and range / 選擇與數值",18)
     r(32,370,20,20,"accent","accent",3);t(35,386,"✓",14,"ink");t(64,386,"Show taskbar monitor / 顯示工作列監察")
     r(490,366,44,26,"accent","accent",13);r(514,369,20,20,"ink","ink",10);t(548,385,"Enabled / 已啟用")
@@ -233,4 +271,13 @@ def components(theme):
     return '\n'.join(parts)+"</svg>"
 for theme in PALETTES:
     (ROOT/f"components-{theme}.svg").write_text(components(theme),encoding="utf-8")
-print("Generated 84 surface references and 2 component references. No runtime evidence produced.")
+for size in ("normal","minimum"):
+    for language in ("english","cantonese","bilingual"):
+        for theme in PALETTES:
+            (ROOT/f"settings-{size}-{language}-{theme}-notifications.svg").write_text(render("settings",size,language,theme,"notifications"),encoding="utf-8")
+for size in ("normal","minimum"):
+    for language in ("english","cantonese","bilingual"):
+        for theme in PALETTES:
+            for state in ("scrolled","notifications-scrolled"):
+                (ROOT/f"settings-{size}-{language}-{theme}-{state}.svg").write_text(render("settings",size,language,theme,state),encoding="utf-8")
+print("Generated 120 surface references and 2 component references. No runtime evidence produced.")

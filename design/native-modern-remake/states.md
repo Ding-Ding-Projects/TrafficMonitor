@@ -1,5 +1,7 @@
 # State and interaction inventory
 
+Current visual refinement: [release 48 refinement](release48-refinement.md), based on source `eae4d77243e53cc25df57ccb9ef6f9a665a33562`. Its visual decisions supersede conflicting earlier dimensions below; historical evidence and behavior contracts remain unchanged. Independent review and native runtime acceptance are pending.
+
 | Owner | Required states | Acceptance |
 | --- | --- | --- |
 | Workspace | live, sampling paused/unavailable, adapter selected/missing, empty history, query match/empty/invalid regex | Real values and stable adapter identity survive layout and preferences refresh; no sample data in production |
@@ -19,3 +21,7 @@ Buttons remain buttons, selector menus remain menus with checked/radio state. Do
 ## Explicit negative checks
 
 Search for language shows one Interface row; appearance shows one; unrelated text shows none. Clearing restores both. Regex filter follows the same semantic subjects. Opening each selector retains its own last query and flags, without copying the global Settings query or the other selector state. Choosing an option and canceling the parent never claims persistence. Dirty A based on revision A cannot silently replace accepted B; explicit Use saved/reapply is required. Missing file never displays successful-save wording. Unknown/malformed setup bytes stay identical after Escape/window-close. Schema1 explicit Cantonese followed by schema2 navigation/restart remains Cantonese without pretending a global Apply occurred. Missing schema1 language never becomes an explicit English choice. NativePreferences writes never alter legacy language_id or send a process-wide broadcast.
+
+## Release 48 reference additions
+
+Current generator inventory is 120 surface proposals plus two component sheets. Notifications initial and end-scroll cover every normal/minimum, English/Cantonese/bilingual, light/dark tuple. Interface also has initial and end-scroll references. Setup retains its paired initial/end-scroll references with one step-body scroll owner. Notifications show six stable catalog subjects; daily traffic retains the MB/GB selector action. Each production state in the table above still requires native verification. A design-only drawing never satisfies an unchecked runtime state.

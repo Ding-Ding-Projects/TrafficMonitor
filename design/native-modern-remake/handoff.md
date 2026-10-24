@@ -1,5 +1,7 @@
 # Implementation handoff
 
+Current visual refinement: [release 48 refinement](release48-refinement.md), based on source `eae4d77243e53cc25df57ccb9ef6f9a665a33562`. Its visual decisions supersede conflicting earlier dimensions below; historical evidence and behavior contracts remain unchanged. Independent review and native runtime acceptance are pending.
+
 Status: design only, independent review pending. Preserve source `f1c6cc59f254ebf37503115636765619b3b35914`, existing storage/migration corrections and raw 1.0.9028 evidence. No new visual implementation is authorized by this document itself.
 
 ## Production boundaries

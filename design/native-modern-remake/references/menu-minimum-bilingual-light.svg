@@ -1,27 +1,29 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="320" height="400" viewBox="0 0 320 400"><title>menu minimum bilingual light design proposal</title><desc>Authored design reference with synthetic values. Not a running application or screenshot.</desc>
-<rect x="0" y="0" width="320" height="400" rx="0" fill="#F5F7FA"/>
-<rect x="0" y="0" width="320" height="400" rx="10" fill="#FFFFFF" stroke="#D5DEE8"/>
-<text x="20" y="30" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="18" font-weight="600">Interface language</text>
-<text x="20" y="53" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="600">介面語言</text>
-<rect x="16" y="72" width="212" height="64" rx="8" fill="#EDF1F6"/>
-<path d="M24 136H220" stroke="#D5DEE8" stroke-width="1"/>
-<text x="28" y="89" fill="#526174" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">Search</text>
-<text x="28" y="106" fill="#526174" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">搜尋</text>
-<text x="28" y="126" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400"></text>
-<rect x="236" y="80" width="64" height="48" rx="12" fill="#DCE8FF"/>
-<text x="248" y="101" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">Regex</text>
-<text x="248" y="120" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="500">正則</text>
-<text x="20" y="164" fill="#245FC8" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="400"></text>
-<text x="48" y="164" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">English</text>
-<text x="48" y="183" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">英文</text>
-<text x="20" y="224" fill="#245FC8" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="400"></text>
-<text x="48" y="224" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">Cantonese</text>
-<text x="48" y="243" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">廣東話</text>
-<rect x="8" y="260" width="296" height="52" rx="6" fill="#DCE8FF"/>
-<text x="20" y="284" fill="#245FC8" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="400">✓</text>
-<text x="48" y="284" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">English + Cantonese</text>
-<text x="48" y="303" fill="#17212F" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">英文 + 廣東話</text>
-<path d="M16 352H304" stroke="#D5DEE8"/>
-<text x="16" y="375" fill="#526174" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">Enter selects · Esc cancels</text>
-<text x="16" y="392" fill="#526174" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">Enter 選擇 · Esc 取消</text>
+<rect x="0" y="0" width="320" height="400" rx="0" fill="#F9F9FF"/>
+<rect x="0" y="0" width="320" height="400" rx="10" fill="#F0F3FA" stroke="#73777F"/>
+<text x="20" y="30" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="18" font-weight="600">Interface language</text>
+<text x="20" y="53" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="600">介面語言</text>
+<rect x="16" y="72" width="136" height="72" rx="8" fill="#E9EDF5"/>
+<path d="M24 144H144" stroke="#73777F" stroke-width="1"/>
+<text x="28" y="89" fill="#43474E" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">Search</text>
+<text x="28" y="106" fill="#43474E" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">搜尋</text>
+<text x="28" y="134" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400"></text>
+<rect x="160" y="80" width="68" height="56" rx="28.0" fill="#D6E3FF"/>
+<text x="172" y="101" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">Regex</text>
+<text x="172" y="120" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="500">正則</text>
+<text x="244" y="101" fill="#345E9C" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="500">Clear</text>
+<text x="244" y="120" fill="#345E9C" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="500">清除</text>
+<text x="20" y="172" fill="#345E9C" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="400"></text>
+<text x="48" y="172" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">English</text>
+<text x="48" y="191" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">英文</text>
+<text x="20" y="240" fill="#345E9C" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="400"></text>
+<text x="48" y="240" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">Cantonese</text>
+<text x="48" y="259" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">廣東話</text>
+<rect x="8" y="284" width="296" height="60" rx="6" fill="#D6E3FF"/>
+<text x="20" y="308" fill="#345E9C" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="16" font-weight="400">✓</text>
+<text x="48" y="308" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="14" font-weight="400">English + Cantonese</text>
+<text x="48" y="327" fill="#191C20" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">英文 + 廣東話</text>
+<path d="M16 352H304" stroke="#C3C6CF"/>
+<text x="16" y="375" fill="#43474E" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">Enter selects · Esc cancels</text>
+<text x="16" y="392" fill="#43474E" font-family="Segoe UI,Microsoft JhengHei,sans-serif" font-size="12" font-weight="400">Enter 選擇 · Esc 取消</text>
 </svg>
