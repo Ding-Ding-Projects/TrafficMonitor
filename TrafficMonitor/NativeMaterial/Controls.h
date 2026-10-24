@@ -15,6 +15,7 @@ namespace NativeMaterial
         BOOL Create(const CString& label, const RECT& bounds, CWnd* parent, UINT id);
         void SetAppearance(Appearance appearance);
         void SetLabel(const CString& label);
+        void SetDisclosure(bool expanded, const CString& name, const CString& description);
         void SetSurfaceColor(COLORREF color){m_surfaceColor=color;m_customSurface=true;if(m_hWnd)Invalidate();}
         void SetVariant(ButtonVariant value){m_variant=value;if(m_hWnd)Invalidate();}
     protected:
@@ -33,6 +34,7 @@ namespace NativeMaterial
         afx_msg void OnDestroy();
         afx_msg LRESULT OnGetObject(WPARAM, LPARAM);
         afx_msg LRESULT OnClick(WPARAM, LPARAM);
+        afx_msg LRESULT OnDisclosure(WPARAM, LPARAM);
         afx_msg LRESULT OnPrintClient(WPARAM, LPARAM);
         afx_msg LRESULT OnRenderStatus(WPARAM, LPARAM);
         afx_msg UINT OnGetDlgCode();

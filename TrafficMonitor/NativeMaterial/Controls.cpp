@@ -140,12 +140,15 @@ namespace NativeMaterial
         std::mutex mutex;
         HWND window{};
         std::wstring label;
+        std::wstring accessibleName, description;
+        bool disclosure{}, expanded{};
         bool enabled{ true };
     };
 
     // Each real child HWND participates in the system HWND fragment tree.
     // Custom virtual tables require their own fragment providers separately.
-    class ButtonProvider final : public IRawElementProviderSimple, public IInvokeProvider
+    constexpr UINT DisclosureAction=WM_APP+0x524;
+    class ButtonProvider final : public IRawElementProviderSimple, public IInvokeProvider, public IExpandCollapseProvider
     {
     public:
         explicit ButtonProvider(std::shared_ptr<ButtonAccess> state) : m_state(std::move(state)) {}
@@ -156,6 +159,12 @@ namespace NativeMaterial
             if (iid == __uuidof(IUnknown) || iid == __uuidof(IRawElementProviderSimple))
                 *value = static_cast<IRawElementProviderSimple*>(this);
             else if (iid == __uuidof(IInvokeProvider)) *value = static_cast<IInvokeProvider*>(this);
+            else if (iid == __uuidof(IExpandCollapseProvider))
+            {
+                std::lock_guard<std::mutex> lock(m_state->mutex);
+                if(!m_state->disclosure)return E_NOINTERFACE;
+                *value=static_cast<IExpandCollapseProvider*>(this);
+            }
             else return E_NOINTERFACE;
             AddRef(); return S_OK;
         }
@@ -176,6 +185,11 @@ namespace NativeMaterial
             if (!value) return E_POINTER;
             *value = nullptr;
             if (id == UIA_InvokePatternId) return QueryInterface(__uuidof(IInvokeProvider), reinterpret_cast<void**>(value));
+            if (id == UIA_ExpandCollapsePatternId)
+            {
+                const auto result=QueryInterface(__uuidof(IExpandCollapseProvider),reinterpret_cast<void**>(value));
+                return result==E_NOINTERFACE?S_OK:result;
+            }
             return S_OK;
         }
         HRESULT STDMETHODCALLTYPE GetPropertyValue(PROPERTYID id, VARIANT* value) override
@@ -187,9 +201,15 @@ namespace NativeMaterial
             if (id == UIA_ControlTypePropertyId) { value->vt = VT_I4; value->lVal = UIA_ButtonControlTypeId; }
             else if (id == UIA_NamePropertyId)
             {
-                value->vt = VT_BSTR; value->bstrVal = SysAllocString(m_state->label.c_str());
+                value->vt = VT_BSTR; value->bstrVal = SysAllocString((m_state->accessibleName.empty()?m_state->label:m_state->accessibleName).c_str());
                 if (!value->bstrVal) return E_OUTOFMEMORY;
             }
+            else if(id==UIA_HelpTextPropertyId&&m_state->disclosure)
+            {value->vt=VT_BSTR;value->bstrVal=SysAllocString(m_state->description.c_str());if(!value->bstrVal)return E_OUTOFMEMORY;}
+            else if(id==UIA_ExpandCollapseExpandCollapseStatePropertyId&&m_state->disclosure)
+            {value->vt=VT_I4;value->lVal=m_state->expanded?ExpandCollapseState_Expanded:ExpandCollapseState_Collapsed;}
+            else if(id==UIA_IsExpandCollapsePatternAvailablePropertyId)
+            {value->vt=VT_BOOL;value->boolVal=m_state->disclosure?VARIANT_TRUE:VARIANT_FALSE;}
             else if (id == UIA_IsEnabledPropertyId || id == UIA_IsKeyboardFocusablePropertyId
                 || id == UIA_IsControlElementPropertyId || id == UIA_IsContentElementPropertyId)
             {
@@ -213,7 +233,24 @@ namespace NativeMaterial
             if (!m_state->enabled) return UIA_E_ELEMENTNOTENABLED;
             return PostMessageW(m_state->window, BM_CLICK, 0, 0) ? S_OK : HRESULT_FROM_WIN32(GetLastError());
         }
+        HRESULT STDMETHODCALLTYPE Expand() override{return SetExpanded(true);}
+        HRESULT STDMETHODCALLTYPE Collapse() override{return SetExpanded(false);}
+        HRESULT STDMETHODCALLTYPE get_ExpandCollapseState(ExpandCollapseState* value) override
+        {
+            if(!value)return E_POINTER;
+            std::lock_guard<std::mutex> lock(m_state->mutex);
+            if(!m_state->window)return UIA_E_ELEMENTNOTAVAILABLE;
+            *value=m_state->expanded?ExpandCollapseState_Expanded:ExpandCollapseState_Collapsed;
+            return S_OK;
+        }
     private:
+        HRESULT SetExpanded(bool expanded)
+        {
+            std::lock_guard<std::mutex> lock(m_state->mutex);
+            if(!m_state->window)return UIA_E_ELEMENTNOTAVAILABLE;
+            if(!m_state->enabled)return UIA_E_ELEMENTNOTENABLED;
+            return PostMessageW(m_state->window,DisclosureAction,expanded,0)?S_OK:HRESULT_FROM_WIN32(GetLastError());
+        }
         std::atomic<ULONG> m_references{ 1 };
         std::shared_ptr<ButtonAccess> m_state;
     };
@@ -235,6 +272,7 @@ namespace NativeMaterial
         ON_WM_GETDLGCODE()
         ON_MESSAGE(WM_GETOBJECT, &Button::OnGetObject)
         ON_MESSAGE(BM_CLICK, &Button::OnClick)
+        ON_MESSAGE(DisclosureAction, &Button::OnDisclosure)
         ON_MESSAGE(WM_PRINTCLIENT, &Button::OnPrintClient)
         ON_MESSAGE(WM_PRINT, &Button::OnPrintClient)
         ON_MESSAGE(WM_APP + 0x521, &Button::OnRenderStatus)
@@ -255,6 +293,33 @@ namespace NativeMaterial
         SetWindowText(label);
         { std::lock_guard<std::mutex> lock(m_access->mutex); m_access->label = label.GetString(); }
         Invalidate();
+    }
+    void Button::SetDisclosure(bool expanded,const CString& name,const CString& description)
+    {
+        bool changed=false,previous=false;
+        {
+            std::lock_guard<std::mutex> lock(m_access->mutex);
+            previous=m_access->expanded;changed=m_access->disclosure&&previous!=expanded;
+            m_access->disclosure=true;m_access->expanded=expanded;
+            m_access->accessibleName=name.GetString();m_access->description=description.GetString();
+        }
+        if(changed)
+        {
+            auto* provider=new ButtonProvider(m_access);
+            VARIANT before{},after{};before.vt=after.vt=VT_I4;
+            before.lVal=previous?ExpandCollapseState_Expanded:ExpandCollapseState_Collapsed;
+            after.lVal=expanded?ExpandCollapseState_Expanded:ExpandCollapseState_Collapsed;
+            UiaRaiseAutomationPropertyChangedEvent(provider,UIA_ExpandCollapseExpandCollapseStatePropertyId,before,after);
+            provider->Release();
+            ::NotifyWinEvent(EVENT_OBJECT_STATECHANGE,m_hWnd,OBJID_CLIENT,CHILDID_SELF);
+        }
+    }
+    LRESULT Button::OnDisclosure(WPARAM expanded,LPARAM)
+    {
+        bool change=false;
+        {std::lock_guard<std::mutex> lock(m_access->mutex);change=m_access->disclosure&&m_access->expanded!=(expanded!=0);}
+        if(change)OnClick(0,0);
+        return 0;
     }
     BOOL Button::OnEraseBkgnd(CDC*) { return TRUE; }
     void Button::OnPaint()
@@ -316,7 +381,16 @@ namespace NativeMaterial
         Invalidate(); CRect bounds; GetClientRect(bounds);
         if (pressed && bounds.PtInRect(point)) OnClick(0, 0);
     }
-    UINT Button::OnGetDlgCode() { return DLGC_BUTTON; }
+    UINT Button::OnGetDlgCode()
+    {
+        // A disclosure consumes its activation keys instead of letting the
+        // dialog manager route Enter to an unrelated default action.
+        const auto* message=GetCurrentMessage();
+        std::lock_guard<std::mutex> lock(m_access->mutex);
+        if(m_access->disclosure&&message&&(message->wParam==VK_RETURN||message->wParam==VK_SPACE))
+            return DLGC_BUTTON|DLGC_WANTMESSAGE;
+        return DLGC_BUTTON;
+    }
     void Button::OnKeyDown(UINT key, UINT repeat, UINT flags)
     {
         if ((key == VK_SPACE || key == VK_RETURN) && !(flags & 0x4000)) { m_pressed = true; Invalidate(); }
