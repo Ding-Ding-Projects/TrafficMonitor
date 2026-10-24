@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "inventoryCount": 110,
+  "inventoryCount": 111,
   "baselineSourceCommit": "47ace8a91966c818d9180ae4a3a0b1c6790eb4c2",
   "purpose": "Applicability and missing-proof inventory, not implementation acceptance",
   "surfaces": [
@@ -684,6 +684,273 @@
         "screenshots": {
           "status": "UNFINISHED",
           "expected": "Retain genuine inspected privacy-reviewed action states with exact source/build hashes, dimensions, scale, theme, language, screen and route. Nonvisual repository rows use exact source/provider receipts, never invented images.",
+          "evidence": []
+        }
+      }
+    },
+    {
+      "id": "action-sound-effects",
+      "title": "Action sound effects",
+      "status": "UNFINISHED",
+      "phase": "P2",
+      "requirement": "Provide short coherent sound effects for selected meaningful actions and actual outcomes through one non-blocking playback service. Each user-facing surface has its own visible localized keyboard-accessible Settings switch, applied immediately and persisted across restart. Honor existing mute, volume, reduced-sound and quiet-hours choices without changing host audio settings. Prevent repetitive or overlapping cues, preserve complete visible results and assistive announcements, and isolate unavailable audio from the underlying action result. Success cues occur only after success. Personal-wording import outcome cues use the same controls.",
+      "baseline": "No source-bound action-to-cue map, shared playback service, persisted Settings switch or built sound verification has been established.",
+      "surfaces": {
+        "native-application": {
+          "applicability": "APPLICABLE",
+          "status": "UNFINISHED",
+          "reason": "Independent user-facing installed surface; universal controls cannot be delegated to another product.",
+          "proof": {
+            "implementation": {
+              "status": "UNFINISHED",
+              "expected": "Provide short coherent sound effects for selected meaningful actions and actual outcomes through one non-blocking playback service. Each user-facing surface has its own visible localized keyboard-accessible Settings switch, applied immediately and persisted across restart. Honor existing mute, volume, reduced-sound and quiet-hours choices without changing host audio settings. Prevent repetitive or overlapping cues, preserve complete visible results and assistive announcements, and isolate unavailable audio from the underlying action result. Success cues occur only after success. Personal-wording import outcome cues use the same controls.",
+              "evidence": []
+            },
+            "documentation": {
+              "status": "UNFINISHED",
+              "expected": "Document actual action-to-cue mapping, audio asset or synthesis provenance, shipped defaults, platform playback restrictions, controls and failure behavior, with complete translated guidance.",
+              "evidence": []
+            },
+            "localization": {
+              "status": "UNFINISHED",
+              "expected": "English, Hong Kong Cantonese and bilingual UI, both independent tone extremes, keyboard and screen-reader text on every applicable surface. Repository-only rows use appropriate source/record evidence rather than invented localized controls.",
+              "evidence": []
+            },
+            "persistence": {
+              "status": "UNFINISHED",
+              "expected": "Verify immediate switch changes, restart/reload persistence, upgrade preservation, reset, malformed storage recovery and independent ownership per surface; retain existing mute/volume/quiet-hours choices.",
+              "evidence": []
+            },
+            "focusedTests": {
+              "status": "UNFINISHED",
+              "expected": "Verify successful and refused outcomes, disabled and muted playback, reduced-sound and quiet-hours settings, repeated actions, non-overlap, non-blocking execution and unavailable audio without changing action results.",
+              "evidence": []
+            },
+            "negativeRegression": {
+              "status": "UNFINISHED",
+              "expected": "Omit the complete action-sound-effects identity from both inventory and expected file and require independent-list rejection; separately remove playback routing, Settings switch, storage, localization, outcome timing or runtime receipts and require rejection before restoring.",
+              "evidence": []
+            },
+            "builtInteraction": {
+              "status": "UNFINISHED",
+              "expected": "Exercise selected successful and refused actions, disabled playback, immediate changes, restart persistence, repeated actions and unavailable audio on each actual source/build-bound surface. Audio observations require explicit receipts; screenshots alone cannot prove sound.",
+              "evidence": []
+            },
+            "screenshots": {
+              "status": "UNFINISHED",
+              "expected": "Inspect privacy-reviewed built Settings and action states with source/build identity, viewport, scale, language and theme; retain separate audio observation receipts because pixels cannot prove playback.",
+              "evidence": []
+            }
+          }
+        },
+        "hosted-documentation": {
+          "applicability": "APPLICABLE",
+          "status": "UNFINISHED",
+          "reason": "Interactive documentation is an independent user-facing surface; browser playback restrictions require user-gesture handling and truthful unavailable audio states, not host audio control.",
+          "proof": {
+            "implementation": {
+              "status": "UNFINISHED",
+              "expected": "Provide short coherent sound effects for selected meaningful actions and actual outcomes through one non-blocking playback service. Each user-facing surface has its own visible localized keyboard-accessible Settings switch, applied immediately and persisted across restart. Honor existing mute, volume, reduced-sound and quiet-hours choices without changing host audio settings. Prevent repetitive or overlapping cues, preserve complete visible results and assistive announcements, and isolate unavailable audio from the underlying action result. Success cues occur only after success. Personal-wording import outcome cues use the same controls.",
+              "evidence": []
+            },
+            "documentation": {
+              "status": "UNFINISHED",
+              "expected": "Document actual action-to-cue mapping, audio asset or synthesis provenance, shipped defaults, platform playback restrictions, controls and failure behavior, with complete translated guidance.",
+              "evidence": []
+            },
+            "localization": {
+              "status": "UNFINISHED",
+              "expected": "English, Hong Kong Cantonese and bilingual UI, both independent tone extremes, keyboard and screen-reader text on every applicable surface. Repository-only rows use appropriate source/record evidence rather than invented localized controls.",
+              "evidence": []
+            },
+            "persistence": {
+              "status": "UNFINISHED",
+              "expected": "Verify immediate switch changes, restart/reload persistence, upgrade preservation, reset, malformed storage recovery and independent ownership per surface; retain existing mute/volume/quiet-hours choices.",
+              "evidence": []
+            },
+            "focusedTests": {
+              "status": "UNFINISHED",
+              "expected": "Verify successful and refused outcomes, disabled and muted playback, reduced-sound and quiet-hours settings, repeated actions, non-overlap, non-blocking execution and unavailable audio without changing action results.",
+              "evidence": []
+            },
+            "negativeRegression": {
+              "status": "UNFINISHED",
+              "expected": "Omit the complete action-sound-effects identity from both inventory and expected file and require independent-list rejection; separately remove playback routing, Settings switch, storage, localization, outcome timing or runtime receipts and require rejection before restoring.",
+              "evidence": []
+            },
+            "builtInteraction": {
+              "status": "UNFINISHED",
+              "expected": "Exercise selected successful and refused actions, disabled playback, immediate changes, restart persistence, repeated actions and unavailable audio on each actual source/build-bound surface. Audio observations require explicit receipts; screenshots alone cannot prove sound.",
+              "evidence": []
+            },
+            "screenshots": {
+              "status": "UNFINISHED",
+              "expected": "Inspect privacy-reviewed built Settings and action states with source/build identity, viewport, scale, language and theme; retain separate audio observation receipts because pixels cannot prove playback.",
+              "evidence": []
+            }
+          }
+        },
+        "documentation-companion": {
+          "applicability": "APPLICABLE",
+          "status": "UNFINISHED",
+          "reason": "Independent user-facing installed surface; universal controls cannot be delegated to another product.",
+          "proof": {
+            "implementation": {
+              "status": "UNFINISHED",
+              "expected": "Provide short coherent sound effects for selected meaningful actions and actual outcomes through one non-blocking playback service. Each user-facing surface has its own visible localized keyboard-accessible Settings switch, applied immediately and persisted across restart. Honor existing mute, volume, reduced-sound and quiet-hours choices without changing host audio settings. Prevent repetitive or overlapping cues, preserve complete visible results and assistive announcements, and isolate unavailable audio from the underlying action result. Success cues occur only after success. Personal-wording import outcome cues use the same controls.",
+              "evidence": []
+            },
+            "documentation": {
+              "status": "UNFINISHED",
+              "expected": "Document actual action-to-cue mapping, audio asset or synthesis provenance, shipped defaults, platform playback restrictions, controls and failure behavior, with complete translated guidance.",
+              "evidence": []
+            },
+            "localization": {
+              "status": "UNFINISHED",
+              "expected": "English, Hong Kong Cantonese and bilingual UI, both independent tone extremes, keyboard and screen-reader text on every applicable surface. Repository-only rows use appropriate source/record evidence rather than invented localized controls.",
+              "evidence": []
+            },
+            "persistence": {
+              "status": "UNFINISHED",
+              "expected": "Verify immediate switch changes, restart/reload persistence, upgrade preservation, reset, malformed storage recovery and independent ownership per surface; retain existing mute/volume/quiet-hours choices.",
+              "evidence": []
+            },
+            "focusedTests": {
+              "status": "UNFINISHED",
+              "expected": "Verify successful and refused outcomes, disabled and muted playback, reduced-sound and quiet-hours settings, repeated actions, non-overlap, non-blocking execution and unavailable audio without changing action results.",
+              "evidence": []
+            },
+            "negativeRegression": {
+              "status": "UNFINISHED",
+              "expected": "Omit the complete action-sound-effects identity from both inventory and expected file and require independent-list rejection; separately remove playback routing, Settings switch, storage, localization, outcome timing or runtime receipts and require rejection before restoring.",
+              "evidence": []
+            },
+            "builtInteraction": {
+              "status": "UNFINISHED",
+              "expected": "Exercise selected successful and refused actions, disabled playback, immediate changes, restart persistence, repeated actions and unavailable audio on each actual source/build-bound surface. Audio observations require explicit receipts; screenshots alone cannot prove sound.",
+              "evidence": []
+            },
+            "screenshots": {
+              "status": "UNFINISHED",
+              "expected": "Inspect privacy-reviewed built Settings and action states with source/build identity, viewport, scale, language and theme; retain separate audio observation receipts because pixels cannot prove playback.",
+              "evidence": []
+            }
+          }
+        },
+        "build-companion": {
+          "applicability": "APPLICABLE",
+          "status": "UNFINISHED",
+          "reason": "Independent user-facing installed surface; universal controls cannot be delegated to another product.",
+          "proof": {
+            "implementation": {
+              "status": "UNFINISHED",
+              "expected": "Provide short coherent sound effects for selected meaningful actions and actual outcomes through one non-blocking playback service. Each user-facing surface has its own visible localized keyboard-accessible Settings switch, applied immediately and persisted across restart. Honor existing mute, volume, reduced-sound and quiet-hours choices without changing host audio settings. Prevent repetitive or overlapping cues, preserve complete visible results and assistive announcements, and isolate unavailable audio from the underlying action result. Success cues occur only after success. Personal-wording import outcome cues use the same controls.",
+              "evidence": []
+            },
+            "documentation": {
+              "status": "UNFINISHED",
+              "expected": "Document actual action-to-cue mapping, audio asset or synthesis provenance, shipped defaults, platform playback restrictions, controls and failure behavior, with complete translated guidance.",
+              "evidence": []
+            },
+            "localization": {
+              "status": "UNFINISHED",
+              "expected": "English, Hong Kong Cantonese and bilingual UI, both independent tone extremes, keyboard and screen-reader text on every applicable surface. Repository-only rows use appropriate source/record evidence rather than invented localized controls.",
+              "evidence": []
+            },
+            "persistence": {
+              "status": "UNFINISHED",
+              "expected": "Verify immediate switch changes, restart/reload persistence, upgrade preservation, reset, malformed storage recovery and independent ownership per surface; retain existing mute/volume/quiet-hours choices.",
+              "evidence": []
+            },
+            "focusedTests": {
+              "status": "UNFINISHED",
+              "expected": "Verify successful and refused outcomes, disabled and muted playback, reduced-sound and quiet-hours settings, repeated actions, non-overlap, non-blocking execution and unavailable audio without changing action results.",
+              "evidence": []
+            },
+            "negativeRegression": {
+              "status": "UNFINISHED",
+              "expected": "Omit the complete action-sound-effects identity from both inventory and expected file and require independent-list rejection; separately remove playback routing, Settings switch, storage, localization, outcome timing or runtime receipts and require rejection before restoring.",
+              "evidence": []
+            },
+            "builtInteraction": {
+              "status": "UNFINISHED",
+              "expected": "Exercise selected successful and refused actions, disabled playback, immediate changes, restart persistence, repeated actions and unavailable audio on each actual source/build-bound surface. Audio observations require explicit receipts; screenshots alone cannot prove sound.",
+              "evidence": []
+            },
+            "screenshots": {
+              "status": "UNFINISHED",
+              "expected": "Inspect privacy-reviewed built Settings and action states with source/build identity, viewport, scale, language and theme; retain separate audio observation receipts because pixels cannot prove playback.",
+              "evidence": []
+            }
+          }
+        },
+        "repository": {
+          "applicability": "NOT_APPLICABLE",
+          "status": "NOT_APPLICABLE",
+          "reason": "Runtime behavior belongs to individual product surfaces; repository supplies their source, documentation and verification."
+        },
+        "browser-extension": {
+          "applicability": "NOT_APPLICABLE",
+          "status": "NOT_APPLICABLE",
+          "reason": "No browser extension is delivered; adding one requires its independent full surface inventory."
+        },
+        "game": {
+          "applicability": "NOT_APPLICABLE",
+          "status": "NOT_APPLICABLE",
+          "reason": "No game runtime is delivered by this native monitoring product."
+        },
+        "instruction-source": {
+          "applicability": "NOT_APPLICABLE",
+          "status": "NOT_APPLICABLE",
+          "reason": "This public consumer product is not the private instruction source."
+        }
+      },
+      "implementationDestinations": "Proposed: feature-owned native playback service and GeneralSettingsDlg controls; independent companion and hosted-documentation playback adapters. No implementation is claimed.",
+      "dependsOn": [
+        "language",
+        "accessibility-sizing",
+        "scheduled-settings",
+        "vocabulary-drop-apply"
+      ],
+      "proof": {
+        "implementation": {
+          "status": "UNFINISHED",
+          "expected": "Provide short coherent sound effects for selected meaningful actions and actual outcomes through one non-blocking playback service. Each user-facing surface has its own visible localized keyboard-accessible Settings switch, applied immediately and persisted across restart. Honor existing mute, volume, reduced-sound and quiet-hours choices without changing host audio settings. Prevent repetitive or overlapping cues, preserve complete visible results and assistive announcements, and isolate unavailable audio from the underlying action result. Success cues occur only after success. Personal-wording import outcome cues use the same controls.",
+          "evidence": []
+        },
+        "documentation": {
+          "status": "UNFINISHED",
+          "expected": "Document actual action-to-cue mapping, audio asset or synthesis provenance, shipped defaults, platform playback restrictions, controls and failure behavior, with complete translated guidance.",
+          "evidence": []
+        },
+        "localization": {
+          "status": "UNFINISHED",
+          "expected": "English, Hong Kong Cantonese and bilingual UI, both independent tone extremes, keyboard and screen-reader text on every applicable surface. Repository-only rows use appropriate source/record evidence rather than invented localized controls.",
+          "evidence": []
+        },
+        "persistence": {
+          "status": "UNFINISHED",
+          "expected": "Verify immediate switch changes, restart/reload persistence, upgrade preservation, reset, malformed storage recovery and independent ownership per surface; retain existing mute/volume/quiet-hours choices.",
+          "evidence": []
+        },
+        "focusedTests": {
+          "status": "UNFINISHED",
+          "expected": "Verify successful and refused outcomes, disabled and muted playback, reduced-sound and quiet-hours settings, repeated actions, non-overlap, non-blocking execution and unavailable audio without changing action results.",
+          "evidence": []
+        },
+        "negativeRegression": {
+          "status": "UNFINISHED",
+          "expected": "Omit the complete action-sound-effects identity from both inventory and expected file and require independent-list rejection; separately remove playback routing, Settings switch, storage, localization, outcome timing or runtime receipts and require rejection before restoring.",
+          "evidence": []
+        },
+        "builtInteraction": {
+          "status": "UNFINISHED",
+          "expected": "Exercise selected successful and refused actions, disabled playback, immediate changes, restart persistence, repeated actions and unavailable audio on each actual source/build-bound surface. Audio observations require explicit receipts; screenshots alone cannot prove sound.",
+          "evidence": []
+        },
+        "screenshots": {
+          "status": "UNFINISHED",
+          "expected": "Inspect privacy-reviewed built Settings and action states with source/build identity, viewport, scale, language and theme; retain separate audio observation receipts because pixels cannot prove playback.",
           "evidence": []
         }
       }

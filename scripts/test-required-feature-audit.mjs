@@ -16,7 +16,7 @@ const run=inventory=>audit({root,inventory,expected,sourceCommit});
 let cases=0;
 const baseline=run(original);
 assert.equal(baseline.errors.length,0);assert.ok(baseline.gaps.length>0);assert.equal(baseline.complete,false);
-assert.equal(REQUIRED_IDS.length,110);assert.equal(new Set(REQUIRED_IDS).size,110);
+assert.equal(REQUIRED_IDS.length,111);assert.equal(new Set(REQUIRED_IDS).size,111);
 function negative(name,change,find){
   const changed=structuredClone(original);change(changed);
   const result=run(changed);
@@ -103,6 +103,24 @@ await imageRegressionChecks();
 if(process.argv.includes('--png-only')){console.log('PNG audit checks: '+cases+' passed; structural fixture evidence is not runtime acceptance.');process.exit(0);}
 
 for(const id of REQUIRED_IDS)negative('missing identity '+id,i=>{i.items=i.items.filter(item=>item.id!==id);},e=>e.location===id&&e.message==='Required identity is missing');
+{
+  // Discovery and the checked-in expected file can drift together. The separately
+  // reviewed validator list must still reject total disappearance of this topic.
+  const inventory=structuredClone(original);
+  inventory.items=inventory.items.filter(item=>item.id!=='action-sound-effects');
+  const omitted=expected.filter(id=>id!=='action-sound-effects');
+  const result=audit({root,inventory,expected:omitted,sourceCommit});
+  assert.ok(result.errors.some(e=>e.location==='expected-ids'));
+  assert.ok(result.errors.some(e=>e.location==='action-sound-effects'&&e.message==='Required identity is missing'));
+  assert.equal(result.complete,false);
+  inventory.inventoryCount=110;
+  const disguised=audit({root,inventory,expected:omitted,sourceCommit});
+  assert.ok(disguised.errors.some(e=>e.location==='expected-ids'));
+  assert.ok(disguised.errors.some(e=>e.location==='inventory'));
+  assert.equal(disguised.complete,false);
+  assert.equal(run(original).errors.length,0);
+  console.log('PASS total action-sound-effects omission, including reduced declared count');cases++;
+}
 for(const surface of SURFACES)negative('missing surface '+surface,i=>{delete i.items.find(item=>item.id==='language').surfaces[surface];},e=>e.location==='language.surfaces');
 for(const dimension of DIMENSIONS)negative('missing proof '+dimension,i=>{delete i.items.find(item=>item.id==='language').proof[dimension];},e=>e.location==='language.proof');
 negative('duplicate identity',i=>{i.items[1]=structuredClone(i.items[0]);},e=>e.message==='Duplicate identity');

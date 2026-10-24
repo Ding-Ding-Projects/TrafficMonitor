@@ -1,6 +1,6 @@
 # Complete required-feature applicability inventory
 
-All **110 indexed requirements** are retained here, with independent applicability for the native monitoring application, hosted documentation, portable documentation companion, portable build companion and repository. Extension, game and instruction-source boundaries have exact reasons. An absent future required surface is unfinished, not exempt because it has not been built.
+All **111 indexed requirements** are retained here, with independent applicability for the native monitoring application, hosted documentation, portable documentation companion, portable build companion and repository. Extension, game and instruction-source boundaries have exact reasons. An absent future required surface is unfinished, not exempt because it has not been built.
 
 This is a planning and missing-proof record. It claims no implementation acceptance. Stage1 installer evidence cannot establish the interface conversion, complete localization, universal tools or unrelated runtime behavior. Every applicable item requires its own implementation, documentation, localized copy, state ownership, semantic tests, negative omission regression, built interaction and genuine evidence.
 
@@ -29,6 +29,7 @@ Subsequent sign-in, Explorer restart, fresh-host acquisition and cancellation ar
 | `vocabulary-drop-apply` | Drop a personal-vocabulary JSON onto the application | UNFINISHED | P2 | [Specification](vocabulary-drop-apply.md) |
 | `school-mode` | Universal School mode | UNFINISHED | P2 | [Specification](school-mode.md) |
 | `narration` | Spoken narrator and voice pickers | UNFINISHED | P2 | [Specification](narration.md) |
+| `action-sound-effects` | Action sound effects | UNFINISHED | P2 | [Specification](action-sound-effects.md) |
 | `scheduled-settings` | Scheduled and external settings sources | UNFINISHED | P2 | [Specification](scheduled-settings.md) |
 | `display-name` | Renaming the application | UNFINISHED | P2 | [Specification](display-name.md) |
 | `adhd-modes` | ADHD modes | UNFINISHED | P2 | [Specification](adhd-modes.md) |
@@ -135,7 +136,7 @@ Subsequent sign-in, Explorer restart, fresh-host acquisition and cancellation ar
 
 ## Current inventory totals
 
-UNFINISHED: **84**, PARTIAL: **13**, NOT_APPLICABLE: **13**. All 110 rows remain listed.
+UNFINISHED: **84**, PARTIAL: **13**, NOT_APPLICABLE: **13**. All 111 rows remain listed.
 
 ## Owned HTTP API collections
 

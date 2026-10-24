@@ -1,0 +1,66 @@
+{
+  "sourceCommit": "e253e3f23813ebec8a1abdafa1fde1bc15b086d4",
+  "renderer": "sharp 0.34.5",
+  "receipts": [
+    {
+      "name": "settings-normal-english-light",
+      "sourceSha256": "d2e1a569ed54f8f6a0dc3e6b7c1ec93b6df49592f2ada81af5bec3f4361594a9",
+      "pngSha256": "497996913ff766f1fce23a61463f22476ff1346aae1fd206c8f180bf49aca585",
+      "designOnly": true
+    },
+    {
+      "name": "settings-minimum-bilingual-dark",
+      "sourceSha256": "14dfcbf7891bd76dbb9b5fd7d24067e3e5a285db79193e17d3f6dc9218cef512",
+      "pngSha256": "9264282647429e406f89fddb7fce1c50ebdb9f3c46304fe4668518ff4c0d501c",
+      "designOnly": true
+    },
+    {
+      "name": "settings-minimum-bilingual-dark-scrolled",
+      "sourceSha256": "d738403ff8562119f588dc419fb141413a5b039f90a18019bd52f883bbfe3293",
+      "pngSha256": "32009289a23b4f9d40dfa9d07f7c670be42b43446fe26fa4311fa2075189e442",
+      "designOnly": true
+    },
+    {
+      "name": "settings-minimum-bilingual-dark-notifications",
+      "sourceSha256": "e058195d3584f299a23b9b6ae0c043a7f8acbb6315f595eacd45d235aa2cc80e",
+      "pngSha256": "4e13aa5a7724d355115fbc340c82df690414f3da2d4e78c580b449ef71fbd5a7",
+      "designOnly": true
+    },
+    {
+      "name": "settings-minimum-bilingual-dark-notifications-scrolled",
+      "sourceSha256": "9bd06c98052c807e2d41c27c6f166d6e7815d7bee6bc9d7b1545c696f98f769f",
+      "pngSha256": "a4f1c7757d73961b73c5647484215084573980646dbd5644cd852ef6b08a9eaf",
+      "designOnly": true
+    },
+    {
+      "name": "setup-normal-english-light",
+      "sourceSha256": "c6eac4cf2768ede7d385dbaea96f80dbf962f0bff98c23153f488a033db949b1",
+      "pngSha256": "807c4d6864be599d81cef20b8947f86eb83b7652aa2ebfa81df0cc7aeb3088e9",
+      "designOnly": true
+    },
+    {
+      "name": "setup-minimum-bilingual-dark",
+      "sourceSha256": "ed977e51358393d155d482be6db84a42ab9ccd18468608acc4bacd7b249842ff",
+      "pngSha256": "b0cd79785abab7009df55b91a906b31b411f070aecd1032db3a7467d4e61aac6",
+      "designOnly": true
+    },
+    {
+      "name": "setup-minimum-bilingual-dark-scrolled",
+      "sourceSha256": "9c9fb5fd3c9e4a66aada3e97b1a3278cb32f17a80ecb10ddc49d77315e76f244",
+      "pngSha256": "6e6f2157f4d573e71a34543b09de05b5a682912c914bdb68090385fd4797899c",
+      "designOnly": true
+    },
+    {
+      "name": "components-light",
+      "sourceSha256": "f2afd7904539ca0a1f5103de475e8dc8727db52f9cf853b9fa2c879f58498cf0",
+      "pngSha256": "9ac94291f05dd85b37bb2f2a93c0ea166ce8b5c262e12c7365c47bf66d6a1135",
+      "designOnly": true
+    },
+    {
+      "name": "components-dark",
+      "sourceSha256": "fc15281ecacaf06c7c4e1df766aad5ae118a66c776e3ede3e5133188b2268fc3",
+      "pngSha256": "eb9b78bdaab38da443d176b5e8b2f32fa9cb9e660dbd91417b300628269e8a10",
+      "designOnly": true
+    }
+  ]
+}

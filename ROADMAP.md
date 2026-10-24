@@ -65,6 +65,9 @@
 
 ## Build acquisition recovery, 2026-10-24
 
+- [x] Reconcile all 111 required identities, add the unfinished action-sound obligation and verify 155 inventory regressions; 1544 acceptance gaps remain.
+- [x] Complete independent representative review of corrected design references: 122 structural entries and ten inspected design-only rasters; native implementation and full runtime acceptance remain pending.
+
 - [x] Separate strict readiness from incomplete-instance recovery and preserve missing-directory registrations through an explicit project-owned installation destination; focused acquisition regression passed.
 - [x] Verify native consent, component acquisition and exact root build completion for recovery source bee8cb6 on the current host; 114 warnings and zero errors.
 - [x] Produce local diagnostic candidate 9044 through the exact installer entrypoint and record hashes; package build had two warnings and zero errors.
