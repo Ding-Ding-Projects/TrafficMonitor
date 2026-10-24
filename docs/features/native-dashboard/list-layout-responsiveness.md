@@ -12,6 +12,10 @@ Candidate 9045 contains the bounded repair and completed exact-root build/packag
 
 ## Portable diagnostic preparation
 
+Use `scripts/prepare-portable-diagnostic.ps1` with an existing source commit, expected package and executable SHA-256 values, the package path and a new fixture name. It creates only an ignored `artifacts/diagnostics/<fixture>/` runtime and private receipt. It never launches the executable. The source/package association must come from a separately verified build receipt; local commit existence alone is insufficient.
+
+The preparer rejects existing or unsafe destinations, archive traversal/links, updater payloads and hash mismatches. It omits managed markers, writes explicit portable English/light settings, and retains normal-profile bytes only when their digest agrees with a fresh live-file digest. Receipts use BOM-free UTF-8 and contain private profile data: inspect allowlisted verdict/count fields instead of printing the receipt. `scripts/test-portable-diagnostic.ps1` passes 15 synthetic preparation checks without launching an application or writing the normal profile.
+
 Retain the original package unchanged. Prepare a separate runtime fixture outside the temporary directory; explicitly omit `installed-mode.ini` and any updater launcher. Verify that the managed marker is absent and `global_cfg.ini` selects portable mode before starting the executable. Use the exact bounded native preference schema for deterministic fixture preferences. Record all fixture seeds as test setup, not new onboarding proof.
 
 Before launch, preserve and hash the normal application data files and read the owned startup registration. Stop on any preflight failure; a failed preparation command must never be followed by launch. Repeat those comparisons immediately after launch, after each meaningful action and after normal exit. A screenshot or a portable-mode file alone does not prove profile isolation.

@@ -1,5 +1,11 @@
 # TrafficMonitor continuation handoff
 
+Use scripts/prepare-portable-diagnostic.ps1 for future fixtures. Its 15 synthetic checks pass;
+the private receipt is BOM-free and includes consistent retained profile bytes. Never print that
+receipt wholesale, and never launch after a failed preparation/parser check. Source/package
+association still requires the independent build receipt. Compact Interface candidate9046 is
+under actual portable GUI verification, with no installation authorized by the latest direction.
+
 Latest result: corrected portable9045 verified bilingual/dark Apply at120 history rows/50 adapters,
 workspace refresh632.5234/590.9424ms and all sampled liveness probes within1s. Normal exit released
 the process/mutex/desktop and preserved all5 normal-profile hashes plus startup absence. See

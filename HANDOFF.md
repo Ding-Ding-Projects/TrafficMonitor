@@ -1,5 +1,10 @@
 # Native-first continuation
 
+Portable preparation is now a reusable preparation-only script, with 15 synthetic causal checks
+and independent review. It rejects invalid hashes/paths/archives, omits managed markers, preserves
+a consistent private baseline and writes BOM-free receipts. It does not launch or establish
+source/package association by itself; the separate build receipt remains mandatory.
+
 Latest runtime result: corrected portable candidate 9045 completed bilingual and dark Apply at
 120 history rows and 50 adapters. Workspace refreshes took 632.5234 ms and 590.9424 ms; all sampled
 liveness probes responded within one second. All five normal-profile files and startup absence
