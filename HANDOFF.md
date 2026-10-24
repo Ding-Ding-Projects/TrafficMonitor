@@ -1,5 +1,29 @@
 # Native-first continuation
 
+## Current list responsiveness repair
+
+Source c5d0f2a corrects quadratic shared-list measurement while retaining post-insertion text
+measurement and full remeasurement on width/font/DPI changes. The actual HWND regression passes;
+120 appends use 240 measurements versus 7380 with the restored old loop, which is rejected.
+Independent review found no blocking regression in this bounded patch. Exact root packaging
+produced local candidate 1.0.9045 with two build warnings and zero errors. Its corrected portable
+runtime comparison is in progress; full native acceptance remains unfinished.
+
+The first diagnostic 9044 fixture mistakenly retained installed-mode.ini and therefore wrote
+normal application data despite its portable-mode file. No installer ran. Four current files
+were preserved before normal exit and five afterward, each matching live hashes. No prelaunch
+profile baseline exists, so restoration is unverified and no guessed restoration was made.
+The process exited normally, the release mutex became absent and the empty desktop handle was
+released. The replacement 9045 fixture excludes the managed marker and updater, has an explicit
+portable configuration and deterministic English/light preferences, and retains a prelaunch
+normal-profile baseline. Initial runtime readback matches that baseline. See the native-dashboard
+list-layout-responsiveness article for the precise preparation and acceptance boundary.
+
+Current owner direction permits normal closure of task-targeted TrafficMonitor sessions.
+Candidates remain portable and uninstalled. A fresh 2026-10-24 23:05 UTC inspection proved the
+previous process and release mutex absent; diagnostic 9044 has resumed on an owned hidden
+desktop. Prior pending-exit statements below are historical, not a current permission blocker.
+
 ## Current closeout
 
 The owner requested preservation and cleanup before the remaining implementation was complete. Keep the productive application native C++/MFC and retain native caption controls. The latest visual direction requires consistent Material Design 3 controls with less clutter and no generic stock presentation. Main application work remains first, operational delivery follows, and documentation-website/wiki/reader completion remains last.

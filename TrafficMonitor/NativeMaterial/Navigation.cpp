@@ -72,13 +72,48 @@ namespace NativeMaterial
     {
         if(!m_rail.GetSafeHwnd()||m_sync)return;m_sync=true;CRect r;GetClientRect(r);int visible=0,used=0;const int top=(std::max)(0,GetTopIndex());for(int i=top;i<GetCount();++i){const int h=GetItemHeight(i);if(h<=0||used+h>r.Height())break;used+=h;++visible;}visible=(std::max)(1,visible);m_rail.MoveWindow(r.right-MulDiv(12,GetDpiForWindow(m_hWnd),96),0,MulDiv(12,GetDpiForWindow(m_hWnd),96),r.Height());m_rail.SetMetrics(GetCount(),visible,top);m_rail.BringWindowToTop();m_sync=false;
     }
+    void ResultList::MeasureRow(int index)
+    {
+        MEASUREITEMSTRUCT measure{};
+        measure.itemID=index;
+        MeasureItem(&measure);
+        SetItemHeight(index,measure.itemHeight);
+    }
+    void ResultList::RefreshMeasurements(int insertedIndex)
+    {
+        if(m_measuring)return;
+        CRect client;GetClientRect(client);
+        const UINT dpi=GetDpiForWindow(m_hWnd);
+        const int width=(std::max)(40,client.Width()-MulDiv(m_navigation?48:36,dpi,96));
+        LOGFONT font{};
+        CClientDC dc(this);
+        auto* selected=GetFont();auto* previous=selected?dc.SelectObject(selected):nullptr;
+        dc.GetCurrentFont()->GetLogFont(&font);
+        if(previous)dc.SelectObject(previous);
+        const bool changed=width!=m_measureWidth||dpi!=m_measureDpi||memcmp(&font,&m_measureFont,sizeof(font))!=0;
+        m_measureWidth=width;m_measureDpi=dpi;m_measureFont=font;
+        m_measuring=true;
+        if(changed)
+        {
+            // Updating heights must not move the user's viewport or selection.
+            const int top=GetTopIndex();
+            for(int i=0;i<GetCount();++i)MeasureRow(i);
+            if(top!=LB_ERR)SetTopIndex(top);
+        }
+        else if(insertedIndex>=0&&insertedIndex<GetCount())MeasureRow(insertedIndex);
+        m_measuring=false;
+    }
     LRESULT ResultList::WindowProc(UINT message,WPARAM w,LPARAM l)
     {
         if(message==WM_MOUSEWHEEL){m_wheel+=GET_WHEEL_DELTA_WPARAM(w);while(abs(m_wheel)>=WHEEL_DELTA){const int direction=m_wheel>0?1:-1;SetTopIndex((std::max)(0,GetTopIndex()-direction*3));m_wheel-=direction*WHEEL_DELTA;}SyncScroll();return TRUE;}
         if(message==WM_ERASEBKGND){CRect r;GetClientRect(r);CDC::FromHandle(reinterpret_cast<HDC>(w))->FillSolidRect(r,Rgb(Palette::Resolve(m_appearance).surface));return TRUE;}
         const auto result=CListBox::WindowProc(message,w,l);
-        if(message==WM_SIZE||message==WM_SETFONT||message==LB_ADDSTRING){for(int i=0;i<GetCount();++i){MEASUREITEMSTRUCT measure{};measure.itemID=i;MeasureItem(&measure);SetItemHeight(i,measure.itemHeight);}}
-        if(message==WM_SIZE||message==WM_SETFONT||message==WM_KEYDOWN||message==LB_ADDSTRING||message==LB_RESETCONTENT||message==LB_SETTOPINDEX)SyncScroll();
+        const bool insertion=message==LB_ADDSTRING||message==LB_INSERTSTRING;
+        // The native owner-draw notification can precede storage of the string.
+        // Measure the successful returned index once its text is available.
+        if(insertion&&result>=0)RefreshMeasurements(static_cast<int>(result));
+        if(message==WM_SIZE||message==WM_SETFONT||message==WM_DPICHANGED_AFTERPARENT)RefreshMeasurements();
+        if(message==WM_SIZE||message==WM_SETFONT||message==WM_DPICHANGED_AFTERPARENT||message==WM_KEYDOWN||insertion||message==LB_DELETESTRING||message==LB_RESETCONTENT||message==LB_SETTOPINDEX)SyncScroll();
         return result;
     }
 }

@@ -1,5 +1,24 @@
 # TrafficMonitor continuation handoff
 
+Newest work: shared native list measurement repair c5d0f2a passes real HWND regression and
+independent review. 120 appends require 240 measurements instead of 7380; a disposable restoration
+of the old loop is rejected. Local candidate 1.0.9045 built/packaged successfully with two warnings
+and zero errors. A corrected portable runtime comparison is in progress, not yet complete.
+
+Diagnostic 9044 accidentally used normal application data because its extracted managed marker
+overrode portable mode. No installer ran; current files were preserved before/after normal exit,
+but original prelaunch bytes are unknown and restoration is unverified. Its process/mutex are
+gone and its empty desktop handle was released. Do not call this run portable acceptance.
+The 9045 fixture omits the marker/updater and has verified portable configuration, exact hashes,
+English/light seed and a normal-profile baseline that remains unchanged at initial readback.
+
+Current owner direction authorizes normal closure of task-targeted running TrafficMonitor
+instances without another confirmation. Diagnostic candidates remain portable and uninstalled.
+The previous instance had already exited at the fresh 2026-10-24 23:05 UTC inspection; the
+release mutex was absent and the supported loopback hidden-desktop preflight passed. Candidate
+9044 runtime diagnosis resumed with new process/window identities. Earlier pending-exit wording
+below is historical and does not represent a current permission blocker.
+
 Latest continuation: required-feature inventory reconciled to 111 identities, adding only the
 missing action-sound-effects topic as unfinished. Candidate 75e30fc passed 155 validator regressions;
 1544 acceptance gaps remain and product acceptance was not executed. Independent design review

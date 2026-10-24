@@ -10,7 +10,9 @@
 ## Workspace responsiveness continuation
 
 - [x] Independently review opt-in numeric instrumentation without claiming a runtime repair.
-- [ ] Build the exact diagnostic source and establish the cause of the rejected1.0.9043 stall.
+- [x] Build diagnostic 9044, observe long synchronous measurement work and independently identify the quadratic insertion path. The first run's profile isolation was invalid and remains disclosed separately.
+- [x] Repair shared list measurement and verify the actual native control: 120 appends use 240 measurements; a disposable restored quadratic loop uses 7380 and is rejected.
+- [x] Build/package local candidate 9045 from c5d0f2a through the exact root entrypoints, with two warnings and zero errors.
 - [ ] Repair the demonstrated cause and verify native interactions and supported display states.
 - [ ] Preserve the selected native frame, integrate accepted work and verify release and installed state.
 

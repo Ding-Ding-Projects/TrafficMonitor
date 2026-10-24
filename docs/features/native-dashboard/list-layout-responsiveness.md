@@ -1,0 +1,17 @@
+# Native list measurement and responsiveness
+
+The native workspace rebuilds adapter and sample-history labels as monitoring observations arrive. The previous shared list control remeasured every existing item after every appended item. At 120 entries the native regression recorded 7,380 measurement calls, including the native owner-draw callbacks. Suppressing painting did not suppress that work.
+
+The corrected control measures only the successfully inserted row after its text is stored. It remeasures all rows only when effective wrapping width, actual window DPI or selected font properties change. Height-only layout still updates the scroll rail. Native strings, selection adjustment, item heights, keyboard handling and top-index behavior remain owned by the listbox.
+
+`build.bat --verify-result-list` exercises the actual native HWND control. The corrected 120-row case uses 240 measurements. A disposable source mutation restores the former quadratic insertion loop and must fail the linear bound; the corrected executable is then run again. The regression also checks wrapped height, equivalent and changed fonts, changed width, unchanged-DPI notification, insertion, existing heights, selection/top index, invalid deletion and reset. Physical DPI changes, allocation exhaustion, assistive technology and the complete visual matrix remain separate runtime requirements.
+
+The first diagnostic 9044 run recorded a 6.3507 ms preference save and a 7,791.1899 ms workspace preference refresh, with growing measurement counts and no observed theme-message activity. That observation supports the list-cost investigation, not a notification-loop repair. Its package marker accidentally selected the normal application profile, so it is not valid portable-isolation acceptance. A prelaunch profile baseline was unavailable; current files were preserved before and after normal exit, with no guessed restoration.
+
+Candidate 9045 contains the bounded repair and completed exact-root build/packaging. Its corrected portable runtime comparison remains separately recorded and must establish actual workspace latency before broad acceptance is claimed. Keep automatic release held until the required native acceptance is complete.
+
+## Portable diagnostic preparation
+
+Retain the original package unchanged. Prepare a separate runtime fixture outside the temporary directory; explicitly omit `installed-mode.ini` and any updater launcher. Verify that the managed marker is absent and `global_cfg.ini` selects portable mode before starting the executable. Use the exact bounded native preference schema for deterministic fixture preferences. Record all fixture seeds as test setup, not new onboarding proof.
+
+Before launch, preserve and hash the normal application data files and read the owned startup registration. Stop on any preflight failure; a failed preparation command must never be followed by launch. Repeat those comparisons immediately after launch, after each meaningful action and after normal exit. A screenshot or a portable-mode file alone does not prove profile isolation.

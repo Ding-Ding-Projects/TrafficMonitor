@@ -1,6 +1,7 @@
 # Native network workspace
 
 - [Workspace responsiveness diagnostics and limits](responsiveness-diagnostics.md)
+- [List measurement repair and portable diagnostic preparation](list-layout-responsiveness.md)
 
 - [Released native interface images and verification limits](released-interface-evidence.md)
 
