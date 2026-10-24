@@ -24,8 +24,24 @@ function Get-BuildInstallation {
     $arguments = '--quiet --wait --norestart --nocache --add Microsoft.VisualStudio.Workload.VCTools --add Microsoft.VisualStudio.Component.VC.ATLMFC --add Microsoft.VisualStudio.Component.Windows11SDK.22621 --includeRecommended'
     $admin = ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
     if (!$admin -and ($Silent -or $env:CI -eq 'true')) { throw 'Missing MSVC/MFC requires administrator installation. Silent mode cannot request native consent.' }
-    if ($admin) { $process = Start-Process $bootstrap -ArgumentList $arguments -Wait -PassThru -WindowStyle Hidden }
-    else { $process = Start-Process $bootstrap -ArgumentList $arguments -Verb RunAs -Wait -PassThru }
+    $launchStage = if ($admin) { 'installer-launch' } else { 'native-elevation-request' }
+    Write-Host "Visual Studio acquisition stage: $launchStage"
+    try {
+        # Shell elevation must receive an existing explicit working directory.
+        # Keep consent native; do not replace a failed elevation with another route.
+        if ($admin) { $process = Start-Process -FilePath $bootstrap -ArgumentList $arguments -WorkingDirectory $ToolsRoot -Wait -PassThru -WindowStyle Hidden }
+        else { $process = Start-Process -FilePath $bootstrap -ArgumentList $arguments -WorkingDirectory $ToolsRoot -Verb RunAs -Wait -PassThru }
+    } catch {
+        $nativeCode = 'unavailable'
+        $cause = $_.Exception
+        $exceptionType = $cause.GetType().FullName
+        while ($null -ne $cause) {
+            if ($cause -is [System.ComponentModel.Win32Exception]) { $nativeCode = $cause.NativeErrorCode; break }
+            $cause = $cause.InnerException
+        }
+        throw "Visual Studio acquisition failed at $launchStage; exception=$exceptionType; nativeErrorCode=$nativeCode. Native consent or installer launch did not complete."
+    }
+    Write-Host "Visual Studio acquisition stage: installer-exit; exitCode=$($process.ExitCode)"
     if ($process.ExitCode -ne 0) { throw "Visual Studio installation incomplete, exit $($process.ExitCode). A required restart must be performed manually." }
     if (!(Test-Path $vswhere)) { throw 'Visual Studio discovery tool missing after installation' }
     $installation = & $vswhere -latest -products '*' -version '[17.0,18.0)' -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 Microsoft.VisualStudio.Component.VC.ATLMFC -property installationPath
