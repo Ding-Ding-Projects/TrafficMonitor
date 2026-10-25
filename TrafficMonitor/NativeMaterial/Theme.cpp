@@ -1,4 +1,4 @@
-﻿#include "../NativeMaterial/ResponsivenessDiagnostics.h"
+#include "../NativeMaterial/ResponsivenessDiagnostics.h"
 #include "Theme.h"
 #include <cmath>
 #include <dwmapi.h>
@@ -21,26 +21,43 @@ namespace NativeMaterial
 
     Palette Palette::Resolve(Appearance appearance)
     {
-        HIGHCONTRASTW contrast{ sizeof(contrast) };
-        if (SystemParametersInfoW(SPI_GETHIGHCONTRAST, sizeof(contrast), &contrast, 0)
-            && (contrast.dwFlags & HCF_HIGHCONTRASTON))
+        Palette c{};
+        HIGHCONTRASTW contrast{sizeof(contrast)};
+        if(SystemParametersInfoW(SPI_GETHIGHCONTRAST,sizeof(contrast),&contrast,0)
+            &&(contrast.dwFlags&HCF_HIGHCONTRASTON))
         {
-            return { SystemColor(COLOR_WINDOW), SystemColor(COLOR_WINDOW),
-                SystemColor(COLOR_WINDOWTEXT), SystemColor(COLOR_WINDOWTEXT),
-                SystemColor(COLOR_HIGHLIGHT), SystemColor(COLOR_HIGHLIGHTTEXT),
-                SystemColor(COLOR_WINDOWTEXT), SystemColor(COLOR_WINDOWTEXT), true };
+            c.highContrast=true;
+            c.surface=c.surfaceContainerLow=c.surfaceContainer=SystemColor(COLOR_WINDOW);
+            c.onSurface=c.onSurfaceVariant=c.outline=c.outlineVariant=SystemColor(COLOR_WINDOWTEXT);
+            c.primary=c.primaryContainer=c.secondaryContainer=SystemColor(COLOR_HIGHLIGHT);
+            c.onPrimary=c.onPrimaryContainer=c.onSecondaryContainer=SystemColor(COLOR_HIGHLIGHTTEXT);
+            c.error=SystemColor(COLOR_WINDOWTEXT);c.onError=SystemColor(COLOR_WINDOW);
         }
-        if (appearance == Appearance::Dark)
-            return { D2D1::ColorF(0x101419), D2D1::ColorF(0x1b2129),
-                D2D1::ColorF(0xe6edf5), D2D1::ColorF(0xa8b7c8),
-                D2D1::ColorF(0x91b8ff), D2D1::ColorF(0x101419),
-                D2D1::ColorF(0x394758), D2D1::ColorF(0xffadb5), false };
-        return { D2D1::ColorF(0xf5f7fa), D2D1::ColorF(0xedf1f6),
-            D2D1::ColorF(0x17212f), D2D1::ColorF(0x526174),
-            D2D1::ColorF(0x245fc8), D2D1::ColorF(0xffffff),
-            D2D1::ColorF(0xd5dee8), D2D1::ColorF(0xa62a35), false };
+        else if(appearance==Appearance::Dark)
+        {
+            c.surface=D2D1::ColorF(0x111318);c.surfaceContainerLow=D2D1::ColorF(0x1d2026);c.surfaceContainer=D2D1::ColorF(0x272a31);
+            c.onSurface=D2D1::ColorF(0xe1e2e9);c.onSurfaceVariant=D2D1::ColorF(0xc3c6cf);
+            c.outline=D2D1::ColorF(0x8d9199);c.outlineVariant=D2D1::ColorF(0x43474e);
+            c.primary=D2D1::ColorF(0xa8c8ff);c.onPrimary=D2D1::ColorF(0x003064);
+            c.primaryContainer=D2D1::ColorF(0x19467f);c.onPrimaryContainer=D2D1::ColorF(0xd6e3ff);
+            c.secondaryContainer=D2D1::ColorF(0x3e4759);c.onSecondaryContainer=D2D1::ColorF(0xdee6f9);
+            c.error=D2D1::ColorF(0xffb4ab);c.onError=D2D1::ColorF(0x690005);
+        }
+        else
+        {
+            c.surface=D2D1::ColorF(0xf9f9ff);c.surfaceContainerLow=D2D1::ColorF(0xf0f3fa);c.surfaceContainer=D2D1::ColorF(0xe9edf5);
+            c.onSurface=D2D1::ColorF(0x191c20);c.onSurfaceVariant=D2D1::ColorF(0x43474e);
+            c.outline=D2D1::ColorF(0x73777f);c.outlineVariant=D2D1::ColorF(0xc3c6cf);
+            c.primary=D2D1::ColorF(0x345e9c);c.onPrimary=D2D1::ColorF(0xffffff);
+            c.primaryContainer=D2D1::ColorF(0xd6e3ff);c.onPrimaryContainer=D2D1::ColorF(0x001b3e);
+            c.secondaryContainer=D2D1::ColorF(0xdae2f9);c.onSecondaryContainer=D2D1::ColorF(0x151c2b);
+            c.error=D2D1::ColorF(0xba1a1a);c.onError=D2D1::ColorF(0xffffff);
+        }
+        // Existing owners keep their field names while shared components use
+        // explicit semantic roles. No owner-local palette is introduced.
+        c.container=c.surfaceContainerLow;c.secondaryText=c.onSurfaceVariant;
+        return c;
     }
-
     HRESULT ApplyNativeFrameAppearance(HWND window, Appearance appearance)
     {
         NativeDiagnostics::Scope diagnostic(NativeDiagnostics::Operation::FrameAppearance);

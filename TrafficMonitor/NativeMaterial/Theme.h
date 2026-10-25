@@ -17,9 +17,14 @@ namespace NativeMaterial
     {
         D2D1_COLOR_F surface, container, onSurface, secondaryText;
         D2D1_COLOR_F primary, onPrimary, outline, error;
+        D2D1_COLOR_F surfaceContainerLow, surfaceContainer, onSurfaceVariant;
+        D2D1_COLOR_F outlineVariant, primaryContainer, onPrimaryContainer;
+        D2D1_COLOR_F secondaryContainer, onSecondaryContainer, onError;
         bool highContrast{};
         static Palette Resolve(Appearance appearance);
     };
+    inline D2D1_COLOR_F BlendColor(D2D1_COLOR_F foreground,D2D1_COLOR_F background,float opacity)
+    {return {foreground.r*opacity+background.r*(1-opacity),foreground.g*opacity+background.g*(1-opacity),foreground.b*opacity+background.b*(1-opacity),1.f};}
 
     // UI-thread-owned drawing resources. This class does not own its HWND.
     // Destroy it or call Detach before the associated window is destroyed.
