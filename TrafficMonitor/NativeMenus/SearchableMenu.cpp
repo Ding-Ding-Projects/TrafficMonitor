@@ -189,6 +189,7 @@ public:
     std::wstring searchText, backText, emptyText, invokeText, expandText, radioText;
     POINT anchor{};
     int rowHeight{}, width{}, height{};
+    bool placing{},reflowing{},externallySized{};
     HMENU selectedMenu{};
     Item selectedIdentity;
     struct Invocation { UINT_PTR generation; HMENU menu; Item item; };
@@ -257,32 +258,56 @@ public:
     }
     void Layout()
     {
+        if(externallySized){ReflowChildren();return;}
         MONITORINFO mi{sizeof(mi)};
         GetMonitorInfoW(MonitorFromPoint(anchor, MONITOR_DEFAULTTONEAREST), &mi);
         width = (std::min)(Px(420), static_cast<int>(mi.rcWork.right - mi.rcWork.left));
         rowHeight = Px(48);
         const int padding = Px(12);
-        const int backWidth = levels.size() > 1 ? Px(72) : 0;
         const int toolbar = NativePreferences::Current().values.language == NativePreferences::Language::Bilingual ? Px(56) : Px(44);
         const int listTop = padding + toolbar + Px(12);
-        MoveWindow(list, padding, listTop, (std::max)(1, width - padding * 2 - Px(16)), Px(100), FALSE);
+        const int oldTop=static_cast<int>(SendMessageW(list,LB_GETTOPINDEX,0,0));
+        RECT frame{};AdjustWindowRectEx(&frame,static_cast<DWORD>(GetWindowLongPtrW(window,GWL_STYLE)),FALSE,static_cast<DWORD>(GetWindowLongPtrW(window,GWL_EXSTYLE)));
+        const int frameWidth=frame.right-frame.left,frameHeight=frame.bottom-frame.top;
+        MoveWindow(list, padding, listTop, (std::max)(1, width-frameWidth-padding*2-Px(16)), Px(100), FALSE);
         MeasureRows();
         int contentHeight = 0;
         for (size_t row = 0; row < visible.size(); ++row)
             contentHeight += static_cast<int>(SendMessageW(list, LB_GETITEMHEIGHT, row, 0));
-        height = (std::min)((std::min)(Px(480), static_cast<int>(mi.rcWork.bottom - mi.rcWork.top)), listTop + (std::max)(Px(72), contentHeight) + padding);
+        height = (std::min)((std::min)(Px(480), static_cast<int>(mi.rcWork.bottom - mi.rcWork.top)), listTop + (std::max)(Px(72), contentHeight) + padding+frameHeight);
         const int x = (std::max)(static_cast<int>(mi.rcWork.left), (std::min)(static_cast<int>(anchor.x), static_cast<int>(mi.rcWork.right) - width));
         const int y = (std::max)(static_cast<int>(mi.rcWork.top), (std::min)(static_cast<int>(anchor.y), static_cast<int>(mi.rcWork.bottom) - height));
+        placing=true;
         SetWindowPos(window, HWND_TOPMOST, x, y, width, height, SWP_NOACTIVATE);
+        placing=false;
+        ReflowChildren();
+        if(oldTop>=0)SendMessageW(list,LB_SETTOPINDEX,oldTop,0);
+        SyncScroll();
+    }
+    void ReflowChildren()
+    {
+        if(reflowing||!list||!edit||!back||!regex||!scrollRail.GetSafeHwnd())return;
+        reflowing=true;
+        RECT client{};GetClientRect(window,&client);
+        const int clientWidth=client.right-client.left,clientHeight=client.bottom-client.top;
+        const int padding=Px(12),backWidth=levels.size()>1?Px(72):0;
+        const int toolbar=NativePreferences::Current().values.language==NativePreferences::Language::Bilingual?Px(56):Px(44);
+        const int listTop=padding+toolbar+Px(12);
+        const int oldTop=static_cast<int>(SendMessageW(list,LB_GETTOPINDEX,0,0));
+        const int selectedRow=static_cast<int>(SendMessageW(list,LB_GETCURSEL,0,0));
         ShowWindow(back, backWidth ? SW_SHOW : SW_HIDE);
         MoveWindow(back, padding, padding, backWidth, toolbar, TRUE);
-        MoveWindow(edit, padding + backWidth, padding, (std::max)(1, width - padding * 2 - backWidth - Px(96)), toolbar, TRUE);
-        MoveWindow(regex, width - padding - Px(88), padding, Px(88), toolbar, TRUE);
-        const int pageHeight = (std::max)(1, height - listTop - padding);
-        MoveWindow(list, padding, listTop, (std::max)(1, width - padding * 2 - Px(16)), pageHeight, TRUE);
-        scrollRail.MoveWindow(width - padding - Px(12), listTop, Px(12), pageHeight);
-        MoveWindow(empty, padding + Px(12), listTop + Px(12), width - padding * 2 - Px(24), Px(64), TRUE);
+        MoveWindow(edit, padding + backWidth, padding, (std::max)(1, clientWidth - padding * 2 - backWidth - Px(96)), toolbar, TRUE);
+        MoveWindow(regex, clientWidth - padding - Px(88), padding, Px(88), toolbar, TRUE);
+        const int pageHeight = (std::max)(1, clientHeight - listTop - padding);
+        MoveWindow(list, padding, listTop, (std::max)(1, clientWidth - padding * 2 - Px(16)), pageHeight, TRUE);
+        scrollRail.MoveWindow(clientWidth - padding - Px(12), listTop, Px(12), pageHeight);
+        MoveWindow(empty, padding + Px(12), listTop + Px(12), (std::max)(1,clientWidth-padding*2-Px(24)), (std::min)(Px(64),(std::max)(1,pageHeight-Px(24))), TRUE);
+        MeasureRows();
+        if(selectedRow>=0)SendMessageW(list,LB_SETCURSEL,selectedRow,0);
+        if(oldTop>=0)SendMessageW(list,LB_SETTOPINDEX,oldTop,0);
         SyncScroll();
+        reflowing=false;
     }
     void MeasureRows()
     {
@@ -519,6 +544,9 @@ public:
         if(!self) return DefWindowProcW(hwnd,message,w,l);
         switch(message)
         {
+        case WM_SIZE:
+            if(!self->placing&&self->list&&w!=SIZE_MINIMIZED){self->externallySized=true;self->ReflowChildren();}
+            return 0;
         case AccessibleInvokeMessage: self->ExecuteInvocation(w);return 0;
         case WM_TIMER:
             if(w==1)
