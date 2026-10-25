@@ -1,5 +1,6 @@
 @echo off
 setlocal
+if /i "%~1"=="--uia-observer" goto uiaObserver
 if /i "%~1"=="--verify-result-list" goto verifyResultList
 if /i "%~1"=="--verify-preferences" goto verifyPreferences
 if /i "%~1"=="--verify-settings" goto verifySettings
@@ -37,4 +38,8 @@ exit /b %errorlevel%
 
 :verifyResultList
 powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0scripts\test-native-result-list.ps1"
+exit /b %errorlevel%
+
+:uiaObserver
+powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0scripts\build-native-uia-observer.ps1"
 exit /b %errorlevel%
