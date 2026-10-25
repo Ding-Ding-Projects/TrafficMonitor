@@ -1,6 +1,7 @@
 @echo off
 setlocal
 if /i "%~1"=="--uia-observer" goto uiaObserver
+if /i "%~1"=="--verify-readonly-text" goto verifyReadOnlyText
 if /i "%~1"=="--verify-result-list" goto verifyResultList
 if /i "%~1"=="--verify-preferences" goto verifyPreferences
 if /i "%~1"=="--verify-settings" goto verifySettings
@@ -42,4 +43,8 @@ exit /b %errorlevel%
 
 :uiaObserver
 powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0scripts\build-native-uia-observer.ps1"
+exit /b %errorlevel%
+
+:verifyReadOnlyText
+powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0scripts\test-native-readonly-text.ps1"
 exit /b %errorlevel%

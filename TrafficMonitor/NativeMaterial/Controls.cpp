@@ -134,6 +134,18 @@ namespace NativeMaterial
     {m_appearance=value;m_background.DeleteObject();m_background.CreateSolidBrush(Color(Palette::Resolve(value).container));Invalidate();}
     HBRUSH ReadOnlyText::CtlColor(CDC* dc,UINT)
     {const auto colors=Palette::Resolve(m_appearance);dc->SetTextColor(Color(colors.onSurface));dc->SetBkColor(Color(colors.container));return static_cast<HBRUSH>(m_background.GetSafeHandle());}
+    LRESULT ReadOnlyText::WindowProc(UINT message,WPARAM w,LPARAM l)
+    {
+        const auto result=CEdit::WindowProc(message,w,l);
+        if(message==WM_GETDLGCODE)
+        {
+            const auto* key=reinterpret_cast<const MSG*>(l);
+            const bool tab=w==VK_TAB||(key&&key->wParam==VK_TAB&&
+                (key->message==WM_KEYDOWN||key->message==WM_KEYUP||key->message==WM_CHAR));
+            if(tab)return result&~(DLGC_WANTALLKEYS|DLGC_WANTTAB);
+        }
+        return result;
+    }
 
     struct ButtonAccess
     {

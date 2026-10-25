@@ -27,7 +27,8 @@ namespace
     {
         const Setting* setting{};
         NativeMaterial::SettingsCheck check;
-        CStatic label,numberLabel,description,defaults,unitText,unavailable;
+        CStatic label,description,defaults,unavailable;
+        NativeMaterial::SettingsLabel numberLabel,unitText;
         NativeMaterial::SettingsNumber number;
         NativeMaterial::Button unit,details;
         bool expanded{},visible{};
@@ -138,7 +139,8 @@ namespace
                 CString label;label=NativePreferences::Format(L"Value (%d to %d)",L"數值（%d 至 %d）",setting.minimum,setting.maximum);row->numberLabel.Create(label,child|SS_NOTIFY,box,&m_body,id+1);
                 row->number.CreateEx(WS_EX_CLIENTEDGE,L"EDIT",L"",child|WS_TABSTOP|ES_AUTOHSCROLL,box,&m_body,id+2);row->number.SetLimitText(64);
                 row->number.SetGrouped(setting.group==Notifications);
-                if(setting.group==Notifications&&!setting.trafficUnits)row->unitText.Create(setting.unit,child,box,&m_body,id+3);
+                row->numberLabel.SetGrouped(setting.group==Notifications);
+                if(setting.group==Notifications&&!setting.trafficUnits){row->unitText.Create(setting.unit,child,box,&m_body,id+3);row->unitText.SetGrouped(true);}
                 else row->unit.Create(setting.trafficUnits?L"MB":setting.unit,box,&m_body,id+3);
             }
             row->details.Create(T(L"Details",L"詳情"),box,&m_body,id+4);row->description.Create(L"",child|SS_NOTIFY,box,&m_body,id+5);row->defaults.Create(L"",child|SS_NOTIFY,box,&m_body,id+6);if(setting.group==Notifications)row->unavailable.Create(L"",child,box,&m_body,id+7);m_rows.push_back(std::move(row));
@@ -178,7 +180,7 @@ namespace
         NativeMaterial::ApplyNativeFrameAppearance(m_hWnd, m_appearance);
         const auto c=NativeMaterial::Palette::Resolve(m_appearance);m_background.DeleteObject();m_background.CreateSolidBrush(RGB(BYTE(c.surface.r*255),BYTE(c.surface.g*255),BYTE(c.surface.b*255)));
         m_navigation.SetAppearance(m_appearance);m_results.SetAppearance(m_appearance);m_body.SetAppearance(m_appearance);m_search.SetAppearance(m_appearance);m_revert.SetVariant(NativeMaterial::ButtonVariant::Tonal);m_reset.SetVariant(NativeMaterial::ButtonVariant::Text);m_clear.SetVariant(NativeMaterial::ButtonVariant::Text);m_regex.SetVariant(NativeMaterial::ButtonVariant::Outlined);m_legacy.SetVariant(NativeMaterial::ButtonVariant::Text);for(auto* b:{&m_clear,&m_applyButton,&m_revert,&m_reset,&m_legacy,&m_theme,&m_regex,&m_open,&m_return})b->SetAppearance(m_appearance);
-        for(auto& r:m_rows){if(r->check.GetSafeHwnd())r->check.SetAppearance(m_appearance);r->details.SetAppearance(m_appearance);if(r->setting->number){if(r->unit.GetSafeHwnd()){r->unit.SetAppearance(m_appearance);if(r->setting->group==Notifications)r->unit.SetVariant(NativeMaterial::ButtonVariant::Selector);}r->number.SetAppearance(m_appearance);}r->details.SetVariant(NativeMaterial::ButtonVariant::Text);}RedrawWindow(nullptr,nullptr,RDW_INVALIDATE|RDW_ALLCHILDREN);
+        for(auto& r:m_rows){if(r->check.GetSafeHwnd())r->check.SetAppearance(m_appearance);r->details.SetAppearance(m_appearance);if(r->setting->number){if(r->unit.GetSafeHwnd()){r->unit.SetAppearance(m_appearance);if(r->setting->group==Notifications)r->unit.SetVariant(NativeMaterial::ButtonVariant::Selector);}r->number.SetAppearance(m_appearance);r->numberLabel.SetAppearance(m_appearance);r->unitText.SetAppearance(m_appearance);}r->details.SetVariant(NativeMaterial::ButtonVariant::Text);}RedrawWindow(nullptr,nullptr,RDW_INVALIDATE|RDW_ALLCHILDREN);
     }
     void Editor::SyncRow(Row& r)
     {
