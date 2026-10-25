@@ -89,16 +89,19 @@ inline bool Positive(const NativeLayoutObservation::Rect &r)
 inline NativeLayoutObservation::Rect PhysicalBounds(const NativeLayoutObservation::Rect &r,
                                                     const Record &record)
 {
+    Need(std::isfinite(record.renderDpiX) && std::isfinite(record.renderDpiY) &&
+             record.renderDpiX > 0 && record.renderDpiY > 0,
+         "renderer-actual-render-dpi-unavailable");
     NativeLayoutObservation::Rect result{1000000, 1000000, -1000000, -1000000};
     for (float x : {r.left, r.right})
         for (float y : {r.top, r.bottom})
         {
             const float px =
                 (record.transform[0] * x + record.transform[2] * y + record.transform[4]) *
-                record.dpi / 96.f;
+                record.renderDpiX / 96.f;
             const float py =
                 (record.transform[1] * x + record.transform[3] * y + record.transform[5]) *
-                record.dpi / 96.f;
+                record.renderDpiY / 96.f;
             result.left = std::min(result.left, px);
             result.right = std::max(result.right, px);
             result.top = std::min(result.top, py);
@@ -124,8 +127,7 @@ inline int OverflowAssessment(const Record &r)
 }
 inline void ValidateNumeric(const Record &r)
 {
-    Need(r.sequence && r.sequence % 2 == 0 && r.reserved == 0 && r.reserved2 == 0,
-         "renderer-record-sequence");
+    Need(r.sequence && r.sequence % 2 == 0, "renderer-record-sequence");
     constexpr std::uint32_t known =
         Geometry | Font | TextMetrics | Overhang | Transform | Clip | Scroll | FallbackUnavailable |
         NativePaintUnobserved | FontNotApplicable | TextArea | MeasurementOnly | MetricsUnavailable;
@@ -139,7 +141,8 @@ inline void ValidateNumeric(const Record &r)
         Need(std::isfinite(f), "renderer-transform");
     for (float f :
          {r.font.size, r.font.height, r.font.ascent, r.font.descent, r.font.externalLeading,
-          r.layoutWidth, r.layoutHeight, r.widthIncludingTrailingWhitespace})
+          r.layoutWidth, r.layoutHeight, r.widthIncludingTrailingWhitespace,
+          r.renderDpiX, r.renderDpiY})
         Need(std::isfinite(f), "renderer-numeric-metric");
     NumericRect(r.clientPixels);
     NumericRect(r.textArea);
@@ -232,7 +235,8 @@ struct Session
                  ReadResult::Ready,
              "renderer-foreign-or-stale-header");
         output.Write(
-            "{\"phase\":\"renderer.interval.begin\",\"sequence\":\"" +
+            "{\"phase\":\"renderer.interval.begin\",\"protocolVersion\":" +
+            std::to_string(snapshot.header.version) + ",\"sequence\":\"" +
             std::to_string(snapshot.header.sequence) + "\",\"qpc\":\"" + std::to_string(begin) +
             "\",\"publishedQpc\":\"" + std::to_string(snapshot.header.publishedQpc) +
             "\",\"minimumSequence\":\"" + std::to_string(minimum) + "\",\"maximumAgeTicks\":\"" +
@@ -304,6 +308,8 @@ struct Session
                          ",\"clientPixels\":" + NumericRect(r.clientPixels) + ",\"textArea\":" +
                          NumericRect(r.textArea) + ",\"measured\":" + NumericRect(r.measured) +
                          ",\"overhang\":" + NumericRect(r.overhang) +
+                         ",\"renderDpiX\":" + std::to_string(r.renderDpiX) +
+                         ",\"renderDpiY\":" + std::to_string(r.renderDpiY) +
                          ",\"fontSource\":" + std::to_string(static_cast<unsigned>(r.font.source)) +
                          ",\"fontFamily\":" + Json(r.font.family) +
                          ",\"fontHeight\":" + std::to_string(r.font.height) +
@@ -550,6 +556,7 @@ inline void SelfTest(HWND ownedHiddenControl)
     painted.route = Route::WindowPaint;
     painted.paintSequence = 1;
     painted.dpi = 96;
+    painted.renderDpiX = painted.renderDpiY = 96;
     painted.validity = Geometry | TextArea | TextMetrics | Transform;
     painted.transform[0] = painted.transform[3] = 1;
     painted.clientPixels = {0, 0, 100, 40};
@@ -560,7 +567,19 @@ inline void SelfTest(HWND ownedHiddenControl)
     Need(OverflowAssessment(painted) == 0, "test-declared-contained-measurement");
     painted.kind = Kind::GdiMeasurement;
     Need(OverflowAssessment(painted) == -1, "test-gdi-not-painted-proof");
-    std::puts("Renderer binding checks: 5 passed; real hidden HWND identity/DPI and synthetic "
+    painted.kind = Kind::DirectWritePaint;
+    painted.clientPixels = {0,0,120,40};
+    painted.textArea = {0,0,100,40};
+    painted.measured = {10,5,90,30};
+    painted.renderDpiX = 144;
+    Need(OverflowAssessment(painted)==1,"test-render-dpi-not-window-dpi");
+    painted.renderDpiX = 96;
+    Need(OverflowAssessment(painted)==0,"test-render-dpi-contained");
+    Record invalidDpi=r;invalidDpi.kind=Kind::DirectWritePaint;
+    invalidDpi.paintSequence=1;invalidDpi.route=Route::WindowPaint;invalidDpi.outcome=Outcome::Succeeded;
+    invalidDpi.qpc=100;invalidDpi.renderDpiX=0;invalidDpi.renderDpiY=96;
+    Need(ValidateRecord(invalidDpi,2,100,50)==ReadResult::InvalidRecord,"test-missing-render-dpi");
+    std::puts("Renderer binding checks: 8 passed; real hidden HWND identity/DPI and synthetic "
               "declared layout bounds.");
 }
 } // namespace RendererRead

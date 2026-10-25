@@ -17,7 +17,7 @@ for (const [role, count] of [['root', 3], ['body', 1], ['language-panel', 1], ['
   for (let i = 0; i < count; i++) add(-1, roles.get(role), 'Static');
 const controls = rows.filter(row => row.phase === 'control');
 for (const control of controls) rows.push({ phase: 'renderer.record', hwnd: control.hwnd, kind: 4, dpi: 96, qpc: '110', sequence: '4', measuredOverflow: null, fontSource: 3, validity: 512 });
-rows.push({ phase: 'renderer.interval.begin', sequence: '4', qpc: '120', publishedQpc: '115', minimumSequence: '2', maximumAgeTicks: '100', logicalBytes: 92224, pageBytes: 4096, sectionBytes: 94208 });
+rows.push({ phase: 'renderer.interval.begin', protocolVersion: 2, sequence: '4', qpc: '120', publishedQpc: '115', minimumSequence: '2', maximumAgeTicks: '100', logicalBytes: 92224, pageBytes: 4096, sectionBytes: 94208 });
 rows.push({ phase: 'renderer.interval.end', sequence: '4', qpc: '130', observedControls: controls.length });
 rows.push({ phase: 'complete', receiptComplete: false });
 assert.equal(inspectNativeRenderJoin(rows).validV2Receipt, false);
@@ -29,5 +29,7 @@ for (const [mutate, expected] of [
   [r => r.find(x => x.phase === 'renderer.record').measuredOverflow = true, /measured-text-overflow/],
   [r => r.find(x => x.phase === 'renderer.record').textHash = 'forbidden', /forbidden-private-payload-field/],
   [r => r.find(x => x.phase === 'identity.end.verified').creationFiletime = '124', /changed-identity/],
+  [r => r.find(x => x.phase === 'renderer.interval.begin').protocolVersion = 1, /unsupported-renderer-protocol/],
+  [r => r.find(x => x.phase === 'renderer.record').kind = 1, /missing-actual-render-dpi/],
 ]) { const changed = structuredClone(rows); mutate(changed); assert.throws(() => inspectNativeRenderJoin(changed), expected); }
-console.log('Native join summary checks: 8 passed; synthetic protocol-shaped input, no product observation.');
+console.log('Native join summary checks: 10 passed; synthetic protocol-shaped input, no product observation.');

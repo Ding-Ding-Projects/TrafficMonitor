@@ -15,6 +15,7 @@ export function inspectNativeRenderJoin(rows, options = {}) {
   need(!rows.some(row => row.phase === 'rejected'), 'native-observer-rejected');
   const inventory = inspectInterfaceInventory(rows, options);
   const start = one(rows, 'renderer.interval.begin'), end = one(rows, 'renderer.interval.end');
+  need(start.protocolVersion === 2, 'unsupported-renderer-protocol');
   const sequence = number(start.sequence);
   need(sequence > 0n && sequence % 2n === 0n && sequence === number(end.sequence), 'changed-render-sequence');
   need(number(end.qpc) >= number(start.qpc), 'invalid-render-interval');
@@ -30,6 +31,8 @@ export function inspectNativeRenderJoin(rows, options = {}) {
     const id = hwnd(record.hwnd), control = controls.get(id); need(control && control.visible, 'foreign-renderer-control');
     const key = id + ':' + record.kind; need(!seen.has(key), 'duplicate-renderer-record'); seen.add(key); observed.add(id);
     need(record.dpi === control.dpi, 'renderer-dpi');
+    if (record.kind === 1) need(Number.isFinite(record.renderDpiX) && record.renderDpiX > 0 &&
+      Number.isFinite(record.renderDpiY) && record.renderDpiY > 0, 'missing-actual-render-dpi');
     const stamp = number(record.qpc), recordSequence = number(record.sequence);
     need(recordSequence >= minimum && recordSequence <= sequence && stamp <= number(start.publishedQpc) &&
       stamp <= number(start.qpc) && number(end.qpc) - stamp <= age, 'stale-renderer-record');
