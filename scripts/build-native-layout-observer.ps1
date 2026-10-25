@@ -1,6 +1,10 @@
 $ErrorActionPreference='Stop'
 try {
     $root=Split-Path $PSScriptRoot -Parent
+    foreach($helper in @('native-interface-inventory.mjs','native-render-observation-check.mjs')) {
+        & node (Join-Path $root ('tools/'+$helper)) --self-test
+        if($LASTEXITCODE -ne 0){exit $LASTEXITCODE}
+    }
     $vswhere=Join-Path ${env:ProgramFiles(x86)} 'Microsoft Visual Studio/Installer/vswhere.exe'
     if(!(Test-Path -LiteralPath $vswhere)){throw 'Existing Visual Studio discovery unavailable; no installation attempted.'}
     $installation=& $vswhere -latest -products '*' -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath
