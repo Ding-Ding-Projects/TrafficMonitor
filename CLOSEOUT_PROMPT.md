@@ -1,25 +1,27 @@
 # TrafficMonitor continuation handoff
 
-Continue native-first delivery. The owner permits normal closure of exact task instances and defers installation. Use uninstalled portable fixtures; retain .release-hold, native C++/MFC, native captions, monitoring/plugins, preferences/history and startup. Hosted documentation/wiki/companions remain last.
+Continue native-first delivery. The owner permits normal closure of exact task instances and defers installation. Use portable candidates; retain .release-hold, native C++/MFC and captions, monitoring/plugins, preferences/history and startup. Hosted documentation, wiki and companions remain last.
 
-## Current state
+## Preserved state
 
-Candidate9049 source4a20ad6312da16c99d49d7c6f5b83b85eda09e49 is preserved on main. Its publication check passed, with release/deployment skipped. Accepted release remains1.0.48 at ddcf441f4c3cab2a5e3b62e9ff6aff1babf3bdfa. Source9d22668 repairs actual-client menu reflow; source93dc8d6 adds the explicitly incomplete native structural observer. Both are reviewed and integrated; the next package and live checks remain pending. Verify current main/remote state before work.
+Candidate 9050 is built from 965241da6501b9d188809202d483b624d5987212. Exact root packaging passed with two existing warnings. Publication run 40151400568 passed; release/deployment were skipped. This file's enclosing evidence commit updates the handoff; verify the current main remote head before continuing. Accepted release remains 1.0.48 at ddcf441f4c3cab2a5e3b62e9ff6aff1babf3bdfa. No diagnostic candidate was installed or newly released.
 
-9047/9048 verified grouped Notifications, unified setup scrolling, actual first open, style save/resume, exact32767GB readback/invalid-input preservation, Details UIA idempotence/events and the960x760 reference across six language/theme tuples. Actual forward Tab passed in9048. Corrected fixtures preserve five normal-profile hashes and startup absence and are closed.
+Earlier receipts cover the causal list-measurement repair, compact Interface, grouped Notifications, unified setup scrolling, first open/save/resume, exact notification readback, Details UIA idempotence/events and the six-tuple 960 × 760 setup reference. Actual forward Tab passed in 9048. Those results retain their original source.
 
-9049 adds distinct semantic color/action roles, selector outlines, checkbox mixed marks, slider ticks and selected-list checks. Native build and focused regressions pass. Seventeen private images cover six owners at96DPI; slider5→4→5 and checkbox0→1→Revert0 were read back. The320x400 menu fails: Regexleft321,width88 remains outside the client. Keep this original evidence. Source9d22668 reflows from actual client bounds without recursive parent resizing and preserves selection/top/filter/regex ownership. Identical-tuple runtime proof is next; original320creation and DPI moves remain unverified.
+9049 adds shared color/action roles, selector outlines, checkbox mixed marks, slider ticks and selected-list checks. Focused native regressions and 17 private images are retained. Slider 5→4→5 and checkbox 0→1→Revert 0 were read back. Its resized 320 × 400 menu failed: Regex started at x=321 with width 88. Preserve that failure evidence.
 
-9049 forwardTab is unverified because the posted-key route did not isolate modifier state. Native forward destination remainsUseSaved56203; no source regression is claimed. Do not reset host keyboard state or substitute WM_NEXTDLGCTL for Tab proof.
+9050 verifies the identical 320 × 400 client at 96 DPI: Regex is at x=220..308 and all visible controls are contained. Filter/clear changes 16→2→16 rows, retaining size, selected row 0 and top row 0. Submenu/Back and owned Regex cancellation retain the menu. Default opening was observed. Four private images remain unpromoted. Original narrow creation and monitor/DPI moves remain unverified.
 
-The structural observer passes12 native checks plus JSONL/ACL checks through build.bat --layout-observer. It collects identity/geometry/focus/EDIT/standard-scroll data without text, but requires renderer font/glyph/text-area/custom-scroll/paint-sequence inputs for any complete v2/v3 receipt. Live product use is pending.
+The native structural observer passes 12 causal checks and one live run: exit 0, matching identity endpoints, seven controls, no raw text and protected current-user-only output. receiptComplete, validV2Receipt and validV3Receipt remain false. Real renderer font/glyph/text-area/custom-scroll/paint-sequence inputs are still needed.
 
-## Next and boundaries
+Corrected fixtures are closed: normal exit, processes/children/mutex absent, owned desktops released, five normal-profile hashes and startup absence unchanged. See docs/evidence/menu-reflow-9050.json and earlier receipts.
 
-Build the menu candidate through exact build-installer.bat, prepare a fresh fixture with prepare-portable-diagnostic.ps1, verify320x400 reflow plus filter/submenu/default behavior, run the reviewed observer on the same identity and close normally. Update source-bound receipts and preserve each verified milestone on main. Then continue remaining native owners and applicable features. Inventory111 identities,155 passing inventory checks,1544 acceptance gaps is obligation coverage only.
+## Next work and boundaries
 
-Higher physical DPI, reverse traversal, IME, complete accessibility, high contrast/reduced motion, restart/recovery, renderer receipts, installer/updater negatives and companions remain incomplete. Installation stays deferred.
+Add renderer-owned measurements for a bounded Interface state, combine them with the external observer, and prove missing/stale/overflow rejection before promotion. Finish native owner geometry/typography, physical 125/150/200 percent scales, reverse traversal, IME, full accessibility, high contrast/reduced motion and restart/recovery. Posted Tab in 9049 had uncontrolled modifier state; no source regression or new Tab pass is claimed.
 
-The first9044 fixture retained installed-mode.ini and wrote normal data; no installer ran. Private snapshots exist but no original prelaunch baseline does. Do not guess restoration or print encoded baseline content. Later unchanged checks do not repair that gap.
+The inventory has 111 identities, 155 passing inventory checks and 1544 acceptance gaps. Complete applicable behavior and installer/updater negatives after native acceptance; installation stays deferred. Companions and hosted documentation follow last.
 
-Retain active task worktrees and private evidence. Revalidate live identities and the temporary Lowlevel service. No force push, unrelated termination, host power/login action or destructive cleanup. Shared-instruction synchronization remains incomplete due unrelated dirty work overlapping31 incoming commits. Goal active; account allowance unknown; no fixed token budget.
+The first 9044 fixture retained installed-mode.ini and wrote normal data. No installer ran. Private snapshots exist without an original prelaunch baseline. Do not guess restoration or print encoded baseline content; later unchanged checks do not repair that gap.
+
+Retain both active task worktrees and private evidence. Revalidate live identities and the temporary Lowlevel service. No force push, unrelated termination, host power/login action or destructive cleanup. Shared-instruction synchronization remains incomplete because unrelated dirty paths overlap 31 incoming commits. Goal active; account allowance unknown; no fixed token budget.

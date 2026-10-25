@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "kind": "bounded-native-interaction",
+  "sourceCommit": "965241da6501b9d188809202d483b624d5987212",
+  "candidateVersion": "1.0.9050",
+  "packageSHA256": "815c50e942fe7e81ed327291574c62263d6c1bacc568400141e5bf909e07b017",
+  "executableSHA256": "3c63a727844cfac49f4848dfd13059f75a0276aaddd8dcfa2558dc607af2edab",
+  "finishedUtc": "2026-10-25T01:43:21.566741+00:00",
+  "build": {
+    "entrypoint": "build-installer.bat -Version 1.0.9050",
+    "exitCode": 0,
+    "warnings": 2,
+    "errors": 0
+  },
+  "comparison": {
+    "previousReceipt": "native-components-9049.json",
+    "finding": "menu320-regex-overflow",
+    "previousRegexLeft": 321,
+    "previousRegexWidth": 88,
+    "previousFailureRetained": true
+  },
+  "menu": {
+    "actualDpi": 96,
+    "defaultOpeningObserved": true,
+    "resizedClient": [
+      320,
+      400
+    ],
+    "regexBounds": {
+      "left": 220,
+      "right": 308
+    },
+    "visibleControlsContained": true,
+    "filterClear": {
+      "rowCounts": [
+        16,
+        2,
+        16
+      ],
+      "selectedRows": [
+        0,
+        0,
+        0
+      ],
+      "topRows": [
+        0,
+        0,
+        0
+      ],
+      "clientStayed": [
+        320,
+        400
+      ]
+    },
+    "submenuBackContained": true,
+    "regexOwnedByMenuAndCancelRetainedOwner": true,
+    "privateImagesInspected": 4
+  },
+  "structuralObserver": {
+    "executableSHA256": "b1c4f6cb8e280e1d99f85cf0624f03fceee8e8f771ec34a5e82b5ccf74d767fa",
+    "attempts": 1,
+    "exitCode": 0,
+    "identityMatched": true,
+    "controlObservationCount": 7,
+    "rawControlTextCollected": false,
+    "outputAclProtected": true,
+    "currentUserOnlyRuleCount": 1,
+    "receiptComplete": false,
+    "validV2Receipt": false,
+    "validV3Receipt": false
+  },
+  "preservation": {
+    "installed": false,
+    "normalProfileFilesCompared": 5,
+    "normalProfileUnchanged": true,
+    "startupAbsentBeforeAndAfter": true,
+    "normalExit": true,
+    "processAndChildrenAbsent": true,
+    "mutexAbsent": true,
+    "ownedDesktopEmptyAndClosed": true
+  },
+  "boundedMenuRepairVerified": true,
+  "fullAcceptance": false,
+  "limitations": [
+    "Original 320-wide creation not observed",
+    "Actual 96 DPI only; higher physical scales and monitor transitions unverified",
+    "Structural observation lacks renderer font/glyph/text-area/custom-scroll/paint-sequence proof",
+    "No native v2/v3 or image-promotion acceptance",
+    "No repeated full matrix, new installation or release"
+  ]
+}

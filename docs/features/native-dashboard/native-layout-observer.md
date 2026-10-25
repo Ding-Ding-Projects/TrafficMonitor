@@ -25,7 +25,9 @@ The integrated root route passed twelve native checks covering wrong desktop, re
 identity, wrong hash, foreign/subtree HWNDs, output traversal, numeric overflow, existing
 output, destroyed root and owned-helper timeout. Script checks require incomplete JSONL,
 EDIT data, both identity endpoints and the protected ACL. Unshown owned windows supplied
-those checks; live product acceptance remains pending.
+those checks. A [single live 9050 observation](../../evidence/menu-reflow-9050.json)
+returned zero with matching identity endpoints, seven controls, no raw text and a
+protected one-rule output ACL. All three complete-receipt flags remained false.
 
 Private output contains machine paths and native identities. Keep it in ignored private
 evidence and publish only reviewed summaries. No HTTP API is exposed.

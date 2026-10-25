@@ -6,7 +6,8 @@ Group notification controls, unify setup scrolling and repair Preview Tab handli
 disabled-label paint. Add distinct shared color/action roles, checkbox mixed-state drawing,
 slider ticks and selected-list checks. Portable 9047/9048 checks cover bounded persistence,
 focus and Details UIA behavior. Candidate 9049 retains a confirmed narrow-menu resize defect;
-its source repair now uses the actual client, with identical-tuple runtime proof pending.
+its source repair uses the actual client. The identical 9050 tuple verifies containment,
+filter/clear/submenu/Back retention and owned Regex cancellation at 96 DPI.
 The native structural observer explicitly marks missing renderer measurements incomplete.
 No diagnostic candidate was installed or published. Release hold remains.
 
