@@ -1,5 +1,27 @@
 # Native-first continuation
 
+## Owner-requested stop
+
+Implementation is stopped. The owner requested an immediate push and no further work.
+The platform reports no active goal. Do not resume implementation without a new request.
+Producer ec177ac3f45614267598c3f3176068db613ec107 and reader
+6be9101db9543fb6301a257f0c7e9af65efcdcd2 were pushed on their owning branches and are
+preserved on main as an incomplete recovery merge. Keep `.release-hold` and installation
+deferred. No additional build or acceptance run was started for this combined snapshot.
+
+Known blocker: Settings and preference layout publish GdiMeasurement before moving the
+ordinary static HWND. The retained client geometry can therefore be obsolete when the
+reader checks it. Later NativeTextMetrics uses another record kind and does not replace
+that stale measurement. The reader correctly rejects `renderer-client-geometry-changed`.
+The review identified this from source; live reproduction and the correction remain undone.
+Preserve useful measurements with post-placement geometry when work is explicitly resumed;
+do not weaken the reader's check. Full native layout/promotion acceptance remains unavailable.
+
+Individual branches retain their earlier build/check results, including 320 old/new drawing
+comparisons and transport-v2 checks. They do not verify the stopped combined source. The last
+bounded product runtime result remains candidate 9050 below. Task worktrees and private
+evidence are retained; no destructive cleanup was requested or performed.
+
 Latest bounded candidate: 9050 at `965241da6501b9d188809202d483b624d5987212` verifies the
 repaired 320 × 400 menu at 96 DPI. Regex is at x=220..308, all visible controls are contained,
 filter/clear retains size and selection, submenu/Back works and owned Regex cancellation

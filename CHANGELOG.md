@@ -1,5 +1,12 @@
 # Fork changes
 
+## Incomplete recovery snapshot after owner stop
+
+Preserve the opt-in renderer-observation producer and transport-v2 reader without release.
+The reviewed measurement-before-placement geometry defect remains unresolved. Individual
+branch checks do not establish combined-source or live acceptance. Further implementation
+was stopped; release hold and installation deferral remain in force.
+
 ## Unreleased native refinement and bounded evidence
 
 Group notification controls, unify setup scrolling and repair Preview Tab handling and

@@ -1,5 +1,13 @@
 # TrafficMonitor delivery roadmap
 
+Implementation is stopped at the owner's request. This checklist records unfinished work;
+it does not authorize automatic continuation. The latest main source is an incomplete
+recovery snapshot under `.release-hold`.
+
+- [x] Preserve producer ec177ac and reader 6be9101 on their owning remote branches.
+- [ ] Correct measurement-before-placement geometry only after a new owner request.
+- [ ] Build and verify the combined renderer-observation source; not run at stop.
+
 ## Incomplete source preservation
 
 - [x] Preserve unfinished native implementation and corrected design references on main with explicit incomplete status.

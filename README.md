@@ -1,5 +1,7 @@
 # TrafficMonitor
 
+> **Work stopped at the owner's request.** The latest source preserves unfinished renderer-observation work as an inactive recovery snapshot. `.release-hold` remains in place. No combined build, live acceptance, installation or release is claimed for this snapshot.
+
 > **Incomplete preservation snapshot:** main includes unfinished native workspace and design work. Automatic product release is held by `.release-hold` while runtime verification remains incomplete. The release1.0.48 images below remain explicitly labelled before-state evidence.
 
 The current [list measurement repair](docs/features/native-dashboard/list-layout-responsiveness.md) passes its native regression and local candidate build. A bounded portable comparison verified bilingual/dark Apply, responsive windows and unchanged normal-profile files; the full display matrix and finished remake remain incomplete.
