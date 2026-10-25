@@ -14,6 +14,10 @@ try {
     New-Item -ItemType Directory -Path $output | Out-Null
     $source=Join-Path $root 'tools/native-layout-observer.cpp'
     $sourceHash=(Get-FileHash -LiteralPath $source -Algorithm SHA256).Hash
+    $inputHashes=@{}
+    foreach($relative in @('tools/native-layout-observer.cpp','tools/native-layout-render-reader.h','TrafficMonitor/NativeMaterial/LayoutObservationProtocol.h','tools/native-interface-inventory.mjs','tools/native-render-observation-check.mjs')) {
+        $inputHashes[$relative]=(Get-FileHash -LiteralPath (Join-Path $root $relative) -Algorithm SHA256).Hash
+    }
     $exe=Join-Path $output 'native-layout-observer.exe'
     $command='call "'+$vcvars+'" >nul && cl.exe /nologo /std:c++17 /EHsc /W4 /utf-8 /MT /D_UNICODE /DUNICODE "'+$source+'" /Fe:"'+$exe+'" /link User32.lib BCrypt.lib Advapi32.lib'
     Push-Location $output
@@ -49,7 +53,10 @@ try {
     $currentSid=[Security.Principal.WindowsIdentity]::GetCurrent().User.Value
     if(!$acl.AreAccessRulesProtected -or @($acl.Access | Where-Object {$_.IdentityReference.Translate([Security.Principal.SecurityIdentifier]).Value -ne $currentSid}).Count){throw 'Observation file permissions are not limited to the current identity.'}
     if((Get-FileHash -LiteralPath $source -Algorithm SHA256).Hash -ne $sourceHash){throw 'Source changed during compilation/checks.'}
-    $receipt=@{source='tools/native-layout-observer.cpp';sourceSha256=$sourceHash;executable=$exe;executableSha256=(Get-FileHash -LiteralPath $exe -Algorithm SHA256).Hash;entrypoint='build.bat --layout-observer';checks='passed';productRuntimeVerified=$false;receiptComplete=$false}
+    foreach($relative in $inputHashes.Keys) {
+        if((Get-FileHash -LiteralPath (Join-Path $root $relative) -Algorithm SHA256).Hash -ne $inputHashes[$relative]){throw 'An observer input changed during compilation/checks.'}
+    }
+    $receipt=@{source='tools/native-layout-observer.cpp';sourceSha256=$sourceHash;inputHashes=$inputHashes;executable=$exe;executableSha256=(Get-FileHash -LiteralPath $exe -Algorithm SHA256).Hash;entrypoint='build.bat --layout-observer';checks='passed';productRuntimeVerified=$false;receiptComplete=$false}
     $receipt | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $output 'build-receipt.json') -Encoding UTF8
     $receipt | ConvertTo-Json -Compress
     exit 0
