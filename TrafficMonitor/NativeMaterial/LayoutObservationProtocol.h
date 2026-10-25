@@ -10,7 +10,7 @@
 // protocol, not a claim that the external strict layout schema is satisfied.
 namespace NativeLayoutObservation
 {
-    constexpr std::uint32_t Magic=0x314f4c54, Version=1, Capacity=256;
+    constexpr std::uint32_t Magic=0x314f4c54, Version=2, Capacity=256;
     constexpr wchar_t MarkerSuffix[]=L".layout-observations";
     constexpr wchar_t MappingPrefix[]=L"Local\\TrafficMonitor.LayoutObservations.";
     constexpr wchar_t RegistrationProperty[]=L"TrafficMonitor.LayoutObservationRegistration";
@@ -38,7 +38,9 @@ namespace NativeLayoutObservation
         std::uint64_t hwnd{},parentHwnd{},registration{},sequence{},paintSequence{},qpc{};
         std::uint32_t controlId{},threadId{},dpi{},validity{};
         Kind kind{};Units units{};Route route{};Outcome outcome{};
-        std::int32_t paintResult{};std::uint32_t visible{},enabled{},reserved{};
+        // dpi is HWND DPI. renderDpiX/Y are observed Direct2D target DPI;
+        // zero means unavailable/not applicable for every non-DirectWrite kind.
+        std::int32_t paintResult{};std::uint32_t visible{},enabled{};float renderDpiX{};
         // clientPixels and clipBox always use physical device pixels. textArea
         // and measured use units. DirectWrite measured bounds already include
         // the submitted drawing origin, in control-client DIPs. GDI measurement boxes are measurement-DC
@@ -50,7 +52,7 @@ namespace NativeLayoutObservation
         float transform[6]{};ClipSource clipSource{};std::int32_t mappingMode{};
         FontMetrics font{};
         float layoutWidth{},layoutHeight{},widthIncludingTrailingWhitespace{};
-        std::uint32_t lineCount{},bidiDepth{},reserved2{};
+        std::uint32_t lineCount{},bidiDepth{};float renderDpiY{};
         std::int64_t content{},page{},position{};
     };
     struct alignas(8) Header {
@@ -95,11 +97,12 @@ namespace NativeLayoutObservation
     }
     inline ReadResult ValidateRecord(const Record& r,std::uint64_t minimumSequence,std::uint64_t now,std::uint64_t maximumAge)
     {
-        if(!r.hwnd||!r.registration||!r.sequence||!r.dpi||r.kind<Kind::DirectWritePaint||r.kind>Kind::RailMetrics||r.units<Units::PhysicalClientPixels||r.units>Units::LogicalScrollUnits)return ReadResult::InvalidRecord;
+        if(!r.hwnd||!r.registration||!r.sequence||(r.sequence&1)||!r.dpi||r.kind<Kind::DirectWritePaint||r.kind>Kind::RailMetrics||r.units<Units::PhysicalClientPixels||r.units>Units::LogicalScrollUnits)return ReadResult::InvalidRecord;
         if(r.route>Route::PrintClient||r.outcome>Outcome::NotReported||r.font.source>FontSource::NotApplicable||r.clipSource>ClipSource::GdiClipBox||r.font.family[31]!=0||(r.validity&~8191u))return ReadResult::InvalidRecord;
         for(const auto* box:{&r.clientPixels,&r.textArea,&r.measured,&r.overhang,&r.clipBox})if(!std::isfinite(box->left)||!std::isfinite(box->top)||!std::isfinite(box->right)||!std::isfinite(box->bottom))return ReadResult::InvalidRecord;
         for(float value:r.transform)if(!std::isfinite(value))return ReadResult::InvalidRecord;
-        if(!std::isfinite(r.font.size)||!std::isfinite(r.font.height)||!std::isfinite(r.font.ascent)||!std::isfinite(r.font.descent)||!std::isfinite(r.font.externalLeading)||!std::isfinite(r.layoutWidth)||!std::isfinite(r.layoutHeight)||!std::isfinite(r.widthIncludingTrailingWhitespace))return ReadResult::InvalidRecord;
+        if(!std::isfinite(r.font.size)||!std::isfinite(r.font.height)||!std::isfinite(r.font.ascent)||!std::isfinite(r.font.descent)||!std::isfinite(r.font.externalLeading)||!std::isfinite(r.layoutWidth)||!std::isfinite(r.layoutHeight)||!std::isfinite(r.widthIncludingTrailingWhitespace)||!std::isfinite(r.renderDpiX)||!std::isfinite(r.renderDpiY))return ReadResult::InvalidRecord;
+        if(r.kind==Kind::DirectWritePaint&&(r.renderDpiX<=0||r.renderDpiY<=0||!r.paintSequence||r.route==Route::NotPaint||r.outcome==Outcome::NotPaint))return ReadResult::InvalidRecord;
         if(r.kind==Kind::RailMetrics&&(r.content<0||r.page<0||r.position<0||r.position>(r.content>r.page?r.content-r.page:0)))return ReadResult::InvalidRecord;
         if(r.sequence<minimumSequence||r.qpc>now||now-r.qpc>maximumAge)return ReadResult::Stale;
         return ReadResult::Ready;
