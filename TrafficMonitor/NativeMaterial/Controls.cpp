@@ -106,12 +106,26 @@ namespace NativeMaterial
         const auto colors=Palette::Resolve(m_appearance);
         dc.FillSolidRect(bounds,Color(colors.surface));
         CRect channel,thumb;GetChannelRect(channel);GetThumbRect(thumb);
-        const int dpi=GetDpiForWindow(m_hWnd),radius=MulDiv(9,dpi,96);
+        const int dpi=GetDpiForWindow(m_hWnd),radius=MulDiv(10,dpi,96);
         const int trackY=bounds.bottom-MulDiv(12,dpi,96);
-        channel.top=trackY-MulDiv(3,dpi,96);channel.bottom=channel.top+MulDiv(6,dpi,96);
-        dc.FillSolidRect(channel,Color(colors.container));
+        channel.top=trackY-MulDiv(2,dpi,96);channel.bottom=channel.top+MulDiv(4,dpi,96);
+        dc.FillSolidRect(channel,Color(colors.secondaryContainer));
         CRect active=channel;active.right=thumb.CenterPoint().x;
         dc.FillSolidRect(active,Color(IsWindowEnabled()?colors.primary:colors.outline));
+        // Draw the existing discrete range without changing native key steps,
+        // thumb geometry or provider values. Bound arbitrary external ranges.
+        const int minimum=GetRangeMin(),maximum=GetRangeMax();
+        if(maximum>minimum&&static_cast<long long>(maximum)-minimum<=100)
+        {
+            const int tick=(std::max)(1,MulDiv(1,dpi,96));
+            for(int offset=0;offset<=maximum-minimum;++offset)
+            {
+                const int value=minimum+offset;
+                const int x=channel.left+MulDiv(offset,channel.Width(),maximum-minimum);
+                const auto ink=IsWindowEnabled()?(value<=GetPos()?colors.onPrimary:colors.onSecondaryContainer):colors.onSurfaceVariant;
+                dc.FillSolidRect(x-tick,trackY-tick,tick*2,tick*2,Color(ink));
+            }
+        }
         const auto center=CPoint(thumb.CenterPoint().x,trackY);
         CBrush brush(Color(IsWindowEnabled()?colors.primary:colors.outline));
         auto oldBrush=dc.SelectObject(&brush);auto oldPen=dc.SelectStockObject(NULL_PEN);

@@ -21,12 +21,13 @@ namespace NativeMaterial
     void ResultList::DrawItem(LPDRAWITEMSTRUCT item)
     {
         if(item->itemID==static_cast<UINT>(-1))return;CDC dc;dc.Attach(item->hDC);CRect r(item->rcItem);const auto c=Palette::Resolve(m_appearance);const bool selected=(item->itemState&ODS_SELECTED)!=0;const UINT dpi=GetDpiForWindow(m_hWnd);auto px=[&](int n){return MulDiv(n,dpi,96);};
-        dc.FillSolidRect(r,Rgb(c.surface));CRect shape=r;shape.DeflateRect(px(4),px(3));shape.right-=px(12);CBrush brush(Rgb(selected?c.container:c.surface));auto* oldBrush=dc.SelectObject(&brush);auto* oldPen=dc.SelectStockObject(NULL_PEN);dc.RoundRect(shape,CPoint(px(16),px(16)));dc.SelectObject(oldBrush);dc.SelectObject(oldPen);
+        dc.FillSolidRect(r,Rgb(c.surface));CRect shape=r;shape.DeflateRect(px(4),px(3));shape.right-=px(12);CBrush brush(Rgb(selected?c.primaryContainer:c.surface));auto* oldBrush=dc.SelectObject(&brush);auto* oldPen=dc.SelectStockObject(NULL_PEN);dc.RoundRect(shape,CPoint(px(16),px(16)));dc.SelectObject(oldBrush);dc.SelectObject(oldPen);
         if(selected&&m_navigation)dc.FillSolidRect(shape.left,shape.top+px(8),px(3),shape.Height()-px(16),Rgb(c.primary));
-        CString label;GetText(item->itemID,label);CRect text=r;text.DeflateRect(px(m_navigation?36:12),px(10));text.right=r.right-px(24);auto* oldFont=GetFont()?dc.SelectObject(GetFont()):nullptr;dc.SetBkMode(TRANSPARENT);dc.SetTextColor(Rgb(selected?c.primary:c.onSurface));dc.DrawText(label,text,DT_WORDBREAK|DT_NOPREFIX);if(oldFont)dc.SelectObject(oldFont);
+        CString label;GetText(item->itemID,label);CRect text=r;text.DeflateRect(px(m_navigation?36:12),px(10));text.right=r.right-px(24);auto* oldFont=GetFont()?dc.SelectObject(GetFont()):nullptr;dc.SetBkMode(TRANSPARENT);dc.SetTextColor(Rgb(selected?c.onPrimaryContainer:c.onSurface));dc.DrawText(label,text,DT_WORDBREAK|DT_NOPREFIX);if(oldFont)dc.SelectObject(oldFont);
+        if(selected&&!m_navigation){CPen check(PS_SOLID,(std::max)(1,px(2)),Rgb(c.onPrimaryContainer));auto* previous=dc.SelectObject(&check);const int cy=r.CenterPoint().y;dc.MoveTo(r.right-px(22),cy);dc.LineTo(r.right-px(19),cy+px(3));dc.LineTo(r.right-px(14),cy-px(4));dc.SelectObject(previous);}
         if (m_navigation)
         {
-            CPen pen(PS_SOLID, (std::max)(1, px(1)), Rgb(selected ? c.primary : c.secondaryText));
+            CPen pen(PS_SOLID, (std::max)(1, px(1)), Rgb(selected ? c.onPrimaryContainer : c.onSurfaceVariant));
             auto* previousPen = dc.SelectObject(&pen);
             auto* previousBrush = dc.SelectStockObject(NULL_BRUSH);
             const int x = r.left + px(13), y = r.top + px(16);

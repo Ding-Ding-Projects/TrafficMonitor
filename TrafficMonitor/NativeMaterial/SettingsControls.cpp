@@ -83,29 +83,45 @@ namespace NativeMaterial
     }
     void SettingsCheck::OnPaint()
     {
-        CPaintDC dc(this); CRect rect; GetClientRect(rect);
+        CPaintDC dc(this);Paint(dc.GetSafeHdc());
+    }
+    LRESULT SettingsCheck::WindowProc(UINT message,WPARAM w,LPARAM l)
+    {
+        if((message==WM_PRINTCLIENT||message==WM_PRINT)&&w)
+        {if(!(l&PRF_CHECKVISIBLE)||IsWindowVisible())Paint(reinterpret_cast<HDC>(w));return 0;}
+        const auto result=CButton::WindowProc(message,w,l);
+        if(message==WM_ENABLE||message==BM_SETCHECK)Invalidate();
+        return result;
+    }
+    void SettingsCheck::Paint(HDC target)
+    {
+        CDC dc;dc.Attach(target);const int saved=dc.SaveDC();CRect rect;GetClientRect(rect);
         const auto palette = Palette::Resolve(m_appearance);
         auto color = [](D2D1_COLOR_F value) { return RGB(BYTE(value.r * 255), BYTE(value.g * 255), BYTE(value.b * 255)); };
         const UINT dpi = GetDpiForWindow(m_hWnd);
         auto px = [&](int value) { return MulDiv(value, dpi ? dpi : 96, 96); };
-        const bool disabled=m_grouped&&!IsWindowEnabled();
-        dc.FillSolidRect(rect, color(m_grouped?palette.surface:palette.container));
-        const CRect box(m_grouped?px(2):px(14),rect.CenterPoint().y-px(m_grouped?9:10),m_grouped?px(20):px(34),rect.CenterPoint().y+px(m_grouped?9:10));
-        dc.FillSolidRect(box,disabled?SettingsDisabledColor(m_appearance,true):color(GetCheck()==BST_CHECKED?palette.primary:palette.surface));
-        const auto outline=disabled?SettingsDisabledColor(m_appearance):color(palette.outline);
-        dc.Draw3dRect(box,outline,outline);
+        const bool disabled=!IsWindowEnabled(),marked=GetCheck()!=BST_UNCHECKED;
+        dc.FillSolidRect(rect,color(palette.surface));
+        const CRect box(px(2),rect.CenterPoint().y-px(9),px(20),rect.CenterPoint().y+px(9));
+        const auto outline=disabled?SettingsDisabledColor(m_appearance):color(marked?palette.primary:palette.onSurfaceVariant);
+        CBrush fill(disabled?SettingsDisabledColor(m_appearance,true):color(marked?palette.primary:palette.surface));
+        CPen border(PS_SOLID,(std::max)(1,px(2)),outline);auto* oldBrush=dc.SelectObject(&fill);auto* oldPen=dc.SelectObject(&border);
+        dc.RoundRect(box,CPoint(px(4),px(4)));dc.SelectObject(oldBrush);dc.SelectObject(oldPen);
         if (GetCheck() == BST_CHECKED)
         {
             CPen pen(PS_SOLID, px(2), disabled?SettingsDisabledColor(m_appearance):color(palette.onPrimary)); auto* old = dc.SelectObject(&pen);
             dc.MoveTo(box.left + px(4), box.top + px(10)); dc.LineTo(box.left + px(8), box.top + px(15));
             dc.LineTo(box.right - px(3), box.top + px(4)); dc.SelectObject(old);
         }
-        CString text; GetWindowText(text); CRect label(rect); label.left = px(m_grouped?32:48); label.right -= px(12);
+        else if(GetCheck()==BST_INDETERMINATE)
+        {CPen pen(PS_SOLID,(std::max)(1,px(2)),disabled?SettingsDisabledColor(m_appearance):color(palette.onPrimary));auto* previous=dc.SelectObject(&pen);dc.MoveTo(box.left+px(4),box.CenterPoint().y);dc.LineTo(box.right-px(4),box.CenterPoint().y);dc.SelectObject(previous);}
+        CString text; GetWindowText(text); CRect label(rect); label.left = px(32); label.right -= px(12);
         label.top += px(12); label.bottom -= px(6);
         CFont* oldFont = dc.SelectObject(GetFont()); dc.SetBkMode(TRANSPARENT);
         dc.SetTextColor(disabled?SettingsDisabledColor(m_appearance):color(IsWindowEnabled()?palette.onSurface:palette.secondaryText));
         dc.DrawText(text, label, DT_LEFT | DT_WORDBREAK | DT_NOPREFIX); dc.SelectObject(oldFont);
         if (GetFocus() == this) { rect.DeflateRect(px(3), px(3)); dc.DrawFocusRect(rect); }
+        dc.RestoreDC(saved);dc.Detach();
     }
     void SettingsCheck::OnLButtonUp(UINT flags, CPoint point) { CButton::OnLButtonUp(flags, point); Invalidate(); }
     void SettingsCheck::OnKeyUp(UINT key, UINT repeat, UINT flags) { CButton::OnKeyUp(key, repeat, flags); Invalidate(); }

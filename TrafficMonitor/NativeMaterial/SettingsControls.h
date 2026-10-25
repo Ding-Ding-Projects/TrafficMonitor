@@ -39,6 +39,7 @@ namespace NativeMaterial
         void SetAppearance(Appearance value) { m_appearance = value; Invalidate(); }
         void SetGrouped(bool value){m_grouped=value;Invalidate();}
     protected:
+        LRESULT WindowProc(UINT,WPARAM,LPARAM) override;
         afx_msg void OnPaint();
         afx_msg void OnLButtonUp(UINT flags, CPoint point);
         afx_msg void OnKeyUp(UINT key, UINT repeat, UINT flags);
@@ -46,6 +47,7 @@ namespace NativeMaterial
         afx_msg void OnKillFocus(CWnd* next);
         DECLARE_MESSAGE_MAP()
     private:
+        void Paint(HDC);
         Appearance m_appearance{ Appearance::Light };
         bool m_grouped{};
     };
