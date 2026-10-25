@@ -1,5 +1,6 @@
 ﻿#include "../stdafx.h"
 #include "ScrollRail.h"
+#include "LayoutObservations.h"
 #include <UIAutomation.h>
 #include <atomic>
 #include <mutex>
@@ -89,9 +90,12 @@ namespace NativeMaterial
     void ScrollRail::SetStep(int step){m_step=(std::max)(1,step);if(m_access){std::lock_guard<std::mutex> lock(m_access->mutex);m_access->step=m_step;}}
     void ScrollRail::SetMetrics(int content,int page,int position)
     {
+        NativeLayoutObservation::Invalidate(m_hWnd);
         m_content=(std::max)(0,content);m_page=(std::max)(0,page);m_position=(std::max)(0,(std::min)(position,(std::max)(0,m_content-m_page)));
         {std::lock_guard<std::mutex> lock(m_access->mutex);m_access->maximum=(std::max)(0,m_content-m_page);m_access->page=m_page;m_access->position=m_position;}
         const bool visible=m_content>m_page&&m_page>0;if(!visible&&GetFocus()==this)GetParent()->SetFocus();ShowWindow(visible?SW_SHOW:SW_HIDE);Invalidate(FALSE);
+        NativeLayoutObservation::RegisterChild(m_hWnd,GetParent()->GetSafeHwnd());
+        NativeLayoutObservation::ObserveRail(m_hWnd,m_content,m_page,m_position);
     }
     CRect ScrollRail::Thumb() const
     {
@@ -109,7 +113,7 @@ namespace NativeMaterial
     {const int next=(std::max)(0,(std::min)(position,(std::max)(0,m_content-m_page)));if(next!=m_position){m_position=next;{std::lock_guard<std::mutex> lock(m_access->mutex);m_access->position=next;}if(changed)changed(next);::NotifyWinEvent(EVENT_OBJECT_VALUECHANGE,m_hWnd,OBJID_CLIENT,CHILDID_SELF);Invalidate(FALSE);}}
     LRESULT ScrollRail::WindowProc(UINT message,WPARAM w,LPARAM l)
     {
-        if(message==WM_PAINT){CPaintDC dc(this);Paint(dc);return 0;}if(message==WM_PRINTCLIENT){Paint(reinterpret_cast<HDC>(w));return 0;}if(message==WM_ERASEBKGND)return TRUE;
+        if(message==WM_PAINT){CPaintDC dc(this);NativeLayoutObservation::PaintScope observation(m_hWnd,dc.GetSafeHdc(),NativeLayoutObservation::Route::WindowPaint);Paint(dc);NativeLayoutObservation::ObserveRail(m_hWnd,m_content,m_page,m_position);return 0;}if(message==WM_PRINTCLIENT){NativeLayoutObservation::PaintScope observation(m_hWnd,reinterpret_cast<HDC>(w),NativeLayoutObservation::Route::PrintClient);Paint(reinterpret_cast<HDC>(w));NativeLayoutObservation::ObserveRail(m_hWnd,m_content,m_page,m_position);return 0;}if(message==WM_ERASEBKGND)return TRUE;
         if(message==WM_SETTEXT&&m_access){std::lock_guard<std::mutex> lock(m_access->mutex);m_access->name=l?reinterpret_cast<const wchar_t*>(l):L"";}
         if(message==WM_GETOBJECT&&l==UiaRootObjectId){auto* p=new ScrollProvider(m_access);auto result=UiaReturnRawElementProvider(m_hWnd,w,l,p);p->Release();return result;}
         if (message == WM_ENABLE && m_access)
@@ -136,7 +140,7 @@ namespace NativeMaterial
         if(message==WM_GETDLGCODE)return DLGC_WANTARROWS;
         if(message==WM_KEYDOWN){switch(w){case VK_UP:Move(m_position-m_step);break;case VK_DOWN:Move(m_position+m_step);break;case VK_PRIOR:Move(m_position-m_page);break;case VK_NEXT:Move(m_position+m_page);break;case VK_HOME:Move(0);break;case VK_END:Move(m_content);break;default:return CWnd::WindowProc(message,w,l);}return 0;}
         if(message==WM_MOUSEWHEEL){m_wheel+=GET_WHEEL_DELTA_WPARAM(w);while(abs(m_wheel)>=WHEEL_DELTA){const int direction=m_wheel>0?1:-1;Move(m_position-direction*m_step*3);m_wheel-=direction*WHEEL_DELTA;}return TRUE;}
-        if(message==WM_NCDESTROY&&m_access){std::lock_guard<std::mutex> lock(m_access->mutex);m_access->window=nullptr;}
+        if(message==WM_NCDESTROY){NativeLayoutObservation::Unregister(m_hWnd);if(m_access){std::lock_guard<std::mutex> lock(m_access->mutex);m_access->window=nullptr;}}
         return CWnd::WindowProc(message,w,l);
     }
 }

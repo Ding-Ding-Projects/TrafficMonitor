@@ -1,5 +1,6 @@
 #include "../stdafx.h"
 #include "ButtonVisual.h"
+#include "LayoutObservations.h"
 namespace NativeMaterial
 {
     void DrawButton(ID2D1RenderTarget* target,const Palette& c,const CString& label,ButtonVariant variant,bool enabled,bool pressed,bool hover,bool focused)
@@ -47,7 +48,13 @@ namespace NativeMaterial
                 }
             }
             const auto text=D2D1::RectF(inset,5,size.width-(selector?36.f:inset),size.height-5);
-            target->DrawText(label,label.GetLength(),format.Get(),text,color(ink));
+            Microsoft::WRL::ComPtr<IDWriteTextLayout> actualLayout;
+            if(SUCCEEDED(factory->CreateTextLayout(label,label.GetLength(),format.Get(),(std::max)(0.f,text.right-text.left),(std::max)(0.f,text.bottom-text.top),actualLayout.GetAddressOf())))
+            {
+                const auto origin=D2D1::Point2F(text.left,text.top);
+                target->DrawTextLayout(origin,actualLayout.Get(),color(ink));
+                NativeLayoutObservation::ObserveDirectWrite(target,actualLayout.Get(),format.Get(),origin);
+            }
         }
         if(selector)
         {

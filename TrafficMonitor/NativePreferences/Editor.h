@@ -10,6 +10,7 @@ namespace NativePreferences
     class Editor final
     {
     public:
+        ~Editor();
         enum : UINT { LanguageChoice=56200, AppearanceChoice, ApplyChoice, RevertChoice, ResetChoice, ReapplyChoice, InterfaceDetails };
         bool Create(CWnd* parent,CWnd* actionsParent=nullptr);
         void Refresh();
@@ -22,6 +23,7 @@ namespace NativePreferences
         void UseSaved();
         void Focus(bool appearance){(appearance?m_appearanceChoice:m_languageChoice).SetFocus();}
     private:
+        std::array<HWND,20> m_observed{};
         CWnd* m_parent{};CWnd* m_actionsParent{};CFont* m_font{};CFont m_fallbackFont,m_sectionFont;UINT m_fontDpi{},m_sectionDpi{};
         bool m_showLanguage{true},m_showAppearance{true},m_detailsExpanded{};
         NativeMaterial::Panel m_languagePanel,m_appearancePanel,m_previewPanel;

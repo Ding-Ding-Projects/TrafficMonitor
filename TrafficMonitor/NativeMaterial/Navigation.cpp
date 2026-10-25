@@ -1,6 +1,7 @@
 ﻿#include "../stdafx.h"
 #include "../NativeMaterial/ResponsivenessDiagnostics.h"
 #include "Navigation.h"
+#include "LayoutObservations.h"
 namespace NativeMaterial
 {
     namespace {COLORREF Rgb(D2D1_COLOR_F c){return RGB(BYTE(c.r*255),BYTE(c.g*255),BYTE(c.b*255));}}
@@ -109,6 +110,8 @@ namespace NativeMaterial
         if(message==WM_MOUSEWHEEL){m_wheel+=GET_WHEEL_DELTA_WPARAM(w);while(abs(m_wheel)>=WHEEL_DELTA){const int direction=m_wheel>0?1:-1;SetTopIndex((std::max)(0,GetTopIndex()-direction*3));m_wheel-=direction*WHEEL_DELTA;}SyncScroll();return TRUE;}
         if(message==WM_ERASEBKGND){CRect r;GetClientRect(r);CDC::FromHandle(reinterpret_cast<HDC>(w))->FillSolidRect(r,Rgb(Palette::Resolve(m_appearance).surface));return TRUE;}
         const auto result=CListBox::WindowProc(message,w,l);
+        if(message==WM_PAINT||message==WM_PRINTCLIENT||message==WM_SETFONT||message==WM_SIZE)NativeLayoutObservation::ObserveNativeText(m_hWnd);
+        if(message==WM_NCDESTROY)NativeLayoutObservation::Unregister(m_hWnd);
         const bool insertion=message==LB_ADDSTRING||message==LB_INSERTSTRING;
         // The native owner-draw notification can precede storage of the string.
         // Measure the successful returned index once its text is available.

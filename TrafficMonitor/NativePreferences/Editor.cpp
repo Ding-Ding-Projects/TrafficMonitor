@@ -1,8 +1,10 @@
-﻿#include "../stdafx.h"
+#include "../stdafx.h"
 #include "Editor.h"
+#include "../NativeMaterial/LayoutObservations.h"
 #include "../NativeMenus/SearchableMenu.h"
 namespace NativePreferences
 {
+    Editor::~Editor(){for(HWND window:m_observed)NativeLayoutObservation::Unregister(window);}
     bool Editor::Create(CWnd* parent,CWnd* actionsParent)
     {
         m_parent=parent;m_actionsParent=actionsParent?actionsParent:parent;const CRect box(0,0,100,40);const DWORD child=WS_CHILD|WS_VISIBLE;
@@ -16,12 +18,19 @@ namespace NativePreferences
         m_details.SetWindowPos(&m_heading,0,0,0,0,SWP_NOMOVE|SWP_NOSIZE|SWP_NOACTIVATE);
         m_languagePanel.SetFlat(true);m_appearancePanel.SetFlat(true);
         m_details.SetVariant(NativeMaterial::ButtonVariant::Text);
-        m_languageChoice.SetVariant(NativeMaterial::ButtonVariant::Selector);m_appearanceChoice.SetVariant(NativeMaterial::ButtonVariant::Selector);m_revert.SetVariant(NativeMaterial::ButtonVariant::Text);m_reset.SetVariant(NativeMaterial::ButtonVariant::Text);m_reapply.SetVariant(NativeMaterial::ButtonVariant::Outlined);m_preview.ModifyStyle(WS_VSCROLL,0,SWP_FRAMECHANGED);UseSaved();return true;
+        m_languageChoice.SetVariant(NativeMaterial::ButtonVariant::Selector);m_appearanceChoice.SetVariant(NativeMaterial::ButtonVariant::Selector);m_revert.SetVariant(NativeMaterial::ButtonVariant::Text);m_reset.SetVariant(NativeMaterial::ButtonVariant::Text);m_reapply.SetVariant(NativeMaterial::ButtonVariant::Outlined);m_preview.ModifyStyle(WS_VSCROLL,0,SWP_FRAMECHANGED);
+        if(NativeLayoutObservation::Enabled())
+        {
+            const std::array<CWnd*,20> observed{m_parent,m_actionsParent,&m_heading,&m_language,&m_languageHelp,&m_languageChoice,&m_appearance,&m_appearanceHelp,&m_appearanceChoice,&m_scope,&m_preview,&m_languagePanel,&m_appearancePanel,&m_previewPanel,&m_details,&m_note,&m_apply,&m_revert,&m_reset,&m_reapply};
+            for(size_t i=0;i<observed.size();++i){m_observed[i]=observed[i]->GetSafeHwnd();NativeLayoutObservation::Register(m_observed[i]);}
+        }
+        UseSaved();return true;
     }
     void Editor::UseSaved(){const auto current=Current();draft={current.values,current.base,false,false};m_status=current.protectedFile?TextId::Protected:current.persisted?TextId::Loaded:current.origin==Origin::Migrated?TextId::Migrated:TextId::Defaults;Refresh();}
     void Editor::Refresh()
     {
         if(!m_parent)return;
+        for(HWND window:m_observed)NativeLayoutObservation::Invalidate(window);
         if(!draft.dirty&&!Matches(draft.base,Current().base)){const auto current=Current();draft={current.values,current.base,false,false};m_status=current.protectedFile?TextId::Protected:current.persisted?TextId::Loaded:current.origin==Origin::Migrated?TextId::Migrated:TextId::Defaults;}
         m_languagePanel.SetAppearance(EffectiveAppearance());m_appearancePanel.SetAppearance(EffectiveAppearance());m_previewPanel.SetAppearance(EffectiveAppearance());
         m_languageHelp.SetWindowText(Pair(L"Choose the language used throughout the native workspace.",L"選擇原生工作區使用嘅語言。"));m_appearanceHelp.SetWindowText(Pair(L"Follow your system, or keep a light or dark interface.",L"跟隨系統，或者固定使用淺色或深色介面。"));
@@ -54,7 +63,7 @@ namespace NativePreferences
         if(!m_font&&m_fontDpi!=dpi){m_fallbackFont.DeleteObject();m_fallbackFont.CreateFont(-MulDiv(14,dpi,96),0,0,0,FW_NORMAL,FALSE,FALSE,0,DEFAULT_CHARSET,OUT_DEFAULT_PRECIS,CLIP_DEFAULT_PRECIS,CLEARTYPE_QUALITY,DEFAULT_PITCH,L"Segoe UI");m_fontDpi=dpi;}
         CFont* font=m_font?m_font:&m_fallbackFont;for(auto* c:controls)c->SetFont(font);
         const int initial=y;auto px=[&](int n){return MulDiv(n,dpi,96);};CClientDC dc(m_parent);auto* old=dc.SelectObject(font);
-        auto height=[&](CWnd& c,int available,int minimum){CString t;c.GetWindowText(t);CRect r(0,0,px((std::max)(32,available)),0);dc.DrawText(t,r,DT_CALCRECT|DT_WORDBREAK|DT_NOPREFIX);return (std::max)(minimum,(r.Height()*96+static_cast<int>(dpi)-1)/static_cast<int>(dpi)+4);};
+        auto height=[&](CWnd& c,int available,int minimum){CString t;c.GetWindowText(t);CRect r(0,0,px((std::max)(32,available)),0);const RECT area=r;dc.DrawText(t,r,DT_CALCRECT|DT_WORDBREAK|DT_NOPREFIX);NativeLayoutObservation::ObserveGdiMeasurement(c.GetSafeHwnd(),dc.GetSafeHdc(),area,r);return (std::max)(minimum,(r.Height()*96+static_cast<int>(dpi)-1)/static_cast<int>(dpi)+4);};
         auto place=[&](CWnd& c,int left,int top,int w,int h){c.MoveWindow(px(left),px(top),px(w),px(h));};
         width=(std::min)(840,(std::max)(64,width));
         CString detailLabel;m_details.GetWindowText(detailLabel);CRect detailBounds(0,0,px(width-24),0);
@@ -87,14 +96,15 @@ namespace NativePreferences
         row(m_languagePanel,m_language,m_languageHelp,m_languageChoice,m_showLanguage);row(m_appearancePanel,m_appearance,m_appearanceHelp,m_appearanceChoice,m_showAppearance);
         const bool any=m_showLanguage||m_showAppearance;m_previewPanel.ShowWindow(any?SW_SHOW:SW_HIDE);
         if(any){const int textHeight=height(m_preview,width-32,20),ph=(std::max)(draft.values.language==Language::Bilingual?72:48,textHeight+32);place(m_previewPanel,x,y,width,ph);place(m_preview,16,16,width-32,ph-32);y+=ph+12;}
+        for(auto* control:std::array<CWnd*,8>{&m_heading,&m_language,&m_languageHelp,&m_appearance,&m_appearanceHelp,&m_scope,&m_preview,&m_note})NativeLayoutObservation::ObserveNativeText(control->GetSafeHwnd());
         dc.SelectObject(old);if(m_actionsParent==m_parent)y+=LayoutActions(x,y,width,dpi,true);return y-initial;
     }
     int Editor::LayoutActions(int x,int y,int width,UINT dpi,bool visible)
     {
         for(auto* c:std::array<CWnd*,5>{&m_note,&m_apply,&m_revert,&m_reset,&m_reapply})c->ShowWindow(visible?SW_SHOW:SW_HIDE);if(!visible)return 0;
         CFont* font=m_font?m_font:&m_fallbackFont;CClientDC dc(m_actionsParent);auto* old=dc.SelectObject(font);auto px=[&](int n){return MulDiv(n,dpi,96);};const int initial=y;
-        auto measure=[&](CWnd& c,int available){CString t;c.GetWindowText(t);CRect r(0,0,px(available),0);dc.DrawText(t,r,DT_CALCRECT|DT_WORDBREAK|DT_NOPREFIX);return MulDiv(r.Height(),96,dpi);};
-        m_note.SetFont(font);const int noteHeight=(std::max)(24,measure(m_note,width)+8);m_note.MoveWindow(px(x),px(y),px(width),px(noteHeight));y+=noteHeight+8;
+        auto measure=[&](CWnd& c,int available){CString t;c.GetWindowText(t);CRect r(0,0,px(available),0);const RECT area=r;dc.DrawText(t,r,DT_CALCRECT|DT_WORDBREAK|DT_NOPREFIX);NativeLayoutObservation::ObserveGdiMeasurement(c.GetSafeHwnd(),dc.GetSafeHdc(),area,r);return MulDiv(r.Height(),96,dpi);};
+        m_note.SetFont(font);const int noteHeight=(std::max)(24,measure(m_note,width)+8);m_note.MoveWindow(px(x),px(y),px(width),px(noteHeight));NativeLayoutObservation::ObserveNativeText(m_note.GetSafeHwnd());y+=noteHeight+8;
         int left=x,rowHeight=0;for(auto* b:{&m_apply,&m_revert,&m_reset,&m_reapply}){const bool show=b!=&m_reapply||draft.conflict;b->ShowWindow(show?SW_SHOW:SW_HIDE);if(!show)continue;b->SetFont(font);CString label;b->GetWindowText(label);CRect r(0,0,px((std::min)(220,width)-32),0);dc.DrawText(label,r,DT_CALCRECT|DT_WORDBREAK|DT_NOPREFIX);const int bw=(std::min)(width,(std::max)(96,MulDiv(r.Width(),96,dpi)+32));const int bh=(std::max)(40,MulDiv(r.Height(),96,dpi)+20);if(left>x&&left+bw>x+width){y+=rowHeight+8;left=x;rowHeight=0;}b->MoveWindow(px(left),px(y),px(bw),px(bh));left+=bw+8;rowHeight=(std::max)(rowHeight,bh);}dc.SelectObject(old);return y+rowHeight+12-initial;
     }
     void Editor::Save(bool reapply)

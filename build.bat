@@ -1,5 +1,6 @@
 @echo off
 setlocal
+if /i "%~1"=="--verify-layout-observations" goto verifyLayoutObservations
 if /i "%~1"=="--layout-observer" goto layoutObserver
 if /i "%~1"=="--verify-material-visuals" goto verifyMaterialVisuals
 if /i "%~1"=="--uia-observer" goto uiaObserver
@@ -57,4 +58,8 @@ exit /b %errorlevel%
 
 :verifyMaterialVisuals
 powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0scripts\test-native-material-visuals.ps1"
+exit /b %errorlevel%
+
+:verifyLayoutObservations
+powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0scripts\test-native-layout-observations.ps1"
 exit /b %errorlevel%

@@ -773,6 +773,9 @@
     <ClInclude Include="..\include\PluginInterface.h" />
     <ClInclude Include="AboutDlg.h" />
     <ClInclude Include="NativeMonitoringSnapshot.h" />
+    <ClInclude Include="NativeMaterial\LayoutObservationProtocol.h" />
+    <ClInclude Include="NativeMaterial\LayoutObservations.h" />
+    <ClCompile Include="NativeMaterial\LayoutObservations.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
     <ClInclude Include="NativeMaterial\Theme.h" />
     <ClInclude Include="AdapterCommon.h" />
     <ClInclude Include="AppAlreadyRuningDlg.h" />
