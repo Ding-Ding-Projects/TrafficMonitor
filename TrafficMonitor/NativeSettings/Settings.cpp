@@ -1,5 +1,6 @@
-﻿#include "../stdafx.h"
+#include "../stdafx.h"
 #include "../NativeMaterial/ResponsivenessDiagnostics.h"
+#include "../NativeMaterial/LayoutObservations.h"
 #include "Settings.h"
 #include "../NativePreferences/Editor.h"
 #include "../NativePreferences/Subscription.h"
@@ -61,7 +62,7 @@ namespace
         NativePreferences::Editor m_interface;NativePreferences::Subscription m_preferences;
         LRESULT OnPreferences(WPARAM,LPARAM);
         void Labels();
-        LRESULT WindowProc(UINT message,WPARAM w,LPARAM l) override {if(message==WM_NCDESTROY)m_preferences.Detach();if(message==WM_SETTINGCHANGE||message==WM_THEMECHANGED){NativeDiagnostics::Scope messageDiagnostic(message==WM_SETTINGCHANGE?NativeDiagnostics::Operation::SettingsSettingMessage:NativeDiagnostics::Operation::SettingsThemeMessage);NativePreferences::RefreshSystemAppearance();}return CDialog::WindowProc(message,w,l);}
+        LRESULT WindowProc(UINT message,WPARAM w,LPARAM l) override {if(message==WM_NCDESTROY){m_preferences.Detach();NativeLayoutObservation::Unregister(m_hWnd);}if(message==WM_SETTINGCHANGE||message==WM_THEMECHANGED){NativeDiagnostics::Scope messageDiagnostic(message==WM_SETTINGCHANGE?NativeDiagnostics::Operation::SettingsSettingMessage:NativeDiagnostics::Operation::SettingsThemeMessage);NativePreferences::RefreshSystemAppearance();}return CDialog::WindowProc(message,w,l);}
         int Px(int n)const{return MulDiv(n,m_dpi,96);}
         void Place(CWnd& c,int x,int y,int w,int h){c.MoveWindow(Px(x),Px(y),Px((std::max)(1,w)),Px((std::max)(1,h)));}
         void Layout();void SetFonts();void SetTheme();void Reload();void SyncRow(Row&);
@@ -274,9 +275,10 @@ namespace
     void Editor::Layout()
     {
         if(!m_body.GetSafeHwnd()||m_layout)return;m_layout=true;
+        if(m_page==Interface&&NativeLayoutObservation::Enabled())for(auto* control:std::array<CWnd*,6>{&m_title,&m_status,&m_search,&m_regex,&m_clear,&m_navigation})NativeLayoutObservation::Register(control->GetSafeHwnd());
         CRect client;GetClientRect(client);const int width=MulDiv(client.Width(),96,m_dpi),height=MulDiv(client.Height(),96,m_dpi);
         CClientDC headerDC(this);auto* headerFont=headerDC.SelectObject(&m_font);
-        auto extent=[&](CWnd& c,int w,int minimum){CString text;c.GetWindowText(text);CRect bounds(0,0,Px(w-32),0);headerDC.DrawText(text,bounds,DT_CALCRECT|DT_WORDBREAK|DT_NOPREFIX);return (std::max)(minimum,MulDiv(bounds.Height(),96,m_dpi)+20);};
+        auto extent=[&](CWnd& c,int w,int minimum){CString text;c.GetWindowText(text);CRect bounds(0,0,Px(w-32),0);const RECT area=bounds;headerDC.DrawText(text,bounds,DT_CALCRECT|DT_WORDBREAK|DT_NOPREFIX);NativeLayoutObservation::ObserveGdiMeasurement(c.GetSafeHwnd(),headerDC.GetSafeHdc(),area,bounds);return (std::max)(minimum,MulDiv(bounds.Height(),96,m_dpi)+20);};
         const int left=200,cw=(std::min)(860,width-left-24);
         headerDC.SelectObject(&m_headingFont);const int titleHeight=extent(m_title,cw,40);headerDC.SelectObject(&m_font);const int searchY=20+titleHeight+16;
         Place(m_navigation,12,searchY,176,height-searchY-88);Place(m_legacy,12,height-80,176,64);m_theme.ShowWindow(SW_HIDE);
@@ -363,7 +365,7 @@ namespace
         CString status;status=NativePreferences::Format(L"%s: %d settings shown",L"%s：顯示 %d 項設定",GroupName(m_page,m_chinese),count);
         if(NativePreferences::Current().values.language==NativePreferences::Language::Bilingual){CString en,zh;en.Format(L"%s: %d settings shown",GroupName(m_page,false),count);zh.Format(L"%s：顯示 %d 項設定",GroupName(m_page,true),count);status=en+L"\r\n"+zh;}
         if(!count)status=T(L"No matches. Clear this group's search or choose All groups.",L"冇符合項目。清除本組搜尋，或者選所有組別。");if(!m_reveal.empty())status+=T(L"; selected setting revealed",L"；已顯示所選設定");
-        if(!state.filter.status.empty())status+=L" | "+CString(state.filter.status.c_str());m_status.SetWindowText(status);m_layout=false;m_body.Invalidate();Invalidate(FALSE);
+        if(!state.filter.status.empty())status+=L" | "+CString(state.filter.status.c_str());m_status.SetWindowText(status);if(m_page==Interface){NativeLayoutObservation::ObserveNativeText(m_title.GetSafeHwnd());NativeLayoutObservation::ObserveNativeText(m_status.GetSafeHwnd());NativeLayoutObservation::ObserveNativeText(m_search.GetSafeHwnd());}m_layout=false;m_body.Invalidate();Invalidate(FALSE);
     }
     void Editor::Scroll(UINT code,int position)
     {
@@ -485,7 +487,7 @@ namespace
     }
     void Editor::OnTimer(UINT_PTR id)
     {if(id!=0x4E92){CDialog::OnTimer(id);return;}bool changed=false;for(auto& state:m_searches)changed=state.filter.Poll()||changed;if(changed)Layout();UpdateInfo();const HWND focus=::GetFocus();if(focus!=m_lastFocus){m_lastFocus=focus;if(auto* r=Target(focus,CPoint(-1,-1)))EnsureVisible(*r);else if(m_page==Interface&&focus&&::IsChild(m_body.GetSafeHwnd(),focus)&&::GetDlgCtrlID(focus)!=53998){CRect bounds;::GetWindowRect(focus,&bounds);m_body.ScreenToClient(bounds);int delta=0;if(bounds.top<0)delta=MulDiv(bounds.top,96,m_dpi);else if(bounds.bottom>Px(m_viewHeight))delta=MulDiv(bounds.bottom-Px(m_viewHeight),96,m_dpi);if(delta){m_searches[m_page].scroll+=delta;Layout();}}}}
-    void Editor::OnPaint(){CPaintDC dc(this);CRect r;GetClientRect(r);dc.FillRect(r,&m_background);}
+    void Editor::OnPaint(){CPaintDC dc(this);NativeLayoutObservation::PaintScope observation(m_hWnd,dc.GetSafeHdc(),NativeLayoutObservation::Route::WindowPaint);CRect r;GetClientRect(r);dc.FillRect(r,&m_background);}
     HBRUSH Editor::OnCtlColor(CDC* dc,CWnd* window,UINT)
     {
         for(auto& row:m_rows)if(window->GetSafeHwnd()==row->number.GetSafeHwnd())return row->number.Color(dc);

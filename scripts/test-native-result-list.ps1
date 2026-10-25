@@ -9,7 +9,7 @@ try {
     New-Item -ItemType Directory -Path $work | Out-Null
     function Build-Test($navigation,$name) {
         $exe=Join-Path $work ($name+'.exe')
-        $sources=@('ResultListTests.cpp','ScrollRail.cpp','Theme.cpp') | ForEach-Object {'"'+(Join-Path $RepoRoot ('TrafficMonitor/NativeMaterial/'+$_))+'"'}
+        $sources=@('ResultListTests.cpp','ScrollRail.cpp','Theme.cpp','LayoutObservations.cpp') | ForEach-Object {'"'+(Join-Path $RepoRoot ('TrafficMonitor/NativeMaterial/'+$_))+'"'}
         $command='call "'+$vcvars+'" >nul && "'+$compiler+'" /nologo /std:c++17 /EHsc /utf-8 /MD /D_AFXDLL /D_UNICODE /DUNICODE /I"'+(Join-Path $RepoRoot 'TrafficMonitor/NativeMaterial')+'" '+($sources -join ' ')+' "'+$navigation+'" /Fe:"'+$exe+'" /link UIAutomationCore.lib'
         Push-Location $work
         try { & cmd.exe /d /c $command | Out-Host; $compileExit=$LASTEXITCODE } finally { Pop-Location }

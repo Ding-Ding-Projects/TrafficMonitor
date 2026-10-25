@@ -16,9 +16,10 @@ namespace NativeMaterial
         void SetAppearance(Appearance appearance);
         void SetLabel(const CString& label);
         void SetDisclosure(bool expanded, const CString& name, const CString& description);
-        void SetSurfaceColor(COLORREF color){m_surfaceColor=color;m_customSurface=true;if(m_hWnd)Invalidate();}
-        void SetVariant(ButtonVariant value){m_variant=value;if(m_hWnd)Invalidate();}
+        void SetSurfaceColor(COLORREF color);
+        void SetVariant(ButtonVariant value);
     protected:
+        LRESULT WindowProc(UINT,WPARAM,LPARAM) override;
         afx_msg void OnPaint();
         afx_msg BOOL OnEraseBkgnd(CDC*);
         afx_msg void OnLButtonDown(UINT, CPoint);
@@ -42,7 +43,7 @@ namespace NativeMaterial
     private:
         Canvas m_canvas;
         void Draw(ID2D1RenderTarget* target);
-        HRESULT DrawDC(HDC dc);
+        HRESULT DrawDC(HDC dc,bool printing=false);
         HRESULT m_attachResult{E_PENDING}, m_drawResult{E_PENDING}, m_printResult{E_PENDING};
         Appearance m_appearance{ Appearance::Light };
         ButtonVariant m_variant{ButtonVariant::Primary};

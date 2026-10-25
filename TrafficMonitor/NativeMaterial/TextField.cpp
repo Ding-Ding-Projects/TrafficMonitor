@@ -1,5 +1,6 @@
 ﻿#include "../stdafx.h"
 #include "TextField.h"
+#include "LayoutObservations.h"
 #include "../NativeMenus/SearchableMenu.h"
 #include "../NativePreferences/Text.h"
 #include <windowsx.h>
@@ -19,6 +20,7 @@ namespace NativeMaterial
     }
     LRESULT TextField::WindowProc(UINT message,WPARAM w,LPARAM l)
     {
+        if(message==WM_SETTEXT||message==WM_SETFONT||message==WM_WINDOWPOSCHANGED||message==WM_ENABLE||message==WM_SHOWWINDOW)NativeLayoutObservation::Invalidate(m_hWnd);
         if(message==WM_NCCALCSIZE){const auto result=CEdit::WindowProc(message,w,l);RECT* r=w?&reinterpret_cast<NCCALCSIZE_PARAMS*>(l)->rgrc[0]:reinterpret_cast<RECT*>(l);const int x=MulDiv(12,GetDpiForWindow(m_hWnd),96),y=MulDiv(8,GetDpiForWindow(m_hWnd),96);if(r->right-r->left>x*2&&r->bottom-r->top>y*2){r->left+=x;r->right-=x;r->top+=y;r->bottom-=y;}return result;}
         if(message==WM_NCPAINT){Frame();return 0;}
         if(message==WM_SETFOCUS||message==WM_KILLFOCUS){const auto result=CEdit::WindowProc(message,w,l);RedrawWindow(nullptr,nullptr,RDW_INVALIDATE|RDW_FRAME);return result;}
@@ -31,6 +33,9 @@ namespace NativeMaterial
             const auto action=NativeMenus::Track(&menu,TPM_RETURNCMD|TPM_RIGHTBUTTON,point.x,point.y,this);
             switch(action){case 1:Undo();break;case 2:Cut();break;case 3:Copy();break;case 4:Paste();break;case 5:Clear();break;case 6:SetSel(0,-1);break;default:break;}SetFocus();return 0;
         }
-        return CEdit::WindowProc(message,w,l);
+        const auto result=CEdit::WindowProc(message,w,l);
+        if(message==WM_PAINT||message==WM_PRINTCLIENT||message==WM_SIZE||message==WM_SETFONT)NativeLayoutObservation::ObserveNativeText(m_hWnd);
+        if(message==WM_NCDESTROY)NativeLayoutObservation::Unregister(m_hWnd);
+        return result;
     }
 }

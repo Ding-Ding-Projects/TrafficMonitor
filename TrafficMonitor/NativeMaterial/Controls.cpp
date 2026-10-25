@@ -1,5 +1,6 @@
 ﻿#include "../stdafx.h"
 #include "Controls.h"
+#include "LayoutObservations.h"
 #include <UIAutomation.h>
 #include <atomic>
 #include <mutex>
@@ -150,6 +151,7 @@ namespace NativeMaterial
     {const auto colors=Palette::Resolve(m_appearance);dc->SetTextColor(Color(colors.onSurface));dc->SetBkColor(Color(colors.container));return static_cast<HBRUSH>(m_background.GetSafeHandle());}
     LRESULT ReadOnlyText::WindowProc(UINT message,WPARAM w,LPARAM l)
     {
+        if(message==WM_SETTEXT||message==WM_SETFONT||message==WM_WINDOWPOSCHANGED||message==WM_ENABLE||message==WM_SHOWWINDOW)NativeLayoutObservation::Invalidate(m_hWnd);
         const auto result=CEdit::WindowProc(message,w,l);
         if(message==WM_GETDLGCODE)
         {
@@ -158,6 +160,8 @@ namespace NativeMaterial
                 (key->message==WM_KEYDOWN||key->message==WM_KEYUP||key->message==WM_CHAR));
             if(tab)return result&~(DLGC_WANTALLKEYS|DLGC_WANTTAB);
         }
+        if(message==WM_PAINT||message==WM_PRINTCLIENT||message==WM_SETFONT||message==WM_SIZE)NativeLayoutObservation::ObserveNativeText(m_hWnd);
+        if(message==WM_NCDESTROY)NativeLayoutObservation::Unregister(m_hWnd);
         return result;
     }
 
@@ -313,7 +317,14 @@ namespace NativeMaterial
         m_access->window = m_hWnd;
         return TRUE;
     }
-    void Button::SetAppearance(Appearance appearance) { m_appearance = appearance; Invalidate(); }
+    LRESULT Button::WindowProc(UINT message,WPARAM w,LPARAM l)
+    {
+        if(message==WM_SETTEXT||message==WM_SETFONT||message==WM_WINDOWPOSCHANGED||message==WM_ENABLE||message==WM_SHOWWINDOW||message==WM_MOUSEMOVE||message==WM_MOUSELEAVE||message==WM_LBUTTONDOWN||message==WM_LBUTTONUP||message==WM_KEYDOWN||message==WM_KEYUP||message==WM_CAPTURECHANGED)NativeLayoutObservation::Invalidate(m_hWnd);
+        return CWnd::WindowProc(message,w,l);
+    }
+    void Button::SetAppearance(Appearance appearance) { m_appearance = appearance; NativeLayoutObservation::Invalidate(m_hWnd);Invalidate(); }
+    void Button::SetSurfaceColor(COLORREF color){m_surfaceColor=color;m_customSurface=true;NativeLayoutObservation::Invalidate(m_hWnd);if(m_hWnd)Invalidate();}
+    void Button::SetVariant(ButtonVariant value){m_variant=value;NativeLayoutObservation::Invalidate(m_hWnd);if(m_hWnd)Invalidate();}
     void Button::SetLabel(const CString& label)
     {
         SetWindowText(label);
@@ -363,11 +374,12 @@ namespace NativeMaterial
     LRESULT Button::OnPrintClient(WPARAM dc, LPARAM flags)
     {
         if(!dc||((flags&PRF_CHECKVISIBLE)&&!IsWindowVisible()))return 0;
-        m_printResult=DrawDC(reinterpret_cast<HDC>(dc));
+        m_printResult=DrawDC(reinterpret_cast<HDC>(dc),true);
         return 0;
     }
-    HRESULT Button::DrawDC(HDC dc)
+    HRESULT Button::DrawDC(HDC dc,bool printing)
     {
+        NativeLayoutObservation::PaintScope observation(m_hWnd,dc,printing?NativeLayoutObservation::Route::PrintClient:NativeLayoutObservation::Route::WindowPaint);
         Microsoft::WRL::ComPtr<ID2D1Factory> factory;
         Microsoft::WRL::ComPtr<ID2D1DCRenderTarget> target;
         HRESULT result=D2D1CreateFactory(D2D1_FACTORY_TYPE_SINGLE_THREADED,factory.GetAddressOf());
@@ -387,7 +399,7 @@ namespace NativeMaterial
             target->Clear(surface);
             Draw(target.Get());result=target->EndDraw();
         }
-        return result;
+        observation.Complete(result);return result;
     }
     LRESULT Button::OnRenderStatus(WPARAM field, LPARAM)
     {return field==0?m_attachResult:field==1?m_drawResult:m_printResult;}
@@ -427,8 +439,8 @@ namespace NativeMaterial
         if ((key == VK_SPACE || key == VK_RETURN) && m_pressed) { m_pressed = false; Invalidate(); OnClick(0, 0); }
         else CWnd::OnKeyUp(key, repeat, flags);
     }
-    void Button::OnSetFocus(CWnd* old) { CWnd::OnSetFocus(old); Invalidate(); ::NotifyWinEvent(EVENT_OBJECT_FOCUS, m_hWnd, OBJID_CLIENT, CHILDID_SELF); }
-    void Button::OnKillFocus(CWnd* next) { m_pressed = false; CWnd::OnKillFocus(next); Invalidate(); }
+    void Button::OnSetFocus(CWnd* old) { CWnd::OnSetFocus(old); NativeLayoutObservation::Invalidate(m_hWnd);Invalidate(); ::NotifyWinEvent(EVENT_OBJECT_FOCUS, m_hWnd, OBJID_CLIENT, CHILDID_SELF); }
+    void Button::OnKillFocus(CWnd* next) { m_pressed = false; CWnd::OnKillFocus(next); NativeLayoutObservation::Invalidate(m_hWnd);Invalidate(); }
     void Button::OnEnable(BOOL enabled)
     {
         CWnd::OnEnable(enabled);
@@ -437,6 +449,7 @@ namespace NativeMaterial
     }
     void Button::OnDestroy()
     {
+        NativeLayoutObservation::Unregister(m_hWnd);
         { std::lock_guard<std::mutex> lock(m_access->mutex); m_access->window = nullptr; }
         m_canvas.Detach(); CWnd::OnDestroy();
     }
