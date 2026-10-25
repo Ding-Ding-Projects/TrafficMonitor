@@ -10,6 +10,8 @@ function one(rows, phase) { const matches = rows.filter(row => row.phase === pha
 
 export function inspectNativeRenderJoin(rows, options = {}) {
   need(Array.isArray(rows) && rows.length <= 10000, 'observation-size');
+  for (const row of rows) for (const key of ['text', 'rawText', 'controlText', 'textHash', 'profile', 'profileContent'])
+    need(!Object.hasOwn(row, key), 'forbidden-private-payload-field');
   need(!rows.some(row => row.phase === 'rejected'), 'native-observer-rejected');
   const inventory = inspectInterfaceInventory(rows, options);
   const start = one(rows, 'renderer.interval.begin'), end = one(rows, 'renderer.interval.end');
@@ -21,6 +23,7 @@ export function inspectNativeRenderJoin(rows, options = {}) {
   need(Number.isSafeInteger(start.logicalBytes) && start.logicalBytes > 0 && Number.isSafeInteger(start.pageBytes) && start.pageBytes > 0 &&
     start.sectionBytes === Math.ceil(start.logicalBytes / start.pageBytes) * start.pageBytes, 'invalid-section-extent');
   const controls = new Map(rows.filter(row => row.phase === 'control').map(row => [hwnd(row.hwnd), row]));
+  need(number(start.publishedQpc) <= number(start.qpc) && number(end.qpc) - number(start.publishedQpc) <= age, 'stale-header-publication');
   const seen = new Set(), observed = new Set(), unavailable = new Set(inventory.limitations);
   let paints = 0, measurements = 0, fonts = 0, rails = 0;
   for (const record of rows.filter(row => row.phase === 'renderer.record')) {
@@ -31,7 +34,8 @@ export function inspectNativeRenderJoin(rows, options = {}) {
     need(recordSequence >= minimum && recordSequence <= sequence && stamp <= number(start.publishedQpc) &&
       stamp <= number(start.qpc) && number(end.qpc) - stamp <= age, 'stale-renderer-record');
     need(record.measuredOverflow !== true, 'measured-text-overflow');
-    if (record.measuredOverflow === null) unavailable.add('rectangle-origin-overflow-assessment');
+    if (record.measuredOverflow === null) unavailable.add('unsupported-painted-bounds-for-record-kind');
+    else unavailable.add('glyph-overhang-and-fallback-not-joined');
     if (record.kind === 1 && record.outcome === 1 && [1, 2].includes(record.route)) paints++;
     else if ([2, 3].includes(record.kind)) measurements++;
     else if (record.kind === 5) rails++;

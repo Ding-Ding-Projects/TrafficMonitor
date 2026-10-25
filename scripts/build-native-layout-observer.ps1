@@ -1,7 +1,7 @@
 $ErrorActionPreference='Stop'
 try {
     $root=Split-Path $PSScriptRoot -Parent
-    foreach($helper in @('native-interface-inventory.mjs','native-render-observation-check.mjs')) {
+    foreach($helper in @('native-interface-inventory.mjs','native-render-observation-check.mjs','test-native-render-join.mjs')) {
         & node (Join-Path $root ('tools/'+$helper)) --self-test
         if($LASTEXITCODE -ne 0){exit $LASTEXITCODE}
     }
@@ -15,7 +15,7 @@ try {
     $source=Join-Path $root 'tools/native-layout-observer.cpp'
     $sourceHash=(Get-FileHash -LiteralPath $source -Algorithm SHA256).Hash
     $inputHashes=@{}
-    foreach($relative in @('tools/native-layout-observer.cpp','tools/native-layout-render-reader.h','TrafficMonitor/NativeMaterial/LayoutObservationProtocol.h','tools/native-interface-inventory.mjs','tools/native-render-observation-check.mjs')) {
+    foreach($relative in @('tools/native-layout-observer.cpp','tools/native-layout-render-reader.h','TrafficMonitor/NativeMaterial/LayoutObservationProtocol.h','tools/native-interface-inventory.mjs','tools/native-render-observation-check.mjs','tools/inspect-native-render-join.mjs','tools/test-native-render-join.mjs')) {
         $inputHashes[$relative]=(Get-FileHash -LiteralPath (Join-Path $root $relative) -Algorithm SHA256).Hash
     }
     $exe=Join-Path $output 'native-layout-observer.exe'

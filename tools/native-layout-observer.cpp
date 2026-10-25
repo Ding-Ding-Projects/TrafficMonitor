@@ -7,6 +7,7 @@
 #include <aclapi.h>
 #include <cmath>
 #include <set>
+#include <map>
 #include <algorithm>
 #include <bcrypt.h>
 #include <cerrno>
@@ -375,7 +376,7 @@ void Window(Target &target, HWND h, Writer &output)
                  "},\"editFormattingArea\":" + edit + ",\"standardScroll\":" + scroll + "}");
     target.Child(h);
 }
-void Observe(Target &target, Writer &output, RendererRead::Session* renderer=nullptr)
+void Observe(Target &target, Writer &output, RendererRead::Session *renderer = nullptr)
 {
     output.Phase("identity.start");
     target.Validate();
@@ -384,11 +385,13 @@ void Observe(Target &target, Writer &output, RendererRead::Session* renderer=nul
     EnumChildWindows(target.root, Inventory::Add, reinterpret_cast<LPARAM>(&first));
     Need(!first.overflow, "control-limit");
     Window(target, target.root, output);
-    if(renderer)renderer->Control(target,target.root,output);
+    if (renderer)
+        renderer->Control(target, target.root, output);
     for (HWND h : first.values)
     {
         Window(target, h, output);
-        if(renderer)renderer->Control(target,h,output);
+        if (renderer)
+            renderer->Control(target, h, output);
     }
     GUITHREADINFO info{sizeof(info)};
     Need(GetGUIThreadInfo(target.thread, &info) != FALSE, "focus-read");
@@ -413,13 +416,14 @@ void Observe(Target &target, Writer &output, RendererRead::Session* renderer=nul
     output.Phase("identity.end");
     target.Validate();
     target.RecordIdentity(output, "identity.end.verified");
-    if(renderer)renderer->End(target,output);
+    if (renderer)
+        renderer->End(target, output);
     output.Write("{\"phase\":\"complete\",\"structuralObservationCompleted\":true,"
                  "\"receiptComplete\":false,\"validV2Receipt\":false,\"validV3Receipt\":false,"
                  "\"unavailable\":[\"renderer-font\",\"renderer-text-glyph-bounds\",\"custom-rail-"
                  "range\",\"paint-sequence\",\"image-binding\"]}");
 }
-int Worker(wchar_t **a,bool rendererRequested)
+int Worker(wchar_t **a, bool rendererRequested)
 {
     Writer output;
     HDESK desk = nullptr;
@@ -455,13 +459,13 @@ int Worker(wchar_t **a,bool rendererRequested)
             OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION | SYNCHRONIZE, FALSE, target.pid);
         Need(target.process.h != nullptr, "process-open");
         RendererRead::Session renderer;
-        if(rendererRequested)
+        if (rendererRequested)
         {
-            Need(std::wstring(a[8])==L"--renderer","renderer-arguments");
+            Need(std::wstring(a[8]) == L"--renderer", "renderer-arguments");
             target.Validate();
-            renderer.Begin(target,Number(a[9]),Number(a[10]),output);
+            renderer.Begin(target, Number(a[9]), Number(a[10]), output);
         }
-        Observe(target, output,rendererRequested?&renderer:nullptr);
+        Observe(target, output, rendererRequested ? &renderer : nullptr);
         if (old)
             SetThreadDpiAwarenessContext(old);
         CloseDesktop(desk);
@@ -533,7 +537,6 @@ int Watch(const std::wstring &command, DWORD timeout)
 }
 int SelfTest()
 {
-    RendererRead::SelfTest();
     int failed = 0;
     auto expect = [&](const char *name, auto action, const char *phase,
                       const char *alternative = nullptr) {
@@ -569,6 +572,7 @@ int SelfTest()
     HWND other = CreateWindowExW(0, L"STATIC", L"", WS_POPUP, 0, 0, 100, 100, nullptr, nullptr,
                                  GetModuleHandleW(nullptr), nullptr);
     Need(root && edit && other, "test-windows");
+    RendererRead::SelfTest(edit);
     Target t;
     t.pid = GetCurrentProcessId();
     t.root = root;
@@ -633,13 +637,14 @@ int wmain(int argc, wchar_t **argv)
         }
         if (argc == 2 && std::wstring(argv[1]) == L"--self-test")
             return SelfTest();
-        if ((argc == 10||argc==13) && std::wstring(argv[1]) == L"--worker")
-            return Worker(argv + 2,argc==13);
-        if (argc != 9&&argc!=12)
+        if ((argc == 10 || argc == 13) && std::wstring(argv[1]) == L"--worker")
+            return Worker(argv + 2, argc == 13);
+        if (argc != 9 && argc != 12)
         {
-            std::fputs("Usage: native-layout-observer PID DESKTOP ROOT_HWND EXE CREATION_FILETIME "
-                       "SHA256 NEW_BASENAME.jsonl TIMEOUT_SECONDS [--renderer MIN_SEQUENCE MAX_AGE_MS]\n",
-                       stderr);
+            std::fputs(
+                "Usage: native-layout-observer PID DESKTOP ROOT_HWND EXE CREATION_FILETIME "
+                "SHA256 NEW_BASENAME.jsonl TIMEOUT_SECONDS [--renderer MIN_SEQUENCE MAX_AGE_MS]\n",
+                stderr);
             return 2;
         }
         auto seconds = Number(argv[8]);
