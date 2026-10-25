@@ -56,4 +56,4 @@ view; this module introduces no export, telemetry, network transmission or persi
 
 ## First-open setup candidate
 
-See [native setup behavior and verification limits](setup.md). Its source is implemented; runtime acceptance remains pending.
+See [native setup behavior and verification limits](setup.md). Portable 9047/9048 checks cover bounded first open, save/resume, unified scrolling, forward Tab and selected accessibility behavior at 96 DPI. Complete runtime acceptance remains pending.

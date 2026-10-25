@@ -4,7 +4,7 @@
 
 The current [list measurement repair](docs/features/native-dashboard/list-layout-responsiveness.md) passes its native regression and local candidate build. A bounded portable comparison verified bilingual/dark Apply, responsive windows and unchanged normal-profile files; the full display matrix and finished remake remain incomplete.
 
-The [compact Interface candidate](docs/features/native-settings/compact-interface-details.md) adds measured rows and a working contextual Details disclosure. Its 12-tuple 96-DPI interaction pass is recorded separately from still-unverified accessibility-client, higher-DPI and complete design acceptance.
+The [compact Interface candidate](docs/features/native-settings/compact-interface-details.md), [grouped notifications](docs/features/native-settings/notifications-and-discovery.md) and [unified setup viewport](docs/features/native-dashboard/setup.md) now have bounded portable interaction evidence. Candidate 9048 fixes Preview Tab navigation and disabled-label rendering, verifies Details UIA ExpandCollapse, and covers the declared 960 × 760 setup reference size in all six language/theme combinations. The [source-bound receipt](docs/evidence/native-surfaces-9048.json) separates these results from the earlier 9047 matrix and still-unverified higher-DPI, reverse-keyboard and complete design acceptance. Candidates remain uninstalled.
 
 A native C++/MFC network monitor for Windows, with a compact taskbar display, tray access and a floating monitor. This fork delivers the maintained x64 edition, preserves upstream attribution and supports the existing optional plugin interfaces.
 
@@ -34,7 +34,7 @@ The current visuals are not accepted as the finished redesign. A full native rem
 
 The native monitoring backend, taskbar integration, tray and plugin interfaces remain. The new network workspace, task-oriented settings and resumable four-step setup are useful partial implementations. Setup opens through the explicit workspace action, with save/resume and acknowledged partial operations; ordinary sign-in monitoring remains unobtrusive. Language and appearance use shared stable native preferences with bounded cold-restart and five-consumer observations. Complete language/theme/accessibility coverage remains unfinished.
 
-Bounded setup checks cover light theme at actual 96 DPI, three languages, save/resume, Keep-current completion and selected accessibility consumers. Choice expansion, complete keyboard/accessibility behavior, the full theme/scale matrix, full regex-builder parity and the broader required-feature inventory remain unfinished. The indexed 110-item ledger is an obligation inventory, not proof that 110 features shipped.
+Bounded setup checks cover three languages, light/dark themes at actual 96 DPI, save/resume, Keep-current completion, forward Tab focus reveal and selected accessibility consumers. Choice expansion, complete keyboard/accessibility behavior, the physical scale matrix, full regex-builder parity and the broader required-feature inventory remain unfinished. The indexed 111-item ledger is an obligation inventory, not proof that 111 features shipped.
 
 Read [shared native controls and preferences](docs/features/native-settings/native-components-and-preferences.md), [workspace](docs/features/native-dashboard/README.md), [setup](docs/features/native-dashboard/setup.md), [settings](docs/features/native-settings/README.md), [search](docs/features/search/README.md), [roadmap](ROADMAP.md) and [handoff](HANDOFF.md).
 

@@ -5,6 +5,7 @@
 
 - [Find a setting and configure notifications](notifications-and-discovery.md)
 - [Candidate verification and remaining acceptance](verification.md)
+- [Grouped notifications, setup and Details accessibility evidence](../../evidence/native-surfaces-9048.json)
 - [Source-bound migration inventory](migration-inventory.json)
 - [Design and verification scope](../../../design/native-settings/discovery-notifications.md)
 

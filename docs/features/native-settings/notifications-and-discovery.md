@@ -12,6 +12,13 @@ All numeric drafts and units are checked before either ordinary settings applica
 
 ## Row actions and navigation
 
+Notifications use six measured logical groups. Each has its enable checkbox and Details action,
+then a separate labelled threshold and unit. Daily traffic retains its real MB/GB selector;
+immutable units are text. Unavailable temperature values stay disabled and unchanged, while
+their full-contrast explanation and Details action remain available. The scroll body grows
+with bilingual text rather than squeezing all six groups into one screen. Apply, Revert and
+Reset group remain in the fixed footer.
+
 Right-click a setting, press Shift+F10/Menu while its control is focused, or choose its Details button. The shared searchable menu can show its explanation, stage that setting's default, or reload that setting from the currently applied consumer. Resets affect only that compound setting. Group reset includes settings hidden by filtering. Revert reloads current consumers rather than the values from when the editor first opened.
 
 Rows occupy a real child viewport beneath fixed search and navigation controls. Apply, Revert, Reset group and legacy navigation stay outside that viewport. Tab navigation and validation scroll the target into view. The menu and adjacent regex editor keep their existing native ownership and command-identity rules. Settings and its owned dialogs continue to defer the automatic updater restart.
@@ -21,6 +28,25 @@ Rows occupy a real child viewport beneath fixed search and navigation controls. 
 Search and drafts remain local. No notification test, remote data transfer or new notification engine is introduced. Each row shows its explicit reset default; configuration-file/default provenance is labelled unavailable because the loader does not expose a per-field presence receipt.
 
 English and Cantonese labels are supplied for the new controls, within the existing language-selection mechanism. Complete bilingual mode, persistent cross-surface appearance, full RegexBuddy parity, element appearance/locks and complete legacy migration remain unfinished. Build success is not runtime keyboard, persistence, accessibility or visual evidence. Those results must be recorded against the exact executable and source revision.
+
+## Bounded 9047/9048 verification
+
+Candidate 9047, source `fd0a87a`, covered English, Cantonese and bilingual in light and dark,
+at 1280 × 840 and 760 × 640 client pixels and actual 96 DPI. Its original images exposed
+rough doubled disabled-label strokes. Candidate 9048, source `337903e`, uses one explicit
+muted-label paint path for normal paint and native printing. All six dark bottom-state tuples
+then showed single strokes. The older images remain evidence of the older revision.
+
+In 9048, all six notifications remained off and four unavailable temperature values stayed 80.
+A valid disabled daily-traffic draft of 32767 GB was applied and read from configuration before
+restoration. Invalid zero left configuration bytes unchanged; Revert recovered 32767 GB.
+The fixture was restored to disabled 200 MB with configuration readback. These are existing
+consumer checks, not notification-delivery or unavailable sensor-hardware tests.
+
+The [combined receipt](../../evidence/native-surfaces-9048.json) records exact source, package
+and executable identities. Portable fixtures exited normally with all five normal-profile
+hashes and startup absence unchanged. No installer ran. Higher physical DPI, full reverse
+keyboard traversal, IME, complete accessibility and strict image promotion remain unfinished.
 
 ## 廣東話操作說明
 

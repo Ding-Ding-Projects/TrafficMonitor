@@ -5,7 +5,7 @@
 - [x] Preserve unfinished native implementation and corrected design references on main with explicit incomplete status.
 - [x] Hold automatic product publication while .release-hold exists; retain the publication-language check.
 - [ ] Verify the preserved source through the native build, causal responsiveness diagnosis and full acceptance.
-- [ ] Reconcile the existing feature inventory with the current action-sound and task-led documentation contract.
+- [x] Reconcile the inventory to 111 required identities, including action sounds; 155 validator regressions pass while 1544 product-acceptance gaps remain.
 
 ## Workspace responsiveness continuation
 
@@ -14,7 +14,7 @@
 - [x] Repair shared list measurement and verify the actual native control: 120 appends use 240 measurements; a disposable restored quadratic loop uses 7380 and is rejected.
 - [x] Build/package local candidate 9045 from c5d0f2a through the exact root entrypoints, with two warnings and zero errors.
 - [x] Verify bilingual/dark Apply at 120 history rows in corrected portable 9045, bounded liveness, unchanged normal profile/startup and normal exit. Broader display/accessibility acceptance remains unfinished.
-- [ ] Repair the demonstrated cause and verify native interactions and supported display states.
+- [x] Repair and verify the demonstrated list-measurement cause with bounded native interaction evidence; full supported display-state acceptance remains separate.
 - [ ] Preserve the selected native frame, integrate accepted work and verify release and installed state.
 
 ## Native image and preservation closeout
@@ -22,14 +22,19 @@
 - [x] Retain six inspected, unchanged release1.0.48 native images with exact source/hash/native-state inventory.
 - [x] Verify normal fixture exit and restoration of the pre-existing portable installation.
 - [ ] Read back the published README and exact image/gallery links for the final preservation revision.
-- [ ] Finish the workspace causal repair and final independent design re-review/implementation.
-- [ ] Verify the pending native acquisition/build and remaining required-feature acceptance.
+- [x] Finish the bounded workspace causal repair and independently re-review the 122 retained design references; full implementation remains unfinished.
+- [x] Recover supported compiler/MFC/SDK22621 acquisition and verify exact native build/package entrypoints.
+- [ ] Finish the remaining required-feature runtime acceptance.
 
 ## Full native visual remake
 
 - [x] Implement compact shared Interface rows and transient Details; verify 12 language/theme/client-size tuples at 96 DPI, mouse/Enter/Space, minimum scrolling and unchanged normal-profile files in portable candidate 9046.
-- [ ] Complete Details UIA-client idempotence, legacy accessibility, higher physical DPI, restart persistence and native renderer-specific promotion evidence.
-- [ ] Finish notification grouping, the unified setup step viewport and remaining shared component roles/anatomy.
+- [x] Verify Details UIA-client idempotent Expand/Collapse and transition events with the committed native MTA observer on source-bound candidate 9048.
+- [x] Implement notification grouping and one setup step viewport; verify save/resume, rail/focus behavior and language/theme layouts at actual 96 DPI in 9047, retaining that revision's two discovered defects.
+- [x] Repair Preview Tab handling and disabled-label painting; verify selection, forward focus, all six dark notification tuples, exact threshold/unit persistence and normal exit in 9048.
+- [x] Verify actual 960 × 760 setup client size in six language/theme tuples, plus extended forward Tab through both style ranges and the fixed footer.
+- [ ] Complete reverse Shift+Tab, legacy accessibility, higher physical DPI, restart persistence and native renderer-specific promotion evidence.
+- [ ] Finish the remaining shared component roles/anatomy and owner layouts; the current palette and geometry are not the completed remake.
 - [x] Independently approve the initial five-surface design direction and86 authored references through final offset correction0c93dd2. These are proposals, not runtime images.
 - [ ] Complete design references and built conversion for the remaining owned legacy surfaces.
 - [x] Independently review bounded Settings/shared-control corrections, actual retained-provider behavior, localized draft preservation and native caption at9032/9033.

@@ -1,126 +1,47 @@
 # Native-first continuation
 
-Current compact Interface result: source cdd0e7c, local uninstalled candidate 9046, completed
-12 English/Cantonese/bilingual × light/dark × normal/minimum client-size tuples at 96 DPI,
-with 24 collapsed/expanded matrix images inspected. Mouse/Enter/Space disclosure and minimum
-scroll reachability were observed; all five normal-profile hashes and startup absence survived
-normal exit. See docs/evidence/compact-interface-9046.json. UIA client access remained unavailable,
-renderer-specific native layout/promotion receipts are incomplete, and other physical DPI scales
-remain unverified. This does not finish the full native remake. Next: notification grouping,
-the unified setup step viewport and remaining shared component refinement, with those acceptance
-gaps retained explicitly. All candidates remain uninstalled under the latest owner direction.
+The current verified native source is `337903e3bf08bf068d7a5dfc6471419150113ce1`, packaged locally as 1.0.9048. Product publication remains held by `.release-hold`. The owner permits normal closure of task-targeted TrafficMonitor instances and explicitly defers installation. Continue with isolated portable fixtures. Complete the native C++/MFC application before operational release acceptance, then finish hosted documentation, wiki and companions last. Keep native caption controls and preserve monitoring, plugins, saved preferences/history and startup.
 
-Portable preparation is now a reusable preparation-only script, with 15 synthetic causal checks
-and independent review. It rejects invalid hashes/paths/archives, omits managed markers, preserves
-a consistent private baseline and writes BOM-free receipts. It does not launch or establish
-source/package association by itself; the separate build receipt remains mandatory.
+## Current bounded result
 
-Latest runtime result: corrected portable candidate 9045 completed bilingual and dark Apply at
-120 history rows and 50 adapters. Workspace refreshes took 632.5234 ms and 590.9424 ms; all sampled
-liveness probes responded within one second. All five normal-profile files and startup absence
-were unchanged after normal exit, and the mutex/owned desktop were released. The receipt is
-docs/evidence/list-responsiveness-9045.json. One dark workspace image is rejected as stable visual
-evidence because it caught an empty region during live refresh. The bounded performance repair
-is verified; full native design, physical DPI/accessibility and restart acceptance remain open.
+- Shared-list source `c5d0f2a` replaces quadratic insertion measurement. The actual HWND regression needs 240 measurements for 120 appends; restoring the old loop produces 7380 and is rejected. Portable 9045 completed bilingual/dark Apply with 120 history rows and 50 adapters. Workspace refreshes took 632.5234 and 590.9424 ms; sampled liveness remained below one second. See [the source-bound receipt](docs/evidence/list-responsiveness-9045.json).
+- Compact shared Interface source `cdd0e7c` has measured language/appearance rows, a small selectable preview and transient contextual Details. Portable 9046 covered 12 language/theme/size tuples at 96 DPI and mouse/Enter/Space disclosure. Its earlier unavailable UIA-client result remains historical. See [9046 evidence](docs/evidence/compact-interface-9046.json).
+- Combined source `fd0a87a`, candidate 9047, groups all six Notifications and places setup preferences/actions/style ranges in one body with a fixed footer. Actual unseeded first open, style 2/3 save/resume, Back/Save and close, Keep-current completion and unapplied-preference preservation passed. Both surfaces covered 12 language/theme/size tuples at actual 96 DPI. The original 60 private images retain their original source and two discovered defects.
+- Candidate 9048 fixes Preview Tab handling and disabled-label painting. Double-click selection remains native; Tab reaches Use saved. Six dark notification tuples show single muted label strokes. Disabled 32767 GB was applied and read back before restoration, zero left configuration bytes unchanged, Revert recovered 32767 GB and the fixture returned to disabled 200 MB. Four unavailable temperature values remained 80, with explanations and Details available.
+- A fresh 9048 follow-up covers the declared 960 × 760 Setup client size in all six language/theme tuples. English and Cantonese fit without overflow; bilingual reaches both style ranges and scope text through the rail. Actual forward Tab traverses Preview, Use saved, Reset, both ranges, Next and Save and close in English/light and bilingual/dark. Each focused body rectangle is fully revealed. Reverse Shift+Tab is still unverified.
+- The committed native MTA observer builds through `build.bat --uia-observer`. On source-bound 9048, Details 56206 exposes working ExpandCollapse, repeated Expand/Collapse is idempotent, and transition events are observed. This does not establish every provider, screen reader or legacy accessibility path.
 
-## Current list responsiveness repair
+The [combined 9047/9048 receipt](docs/evidence/native-surfaces-9048.json) records source/package/executable hashes and exact limits. All corrected fixtures preserved five normal-profile file hashes and startup absence, exited normally, released their mutexes and closed their empty hidden desktops. No candidate was installed or published. The 9047 matrix is not relabelled as 9048 evidence.
 
-Source c5d0f2a corrects quadratic shared-list measurement while retaining post-insertion text
-measurement and full remeasurement on width/font/DPI changes. The actual HWND regression passes;
-120 appends use 240 measurements versus 7380 with the restored old loop, which is rejected.
-Independent review found no blocking regression in this bounded patch. Exact root packaging
-produced local candidate 1.0.9045 with two build warnings and zero errors. Its corrected portable
-runtime comparison is in progress; full native acceptance remains unfinished.
+## Active next work
 
-The first diagnostic 9044 fixture mistakenly retained installed-mode.ini and therefore wrote
-normal application data despite its portable-mode file. No installer ran. Four current files
-were preserved before normal exit and five afterward, each matching live hashes. No prelaunch
-profile baseline exists, so restoration is unverified and no guessed restoration was made.
-The process exited normally, the release mutex became absent and the empty desktop handle was
-released. The replacement 9045 fixture excludes the managed marker and updater, has an explicit
-portable configuration and deterministic English/light preferences, and retains a prelaunch
-normal-profile baseline. Initial runtime readback matches that baseline. See the native-dashboard
-list-layout-responsiveness article for the precise preparation and acceptance boundary.
+1. Finish the reviewed shared color roles and control anatomy in the existing design worktree. This bounded implementation is active; owner layouts and persistence remain outside that slice. Independently review and build its exact source, then verify affected controls in a new uninstalled fixture.
+2. Complete remaining workspace, menu, regex and application-owned legacy surfaces with real actions. Preserve owner identities, drafts, native editing/IME and accessibility consumers.
+3. Obtain complete native renderer-specific font/glyph/text-area and scroll observations. Raw images remain private because native layout v2 and promotion v3 receipts are incomplete. No zero-findings or finished-remake claim is justified.
+4. Verify physical 125/150/200 percent scales, reverse traversal, high contrast, reduced motion, full keyboard/IME/accessibility and restart/recovery. Resizing at 96 DPI is not physical-scale evidence.
+5. Complete the applicable required-feature inventory, installer/updater negative paths and release/build companions. Installation remains deferred by current owner direction. Remove `.release-hold` only after the required acceptance and permitted delivery actions are complete.
+6. Complete hosted documentation, full wiki content and documentation-companion delivery last. Existing publication and historical evidence remain preserved.
 
-Current owner direction permits normal closure of task-targeted TrafficMonitor sessions.
-Candidates remain portable and uninstalled. A fresh 2026-10-24 23:05 UTC inspection proved the
-previous process and release mutex absent; diagnostic 9044 has resumed on an owned hidden
-desktop. Prior pending-exit statements below are historical, not a current permission blocker.
+## Verification and tooling
 
-## Current closeout
+Build recovery `bee8cb6` distinguishes strict 2022 compiler/MFC/SDK22621 readiness from incomplete registration discovery. Both previous registered directories were absent. A supported installation at a TrafficMonitor-owned destination restored the exact root build and packaging route without deleting unrelated registrations. Historical bootstrapper self-update success was not component readiness.
 
-The owner requested preservation and cleanup before the remaining implementation was complete. Keep the productive application native C++/MFC and retain native caption controls. The latest visual direction requires consistent Material Design 3 controls with less clutter and no generic stock presentation. Main application work remains first, operational delivery follows, and documentation-website/wiki/reader completion remains last.
+Focused verification includes 23 preference cases, 24 setup-serialization cases and expected mutation rejection; 46 settings validation/binding cases with five rejected ownership mutations; and a real read-only text HWND regression proving Tab flags change from 0x8d to 0x89 while ordinary key semantics and selection remain. The integrated `build.bat --verify-readonly-text` passed. Compilation is separate from runtime acceptance.
 
-## Published baseline and actual images
+The feature inventory contains 111 identities. The added action-sound identity stays unfinished on applicable surfaces. All 155 inventory validator regressions passed with 1544 acceptance gaps retained. Independent design review verified 122 SVG references and inspected ten representative renders; these remain design proposals, not product images.
 
-Release 1.0.48 targets `ddcf441f4c3cab2a5e3b62e9ff6aff1babf3bdfa`. Its package and executable were independently rechecked. Six genuine native-window images were captured from that release, inspected and retained unchanged under `evidence/ui/native-release48/`, with exact hashes, timestamps, native geometry and limited acceptance scope. The README labels them as released before-state evidence. They do not establish the requested finished redesign.
+Use `scripts/prepare-portable-diagnostic.ps1` for fresh ignored fixtures. Its 15 synthetic checks and independent review cover hash/path/archive rejection, omission of managed markers/updaters and consistent private baseline preparation. It never launches or proves source/package association by itself. Stop on preparation failure and use a separate immutable production receipt. Print only allowlisted receipt fields, never encoded baseline contents.
 
-The temporary release fixture exited normally. The pre-existing portable 1.8.6 instance was restored and verified responsive; settings and the history state produced by its normal close were preserved. Private original-state and process receipts remain outside public source.
+## Data-preservation incident
 
-## Incomplete implementation preserved on main
+The first 9044 fixture mistakenly retained `installed-mode.ini`, which overrode its portable-mode file and caused writes to normal application data. No installer ran. Four current files were preserved before normal exit and five afterward, with matching live hashes. No prelaunch baseline exists, so restoration is unverified and no guessed restoration was made. Preserve those private snapshots and original evidence. Later unchanged-baseline checks do not prove restoration of the earlier state.
 
-- `codex/workspace-responsiveness-20261023` at `eae4d77243e53cc25df57ccb9ef6f9a665a33562` contains the preserved rejected workspace source, independently reviewed opt-in numeric diagnostics and the supported existing-Build-Tools component acquisition repair.
-- Candidate 9043's stall after bilingual/dark Settings Apply remains causally unproved. Candidate 9044 has not been produced.
-- The exact root build started against eae4d77 after native consent. The installer entered modification of the existing stable Build Tools instance, self-updated and handed off to setup processes. At the last inspection no root result or compiler verdict existed. The one-hour observation window has elapsed; further inspection waits for a changed condition or a new authorized continuation. Preserve this producer and its immutable source until its real terminal result is established; never treat the old bootstrapper exit as build success.
-- `codex/native-material-design-20261023` contains 122 editable design references and the subsequent readable-text, visible-Details and disabled-state corrections. They remain proposals, with final independent re-review and implementation pending.
+The 9044, 9045, 9046, 9047 and both 9048 fixtures are closed. Revalidate process identities before any future operation. A temporary task-owned loopback Lowlevel service remains available for the ongoing goal; recorded PIDs are historical and never reusable authority. Do not touch the visible desktop or unrelated processes.
 
-## Next safe work
+## Delivery and remaining preservation
 
-### Independent continuation evidence
+The accepted normal release remains `v1.0.48-run40021045002-1` at `ddcf441f4c3cab2a5e3b62e9ff6aff1babf3bdfa`. Six unchanged before-state images and their original provenance remain under `evidence/ui/native-release48/`. They do not depict the completed requested redesign. Local 904x packages are diagnostic output, not releases.
 
-The complete required-feature inventory now contains 111 identities. The sole missing identity
-was action-sound-effects. It remains unfinished on each applicable runtime surface, with independent
-proof dimensions. Candidate 75e30fc passed all 155 validator regressions and retained 1544 acceptance
-gaps; this is inventory validation, not product acceptance.
+All completed native source above is on main and was pushed with exact remote readback. The 337903e publication-language run 40147875461 succeeded; product release and documentation deployment were skipped under the hold. Preserve active task branches/worktrees and private images. Cleanup is deferred while the native goal remains active and ownership/preservation gates are incomplete.
 
-Independent design review at e253e3f verified 122 SVGs and visually inspected ten representative
-current renders. The bounded release 48 correction pass is ready for implementation, with no
-blocking composition or action-routing finding in those inspected references. See
-design/native-modern-remake/review-20261024.md and its hash receipt. The responsiveness investigation
-still precedes native implementation. No diagnostic candidate launch occurred while the existing
-release instance held the shared mutex.
-
-### Build recovery continuation, 2026-10-24
-
-Current inspection found both registered Build Tools instances incomplete, not launchable,
-and pointing to absent directories. The earlier installer self-update exited zero, but the
-subsequent modify operation has no retained terminal receipt. No matching active acquisition
-worker or installer was found. Do not reinterpret that self-update result as component readiness.
-
-Source `bee8cb6` separates strict readiness (2022 compiler, MFC and SDK 22621) from recovery
-discovery, which includes incomplete 2022 Build Tools registrations. Existing directories use
-supported modification with the full required workload; missing directories use a project-owned
-installation destination without recreating another application's directory or deleting its
-registration. The focused acquisition regression and publication scan passed. The exact root
-build reached native elevation request; installation, compilation and candidate 9044 remain
-unverified at that initial checkpoint. Acquisition subsequently exited zero and strict discovery
-confirmed a complete, launchable 17.14.37806.7 instance without a required restart. Exact root
-build completed with 114 warnings and zero errors; exact root installer production created local
-candidate 1.0.9044 with two build warnings and zero errors. See
-`docs/evidence/build-recovery-9044.json` for source binding and hashes. Runtime acceptance and
-the workspace stall cause remain unverified. Keep `.release-hold` in place. The local hidden-desktop
-transport was unavailable at the first preflight and was restored through its existing supported
-loopback HTTP route. The required-tool preflight passed. Runtime launch remains pending because
-an existing responsive release instance holds the application's fixed release mutex. Portable
-configuration and a separate desktop do not isolate that mutex. The existing instance was left
-untouched; retry only after its normal owner-controlled exit and a fresh mutex-absence check.
-No candidate interaction or diagnostic counters have been collected yet.
-
-Local publication hooks were restored at the already configured location. Twelve exact-line
-exceptions were individually reviewed for existing C++ identifiers, literal Git commands
-and French text. The complete primary source scan passed (895 text files, 174 binary files)
-before integration; this is publication evidence, not runtime acceptance.
-
-1. Recheck the existing release mutex after normal owner-controlled exit; never force-stop the existing instance.
-2. Run the built diagnostic candidate 9044 through the restored hidden-desktop route, establish the stall cause, then make and verify the bounded repair.
-3. Independently re-review the corrected design and implement it in shared native controls, Settings/setup and the remaining owners after responsiveness is resolved.
-4. Replace the before-state images with genuine corrected-build evidence, preserving these originals and their provenance.
-5. Complete Settings, every remaining owned native surface, full RegexBuddy parity and applicable required features. The reconciled inventory has 111 identities and remains incomplete.
-
-## Preservation boundaries
-
-Main now preserves the unfinished workspace/diagnostic and design snapshots under the owner's updated closeout direction. This is an explicitly incomplete preservation merge, not accepted product behavior. The tracked .release-hold file keeps automatic product release and dependent documentation deployment disabled while publication-language validation remains active. Retain both task branches and linked worktrees while they contain unmerged or unverified work. Cleanup requires a verified complete archive, ownership and remote-ancestry proof; no deletion is implied by a clean working tree. Existing unrelated work and the running installer remain protected.
-
-Status Hub authenticated reporting is unavailable because the deployed helper lacks the current v2 interface. GitHub Project access lacks the required scope and was not retried. The rolling progress record is [Discussion 2](https://github.com/Ding-Ding-Projects/TrafficMonitor/discussions/2), with handoff on [issue 1](https://github.com/Ding-Ding-Projects/TrafficMonitor/issues/1).
-
-The updated required-feature contract also includes action sound effects with persisted controls. The former 110-identity baseline is now reconciled to 111 identities; runtime sound delivery and all remaining acceptance gaps stay unfinished.
+The corresponding shared-instruction synchronization remains incomplete because its primary checkout has unrelated local changes and was 31 commits behind its fetched main. Do not overwrite that work or force a push. Reuse issue 1 and Discussion 2 for scoped progress. Earlier Status Hub/Project limitations remain unverified until a supported live check succeeds. Account allowance is unknown; no fixed token budget was selected.
