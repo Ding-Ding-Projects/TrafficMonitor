@@ -5,6 +5,19 @@
 namespace NativeMaterial
 {
     COLORREF SettingsDisabledColor(Appearance appearance,bool background=false);
+    // Keep the native STATIC identity and disabled semantics while drawing
+    // notification-only muted text consistently for paint and print requests.
+    class SettingsLabel final : public CStatic
+    {
+    public:
+        void SetGrouped(bool grouped){m_grouped=grouped;}
+        void SetAppearance(Appearance appearance){m_appearance=appearance;if(m_hWnd)Invalidate();}
+    protected:
+        LRESULT WindowProc(UINT,WPARAM,LPARAM) override;
+    private:
+        void PaintDisabled(HDC);
+        bool m_grouped{};Appearance m_appearance{Appearance::Light};
+    };
     // Notification-only styling; the real EDIT retains text and disabled state.
     class SettingsNumber final : public TextField
     {

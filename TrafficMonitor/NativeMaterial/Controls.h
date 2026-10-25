@@ -87,6 +87,7 @@ namespace NativeMaterial
         BOOL Create(const RECT& bounds, CWnd* parent, UINT id);
         void SetAppearance(Appearance value);
     protected:
+        LRESULT WindowProc(UINT,WPARAM,LPARAM) override;
         afx_msg HBRUSH CtlColor(CDC*, UINT);
         DECLARE_MESSAGE_MAP()
     private:

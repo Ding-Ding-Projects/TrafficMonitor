@@ -11,6 +11,27 @@ namespace NativeMaterial
             BYTE((c.onSurface.g*alpha+c.surface.g*(1-alpha))*255),
             BYTE((c.onSurface.b*alpha+c.surface.b*(1-alpha))*255));
     }
+    void SettingsLabel::PaintDisabled(HDC target)
+    {
+        CDC dc;dc.Attach(target);const int saved=dc.SaveDC();CRect rect;GetClientRect(rect);
+        const auto c=Palette::Resolve(m_appearance);
+        dc.FillSolidRect(rect,RGB(BYTE(c.surface.r*255),BYTE(c.surface.g*255),BYTE(c.surface.b*255)));
+        dc.SetBkMode(TRANSPARENT);dc.SetTextColor(SettingsDisabledColor(m_appearance));
+        if(auto* font=GetFont())dc.SelectObject(font);
+        CString text;GetWindowText(text);dc.DrawText(text,rect,DT_LEFT|DT_WORDBREAK|DT_NOPREFIX);
+        dc.RestoreDC(saved);dc.Detach();
+    }
+    LRESULT SettingsLabel::WindowProc(UINT message,WPARAM w,LPARAM l)
+    {
+        if(m_grouped&&!IsWindowEnabled())
+        {
+            if(message==WM_PAINT){CPaintDC dc(this);PaintDisabled(dc.GetSafeHdc());return 0;}
+            if(message==WM_PRINTCLIENT&&w){PaintDisabled(reinterpret_cast<HDC>(w));return 0;}
+        }
+        const auto result=CStatic::WindowProc(message,w,l);
+        if(message==WM_ENABLE&&m_grouped)Invalidate();
+        return result;
+    }
     HBRUSH SettingsNumber::Color(CDC* dc)
     {
         if(!m_grouped||IsWindowEnabled())return TextField::Color(dc);
