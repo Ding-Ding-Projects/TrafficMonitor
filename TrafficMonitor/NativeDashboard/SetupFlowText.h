@@ -7,7 +7,7 @@ namespace NativeDashboard::Setup
         ModeLabel, AdapterLabel, TaskbarLabel, StartupLabel, Keep, Enable, Disable, Automatic, All, One,
         Back, Next, Apply, SaveClose, Refresh, KeepRemaining, LanguageInfo, AdapterInfo, StartupInfo,
         ReviewInfo, SaveFailed, AdapterChanged, Incomplete, Applying, NotStarted, Applied, Failed, Complete,
-        CurrentOn, CurrentOff, NoAdapters, Resume, Protected, CloseUnsaved, Count };
+        CurrentOn, CurrentOff, NoAdapters, Resume, Protected, CloseUnsaved, StyleScope, Count };
     inline CString Text(Copy id, int language)
     {
         struct Pair { const wchar_t* en; const wchar_t* zh; };
@@ -25,8 +25,8 @@ namespace NativeDashboard::Setup
             {L"Automatic",L"自動選擇"}, {L"All eligible adapters",L"所有合資格介面"}, {L"One adapter",L"單一介面"},
             {L"Back",L"上一步"}, {L"Next",L"下一步"}, {L"Apply",L"套用"}, {L"Save and close",L"儲存並關閉"},
             {L"Refresh adapters",L"重新整理介面"}, {L"Keep remaining current values",L"其餘保留目前設定"},
-            {L"Language and appearance are shared with native workspace, Settings, menus and search workbenches after Apply interface preferences. Message styles affect this wizard only. Monitoring changes wait for the final setup Apply.",
-             L"套用介面偏好後，語言及外觀會共用於原生工作區、設定、選單及搜尋工作台。訊息風格只影響此精靈；監察更改會等候最後一步套用。"},
+            {L"Choose your language and appearance, then apply those preferences. Next keeps monitoring changes for the final step.",
+             L"選擇語言及外觀，再套用介面偏好。下一步會保留監察更改，等候最後一步套用。"},
             {L"Choose a live adapter identity. Automatic and All retain existing monitor semantics. A removed or changed adapter must be selected again. History and accounting are preserved.",
              L"請選擇目前存在的介面。自動及全部模式沿用現有監察行為。介面移除或變更後必須重新選擇。流量記錄及統計保留不變。"},
             {L"Keep current is the initial choice for both controls. Login startup uses the existing supported registration. Closing this wizard never enables startup.",
@@ -41,7 +41,8 @@ namespace NativeDashboard::Setup
             {L"Currently enabled",L"目前已啟用"}, {L"Currently disabled",L"目前已停用"},
             {L"No eligible adapter available",L"目前沒有合資格介面"}, {L"Resume setup",L"繼續設定"},
             {L"This setup file is unreadable or uses an unsupported format. It has been preserved. Close without saving, then restore a supported file before continuing setup.",L"設定檔無法讀取或格式尚未支援，原檔已保留。請關閉而不儲存，還原支援的檔案後再繼續設定。"},
-            {L"Close without saving",L"關閉而不儲存"}
+            {L"Close without saving",L"關閉而不儲存"},
+            {L"Message styles affect this setup wizard only. Each language has its own range.",L"訊息風格只影響此設定精靈；每種語言均有獨立範圍。"}
         };
         static_assert(sizeof(entries)/sizeof(entries[0]) == static_cast<size_t>(Copy::Count));
         const auto& entry = entries[static_cast<size_t>(id)];
