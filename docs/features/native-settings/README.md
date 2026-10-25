@@ -2,6 +2,7 @@
 
 - [Choose language and appearance with shared native controls](native-components-and-preferences.md)
 - [Compact interface preferences and contextual Details](compact-interface-details.md)
+- [Shared color roles, control anatomy and current evidence](shared-control-roles.md)
 
 - [Find a setting and configure notifications](notifications-and-discovery.md)
 - [Candidate verification and remaining acceptance](verification.md)

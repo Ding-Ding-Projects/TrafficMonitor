@@ -1,6 +1,15 @@
 # Native-first continuation
 
-The current verified native source is `337903e3bf08bf068d7a5dfc6471419150113ce1`, packaged locally as 1.0.9048. Product publication remains held by `.release-hold`. The owner permits normal closure of task-targeted TrafficMonitor instances and explicitly defers installation. Continue with isolated portable fixtures. Complete the native C++/MFC application before operational release acceptance, then finish hosted documentation, wiki and companions last. Keep native caption controls and preserve monitoring, plugins, saved preferences/history and startup.
+Latest bounded candidate: 9049 at `4a20ad6312da16c99d49d7c6f5b83b85eda09e49` has shared
+semantic color roles and revised control anatomy. Seventeen private images, real slider
+and checkbox/revert observations are retained. Its 320 × 400 menu check failed: Regex
+started at x=321, outside the client. Source repair `9d22668` is reviewed and integrated,
+awaiting the identical runtime tuple. The structural observer `93dc8d6` is also integrated
+and passes twelve native checks, but live product use and renderer evidence are pending.
+See docs/evidence/native-components-9049.json. The completed 9048 observations below retain
+their original source; no installation or new release occurred.
+
+The earlier bounded native source is `337903e3bf08bf068d7a5dfc6471419150113ce1`, packaged locally as 1.0.9048. Product publication remains held by `.release-hold`. The owner permits normal closure of task-targeted TrafficMonitor instances and explicitly defers installation. Continue with isolated portable fixtures. Complete the native C++/MFC application before operational release acceptance, then finish hosted documentation, wiki and companions last. Keep native caption controls and preserve monitoring, plugins, saved preferences/history and startup.
 
 ## Current bounded result
 
@@ -15,7 +24,7 @@ The [combined 9047/9048 receipt](docs/evidence/native-surfaces-9048.json) record
 
 ## Active next work
 
-1. Finish the reviewed shared color roles and control anatomy in the existing design worktree. This bounded implementation is active; owner layouts and persistence remain outside that slice. Independently review and build its exact source, then verify affected controls in a new uninstalled fixture.
+1. Build the integrated menu repair and verify default opening, actual 320 × 400 reflow and retained filter/submenu state in a new uninstalled fixture. Exercise the reviewed structural observer on that exact target without claiming renderer completeness. Remaining owner geometry and typography stay unfinished.
 2. Complete remaining workspace, menu, regex and application-owned legacy surfaces with real actions. Preserve owner identities, drafts, native editing/IME and accessibility consumers.
 3. Obtain complete native renderer-specific font/glyph/text-area and scroll observations. Raw images remain private because native layout v2 and promotion v3 receipts are incomplete. No zero-findings or finished-remake claim is justified.
 4. Verify physical 125/150/200 percent scales, reverse traversal, high contrast, reduced motion, full keyboard/IME/accessibility and restart/recovery. Resizing at 96 DPI is not physical-scale evidence.

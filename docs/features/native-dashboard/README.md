@@ -2,6 +2,7 @@
 
 - [Workspace responsiveness diagnostics and limits](responsiveness-diagnostics.md)
 - [List measurement repair and portable diagnostic preparation](list-layout-responsiveness.md)
+- [Native structural observer and incomplete-evidence boundaries](native-layout-observer.md)
 
 - [Released native interface images and verification limits](released-interface-evidence.md)
 

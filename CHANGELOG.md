@@ -1,5 +1,15 @@
 # Fork changes
 
+## Unreleased native refinement and bounded evidence
+
+Group notification controls, unify setup scrolling and repair Preview Tab handling and
+disabled-label paint. Add distinct shared color/action roles, checkbox mixed-state drawing,
+slider ticks and selected-list checks. Portable 9047/9048 checks cover bounded persistence,
+focus and Details UIA behavior. Candidate 9049 retains a confirmed narrow-menu resize defect;
+its source repair now uses the actual client, with identical-tuple runtime proof pending.
+The native structural observer explicitly marks missing renderer measurements incomplete.
+No diagnostic candidate was installed or published. Release hold remains.
+
 ## Native regex workbench component replacement
 
 Replace stock workbench chrome with four persistent task views, styled native editors, selectable results, a searchable expression selector and client scroll rails. Retain engine, storage and owner Apply/Cancel behavior. Correct panel ownership, compact-height reachability, wheel handling, heading scale and panel/button background composition. Independent source/visual review and current9040 consumer observations support this bounded unit; the full accessibility/DPI matrix and complete regex parity remain unfinished.

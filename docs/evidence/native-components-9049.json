@@ -1,0 +1,167 @@
+{
+  "schemaVersion": 1,
+  "kind": "bounded-native-interaction",
+  "sourceCommit": "4a20ad6312da16c99d49d7c6f5b83b85eda09e49",
+  "candidateVersion": "1.0.9049",
+  "packageSHA256": "46f7cb8ec5e9ceff4d07cab909071b81ffbe4050f034f90d9ce520be871fdc0e",
+  "executableSHA256": "414c4068eabf5403da28745fc066e3764788fcd8c97fad9a639c4c0bf0b7e204",
+  "finishedUtc": "2026-10-25T01:25:01.494260+00:00",
+  "build": {
+    "entrypoint": "build-installer.bat -Version 1.0.9049",
+    "exitCode": 0,
+    "warnings": 2,
+    "errors": 0
+  },
+  "componentVerification": {
+    "entrypoints": [
+      "build.bat --verify-material-visuals",
+      "build.bat --verify-readonly-text",
+      "build.bat --verify-result-list"
+    ],
+    "exitCodes": [
+      0,
+      0,
+      0
+    ],
+    "selectorOutlineMutationRejected": true,
+    "contrastLightDark": {
+      "primary": [
+        6.507,
+        7.699
+      ],
+      "tonal": [
+        13.162,
+        7.462
+      ],
+      "selected": [
+        13.284,
+        7.325
+      ]
+    },
+    "pixelTestLimits": "Empty labels at 160 by 56 without hover, press or focus; expected-red selector mutation requires high contrast off"
+  },
+  "runtime": {
+    "actualDpi": 96,
+    "languageThemePairs": [
+      "English/light",
+      "Bilingual/dark"
+    ],
+    "clientSizesByPair": {
+      "setup": [
+        [
+          960,
+          760
+        ],
+        [
+          760,
+          640
+        ]
+      ],
+      "interface": [
+        [
+          1280,
+          840
+        ],
+        [
+          760,
+          640
+        ]
+      ],
+      "notifications": [
+        [
+          760,
+          640
+        ],
+        [
+          760,
+          640
+        ]
+      ],
+      "menu": [
+        [
+          420,
+          480
+        ],
+        [
+          320,
+          400
+        ]
+      ],
+      "regex": [
+        [
+          1280,
+          840
+        ],
+        [
+          640,
+          400
+        ]
+      ],
+      "workspace": [
+        [
+          1280,
+          840
+        ],
+        [
+          800,
+          600
+        ]
+      ]
+    },
+    "privateImagesInspected": 17,
+    "sliderReadback": [
+      5,
+      4,
+      5
+    ],
+    "checkboxDraftReadback": [
+      0,
+      1,
+      0
+    ],
+    "checkboxRevertIniUnchanged": true,
+    "setupKeepCurrentCompleted": true,
+    "forwardTab": "Unverified in this run; background input did not establish isolated modifier state",
+    "nativeTabDestinations": {
+      "from": 56210,
+      "forward": 56203,
+      "backward": 56201
+    },
+    "normalRegexImage": "Evaluation in progress, no completed-result verdict"
+  },
+  "findings": [
+    {
+      "id": "menu320-regex-overflow",
+      "source": "TrafficMonitor/NativeMenus/SearchableMenu.cpp",
+      "clientSize": [
+        320,
+        400
+      ],
+      "regexLeft": 321,
+      "regexWidth": 88,
+      "visibilityProperty": true,
+      "observed": "Regex entirely outside actual client after external resize; old child geometry retained",
+      "scope": "Externally resized tuple only; original 320-wide creation not inferred",
+      "stateAtReceipt": "Confirmed; repair 9d226685adaedf74a82242f924e81c27c69a2956 awaits identical-tuple runtime verification"
+    }
+  ],
+  "preservation": {
+    "installed": false,
+    "normalProfileFilesCompared": 5,
+    "normalProfileUnchanged": true,
+    "startupAbsentBeforeAndAfter": true,
+    "normalExit": true,
+    "processAndChildrenAbsent": true,
+    "mutexAbsent": true,
+    "ownedDesktopEmptyAndClosed": true
+  },
+  "fullAcceptance": false,
+  "limitations": [
+    "Minimum menu containment failed at this revision",
+    "Owner height allocations and complete slider state layer remain unfinished",
+    "No measured DirectWrite inset fallback or native v2/v3 promotion",
+    "No independent normal-paint comparison, hover/press or high-contrast-enabled proof",
+    "Actual 96 DPI only; higher physical scales remain unverified",
+    "No new installation or release"
+  ]
+}

@@ -35,6 +35,10 @@
 - [x] Verify actual 960 × 760 setup client size in six language/theme tuples, plus extended forward Tab through both style ranges and the fixed footer.
 - [ ] Complete reverse Shift+Tab, legacy accessibility, higher physical DPI, restart persistence and native renderer-specific promotion evidence.
 - [ ] Finish the remaining shared component roles/anatomy and owner layouts; the current palette and geometry are not the completed remake.
+- [x] Integrate shared color roles and bounded button/selector/check/range/list anatomy; retain focused native checks and the limited 9049 runtime observations.
+- [ ] Verify the 320 × 400 menu resize repair against the retained containment failure, including filter/submenu retention and normal opening.
+- [x] Build and independently review the native structural observer with twelve native checks and protected-output/incomplete-receipt assertions.
+- [ ] Verify that observer on the product and obtain real renderer-owned font/text/scroll snapshots before claiming native layout or image-promotion acceptance.
 - [x] Independently approve the initial five-surface design direction and86 authored references through final offset correction0c93dd2. These are proposals, not runtime images.
 - [ ] Complete design references and built conversion for the remaining owned legacy surfaces.
 - [x] Independently review bounded Settings/shared-control corrections, actual retained-provider behavior, localized draft preservation and native caption at9032/9033.
