@@ -1,4 +1,4 @@
-#include "../stdafx.h"
+﻿#include "../stdafx.h"
 #include "Editor.h"
 #include "../NativeMaterial/LayoutObservations.h"
 #include "../NativeMenus/SearchableMenu.h"
@@ -62,8 +62,8 @@ namespace NativePreferences
         if(!visible){LayoutActions(0,0,width,dpi,false);return 0;}
         if(!m_font&&m_fontDpi!=dpi){m_fallbackFont.DeleteObject();m_fallbackFont.CreateFont(-MulDiv(14,dpi,96),0,0,0,FW_NORMAL,FALSE,FALSE,0,DEFAULT_CHARSET,OUT_DEFAULT_PRECIS,CLIP_DEFAULT_PRECIS,CLEARTYPE_QUALITY,DEFAULT_PITCH,L"Segoe UI");m_fontDpi=dpi;}
         CFont* font=m_font?m_font:&m_fallbackFont;for(auto* c:controls)c->SetFont(font);
-        const int initial=y;auto px=[&](int n){return MulDiv(n,dpi,96);};CClientDC dc(m_parent);auto* old=dc.SelectObject(font);
-        auto height=[&](CWnd& c,int available,int minimum){CString t;c.GetWindowText(t);CRect r(0,0,px((std::max)(32,available)),0);const RECT area=r;dc.DrawText(t,r,DT_CALCRECT|DT_WORDBREAK|DT_NOPREFIX);NativeLayoutObservation::ObserveGdiMeasurement(c.GetSafeHwnd(),dc.GetSafeHdc(),area,r);return (std::max)(minimum,(r.Height()*96+static_cast<int>(dpi)-1)/static_cast<int>(dpi)+4);};
+        const int initial=y;auto px=[&](int n){return MulDiv(n,dpi,96);};CClientDC dc(m_parent);auto* old=dc.SelectObject(font);NativeLayoutObservation::MeasurementBatch measurements;
+        auto height=[&](CWnd& c,int available,int minimum){CString t;c.GetWindowText(t);CRect r(0,0,px((std::max)(32,available)),0);const RECT area=r;dc.DrawText(t,r,DT_CALCRECT|DT_WORDBREAK|DT_NOPREFIX);measurements.Measure(c.GetSafeHwnd(),dc.GetSafeHdc(),area,r);return (std::max)(minimum,(r.Height()*96+static_cast<int>(dpi)-1)/static_cast<int>(dpi)+4);};
         auto place=[&](CWnd& c,int left,int top,int w,int h){c.MoveWindow(px(left),px(top),px(w),px(h));};
         width=(std::min)(840,(std::max)(64,width));
         CString detailLabel;m_details.GetWindowText(detailLabel);CRect detailBounds(0,0,px(width-24),0);
@@ -97,15 +97,15 @@ namespace NativePreferences
         const bool any=m_showLanguage||m_showAppearance;m_previewPanel.ShowWindow(any?SW_SHOW:SW_HIDE);
         if(any){const int textHeight=height(m_preview,width-32,20),ph=(std::max)(draft.values.language==Language::Bilingual?72:48,textHeight+32);place(m_previewPanel,x,y,width,ph);place(m_preview,16,16,width-32,ph-32);y+=ph+12;}
         for(auto* control:std::array<CWnd*,8>{&m_heading,&m_language,&m_languageHelp,&m_appearance,&m_appearanceHelp,&m_scope,&m_preview,&m_note})NativeLayoutObservation::ObserveNativeText(control->GetSafeHwnd());
-        dc.SelectObject(old);if(m_actionsParent==m_parent)y+=LayoutActions(x,y,width,dpi,true);return y-initial;
+        measurements.Publish();dc.SelectObject(old);if(m_actionsParent==m_parent)y+=LayoutActions(x,y,width,dpi,true);return y-initial;
     }
     int Editor::LayoutActions(int x,int y,int width,UINT dpi,bool visible)
     {
         for(auto* c:std::array<CWnd*,5>{&m_note,&m_apply,&m_revert,&m_reset,&m_reapply})c->ShowWindow(visible?SW_SHOW:SW_HIDE);if(!visible)return 0;
-        CFont* font=m_font?m_font:&m_fallbackFont;CClientDC dc(m_actionsParent);auto* old=dc.SelectObject(font);auto px=[&](int n){return MulDiv(n,dpi,96);};const int initial=y;
-        auto measure=[&](CWnd& c,int available){CString t;c.GetWindowText(t);CRect r(0,0,px(available),0);const RECT area=r;dc.DrawText(t,r,DT_CALCRECT|DT_WORDBREAK|DT_NOPREFIX);NativeLayoutObservation::ObserveGdiMeasurement(c.GetSafeHwnd(),dc.GetSafeHdc(),area,r);return MulDiv(r.Height(),96,dpi);};
+        CFont* font=m_font?m_font:&m_fallbackFont;CClientDC dc(m_actionsParent);auto* old=dc.SelectObject(font);auto px=[&](int n){return MulDiv(n,dpi,96);};const int initial=y;NativeLayoutObservation::MeasurementBatch measurements;
+        auto measure=[&](CWnd& c,int available){CString t;c.GetWindowText(t);CRect r(0,0,px(available),0);const RECT area=r;dc.DrawText(t,r,DT_CALCRECT|DT_WORDBREAK|DT_NOPREFIX);measurements.Measure(c.GetSafeHwnd(),dc.GetSafeHdc(),area,r);return MulDiv(r.Height(),96,dpi);};
         m_note.SetFont(font);const int noteHeight=(std::max)(24,measure(m_note,width)+8);m_note.MoveWindow(px(x),px(y),px(width),px(noteHeight));NativeLayoutObservation::ObserveNativeText(m_note.GetSafeHwnd());y+=noteHeight+8;
-        int left=x,rowHeight=0;for(auto* b:{&m_apply,&m_revert,&m_reset,&m_reapply}){const bool show=b!=&m_reapply||draft.conflict;b->ShowWindow(show?SW_SHOW:SW_HIDE);if(!show)continue;b->SetFont(font);CString label;b->GetWindowText(label);CRect r(0,0,px((std::min)(220,width)-32),0);dc.DrawText(label,r,DT_CALCRECT|DT_WORDBREAK|DT_NOPREFIX);const int bw=(std::min)(width,(std::max)(96,MulDiv(r.Width(),96,dpi)+32));const int bh=(std::max)(40,MulDiv(r.Height(),96,dpi)+20);if(left>x&&left+bw>x+width){y+=rowHeight+8;left=x;rowHeight=0;}b->MoveWindow(px(left),px(y),px(bw),px(bh));left+=bw+8;rowHeight=(std::max)(rowHeight,bh);}dc.SelectObject(old);return y+rowHeight+12-initial;
+        int left=x,rowHeight=0;for(auto* b:{&m_apply,&m_revert,&m_reset,&m_reapply}){const bool show=b!=&m_reapply||draft.conflict;b->ShowWindow(show?SW_SHOW:SW_HIDE);if(!show)continue;b->SetFont(font);CString label;b->GetWindowText(label);CRect r(0,0,px((std::min)(220,width)-32),0);dc.DrawText(label,r,DT_CALCRECT|DT_WORDBREAK|DT_NOPREFIX);const int bw=(std::min)(width,(std::max)(96,MulDiv(r.Width(),96,dpi)+32));const int bh=(std::max)(40,MulDiv(r.Height(),96,dpi)+20);if(left>x&&left+bw>x+width){y+=rowHeight+8;left=x;rowHeight=0;}b->MoveWindow(px(left),px(y),px(bw),px(bh));left+=bw+8;rowHeight=(std::max)(rowHeight,bh);}measurements.Publish();dc.SelectObject(old);return y+rowHeight+12-initial;
     }
     void Editor::Save(bool reapply)
     {

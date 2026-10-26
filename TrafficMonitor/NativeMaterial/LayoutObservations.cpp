@@ -134,13 +134,30 @@ namespace {
     {Record record{};if(Base(parent,record))Register(window);}
     void Invalidate(HWND window) noexcept
     {auto& state=State();if(!state.data||!window)return;std::lock_guard<std::mutex> lock(state.mutex);if(!state.Find(window))return;state.Begin();state.DropRecords(window);state.End();}
-    void ObserveGdiMeasurement(HWND window,HDC dc,const RECT& area,const RECT& measured) noexcept
+    MeasurementBatch::~MeasurementBatch(){Publish();}
+    void MeasurementBatch::Measure(HWND window,HDC dc,const RECT& area,const RECT& measured) noexcept
     {
         Record record{};if(!Base(window,record)||!dc)return;
         record.kind=Kind::GdiMeasurement;record.validity|=MeasurementOnly|NativePaintUnobserved|TextArea|TextMetrics;
         record.textArea={float(area.left),float(area.top),float(area.right),float(area.bottom)};
         record.measured={float(measured.left),float(measured.top),float(measured.right),float(measured.bottom)};
-        GdiState(record,dc);GdiFont(record,dc);State().Publish(record);
+        GdiState(record,dc);GdiFont(record,dc);
+        // A later measurement of the same window supersedes the earlier one.
+        try{for(auto& pending:m_pending)if(pending.hwnd==record.hwnd){pending=record;return;}m_pending.push_back(record);}catch(...){}
+    }
+    void MeasurementBatch::Publish() noexcept
+    {
+        for(auto& record:m_pending)
+        {
+            // Identity, state and client geometry are read again after placement.
+            // A DPI change since measurement makes the measured values stale, so
+            // the record is withheld and the observation stays incomplete.
+            Record current{};if(!Base(reinterpret_cast<HWND>(record.hwnd),current)||current.registration!=record.registration||current.dpi!=record.dpi)continue;
+            record.parentHwnd=current.parentHwnd;record.controlId=current.controlId;record.threadId=current.threadId;
+            record.visible=current.visible;record.enabled=current.enabled;record.clientPixels=current.clientPixels;
+            State().Publish(record);
+        }
+        m_pending.clear();
     }
     void ObserveNativeText(HWND window) noexcept
     {

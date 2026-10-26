@@ -1,21 +1,20 @@
 # Native-first continuation
 
-## Owner-requested stop
+## Resumed work
 
-Implementation is stopped. The owner requested an immediate push and no further work.
-The platform reports no active goal. Do not resume implementation without a new request.
-Producer ec177ac3f45614267598c3f3176068db613ec107 and reader
-6be9101db9543fb6301a257f0c7e9af65efcdcd2 were pushed on their owning branches and are
-preserved on main as an incomplete recovery merge. Keep `.release-hold` and installation
-deferred. No additional build or acceptance run was started for this combined snapshot.
+The owner resumed implementation on 2026-10-26. `.release-hold` stays in place and
+installation remains deferred.
 
-Known blocker: Settings and preference layout publish GdiMeasurement before moving the
-ordinary static HWND. The retained client geometry can therefore be obsolete when the
-reader checks it. Later NativeTextMetrics uses another record kind and does not replace
-that stale measurement. The reader correctly rejects `renderer-client-geometry-changed`.
-The review identified this from source; live reproduction and the correction remain undone.
-Preserve useful measurements with post-placement geometry when work is explicitly resumed;
-do not weaken the reader's check. Full native layout/promotion acceptance remains unavailable.
+Measurement-before-placement is corrected. Settings, the shared preference editor and its
+action footer now collect GDI measurements in a `MeasurementBatch` and publish them only
+after the measured windows are placed. Publication rereads registration, state and client
+geometry; a DPI change since measurement withholds the record so it stays incomplete. The
+reader's `renderer-client-geometry-changed` check is unchanged. `build.bat
+--verify-layout-observations` adds three hidden-window cases (nothing published before
+placement, post-placement client geometry, measuring font retained). Restoring immediate
+publication fails two of them. The full `build.bat --silent` product build, `--verify-preferences` (23 passed) and
+`--verify-settings` (46 passed) also succeed at this source. A live Settings/preference
+observation run has not been performed yet, so native layout acceptance remains unavailable.
 
 Individual branches retain their earlier build/check results, including 320 old/new drawing
 comparisons and transport-v2 checks. They do not verify the stopped combined source. The last

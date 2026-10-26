@@ -1,4 +1,4 @@
-#include "../stdafx.h"
+﻿#include "../stdafx.h"
 #include "ButtonVisual.h"
 #include "LayoutObservations.h"
 #include "ScrollRail.h"
@@ -88,6 +88,19 @@ int wmain(int argc,wchar_t**)
             CFont font;font.CreatePointFont(140,L"Segoe UI");label.SetFont(&font);ObserveNativeText(label.GetSafeHwnd());CopyStable(view,*snapshot);
             const Record* native=nullptr;for(std::uint32_t i=0;i<snapshot->header.count;++i)if(snapshot->records[i].kind==Kind::NativeTextMetrics)native=&snapshot->records[i];
             Check(native&&native->font.source==FontSource::SelectedGdiFont&&native->font.height>0&&(native->validity&NativePaintUnobserved),"local selected GDI metrics retain native paint exclusion");
+            CStatic placed;placed.Create(L"",WS_CHILD,CRect(0,0,80,20),&parent,103);Register(placed.GetSafeHwnd());
+            auto measurement=[&](){const Record* found=nullptr;CopyStable(view,*snapshot);for(std::uint32_t i=0;i<snapshot->header.count;++i)if(snapshot->records[i].hwnd==reinterpret_cast<std::uint64_t>(placed.GetSafeHwnd())&&snapshot->records[i].kind==Kind::GdiMeasurement)found=&snapshot->records[i];return found;};
+            {
+                HDC dc=::GetDC(placed.GetSafeHwnd());const auto previousFont=SelectObject(dc,font.GetSafeHandle());
+                MeasurementBatch batch;const RECT area{0,0,200,0},bounds{0,0,180,40};batch.Measure(placed.GetSafeHwnd(),dc,area,bounds);
+                Check(measurement()==nullptr,"layout measurement waits for placement before publication");
+                placed.MoveWindow(0,0,240,64);batch.Publish();SelectObject(dc,previousFont);::ReleaseDC(placed.GetSafeHwnd(),dc);
+            }
+            {
+                const Record* gdi=measurement();CRect client;placed.GetClientRect(client);
+                Check(gdi&&gdi->clientPixels.right==float(client.right)&&gdi->clientPixels.bottom==float(client.bottom)&&client.Width()==240&&client.Height()==64,"published measurement carries post-placement client geometry");
+                Check(gdi&&gdi->measured.right==180&&gdi->font.source==FontSource::SelectedGdiFont&&(gdi->validity&MeasurementOnly),"deferred measurement keeps the measuring device context font");
+            }
             Invalidate(label.GetSafeHwnd());CopyStable(view,*snapshot);bool retained=false;for(std::uint32_t i=0;i<snapshot->header.count;++i)retained|=snapshot->records[i].hwnd==reinterpret_cast<std::uint64_t>(label.GetSafeHwnd());Check(!retained,"state invalidation removes stale observation kinds");
             Unregister(label.GetSafeHwnd());const auto next=Register(label.GetSafeHwnd());Check(next>registration&&reinterpret_cast<std::uint64_t>(GetPropW(label.GetSafeHwnd(),RegistrationProperty))==next,"new registration replaces prior lifetime identity");
             CopyStable(view,*snapshot);bool oldRecord=false;for(std::uint32_t i=0;i<snapshot->header.count;++i)oldRecord|=snapshot->records[i].registration==registration;Check(!oldRecord,"unregister removes every prior record kind");

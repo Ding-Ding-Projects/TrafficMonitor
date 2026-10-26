@@ -1,4 +1,4 @@
-#include "../stdafx.h"
+﻿#include "../stdafx.h"
 #include "../NativeMaterial/ResponsivenessDiagnostics.h"
 #include "../NativeMaterial/LayoutObservations.h"
 #include "Settings.h"
@@ -277,8 +277,8 @@ namespace
         if(!m_body.GetSafeHwnd()||m_layout)return;m_layout=true;
         if(m_page==Interface&&NativeLayoutObservation::Enabled())for(auto* control:std::array<CWnd*,6>{&m_title,&m_status,&m_search,&m_regex,&m_clear,&m_navigation})NativeLayoutObservation::Register(control->GetSafeHwnd());
         CRect client;GetClientRect(client);const int width=MulDiv(client.Width(),96,m_dpi),height=MulDiv(client.Height(),96,m_dpi);
-        CClientDC headerDC(this);auto* headerFont=headerDC.SelectObject(&m_font);
-        auto extent=[&](CWnd& c,int w,int minimum){CString text;c.GetWindowText(text);CRect bounds(0,0,Px(w-32),0);const RECT area=bounds;headerDC.DrawText(text,bounds,DT_CALCRECT|DT_WORDBREAK|DT_NOPREFIX);NativeLayoutObservation::ObserveGdiMeasurement(c.GetSafeHwnd(),headerDC.GetSafeHdc(),area,bounds);return (std::max)(minimum,MulDiv(bounds.Height(),96,m_dpi)+20);};
+        CClientDC headerDC(this);auto* headerFont=headerDC.SelectObject(&m_font);NativeLayoutObservation::MeasurementBatch measurements;
+        auto extent=[&](CWnd& c,int w,int minimum){CString text;c.GetWindowText(text);CRect bounds(0,0,Px(w-32),0);const RECT area=bounds;headerDC.DrawText(text,bounds,DT_CALCRECT|DT_WORDBREAK|DT_NOPREFIX);measurements.Measure(c.GetSafeHwnd(),headerDC.GetSafeHdc(),area,bounds);return (std::max)(minimum,MulDiv(bounds.Height(),96,m_dpi)+20);};
         const int left=200,cw=(std::min)(860,width-left-24);
         headerDC.SelectObject(&m_headingFont);const int titleHeight=extent(m_title,cw,40);headerDC.SelectObject(&m_font);const int searchY=20+titleHeight+16;
         Place(m_navigation,12,searchY,176,height-searchY-88);Place(m_legacy,12,height-80,176,64);m_theme.ShowWindow(SW_HIDE);
@@ -295,7 +295,7 @@ namespace
         Place(m_body,left,bodyY,cw,m_viewHeight);m_note.ShowWindow(m_page==Interface?SW_HIDE:SW_SHOW);
         if(m_page!=Interface){const int nh=extent(m_note,cw,32);Place(m_note,left,footerY,cw,nh);const int by=footerY+nh+8,bh=footerHeight-nh-20;Place(m_applyButton,left,by,96,bh);Place(m_revert,left+104,by,96,bh);Place(m_reset,left+208,by,cw-208,bh);}
         for(auto* c:{&m_applyButton,&m_revert,&m_reset})c->ShowWindow(m_page==Interface?SW_HIDE:SW_SHOW);m_reset.EnableWindow(m_page!=Discovery);
-        headerDC.SelectObject(headerFont);
+        headerDC.SelectObject(headerFont);measurements.Publish();
         auto& state=m_searches[m_page];state.filter.Request(Subjects());int y=0,count=0;bool showLanguage=false,showAppearance=false;CRect body;m_body.GetClientRect(body);const int bw=MulDiv(body.Width(),96,m_dpi);
         CClientDC dc(&m_body);auto* old=dc.SelectObject(&m_font);
         auto textHeight=[&](CWnd& c,int w){CString text;c.GetWindowText(text);CRect r(0,0,Px(w),0);dc.DrawText(text,&r,DT_CALCRECT|DT_WORDBREAK|DT_NOPREFIX);return (std::max)(24,(r.Height()*96+static_cast<int>(m_dpi)-1)/static_cast<int>(m_dpi));};

@@ -1,11 +1,10 @@
 # TrafficMonitor delivery roadmap
 
-Implementation is stopped at the owner's request. This checklist records unfinished work;
-it does not authorize automatic continuation. The latest main source is an incomplete
-recovery snapshot under `.release-hold`.
+Implementation resumed at the owner's request on 2026-10-26. The latest main source remains
+held by `.release-hold`; this checklist records completed and unfinished work.
 
 - [x] Preserve producer ec177ac and reader 6be9101 on their owning remote branches.
-- [ ] Correct measurement-before-placement geometry only after a new owner request.
+- [x] Publish Settings and preference GDI measurements only after their windows are placed; a hidden-window regression fails when measurements publish before placement.
 - [ ] Build and verify the combined renderer-observation source; not run at stop.
 
 ## Incomplete source preservation

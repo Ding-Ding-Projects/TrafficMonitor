@@ -2,6 +2,7 @@
 #include "LayoutObservationProtocol.h"
 #include <d2d1.h>
 #include <dwrite.h>
+#include <vector>
 namespace NativeLayoutObservation
 {
     bool Enabled() noexcept;
@@ -10,7 +11,20 @@ namespace NativeLayoutObservation
     void Invalidate(HWND window) noexcept;
     void RegisterChild(HWND window,HWND registeredParent) noexcept;
     void ObserveNativeText(HWND window) noexcept;
-    void ObserveGdiMeasurement(HWND window,HDC dc,const RECT& area,const RECT& measured) noexcept;
+    // Collects GDI measurements during layout and publishes them only after the
+    // measured windows have been placed, so each record carries final client geometry.
+    class MeasurementBatch final
+    {
+    public:
+        MeasurementBatch() noexcept=default;
+        ~MeasurementBatch();
+        void Measure(HWND window,HDC dc,const RECT& area,const RECT& measured) noexcept;
+        void Publish() noexcept;
+        MeasurementBatch(const MeasurementBatch&)=delete;
+        MeasurementBatch& operator=(const MeasurementBatch&)=delete;
+    private:
+        std::vector<Record> m_pending;
+    };
     void ObserveRail(HWND window,int content,int page,int position) noexcept;
     class PaintScope final
     {
