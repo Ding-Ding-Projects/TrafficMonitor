@@ -1,33 +1,37 @@
 ﻿#pragma once
 #include "afxdialogex.h"
-#include "SpinEdit.h"
 #include "BaseDialog.h"
 
-// CWin11TaskbarSettingDlg 对话框
+// CWin11TaskbarSettingDlg dialog (Material shell)
 
 class CWin11TaskbarSettingDlg : public CBaseDialog
 {
 	DECLARE_DYNAMIC(CWin11TaskbarSettingDlg)
 
 public:
-	CWin11TaskbarSettingDlg(TaskBarSettingData& data, CWnd* pParent = nullptr);   // 标准构造函数
+	CWin11TaskbarSettingDlg(TaskBarSettingData& data, CWnd* pParent = nullptr);   // standard constructor
 	virtual ~CWin11TaskbarSettingDlg();
 
-// 对话框数据
+// Dialog data
 #ifdef AFX_DESIGN_TIME
 	enum { IDD = IDD_WIN11_TASKBAR_SETTING_DLG };
 #endif
 
 private:
     TaskBarSettingData& m_data;
-    CSpinEdit m_window_offset_top_edit;
-    CSpinEdit m_window_offset_left_edit;
-    CSpinEdit m_widgets_width_edit;
+    NativeMaterial::Checkbox* m_snap_check{};
+    NativeMaterial::Checkbox* m_avoid_overlap_check{};
+    NativeMaterial::NumberStepper* m_window_offset_top_edit{};
+    NativeMaterial::NumberStepper* m_window_offset_left_edit{};
+    NativeMaterial::NumberStepper* m_widgets_width_edit{};
+    NativeMaterial::Button* m_restore_default{};
+    NativeMaterial::Button* m_ok{};
+    NativeMaterial::Button* m_cancel{};
 
 protected:
-    virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 支持
+    virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
     virtual CString GetDialogName() const override;
-    virtual bool InitializeControls() override;
+    virtual int LayoutMaterialControls(const CRect& content, bool apply) override;
 
     void EnableDlgCtrl(UINT id, bool enable);
 

@@ -18,10 +18,13 @@ public:
 
 private:
     HWND m_handle{};        //正在运行的TrafficMonitor进程主窗口的句柄
+    NativeMaterial::Label* m_message{};         // message text
+    NativeMaterial::Button* m_actions[4]{};     // the four action buttons
 
 protected:
     virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 支持
     virtual CString GetDialogName() const override;
+    virtual int LayoutMaterialControls(const CRect& content, bool apply) override;
 
     DECLARE_MESSAGE_MAP()
 public:

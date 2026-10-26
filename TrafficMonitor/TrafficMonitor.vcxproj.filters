@@ -687,6 +687,9 @@
     <ClCompile Include="BaseDialog.cpp">
       <Filter>源文件和头文件\对话框类\BaseDialog</Filter>
     </ClCompile>
+    <ClCompile Include="BaseDialogMaterial.cpp">
+      <Filter>源文件和头文件\对话框类\BaseDialog</Filter>
+    </ClCompile>
     <ClCompile Include="TaskbarDefaultStyle.cpp">
       <Filter>源文件和头文件\公共的类\TaskbarDefaultStyle</Filter>
     </ClCompile>

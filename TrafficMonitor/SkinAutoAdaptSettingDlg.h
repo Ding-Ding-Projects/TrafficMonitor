@@ -21,8 +21,10 @@ public:
 #endif
 
 private:
-    CComboBox m_dark_mode_skin_combo;
-    CComboBox m_light_mode_skin_combo;
+    NativeMaterial::Dropdown* m_dark_mode_skin_combo{};
+    NativeMaterial::Dropdown* m_light_mode_skin_combo{};
+    NativeMaterial::Button* m_ok{};
+    NativeMaterial::Button* m_cancel{};
 
     int m_dark_mode_skin{};
     int m_light_mode_skin{};
@@ -30,7 +32,7 @@ private:
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 支持
     virtual CString GetDialogName() const override;
-    virtual bool InitializeControls() override;
+    virtual int LayoutMaterialControls(const CRect& content, bool apply) override;
 
 	DECLARE_MESSAGE_MAP()
 public:

@@ -7,6 +7,8 @@
 #include "IniHelper.h"
 #include "TrafficMonitor.h"
 #include "TrafficMonitorDlg.h"
+#include "NativePreferences/Preferences.h"
+#include "NativeMaterial/TextField.h"
 
 // CBaseDialog 对话框
 std::map<CString, HWND> CBaseDialog::m_unique_hwnd;
@@ -77,6 +79,7 @@ void CBaseDialog::LoadConfig()
         //载入窗口大小设置
         m_window_size.cx = ini.GetInt(_T("window_size"), GetDialogName() + _T("_width"), -1);
         m_window_size.cy = ini.GetInt(_T("window_size"), GetDialogName() + _T("_height"), -1);
+        m_has_saved_size = m_window_size.cx > 0 && m_window_size.cy > 0;
     }
 }
 
@@ -296,6 +299,7 @@ BEGIN_MESSAGE_MAP(CBaseDialog, CDialog)
     ON_WM_SIZE()
     ON_WM_ERASEBKGND()
     ON_WM_CTLCOLOR()
+    ON_MESSAGE(NativePreferences::ChangedMessage, &CBaseDialog::OnMaterialPreferences)
 END_MESSAGE_MAP()
 
 
@@ -371,7 +375,9 @@ BOOL CBaseDialog::OnInitDialog()
     ReleaseDC(m_pDC);
     m_pDC = nullptr;
     // 如果更改了控件排布那么应当返回true以向布局管理器应用控件调整（重新加载动态布局设置）
-    if (rtn)
+    if (m_material_shell)
+        AttachMaterialShell();      // The Material shell lays itself out and does not use the dynamic layout manager
+    else if (rtn)
         ReLoadLayoutResource();
 
 
@@ -392,6 +398,7 @@ void CBaseDialog::OnDestroy()
 
     // TODO: 在此处添加消息处理程序代码
     m_unique_hwnd[GetDialogName()] = NULL;
+    m_material_preferences.Detach();
     SaveConfig();
 
     //当所有对话框关闭时重新设置主窗口置顶
@@ -427,6 +434,8 @@ void CBaseDialog::OnSize(UINT nType, int cx, int cy)
         m_window_size.cy = rect.Height();
     }
 
+    if (m_material_shell && m_material_ready && nType != SIZE_MINIMIZED)
+        RelayoutMaterial();
 }
 
 
@@ -460,6 +469,13 @@ BOOL CBaseDialog::OnEraseBkgnd(CDC* pDC)
 
 HBRUSH CBaseDialog::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 {
+    // Material text fields (read-only edits report CTLCOLORSTATIC) paint with their own palette brush.
+    if (m_material_shell)
+    {
+        if (auto* field = dynamic_cast<NativeMaterial::TextField*>(pWnd))
+            return field->Color(pDC);
+    }
+
     // 修改窗口背景（CDialogEx）
     if (m_brBkgr.GetSafeHandle() != NULL)
     {
