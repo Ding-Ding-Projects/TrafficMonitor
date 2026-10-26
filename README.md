@@ -2,7 +2,7 @@
 
 > **Work stopped at the owner's request.** The latest source preserves unfinished renderer-observation work as an inactive recovery snapshot. `.release-hold` remains in place. No combined build, live acceptance, installation or release is claimed for this snapshot.
 
-> **Incomplete preservation snapshot:** main includes unfinished native workspace and design work. Automatic product release is held by `.release-hold` while runtime verification remains incomplete. The release1.0.48 images below remain explicitly labelled before-state evidence.
+> **Incomplete preservation snapshot:** main includes unfinished native workspace and design work. Automatic product release is held by `.release-hold` while runtime verification remains incomplete. The screenshots below come from an unmodified local diagnostic build, and earlier release 1.0.48 images are kept in the [screenshot archive](docs/screenshots-archive.md).
 
 The current [list measurement repair](docs/features/native-dashboard/list-layout-responsiveness.md) passes its native regression and local candidate build. A bounded portable comparison verified bilingual/dark Apply, responsive windows and unchanged normal-profile files; the full display matrix and finished remake remain incomplete.
 
@@ -12,7 +12,7 @@ The [shared-control refinement](docs/features/native-settings/shared-control-rol
 
 A native C++/MFC network monitor for Windows, with a compact taskbar display, tray access and a floating monitor. This fork delivers the maintained x64 edition, preserves upstream attribution and supports the existing optional plugin interfaces.
 
-[Documentation website](https://ding-ding-projects.github.io/TrafficMonitor/) · [Verified native 1.0.48 release](https://github.com/Ding-Ding-Projects/TrafficMonitor/releases/tag/v1.0.48-run40021045002-1) · [Native interface images](#released-native-interface-images) · [Installation](docs/features/installation/README.md) · [Changelog](CHANGELOG.md) · [Required-feature status](docs/features/required-features/README.md) · [简体中文](README_zh-CN.md)
+[Documentation website](https://ding-ding-projects.github.io/TrafficMonitor/) · [Verified native 1.0.48 release](https://github.com/Ding-Ding-Projects/TrafficMonitor/releases/tag/v1.0.48-run40021045002-1) · [Screenshots](#screenshots) · [Installation](docs/features/installation/README.md) · [Changelog](CHANGELOG.md) · [Required-feature status](docs/features/required-features/README.md) · [简体中文](README_zh-CN.md)
 
 ## Install and start monitoring
 
@@ -64,42 +64,212 @@ Run root `build.bat` for the maintained x64 native build and `build-installer.ba
 
 Use `build.bat --site` for the complete article/wiki website. Article production derives its inventory and immutable content from the held source, rather than silently reusing a historical manifest. See [build instructions](docs/build/README.md) and [build feature documentation](docs/features/build/README.md).
 
-## Released native interface images
+## Screenshots
 
-[Public native-interface gallery](https://ding-ding-projects.github.io/TrafficMonitor-gallery/) provides the same reviewed images with source details.
-
-These are genuine, unedited native-window screenshots from **release 1.0.48**, captured on **2026-10-24 UTC**, in English/light appearance at **96 DPI**. They show the released interface **before the ongoing Material Design 3 refinement**. Oversized containers, generic controls and remaining visual inconsistencies are still being corrected; these images do not claim that the redesign is finished.
-
-The six-image [source, hash and state inventory](evidence/ui/native-release48/inventory.json) and [verification boundaries](docs/features/native-dashboard/released-interface-evidence.md) distinguish real images from design proposals. A workspace image was excluded for privacy and incomplete chart rendering. No image was redacted or reconstructed.
+These are genuine, unedited captures of the application's own windows from local build **1.0.9070** (source commit `fe1804f8bee820d01fbf719cbb789515f1bbf00c`, unmodified; `TrafficMonitor.exe` SHA-256 `29DEE1A0CF423B3EE1D20CD5214575447D94AB44F6B3547EBFC68B2356B94566`). They were taken on **2026-10-26** on an isolated hidden desktop with control-targeted background input, a portable fixture with synthetic preferences and 96 DPI. This is a local diagnostic build, not a release, and the visuals are not an accepted final design: known visual defects are left visible. The [archive of earlier screenshots](docs/screenshots-archive.md) keeps the superseded images and their provenance. The [public gallery](https://ding-ding-projects.github.io/TrafficMonitor-gallery/) shows the earlier release 1.0.48 images.
 
 <details open>
-<summary>Find settings and inspect notification controls</summary>
+<summary>Main window and taskbar window (3 images)</summary>
 
-![Released TrafficMonitor 1.0.48 Interface settings, English light appearance at 96 DPI](evidence/ui/native-release48/settings-interface.png)
+Floating monitor and the standalone taskbar-monitor window as drawn by the unmodified build. The hidden desktop has no Explorer taskbar, so the taskbar window appears as a small detached window, not attached to a real taskbar.
 
-![Released TrafficMonitor 1.0.48 Notifications settings with unavailable hardware controls, English light appearance at 96 DPI](evidence/ui/native-release48/settings-notifications.png)
+![Floating monitor in its default two-value layout showing upload and download rates, English, default skin](docs/images/current/main-window/floating-default.png)
 
-</details>
+![Floating monitor with More Info enabled showing upload, download, CPU and memory values, English, default skin](docs/images/current/main-window/floating-more-info-light.png)
 
-<details>
-<summary>Use the first-run setup workflow</summary>
-
-![Released TrafficMonitor 1.0.48 first-run language and message-style step, English light appearance at 96 DPI](evidence/ui/native-release48/setup-language.png)
-
-![Released TrafficMonitor 1.0.48 startup and taskbar review with both choices kept unchanged](evidence/ui/native-release48/setup-startup.png)
+![Taskbar monitor window showing upload and download rates, detached because the hidden desktop has no Explorer taskbar, English](docs/images/current/taskbar-window/taskbar-window-hidden-desktop.png)
 
 </details>
 
 <details>
-<summary>Test a pattern and preview a replacement</summary>
+<summary>Menus (15 images)</summary>
 
-![Released TrafficMonitor 1.0.48 regex Test view showing two matches for a harmless local example](evidence/ui/native-release48/regex-test-valid.png)
+The searchable context menus. Filtering uses the menu search box; submenus open in place with a Back button and a Regex button opens the pattern workbench.
 
-![Released TrafficMonitor 1.0.48 Replace view showing a literal local replacement preview](evidence/ui/native-release48/regex-replace-valid.png)
+![Floating monitor right-click menu with the search box and first items, English, light theme](docs/images/current/menus/main-context-menu-open.png)
+
+![Floating monitor right-click menu scrolled to its end showing Window Opacity, Other Functions, Settings, Help and Exit, English, light theme](docs/images/current/menus/main-context-menu-scrolled-end.png)
+
+![Floating monitor menu filtered by the text mo showing four matching commands, English, light theme](docs/images/current/menus/main-context-menu-filtered.png)
+
+![Floating monitor menu filtered by the text set showing the single Settings command, English, light theme](docs/images/current/menus/main-context-menu-filtered-set.png)
+
+![Other Functions submenu listing Change Skin, Change Notify Icon, Allow Out of Screen Boundaries, Traffic history and Manage plugins, English, light theme](docs/images/current/menus/main-context-menu-submenu-other-functions.png)
+
+![Help submenu listing Help, Frequently Asked Questions, Update Log, About and Check for updates, English, light theme](docs/images/current/menus/main-context-menu-submenu-help.png)
+
+![Floating monitor right-click menu, English, dark theme](docs/images/current/menus/main-context-menu-open-dark.png)
+
+![Floating monitor right-click menu scrolled to its end, English, dark theme](docs/images/current/menus/main-context-menu-scrolled-end-dark.png)
+
+![Window Opacity submenu with 100, 80, 60 and 40 percent choices, English, dark theme](docs/images/current/menus/main-context-menu-submenu-window-opacity-dark.png)
+
+![Floating monitor right-click menu in Cantonese interface language, light theme, with some items still in English](docs/images/current/menus/main-context-menu-open-cantonese-light.png)
+
+![Floating monitor right-click menu scrolled to its end in Cantonese interface language, light theme](docs/images/current/menus/main-context-menu-scrolled-end-cantonese-light.png)
+
+![Taskbar monitor window right-click menu with Traffic history, Display Settings and Task Manager, English, light theme](docs/images/current/menus/taskbar-window-context-menu.png)
+
+![Taskbar monitor window right-click menu scrolled to its end, English, light theme](docs/images/current/menus/taskbar-window-context-menu-scrolled-end.png)
+
+![Interface language selector popup listing English, Cantonese and English plus Cantonese, English, light theme](docs/images/current/menus/language-selector-menu.png)
+
+![Appearance selector popup listing System, Light and Dark, bilingual English and Cantonese labels, light theme](docs/images/current/menus/appearance-selector-menu-bilingual.png)
 
 </details>
 
-Earlier taskbar/upstream images remain in the [original README archive](docs/history/README-before-offline-companion.md). Earlier documentation-reader images retain their exact source and capture dates in the [documentation image archive](docs/history/documentation-companion-9024-images.md).
+<details>
+<summary>Settings (21 images)</summary>
+
+Every page listed in the Settings navigation (Monitoring, Floating monitor, Taskbar, Notifications, Interface and All groups) in English with the light theme, followed by Cantonese, bilingual and dark variants, the draft preview and the settings search.
+
+![Settings, Monitoring page: sample interval, notification-area icon, automatic update checks and idle restart, English, light theme](docs/images/current/settings/page-monitoring-en-light.png)
+
+![Settings, Floating monitor page: compact speed text, bytes, separators, tooltips and always-on-top options, English, light theme](docs/images/current/settings/page-floating-monitor-en-light.png)
+
+![Settings, Taskbar page: compact speed text, bytes, separators, tooltips and alignment options, English, light theme](docs/images/current/settings/page-taskbar-en-light.png)
+
+![Settings, Notifications page: daily traffic, memory and unavailable temperature notifications, English, light theme](docs/images/current/settings/page-notifications-en-light.png)
+
+![Settings, Interface page: interface language, appearance and action sounds with a text preview, English, light theme](docs/images/current/settings/page-interface-en-light.png)
+
+![Settings, All groups page: one searchable list of 25 settings across every group, English, light theme](docs/images/current/settings/page-all-groups-en-light.png)
+
+![Settings, Interface page with an unapplied Cantonese draft: the preview line already shows Cantonese while the rest of the page is still English, light theme](docs/images/current/settings/interface-cantonese-draft-preview-en-light.png)
+
+![Settings, Interface page after applying the Cantonese interface language, light theme](docs/images/current/settings/page-interface-cantonese-light.png)
+
+![Settings, Monitoring page in Cantonese, light theme](docs/images/current/settings/page-monitoring-cantonese-light.png)
+
+![Settings, Notifications page in Cantonese, light theme](docs/images/current/settings/page-notifications-cantonese-light.png)
+
+![Settings, Interface page in bilingual English and Cantonese, light theme](docs/images/current/settings/page-interface-bilingual-light.png)
+
+![Settings, Monitoring page in bilingual English and Cantonese, light theme](docs/images/current/settings/page-monitoring-bilingual-light.png)
+
+![Settings, Notifications page in bilingual English and Cantonese, light theme](docs/images/current/settings/page-notifications-bilingual-light.png)
+
+![Settings, Interface page in bilingual English and Cantonese, dark theme](docs/images/current/settings/page-interface-bilingual-dark.png)
+
+![Settings, Monitoring page in bilingual English and Cantonese, dark theme](docs/images/current/settings/page-monitoring-bilingual-dark.png)
+
+![Settings, Notifications page in bilingual English and Cantonese, dark theme](docs/images/current/settings/page-notifications-bilingual-dark.png)
+
+![Settings, Interface page, English, dark theme](docs/images/current/settings/page-interface-en-dark.png)
+
+![Settings, Monitoring page, English, dark theme](docs/images/current/settings/page-monitoring-en-dark.png)
+
+![Settings, Notifications page, English, dark theme](docs/images/current/settings/page-notifications-en-dark.png)
+
+![Settings, All groups page, English, dark theme](docs/images/current/settings/page-all-groups-en-dark.png)
+
+![Settings search filtered by the text update in the All groups page, two matching settings, English, dark theme](docs/images/current/settings/search-filtered-update-en-dark.png)
+
+</details>
+
+<details>
+<summary>Setup (11 images)</summary>
+
+The four-step first-run setup wizard from an unseeded portable fixture. It opens from the Show floating monitor command until it is completed; Keep current choices were left unchanged and nothing was applied.
+
+![Setup step 1 of 4, language and message style, English, system appearance (light)](docs/images/current/setup-wizard/step-1-language-and-message-style.png)
+
+![Setup step 1 of 4 scrolled to the English and Cantonese message-style sliders, English, system appearance (light)](docs/images/current/setup-wizard/step-1-language-and-message-style-scrolled.png)
+
+![Setup step 2 of 4, choose your monitoring scope, English, light](docs/images/current/setup-wizard/step-2.png)
+
+![Setup step 3 of 4, review taskbar and login startup with both choices on Keep current, English, light](docs/images/current/setup-wizard/step-3.png)
+
+![Setup step 4 of 4, review and apply, English, light](docs/images/current/setup-wizard/step-4.png)
+
+![Setup step 1 with the Cantonese language chosen but not yet applied, so the wizard shows a mix of Cantonese and English, light theme](docs/images/current/setup-wizard/step-1-cantonese-draft-unapplied-light.png)
+
+![Setup step 1 after applying the Cantonese interface language, light theme](docs/images/current/setup-wizard/step-1-cantonese-applied-light.png)
+
+![Setup step 1 in Cantonese, dark theme](docs/images/current/setup-wizard/step-1-cantonese-applied-dark.png)
+
+![Setup step 2 in Cantonese, dark theme](docs/images/current/setup-wizard/step-2-cantonese-dark.png)
+
+![Setup step 3 in Cantonese, dark theme](docs/images/current/setup-wizard/step-3-cantonese-dark.png)
+
+![Setup step 4 in Cantonese, dark theme](docs/images/current/setup-wizard/step-4-cantonese-dark.png)
+
+</details>
+
+<details>
+<summary>Regex workbench (14 images)</summary>
+
+The Search pattern workbench opened from the Settings search Regex button (dark theme) and from the menu search Regex button (light theme). Matching runs on a local example subject.
+
+![Regex workbench, Test view with a literal query and the example subject before a preview, English, light theme](docs/images/current/regex-workbench/test-initial-en-light.png)
+
+![Regex workbench, Test view after a preview showing one literal match with offset and length, English, light theme](docs/images/current/regex-workbench/test-matches-en-light.png)
+
+![Regex workbench, Replace view with an empty replacement field, the example subject and the read-only preview output area, English, light theme](docs/images/current/regex-workbench/replace-en-light.png)
+
+![Regex workbench, Explain view describing the supported pattern syntax, English, light theme](docs/images/current/regex-workbench/explain-en-light.png)
+
+![Regex workbench, Library view with saved-expression controls and collection export and import, English, light theme](docs/images/current/regex-workbench/library-en-light.png)
+
+![Regex workbench, Test view before a preview, English, dark theme](docs/images/current/regex-workbench/test-initial-en-dark.png)
+
+![Regex workbench, Test view with three literal matches, English, dark theme](docs/images/current/regex-workbench/test-matches-en-dark.png)
+
+![Regex workbench, Options expanded showing literal or regex mode, ASCII case and pattern insertion buttons, English, dark theme](docs/images/current/regex-workbench/options-en-dark.png)
+
+![Regex workbench in regex mode listing five matches for an alternation pattern, English, dark theme](docs/images/current/regex-workbench/test-regex-mode-matches-en-dark.png)
+
+![Regex workbench, Replace view with options expanded, English, dark theme](docs/images/current/regex-workbench/replace-en-dark.png)
+
+![Regex workbench, Replace view scrolled to the preview output showing the replaced text, English, dark theme](docs/images/current/regex-workbench/replace-preview-scrolled-en-dark.png)
+
+![Regex workbench, Explain view, English, dark theme](docs/images/current/regex-workbench/explain-en-dark.png)
+
+![Regex workbench, Library view, English, dark theme](docs/images/current/regex-workbench/library-en-dark.png)
+
+![Regex workbench, Library view scrolled to Save, Rename, Delete, Recover backup, Export and Import actions, English, dark theme](docs/images/current/regex-workbench/library-scrolled-en-dark.png)
+
+</details>
+
+<details>
+<summary>Updates (1 images)</summary>
+
+The update check result. The first check was started from the legacy General settings Check now button; the menu command Check for updates shows the identical message box.
+
+![Check for updates result dialog reading Already updated to the latest version, English](docs/images/current/updates/check-for-updates-result.png)
+
+</details>
+
+<details>
+<summary>Other dialogs (11 images)</summary>
+
+Application-owned dialogs that still use the legacy Windows dialog look: About, Change Skin, Change Notify Icon, Historical Traffic Statistics, Plug-in Manage (no plugins were installed in the fixture), the Option Settings tabs and its display dialogs.
+
+![About TrafficMonitor dialog with version, copyright, library links and OK button, English](docs/images/current/dialogs/about.png)
+
+![Change Skin dialog with the skin list and a live preview, English](docs/images/current/dialogs/change-skin.png)
+
+![Change Notify Icon dialog with the icon choice and tray preview, English](docs/images/current/dialogs/change-notify-icon.png)
+
+![Historical Traffic Statistics, List View with one day of fixture traffic, English](docs/images/current/dialogs/traffic-history-list-view.png)
+
+![Historical Traffic Statistics, Calendar View with the current month and traffic legend, English](docs/images/current/dialogs/traffic-history-calendar-view.png)
+
+![Plug-in Manage dialog with an empty plugin list, English](docs/images/current/dialogs/plugin-manager.png)
+
+![Option Settings, Main Window Settings tab, English](docs/images/current/legacy-options/main-window-settings-tab.png)
+
+![Option Settings, Taskbar Window Settings tab, English](docs/images/current/legacy-options/taskbar-window-settings-tab.png)
+
+![Option Settings, General Settings tab with update, language, data location and auto-run options, English](docs/images/current/legacy-options/general-settings-tab.png)
+
+![Display Text Settings dialog listing the upload, download, CPU and memory labels, English](docs/images/current/legacy-options/display-text-settings-dialog.png)
+
+![Taskbar Display settings dialog with the list of items that can be shown, English](docs/images/current/legacy-options/taskbar-display-settings-dialog.png)
+
+</details>
+
+Earlier taskbar and upstream images are in the [screenshot archive](docs/screenshots-archive.md) and the [original README archive](docs/history/README-before-offline-companion.md). Earlier documentation-reader images retain their exact source and capture dates in the [documentation image archive](docs/history/documentation-companion-9024-images.md).
 
 ## Upstream and licence
 

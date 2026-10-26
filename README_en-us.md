@@ -12,9 +12,7 @@ saved settings survive updates. See [installation details](docs/features/install
 The native interface redesign and broader required features follow the installer foundation.
 Upstream documentation and attribution are retained below.
 
-![Installed monitor attached to the current Explorer taskbar](evidence/installer/1.0.8/taskbar-current-desktop.png)
-
-This genuine 1.0.8 capture accompanies verified Explorer attachment and a hidden main window.
+Current screenshots are in the [Screenshots section of the main README](README.md#screenshots). The earlier 1.0.8 Explorer-taskbar capture is listed in the [screenshot archive](docs/screenshots-archive.md); it accompanied verified Explorer attachment and a hidden main window.
 The [receipt](evidence/installer/1.0.8/runtime.json) records installation, update and startup evidence.
 Earlier isolated-desktop evidence is retained in the [evidence archive](evidence/installer/README.md).
 
@@ -87,25 +85,29 @@ Note: Since version 1.86, the TrafficMonitor Lite version also provides monitori
 
 # Screenshots
 
+Current captures of the application's own windows (local build 1.0.9070, English):
+
 Main Floating Window:
-![](./Screenshots/en_us/main1.png)
+
+![Floating monitor showing upload and download rates](docs/images/current/main-window/floating-default.png)
+
 Right-Click Menu:
-![](./Screenshots/en_us/main.png)
-Taskbar Window
 
-![](./Screenshots/en_us/taskbar.png)
+![Floating monitor right-click searchable menu, English, light theme](docs/images/current/menus/main-context-menu-open.png)
 
-Colorful Skins:
+Taskbar Window:
 
-![](./Screenshots/skins.PNG)
+![Taskbar monitor window showing upload and download rates, detached on the hidden capture desktop](docs/images/current/taskbar-window/taskbar-window-hidden-desktop.png)
 
 Change Skins:
 
-![](./Screenshots/en_us/selecte_skin.png)
+![Change Skin dialog with the skin list and a live preview](docs/images/current/dialogs/change-skin.png)
 
 Options:
 
-<img src="./Screenshots/en_us/option.jpg" style="zoom:80%;" />
+<img src="./docs/images/current/legacy-options/main-window-settings-tab.png" alt="Option Settings, Main Window Settings tab, English" style="zoom:80%;" />
+
+More captures are in the [Screenshots section of the main README](README.md#screenshots). The earlier images that used to appear here, including the colorful skins collage, are kept in the [screenshot archive](docs/screenshots-archive.md).
 
 # How to Use
 
@@ -115,10 +117,10 @@ TrafficMonitor can display information on the taskbar. However, the default sett
 
 Users can customize displayed items on the embedded taskbar window. By default, only the network speed is displayed. In order to display CPU and RAM usage, or other informations, please select “Display Settings” in the right-click menu of the taskbar window, and check the items you want to display in the “Display Settings” dialog box, as shown below:
 
-<img src="./Screenshots/en_us/taskbar_item_settings.png" style="zoom:80%;" />
+<img src="./docs/images/current/legacy-options/taskbar-display-settings-dialog.png" alt="Taskbar Display settings dialog with the list of items that can be shown" style="zoom:80%;" />
 
 # Customizable Skin
-<img src="./Screenshots/en_us/selecte_skin.png" style="zoom:80%;" />
+<img src="./docs/images/current/dialogs/change-skin.png" alt="Change Skin dialog with the skin list and a live preview" style="zoom:80%;" />
 
 You can select “Other Functions”-“Change Skin” on the right-click menu of the main window or notification area icon to open the interface of changing skin. Users can also download more skins and customize the skins [here](https://github.com/zhongyang219/TrafficMonitorSkin/blob/master/皮肤下载.md) according to their own needs.
 
@@ -135,7 +137,7 @@ Click the link below for detailed instruction on skin making:
 [皮肤制作教程 · zhongyang219/TrafficMonitor Wiki (github.com)](https://github.com/zhongyang219/TrafficMonitor/wiki/皮肤制作教程)
 
 # Configuring Options
-<img src="./Screenshots/en_us/option.jpg" style="zoom:80%;" /><br>
+<img src="./docs/images/current/legacy-options/main-window-settings-tab.png" alt="Option Settings, Main Window Settings tab, English" style="zoom:80%;" /><br>
 Choosing "Options..." in the pop-up menu allows users to access the options configuration. In the dialog box of options configuration, the user can set the text color, text font, background color, net speed unit, and displayed text etc. for the main window and task window separately.
 
 In "Regular Configurations", users can change the settings on whether the program conducts auto-update and whether the program runs automatically when the computer starts up. Users can also configure when notifications need to be sent.
