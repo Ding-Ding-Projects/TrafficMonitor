@@ -14,6 +14,8 @@
 #include "../NativeMaterial/ScrollViewport.h"
 #include "../NativeMaterial/Navigation.h"
 #include "../NativeMaterial/Panel.h"
+#include "../NativeMaterial/InputControls.h"
+#include "../NativeMaterial/AlertDialog.h"
 #include <array>
 #include <imm.h>
 
@@ -22,7 +24,7 @@ namespace NativeRegex
 struct EditorState { HWND window{}; };
 namespace
 {
-    enum : UINT { Pattern=55001, Subject, Replacement, Mode, Case, Run, Replace, Split, Apply, Cancel, Results, InsertAny, InsertDigit, InsertWord, InsertGroup, InsertStart, InsertEnd, SavedList, SavedName, SaveNew, LoadSaved, RenameSaved, DeleteSaved, RecoverSaved, RefreshSaved, ExportSaved, ImportSaved, TestPage, ReplacePage, ExplainPage, LibraryPage, OptionsToggle, Output, SavedDescription };
+    enum : UINT { Pattern=55001, Subject, Replacement, Mode, Case, Run, Replace, Split, Apply, Cancel, Results, InsertAny, InsertDigit, InsertWord, InsertGroup, InsertStart, InsertEnd, SavedList, SavedName, SaveNew, LoadSaved, RenameSaved, DeleteSaved, RecoverSaved, RefreshSaved, ExportSaved, ImportSaved, TestPage, ReplacePage, ExplainPage, LibraryPage, OptionsToggle, Output, SavedDescription, ClearSubject, ClearDescription };
     class Workbench final : public CDialog
     {
     public:
@@ -80,12 +82,12 @@ namespace
         SavedExpression pendingRecord;bool validatingCollection{},savingCollection{},exportingCollection{},confirmDelete{},confirmRecovery{};
         Operation operation{Operation::Search};
         std::vector<SavedExpression> savedRecords;std::future<CollectionResult> collectionWorker;Session collectionValidation;
-        NativeMaterial::SearchSelector savedList;NativeMaterial::TextField savedName;NativeMaterial::ScrollableTextField savedDescription;CStatic savedLabel,nameLabel,descriptionLabel,collectionNote;
+        NativeMaterial::SearchSelector savedList;NativeMaterial::LabeledTextField savedName;NativeMaterial::ScrollableTextField savedDescription;NativeMaterial::ClearButton clearDescription,clearSubject;CStatic savedLabel,descriptionLabel,collectionNote;
         NativeMaterial::Button saveNew,loadSaved,renameSaved,deleteSaved,recoverSaved,refreshSaved,exportSaved,importSaved;
         RECT previousAnchor{};
         UINT dpi{96};int scroll{};bool loading{true},applying{},ready{};
         CFont font,headingFont;CBrush background;
-        NativeMaterial::TextField pattern,replacement;
+        NativeMaterial::LabeledTextField pattern,replacement;
         NativeMaterial::ScrollableTextField subject,output;
         NativeMaterial::ResultList results;
         NativeMaterial::ScrollViewport viewport;
@@ -97,8 +99,9 @@ namespace
         std::array<int,4> offsets{};
         bool optionsVisible{};
         void Theme();void RevealFocus();
-        CStatic heading,headingSecondary,engine,patternLabel,subjectLabel,replacementLabel,note,help;
-        NativeMaterial::Button mode,caseButton,run,replace,split,apply,cancel,any,digit,word,group,start,end;
+        CStatic heading,headingSecondary,engine,subjectLabel,note,help;
+        NativeMaterial::SegmentedButton mode;NativeMaterial::Switch caseButton;void SyncChoices();
+        NativeMaterial::Button run,replace,split,apply,cancel,any,digit,word,group,start,end;
         Session session;Result last;
     };
     BEGIN_MESSAGE_MAP(Workbench,CDialog)
@@ -128,10 +131,10 @@ namespace
         savedList.Create(r,this,SavedList);
         loadSaved.Create(T(L"Load draft",L"載入草稿"),r,this,LoadSaved);
         refreshSaved.Create(T(L"Refresh",L"重新整理"),r,this,RefreshSaved);
-        nameLabel.Create(T(L"Collection &name",L"儲存名稱 (&N)"),child,r,this);
-        savedName.CreateEx(0,L"EDIT",L"",child|WS_TABSTOP|ES_AUTOHSCROLL,r,this,SavedName);savedName.SetLimitText(96);
+        savedName.Create(T(L"Collection name",L"儲存名稱"),r,this,SavedName);savedName.Field().SetLimitText(96);
         descriptionLabel.Create(T(L"Collection &description (optional)",L"儲存說明，可留空 (&D)"),child,r,this);
         savedDescription.CreateEx(0,L"EDIT",L"",child|WS_TABSTOP|ES_MULTILINE|ES_AUTOVSCROLL|ES_WANTRETURN,r,this,SavedDescription);savedDescription.SetLimitText(1024);
+        clearDescription.Create(r,this,ClearDescription);clearSubject.Create(r,this,ClearSubject);
         saveNew.Create(T(L"Save new",L"儲存新項目"),r,this,SaveNew);
         renameSaved.Create(T(L"Rename",L"重新命名"),r,this,RenameSaved);
         deleteSaved.Create(T(L"Delete",L"刪除"),r,this,DeleteSaved);
@@ -141,18 +144,16 @@ namespace
         heading.Create(T(L"Build a filter for this search",L"建立此搜尋專用篩選"),child,r,this);
         headingSecondary.Create(L"",child,r,this);
         engine.Create(L"TrafficMonitor bounded NFA v1 | UTF-16 | ASCII case folding | leftmost-longest",child,r,this);
-        patternLabel.Create(T(L"&Pattern / literal query",L"表示式／文字 (&P)"),child,r,this);
-        pattern.CreateEx(0,L"EDIT",draft.query.c_str(),child|WS_TABSTOP|ES_AUTOHSCROLL,r,this,Pattern);pattern.SetLimitText(256);
-        mode.Create(draft.regex?T(L"Mode: regex",L"模式：正規式"):T(L"Mode: literal",L"模式：文字"),r,this,Mode);
-        caseButton.Create(draft.ignoreCase?T(L"ASCII case: ignore",L"忽略 ASCII 大小寫"):T(L"Case: exact",L"區分大小寫"),r,this,Case);
+        pattern.Create(T(L"Pattern / literal query",L"表示式／文字"),r,this,Pattern);pattern.SetText(draft.query.c_str());pattern.Field().SetLimitText(256);
+        mode.Create(r,this,Mode);mode.SetSegments({T(L"Literal",L"文字"),T(L"Regex",L"正規式")});mode.SetAccessibleName(T(L"Match mode",L"比對模式"));
+        caseButton.Create(T(L"Ignore ASCII case",L"忽略 ASCII 大小寫"),r,this,Case);SyncChoices();
         any.Create(T(L"Any .",L"任意 ."),r,this,InsertAny);digit.Create(L"Digit [0-9]",r,this,InsertDigit);word.Create(L"Word \\w+",r,this,InsertWord);
         group.Create(L"Group (?:...)",r,this,InsertGroup);start.Create(L"Start ^",r,this,InsertStart);end.Create(L"End $",r,this,InsertEnd);
         help.Create(T(L"Supported: literals, . [a-z] [^a] \\d \\w \\s ^ $ | (?:...) ? * +. Escapes: \\n \\r \\t and punctuation. Dot excludes CR/LF. Groups do not capture. No lazy/count quantifiers, lookaround, backreferences, Unicode properties, other flavors or debugger. Full RegexBuddy parity is unfinished.",
             L"支援：文字、. [a-z] [^a] \\d \\w \\s ^ $ | (?:...) ? * +。跳脫：\\n \\r \\t 及標點。點號不包括換行。群組不擷取；暫不支援惰性／次數量詞、環視、反向參照、Unicode 屬性、其他引擎或偵錯。完整 RegexBuddy 功能仍未完成。"),child,r,this);
         subjectLabel.Create(T(L"&Example subject (local preview only)",L"範例文字，只供本機預覽 (&E)"),child,r,this);
         subject.CreateEx(0,L"EDIT",subjects.empty()?L"Ethernet 1\r\nWi-Fi 2":subjects.front().c_str(),child|WS_TABSTOP|ES_MULTILINE|ES_AUTOVSCROLL,r,this,Subject);subject.SetLimitText(8192);
-        replacementLabel.Create(T(L"&Replacement (literal text, no group substitution)",L"取代文字，不展開群組參照 (&R)"),child,r,this);
-        replacement.CreateEx(0,L"EDIT",L"",child|WS_TABSTOP|ES_AUTOHSCROLL,r,this,Replacement);replacement.SetLimitText(4096);
+        replacement.Create(T(L"Replacement (literal text, no group substitution)",L"取代文字，不展開群組參照"),r,this,Replacement);replacement.Field().SetLimitText(4096);
         run.Create(T(L"Search",L"搜尋"),r,this,Run);replace.Create(T(L"Replace preview",L"取代預覽"),r,this,Replace);split.Create(T(L"Split preview",L"分割預覽"),r,this,Split);
         results.Create(r,this,Results);
         output.CreateEx(0,L"EDIT",L"",child|WS_TABSTOP|ES_MULTILINE|ES_READONLY|ES_AUTOVSCROLL,r,this,Output);
@@ -166,21 +167,22 @@ namespace
         outputLabel.Create(L"",child,r,&panel);
         options.Create(L"",r,this,OptionsToggle);
         for(int index=0;index<4;++index)pages[index].Create(L"",r,this,TestPage+index);
-        for(CWnd* control:std::initializer_list<CWnd*>{&savedLabel,&savedList,&loadSaved,&refreshSaved,&nameLabel,&savedName,&descriptionLabel,&savedDescription,&saveNew,&renameSaved,&deleteSaved,&recoverSaved,&exportSaved,&importSaved,&collectionNote,&engine,&mode,&caseButton,&any,&digit,&word,&group,&start,&end,&help,&subjectLabel,&subject,&replacementLabel,&replacement,&run,&replace,&split,&results,&output})control->SetParent(&panel);
+        for(CWnd* control:std::initializer_list<CWnd*>{&savedLabel,&savedList,&loadSaved,&refreshSaved,&savedName,&descriptionLabel,&savedDescription,&clearDescription,&saveNew,&renameSaved,&deleteSaved,&recoverSaved,&exportSaved,&importSaved,&collectionNote,&engine,&mode,&caseButton,&any,&digit,&word,&group,&start,&end,&help,&subjectLabel,&subject,&clearSubject,&replacement,&run,&replace,&split,&results,&output})control->SetParent(&panel);
         Theme();
         Labels();Fonts();const SIZE outerSize=titleBar.OuterSizeForContent(Px(1280),Px(840));RECT size{0,0,outerSize.cx,outerSize.cy};
         MONITORINFO monitor{sizeof(monitor)};GetMonitorInfoW(MonitorFromWindow(anchor,MONITOR_DEFAULTTONEAREST),&monitor);
         int width=(std::min)(size.right-size.left,monitor.rcWork.right-monitor.rcWork.left),height=(std::min)(size.bottom-size.top,monitor.rcWork.bottom-monitor.rcWork.top);
         SetWindowPos(nullptr,0,0,width,height,SWP_NOMOVE|SWP_NOZORDER|SWP_NOACTIVATE);Reanchor();
-        Layout();loading=false;SetTimer(1,40,nullptr);Execute(Operation::Search,false);CollectionStart(CollectionAction::Read);pattern.SetFocus();return FALSE;
+        Layout();loading=false;SetTimer(1,40,nullptr);Execute(Operation::Search,false);CollectionStart(CollectionAction::Read);pattern.Field().SetFocus();return FALSE;
     }
+    void Workbench::SyncChoices(){mode.SetSelected(draft.regex?1:0);caseButton.SetChecked(draft.ignoreCase);}
     void Workbench::Labels()
     {
         SetWindowText(T(L"Search pattern workbench",L"搜尋表示式工作台"));titleBar.SetLabels(Captions());
         savedLabel.SetWindowText(T(L"Saved expressions (local only)",L"已儲存表示式，只限本機"));
         loadSaved.SetLabel(T(L"Load draft",L"載入草稿"));
         refreshSaved.SetLabel(T(L"Refresh",L"重新整理"));
-        nameLabel.SetWindowText(T(L"Collection &name",L"儲存名稱 (&N)"));
+        savedName.SetLabel(T(L"Collection name",L"儲存名稱"));
         descriptionLabel.SetWindowText(T(L"Collection &description (optional)",L"儲存說明，可留空 (&D)"));
         saveNew.SetLabel(T(L"Save new",L"儲存新項目"));
         renameSaved.SetLabel(T(L"Rename",L"重新命名"));
@@ -191,17 +193,17 @@ namespace
         const bool bilingual=NativePreferences::Current().values.language==NativePreferences::Language::Bilingual;
         heading.SetWindowText(bilingual?CString(L"Build a filter for this search"):T(L"Build a filter for this search",L"建立此搜尋專用篩選"));
         headingSecondary.SetWindowText(bilingual?L"建立此搜尋專用篩選":L"");
-        patternLabel.SetWindowText(T(L"&Pattern / literal query",L"表示式／文字 (&P)"));
+        pattern.SetLabel(T(L"Pattern / literal query",L"表示式／文字"));
         any.SetLabel(T(L"Any .",L"任意 ."));
         help.SetWindowText(T(L"Supported: literals, . [a-z] [^a] \\d \\w \\s ^ $ | (?:...) ? * +. Escapes: \\n \\r \\t and punctuation. Dot excludes CR/LF. Groups do not capture. No lazy/count quantifiers, lookaround, backreferences, Unicode properties, other flavors or debugger. Full RegexBuddy parity is unfinished.",L"支援：文字、. [a-z] [^a] \\d \\w \\s ^ $ | (?:...) ? * +。跳脫：\\n \\r \\t 及標點。點號不包括換行。群組不擷取；暫不支援惰性／次數量詞、環視、反向參照、Unicode 屬性、其他引擎或偵錯。完整 RegexBuddy 功能仍未完成。"));
         subjectLabel.SetWindowText(T(L"&Example subject (local preview only)",L"範例文字，只供本機預覽 (&E)"));
-        replacementLabel.SetWindowText(T(L"&Replacement (literal text, no group substitution)",L"取代文字，不展開群組參照 (&R)"));
+        replacement.SetLabel(T(L"Replacement (literal text, no group substitution)",L"取代文字，不展開群組參照"));
         run.SetLabel(T(L"Search",L"搜尋"));
         replace.SetLabel(T(L"Replace preview",L"取代預覽"));
         split.SetLabel(T(L"Split preview",L"分割預覽"));
         apply.SetLabel(T(L"Apply to search",L"套用至搜尋"));
         cancel.SetLabel(T(L"Cancel",L"取消"));
-        mode.SetLabel(draft.regex?T(L"Mode: regex",L"模式：正規式"):T(L"Mode: literal",L"模式：文字"));caseButton.SetLabel(draft.ignoreCase?T(L"ASCII case: ignore",L"忽略 ASCII 大小寫"):T(L"Case: exact",L"區分大小寫"));
+        mode.SetSegments({T(L"Literal",L"文字"),T(L"Regex",L"正規式")});mode.SetAccessibleName(T(L"Match mode",L"比對模式"));caseButton.SetLabel(T(L"Ignore ASCII case",L"忽略 ASCII 大小寫"));SyncChoices();
         digit.SetLabel(T(L"Digit [0-9]",L"數字 [0-9]"));word.SetLabel(T(L"Word \\w+",L"字元 \\w+"));group.SetLabel(T(L"Group (?:...)",L"群組 (?:...)"));start.SetLabel(T(L"Start ^",L"開頭 ^"));end.SetLabel(T(L"End $",L"結尾 $"));
         const wchar_t* titles[]={L"Test",L"Replace",L"Explain",L"Library"};
         const wchar_t* translations[]={L"測試",L"取代",L"說明",L"收藏"};
@@ -217,7 +219,7 @@ namespace
     void Workbench::Theme()
     {
         NativeMaterial::ApplyNativeFrameAppearance(m_hWnd,appearance);titleBar.SetAppearance(appearance);
-        for(auto* button:{&mode,&caseButton,&run,&replace,&split,&apply,&cancel,&any,&digit,&word,&group,&start,&end,&saveNew,&loadSaved,&renameSaved,&deleteSaved,&recoverSaved,&refreshSaved,&options})
+        for(auto* button:{&run,&replace,&split,&apply,&cancel,&any,&digit,&word,&group,&start,&end,&saveNew,&loadSaved,&renameSaved,&deleteSaved,&recoverSaved,&refreshSaved,&exportSaved,&importSaved,&options})
         {
             button->SetAppearance(appearance);
             button->SetVariant(button==&apply||button==&run?NativeMaterial::ButtonVariant::Primary:NativeMaterial::ButtonVariant::Tonal);
@@ -225,7 +227,10 @@ namespace
         cancel.SetVariant(NativeMaterial::ButtonVariant::Text);
         deleteSaved.SetVariant(NativeMaterial::ButtonVariant::Text);
         for(auto& button:pages)button.SetAppearance(appearance);
+        // Every button, including Export and Import collection, must be themed here: an unthemed Button
+        // keeps its Light appearance and paints a white rectangle on the dark panel.
         for(auto* field:{&pattern,&replacement,&savedName})field->SetAppearance(appearance);
+        mode.SetAppearance(appearance);caseButton.SetAppearance(appearance);clearSubject.SetAppearance(appearance);clearDescription.SetAppearance(appearance);
         subject.SetAppearance(appearance);
         savedDescription.SetAppearance(appearance);
         output.SetAppearance(appearance);
@@ -233,8 +238,10 @@ namespace
         results.SetAppearance(appearance);
         viewport.SetAppearance(appearance);
         panel.SetAppearance(appearance);
-        for(auto* button:{&mode,&caseButton,&run,&replace,&split,&any,&digit,&word,&group,&start,&end,&saveNew,&loadSaved,&renameSaved,&deleteSaved,&recoverSaved,&refreshSaved})
+        for(auto* button:{&run,&replace,&split,&any,&digit,&word,&group,&start,&end,&saveNew,&loadSaved,&renameSaved,&deleteSaved,&recoverSaved,&refreshSaved,&exportSaved,&importSaved})
             button->SetSurfaceColor(panel.SurfaceColor());
+        for(NativeMaterial::InputWindow* input:std::initializer_list<NativeMaterial::InputWindow*>{&mode,&caseButton,&replacement,&savedName,&clearSubject,&clearDescription})
+            input->SetSurfaceColor(panel.SurfaceColor());
         savedList.SetSurfaceColor(panel.SurfaceColor());
     }
     LRESULT Workbench::OnPreferences(WPARAM generation,LPARAM)
@@ -321,9 +328,9 @@ namespace
             if(bilingual){h=measure(headingSecondary,width-40,20);moveTop(headingSecondary,20,y,width-40,h);y+=h;}
             y+=10;
         }
-        h=measure(patternLabel,width-40,20);moveTop(patternLabel,20,y,width-40,h);y+=h+6;
         const int buttonHeight=(std::max)(44,measure(options,100,20)+20);
-        moveTop(pattern,20,y,width-172,buttonHeight);moveTop(options,width-140,y,120,buttonHeight);y+=buttonHeight+10;
+        const int fieldHeight=(std::max)(68,MulDiv(pattern.MinimumSize().cy,96,dpi)-18);
+        moveTop(pattern,20,y,width-172,fieldHeight);moveTop(options,width-140,y+22,120,buttonHeight);y+=fieldHeight+10;
         const int tabWidth=(width-64)/4;
         int tabHeight=44;
         for(auto& button:pages)tabHeight=(std::max)(tabHeight,measure(button,tabWidth-24,20)+16);
@@ -342,7 +349,7 @@ namespace
         bodyHeight=(std::max)(24,height-footer-y);
         moveTop(viewport,0,y,width,bodyHeight);
         struct Box{CWnd* control;int x,y,w,h;};std::vector<Box> boxes;
-        std::vector<CWnd*> bodyControls{&savedLabel,&savedList,&loadSaved,&refreshSaved,&nameLabel,&savedName,&descriptionLabel,&savedDescription,&saveNew,&renameSaved,&deleteSaved,&recoverSaved,&exportSaved,&importSaved,&collectionNote,&engine,&mode,&caseButton,&any,&digit,&word,&group,&start,&end,&help,&subjectLabel,&subject,&replacementLabel,&replacement,&run,&replace,&split,&results,&output,&resultsLabel,&outputLabel};
+        std::vector<CWnd*> bodyControls{&savedLabel,&savedList,&loadSaved,&refreshSaved,&savedName,&descriptionLabel,&savedDescription,&clearDescription,&saveNew,&renameSaved,&deleteSaved,&recoverSaved,&exportSaved,&importSaved,&collectionNote,&engine,&mode,&caseButton,&any,&digit,&word,&group,&start,&end,&help,&subjectLabel,&subject,&clearSubject,&replacement,&run,&replace,&split,&results,&output,&resultsLabel,&outputLabel};
         const int left=36,available=width-88;
         int cursor=16;
         auto place=[&](CWnd& control,int minimum,bool fixed=false)
@@ -356,32 +363,48 @@ namespace
             int rowHeight=44;for(auto* button:controls)rowHeight=(std::max)(rowHeight,measure(*button,cell-24,20)+20);
             int x=left;for(auto* button:controls){boxes.push_back({button,x,cursor,cell,rowHeight});x+=cell+8;}cursor+=rowHeight+12;
         };
-        if(optionsVisible){row({&mode,&caseButton});row({&any,&digit,&word});row({&group,&start,&end});}
+        constexpr int ClearSize=36;
+        // Editable multiline fields carry a clear control in the label row, right aligned.
+        auto clearLabel=[&](CWnd& label,NativeMaterial::ClearButton& clear,CWnd& field,int x,int labelWidth)
+        {
+            CString text;field.GetWindowText(text);
+            const int labelHeight=(std::max)(ClearSize,measure(label,labelWidth-ClearSize-4,20));
+            boxes.push_back({&label,x,cursor,labelWidth-ClearSize-4,labelHeight});
+            if(text.GetLength()>0)boxes.push_back({&clear,x+labelWidth-ClearSize,cursor,ClearSize,ClearSize});
+            return labelHeight;
+        };
+        if(optionsVisible)
+        {
+            const int segmentHeight=(std::max)(48,MulDiv(mode.MinimumSize().cy,96,dpi));
+            boxes.push_back({&mode,left,cursor,(std::min)(available,360),segmentHeight});cursor+=segmentHeight+12;
+            const int switchHeight=(std::max)(48,MulDiv(caseButton.MinimumSize().cy,96,dpi));
+            boxes.push_back({&caseButton,left,cursor,(std::min)(available,360),switchHeight});cursor+=switchHeight+12;
+            row({&any,&digit,&word});row({&group,&start,&end});
+        }
         if(page==0)
         {
             if(width>=880)
             {
                 const int column=(available-24)/2;
-                const int labelHeight=(std::max)(measure(subjectLabel,column,20),measure(resultsLabel,column,20));
-                boxes.push_back({&subjectLabel,left,cursor,column,labelHeight});
+                const int labelHeight=(std::max)(clearLabel(subjectLabel,clearSubject,subject,left,column),measure(resultsLabel,column,20));
                 boxes.push_back({&resultsLabel,left+column+24,cursor,column,labelHeight});cursor+=labelHeight+8;
                 boxes.push_back({&subject,left,cursor,column,260});
                 boxes.push_back({&results,left+column+24,cursor,column,260});cursor+=272;
             }
-            else{place(subjectLabel,20);place(subject,160,true);place(resultsLabel,20);place(results,160,true);}
+            else{cursor+=clearLabel(subjectLabel,clearSubject,subject,left,available)+8;place(subject,160,true);place(resultsLabel,20);place(results,160,true);}
             row({&run});
         }
         else if(page==1)
         {
-            place(replacementLabel,20);place(replacement,48,true);
-            place(subjectLabel,20);place(subject,140,true);row({&replace,&split});
+            place(replacement,fieldHeight,true);
+            cursor+=clearLabel(subjectLabel,clearSubject,subject,left,available)+8;place(subject,140,true);row({&replace,&split});
             place(outputLabel,20);place(output,200,true);
         }
         else if(page==2){place(engine,36);place(help,80);}
         else
         {
             place(savedLabel,20);place(savedList,buttonHeight,true);row({&loadSaved,&refreshSaved});
-            place(nameLabel,20);place(savedName,48,true);place(descriptionLabel,20);place(savedDescription,96,true);row({&saveNew,&renameSaved});row({&deleteSaved,&recoverSaved});row({&exportSaved,&importSaved});place(collectionNote,36);
+            place(savedName,fieldHeight,true);cursor+=clearLabel(descriptionLabel,clearDescription,savedDescription,left,available)+8;place(savedDescription,96,true);row({&saveNew,&renameSaved});row({&deleteSaved,&recoverSaved});row({&exportSaved,&importSaved});place(collectionNote,36);
         }
         contentHeight=cursor+16;
         scroll=(std::max)(0,(std::min)(scroll,(std::max)(0,contentHeight-bodyHeight)));
@@ -397,12 +420,12 @@ namespace
         subject.SyncScroll();output.SyncScroll();savedDescription.SyncScroll();results.SyncScroll();
         dc.SelectObject(previous);Invalidate(FALSE);
     }
-    Options Workbench::Read(){CString text;pattern.GetWindowText(text);auto value=draft;value.query=text.GetString();return value;}
+    Options Workbench::Read(){CString text=pattern.GetText();auto value=draft;value.query=text.GetString();return value;}
     void Workbench::Changed(){if(loading)return;collectionValidation.Cancel();validatingCollection=false;confirmDelete=false;confirmRecovery=false;session.Cancel();ready=false;applying=false;apply.EnableWindow(FALSE);Note(note,L"Draft changed. Run a preview before applying.",L"草稿已更改。請先執行預覽再套用。");}
     void Workbench::Execute(Operation requestedOperation,bool commit)
     {
         if(!commit)operation=requestedOperation;
-        CString sample,repl;subject.GetWindowText(sample);replacement.GetWindowText(repl);
+        CString sample,repl=replacement.GetText();subject.GetWindowText(sample);
         if(commit)subjects=readSubjects();
         applying=commit;ready=false;apply.EnableWindow(FALSE);Note(note,L"Evaluating locally; Cancel retains the accepted search.",L"正在本機處理；取消會保留已套用搜尋。");
         session.Request(Read(),commit?subjects:std::vector<std::wstring>{sample.GetString()},commit?Operation::Filter:requestedOperation,repl.GetString());
@@ -435,7 +458,11 @@ namespace
         if(code==BN_CLICKED&&id==OptionsToggle){optionsVisible=!optionsVisible;Layout();return TRUE;}
         if(code==EN_SETFOCUS){RevealFocus();}
         if(code==EN_UPDATE){subject.SyncScroll();output.SyncScroll();savedDescription.SyncScroll();}
-        if(id==SavedList&&code==CBN_SELCHANGE){confirmDelete=false;confirmRecovery=false;int selected=savedList.GetCurSel();if(selected>=0&&static_cast<size_t>(selected)<savedRecords.size()){savedName.SetWindowText(savedRecords[selected].name.c_str());savedDescription.SetWindowText(savedRecords[selected].description.c_str());}return TRUE;}
+        if(code==BN_CLICKED&&id==ClearSubject){subject.SetWindowText(L"");subject.SetFocus();return TRUE;}
+        if(code==BN_CLICKED&&id==ClearDescription){savedDescription.SetWindowText(L"");savedDescription.SetFocus();return TRUE;}
+        if(code==EN_CHANGE&&(id==Subject||id==SavedDescription))Layout();
+        if(id==Mode&&code==CBN_SELCHANGE){draft.regex=mode.GetSelected()==1;Changed();return TRUE;}
+        if(id==SavedList&&code==CBN_SELCHANGE){confirmDelete=false;confirmRecovery=false;int selected=savedList.GetCurSel();if(selected>=0&&static_cast<size_t>(selected)<savedRecords.size()){collectionValidation.Cancel();validatingCollection=false;savedName.SetText(savedRecords[selected].name.c_str());savedDescription.SetWindowText(savedRecords[selected].description.c_str());}return TRUE;}
         if((id==SavedName||id==SavedDescription)&&code==EN_CHANGE){collectionValidation.Cancel();validatingCollection=false;confirmDelete=false;confirmRecovery=false;return TRUE;}
         if((id==Pattern||id==Subject||id==Replacement)&&code==EN_CHANGE){Changed();return TRUE;}
         if(id==Results&&code==LBN_SELCHANGE){int row=results.GetCurSel();if(row>=0&&static_cast<size_t>(row)<last.matches.size()){auto s=last.matches[row];subject.SetSel(static_cast<int>(s.start),static_cast<int>(s.start+s.length));subject.SetFocus();}return TRUE;}
@@ -454,21 +481,20 @@ namespace
         {
             int selected=savedList.GetCurSel();if(selected<0||static_cast<size_t>(selected)>=savedRecords.size()){Note(note,L"Select a saved expression first.",L"請先選取已儲存表示式。");return TRUE;}
             if(id==DeleteSaved&&!confirmDelete){confirmDelete=true;Note(collectionNote,L"Press Delete again to remove the selected saved expression. Draft stays unchanged.",L"再次按刪除以移除已選項目；草稿不變。");return TRUE;}
-            confirmDelete=false;CString name;savedName.GetWindowText(name);CollectionStart(id==DeleteSaved?CollectionAction::Delete:CollectionAction::Rename,savedRecords[selected],name.GetString());return TRUE;
+            confirmDelete=false;CString name=savedName.GetText();CollectionStart(id==DeleteSaved?CollectionAction::Delete:CollectionAction::Rename,savedRecords[selected],name.GetString());return TRUE;
         }
         case Cancel:OnCancel();return TRUE;
         case Apply:if(ready)Execute(Operation::Filter,true);return TRUE;
         case Run:Execute(Operation::Search,false);return TRUE;
         case Replace:Execute(Operation::Replace,false);return TRUE;
         case Split:Execute(Operation::Split,false);return TRUE;
-        case Mode:draft.regex=!draft.regex;mode.SetLabel(draft.regex?T(L"Mode: regex",L"模式：正規式"):T(L"Mode: literal",L"模式：文字"));Changed();return TRUE;
-        case Case:draft.ignoreCase=!draft.ignoreCase;caseButton.SetLabel(draft.ignoreCase?T(L"ASCII case: ignore",L"忽略 ASCII 大小寫"):T(L"Case: exact",L"區分大小寫"));Changed();return TRUE;
+        case Case:draft.ignoreCase=caseButton.IsChecked();Changed();return TRUE;
         default:break;
         }
         if(id>=InsertAny&&id<=InsertEnd)
         {
             const wchar_t* tokens[]={L".",L"[0-9]",L"\\w+",L"(?:)",L"^",L"$"};
-            draft.regex=true;mode.SetLabel(T(L"Mode: regex",L"模式：正規式"));pattern.ReplaceSel(tokens[id-InsertAny],TRUE);Changed();pattern.SetFocus();return TRUE;
+            draft.regex=true;SyncChoices();pattern.Field().ReplaceSel(tokens[id-InsertAny],TRUE);Changed();pattern.Field().SetFocus();return TRUE;
         }
         return CDialog::OnCommand(w,l);
     }
@@ -490,17 +516,24 @@ namespace
         if(collectionWorker.valid())return;
         confirmDelete=false;confirmRecovery=false;collectionValidation.Cancel();validatingCollection=false;
         const CString filter=T(L"TrafficMonitor regex collection (*.tmregex)|*.tmregex|All files (*.*)|*.*||",L"TrafficMonitor 表示式收藏 (*.tmregex)|*.tmregex|所有檔案 (*.*)|*.*||");
+        // Known gap: the file picker is still the system common dialog. A Material file picker is a separate
+        // conversion step (see design/native-mfc/material-conversion-plan.md, step 6).
         CFileDialog dialog(import?TRUE:FALSE,L"tmregex",nullptr,import?(OFN_FILEMUSTEXIST|OFN_PATHMUSTEXIST|OFN_HIDEREADONLY):(OFN_OVERWRITEPROMPT|OFN_PATHMUSTEXIST|OFN_HIDEREADONLY),filter,this);
         if(dialog.DoModal()!=IDOK)return;
         const std::wstring path=dialog.GetPathName().GetString();
         ImportMode importMode=ImportMode::Merge;
         if(import)
         {
-            const int choice=MessageBoxW(T(L"Merge into the saved collection? Yes merges (existing names stay; conflicting names are rejected). No replaces the whole saved collection. Cancel keeps everything unchanged.",L"是否併入已儲存收藏？「是」併入（現有名稱保留，名稱衝突會被拒絕）；「否」取代整個已儲存收藏；「取消」不作任何更改。"),T(L"Import collection",L"匯入收藏"),MB_YESNOCANCEL|MB_ICONQUESTION|MB_DEFBUTTON1);
+            const int choice=NativeMaterial::Alert(m_hWnd,T(L"Merge into the saved collection? Yes merges (existing names stay; conflicting names are rejected). No replaces the whole saved collection. Cancel keeps everything unchanged.",L"是否併入已儲存收藏？「是」併入（現有名稱保留，名稱衝突會被拒絕）；「否」取代整個已儲存收藏；「取消」不作任何更改。"),T(L"Import collection",L"匯入收藏"),MB_YESNOCANCEL|MB_ICONQUESTION|MB_DEFBUTTON1);
             if(choice==IDCANCEL)return;
             if(choice==IDNO)
             {
-                if(MessageBoxW(T(L"Replace overwrites every saved expression with the imported file. Replace the saved collection?",L"取代會以匯入檔案覆蓋所有已儲存表示式。確定取代？"),T(L"Confirm replace",L"確認取代"),MB_YESNO|MB_ICONWARNING|MB_DEFBUTTON2)!=IDYES)return;
+                NativeMaterial::AlertSpec confirm;confirm.owner=m_hWnd;confirm.icon=NativeMaterial::AlertIcon::Warning;
+                confirm.headline=T(L"Confirm replace",L"確認取代");
+                confirm.body=T(L"Replace overwrites every saved expression with the imported file. Replace the saved collection?",L"取代會以匯入檔案覆蓋所有已儲存表示式。確定取代？");
+                confirm.actions={{IDNO,T(L"Keep",L"保留"),false},{IDYES,T(L"Replace",L"取代"),true}};
+                confirm.defaultIndex=0;confirm.dismissResult=IDNO; // Esc, close and Enter all keep the saved collection.
+                if(NativeMaterial::ShowAlert(confirm)!=IDYES)return;
                 importMode=ImportMode::Replace;
             }
         }
@@ -513,7 +546,7 @@ namespace
         if(collectionWorker.valid())return;
         confirmDelete=false;confirmRecovery=false;
         session.Cancel();applying=false;ready=false;apply.EnableWindow(FALSE);
-        if(save){CString name,repl,note;savedName.GetWindowText(name);replacement.GetWindowText(repl);savedDescription.GetWindowText(note);pendingRecord={name.GetString(),Read(),operation,repl.GetString(),note.GetString()};}
+        if(save){CString name=savedName.GetText(),repl=replacement.GetText(),note;savedDescription.GetWindowText(note);pendingRecord={name.GetString(),Read(),operation,repl.GetString(),note.GetString()};}
         else{int selected=savedList.GetCurSel();if(selected<0||static_cast<size_t>(selected)>=savedRecords.size()){Note(collectionNote,L"Select a saved expression first.",L"請先選取已儲存表示式。");return;}pendingRecord=savedRecords[selected];}
         savingCollection=save;validatingCollection=true;
         collectionValidation.Request(pendingRecord.options,{},Operation::Search,pendingRecord.replacement);
@@ -533,9 +566,8 @@ namespace
         if(!checked.complete){collectionNote.SetWindowText(checked.error.c_str());return;}
         if(savingCollection){CollectionStart(CollectionAction::Save,pendingRecord);return;}
         loading=true;draft=pendingRecord.options;operation=pendingRecord.operation;
-        pattern.SetWindowText(draft.query.c_str());replacement.SetWindowText(pendingRecord.replacement.c_str());savedDescription.SetWindowText(pendingRecord.description.c_str());
-        mode.SetLabel(draft.regex?T(L"Mode: regex",L"模式：正規式"):T(L"Mode: literal",L"模式：文字"));
-        caseButton.SetLabel(draft.ignoreCase?T(L"ASCII case: ignore",L"忽略 ASCII 大小寫"):T(L"Case: exact",L"區分大小寫"));
+        pattern.SetText(draft.query.c_str());replacement.SetText(pendingRecord.replacement.c_str());savedDescription.SetWindowText(pendingRecord.description.c_str());
+        SyncChoices();
         loading=false;Changed();
         collectionNote.SetWindowText(operation==Operation::Replace?T(L"Loaded draft: Replace. Owner filter unchanged.",L"已載入取代草稿；來源篩選不變。"):operation==Operation::Split?T(L"Loaded draft: Split. Owner filter unchanged.",L"已載入分割草稿；來源篩選不變。"):T(L"Loaded draft: Search. Owner filter unchanged.",L"已載入搜尋草稿；來源篩選不變。"));
         Execute(operation,false);pattern.SetFocus();

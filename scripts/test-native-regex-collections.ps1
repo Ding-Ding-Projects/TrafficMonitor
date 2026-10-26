@@ -42,6 +42,37 @@ try {
     # A decoder that discards the stored description must be caught.
     Test-Mutant 'description decode' 'if(schema>=2)item.description=r.Text(DescriptionLimit);' 'if(schema>=2)r.Text(DescriptionLimit);' 'FAIL description persists on disk'
     if([IO.File]::ReadAllText($source) -cne $original){throw 'Production source changed during mutation verification'}
+    # Stock-control scan: the regex workbench must stay on Material components. System message boxes,
+    # combo boxes and button-class check or radio styles are rejected in every NativeRegex source.
+    $stockPattern='MessageBox[AW]?|AfxMessageBox|CComboBox|CButton|BS_\w*(CHECK|RADIO)\w*|L"(BUTTON|COMBOBOX)"'
+    function Find-StockControls($directory) {
+        $found=@()
+        $files=@(Get-ChildItem -LiteralPath $directory -Recurse -File | Where-Object { $_.Extension -in '.cpp','.h' })
+        if($files.Count -eq 0){throw "No sources found to scan in $directory"}
+        foreach($file in $files){
+            $number=0
+            foreach($line in [IO.File]::ReadAllLines($file.FullName)){
+                $number++
+                $code=$line -replace '//.*$',''
+                if($code -match $stockPattern){$found+="$($file.Name):${number}: $($line.Trim())"}
+            }
+        }
+        return ,$found
+    }
+    $stock=Find-StockControls $regex
+    if($stock.Count -ne 0){$stock | ForEach-Object { Write-Host $_ };throw 'Stock controls found in NativeRegex'}
+    Write-Host 'PASS no stock message box, combo box or check/radio button in NativeRegex'
+    # Mutation: each forbidden construct injected into a copy of the sources must be rejected.
+    foreach($mutation in @('MessageBoxW(nullptr,L"x",L"y",MB_OK);','CComboBox stockCombo;','CButton stockCheck;','DWORD stockStyle=BS_AUTOCHECKBOX;')){
+        $copy=Join-Path $work ('scan-'+[guid]::NewGuid().ToString('N'))
+        New-Item -ItemType Directory -Path $copy | Out-Null
+        Copy-Item -Path (Join-Path $regex '*') -Destination $copy -Recurse
+        Add-Content -LiteralPath (Join-Path $copy 'Workbench.cpp') -Value $mutation
+        $hits=@(Find-StockControls $copy)
+        Write-Host "scan of mutated copy reports $($hits.Count) finding(s)"
+        if($hits.Count -eq 0){throw "The stock-control scan did not reject: $mutation"}
+    }
+    Write-Host 'PASS stock-control scan rejects injected MessageBox, CComboBox, CButton and BS_ check styles'
     & $exe
     exit $LASTEXITCODE
 } catch { Write-Error $_; exit 1 }
