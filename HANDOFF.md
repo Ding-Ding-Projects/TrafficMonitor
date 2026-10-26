@@ -2,8 +2,11 @@
 
 ## Resumed work
 
-The owner resumed implementation on 2026-10-26. `.release-hold` stays in place and
-installation remains deferred.
+The owner resumed implementation on 2026-10-26 and then chose to release the current main
+source and update the matching installed copy. `.release-hold` was removed in a reviewed change
+for that purpose. The release is not a completion claim: the acceptance gaps recorded below and
+in the feature inventory remain open. A local `build-installer.bat -Version 1.0.9051` run produced
+Setup.exe, RELEASES and the 1.0.9051 full and delta packages before the hold was removed.
 
 Measurement-before-placement is corrected. Settings, the shared preference editor and its
 action footer now collect GDI measurements in a `MeasurementBatch` and publish them only

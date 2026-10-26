@@ -1,7 +1,8 @@
 # TrafficMonitor delivery roadmap
 
-Implementation resumed at the owner's request on 2026-10-26. The latest main source remains
-held by `.release-hold`; this checklist records completed and unfinished work.
+Implementation resumed at the owner's request on 2026-10-26. On the same day the owner chose to
+release the current main source, so `.release-hold` was removed. The release does not close the
+unfinished items below; this checklist records completed and unfinished work.
 
 - [x] Preserve producer ec177ac and reader 6be9101 on their owning remote branches.
 - [x] Publish Settings and preference GDI measurements only after their windows are placed; a hidden-window regression fails when measurements publish before placement.
