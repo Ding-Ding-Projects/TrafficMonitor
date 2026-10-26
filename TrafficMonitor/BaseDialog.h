@@ -14,6 +14,7 @@ namespace NativeMaterial
     class Checkbox;
     class Dropdown;
     class NumberStepper;
+    class RadioButton;
     class ScrollableTextField;
 }
 
@@ -64,12 +65,14 @@ private:
     bool m_material_shell{};                                // a derived dialog opts in from its constructor
     bool m_material_ready{};                                // layout runs only after FinishMaterialShell
     bool m_has_saved_size{};                                // the configuration remembers a window size
+    bool m_material_page{};                                 // a tab page: Material controls and surface, no title bar (see EnableMaterialPage)
     NativeMaterial::TitleBar m_title_bar;
     NativePreferences::Subscription m_material_preferences;
     std::vector<std::unique_ptr<CWnd>> m_material_controls; // owns the replacement Material controls
     std::vector<std::function<void(NativeMaterial::Appearance, COLORREF)>> m_material_appliers;
 
     void AttachMaterialShell();
+    void AttachMaterialPage();
     void ApplyMaterialAppearance();
     NativeMaterial::TitleBar::Labels MaterialCaptions() const;
     CWnd* AdoptMaterialControl(std::unique_ptr<CWnd> control, std::function<void(NativeMaterial::Appearance, COLORREF)> applier, HWND insert_after, DWORD stock_style, bool visible, bool enabled);
@@ -88,6 +91,11 @@ protected:
     // ------------------------------------------------------------------
     void EnableMaterialShell(bool enable = true) { m_material_shell = enable; }
     bool IsMaterialShell() const { return m_material_shell; }
+    // A child dialog that is a page of a host dialog (CTabDlg) opts in with EnableMaterialPage() instead. A page gets
+    // the Material surface color, follows appearance changes and may use the ReplaceWith* helpers below, but it has no
+    // title bar and the host (not the shell) sizes and lays it out.
+    void EnableMaterialPage(bool enable = true) { m_material_page = enable; }
+    bool IsMaterialPage() const { return m_material_page; }
     NativeMaterial::Appearance MaterialAppearance() const;
     COLORREF MaterialSurfaceColor() const;
     NativeMaterial::TitleBar& MaterialTitleBar() { return m_title_bar; }
@@ -104,6 +112,8 @@ protected:
     NativeMaterial::Button* ReplaceWithButton(CWnd* stock, NativeMaterial::ButtonVariant variant);
     NativeMaterial::Checkbox* ReplaceWithCheckbox(UINT id);
     NativeMaterial::Checkbox* ReplaceWithCheckbox(CWnd* stock);
+    // Radio button; consecutive radios form one group, a radio with starts_group begins a new group (WS_GROUP).
+    NativeMaterial::RadioButton* ReplaceWithRadioButton(UINT id, bool starts_group);
     NativeMaterial::Dropdown* ReplaceWithDropdown(UINT id, const CString& label);
     NativeMaterial::NumberStepper* ReplaceWithNumberStepper(UINT id, const CString& label, const CString& supporting);
     NativeMaterial::ScrollableTextField* ReplaceWithReadOnlyText(UINT id);
@@ -120,7 +130,7 @@ protected:
     void ConvertRemainingStockControls();
     CString RemainingStockControls() const;
 
-    // Check box helpers that work for a Material Checkbox and for a stock check box.
+    // Check box and radio button helpers that work for the Material components and for stock buttons.
     void SetDlgCheck(UINT id, bool checked);
     bool GetDlgCheck(UINT id) const;
     // Width in pixels a Material push button needs for its label (minimum_dip is the lower bound).

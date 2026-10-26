@@ -136,11 +136,21 @@ void CBaseDialog::AttachMaterialShell()
     m_material_preferences.Attach(m_hWnd);
 }
 
+void CBaseDialog::AttachMaterialPage()
+{
+    // A page is a child window of its host: no title bar and no frame attributes, only the surface color and the
+    // shared appearance preference. The host lays the page out, so the resource based dynamic layout stays off.
+    EnableDynamicLayout(FALSE);
+    SetBackgroundColor(MaterialSurfaceColor(), FALSE);
+    m_material_preferences.Attach(m_hWnd);
+}
+
 void CBaseDialog::ApplyMaterialAppearance()
 {
     const auto appearance = MaterialAppearance();
     const COLORREF surface = MaterialSurfaceColor();
-    NativeMaterial::ApplyNativeFrameAppearance(m_hWnd, appearance);
+    if (!m_material_page)
+        NativeMaterial::ApplyNativeFrameAppearance(m_hWnd, appearance);
     if (m_title_bar.IsAttached())
     {
         m_title_bar.SetAppearance(appearance);
@@ -155,7 +165,7 @@ void CBaseDialog::ApplyMaterialAppearance()
 
 LRESULT CBaseDialog::OnMaterialPreferences(WPARAM generation, LPARAM)
 {
-    if (m_material_shell && m_material_preferences.Accepts(generation))
+    if ((m_material_shell || m_material_page) && m_material_preferences.Accepts(generation))
         ApplyMaterialAppearance();
     return 0;
 }
@@ -274,6 +284,28 @@ NativeMaterial::Checkbox* CBaseDialog::ReplaceWithCheckbox(CWnd* stock)
     raw->SetChecked(checked);
     AdoptMaterialControl(std::move(box), [raw](NativeMaterial::Appearance a, COLORREF s) { raw->SetAppearance(a); raw->SetSurfaceColor(s); },
         info.prev, info.style, info.visible, info.enabled);
+    return raw;
+}
+
+NativeMaterial::RadioButton* CBaseDialog::ReplaceWithRadioButton(UINT id, bool starts_group)
+{
+    StockInfo info;
+    CWnd* stock = GetDlgItem(id);
+    if (!CaptureStock(*this, stock, info))
+        return nullptr;
+    const bool checked = stock->SendMessage(BM_GETCHECK) == BST_CHECKED;
+    stock->DestroyWindow();
+    auto radio = std::make_unique<NativeMaterial::RadioButton>();
+    if (!radio->Create(info.text, info.rect, this, info.id, starts_group))
+        return nullptr;
+    NativeMaterial::RadioButton* raw = radio.get();
+    // The group boundary is decided by the caller, not by whatever the template control happened to carry.
+    AdoptMaterialControl(std::move(radio), [raw](NativeMaterial::Appearance a, COLORREF s) { raw->SetAppearance(a); raw->SetSurfaceColor(s); },
+        info.prev, starts_group ? (info.style | WS_GROUP) : (info.style & ~static_cast<DWORD>(WS_GROUP)), info.visible, info.enabled);
+    if (!starts_group)
+        raw->ModifyStyle(WS_GROUP, 0);
+    if (checked)
+        raw->SetChecked(true);
     return raw;
 }
 
@@ -406,6 +438,8 @@ void CBaseDialog::SetDlgCheck(UINT id, bool checked)
 {
     if (auto* box = dynamic_cast<NativeMaterial::Checkbox*>(GetDlgItem(id)))
         box->SetChecked(checked);
+    else if (auto* radio = dynamic_cast<NativeMaterial::RadioButton*>(GetDlgItem(id)))
+        radio->SetChecked(checked);     // choosing a radio clears the other radios of its group
     else
         CheckDlgButton(id, checked ? BST_CHECKED : BST_UNCHECKED);
 }
@@ -414,6 +448,8 @@ bool CBaseDialog::GetDlgCheck(UINT id) const
 {
     if (auto* box = dynamic_cast<NativeMaterial::Checkbox*>(const_cast<CBaseDialog*>(this)->GetDlgItem(id)))
         return box->IsChecked();
+    if (auto* radio = dynamic_cast<NativeMaterial::RadioButton*>(const_cast<CBaseDialog*>(this)->GetDlgItem(id)))
+        return radio->IsChecked();
     return IsDlgButtonChecked(id) != 0;
 }
 

@@ -377,6 +377,8 @@ BOOL CBaseDialog::OnInitDialog()
     // 如果更改了控件排布那么应当返回true以向布局管理器应用控件调整（重新加载动态布局设置）
     if (m_material_shell)
         AttachMaterialShell();      // The Material shell lays itself out and does not use the dynamic layout manager
+    else if (m_material_page)
+        AttachMaterialPage();       // A Material tab page is laid out by its host and does not use the dynamic layout manager
     else if (rtn)
         ReLoadLayoutResource();
 
@@ -470,7 +472,7 @@ BOOL CBaseDialog::OnEraseBkgnd(CDC* pDC)
 HBRUSH CBaseDialog::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 {
     // Material text fields (read-only edits report CTLCOLORSTATIC) paint with their own palette brush.
-    if (m_material_shell)
+    if (m_material_shell || m_material_page)
     {
         if (auto* field = dynamic_cast<NativeMaterial::TextField*>(pWnd))
             return field->Color(pDC);
