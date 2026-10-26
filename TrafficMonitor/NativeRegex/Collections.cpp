@@ -86,6 +86,11 @@ namespace
             :MoveFileExW(temporary.c_str(),path.c_str(),MOVEFILE_REPLACE_EXISTING|MOVEFILE_WRITE_THROUGH);
         if(!saved){DeleteFileW(temporary.c_str());throw std::wstring(L"Atomic collection replacement failed. Retry after checking file access; recover backup if needed.");}
     }
+    std::wstring CollectionPath(const std::wstring& directory)
+    {
+        Require(!directory.empty(),L"Data directory is unavailable.");
+        return directory+(directory.back()==L'\\'||directory.back()==L'/'?L"":L"\\")+L"regex-collections.dat";
+    }
 }
 bool SavedExpression::operator==(const SavedExpression& r) const
 {return name==r.name&&options.query==r.options.query&&options.regex==r.options.regex&&options.ignoreCase==r.options.ignoreCase&&operation==r.operation&&replacement==r.replacement;}
@@ -120,6 +125,44 @@ CollectionResult UpdateCollection(const std::wstring& directory,CollectionAction
     }
     catch(const std::wstring& error){result.error=error;result.records.clear();}
     catch(...){result.error=L"Collection operation could not complete. The editor draft is unchanged.";result.records.clear();}
+    return result;
+}
+CollectionResult ExportCollection(const std::wstring& directory,const std::wstring& destinationPath)
+{
+    CollectionResult result;
+    try
+    {
+        Require(!destinationPath.empty(),L"Export destination is unavailable.");const auto path=CollectionPath(directory);
+        Handle lock(CreateFileW((path+L".lock").c_str(),GENERIC_READ|GENERIC_WRITE,0,nullptr,OPEN_ALWAYS,FILE_ATTRIBUTE_NORMAL,nullptr));
+        Require(lock.value!=INVALID_HANDLE_VALUE,L"Collection is busy or inaccessible. Retry without changing the draft.");
+        result.records=Decode(ReadBytes(path,true));WriteAtomic(destinationPath,Encode(result.records),true);result.complete=true;
+    }
+    catch(const std::wstring& error){result.error=error;result.records.clear();}
+    catch(...){result.error=L"Collection export could not complete. The saved collection is unchanged.";result.records.clear();}
+    return result;
+}
+CollectionResult ImportCollection(const std::wstring& directory,const std::wstring& sourcePath,ImportMode mode)
+{
+    CollectionResult result;
+    try
+    {
+        Require(!sourcePath.empty(),L"Import source is unavailable.");const auto path=CollectionPath(directory);
+        Handle lock(CreateFileW((path+L".lock").c_str(),GENERIC_READ|GENERIC_WRITE,0,nullptr,OPEN_ALWAYS,FILE_ATTRIBUTE_NORMAL,nullptr));
+        Require(lock.value!=INVALID_HANDLE_VALUE,L"Collection is busy or inaccessible. Retry without changing the draft.");
+        const auto imported=Decode(ReadBytes(sourcePath,false));auto records=Decode(ReadBytes(path,true));bool changed=false;
+        if(mode==ImportMode::Replace){changed=!(records==imported);records=imported;}
+        else for(const auto& item:imported)
+        {
+            auto it=std::find_if(records.begin(),records.end(),[&](const SavedExpression& r){return SameName(r.name,item.name);});
+            if(it!=records.end()){if(*it==item)continue;throw std::wstring(L"Import conflict: \"")+item.name+L"\" already exists with different content. Nothing was imported.";}
+            records.push_back(item);changed=true;
+        }
+        Require(records.size()<=RecordLimit,L"Import would exceed 64 records. Nothing was imported.");
+        if(changed)WriteAtomic(path,Encode(records),false);
+        result.records=std::move(records);result.complete=true;
+    }
+    catch(const std::wstring& error){result.error=error;result.records.clear();}
+    catch(...){result.error=L"Collection import could not complete. The saved collection is unchanged.";result.records.clear();}
     return result;
 }
 }
