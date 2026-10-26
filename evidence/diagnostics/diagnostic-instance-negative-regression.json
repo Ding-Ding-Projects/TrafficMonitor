@@ -1,0 +1,12 @@
+{
+    "verified":  true,
+    "redObserved":  true,
+    "restoredGreen":  true,
+    "command":  "build.bat --verify-diagnostic-instance",
+    "mutation":  "disposable copy of DiagnosticInstance.h with the portable-mode requirement removed from IsIsolated",
+    "redOutput":  "PASS normal file attributes accepted as marker\nPASS directory marker rejected\nPASS missing marker rejected\nPASS reparse point marker rejected\nPASS no marker keeps the normal name (portable)\nPASS no marker keeps the normal name (installed)\nFAIL marker in installed mode keeps the normal name\nPASS marker in portable mode isolates the name\nPASS isolated name extends the normal name\nPASS isolated name is stable for the same path\nPASS isolated name differs for another path\nPASS directory marker keeps the normal name\nPASS path hash is 16 hex digits",
+    "greenOutput":  "PASS normal file attributes accepted as marker\nPASS directory marker rejected\nPASS missing marker rejected\nPASS reparse point marker rejected\nPASS no marker keeps the normal name (portable)\nPASS no marker keeps the normal name (installed)\nPASS marker in installed mode keeps the normal name\nPASS marker in portable mode isolates the name\nPASS isolated name extends the normal name\nPASS isolated name is stable for the same path\nPASS isolated name differs for another path\nPASS directory marker keeps the normal name\nPASS path hash is 16 hex digits",
+    "sourceCommit":  "4a8dcb61385ac543cc266c99706f26fefa9a0b5b",
+    "sourceCommitNote":  "parent commit of the change under test (the commit adding this receipt)",
+    "result":  "Green first, then the mutant failed \"marker in installed mode keeps the normal name\"; the real header was never modified and stays green."
+}
