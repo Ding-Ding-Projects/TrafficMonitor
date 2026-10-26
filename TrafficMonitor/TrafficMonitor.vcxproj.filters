@@ -1033,6 +1033,9 @@
   <ItemGroup>
     <ClInclude Include="NativeMaterial\ScrollRail.h" />
     <ClCompile Include="NativeMaterial\ScrollRail.cpp" />
+    <ClInclude Include="NativeMaterial\TitleBar.h" />
+    <ClInclude Include="NativeMaterial\TitleBar.Accessibility.h" />
+    <ClCompile Include="NativeMaterial\TitleBar.cpp" />
     <ClInclude Include="NativeMaterial\ScrollViewport.h" />
     <ClCompile Include="NativeMaterial\ScrollViewport.cpp" />
     <ClInclude Include="NativeMaterial\TextField.h" />

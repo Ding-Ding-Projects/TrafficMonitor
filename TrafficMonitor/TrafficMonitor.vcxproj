@@ -1071,6 +1071,11 @@
   <ItemGroup>
     <ClInclude Include="NativeMaterial\Controls.h" />
     <ClInclude Include="NativeMaterial\Controls.Accessibility.h" />
+    <ClInclude Include="NativeMaterial\TitleBar.h" />
+    <ClInclude Include="NativeMaterial\TitleBar.Accessibility.h" />
+    <ClCompile Include="NativeMaterial\TitleBar.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="NativeMaterial\Controls.cpp">
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
