@@ -9,6 +9,7 @@ if /i "%~1"=="--verify-result-list" goto verifyResultList
 if /i "%~1"=="--verify-preferences" goto verifyPreferences
 if /i "%~1"=="--verify-regex-collections" goto verifyRegexCollections
 if /i "%~1"=="--verify-settings" goto verifySettings
+if /i "%~1"=="--verify-app-icons" goto verifyAppIcons
 if /i "%~1"=="--docs-companion" goto docsCompanion
 if /i "%~1"=="--verify-updater" goto verifyUpdater
 if /i "%~1"=="--site" goto site
@@ -67,4 +68,8 @@ exit /b %errorlevel%
 
 :verifyLayoutObservations
 powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0scripts\test-native-layout-observations.ps1"
+exit /b %errorlevel%
+
+:verifyAppIcons
+powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0scripts\test-app-icons.ps1" %2 %3 %4 %5 %6 %7 %8 %9
 exit /b %errorlevel%

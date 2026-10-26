@@ -20,7 +20,7 @@ app.whenReady().then(async () => {
     } catch { return new Response('Documentation page unavailable', {status:404}); }
   });
   Menu.setApplicationMenu(null);
-  const window = new BrowserWindow({width:1180, height:820, minWidth:640, minHeight:480, show:false, title:'TrafficMonitor Documentation', webPreferences:{session:reader, sandbox:true, contextIsolation:true, nodeIntegration:false, nodeIntegrationInWorker:false, webSecurity:true, webviewTag:false, devTools:false}});
+  const window = new BrowserWindow({width:1180, height:820, minWidth:640, minHeight:480, show:false, title:'TrafficMonitor Documentation', icon:path.join(__dirname, 'project-mark.ico'), webPreferences:{session:reader, sandbox:true, contextIsolation:true, nodeIntegration:false, nodeIntegrationInWorker:false, webSecurity:true, webviewTag:false, devTools:false}});
   window.webContents.setWindowOpenHandler(() => ({action:'deny'}));
   window.webContents.on('will-navigate', (event, url) => { if (!isLocal(url)) event.preventDefault(); });
   window.webContents.on('will-redirect', (event, url) => { if (!isLocal(url)) event.preventDefault(); });

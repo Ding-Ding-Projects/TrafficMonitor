@@ -11,8 +11,8 @@
     "productName": "TrafficMonitor Documentation",
     "asar": true,
     "directories": { "output": "../artifacts/docs-companion" },
-    "files": ["main.cjs", "policy.cjs", "site/**/*", "package.json"],
-    "win": { "target": [{ "target": "portable", "arch": ["x64"] }], "signAndEditExecutable": false, "artifactName": "TrafficMonitor-Documentation-${version}-x64.exe" },
+    "files": ["main.cjs", "policy.cjs", "project-mark.ico", "site/**/*", "package.json"],
+    "win": { "icon": "project-mark.ico", "target": [{ "target": "portable", "arch": ["x64"] }], "signAndEditExecutable": false, "artifactName": "TrafficMonitor-Documentation-${version}-x64.exe" },
     "portable": { "requestExecutionLevel": "user" }
   }
 }
