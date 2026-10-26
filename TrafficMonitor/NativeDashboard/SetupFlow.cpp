@@ -1,6 +1,7 @@
 ﻿#include "../stdafx.h"
 #include "SetupFlow.h"
 #include "../NativePreferences/Editor.h"
+#include "../NativeMaterial/ActionSounds.h"
 #include "../NativePreferences/SetupState.h"
 #include "../NativePreferences/Subscription.h"
 #include "../NativeSettings/SettingsViewport.h"
@@ -73,6 +74,8 @@ namespace NativeDashboard::Setup
             if(schema==2)
             {
                 if(!NativePreferences::ReadSetupPreferences(ini,d.preferences)){d.protectedSchema=true;return d;}
+                // Action sounds are not part of setup progress; follow the accepted value so a resumed draft never reports a false conflict.
+                d.preferences.values.actionSounds=d.preferences.base.values.actionSounds=accepted.values.actionSounds;
                 NativePreferences::ReconcileResume(d.preferences,accepted);
             }
             else d.preferences.dirty=d.preferences.values!=accepted.values;
@@ -415,7 +418,7 @@ namespace NativeDashboard::Setup
             m_applying=false;
             m_draft.complete=std::all_of(m_draft.results.begin(),m_draft.results.end(),[](Result r){return r==Result::Applied;});
             if(!Save(m_draft)){m_draft.complete=false;Layout();Note(Copy::SaveFailed);return;}
-            if(m_draft.complete)EndDialog(IDOK);else{Layout();Note(Copy::Incomplete);}
+            if(m_draft.complete){NativeSounds::Notify(NativeSounds::Action::SetupCompleted);EndDialog(IDOK);}else{Layout();Note(Copy::Incomplete);}
         }
         void Wizard::OnHScroll(UINT code,UINT position,CScrollBar* bar)
         {

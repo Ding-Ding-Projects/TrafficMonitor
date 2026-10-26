@@ -19,6 +19,13 @@ namespace NativePreferences::Storage
             for(auto b:digest){result+=hex[b>>4];result+=hex[b&15];}return result;
         }
     }
+    std::string Serialize(Values value)
+    {
+        // Off stays byte-identical to the original schema so older builds keep reading the file.
+        std::string data="[interface]\r\nschemaVersion="+std::string(value.actionSounds==ActionSounds::Off?"1":"2")+"\r\nlanguage="+std::to_string(static_cast<int>(value.language))+"\r\nappearance="+std::to_string(static_cast<int>(value.appearance))+"\r\n";
+        if(value.actionSounds!=ActionSounds::Off)data+="actionSounds="+std::to_string(static_cast<int>(value.actionSounds))+"\r\n";
+        return data;
+    }
     ReadResult Read(const std::wstring& path)
     {
         ReadResult result;HANDLE file=CreateFileW(path.c_str(),GENERIC_READ,FILE_SHARE_READ,nullptr,OPEN_EXISTING,FILE_ATTRIBUTE_NORMAL,nullptr);
@@ -30,10 +37,11 @@ namespace NativePreferences::Storage
         if(result.fingerprint.empty()){result.error=ERROR_INVALID_DATA;result.protectedFile=true;return result;}
         // Exact bounded schema; neither partial documents nor unknown fields are downgraded.
         std::string text(bytes.begin(),bytes.end());
-        for(int language=0;language<3;++language)for(int appearance=0;appearance<3;++appearance)
+        // Schema 1 is the original two-field document (action sounds Off); schema 2 adds exactly one action sound line.
+        for(int language=0;language<3;++language)for(int appearance=0;appearance<3;++appearance)for(int sounds=0;sounds<3;++sounds)
         {
-            const std::string expected="[interface]\r\nschemaVersion=1\r\nlanguage="+std::to_string(language)+"\r\nappearance="+std::to_string(appearance)+"\r\n";
-            if(text==expected){result.values={static_cast<Language>(language),static_cast<Appearance>(appearance)};result.valid=true;result.error=0;return result;}
+            const Values candidate{static_cast<Language>(language),static_cast<Appearance>(appearance),static_cast<ActionSounds>(sounds)};
+            if(text==Serialize(candidate)){result.values=candidate;result.valid=true;result.error=0;return result;}
         }
         result.error=ERROR_INVALID_DATA;result.protectedFile=true;return result;
     }
@@ -45,7 +53,7 @@ namespace NativePreferences::Storage
         for(unsigned attempt=0;attempt<16 && file==INVALID_HANDLE_VALUE;++attempt)
         {temporary=path+L"."+std::to_wstring(GetCurrentProcessId())+L"."+std::to_wstring(GetTickCount64())+L"."+std::to_wstring(attempt)+L".tmp";file=CreateFileW(temporary.c_str(),GENERIC_WRITE,0,nullptr,CREATE_NEW,FILE_ATTRIBUTE_NORMAL,nullptr);if(file==INVALID_HANDLE_VALUE&&GetLastError()!=ERROR_FILE_EXISTS)return Result::WriteFailed;}
         if(file==INVALID_HANDLE_VALUE)return Result::WriteFailed;
-        const std::string data="[interface]\r\nschemaVersion=1\r\nlanguage="+std::to_string(static_cast<int>(value.language))+"\r\nappearance="+std::to_string(static_cast<int>(value.appearance))+"\r\n";DWORD written{};
+        const std::string data=Serialize(value);DWORD written{};
         bool ok=WriteFile(file,data.data(),static_cast<DWORD>(data.size()),&written,nullptr)!=FALSE&&written==data.size()&&FlushFileBuffers(file)!=FALSE;CloseHandle(file);
         const auto latest=Read(path);if(!ok||!latest.valid||latest.fingerprint!=expected){DeleteFileW(temporary.c_str());return ok?Result::Conflict:Result::WriteFailed;}
         if(!MoveFileExW(temporary.c_str(),path.c_str(),MOVEFILE_REPLACE_EXISTING|MOVEFILE_WRITE_THROUGH)){DeleteFileW(temporary.c_str());return Result::WriteFailed;}

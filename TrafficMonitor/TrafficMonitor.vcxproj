@@ -1100,6 +1100,8 @@
     <ClInclude Include="NativeSettings\SettingsViewport.h" />
     <ClCompile Include="NativeSettings\SettingCatalog.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
     <ClInclude Include="NativeMaterial\SettingsControls.h" />
+    <ClInclude Include="NativeMaterial\ActionSounds.h" />
+    <ClCompile Include="NativeMaterial\ActionSounds.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
     <ClCompile Include="NativeSettings\Settings.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
     <ClCompile Include="NativeSettings\Values.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
     <ClCompile Include="NativeMaterial\SettingsControls.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>

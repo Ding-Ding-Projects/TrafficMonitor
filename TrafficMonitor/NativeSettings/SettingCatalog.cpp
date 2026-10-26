@@ -41,6 +41,7 @@ namespace NativeSettings
     {
         static const std::vector<Setting> rows={
             {L"interface.language",4,L"Interface language",L"介面語言",L"Choose English, Cantonese or bilingual text for native monitoring surfaces.",L"為原生監察介面選擇英文、廣東話或雙語文字。"},
+            {L"interface.sounds",4,L"Action sounds",L"操作音效",L"Plays short Windows system sounds for applied settings, refused actions, empty searches and completed setup. Off by default; Windows volume and mute are never changed.",L"為已套用設定、被拒絕嘅操作、搜尋冇結果同完成設定播放簡短 Windows 系統音效。預設關閉；不會更改 Windows 音量或靜音。"},
             {L"interface.appearance",4,L"Appearance",L"外觀",L"Choose System, Light or Dark for native monitoring surfaces.",L"為原生監察介面選擇跟隨系統、淺色或深色。"},
             {L"monitor.interval",0,L"Sample interval",L"採樣間隔",L"Time between monitoring samples. 200 to 30000 ms, in steps of 100. Shorter intervals use more resources.",L"監察採樣之間嘅時間。200 至 30000 毫秒，以 100 為倍數；間隔越短，用嘅資源越多。",nullptr,&Values::interval,200,30000,100,L"ms"},
             {L"monitor.tray",0,L"Show notification-area icon",L"顯示通知區域圖示",L"Keep commands available in the notification area. Recovery may require the icon to remain visible.",L"喺通知區域保留操作入口；復原操作可能需要繼續顯示圖示。",&Values::tray},

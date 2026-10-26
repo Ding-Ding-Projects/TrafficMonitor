@@ -5,6 +5,7 @@
 #include "../NativeRegex/Workbench.h"
 #include "../TrafficMonitor.h"
 #include "../NativeMaterial/TextField.h"
+#include "../NativeMaterial/ActionSounds.h"
 #include "../NativeMaterial/Controls.h"
 #include "../NativeMaterial/ScrollRail.h"
 #include <commctrl.h>
@@ -176,7 +177,7 @@ public:
     NativeMaterial::TextField searchField;
     NativeMaterial::Button backButton, regexButton;
     NativeMaterial::ScrollRail scrollRail;
-    bool done{}, composing{}, rebuilding{}, restoreFocus{}, compatibility{}, chinese{};
+    bool done{}, composing{}, rebuilding{}, restoreFocus{}, compatibility{}, chinese{}, noResultCueSent{};
     UINT command{}, dpi{96};
     NativeRegex::Editor regexEditor;
     HFONT font{}, boldFont{};
@@ -354,6 +355,8 @@ public:
         SendMessageW(list,LB_SETCURSEL,visible.empty() ? -1 : 0,0);
         SetWindowTextW(empty,filter.status.empty()?emptyText.c_str():filter.status.c_str());
         ShowWindow(empty,visible.empty()?SW_SHOW:SW_HIDE);
+        // Cue only on the transition into an empty result for a typed query, never on every keystroke.
+        const bool noResults=visible.empty()&&!needle.empty();if(noResults&&!noResultCueSent)NativeSounds::Notify(NativeSounds::Action::SearchNoResults);noResultCueSent=noResults;
         Layout();
         SendMessageW(list,WM_SETREDRAW,TRUE,0); InvalidateRect(list,nullptr,TRUE);
         NotifyWinEvent(EVENT_OBJECT_REORDER,list,OBJID_CLIENT,CHILDID_SELF);
