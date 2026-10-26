@@ -191,6 +191,17 @@ namespace NativeMaterial
                     target->DrawRoundedRectangle(D2D1::RoundedRect(D2D1::RectF(box.left + .5f, box.top + .5f, box.right - .5f, box.bottom - .5f), 3, 3), k(c.outline), 1.f);
                     x += SwatchSize + ContentGap;
                 }
+                if (cell.hasBar)
+                {
+                    const float room = (std::max)(0.f, limit - x);
+                    const float fraction = (std::max)(0.f, (std::min)(1.f, cell.barFraction));
+                    // A non-zero value always shows at least a sliver so a tiny day is still visible.
+                    const float length = fraction <= 0.f ? 0.f : (std::max)((std::min)(room, 3.f), room * fraction);
+                    if (length > 0.f)
+                        target->FillRoundedRectangle(D2D1::RoundedRect(D2D1::RectF(x, middle - 8.f, x + length, middle + 8.f), 3, 3),
+                            k(D2D1::ColorF(GetRValue(cell.barColor) / 255.f, GetGValue(cell.barColor) / 255.f, GetBValue(cell.barColor) / 255.f)));
+                    continue;
+                }
                 const bool hasOther = x > left + CellPadding;
                 Text(k, cell.text, D2D1::RectF(x, rect.top, (std::max)(x, limit), rect.bottom), 14.f, DWRITE_FONT_WEIGHT_NORMAL, rowText,
                     hasOther ? DWRITE_TEXT_ALIGNMENT_LEADING : Alignment(m.columns[col].align));

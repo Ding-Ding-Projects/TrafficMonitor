@@ -64,6 +64,7 @@ private:
     bool m_material_shell{};                                // a derived dialog opts in from its constructor
     bool m_material_ready{};                                // layout runs only after FinishMaterialShell
     bool m_has_saved_size{};                                // the configuration remembers a window size
+    bool m_material_embedded{};                             // a page hosted inside another Material window (no title bar, no frame)
     NativeMaterial::TitleBar m_title_bar;
     NativePreferences::Subscription m_material_preferences;
     std::vector<std::unique_ptr<CWnd>> m_material_controls; // owns the replacement Material controls
@@ -87,6 +88,9 @@ protected:
     // Dialogs that do not opt in are untouched.
     // ------------------------------------------------------------------
     void EnableMaterialShell(bool enable = true) { m_material_shell = enable; }
+    // A child page hosted inside another Material window (tab page): same surface color, appearance subscription and
+    // replacement helpers as the shell, but no title bar, frame change or centering. The host window places the page.
+    void EnableMaterialEmbedded() { m_material_shell = true; m_material_embedded = true; }
     bool IsMaterialShell() const { return m_material_shell; }
     NativeMaterial::Appearance MaterialAppearance() const;
     COLORREF MaterialSurfaceColor() const;

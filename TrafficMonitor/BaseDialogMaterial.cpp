@@ -101,6 +101,14 @@ void CBaseDialog::AttachMaterialShell()
     // The shell positions everything itself, so the resource based dynamic layout stays off.
     EnableDynamicLayout(FALSE);
 
+    if (m_material_embedded)
+    {
+        // An embedded page has no frame of its own: it only follows the surface color and the appearance preference.
+        SetBackgroundColor(MaterialSurfaceColor(), FALSE);
+        m_material_preferences.Attach(m_hWnd);
+        return;
+    }
+
     CRect old_window, old_client;
     GetWindowRect(old_window);
     GetClientRect(old_client);
@@ -140,7 +148,8 @@ void CBaseDialog::ApplyMaterialAppearance()
 {
     const auto appearance = MaterialAppearance();
     const COLORREF surface = MaterialSurfaceColor();
-    NativeMaterial::ApplyNativeFrameAppearance(m_hWnd, appearance);
+    if (!m_material_embedded)
+        NativeMaterial::ApplyNativeFrameAppearance(m_hWnd, appearance);
     if (m_title_bar.IsAttached())
     {
         m_title_bar.SetAppearance(appearance);
@@ -481,5 +490,6 @@ void CBaseDialog::FinishMaterialShell()
         TRACE(L"Material shell: stock controls remain: %s\n", remaining.GetString());
     m_material_ready = true;
     RelayoutMaterial();
-    CenterWindow();
+    if (!m_material_embedded)
+        CenterWindow();
 }

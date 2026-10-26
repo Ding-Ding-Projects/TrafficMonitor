@@ -32,12 +32,17 @@ namespace NativeMaterial
     };
 
     // One cell: text plus an optional leading icon (not owned) and an optional color swatch.
+    // A cell with hasBar draws a proportional bar (barFraction 0..1 of the free cell width, barColor) instead of its
+    // text; the text stays the accessible and typeahead value, so it should describe the bar (for example the total).
     struct TableCell
     {
         CString text;
         HICON icon{};
         bool hasSwatch{};
         COLORREF swatch{};
+        bool hasBar{};
+        float barFraction{};
+        COLORREF barColor{};
     };
 
     struct TableLayout

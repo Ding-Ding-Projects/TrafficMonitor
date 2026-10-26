@@ -1,502 +1,345 @@
-﻿// HistoryTrafficCalendarDlg.cpp: 实现文件
+﻿// HistoryTrafficCalendarDlg.cpp: implementation file
 //
 
 #include "stdafx.h"
 #include "NativeMenus/SearchableMenu.h"
 #include "TrafficMonitor.h"
 #include "HistoryTrafficCalendarDlg.h"
+#include "HistoryTrafficColor.h"
 #include "afxdialogex.h"
-#include "DrawCommonHelper.h"
+#include "NativeMaterial/Controls.h"
+#include <algorithm>
+
+namespace
+{
+    constexpr UINT kCalendarId = 0x7A10;        // control ID of the Material calendar (the template has no calendar)
+
+    // A compact total that fits under the day number of a calendar cell, for example "812K", "3.4M", "1.2G".
+    CString CompactTraffic(unsigned __int64 kBytes)
+    {
+        CString text;
+        if (kBytes < 1024)
+            text.Format(_T("%lluK"), kBytes);
+        else if (kBytes < 1024ull * 1024)
+            text.Format(_T("%.1fM"), kBytes / 1024.0);
+        else if (kBytes < 1024ull * 1024 * 1024)
+            text.Format(_T("%.1fG"), kBytes / (1024.0 * 1024));
+        else
+            text.Format(_T("%.1fT"), kBytes / (1024.0 * 1024 * 1024));
+        return text;
+    }
+}
 
 
-// CHistoryTrafficCalendarDlg 对话框
+// CHistoryTrafficCalendarDlg
 
 IMPLEMENT_DYNAMIC(CHistoryTrafficCalendarDlg, CTabDlg)
 
 CHistoryTrafficCalendarDlg::CHistoryTrafficCalendarDlg(deque<HistoryTraffic>& history_traffics, CWnd* pParent /*=nullptr*/)
     : CTabDlg(IDD_HISTORY_TRAFFIC_CALENDAR_DIALOG, pParent), m_history_traffics(history_traffics)
 {
-
+    EnableMaterialEmbedded();
 }
 
 CHistoryTrafficCalendarDlg::~CHistoryTrafficCalendarDlg()
 {
 }
 
-void CHistoryTrafficCalendarDlg::SetDayTraffic()
+const HistoryTraffic* CHistoryTrafficCalendarDlg::FindDay(const NativeMaterial::CalendarDate& date) const
 {
-    for (int i{}; i < CALENDAR_HEIGHT; i++)
-    {
-        for (int j{}; j < CALENDAR_WIDTH; j++)
-        {
-            HistoryTraffic history_traffic;
-            history_traffic.year = m_year;
-            history_traffic.month = m_month;
-            history_traffic.day = m_calendar[i][j].day;
-            //使用二分法查找日历中每一个日期的流量
-            if (history_traffic.day > 0)
-            {
-                if (std::binary_search(m_history_traffics.begin(), m_history_traffics.end(), history_traffic, HistoryTraffic::DateGreater))
-                {
-                    auto iter = std::lower_bound(m_history_traffics.begin(), m_history_traffics.end(), history_traffic, HistoryTraffic::DateGreater);
-                    if (iter != m_history_traffics.end())
-                    {
-                        m_calendar[i][j].up_traffic = iter->up_kBytes;
-                        m_calendar[i][j].down_traffic = iter->down_kBytes;
-                        m_calendar[i][j].mixed = iter->mixed;
+    if (!date.Valid())
+        return nullptr;
+    HistoryTraffic key;
+    key.year = date.year;
+    key.month = date.month;
+    key.day = date.day;
+    // The history is ordered newest first; look the day up with a binary search.
+    auto iter = std::lower_bound(m_history_traffics.begin(), m_history_traffics.end(), key, HistoryTraffic::DateGreater);
+    if (iter == m_history_traffics.end() || HistoryTraffic::DateGreater(key, *iter))
+        return nullptr;
+    return &*iter;
+}
 
-                    }
-                }
-            }
+CString CHistoryTrafficCalendarDlg::TrafficText(const HistoryTraffic* traffic, const wchar_t* separator) const
+{
+    const unsigned __int64 total = traffic != nullptr ? traffic->kBytes() : 0;
+    CString text = CCommon::LoadText(IDS_TRAFFIC_USED1);
+    text += CCommon::KBytesToString(total);
+    if (traffic != nullptr && !traffic->mixed && total > 0)
+    {
+        text += separator;
+        text += CCommon::LoadText(IDS_UPLOAD, _T(": "));
+        text += CCommon::KBytesToString(traffic->up_kBytes);
+        text += separator;
+        text += CCommon::LoadText(IDS_DOWNLOAD, _T(": "));
+        text += CCommon::KBytesToString(traffic->down_kBytes);
+    }
+    return text;
+}
+
+CString CHistoryTrafficCalendarDlg::TipText(const NativeMaterial::CalendarDate& date) const
+{
+    CString tip_info;
+    tip_info.Format(_T("%d/%d/%d\n"), date.year, date.month, date.day);
+    tip_info += TrafficText(FindDay(date), _T("\n"));
+    return tip_info;
+}
+
+void CHistoryTrafficCalendarDlg::FillDay(const NativeMaterial::CalendarDate& date, NativeMaterial::CalendarDayContent& content) const
+{
+    const HistoryTraffic* traffic = FindDay(date);
+    if (traffic == nullptr)
+        return;
+    const unsigned __int64 total = traffic->kBytes();
+    content.description = TrafficText(traffic, _T(", "));
+    if (total > 0)
+    {
+        content.secondary = CompactTraffic(total);
+        content.hasIndicator = true;
+        content.indicator = HistoryTrafficColor(total);
+    }
+}
+
+void CHistoryTrafficCalendarDlg::UpdateTip(const NativeMaterial::CalendarDate& date)
+{
+    const int day = date.Valid() ? date.day : 0;
+    if (day == m_tip_day)
+        return;
+    m_tip_day = day;
+    if (day > 0)
+    {
+        m_tool_tip.UpdateTipText(TipText(date), &m_calendar.Grid());
+    }
+    else
+    {
+        m_tool_tip.UpdateTipText(CString(), &m_calendar.Grid());
+        m_tool_tip.Hide();
+    }
+}
+
+void CHistoryTrafficCalendarDlg::UpdateSummary()
+{
+    if (m_summary == nullptr)
+        return;
+    // Total traffic of the shown month.
+    unsigned __int64 up = 0, down = 0;
+    const int days = NativeMaterial::DaysInMonth(m_calendar.VisibleYear(), m_calendar.VisibleMonth());
+    for (int day = 1; day <= days; day++)
+    {
+        if (const HistoryTraffic* traffic = FindDay(NativeMaterial::CalendarDate{ m_calendar.VisibleYear(), m_calendar.VisibleMonth(), day }))
+        {
+            up += traffic->up_kBytes;
+            down += traffic->down_kBytes;
         }
     }
+    CString info;
+    info.Format(_T("%s %s (%s: %s, %s: %s)"), CCommon::LoadText(IDS_CURRENT_MONTH_TOTAL_TRAFFIC),
+        CCommon::KBytesToString(up + down),
+        CCommon::LoadText(IDS_UPLOAD), CCommon::KBytesToString(up),
+        CCommon::LoadText(IDS_DOWNLOAD), CCommon::KBytesToString(down)
+    );
+    m_summary->SetWindowText(info);
+    RelayoutMaterial();
 }
 
-void CHistoryTrafficCalendarDlg::MonthSelectChanged()
+int CHistoryTrafficCalendarDlg::RequiredHeight(int width_px)
 {
-    CCalendarHelper::GetCalendar(m_year, m_month, m_calendar, theApp.m_cfg_data.m_sunday_first);
-    SetDayTraffic();
-    CalculateMonthTotalTraffic();
-    InvalidateRect(m_draw_rect);
+    return LayoutMaterialControls(CRect(0, 0, width_px, 0), false);
 }
 
-void CHistoryTrafficCalendarDlg::CalculateMonthTotalTraffic()
+int CHistoryTrafficCalendarDlg::LayoutMaterialControls(const CRect& content, bool apply)
 {
-    m_month_total_upload = 0;
-    m_month_total_download = 0;
-    for (int i{}; i < CALENDAR_HEIGHT; i++)
+    // Left: the calendar with the month summary under it. Right: the menu button and the legend.
+    const int gap = DPI(16), legend_width = DPI(172), swatch = DPI(12), row = DPI(28), button_height = DPI(40);
+    const int width = (std::max)(1, static_cast<int>(content.Width()));
+    const int calendar_width = (std::max)(DPI(308), width - legend_width - gap);
+    int y = content.top + DPI(4);
+
+    const int summary_height = m_summary != nullptr ? m_summary->MeasureHeight(width) : 0;
+    const int calendar_minimum = DPI(384);
+    const int calendar_height = apply ? (std::max)(calendar_minimum, static_cast<int>(content.bottom) - y - gap - summary_height) : calendar_minimum;
+    if (apply && m_calendar.GetSafeHwnd() != nullptr)
+        m_calendar.MoveWindow(content.left, y, calendar_width, calendar_height);
+
+    const int column = content.left + calendar_width + gap;
+    int side = y;
+    if (m_menu_button != nullptr)
     {
-        for (int j{}; j < CALENDAR_WIDTH; j++)
+        if (apply)
+            m_menu_button->MoveWindow(column, side, DPI(56), button_height);
+        side += button_height + gap;
+    }
+    if (m_legend_heading != nullptr)
+    {
+        const int height = m_legend_heading->MeasureHeight(legend_width);
+        if (apply)
+            m_legend_heading->MoveWindow(column, side, legend_width, height);
+        side += height + DPI(8);
+    }
+    for (auto& entry : m_legend)
+    {
+        if (entry.label == nullptr)
+            continue;
+        const int label_left = column + swatch + DPI(8);
+        const int height = entry.label->MeasureHeight((std::max)(1, legend_width - swatch - DPI(8)));
+        if (apply)
         {
-            m_month_total_upload += m_calendar[i][j].up_traffic;
-            m_month_total_download += m_calendar[i][j].down_traffic;
+            entry.label->MoveWindow(label_left, side, legend_width - swatch - DPI(8), (std::max)(height, swatch));
+            entry.swatch = CRect(column, side + ((std::max)(height, swatch) - swatch) / 2, column + swatch, side + ((std::max)(height, swatch) - swatch) / 2 + swatch);
         }
+        side += (std::max)(height, row);
     }
+
+    y += calendar_height + gap;
+    if (m_summary != nullptr)
+    {
+        if (apply)
+            m_summary->MoveWindow(content.left, y, width, summary_height);
+        y += summary_height;
+    }
+    if (apply)
+        Invalidate(FALSE);      // the legend swatches are painted by the page itself
+    return (std::max)(y, side) + DPI(8) - content.top;
 }
 
-void CHistoryTrafficCalendarDlg::SetComboSel()
+void CHistoryTrafficCalendarDlg::OnMaterialAppearanceChanged()
 {
-    int cnt{};
-    int year_selected;
-    for (int i{ m_year_max }; i >= m_year_min; i--)
+    if (m_calendar.GetSafeHwnd() != nullptr)
     {
-        if (i == m_year)
-            year_selected = cnt;
-        cnt++;
+        m_calendar.SetAppearance(MaterialAppearance());
+        m_calendar.SetSurface(MaterialSurfaceColor());
     }
-    m_year_combo.SetCurSel(year_selected);
-    m_month_combo.SetCurSel(m_month - 1);
+    m_tool_tip.SetAppearance(MaterialAppearance());
 }
 
 void CHistoryTrafficCalendarDlg::DoDataExchange(CDataExchange* pDX)
 {
     CTabDlg::DoDataExchange(pDX);
-    DDX_Control(pDX, IDC_YEAR_COMBO, m_year_combo);
-    DDX_Control(pDX, IDC_MONTH_COMBO, m_month_combo);
-}
-
-
-bool CHistoryTrafficCalendarDlg::IsWeekend(int index)
-{
-    if (theApp.m_cfg_data.m_sunday_first)
-        return (index == 0 || index == 6);
-    else
-        return (index == 5 || index == 6);
-}
-
-CString CHistoryTrafficCalendarDlg::GetWeekdayString(int index)
-{
-    if (!theApp.m_cfg_data.m_sunday_first)
-    {
-        index++;
-        if (index > 6)
-            index = 0;
-    }
-    switch (index)
-    {
-    case 0:
-        return CCommon::LoadText(IDS_SUNDAY);
-    case 1:
-        return CCommon::LoadText(IDS_MONDAY);
-    case 2:
-        return CCommon::LoadText(IDS_TUESDAY);
-    case 3:
-        return CCommon::LoadText(IDS_WEDNESDAY);
-    case 4:
-        return CCommon::LoadText(IDS_THURSDAY);
-    case 5:
-        return CCommon::LoadText(IDS_FRIDAY);
-    case 6:
-        return CCommon::LoadText(IDS_SATURDAY);
-    }
-    return CString();
 }
 
 BEGIN_MESSAGE_MAP(CHistoryTrafficCalendarDlg, CTabDlg)
     ON_WM_PAINT()
-    ON_CBN_SELCHANGE(IDC_YEAR_COMBO, &CHistoryTrafficCalendarDlg::OnCbnSelchangeYearCombo)
-    ON_CBN_SELCHANGE(IDC_MONTH_COMBO, &CHistoryTrafficCalendarDlg::OnCbnSelchangeMonthCombo)
-    ON_WM_MOUSEMOVE()
-    ON_BN_CLICKED(IDC_PREVIOUS_BUTTON, &CHistoryTrafficCalendarDlg::OnBnClickedPreviousButton)
-    ON_BN_CLICKED(IDC_NEXT_BUTTON, &CHistoryTrafficCalendarDlg::OnBnClickedNextButton)
     ON_WM_MOUSEWHEEL()
     ON_BN_CLICKED(IDC_MENU_BUTTON, &CHistoryTrafficCalendarDlg::OnBnClickedMenuButton)
     ON_WM_INITMENU()
     ON_COMMAND(ID_FIRST_DAY_OF_WEEK_SUNDAY, &CHistoryTrafficCalendarDlg::OnFirstDayOfWeekSunday)
     ON_COMMAND(ID_FIRST_DAY_OF_WEEK_MONDAY, &CHistoryTrafficCalendarDlg::OnFirstDayOfWeekMonday)
     ON_COMMAND(ID_CALENDAR_JUMP_TO_TODAY, &CHistoryTrafficCalendarDlg::OnCalendarJumpToToday)
+    ON_CONTROL(NativeMaterial::CalendarMonthChanged, kCalendarId, &CHistoryTrafficCalendarDlg::OnCalendarMonthChanged)
 END_MESSAGE_MAP()
 
 
-// CHistoryTrafficCalendarDlg 消息处理程序
+// CHistoryTrafficCalendarDlg message handlers
 
 
 BOOL CHistoryTrafficCalendarDlg::OnInitDialog()
 {
     CTabDlg::OnInitDialog();
 
-    // TODO:  在此添加额外的初始化
-    m_year = m_history_traffics[0].year;
-    m_month = m_history_traffics[0].month;
-    CCalendarHelper::GetCalendar(m_year, m_month, m_calendar, theApp.m_cfg_data.m_sunday_first);
-    SetDayTraffic();
-    CalculateMonthTotalTraffic();
+    // CTabDlg paints its pages white; the Material surface color of the shared appearance wins.
+    SetBackgroundColor(MaterialSurfaceColor(), FALSE);
 
-    //初始化Combo Box
-    m_year_max = m_history_traffics[0].year;
-    m_year_min = m_history_traffics.back().year;
-    for (int i{ m_year_max }; i >= m_year_min; i--)
+    // The Material calendar has its own year and month dropdowns and previous / next buttons, so the stock ones go.
+    RemoveStockControl(IDC_YEAR_COMBO);
+    RemoveStockControl(IDC_MONTH_COMBO);
+    RemoveStockControl(IDC_PREVIOUS_BUTTON);
+    RemoveStockControl(IDC_NEXT_BUTTON);
+    // The two caption statics ("Year", "Month") went with the combo boxes: the calendar labels its own dropdowns.
+    for (HWND child = ::GetWindow(m_hWnd, GW_CHILD); child != nullptr; )
     {
-        m_year_combo.AddString(CCommon::IntToString(i));
+        const HWND next = ::GetWindow(child, GW_HWNDNEXT);
+        wchar_t class_name[16]{};
+        ::GetClassNameW(child, class_name, 15);
+        if (::GetDlgCtrlID(child) == IDC_STATIC && _wcsicmp(class_name, L"Static") == 0)
+            ::DestroyWindow(child);
+        child = next;
     }
-    m_year_combo.SetCurSel(0);
-    for (int i{ 1 }; i <= 12; i++)
-    {
-        m_month_combo.AddString(CCommon::IntToString(i));
-    }
-    m_month_combo.SetCurSel(m_month - 1);
+    m_menu_button = ReplaceWithButton(IDC_MENU_BUTTON, NativeMaterial::ButtonVariant::Tonal);
 
-    //初始化鼠标提示
-    m_tool_tips.Create(this, TTS_ALWAYSTIP | TTS_NOPREFIX);
-    m_tool_tips.SetMaxTipWidth(800);        //为鼠标提示设置一个最大宽度，以允许其换行
-    m_tool_tips.AddTool(this, _T(""));
+    // Legend and month summary.
+    m_legend_heading = AddMaterialLabel(CCommon::LoadText(IDS_LEGEND, _T(":")), NativeMaterial::LabelRole::Secondary);
+    const wchar_t* const legend_text[5] = { _T("0~1GB"), _T("1GB~10GB"), _T("10GB~100GB"), _T("100GB~1TB"), _T("1TB~") };
+    const COLORREF legend_color[5] = { TRAFFIC_COLOR_BLUE, TRAFFIC_COLOR_GREEN, TRAFFIC_COLOR_YELLOE, TRAFFIC_COLOR_RED, TRAFFIC_COLOR_DARK_RED };
+    for (int i = 0; i < 5; i++)
+    {
+        m_legend[i].label = AddMaterialLabel(legend_text[i]);
+        m_legend[i].color = legend_color[i];
+    }
+    m_summary = AddMaterialLabel(CString());
+
+    // The calendar: years of the history, first day of the week from the configuration, the newest day of the
+    // history as the "today" marker, weekends highlighted, and the traffic of each day from the history.
+    m_calendar.Create(CCommon::LoadText(IDS_CALENDAR_VIEW), CRect(0, 0, 308, 384), this, kCalendarId);
+    if (!m_history_traffics.empty())
+    {
+        const HistoryTraffic& newest = m_history_traffics.front();
+        m_calendar.SetYearRange(m_history_traffics.back().year, newest.year);
+        m_calendar.SetToday(NativeMaterial::CalendarDate{ newest.year, newest.month, newest.day });
+        m_calendar.SetVisibleMonth(newest.year, newest.month);
+    }
+    m_calendar.SetFirstDayOfWeek(theApp.m_cfg_data.m_sunday_first ? 0 : 1);
+    m_calendar.SetWeekendHighlight(true);
+    m_calendar.SetDaySource([this](const NativeMaterial::CalendarDate& date, NativeMaterial::CalendarDayContent& content) { FillDay(date, content); });
+    OnMaterialAppearanceChanged();
+
+    // Keyboard order: calendar, then the menu button.
+    ::SetWindowPos(m_calendar.GetSafeHwnd(), HWND_TOP, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE);
+    ::SetWindowPos(m_menu_button->GetSafeHwnd(), m_calendar.GetSafeHwnd(), 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE);
+
+    // Hover details of a day.
+    m_tool_tip.SetAppearance(MaterialAppearance());
+    m_tool_tip.AddTool(&m_calendar.Grid(), CString());
 
     CCommon::LoadMenuResource(m_menu, IDR_HISTORY_TRAFFIC_MENU);
 
+    UpdateSummary();
+    FinishMaterialShell();
     return TRUE;  // return TRUE unless you set the focus to a control
-                  // 异常: OCX 属性页应返回 FALSE
 }
 
 
 void CHistoryTrafficCalendarDlg::OnPaint()
 {
     CPaintDC dc(this); // device context for painting
-                       // TODO: 在此处添加消息处理程序代码
-                       // 不为绘图消息调用 CTabDlg::OnPaint()
-    CRect wndRect;
-    GetWindowRect(wndRect);
-    const int width = theApp.DPI(40);       //日历中每一个格子的宽度
-    const int height = theApp.DPI(30);      //日历中第一个格子的高度
-    m_draw_rect.left = m_start_x;
-    m_draw_rect.top = m_start_y;
-    //m_draw_rect.right = m_draw_rect.left + (CALENDAR_WIDTH*width);
-    m_draw_rect.right = wndRect.Width() - m_start_x;
-    m_draw_rect.bottom = m_draw_rect.top + ((CALENDAR_HEIGHT + 2) * height) + theApp.DPI(20);
-
-    //使用双缓冲绘图
-    CDrawDoubleBuffer draw_double_buffer(&dc, m_draw_rect);
-
-    //绘图
-    CDrawCommon draw;
-    draw.Create(draw_double_buffer.GetMemDC(), this);
-    draw.FillRect(CRect(0, 0, m_draw_rect.Width(), m_draw_rect.Height()), RGB(255, 255, 255));      //填充白色背景色
-    CRect rect{};
-    rect.left = 0;
-    rect.top = 0;
-    rect.right = rect.left + width;
-    rect.bottom = rect.top + height;
-    //画星期的行
-    for (int i{}; i < CALENDAR_WIDTH; i++)
+                       // The base class paint is intentionally not called: only the legend swatches are drawn here.
+    for (const auto& entry : m_legend)
     {
-        rect.MoveToX(i * width);
-
-        if (IsWeekend(i))
-            draw.SetBackColor(RGB(217, 86, 86));
-        else if (i % 2 == 0)
-            draw.SetBackColor(RGB(1, 84, 151));
-        else
-            draw.SetBackColor(RGB(1, 107, 191));
-        CString str = GetWeekdayString(i);
-        draw.DrawWindowText(rect, str, RGB(255, 255, 255), IDrawCommon::Alignment::CENTER, true);
+        if (!entry.swatch.IsRectEmpty())
+            dc.FillSolidRect(entry.swatch, entry.color);
     }
-
-    //绘制日历
-    for (int i{}; i < CALENDAR_HEIGHT; i++)
-    {
-        for (int j{}; j < CALENDAR_WIDTH; j++)
-        {
-            //设置日历中每一天的矩形的位置
-            rect.MoveToXY(j * width, height + theApp.DPI(2) + i * height);
-            //保存矩形的位置
-            m_calendar[i][j].rect = rect;
-            //绘制日期的数据
-            //绘制格子的背景颜色
-            if (IsWeekend(j))       //是周末时
-            {
-                if ((i + j) % 2 == 0)
-                    draw.SetBackColor(RGB(250, 234, 234));
-                else
-                    draw.SetBackColor(RGB(252, 242, 242));
-            }
-            else
-            {
-                if ((i + j) % 2 == 0)
-                    draw.SetBackColor(RGB(226, 241, 254));
-                else
-                    draw.SetBackColor(RGB(236, 246, 254));
-            }
-            draw.FillRectWithBackColor(rect);
-            //绘制格子上的日期的数字
-            CRect day_rect{ rect };
-            day_rect.bottom -= (rect.Height() / 2);
-            COLORREF text_color;
-            if (IsWeekend(j))
-                text_color = RGB(131, 29, 28);
-            else
-                text_color = RGB(0, 57, 107);
-            if (m_calendar[i][j].day != 0)
-                draw.DrawWindowText(day_rect, CCommon::IntToString(m_calendar[i][j].day), text_color, IDrawCommon::Alignment::CENTER, true);
-            //在今天的日期上画一个矩形框
-            COLORREF frame_color;
-            if (IsWeekend(j))
-                frame_color = RGB(218, 91, 91);
-            else
-                frame_color = RGB(1, 133, 238);
-            if (m_year == m_history_traffics[0].year && m_month == m_history_traffics[0].month && m_calendar[i][j].day == m_history_traffics[0].day)
-                draw.DrawRectOutLine(rect, frame_color, theApp.DPI(2));
-
-            //绘制指示流量大小的矩形
-            COLORREF color;
-            if (m_calendar[i][j].traffic() < 1024 * 1024)       //流量小于1GB时绘制蓝色
-                color = TRAFFIC_COLOR_BLUE;
-            else if (m_calendar[i][j].traffic() < 10 * 1024 * 1024) //流量小于10GB时绘制绿色
-                color = TRAFFIC_COLOR_GREEN;
-            else if (m_calendar[i][j].traffic() < 100 * 1024 * 1024)    //流量小于100GB时绘制黄色
-                color = TRAFFIC_COLOR_YELLOE;
-            else if (m_calendar[i][j].traffic() < 1024 * 1024 * 1024)   //流量小于1TB时绘制红色
-                color = TRAFFIC_COLOR_RED;
-            else        //流量超过1TB时显示深红色
-                color = TRAFFIC_COLOR_DARK_RED;
-            if (m_calendar[i][j].traffic() > 0)
-            {
-                CRect traffic_rect;
-                traffic_rect.left = rect.left + theApp.DPI(14);
-                traffic_rect.right = traffic_rect.left + theApp.DPI(12);
-                traffic_rect.top = rect.top + theApp.DPI(16);
-                traffic_rect.bottom = traffic_rect.top + theApp.DPI(12);
-                draw.FillRect(traffic_rect, color);
-            }
-        }
-    }
-
-    const COLORREF text_color{ RGB(0, 57, 107) };
-    //画当前月总流量
-    CString info;
-    info.Format(_T("%s %s (%s: %s, %s: %s)"), CCommon::LoadText(IDS_CURRENT_MONTH_TOTAL_TRAFFIC),
-        CCommon::KBytesToString(m_month_total_upload + m_month_total_download),
-        CCommon::LoadText(IDS_UPLOAD), CCommon::KBytesToString(m_month_total_upload),
-        CCommon::LoadText(IDS_DOWNLOAD), CCommon::KBytesToString(m_month_total_download)
-    );
-    CRect info_rect;
-    info_rect.left = 0;
-    info_rect.top = height * (CALENDAR_HEIGHT + 1) + theApp.DPI(5);
-    info_rect.right = info_rect.left + m_draw_rect.Width();
-    info_rect.bottom = info_rect.top + theApp.DPI(36);
-    draw.SetBackColor(RGB(255, 255, 255));
-    draw.DrawWindowText(info_rect, info, text_color, IDrawCommon::Alignment::LEFT, true, true);
-
-    //画图例
-    CRect rc_legend{ info_rect };
-    rc_legend.MoveToXY(CALENDAR_WIDTH * width + theApp.DPI(32), theApp.DPI(16));
-    rc_legend.right = m_draw_rect.Width();
-    rc_legend.bottom = rc_legend.top + theApp.DPI(16);
-
-    draw.DrawWindowText(rc_legend, CCommon::LoadText(IDS_LEGEND, _T(":")), text_color, IDrawCommon::Alignment::LEFT, true, true);
-    rc_legend.MoveToY(rc_legend.bottom + theApp.DPI(6));
-    CRect rc_legend_box{ rc_legend };
-    const int box_side{ theApp.DPI(12) };
-    const int line_gap{ theApp.DPI(6) };
-    rc_legend_box.top = rc_legend.top + (rc_legend.Height() - box_side) / 2;
-    rc_legend_box.bottom = rc_legend_box.top + box_side;
-    rc_legend_box.right = rc_legend_box.left + box_side;
-    rc_legend.left = rc_legend_box.right + theApp.DPI(4);
-    //蓝色图例
-    draw.FillRect(rc_legend_box, TRAFFIC_COLOR_BLUE);
-    draw.DrawWindowText(rc_legend, _T("0~1GB"), text_color);
-    //绿色图例
-    rc_legend.MoveToY(rc_legend.bottom + line_gap);
-    rc_legend_box.MoveToY(rc_legend.top + (rc_legend.Height() - box_side) / 2);
-    draw.FillRect(rc_legend_box, TRAFFIC_COLOR_GREEN);
-    draw.DrawWindowText(rc_legend, _T("1GB~10GB"), text_color);
-    //黄色图例
-    rc_legend.MoveToY(rc_legend.bottom + line_gap);
-    rc_legend_box.MoveToY(rc_legend.top + (rc_legend.Height() - box_side) / 2);
-    draw.FillRect(rc_legend_box, TRAFFIC_COLOR_YELLOE);
-    draw.DrawWindowText(rc_legend, _T("10GB~100GB"), text_color);
-    //红色图例
-    rc_legend.MoveToY(rc_legend.bottom + line_gap);
-    rc_legend_box.MoveToY(rc_legend.top + (rc_legend.Height() - box_side) / 2);
-    draw.FillRect(rc_legend_box, TRAFFIC_COLOR_RED);
-    draw.DrawWindowText(rc_legend, _T("100GB~1TB"), text_color);
-    //深红色图例
-    rc_legend.MoveToY(rc_legend.bottom + line_gap);
-    rc_legend_box.MoveToY(rc_legend.top + (rc_legend.Height() - box_side) / 2);
-    draw.FillRect(rc_legend_box, TRAFFIC_COLOR_DARK_RED);
-    draw.DrawWindowText(rc_legend, _T("1TB~"), text_color);
-}
-
-
-void CHistoryTrafficCalendarDlg::OnCbnSelchangeYearCombo()
-{
-    // TODO: 在此添加控件通知处理程序代码
-    int index = m_year_combo.GetCurSel();
-    CString str;
-    m_year_combo.GetLBText(index, str);
-    m_year = _ttoi(str);
-    MonthSelectChanged();
-}
-
-
-void CHistoryTrafficCalendarDlg::OnCbnSelchangeMonthCombo()
-{
-    // TODO: 在此添加控件通知处理程序代码
-    m_month = m_month_combo.GetCurSel() + 1;
-    MonthSelectChanged();
-}
-
-
-void CHistoryTrafficCalendarDlg::OnMouseMove(UINT nFlags, CPoint point)
-{
-    // TODO: 在此添加消息处理程序代码和/或调用默认值
-    int tip_day{};      //要显示鼠标提示的日期
-    DayTraffic tip_traffic{};
-    static int last_tip_day{};
-    //查找鼠标指针在哪个日期的矩形内
-    for (int i{}; i < CALENDAR_HEIGHT; i++)
-    {
-        for (int j{}; j < CALENDAR_WIDTH; j++)
-        {
-            CRect rect{ m_calendar[i][j].rect };
-            rect.OffsetRect(m_start_x, m_start_y);
-            if (rect.PtInRect(point))
-            {
-                tip_day = m_calendar[i][j].day;
-                tip_traffic = m_calendar[i][j];
-            }
-        }
-    }
-    bool show_tip = (tip_day > 0);
-    if (show_tip && last_tip_day != tip_day)
-    {
-        CString tip_info;
-        tip_info.Format(_T("%d/%d/%d\r\n"), m_year, m_month, tip_day);
-        tip_info += CCommon::LoadText(IDS_TRAFFIC_USED1);
-        tip_info += CCommon::KBytesToString(tip_traffic.traffic());
-        if (!tip_traffic.mixed && tip_traffic.traffic() > 0)
-        {
-            tip_info += _T("\r\n");
-            tip_info += CCommon::LoadText(IDS_UPLOAD, _T(": "));
-            tip_info += CCommon::KBytesToString(tip_traffic.up_traffic);
-            tip_info += _T("\r\n");
-            tip_info += CCommon::LoadText(IDS_DOWNLOAD, _T(": "));
-            tip_info += CCommon::KBytesToString(tip_traffic.down_traffic);
-        }
-
-        m_tool_tips.AddTool(this, tip_info);
-        m_tool_tips.Pop();
-        last_tip_day = tip_day;
-    }
-    if (!show_tip)
-    {
-        m_tool_tips.AddTool(this, _T(""));
-        m_tool_tips.Pop();
-        last_tip_day = 0;
-    }
-
-    CTabDlg::OnMouseMove(nFlags, point);
 }
 
 
 BOOL CHistoryTrafficCalendarDlg::PreTranslateMessage(MSG* pMsg)
 {
-    // TODO: 在此添加专用代码和/或调用基类
-    if (m_tool_tips.GetSafeHwnd() != 0)
+    if (m_calendar.GetSafeHwnd() != nullptr && pMsg->hwnd == m_calendar.Grid().GetSafeHwnd())
     {
-        m_tool_tips.RelayEvent(pMsg);
+        // Keep the tooltip text on the day under the pointer (the pointer position is in grid client coordinates).
+        if (pMsg->message == WM_MOUSEMOVE)
+            UpdateTip(m_calendar.DateAt(CPoint(GET_X_LPARAM(pMsg->lParam), GET_Y_LPARAM(pMsg->lParam))));
+        else if (pMsg->message == WM_MOUSELEAVE)
+            UpdateTip(NativeMaterial::CalendarDate{});
     }
 
-    if (pMsg->message == WM_KEYDOWN)
+    // Ctrl+Left and Ctrl+Right page to the previous and next month (the arrow keys alone move the focused day).
+    if (pMsg->message == WM_KEYDOWN && (pMsg->wParam == VK_LEFT || pMsg->wParam == VK_RIGHT) && (GetKeyState(VK_CONTROL) & 0x8000)
+        && m_calendar.GetSafeHwnd() != nullptr && ::IsChild(m_calendar.GetSafeHwnd(), pMsg->hwnd))
     {
-        if (pMsg->wParam == VK_LEFT)
-        {
-            OnBnClickedPreviousButton();
-            return TRUE;
-        }
-        if (pMsg->wParam == VK_RIGHT)
-        {
-            OnBnClickedNextButton();
-            return TRUE;
-        }
+        m_calendar.Navigate(pMsg->wParam == VK_LEFT ? NativeMaterial::CalendarMove::PreviousMonth : NativeMaterial::CalendarMove::NextMonth);
+        return TRUE;
     }
 
     return CTabDlg::PreTranslateMessage(pMsg);
 }
 
 
-void CHistoryTrafficCalendarDlg::OnBnClickedPreviousButton()
-{
-    // TODO: 在此添加控件通知处理程序代码
-    if (m_year == m_year_min && m_month == 1)
-        return;
-    m_month--;
-    if (m_month <= 0)
-    {
-        m_month = 12;
-        m_year--;
-    }
-    SetComboSel();
-    MonthSelectChanged();
-}
-
-
-void CHistoryTrafficCalendarDlg::OnBnClickedNextButton()
-{
-    // TODO: 在此添加控件通知处理程序代码
-    if (m_year == m_year_max && m_month == 12)
-        return;
-    m_month++;
-    if (m_month > 12)
-    {
-        m_month = 1;
-        m_year++;
-    }
-    SetComboSel();
-    MonthSelectChanged();
-}
-
-
 BOOL CHistoryTrafficCalendarDlg::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt)
 {
-    // TODO: 在此添加消息处理程序代码和/或调用默认值
-    //通过鼠标滚轮翻页
+    // Page through the months with the mouse wheel (over the calendar grid the grid itself does the same).
     if (zDelta > 0)
-    {
-        OnBnClickedPreviousButton();
-    }
+        m_calendar.Navigate(NativeMaterial::CalendarMove::PreviousMonth);
     if (zDelta < 0)
-    {
-        OnBnClickedNextButton();
-    }
+        m_calendar.Navigate(NativeMaterial::CalendarMove::NextMonth);
 
     return CTabDlg::OnMouseWheel(nFlags, zDelta, pt);
 }
@@ -504,12 +347,10 @@ BOOL CHistoryTrafficCalendarDlg::OnMouseWheel(UINT nFlags, short zDelta, CPoint 
 
 void CHistoryTrafficCalendarDlg::OnBnClickedMenuButton()
 {
-    // TODO: 在此添加控件通知处理程序代码
-    CWnd* pBtn = GetDlgItem(IDC_MENU_BUTTON);
-    if (pBtn != nullptr)
+    if (m_menu_button != nullptr)
     {
         CRect rect;
-        pBtn->GetWindowRect(rect);
+        m_menu_button->GetWindowRect(rect);
         CPoint point;
         point.x = rect.left;
         point.y = rect.bottom;
@@ -524,7 +365,6 @@ void CHistoryTrafficCalendarDlg::OnInitMenu(CMenu* pMenu)
 {
     CTabDlg::OnInitMenu(pMenu);
 
-    // TODO: 在此处添加消息处理程序代码
     if (theApp.m_cfg_data.m_sunday_first)
         pMenu->CheckMenuRadioItem(ID_FIRST_DAY_OF_WEEK_SUNDAY, ID_FIRST_DAY_OF_WEEK_MONDAY, ID_FIRST_DAY_OF_WEEK_SUNDAY, MF_BYCOMMAND | MF_CHECKED);
     else
@@ -535,26 +375,29 @@ void CHistoryTrafficCalendarDlg::OnInitMenu(CMenu* pMenu)
 
 void CHistoryTrafficCalendarDlg::OnFirstDayOfWeekSunday()
 {
-    // TODO: 在此添加命令处理程序代码
     theApp.m_cfg_data.m_sunday_first = true;
-    MonthSelectChanged();
+    m_calendar.SetFirstDayOfWeek(0);
 }
 
 
 void CHistoryTrafficCalendarDlg::OnFirstDayOfWeekMonday()
 {
-    // TODO: 在此添加命令处理程序代码
     theApp.m_cfg_data.m_sunday_first = false;
-    MonthSelectChanged();
+    m_calendar.SetFirstDayOfWeek(1);
 }
 
 
 void CHistoryTrafficCalendarDlg::OnCalendarJumpToToday()
 {
-    // TODO: 在此添加命令处理程序代码
-    m_year = m_history_traffics[0].year;
-    m_month = m_history_traffics[0].month;
-    SetComboSel();
-    MonthSelectChanged();
+    if (m_history_traffics.empty())
+        return;
+    m_calendar.SetVisibleMonth(m_history_traffics.front().year, m_history_traffics.front().month);
+    UpdateSummary();        // programmatic changes of the shown month do not notify
+}
 
+
+void CHistoryTrafficCalendarDlg::OnCalendarMonthChanged()
+{
+    m_tip_day = 0;
+    UpdateSummary();
 }
