@@ -22,6 +22,22 @@ swaps the set). Imports keep the `.bak` used by Recover. `build.bat
 --verify-regex-collections` runs 31 checks and a built-in mutant that must fail. The regex
 workbench does not expose these actions yet. The merged source passes the full product build.
 
+The regex workbench Library page now has Export collection and Import collection. Import asks
+Merge or Replace; Replace needs a second confirmation defaulting to No. Dialogs run on the UI
+thread and transfers on the existing collection worker. Export success currently reuses the
+generic saved-collection status text. Runtime interaction has not been exercised.
+
+ScrollViewport stores clamped content/page/position and republishes rail metrics after
+rail-driven scrolls; ScrollableTextField resynchronizes its rail after typing, paste, cut,
+clear, undo, line scrolling and IME composition. Three hidden-window viewport cases cover this;
+removing the republish fails two. The text-field additions have no automated check.
+
+Reverse Shift+Tab in setup was reviewed from source: traversal uses `IsDialogMessage` and
+`Wizard::RevealFocus` is direction-independent, so no change was made. It remains unverified at
+runtime.
+
+The combined source passes the full build and all seven native focused checks.
+
 Individual branches retain their earlier build/check results, including 320 old/new drawing
 comparisons and transport-v2 checks. They do not verify the stopped combined source. The last
 bounded product runtime result remains candidate 9050 below. Task worktrees and private
@@ -53,7 +69,7 @@ The [combined 9047/9048 receipt](docs/evidence/native-surfaces-9048.json) record
 ## Active next work
 
 1. Add renderer-owned font/glyph/text-area/custom-scroll and paint-sequence snapshots, starting with a bounded native Interface state, and combine them with the verified external observer. Keep missing data explicitly incomplete. Remaining owner geometry and typography stay unfinished.
-2. Complete remaining workspace, menu, regex and application-owned legacy surfaces with real actions. Preserve owner identities, drafts, native editing/IME and accessibility consumers.
+2. Exercise the new regex workbench export/import and setup reverse traversal at runtime. Complete remaining workspace, menu, regex and application-owned legacy surfaces with real actions. Preserve owner identities, drafts, native editing/IME and accessibility consumers.
 3. Obtain complete native renderer-specific font/glyph/text-area and scroll observations. Raw images remain private because native layout v2 and promotion v3 receipts are incomplete. No zero-findings or finished-remake claim is justified.
 4. Verify physical 125/150/200 percent scales, reverse traversal, high contrast, reduced motion, full keyboard/IME/accessibility and restart/recovery. Resizing at 96 DPI is not physical-scale evidence.
 5. Complete the applicable required-feature inventory, installer/updater negative paths and release/build companions. Installation remains deferred by current owner direction. Remove `.release-hold` only after the required acceptance and permitted delivery actions are complete.

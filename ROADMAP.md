@@ -5,7 +5,9 @@ held by `.release-hold`; this checklist records completed and unfinished work.
 
 - [x] Preserve producer ec177ac and reader 6be9101 on their owning remote branches.
 - [x] Publish Settings and preference GDI measurements only after their windows are placed; a hidden-window regression fails when measurements publish before placement.
-- [ ] Build and verify the combined renderer-observation source; not run at stop.
+- [x] Build the combined renderer-observation source and pass every native focused check (layout observations, regex collections, preferences, settings, result list, read-only text, material visuals).
+- [x] Republish scroll rail observations after rail-driven viewport scrolls and text-field edits, undo, line scrolling and IME composition.
+- [ ] Run a live Settings/preference renderer observation on the built application.
 
 ## Incomplete source preservation
 
@@ -228,7 +230,8 @@ with historical originals retained separately.
 
 - [ ] Verify explicit save/reuse/rename/delete/recovery, Unicode persistence, concurrency, keyboard access and localization in the built editor. Source implemented; runtime acceptance remains unverified.
 - [x] Add bounded collection export and all-or-nothing merge/replace import with `build.bat --verify-regex-collections` (31 checks, mutation-checked).
-- [ ] Expose collection export/import in the regex workbench, then complete descriptions, parameters and remaining RegexBuddy library topics.
+- [x] Add Export collection and Import collection (Merge or confirmed Replace) to the regex workbench Library page on the existing worker; source and build verified, runtime interaction not yet exercised.
+- [ ] Exercise workbench export/import in the built application, give export its own success message, then complete descriptions, parameters and remaining RegexBuddy library topics.
 
 ## UTF-8 updater feed marker repair
 
