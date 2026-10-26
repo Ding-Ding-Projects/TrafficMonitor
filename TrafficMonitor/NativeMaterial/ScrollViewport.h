@@ -14,6 +14,6 @@ namespace NativeMaterial
     protected:
         LRESULT WindowProc(UINT,WPARAM,LPARAM) override;
     private:
-        ScrollRail m_rail;int m_position{},m_wheel{};HFONT m_font{};
+        ScrollRail m_rail;int m_content{},m_page{},m_position{},m_wheel{};void Observe();HFONT m_font{};
     };
 }

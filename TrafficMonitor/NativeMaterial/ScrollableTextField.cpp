@@ -75,6 +75,9 @@ namespace NativeMaterial
         case WM_SETFONT: case WM_SETTEXT: case WM_KEYDOWN: case WM_KEYUP:
         case WM_MOUSEWHEEL: case WM_VSCROLL: case WM_LBUTTONUP:
         case EM_SETSEL: case EM_REPLACESEL: case EM_SCROLLCARET:
+        case WM_CHAR: case WM_PASTE: case WM_CUT: case WM_CLEAR: case WM_UNDO:
+        case EM_UNDO: case EM_LINESCROLL: case EM_SCROLL: case WM_IME_COMPOSITION:
+        case WM_IME_ENDCOMPOSITION:
             SyncScroll();
             break;
         }

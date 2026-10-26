@@ -8,7 +8,7 @@ try {
     $work=Join-Path $RepoRoot ('artifacts/native-layout-observations-'+[guid]::NewGuid().ToString('N'))
     New-Item -ItemType Directory -Path $work | Out-Null
     $exe=Join-Path $work 'LayoutObservationTests.exe'
-    $sources=@('LayoutObservationTests.cpp','LayoutObservations.cpp','ButtonVisual.cpp','ButtonDrawTextBaseline.cpp','Theme.cpp','ScrollRail.cpp') | ForEach-Object {'"'+(Join-Path $RepoRoot ('TrafficMonitor/NativeMaterial/'+$_))+'"'}
+    $sources=@('LayoutObservationTests.cpp','LayoutObservations.cpp','ButtonVisual.cpp','ButtonDrawTextBaseline.cpp','Theme.cpp','ScrollRail.cpp','ScrollViewport.cpp') | ForEach-Object {'"'+(Join-Path $RepoRoot ('TrafficMonitor/NativeMaterial/'+$_))+'"'}
     $command='call "'+$vcvars+'" >nul && "'+$compiler+'" /nologo /std:c++17 /EHsc /utf-8 /MD /D_AFXDLL /D_UNICODE /DUNICODE '+($sources -join ' ')+' /Fe:"'+$exe+'" /link UIAutomationCore.lib'
     Push-Location $work
     try { & cmd.exe /d /c $command; $compileExit=$LASTEXITCODE } finally { Pop-Location }
