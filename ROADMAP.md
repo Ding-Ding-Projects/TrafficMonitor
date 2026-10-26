@@ -23,7 +23,14 @@ unfinished items below; this checklist records completed and unfinished work.
 - [x] Measure wrapped Settings text the way the static control breaks it, fixing the clipped Monitoring updater paragraph.
 - [x] Add a custom Material title bar (frameless, Snap Layouts, DPI, dark, UI Automation) to Settings, the regex workbench and the setup wizard.
 - [ ] Follow design/native-mfc/material-conversion-plan.md until no stock control, system caption, message box, scrollbar or tooltip remains on an owned surface.
-- [ ] Refresh the README with a larger, categorized set of current captures and move superseded images to an archive page.
+- [x] Refresh the README with 76 categorized current captures of the unmodified build and move superseded image references to docs/screenshots-archive.md.
+- [x] Replace the 35 legacy system message boxes with a Material alert dialog.
+- [x] Add the custom title bar to the network workspace; make the update banner and menu popup frameless Material surfaces.
+- [x] Add self-drawn Material switch, checkbox, radio group, segmented button, number stepper, searchable dropdown and labelled text field with clear button.
+- [ ] Convert the four remaining native message boxes (Settings, workspace, regex workbench) to the alert dialog.
+- [ ] Adopt the new input components in Settings, the setup wizard and the regex workbench, replacing stock combo boxes, sliders, checkboxes and edits.
+- [ ] Fix capture findings: clipped labels in legacy Options tabs and Change Skin; Settings content stops near x=1068 with an empty right gutter; setup step 3 repeats summary lines; "Apply interface preferences" wraps inside its button; white button backgrounds in the dark regex workbench; untranslated Cantonese menu items; misaligned menu icon baselines and a green focus outline in dark menus; localized accessible name for the banner dismiss button.
+- [ ] Retake every README capture after the title bar and component adoption land.
 - [ ] Let Rename edit a saved expression's description.
 
 ## Incomplete source preservation
