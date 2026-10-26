@@ -1006,6 +1006,8 @@
     <ClInclude Include="NativeSettings\SettingsViewport.h" />
     <ClCompile Include="NativeSettings\SettingCatalog.cpp" />
     <ClInclude Include="NativeMaterial\SettingsControls.h" />
+    <ClInclude Include="NativeMaterial\ActionSounds.h" />
+    <ClCompile Include="NativeMaterial\ActionSounds.cpp" />
     <ClCompile Include="NativeSettings\Settings.cpp" />
     <ClCompile Include="NativeSettings\Values.cpp" />
     <ClCompile Include="NativeMaterial\SettingsControls.cpp" />

@@ -1,4 +1,4 @@
-# Action sound effects
+﻿# Action sound effects
 
 Requirement ID: `action-sound-effects`. Status: **UNFINISHED**. Phase: **P2**.
 
@@ -8,7 +8,7 @@ Provide short coherent sound effects for selected meaningful actions and actual 
 
 ## Current evidence and limits
 
-No source-bound action-to-cue map, shared playback service, persisted Settings switch or built sound verification has been established. This article records required behavior, not implementation or runtime acceptance. No default enabled state is claimed.
+The native application now has a source-bound action-to-cue map, a shared non-blocking playback service and a persisted Settings control (see "Native application implementation" below). Built audible playback has not been observed, and the hosted-documentation, documentation-companion and build-companion surfaces remain unimplemented. This article records implemented source behavior, not runtime acceptance. Shipped default: action sounds are Off.
 
 ## Independent surface applicability
 
@@ -26,6 +26,32 @@ No source-bound action-to-cue map, shared playback service, persisted Settings s
 ## Configuration, recovery and privacy
 
 Keep monitoring, plugins, portable behavior and saved preferences intact. Playback errors must never change action outcomes, block input or suppress visible and assistive feedback. Browser autoplay restrictions and absent devices require truthful unavailable-audio handling. Never change host volume or log personal wording. Valid personal-wording drops play the platform success cue once after validation, apply and persistence; invalid drops play the invalid-input cue once without changing stored wording or starting a success celebration. Both obey the same controls.
+
+## Native application implementation
+
+Source: `TrafficMonitor/NativeMaterial/ActionSounds.h` and `ActionSounds.cpp`, with the preference in `TrafficMonitor/NativePreferences/`. The `native-application` surface is the only surface touched; its status remains UNFINISHED until a built audible observation is recorded.
+
+| Action | Where it fires | Cue | Windows alias |
+|---|---|---|---|
+| Settings applied successfully | Interface page Apply and every other Settings page Apply, after the value is stored | Success | `SystemAsterisk` |
+| Setup completed | Setup wizard, after every step is applied and saved | Success | `SystemAsterisk` |
+| Action refused or failed | Apply rejected (invalid number, conflict, protected file, write failure, uncertain write, automatic restart choice not saved) | Failure | `SystemHand` |
+| Search produced no results | Searchable menu, once when a typed query first yields an empty list (not on every keystroke) | Notice | `SystemExclamation` |
+
+Control: Settings, Interface page, "Action sounds" (English, Cantonese or bilingual label), with three levels: Off, Failures and refusals only, All actions. The row is keyboard reachable like the language and appearance selectors, takes part in Settings search, and is covered by the page Reset and "Use saved" commands. The choice is applied with the page Apply command, which is the same moment it is persisted.
+
+Storage: `native-interface.ini` in the shared preference store. Off writes the original schema 1 document, so older builds and existing files keep working and an existing file loads with sounds Off. A non-Off level writes schema 2 with exactly one `actionSounds=1` (Failures and refusals only) or `actionSounds=2` (All actions) line. Out-of-range, malformed, duplicated or non-canonical values leave the file protected and are never partially applied.
+
+Behavior and limits:
+
+- Default is Off. Nothing plays until the user chooses a level.
+- Only Windows-provided system sounds are used, played asynchronously with `PlaySound` and `SND_ALIAS_ID`. No audio file is bundled and no network is used.
+- Windows volume, mute and sound-scheme settings decide what is audible; the application never changes them. There is no separate volume, mute, quiet-hours or reduced-sound control in the application: "Failures and refusals only" is the reduced level.
+- Cues closer than 600 ms apart are dropped, so repeated actions never stack or overlap.
+- A missing audio device or playback error is swallowed and never changes the action result, blocks input or removes the visible status text.
+- Not implemented: personal-wording import cues (not part of this change), quiet hours, per-action switches, and the other three runtime surfaces.
+
+Verification: `build.bat --verify-preferences` covers the default, bounds, storage round trips for all 27 combinations, schema 1 compatibility, malformed-value recovery, service persistence and reset, and the dispatcher decisions with an injected player (Off plays nothing, the mapped cue per action, Important filtering, non-overlap, unavailable device). The negative regression receipt is `evidence/features/action-sound-effects/native-application/negative-regression.json`. Audible playback in the running application has not been observed.
 
 ## Evidence checklist
 

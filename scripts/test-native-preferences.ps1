@@ -10,7 +10,8 @@ try {
     $exe=Join-Path $work 'PreferencesTests.exe'
     $source=Join-Path $RepoRoot 'TrafficMonitor/NativePreferences/PreferencesTests.cpp'
     $storage=Join-Path $RepoRoot 'TrafficMonitor/NativePreferences/Storage.cpp'
-    $command='call "'+$vcvars+'" >nul && "'+$compiler+'" /nologo /std:c++17 /EHsc /utf-8 /W4 /WX "'+$source+'" "'+$storage+'" /Fe:"'+$exe+'"'
+    $sounds=Join-Path $RepoRoot 'TrafficMonitor/NativeMaterial'
+    $command='call "'+$vcvars+'" >nul && "'+$compiler+'" /nologo /std:c++17 /EHsc /utf-8 /W4 /WX /I"'+$sounds+'" "'+$source+'" "'+$storage+'" /Fe:"'+$exe+'"'
     Push-Location $work
     try { & cmd.exe /d /c $command; $compileExit=$LASTEXITCODE } finally { Pop-Location }
     if($compileExit -ne 0){exit $compileExit}
@@ -33,6 +34,7 @@ try {
     Copy-Item -LiteralPath $source -Destination (Join-Path $work 'PreferencesTests.cpp')
     Copy-Item -LiteralPath (Join-Path $RepoRoot 'TrafficMonitor/NativePreferences/Preferences.h') -Destination $work
     Copy-Item -LiteralPath (Join-Path $RepoRoot 'TrafficMonitor/NativePreferences/Storage.h') -Destination $work
+    [IO.File]::WriteAllText((Join-Path $work 'ActionSounds.h'),([IO.File]::ReadAllText((Join-Path $sounds 'ActionSounds.h')).Replace('../NativePreferences/Preferences.h','Preferences.h')))
     $mutant=Join-Path $work 'MutatedPreferencesTests.exe'
     $command='call "'+$vcvars+'" >nul && "'+$compiler+'" /nologo /std:c++17 /EHsc /utf-8 /W4 /WX "'+(Join-Path $work 'PreferencesTests.cpp')+'" "'+$storage+'" /Fe:"'+$mutant+'"'
     Push-Location $work

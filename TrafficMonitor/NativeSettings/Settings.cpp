@@ -3,6 +3,7 @@
 #include "../NativeMaterial/LayoutObservations.h"
 #include "Settings.h"
 #include "../NativePreferences/Editor.h"
+#include "../NativeMaterial/ActionSounds.h"
 #include "../NativePreferences/Subscription.h"
 #include "SettingCatalog.h"
 #include "SettingsViewport.h"
@@ -241,7 +242,7 @@ namespace
     std::wstring Editor::DraftValue(const Row& row,bool chinese)const
     {
         const auto& s=*row.setting;std::wstring result;
-        if(s.group==Interface){const bool appearance=std::wstring(s.id)==L"interface.appearance";const auto id=static_cast<NativePreferences::TextId>(static_cast<int>(appearance?NativePreferences::TextId::System:NativePreferences::TextId::English)+(appearance?static_cast<int>(m_interface.draft.values.appearance):static_cast<int>(m_interface.draft.values.language)));return NativePreferences::Text(id,chinese?NativePreferences::Language::Cantonese:NativePreferences::Language::English).GetString();}
+        if(s.group==Interface){if(std::wstring(s.id)==L"interface.sounds"){const auto level=m_interface.draft.values.actionSounds;return level==NativePreferences::ActionSounds::Off?(chinese?L"關閉":L"Off"):level==NativePreferences::ActionSounds::Important?(chinese?L"只播放失敗同拒絕提示":L"Failures and refusals only"):(chinese?L"所有操作":L"All actions");}const bool appearance=std::wstring(s.id)==L"interface.appearance";const auto id=static_cast<NativePreferences::TextId>(static_cast<int>(appearance?NativePreferences::TextId::System:NativePreferences::TextId::English)+(appearance?static_cast<int>(m_interface.draft.values.appearance):static_cast<int>(m_interface.draft.values.language)));return NativePreferences::Text(id,chinese?NativePreferences::Language::Cantonese:NativePreferences::Language::English).GetString();}
         if(s.enabled)result=m_values.*s.enabled?(chinese?L"已啟用":L"Enabled"):(chinese?L"已停用":L"Disabled");
         if(s.number){CString text;row.number.GetWindowText(text);if(!result.empty())result+=L"; ";result+=text.GetString();result+=L" ";if(s.trafficUnits)result+=m_values.trafficUnit==0?L"MB":m_values.trafficUnit==1?L"GB":(chinese?L"無效單位":L"Invalid unit");else if(s.unit)result+=s.unit;}
         return result;
@@ -296,12 +297,12 @@ namespace
         if(m_page!=Interface){const int nh=extent(m_note,cw,32);Place(m_note,left,footerY,cw,nh);const int by=footerY+nh+8,bh=footerHeight-nh-20;Place(m_applyButton,left,by,96,bh);Place(m_revert,left+104,by,96,bh);Place(m_reset,left+208,by,cw-208,bh);}
         for(auto* c:{&m_applyButton,&m_revert,&m_reset})c->ShowWindow(m_page==Interface?SW_HIDE:SW_SHOW);m_reset.EnableWindow(m_page!=Discovery);
         headerDC.SelectObject(headerFont);measurements.Publish();
-        auto& state=m_searches[m_page];state.filter.Request(Subjects());int y=0,count=0;bool showLanguage=false,showAppearance=false;CRect body;m_body.GetClientRect(body);const int bw=MulDiv(body.Width(),96,m_dpi);
+        auto& state=m_searches[m_page];state.filter.Request(Subjects());int y=0,count=0;bool showLanguage=false,showAppearance=false,showSounds=false;CRect body;m_body.GetClientRect(body);const int bw=MulDiv(body.Width(),96,m_dpi);
         CClientDC dc(&m_body);auto* old=dc.SelectObject(&m_font);
         auto textHeight=[&](CWnd& c,int w){CString text;c.GetWindowText(text);CRect r(0,0,Px(w),0);dc.DrawText(text,&r,DT_CALCRECT|DT_WORDBREAK|DT_NOPREFIX);return (std::max)(24,(r.Height()*96+static_cast<int>(m_dpi)-1)/static_cast<int>(m_dpi));};
         for(size_t i=0;i<m_rows.size();++i)
         {
-            auto& r=*m_rows[i];const auto& s=*r.setting;if(m_page==Interface&&s.group==Interface&&(state.filter.Visible(i)||m_reveal==s.id)){++count;if(std::wstring(s.id)==L"interface.appearance")showAppearance=true;else showLanguage=true;}r.visible=m_page!=Discovery&&m_page!=Interface&&s.group==m_page&&(state.filter.Visible(i)||m_reveal==s.id);
+            auto& r=*m_rows[i];const auto& s=*r.setting;if(m_page==Interface&&s.group==Interface&&(state.filter.Visible(i)||m_reveal==s.id)){++count;if(std::wstring(s.id)==L"interface.appearance")showAppearance=true;else if(std::wstring(s.id)==L"interface.sounds")showSounds=true;else showLanguage=true;}r.visible=m_page!=Discovery&&m_page!=Interface&&s.group==m_page&&(state.filter.Visible(i)||m_reveal==s.id);
             if(r.visible)
             {
                 r.top=y;
@@ -332,7 +333,7 @@ namespace
             }
         }
         const int updateTop=y;const int updateHeight=m_page==0?textHeight(m_updateInfo,bw-24)+16:0;y+=updateHeight;
-        dc.SelectObject(old);m_interface.SetFilter(showLanguage,showAppearance);if(m_page==Interface)y=m_interface.Layout(0,0,bw-12,m_dpi,true);else m_interface.Layout(0,0,bw-12,m_dpi,false);m_contentHeight=y;state.scroll=(std::max)(0,(std::min)(state.scroll,(std::max)(0,y-m_viewHeight)));
+        dc.SelectObject(old);m_interface.SetFilter(showLanguage,showAppearance,showSounds);if(m_page==Interface)y=m_interface.Layout(0,0,bw-12,m_dpi,true);else m_interface.Layout(0,0,bw-12,m_dpi,false);m_contentHeight=y;state.scroll=(std::max)(0,(std::min)(state.scroll,(std::max)(0,y-m_viewHeight)));
         if(m_page==Interface){m_interface.Layout(0,-state.scroll,bw-12,m_dpi,true);m_interface.LayoutActions(left,footerY,cw,m_dpi,true);}
         m_body.SetMetrics(y,m_viewHeight,state.scroll);
         for(auto& pointer:m_rows)
@@ -394,7 +395,7 @@ namespace
     void Editor::SwitchGroup(int group)
     {if(group<0||group>Discovery)return;m_regexEditor.Close();m_binding.Invalidate();m_reveal.clear();m_page=group;m_navigation.SetCurSel(group);m_loading=true;m_search.SetWindowText(m_searches[group].filter.options.query.c_str());m_loading=false;Layout();m_search.SetFocus();}
     void Editor::Reveal(const std::wstring& id)
-    {auto* r=Find(id);if(!r)return;SwitchGroup(r->setting->group);if(r->setting->group==Interface){m_reveal=id;Layout();m_interface.Focus(id==L"interface.appearance");return;}m_reveal=id;Layout();EnsureVisible(*r);if(r->setting->number&&r->number.IsWindowEnabled())r->number.SetFocus();else if(r->check.GetSafeHwnd()&&r->check.IsWindowEnabled())r->check.SetFocus();else r->details.SetFocus();}
+    {auto* r=Find(id);if(!r)return;SwitchGroup(r->setting->group);if(r->setting->group==Interface){m_reveal=id;Layout();if(id==L"interface.sounds")m_interface.FocusSounds();else m_interface.Focus(id==L"interface.appearance");return;}m_reveal=id;Layout();EnsureVisible(*r);if(r->setting->number&&r->number.IsWindowEnabled())r->number.SetFocus();else if(r->check.GetSafeHwnd()&&r->check.IsWindowEnabled())r->check.SetFocus();else r->details.SetFocus();}
     void Editor::OpenSelected(){const int at=m_results.GetCurSel();if(at==LB_ERR)return;auto* s=static_cast<Setting*>(m_results.GetItemDataPtr(at));if(s)Reveal(s->id);}
     void Editor::SetRowFrom(Row& row,const Values& source){row.setting->Copy(m_values,source);m_loading=true;SyncRow(row);m_loading=false;m_dirty=true;Layout();EnsureVisible(row);}
     void Editor::ResetPage()
@@ -407,11 +408,11 @@ namespace
         {
             const auto& s=*r->setting;if(!s.number)continue;CString text;r->number.GetWindowText(text);int value=candidate.*s.number;
             if(!ReadNumberDraft(text.GetString(),s.minimum,s.maximum,s.step,s.Available(),value)||(s.trafficUnits&&!ValidTrafficUnit(candidate.trafficUnit,s.Available())))
-            {Reveal(s.id);Note(NoteKind::InvalidNumber, &s);return;}candidate.*s.number=value;
+            {NativeSounds::Notify(NativeSounds::Action::ActionRefused);Reveal(s.id);Note(NoteKind::InvalidNumber, &s);return;}candidate.*s.number=value;
         }
         if(candidate.automaticRestart!=NativeUpdate::AutomaticRestartEnabled()&&!NativeUpdate::SaveAutomaticRestart(candidate.automaticRestart))
-        {m_dirty=true;Note(NoteKind::SaveFailed);return;}
-        m_apply(candidate);Reload();Note(NoteKind::Submitted);
+        {NativeSounds::Notify(NativeSounds::Action::ActionRefused);m_dirty=true;Note(NoteKind::SaveFailed);return;}
+        m_apply(candidate);Reload();Note(NoteKind::Submitted);NativeSounds::Notify(NativeSounds::Action::SettingsApplied);
     }
     bool Editor::CanDiscard(){return (!m_dirty&&!m_interface.draft.dirty)||MessageBox(T(L"Discard unapplied settings changes?",L"捨棄未套用嘅設定修改？"),T(L"Settings",L"設定"),MB_YESNO|MB_ICONQUESTION|MB_DEFBUTTON2)==IDYES;}
     void Editor::OnCancel(){if(CanDiscard()){m_regexEditor.Close();m_binding.Invalidate();EndDialog(IDCANCEL);}}

@@ -30,6 +30,12 @@ int wmain()
         invalid.WriteString(L"setup",key,L"");Check(!ReadSetupPreferences(invalid,value),"empty protected field rejected");
     }
     {CIniHelper absent;absent.WriteInt(L"setup",L"schemaVersion",1);Check(StartupFallback(absent,{Language::Cantonese,Appearance::System}).language==Language::Cantonese,"missing schema1 language does not manufacture explicit English");}
+    {
+        auto before=Current();const Values louder{Language::English,Appearance::Dark,ActionSounds::All};
+        Check(TryApply(louder,before.base)==Result::Saved&&Current().values.actionSounds==ActionSounds::All,"service applies and publishes the action sound level");
+        Check(Reload()&&Current().values==louder&&Current().persisted,"action sound level survives a reload from the stored file");
+        Check(TryApply(Defaults(),Current().base)==Result::Saved&&Current().values.actionSounds==ActionSounds::Off,"reset to defaults turns action sounds Off and persists it");
+    }
     DeleteFileW(file.c_str());DeleteFileW((directory+L"native-interface.ini").c_str());RemoveDirectoryW(directory.c_str());
     std::cout<<passed<<" passed, "<<failed<<" failed\n";return failed?1:0;
 }

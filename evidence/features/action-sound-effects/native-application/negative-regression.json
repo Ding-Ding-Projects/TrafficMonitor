@@ -1,0 +1,13 @@
+{
+    "featureId":  "action-sound-effects",
+    "surface":  "native-application",
+    "sourceCommit":  "89c0a42",
+    "sourceCommitNote":  "Parent commit of the commit that adds this receipt; the receipt cannot name its own commit. The mutated and restored content is the uncommitted working tree on top of this parent.",
+    "verified":  true,
+    "redObserved":  true,
+    "restoredGreen":  true,
+    "command":  "In ActionSounds.h Decide(), replace \"if(level==NativePreferences::ActionSounds::Off||cue==Cue::None)return Cue::None;\" with \"if(cue==Cue::None)return Cue::None;\", run .\\build.bat --verify-preferences, restore the file byte for byte, run it again.",
+    "redOutput":  "FAIL Off plays nothing for a successful action\nFAIL Off plays nothing for a refused action\nFAIL All plays the success cue after a successful apply\n45 passed, 3 failed",
+    "greenOutput":  "48 passed, 0 failed\n27 passed, 0 failed\n47 passed, 1 failed\n48 passed, 0 failed",
+    "audibleOutputObserved":  false
+}
