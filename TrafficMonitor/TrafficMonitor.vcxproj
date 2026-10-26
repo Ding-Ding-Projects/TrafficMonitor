@@ -1107,6 +1107,8 @@
     <ClInclude Include="NativeSettings\SettingCatalog.h" />
     <ClInclude Include="NativeSettings\DraftValidation.h" />
     <ClInclude Include="NativeSettings\SettingsViewport.h" />
+    <ClInclude Include="NativeSettings\RowControls.h" />
+    <ClCompile Include="NativeSettings\RowControls.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
     <ClCompile Include="NativeSettings\SettingCatalog.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
     <ClInclude Include="NativeMaterial\SettingsControls.h" />
     <ClInclude Include="NativeMaterial\ActionSounds.h" />

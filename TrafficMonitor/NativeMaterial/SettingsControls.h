@@ -1,54 +1,24 @@
 #pragma once
 #include <afxwin.h>
+#include <vector>
 #include "Theme.h"
-#include "TextField.h"
 namespace NativeMaterial
 {
     COLORREF SettingsDisabledColor(Appearance appearance,bool background=false);
-    // Keep the native STATIC identity and disabled semantics while drawing
-    // notification-only muted text consistently for paint and print requests.
-    class SettingsLabel final : public CStatic
+
+    // One window found by FindStockControls.
+    struct StockControl
     {
-    public:
-        void SetGrouped(bool grouped){m_grouped=grouped;}
-        void SetAppearance(Appearance appearance){m_appearance=appearance;if(m_hWnd)Invalidate();}
-    protected:
-        LRESULT WindowProc(UINT,WPARAM,LPARAM) override;
-    private:
-        void PaintDisabled(HDC);
-        bool m_grouped{};Appearance m_appearance{Appearance::Light};
+        HWND window{};
+        CString className;
     };
-    // Notification-only styling; the real EDIT retains text and disabled state.
-    class SettingsNumber final : public TextField
-    {
-    public:
-        void SetGrouped(bool grouped){m_grouped=grouped;}
-        void SetAppearance(Appearance appearance){m_appearance=appearance;TextField::SetAppearance(appearance);}
-        HBRUSH Color(CDC* dc);
-    protected:
-        LRESULT WindowProc(UINT,WPARAM,LPARAM) override;
-    private:
-        void PaintDisabled(HDC);
-        bool m_grouped{};Appearance m_appearance{Appearance::Light};CBrush m_disabledBackground;
-    };
-    // Retains native BUTTON auto-checkbox state, keyboard behavior and accessibility.
-    class SettingsCheck final : public CButton
-    {
-    public:
-        BOOL Create(const CString& text, CWnd* parent, UINT id);
-        void SetAppearance(Appearance value) { m_appearance = value; Invalidate(); }
-        void SetGrouped(bool value){m_grouped=value;Invalidate();}
-    protected:
-        LRESULT WindowProc(UINT,WPARAM,LPARAM) override;
-        afx_msg void OnPaint();
-        afx_msg void OnLButtonUp(UINT flags, CPoint point);
-        afx_msg void OnKeyUp(UINT key, UINT repeat, UINT flags);
-        afx_msg void OnSetFocus(CWnd* old);
-        afx_msg void OnKillFocus(CWnd* next);
-        DECLARE_MESSAGE_MAP()
-    private:
-        void Paint(HDC);
-        Appearance m_appearance{ Appearance::Light };
-        bool m_grouped{};
-    };
+    // True for the window classes of stock Windows controls that a Material surface must not contain:
+    // BUTTON, EDIT, COMBOBOX, LISTBOX, SCROLLBAR, RICHEDIT and the common controls (msctls_*, Sys*).
+    // STATIC is deliberately not stock-flagged: read-only text may stay a themed STATIC.
+    bool IsStockControlClass(const CString& className);
+    // Walks every descendant of root and returns the stock controls among them. An EDIT is not reported
+    // when the Material component that owns it is its direct parent (NumberStepper or LabeledTextField:
+    // the borderless entry field that keeps IME, selection and clipboard). A window listed in allowed is
+    // skipped together with its descendants; the owner names why (for example the custom result list).
+    std::vector<StockControl> FindStockControls(HWND root,const std::vector<HWND>& allowed={});
 }

@@ -432,7 +432,7 @@ namespace NativeDashboard::Setup
         BOOL Wizard::OnCommand(WPARAM w,LPARAM l)
         {
             UINT id=LOWORD(w);if(m_applying)return TRUE;
-            if(HIWORD(w)==BN_CLICKED&&m_preferences.Command(id)){ReadControls();Labels();Layout();RevealFocus();return TRUE;}
+            if((HIWORD(w)==BN_CLICKED||HIWORD(w)==CBN_SELCHANGE)&&m_preferences.Command(id,HIWORD(w))){ReadControls();Labels();Layout();RevealFocus();return TRUE;}
             if(id>=Language&&id<=StartupChoice&&HIWORD(w)==CBN_SELCHANGE)
             {ReadControls();Labels();Layout();m_note.SetWindowText(StyleNote(m_draft.language,m_draft.english,m_draft.cantonese));Layout();return TRUE;}
             if(HIWORD(w)!=BN_CLICKED)return CDialog::OnCommand(w,l);

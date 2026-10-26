@@ -1,5 +1,6 @@
 #include "../stdafx.h"
 #include "SettingsControls.h"
+#include "InputControls.h"
 namespace NativeMaterial
 {
     COLORREF SettingsDisabledColor(Appearance appearance,bool background)
@@ -11,120 +12,33 @@ namespace NativeMaterial
             BYTE((c.onSurface.g*alpha+c.surface.g*(1-alpha))*255),
             BYTE((c.onSurface.b*alpha+c.surface.b*(1-alpha))*255));
     }
-    void SettingsLabel::PaintDisabled(HDC target)
+    bool IsStockControlClass(const CString& className)
     {
-        CDC dc;dc.Attach(target);const int saved=dc.SaveDC();CRect rect;GetClientRect(rect);
-        const auto c=Palette::Resolve(m_appearance);
-        dc.FillSolidRect(rect,RGB(BYTE(c.surface.r*255),BYTE(c.surface.g*255),BYTE(c.surface.b*255)));
-        dc.SetBkMode(TRANSPARENT);dc.SetTextColor(SettingsDisabledColor(m_appearance));
-        if(auto* font=GetFont())dc.SelectObject(font);
-        CString text;GetWindowText(text);dc.DrawText(text,rect,DT_LEFT|DT_WORDBREAK|DT_NOPREFIX);
-        dc.RestoreDC(saved);dc.Detach();
+        static const wchar_t* const exact[]={L"Button",L"Edit",L"ComboBox",L"ComboLBox",L"ListBox",L"ScrollBar",L"ComboBoxEx32",L"ReBarWindow32",L"ToolbarWindow32",L"SysLink",L"RichEdit20W",L"RICHEDIT50W"};
+        for(const auto* name:exact)if(className.CompareNoCase(name)==0)return true;
+        return className.Left(6).CompareNoCase(L"msctls")==0||className.Left(3).CompareNoCase(L"Sys")==0||className.Left(9).CompareNoCase(L"tooltips_")==0;
     }
-    LRESULT SettingsLabel::WindowProc(UINT message,WPARAM w,LPARAM l)
+    namespace
     {
-        if(m_grouped&&!IsWindowEnabled())
+        bool OwnsEntryField(HWND parent)
         {
-            if(message==WM_PAINT){CPaintDC dc(this);PaintDisabled(dc.GetSafeHdc());return 0;}
-            if(message==WM_PRINTCLIENT&&w){PaintDisabled(reinterpret_cast<HDC>(w));return 0;}
+            CWnd* window=CWnd::FromHandlePermanent(parent);
+            return window&&(dynamic_cast<NumberStepper*>(window)||dynamic_cast<LabeledTextField*>(window));
         }
-        const auto result=CStatic::WindowProc(message,w,l);
-        if(message==WM_ENABLE&&m_grouped)Invalidate();
-        return result;
-    }
-    HBRUSH SettingsNumber::Color(CDC* dc)
-    {
-        if(!m_grouped||IsWindowEnabled())return TextField::Color(dc);
-        const auto background=SettingsDisabledColor(m_appearance,true);
-        m_disabledBackground.DeleteObject();m_disabledBackground.CreateSolidBrush(background);
-        dc->SetTextColor(SettingsDisabledColor(m_appearance));dc->SetBkColor(background);
-        return static_cast<HBRUSH>(m_disabledBackground.GetSafeHandle());
-    }
-    void SettingsNumber::PaintDisabled(HDC target)
-    {
-        CDC dc;dc.Attach(target);CRect rect;GetClientRect(rect);
-        dc.FillSolidRect(rect,SettingsDisabledColor(m_appearance,true));
-        dc.SetBkMode(TRANSPARENT);dc.SetTextColor(SettingsDisabledColor(m_appearance));
-        auto* font=GetFont();auto* previous=font?dc.SelectObject(font):nullptr;
-        CString value;GetWindowText(value);dc.DrawText(value,rect,DT_LEFT|DT_VCENTER|DT_SINGLELINE|DT_NOPREFIX);
-        if(previous)dc.SelectObject(previous);dc.Detach();
-    }
-    LRESULT SettingsNumber::WindowProc(UINT message,WPARAM w,LPARAM l)
-    {
-        // Disabled EDIT controls normally force system GrayText. Paint their
-        // retained value explicitly while leaving the actual HWND disabled.
-        if(m_grouped&&!IsWindowEnabled())
+        void Collect(HWND parent,const std::vector<HWND>& allowed,std::vector<StockControl>& found)
         {
-            if(message==WM_PAINT){CPaintDC dc(this);PaintDisabled(dc.GetSafeHdc());return 0;}
-            if(message==WM_PRINTCLIENT&&w){PaintDisabled(reinterpret_cast<HDC>(w));return 0;}
+            for(HWND child=::GetWindow(parent,GW_CHILD);child;child=::GetWindow(child,GW_HWNDNEXT))
+            {
+                bool skip=false;for(HWND item:allowed)skip=skip||item==child;
+                if(skip)continue;
+                wchar_t name[64]{};::GetClassNameW(child,name,static_cast<int>(std::size(name)));const CString className(name);
+                if(IsStockControlClass(className)&&!(className.CompareNoCase(L"Edit")==0&&OwnsEntryField(parent)))found.push_back({child,className});
+                Collect(child,allowed,found);
+            }
         }
-        if(message==WM_NCPAINT&&m_grouped&&!IsWindowEnabled())
-        {
-            CWindowDC dc(this);CRect window;GetWindowRect(window);CRect rect=window;rect.OffsetRect(-window.TopLeft());
-            CRect client;GetClientRect(client);ClientToScreen(client);client.OffsetRect(-window.TopLeft());dc.ExcludeClipRect(client);
-            dc.FillSolidRect(rect,SettingsDisabledColor(m_appearance,true));
-            const auto ink=SettingsDisabledColor(m_appearance);dc.Draw3dRect(rect,ink,ink);return 0;
-        }
-        const auto result=TextField::WindowProc(message,w,l);
-        if(message==WM_ENABLE&&m_grouped)RedrawWindow(nullptr,nullptr,RDW_INVALIDATE|RDW_FRAME);
-        return result;
     }
-    BEGIN_MESSAGE_MAP(SettingsCheck, CButton)
-        ON_WM_PAINT()
-        ON_WM_LBUTTONUP()
-        ON_WM_KEYUP()
-        ON_WM_SETFOCUS()
-        ON_WM_KILLFOCUS()
-    END_MESSAGE_MAP()
-    BOOL SettingsCheck::Create(const CString& text, CWnd* parent, UINT id)
+    std::vector<StockControl> FindStockControls(HWND root,const std::vector<HWND>& allowed)
     {
-        return CButton::Create(text, WS_CHILD | WS_VISIBLE | WS_TABSTOP | BS_AUTOCHECKBOX,
-            CRect(0, 0, 100, 48), parent, id);
+        std::vector<StockControl> found;if(root&&::IsWindow(root))Collect(root,allowed,found);return found;
     }
-    void SettingsCheck::OnPaint()
-    {
-        CPaintDC dc(this);Paint(dc.GetSafeHdc());
-    }
-    LRESULT SettingsCheck::WindowProc(UINT message,WPARAM w,LPARAM l)
-    {
-        if((message==WM_PRINTCLIENT||message==WM_PRINT)&&w)
-        {if(!(l&PRF_CHECKVISIBLE)||IsWindowVisible())Paint(reinterpret_cast<HDC>(w));return 0;}
-        const auto result=CButton::WindowProc(message,w,l);
-        if(message==WM_ENABLE||message==BM_SETCHECK)Invalidate();
-        return result;
-    }
-    void SettingsCheck::Paint(HDC target)
-    {
-        CDC dc;dc.Attach(target);const int saved=dc.SaveDC();CRect rect;GetClientRect(rect);
-        const auto palette = Palette::Resolve(m_appearance);
-        auto color = [](D2D1_COLOR_F value) { return RGB(BYTE(value.r * 255), BYTE(value.g * 255), BYTE(value.b * 255)); };
-        const UINT dpi = GetDpiForWindow(m_hWnd);
-        auto px = [&](int value) { return MulDiv(value, dpi ? dpi : 96, 96); };
-        const bool disabled=!IsWindowEnabled(),marked=GetCheck()!=BST_UNCHECKED;
-        dc.FillSolidRect(rect,color(palette.surface));
-        const CRect box(px(2),rect.CenterPoint().y-px(9),px(20),rect.CenterPoint().y+px(9));
-        const auto outline=disabled?SettingsDisabledColor(m_appearance):color(marked?palette.primary:palette.onSurfaceVariant);
-        CBrush fill(disabled?SettingsDisabledColor(m_appearance,true):color(marked?palette.primary:palette.surface));
-        CPen border(PS_SOLID,(std::max)(1,px(2)),outline);auto* oldBrush=dc.SelectObject(&fill);auto* oldPen=dc.SelectObject(&border);
-        dc.RoundRect(box,CPoint(px(4),px(4)));dc.SelectObject(oldBrush);dc.SelectObject(oldPen);
-        if (GetCheck() == BST_CHECKED)
-        {
-            CPen pen(PS_SOLID, px(2), disabled?SettingsDisabledColor(m_appearance):color(palette.onPrimary)); auto* old = dc.SelectObject(&pen);
-            dc.MoveTo(box.left + px(4), box.top + px(10)); dc.LineTo(box.left + px(8), box.top + px(15));
-            dc.LineTo(box.right - px(3), box.top + px(4)); dc.SelectObject(old);
-        }
-        else if(GetCheck()==BST_INDETERMINATE)
-        {CPen pen(PS_SOLID,(std::max)(1,px(2)),disabled?SettingsDisabledColor(m_appearance):color(palette.onPrimary));auto* previous=dc.SelectObject(&pen);dc.MoveTo(box.left+px(4),box.CenterPoint().y);dc.LineTo(box.right-px(4),box.CenterPoint().y);dc.SelectObject(previous);}
-        CString text; GetWindowText(text); CRect label(rect); label.left = px(32); label.right -= px(12);
-        label.top += px(12); label.bottom -= px(6);
-        CFont* oldFont = dc.SelectObject(GetFont()); dc.SetBkMode(TRANSPARENT);
-        dc.SetTextColor(disabled?SettingsDisabledColor(m_appearance):color(IsWindowEnabled()?palette.onSurface:palette.secondaryText));
-        dc.DrawText(text, label, DT_LEFT | DT_WORDBREAK | DT_NOPREFIX); dc.SelectObject(oldFont);
-        if (GetFocus() == this) { rect.DeflateRect(px(3), px(3)); dc.DrawFocusRect(rect); }
-        dc.RestoreDC(saved);dc.Detach();
-    }
-    void SettingsCheck::OnLButtonUp(UINT flags, CPoint point) { CButton::OnLButtonUp(flags, point); Invalidate(); }
-    void SettingsCheck::OnKeyUp(UINT key, UINT repeat, UINT flags) { CButton::OnKeyUp(key, repeat, flags); Invalidate(); }
-    void SettingsCheck::OnSetFocus(CWnd* old) { CButton::OnSetFocus(old); Invalidate(); }
-    void SettingsCheck::OnKillFocus(CWnd* next) { CButton::OnKillFocus(next); Invalidate(); }
 }
