@@ -6,7 +6,7 @@ namespace NativeRegex
 {
 namespace
 {
-    constexpr size_t FileLimit = 1024 * 1024, RecordLimit = 64;
+    constexpr size_t FileLimit = 1024 * 1024, RecordLimit = 64, DescriptionLimit = 1024;
     struct Handle
     {
         HANDLE value{INVALID_HANDLE_VALUE};
@@ -31,6 +31,7 @@ namespace
     {
         Require(!r.name.empty()&&r.name.size()<=96&&Unicode(r.name)&&r.name.find_first_not_of(L" \t\r\n")!=std::wstring::npos,L"Use a nonblank name of at most 96 UTF-16 units.");
         Require(r.options.query.size()<=256&&r.replacement.size()<=4096&&Unicode(r.options.query)&&Unicode(r.replacement),L"Invalid Unicode or expression size. Pattern limit: 256; replacement limit: 4096 UTF-16 units.");
+        Require(r.description.size()<=DescriptionLimit&&Unicode(r.description),L"Invalid Unicode or description size. Description limit: 1024 UTF-16 units.");
         Require(r.operation==Operation::Search||r.operation==Operation::Replace||r.operation==Operation::Split,L"Unsupported saved operation.");
     }
     using Bytes=std::vector<unsigned char>;
@@ -53,22 +54,22 @@ namespace
     {
         if(bytes.empty())return {};
         Reader r{bytes};Require(r.Number()==0x58524d54&&r.Number()==0x314c4f43,L"Not a native expression collection.");
-        Require(r.Number()==1,L"Unsupported collection schema version.");
+        const auto schema=r.Number();Require(schema==1||schema==2,L"Unsupported collection schema version.");
         Require(r.Number()==1,L"Unsupported engine/version: this editor requires TrafficMonitor bounded NFA v1.");
         const auto count=r.Number();Require(count<=RecordLimit,L"Collection exceeds 64 records.");std::vector<SavedExpression> records;
         for(uint32_t i=0;i<count;++i)
         {
             SavedExpression item;item.name=r.Text(96);item.options.query=r.Text(256);item.replacement=r.Text(4096);
             auto flags=r.Number();Require(flags<=3,L"Unsupported saved flags.");item.options.regex=(flags&1)!=0;item.options.ignoreCase=(flags&2)!=0;
-            item.operation=static_cast<Operation>(r.Number());Validate(item);
+            item.operation=static_cast<Operation>(r.Number());if(schema>=2)item.description=r.Text(DescriptionLimit);Validate(item);
             for(const auto& prior:records)Require(!SameName(prior.name,item.name),L"Collection contains duplicate names.");records.push_back(std::move(item));
         }
         Require(r.at==bytes.size(),L"Unexpected trailing collection data.");return records;
     }
     Bytes Encode(const std::vector<SavedExpression>& records)
     {
-        Bytes b;Put(b,0x58524d54);Put(b,0x314c4f43);Put(b,1);Put(b,1);Put(b,static_cast<uint32_t>(records.size()));
-        for(const auto& r:records){Validate(r);PutText(b,r.name);PutText(b,r.options.query);PutText(b,r.replacement);Put(b,(r.options.regex?1:0)|(r.options.ignoreCase?2:0));Put(b,static_cast<uint32_t>(r.operation));}
+        Bytes b;Put(b,0x58524d54);Put(b,0x314c4f43);Put(b,2);Put(b,1);Put(b,static_cast<uint32_t>(records.size()));
+        for(const auto& r:records){Validate(r);PutText(b,r.name);PutText(b,r.options.query);PutText(b,r.replacement);Put(b,(r.options.regex?1:0)|(r.options.ignoreCase?2:0));Put(b,static_cast<uint32_t>(r.operation));PutText(b,r.description);}
         Require(b.size()<=FileLimit,L"Collection exceeds 1 MiB.");return b;
     }
     void WriteAtomic(const std::wstring& path,const Bytes& bytes,bool recovery)
@@ -93,7 +94,7 @@ namespace
     }
 }
 bool SavedExpression::operator==(const SavedExpression& r) const
-{return name==r.name&&options.query==r.options.query&&options.regex==r.options.regex&&options.ignoreCase==r.options.ignoreCase&&operation==r.operation&&replacement==r.replacement;}
+{return name==r.name&&options.query==r.options.query&&options.regex==r.options.regex&&options.ignoreCase==r.options.ignoreCase&&operation==r.operation&&replacement==r.replacement&&description==r.description;}
 CollectionResult UpdateCollection(const std::wstring& directory,CollectionAction action,const SavedExpression& record,const std::wstring& newName)
 {
     CollectionResult result;

@@ -21,7 +21,7 @@ namespace NativeRegex
 struct EditorState { HWND window{}; };
 namespace
 {
-    enum : UINT { Pattern=55001, Subject, Replacement, Mode, Case, Run, Replace, Split, Apply, Cancel, Results, InsertAny, InsertDigit, InsertWord, InsertGroup, InsertStart, InsertEnd, SavedList, SavedName, SaveNew, LoadSaved, RenameSaved, DeleteSaved, RecoverSaved, RefreshSaved, ExportSaved, ImportSaved, TestPage, ReplacePage, ExplainPage, LibraryPage, OptionsToggle, Output };
+    enum : UINT { Pattern=55001, Subject, Replacement, Mode, Case, Run, Replace, Split, Apply, Cancel, Results, InsertAny, InsertDigit, InsertWord, InsertGroup, InsertStart, InsertEnd, SavedList, SavedName, SaveNew, LoadSaved, RenameSaved, DeleteSaved, RecoverSaved, RefreshSaved, ExportSaved, ImportSaved, TestPage, ReplacePage, ExplainPage, LibraryPage, OptionsToggle, Output, SavedDescription };
     class Workbench final : public CDialog
     {
     public:
@@ -75,10 +75,10 @@ namespace
         void Finish(bool commit);
         void CollectionStart(CollectionAction,const SavedExpression& = {},const std::wstring& = L"");
         void CollectionTransfer(bool import);void CollectionPoll();void CollectionValidate(bool save);void CollectionControls(bool enabled);
-        SavedExpression pendingRecord;bool validatingCollection{},savingCollection{},confirmDelete{},confirmRecovery{};
+        SavedExpression pendingRecord;bool validatingCollection{},savingCollection{},exportingCollection{},confirmDelete{},confirmRecovery{};
         Operation operation{Operation::Search};
         std::vector<SavedExpression> savedRecords;std::future<CollectionResult> collectionWorker;Session collectionValidation;
-        NativeMaterial::SearchSelector savedList;NativeMaterial::TextField savedName;CStatic savedLabel,nameLabel,collectionNote;
+        NativeMaterial::SearchSelector savedList;NativeMaterial::TextField savedName;NativeMaterial::ScrollableTextField savedDescription;CStatic savedLabel,nameLabel,descriptionLabel,collectionNote;
         NativeMaterial::Button saveNew,loadSaved,renameSaved,deleteSaved,recoverSaved,refreshSaved,exportSaved,importSaved;
         RECT previousAnchor{};
         UINT dpi{96};int scroll{};bool loading{true},applying{},ready{};
@@ -128,6 +128,8 @@ namespace
         refreshSaved.Create(T(L"Refresh",L"重新整理"),r,this,RefreshSaved);
         nameLabel.Create(T(L"Collection &name",L"儲存名稱 (&N)"),child,r,this);
         savedName.CreateEx(0,L"EDIT",L"",child|WS_TABSTOP|ES_AUTOHSCROLL,r,this,SavedName);savedName.SetLimitText(96);
+        descriptionLabel.Create(T(L"Collection &description (optional)",L"儲存說明，可留空 (&D)"),child,r,this);
+        savedDescription.CreateEx(0,L"EDIT",L"",child|WS_TABSTOP|ES_MULTILINE|ES_AUTOVSCROLL|ES_WANTRETURN,r,this,SavedDescription);savedDescription.SetLimitText(1024);
         saveNew.Create(T(L"Save new",L"儲存新項目"),r,this,SaveNew);
         renameSaved.Create(T(L"Rename",L"重新命名"),r,this,RenameSaved);
         deleteSaved.Create(T(L"Delete",L"刪除"),r,this,DeleteSaved);
@@ -162,7 +164,7 @@ namespace
         outputLabel.Create(L"",child,r,&panel);
         options.Create(L"",r,this,OptionsToggle);
         for(int index=0;index<4;++index)pages[index].Create(L"",r,this,TestPage+index);
-        for(CWnd* control:std::initializer_list<CWnd*>{&savedLabel,&savedList,&loadSaved,&refreshSaved,&nameLabel,&savedName,&saveNew,&renameSaved,&deleteSaved,&recoverSaved,&exportSaved,&importSaved,&collectionNote,&engine,&mode,&caseButton,&any,&digit,&word,&group,&start,&end,&help,&subjectLabel,&subject,&replacementLabel,&replacement,&run,&replace,&split,&results,&output})control->SetParent(&panel);
+        for(CWnd* control:std::initializer_list<CWnd*>{&savedLabel,&savedList,&loadSaved,&refreshSaved,&nameLabel,&savedName,&descriptionLabel,&savedDescription,&saveNew,&renameSaved,&deleteSaved,&recoverSaved,&exportSaved,&importSaved,&collectionNote,&engine,&mode,&caseButton,&any,&digit,&word,&group,&start,&end,&help,&subjectLabel,&subject,&replacementLabel,&replacement,&run,&replace,&split,&results,&output})control->SetParent(&panel);
         Theme();
         Labels();Fonts();RECT size{0,0,Px(1280),Px(840)};AdjustWindowRectEx(&size,GetStyle(),FALSE,GetExStyle());
         MONITORINFO monitor{sizeof(monitor)};GetMonitorInfoW(MonitorFromWindow(anchor,MONITOR_DEFAULTTONEAREST),&monitor);
@@ -177,6 +179,7 @@ namespace
         loadSaved.SetLabel(T(L"&Load draft",L"載入草稿 (&L)"));
         refreshSaved.SetLabel(T(L"Refresh",L"重新整理"));
         nameLabel.SetWindowText(T(L"Collection &name",L"儲存名稱 (&N)"));
+        descriptionLabel.SetWindowText(T(L"Collection &description (optional)",L"儲存說明，可留空 (&D)"));
         saveNew.SetLabel(T(L"Save new",L"儲存新項目"));
         renameSaved.SetLabel(T(L"Rename",L"重新命名"));
         deleteSaved.SetLabel(T(L"Delete",L"刪除"));
@@ -222,6 +225,7 @@ namespace
         for(auto& button:pages)button.SetAppearance(appearance);
         for(auto* field:{&pattern,&replacement,&savedName})field->SetAppearance(appearance);
         subject.SetAppearance(appearance);
+        savedDescription.SetAppearance(appearance);
         output.SetAppearance(appearance);
         savedList.SetAppearance(appearance);
         results.SetAppearance(appearance);
@@ -335,7 +339,7 @@ namespace
         bodyHeight=(std::max)(24,height-footer-y);
         move(viewport,0,y,width,bodyHeight);
         struct Box{CWnd* control;int x,y,w,h;};std::vector<Box> boxes;
-        std::vector<CWnd*> bodyControls{&savedLabel,&savedList,&loadSaved,&refreshSaved,&nameLabel,&savedName,&saveNew,&renameSaved,&deleteSaved,&recoverSaved,&exportSaved,&importSaved,&collectionNote,&engine,&mode,&caseButton,&any,&digit,&word,&group,&start,&end,&help,&subjectLabel,&subject,&replacementLabel,&replacement,&run,&replace,&split,&results,&output,&resultsLabel,&outputLabel};
+        std::vector<CWnd*> bodyControls{&savedLabel,&savedList,&loadSaved,&refreshSaved,&nameLabel,&savedName,&descriptionLabel,&savedDescription,&saveNew,&renameSaved,&deleteSaved,&recoverSaved,&exportSaved,&importSaved,&collectionNote,&engine,&mode,&caseButton,&any,&digit,&word,&group,&start,&end,&help,&subjectLabel,&subject,&replacementLabel,&replacement,&run,&replace,&split,&results,&output,&resultsLabel,&outputLabel};
         const int left=36,available=width-88;
         int cursor=16;
         auto place=[&](CWnd& control,int minimum,bool fixed=false)
@@ -374,7 +378,7 @@ namespace
         else
         {
             place(savedLabel,20);place(savedList,buttonHeight,true);row({&loadSaved,&refreshSaved});
-            place(nameLabel,20);place(savedName,48,true);row({&saveNew,&renameSaved});row({&deleteSaved,&recoverSaved});row({&exportSaved,&importSaved});place(collectionNote,36);
+            place(nameLabel,20);place(savedName,48,true);place(descriptionLabel,20);place(savedDescription,96,true);row({&saveNew,&renameSaved});row({&deleteSaved,&recoverSaved});row({&exportSaved,&importSaved});place(collectionNote,36);
         }
         contentHeight=cursor+16;
         scroll=(std::max)(0,(std::min)(scroll,(std::max)(0,contentHeight-bodyHeight)));
@@ -387,7 +391,7 @@ namespace
             if(visible!=((control->GetStyle()&WS_VISIBLE)!=0))control->ShowWindow(visible?SW_SHOW:SW_HIDE);
         }
         for(const auto& box:boxes)move(*box.control,box.x-20,box.y,box.w,box.h);
-        subject.SyncScroll();output.SyncScroll();results.SyncScroll();
+        subject.SyncScroll();output.SyncScroll();savedDescription.SyncScroll();results.SyncScroll();
         dc.SelectObject(previous);Invalidate(FALSE);
     }
     Options Workbench::Read(){CString text;pattern.GetWindowText(text);auto value=draft;value.query=text.GetString();return value;}
@@ -427,9 +431,9 @@ namespace
         }
         if(code==BN_CLICKED&&id==OptionsToggle){optionsVisible=!optionsVisible;Layout();return TRUE;}
         if(code==EN_SETFOCUS){RevealFocus();}
-        if(code==EN_UPDATE){subject.SyncScroll();output.SyncScroll();}
-        if(id==SavedList&&code==CBN_SELCHANGE){confirmDelete=false;confirmRecovery=false;int selected=savedList.GetCurSel();if(selected>=0&&static_cast<size_t>(selected)<savedRecords.size())savedName.SetWindowText(savedRecords[selected].name.c_str());return TRUE;}
-        if(id==SavedName&&code==EN_CHANGE){collectionValidation.Cancel();validatingCollection=false;confirmDelete=false;confirmRecovery=false;return TRUE;}
+        if(code==EN_UPDATE){subject.SyncScroll();output.SyncScroll();savedDescription.SyncScroll();}
+        if(id==SavedList&&code==CBN_SELCHANGE){confirmDelete=false;confirmRecovery=false;int selected=savedList.GetCurSel();if(selected>=0&&static_cast<size_t>(selected)<savedRecords.size()){savedName.SetWindowText(savedRecords[selected].name.c_str());savedDescription.SetWindowText(savedRecords[selected].description.c_str());}return TRUE;}
+        if((id==SavedName||id==SavedDescription)&&code==EN_CHANGE){collectionValidation.Cancel();validatingCollection=false;confirmDelete=false;confirmRecovery=false;return TRUE;}
         if((id==Pattern||id==Subject||id==Replacement)&&code==EN_CHANGE){Changed();return TRUE;}
         if(id==Results&&code==LBN_SELCHANGE){int row=results.GetCurSel();if(row>=0&&static_cast<size_t>(row)<last.matches.size()){auto s=last.matches[row];subject.SetSel(static_cast<int>(s.start),static_cast<int>(s.start+s.length));subject.SetFocus();}return TRUE;}
         if(code!=BN_CLICKED)return CDialog::OnCommand(w,l);
@@ -468,12 +472,12 @@ namespace
     void Workbench::CollectionControls(bool enabled)
     {
         for(auto* button:{&saveNew,&loadSaved,&renameSaved,&deleteSaved,&recoverSaved,&refreshSaved,&exportSaved,&importSaved})button->EnableWindow(enabled);
-        savedList.EnableWindow(enabled);savedName.EnableWindow(enabled);
+        savedList.EnableWindow(enabled);savedName.EnableWindow(enabled);savedDescription.EnableWindow(enabled);
     }
     void Workbench::CollectionStart(CollectionAction action,const SavedExpression& record,const std::wstring& newName)
     {
         if(collectionWorker.valid())return;
-        collectionValidation.Cancel();validatingCollection=false;confirmDelete=false;confirmRecovery=false;
+        collectionValidation.Cancel();validatingCollection=false;confirmDelete=false;confirmRecovery=false;exportingCollection=false;
         CollectionControls(false);const auto directory=theApp.m_config_dir;
         try{collectionWorker=std::async(std::launch::async,[directory,action,record,newName]{return UpdateCollection(directory,action,record,newName);});}
         catch(...){CollectionControls(true);Note(collectionNote,L"Cannot start collection storage. Draft is unchanged.",L"無法啟動儲存工作；草稿不變。");}
@@ -497,16 +501,16 @@ namespace
                 importMode=ImportMode::Replace;
             }
         }
-        CollectionControls(false);const auto directory=theApp.m_config_dir;
+        CollectionControls(false);exportingCollection=!import;const auto directory=theApp.m_config_dir;
         try{collectionWorker=std::async(std::launch::async,[directory,path,import,importMode]{return import?ImportCollection(directory,path,importMode):ExportCollection(directory,path);});}
-        catch(...){CollectionControls(true);Note(collectionNote,L"Cannot start collection transfer. Draft is unchanged.",L"無法啟動收藏傳輸；草稿不變。");}
+        catch(...){CollectionControls(true);exportingCollection=false;Note(collectionNote,L"Cannot start collection transfer. Draft is unchanged.",L"無法啟動收藏傳輸；草稿不變。");}
     }
     void Workbench::CollectionValidate(bool save)
     {
         if(collectionWorker.valid())return;
         confirmDelete=false;confirmRecovery=false;
         session.Cancel();applying=false;ready=false;apply.EnableWindow(FALSE);
-        if(save){CString name,repl;savedName.GetWindowText(name);replacement.GetWindowText(repl);pendingRecord={name.GetString(),Read(),operation,repl.GetString()};}
+        if(save){CString name,repl,note;savedName.GetWindowText(name);replacement.GetWindowText(repl);savedDescription.GetWindowText(note);pendingRecord={name.GetString(),Read(),operation,repl.GetString(),note.GetString()};}
         else{int selected=savedList.GetCurSel();if(selected<0||static_cast<size_t>(selected)>=savedRecords.size()){Note(collectionNote,L"Select a saved expression first.",L"請先選取已儲存表示式。");return;}pendingRecord=savedRecords[selected];}
         savingCollection=save;validatingCollection=true;
         collectionValidation.Request(pendingRecord.options,{},Operation::Search,pendingRecord.replacement);
@@ -516,16 +520,17 @@ namespace
     {
         if(collectionWorker.valid()&&collectionWorker.wait_for(std::chrono::milliseconds(0))==std::future_status::ready)
         {
-            auto result=collectionWorker.get();CollectionControls(true);
+            auto result=collectionWorker.get();CollectionControls(true);const bool exported=exportingCollection;exportingCollection=false;
             if(!result.complete){collectionNote.SetWindowText(result.error.c_str());return;}
             savedRecords=std::move(result.records);savedList.ResetContent();for(const auto& item:savedRecords)savedList.AddString(item.name.c_str());
-            Note(collectionNote,L"Saved collection ready. Select and Load draft explicitly; Apply remains separate.",L"儲存項目已就緒。請選取並載入草稿；套用為獨立操作。");
+            if(exported){messages.erase(collectionNote.GetSafeHwnd());collectionNote.SetWindowText(NativePreferences::Format(L"Exported %zu saved expressions.",L"已匯出 %zu 個已儲存表示式。",savedRecords.size()));Layout();}
+            else Note(collectionNote,L"Saved collection ready. Select and Load draft explicitly; Apply remains separate.",L"儲存項目已就緒。請選取並載入草稿；套用為獨立操作。");
         }
         Result checked;if(!validatingCollection||!collectionValidation.Poll(checked))return;validatingCollection=false;
         if(!checked.complete){collectionNote.SetWindowText(checked.error.c_str());return;}
         if(savingCollection){CollectionStart(CollectionAction::Save,pendingRecord);return;}
         loading=true;draft=pendingRecord.options;operation=pendingRecord.operation;
-        pattern.SetWindowText(draft.query.c_str());replacement.SetWindowText(pendingRecord.replacement.c_str());
+        pattern.SetWindowText(draft.query.c_str());replacement.SetWindowText(pendingRecord.replacement.c_str());savedDescription.SetWindowText(pendingRecord.description.c_str());
         mode.SetLabel(draft.regex?T(L"Mode: regex",L"模式：正規式"):T(L"Mode: literal",L"模式：文字"));
         caseButton.SetLabel(draft.ignoreCase?T(L"ASCII case: ignore",L"忽略 ASCII 大小寫"):T(L"Case: exact",L"區分大小寫"));
         loading=false;Changed();

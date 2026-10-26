@@ -39,12 +39,12 @@ namespace
     bool Contains(const std::wstring& text, const wchar_t* part) { return text.find(part) != std::wstring::npos; }
     void PutNumber(Bytes& b, size_t offset, unsigned n) { for (int i = 0; i < 4; ++i) b[offset + i] = static_cast<char>(n >> (i * 8)); }
     // Builds a file image by hand so malformed or oversized content can be injected.
-    Bytes Image(const std::vector<std::wstring>& names)
+    Bytes Image(const std::vector<std::wstring>& names, unsigned schema = 1, const std::wstring& description = L"")
     {
         Bytes b; auto put = [&](unsigned n) { for (int i = 0; i < 4; ++i) b.push_back(static_cast<char>(n >> (i * 8))); };
         auto text = [&](const std::wstring& s) { put(static_cast<unsigned>(s.size())); for (wchar_t c : s) { b.push_back(static_cast<char>(c)); b.push_back(static_cast<char>(c >> 8)); } };
-        put(0x58524d54); put(0x314c4f43); put(1); put(1); put(static_cast<unsigned>(names.size()));
-        for (const auto& n : names) { text(n); text(L"a"); text(L""); put(1); put(1); }
+        put(0x58524d54); put(0x314c4f43); put(schema); put(1); put(static_cast<unsigned>(names.size()));
+        for (const auto& n : names) { text(n); text(L"a"); text(L""); put(1); put(1); if (schema >= 2) text(description); }
         return b;
     }
 }
@@ -116,7 +116,10 @@ int wmain()
     expectRejected(good.substr(0, good.size() - 3), L"truncated", "truncated file rejected", ImportMode::Merge);
     { auto b = good; PutNumber(b, 0, 0x12345678); expectRejected(b, L"Not a native", "wrong magic rejected", ImportMode::Replace); }
     { auto b = good; PutNumber(b, 12, 2); expectRejected(b, L"Unsupported engine/version", "wrong engine version rejected", ImportMode::Replace); }
-    { auto b = good; PutNumber(b, 8, 2); expectRejected(b, L"schema", "wrong schema rejected", ImportMode::Merge); }
+    { auto b = good; PutNumber(b, 8, 3); expectRejected(b, L"schema", "wrong schema rejected", ImportMode::Merge); }
+    { auto b = good; PutNumber(b, 8, 0); expectRejected(b, L"schema", "schema zero rejected", ImportMode::Merge); }
+    expectRejected(Image({L"Long"}, 2, std::wstring(1025, L'd')), L"bounds", "description over 1024 units rejected on import", ImportMode::Merge);
+    expectRejected(Image({L"Lone"}, 2, L"x\xd800"), L"description", "description with a lone surrogate rejected on import", ImportMode::Replace);
     expectRejected(Image({L"Same", L"SAME"}), L"duplicate", "in-file duplicate names rejected", ImportMode::Merge);
     expectRejected(Image({L"Lone\xd800"}), L"UTF-16", "invalid surrogate rejected", ImportMode::Replace);
     {
@@ -126,6 +129,55 @@ int wmain()
         Check(r.complete && r.records.size() == 64, "exactly 64 records replace successfully");
     }
     Check(!ImportCollection(badDir, root + L"\\missing.bin", ImportMode::Merge).complete, "missing source rejected");
+
+    // Descriptions: schema 1 files still decode (empty descriptions), schema 2 preserves them, and export writes schema 2.
+    {
+        const auto legacyFile = root + L"\\legacy.bin"; Spit(legacyFile, Image({L"Legacy", L"Older"}, 1));
+        auto legacy = ImportCollection(MakeDirectory(root, L"legacyTarget"), legacyFile, ImportMode::Merge);
+        Check(legacy.complete && legacy.records.size() == 2 && legacy.records[0].description.empty() && legacy.records[1].description.empty(), "schema 1 file imports with empty descriptions");
+        const auto legacyOut = root + L"\\legacy-out.bin";
+        Check(ExportCollection(root + L"\\legacyTarget", legacyOut).complete, "export after schema 1 import");
+        const auto upgraded = Slurp(legacyOut);
+        Check(upgraded.size() > 8 && upgraded[8] == 2, "export always writes schema 2");
+        Check(ImportCollection(MakeDirectory(root, L"legacyAgain"), legacyOut, ImportMode::Merge).records == legacy.records, "schema 1 content survives the schema 2 re-encode");
+
+        const std::wstring note = L"\x8aaa\x660e \xd83d\xde00 line1\r\nline2";
+        auto withNote = Item(L"Noted", L"n+"); withNote.description = note;
+        const auto descDir = MakeDirectory(root, L"described"), descFile = root + L"\\described.bin";
+        Check(SaveAll(descDir, {withNote, Item(L"Plain", L"p")}), "save records with and without description");
+        auto read = UpdateCollection(descDir, CollectionAction::Read);
+        Check(read.complete && read.records.size() == 2 && read.records[0].description == note && read.records[1].description.empty(), "description persists on disk including non-ASCII");
+        Check(ExportCollection(descDir, descFile).complete, "export described collection");
+        auto back = ImportCollection(MakeDirectory(root, L"describedTarget"), descFile, ImportMode::Merge);
+        Check(back.complete && back.records == read.records && back.records[0].description == note, "description round trips through export and import");
+
+        auto renamed = UpdateCollection(descDir, CollectionAction::Rename, read.records[0], L"Renamed");
+        Check(renamed.complete && renamed.records[0].name == L"Renamed" && renamed.records[0].description == note, "rename keeps the description");
+
+        const auto limitDir = MakeDirectory(root, L"limit");
+        Check(SaveAll(limitDir, {Item(L"Keep", L"k")}), "seed limit");
+        const auto limitBefore = Slurp(Primary(limitDir));
+        auto tooLong = Item(L"Long", L"l"); tooLong.description = std::wstring(1025, L'd');
+        Check(!UpdateCollection(limitDir, CollectionAction::Save, tooLong).complete && Slurp(Primary(limitDir)) == limitBefore, "save rejects a description over 1024 units and leaves the file unchanged");
+        auto atLimit = Item(L"Edge", L"e"); atLimit.description = std::wstring(1024, L'd');
+        Check(UpdateCollection(limitDir, CollectionAction::Save, atLimit).complete, "a 1024 unit description is accepted");
+        auto lone = Item(L"Lone", L"l"); lone.description = L"x\xd800";
+        const auto limitAfter = Slurp(Primary(limitDir));
+        Check(!UpdateCollection(limitDir, CollectionAction::Save, lone).complete && Slurp(Primary(limitDir)) == limitAfter, "save rejects a lone surrogate description and leaves the file unchanged");
+
+        // A description-only difference is a real difference: merge must treat it as a conflict, replace must adopt it.
+        const auto mergeDescDir = MakeDirectory(root, L"mergeDesc");
+        Check(SaveAll(mergeDescDir, {Item(L"Same", L"s")}), "seed description merge");
+        auto differing = Item(L"Same", L"s"); differing.description = L"only the note differs";
+        Check(!(differing == Item(L"Same", L"s")), "description difference makes records unequal");
+        const auto differingDir = MakeDirectory(root, L"differingSrc"), differingFile = root + L"\\differing.bin";
+        Check(SaveAll(differingDir, {differing}) && ExportCollection(differingDir, differingFile).complete, "seed differing description source");
+        const auto mergeDescBefore = Slurp(Primary(mergeDescDir));
+        auto descConflict = ImportCollection(mergeDescDir, differingFile, ImportMode::Merge);
+        Check(!descConflict.complete && Contains(descConflict.error, L"Same") && Slurp(Primary(mergeDescDir)) == mergeDescBefore, "merge treats a description-only difference as a conflict");
+        auto descReplace = ImportCollection(mergeDescDir, differingFile, ImportMode::Replace);
+        Check(descReplace.complete && descReplace.records[0].description == L"only the note differs", "replace adopts the imported description");
+    }
 
     // Export to an existing destination replaces it.
     Spit(file, "stale");
