@@ -9,6 +9,9 @@
 #   3. the dialog source and header declare no stock control member (CComboBox, CEdit, CButton, CStatic, CLinkStatic,
 #      CSpinEdit, CPictureStatic ...), no DDX_Control, and use no CheckDlgButton / IsDlgButtonChecked;
 #   4. only the converted dialogs opt into the shell, and the base class wires the shell into OnInitDialog.
+#   5. the history traffic dialogs (the window and its two tab pages) are separate entries: the window opts into the shell, the
+#      two pages opt into the embedded Material mode (no title bar), and each uses its required Material component
+#      (tab bar, data table, calendar and tooltip) instead of CTabCtrl, CListCtrl, CComboBox and CToolTipCtrl.
 # A disposable-copy mutation pass proves each assertion can fail.
 param(
     [string]$Root = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path,
@@ -24,7 +27,12 @@ $Dialogs = @(
     @{ Class = 'CIconSelectDlg';            File = 'IconSelectDlg';            Allow = @() },
     @{ Class = 'CSkinAutoAdaptSettingDlg';  File = 'SkinAutoAdaptSettingDlg';  Allow = @() },
     @{ Class = 'CAutoAdaptSettingsDlg';     File = 'CAutoAdaptSettingsDlg';    Allow = @() },
-    @{ Class = 'CWin11TaskbarSettingDlg';   File = 'Win11TaskbarSettingDlg';   Allow = @() }
+    @{ Class = 'CWin11TaskbarSettingDlg';   File = 'Win11TaskbarSettingDlg';   Allow = @() },
+
+    # ---- History traffic dialogs: one entry each. The window is a Material shell; its two pages are embedded Material pages.
+    @{ Class = 'CHistoryTrafficDlg';         File = 'HistoryTrafficDlg';         Allow = @(); Require = @('NativeMaterial::Tabs') },
+    @{ Class = 'CHistoryTrafficListDlg';     File = 'HistoryTrafficListDlg';     Allow = @(); Embedded = $true; Require = @('NativeMaterial::DataTable', 'NativeMaterial::Dropdown') },
+    @{ Class = 'CHistoryTrafficCalendarDlg'; File = 'HistoryTrafficCalendarDlg'; Allow = @(); Embedded = $true; Require = @('NativeMaterial::Calendar', 'NativeMaterial::Tooltip') }
 )
 $ForbiddenStock = 'CLinkStatic|CSpinEdit|CComboBox|CEdit|CButton|CStatic|CListCtrl|CListBox|CSliderCtrl|CSpinButtonCtrl|CPictureStatic|CTabCtrl|CMFCEditBrowseCtrl'
 
@@ -80,6 +88,7 @@ function Test-LegacyDialogs([string]$Root)
     foreach ($call in 'ReplaceWithLabel', 'ReplaceWithButton', 'ReplaceWithCheckbox', 'ReplaceGroupBoxWithHeading') {
         if ($convert -notmatch $call) { $failures.Add("BaseDialogMaterial.cpp: ConvertRemainingStockControls no longer calls $call") }
     }
+    if ($material -notmatch 'if\s*\(\s*m_material_embedded\s*\)') { $failures.Add('BaseDialogMaterial.cpp: the embedded page mode is not wired into AttachMaterialShell') }
     if ($material -notmatch 'TitleBar::Attach|m_title_bar\.Attach') { $failures.Add('BaseDialogMaterial.cpp: the shell does not attach the title bar') }
 
     $converted = @{}
@@ -95,9 +104,18 @@ function Test-LegacyDialogs([string]$Root)
         # The constructor body starts at the first line that is only an opening brace and ends at the next closing brace in column 0.
         $ctor = "(?ms)$($d.Class)::$($d.Class)\s*\(.*?^\s*\{(?<body>.*?)^\}"
         $ctorBody = [regex]::Match($cpp, $ctor).Groups['body'].Value
-        if ($ctorBody -notmatch '\bEnableMaterialShell\(\)') { $failures.Add("$name.cpp: constructor does not call EnableMaterialShell()") }
+        if ($d.Embedded) {
+            # A page hosted by another Material window: embedded mode, no title bar, so no FitMaterialContent.
+            if ($ctorBody -notmatch '\bEnableMaterialEmbedded\(\)') { $failures.Add("$name.cpp: constructor does not call EnableMaterialEmbedded()") }
+            if ($cpp -match 'FitMaterialContent\(') { $failures.Add("$name.cpp: an embedded page must not size a window with FitMaterialContent()") }
+        } else {
+            if ($ctorBody -notmatch '\bEnableMaterialShell\(\)') { $failures.Add("$name.cpp: constructor does not call EnableMaterialShell()") }
+            if ($cpp -notmatch 'FitMaterialContent\(') { $failures.Add("$name.cpp: FitMaterialContent() is never called") }
+        }
         if ($cpp -notmatch 'FinishMaterialShell\(\)') { $failures.Add("$name.cpp: FinishMaterialShell() is never called") }
-        if ($cpp -notmatch 'FitMaterialContent\(') { $failures.Add("$name.cpp: FitMaterialContent() is never called") }
+        foreach ($component in $d.Require) {
+            if (($cpp + $h) -notmatch ([regex]::Escape($component) + '\b')) { $failures.Add("${name}: does not use the required Material component $component") }
+        }
         if ($cpp -notmatch "$($d.Class)::LayoutMaterialControls") { $failures.Add("$name.cpp: LayoutMaterialControls is not implemented") }
         if ($h -notmatch 'LayoutMaterialControls') { $failures.Add("$name.h: LayoutMaterialControls is not declared") }
 
@@ -116,7 +134,7 @@ function Test-LegacyDialogs([string]$Root)
         if ($stripped -match '\b(AfxMessageBox|MessageBox)\s*\(') { $failures.Add("${name}: opens a system message box") }
 
         # 2. Every template control is converted generically or named by an explicit call.
-        $idd = [regex]::Match($cpp, "$($d.Class)::$($d.Class)\s*\([^)]*\)\s*:\s*CBaseDialog\(\s*(IDD_\w+)").Groups[1].Value
+        $idd = [regex]::Match($cpp, "$($d.Class)::$($d.Class)\s*\([^)]*\)\s*:\s*(?:CBaseDialog|CTabDlg)\(\s*(IDD_\w+)").Groups[1].Value
         if (-not $idd) { $failures.Add("$name.cpp: cannot find the dialog template id"); continue }
         $controls = Get-DialogTemplate $rcText $idd
         if ($null -eq $controls) { $failures.Add("$name.cpp: template $idd not found in TrafficMonitor.rc"); continue }
@@ -139,7 +157,7 @@ function Test-LegacyDialogs([string]$Root)
     foreach ($file in Get-ChildItem $src -Filter *.cpp) {
         $text = [IO.File]::ReadAllText($file.FullName)
         if ($file.Name -in 'BaseDialog.cpp', 'BaseDialogMaterial.cpp') { continue }
-        if ($text -match 'EnableMaterialShell\(') {
+        if ($text -match 'EnableMaterial(Shell|Embedded)\(') {
             $owner = $Dialogs | Where-Object { $_.File + '.cpp' -eq $file.Name }
             if (-not $owner) { $failures.Add("$($file.Name): opts into the Material shell but is not in the converted dialog list of this check") }
         }
@@ -169,6 +187,19 @@ try {
         @{ Name = 'shell never finished'; File = 'MessageDlg.cpp'; Find = 'FinishMaterialShell();'; Replace = ''; Expect = 'MessageDlg.cpp: FinishMaterialShell() is never called' },
         @{ Name = 'edit replacement removed'; File = 'Win11TaskbarSettingDlg.cpp'; Find = 'fold(IDC_WIDTET_WIDTH_EDIT, IDC_WIDGET_WIDTH_STATIC, IDC_PIXEL_STATIC2)'; Replace = 'nullptr'; Expect = 'Win11TaskbarSettingDlg.cpp: template control IDC_WIDTET_WIDTH_EDIT' },
         @{ Name = 'stock check helper used'; File = 'CAutoAdaptSettingsDlg.cpp'; Find = 'GetDlgCheck(IDC_AUTO_SAVE_TO_PRESET_CHECK)'; Replace = '(IsDlgButtonChecked(IDC_AUTO_SAVE_TO_PRESET_CHECK) != 0)'; Expect = 'CAutoAdaptSettingsDlg: uses the stock check box helpers' },
+        # ---- History traffic dialogs
+        @{ Name = 'history window opt-in removed'; File = 'HistoryTrafficDlg.cpp'; Find = 'EnableMaterialShell();'; Replace = ''; Expect = 'HistoryTrafficDlg.cpp: constructor does not call EnableMaterialShell' },
+        @{ Name = 'history window stock tab control reintroduced'; File = 'HistoryTrafficDlg.h'; Find = 'NativeMaterial::Button* m_ok{};'; Replace = 'NativeMaterial::Button* m_ok{}; CTabCtrl m_stock_tab;'; Expect = 'HistoryTrafficDlg: declares or uses the stock control type CTabCtrl' },
+        @{ Name = 'history window loses the Material tab bar'; File = 'HistoryTrafficDlg.h'; Find = 'NativeMaterial::Tabs m_tab;'; Replace = 'int m_tab;'; Expect = 'HistoryTrafficDlg: does not use the required Material component NativeMaterial::Tabs' },
+        @{ Name = 'history list stock list view reintroduced'; File = 'HistoryTrafficListDlg.h'; Find = 'NativeMaterial::DataTable m_table;'; Replace = 'NativeMaterial::DataTable m_table; CListCtrl m_stock_list;'; Expect = 'HistoryTrafficListDlg: declares or uses the stock control type CListCtrl' },
+        @{ Name = 'history list scale combo replacement removed'; File = 'HistoryTrafficListDlg.cpp'; Find = 'ReplaceWithDropdown(IDC_VIEW_SCALE_COMBO, captions.size() > 1 ? captions[1] : CString())'; Replace = 'nullptr'; Expect = 'HistoryTrafficListDlg.cpp: template control IDC_VIEW_SCALE_COMBO' },
+        @{ Name = 'history list list view subclassed again'; File = 'HistoryTrafficListDlg.cpp'; Find = 'CTabDlg::DoDataExchange(pDX);'; Replace = 'CTabDlg::DoDataExchange(pDX); DDX_Control(pDX, IDC_HISTORY_INFO_LIST, m_stock_list);'; Expect = 'HistoryTrafficListDlg: still subclasses a control with DDX_Control' },
+        @{ Name = 'history list embedded opt-in removed'; File = 'HistoryTrafficListDlg.cpp'; Find = 'EnableMaterialEmbedded();'; Replace = ''; Expect = 'HistoryTrafficListDlg.cpp: constructor does not call EnableMaterialEmbedded' },
+        @{ Name = 'history calendar stock tool tip reintroduced'; File = 'HistoryTrafficCalendarDlg.h'; Find = 'NativeMaterial::Tooltip m_tool_tip;'; Replace = 'NativeMaterial::Tooltip m_tool_tip; CToolTipCtrl m_stock_tips;'; Expect = 'HistoryTrafficCalendarDlg: uses the stock tool tip control without a documented allowance' },
+        @{ Name = 'history calendar stock year combo kept'; File = 'HistoryTrafficCalendarDlg.cpp'; Find = 'RemoveStockControl(IDC_YEAR_COMBO);'; Replace = ''; Expect = 'HistoryTrafficCalendarDlg.cpp: template control IDC_YEAR_COMBO' },
+        @{ Name = 'history calendar loses the Material calendar'; File = 'HistoryTrafficCalendarDlg.h'; Find = 'NativeMaterial::Calendar m_calendar;'; Replace = 'int m_calendar;'; Expect = 'HistoryTrafficCalendarDlg: does not use the required Material component NativeMaterial::Calendar' },
+        @{ Name = 'history calendar embedded opt-in removed'; File = 'HistoryTrafficCalendarDlg.cpp'; Find = 'EnableMaterialEmbedded();'; Replace = ''; Expect = 'HistoryTrafficCalendarDlg.cpp: constructor does not call EnableMaterialEmbedded' },
+        @{ Name = 'base drops the embedded page mode'; File = 'BaseDialogMaterial.cpp'; Find = 'if (m_material_embedded)'; Replace = 'if (false)'; Expect = 'BaseDialogMaterial.cpp: the embedded page mode is not wired' },
         @{ Name = 'base stops attaching the shell'; File = 'BaseDialog.cpp'; Find = 'AttachMaterialShell();      //'; Replace = ';      //'; Expect = 'BaseDialog.cpp: OnInitDialog does not attach the Material shell' }
     )
     $srcFiles = Get-ChildItem (Join-Path $Root 'TrafficMonitor') -File | Where-Object { $_.Extension -in '.cpp', '.h', '.rc' }

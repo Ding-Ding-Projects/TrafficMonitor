@@ -1,22 +1,55 @@
-﻿// HistoryTrafficList.cpp: 实现文件
+﻿// HistoryTrafficListDlg.cpp: implementation file
 //
 
 #include "stdafx.h"
 #include "NativeMenus/SearchableMenu.h"
 #include "TrafficMonitor.h"
 #include "HistoryTrafficListDlg.h"
+#include "HistoryTrafficColor.h"
 #include "afxdialogex.h"
 #include "CalendarHelper.h"
+#include "NativeMaterial/InputControls.h"
+#include <algorithm>
+#include <cmath>
+#include <numeric>
+
+namespace
+{
+    // Columns of the table.
+    enum Column { ColDate, ColUpload, ColDownload, ColTotal, ColFigure };
+
+    // The caption statics of the template (control ID IDC_STATIC), in template order.
+    std::vector<CString> TakeCaptionStatics(CWnd& dialog)
+    {
+        std::vector<HWND> statics;
+        for (HWND child = ::GetWindow(dialog.GetSafeHwnd(), GW_CHILD); child != nullptr; child = ::GetWindow(child, GW_HWNDNEXT))
+        {
+            wchar_t class_name[16]{};
+            ::GetClassNameW(child, class_name, 15);
+            if (::GetDlgCtrlID(child) == IDC_STATIC && _wcsicmp(class_name, L"Static") == 0)
+                statics.push_back(child);
+        }
+        std::vector<CString> captions;
+        for (HWND window : statics)
+        {
+            CString text;
+            CWnd::FromHandle(window)->GetWindowText(text);
+            captions.push_back(text);
+            ::DestroyWindow(window);
+        }
+        return captions;
+    }
+}
 
 
-// CHistoryTrafficListDlgDlg 对话框
+// CHistoryTrafficListDlg
 
 IMPLEMENT_DYNAMIC(CHistoryTrafficListDlg, CTabDlg)
 
 CHistoryTrafficListDlg::CHistoryTrafficListDlg(deque<HistoryTraffic>& history_traffics, CWnd* pParent /*=nullptr*/)
 	: CTabDlg(IDD_HISTORY_TRAFFIC_LIST_DIALOG, pParent), m_history_traffics(history_traffics)
 {
-
+	EnableMaterialEmbedded();
 }
 
 CHistoryTrafficListDlg::~CHistoryTrafficListDlg()
@@ -24,274 +57,280 @@ CHistoryTrafficListDlg::~CHistoryTrafficListDlg()
 }
 
 
-bool CHistoryTrafficListDlg::CalculateColumeWidth(std::vector<int>& widths)
+int CHistoryTrafficListDlg::RequiredHeight(int width_px)
 {
-    if (!IsWindow(m_history_list.GetSafeHwnd()))
-        return false;
-    CRect rect;
-    m_history_list.GetWindowRect(rect);
-    if (rect.Width() <= 0)
-        return false;
-    const int MAX_COLUME{ 5 };
-	int width_date;		//“日期”列的宽度
-    int width0;			//“上传”、“下载”、“总流量”列的宽度
-    int width1;			//“图表”列的宽度
-	width_date = rect.Width() * 3 / 11;
-    width0 = rect.Width() * 2 / 11;
-    if (width_date > theApp.DPI(150))
-		width_date = theApp.DPI(150);
-	if (width0 > theApp.DPI(120))
-		width0 = theApp.DPI(120);
-    width1 = rect.Width() - (MAX_COLUME - 2) * width0 - width_date - theApp.DPI(20) - 1;
-    widths.resize(MAX_COLUME);
-	widths[0] = width_date;
-    widths[1] = widths[2] = widths[3] = width0;
-    widths[4] = width1;
-    return true;
+	return LayoutMaterialControls(CRect(0, 0, width_px, 0), false);
 }
 
-void CHistoryTrafficListDlg::AddListRow(const ListRowData& data, unsigned __int64 max_traffic)
+int CHistoryTrafficListDlg::LayoutMaterialControls(const CRect& content, bool apply)
 {
-    unsigned __int64 total_kbytes = data.up_kBytes + data.down_kBytes;
-    int index = m_history_list.GetItemCount();
-    m_history_list.InsertItem(index, data.str);
-    if (data.mixed)
-    {
-        m_history_list.SetItemText(index, 1, _T("-"));
-        m_history_list.SetItemText(index, 2, _T("-"));
-    }
-    else
-    {
-        m_history_list.SetItemText(index, 1, CCommon::KBytesToString(data.up_kBytes));
-        m_history_list.SetItemText(index, 2, CCommon::KBytesToString(data.down_kBytes));
-    }
-    m_history_list.SetItemText(index, 3, CCommon::KBytesToString(total_kbytes));
+	const int gap = DPI(12), table_minimum = DPI(240);
+	const int width = (std::max)(1, static_cast<int>(content.Width()));
+	int y = content.top + DPI(4);
+	if (m_view_type_combo != nullptr && m_view_scale_combo != nullptr)
+	{
+		const int height = m_view_type_combo->MinimumSize().cy;
+		const int each = (std::max)(1, (std::min)(DPI(240), (width - gap) / 2));
+		if (apply)
+		{
+			m_view_type_combo->MoveWindow(content.left, y, each, height);
+			m_view_scale_combo->MoveWindow(content.left + each + gap, y, each, height);
+		}
+		y += height + gap;
+	}
+	const int table_height = apply ? (std::max)(table_minimum, static_cast<int>(content.bottom) - y) : table_minimum;
+	if (apply && m_table.GetSafeHwnd() != nullptr)
+		m_table.MoveWindow(content.left, y, width, table_height);
+	return y + table_height - content.top;
+}
 
-    double range = static_cast<double>(total_kbytes) * 1000 / max_traffic;
-    COLORREF color;
-    if (total_kbytes < 1024 * 1024)		//流量小于1GB时绘制蓝色
-        color = TRAFFIC_COLOR_BLUE;
-    else if (total_kbytes < 10 * 1024 * 1024)	//流量小于10GB时绘制绿色
-        color = TRAFFIC_COLOR_GREEN;
-    else if (total_kbytes < 100 * 1024 * 1024)	//流量小于100GB时绘制黄色
-        color = TRAFFIC_COLOR_YELLOE;
-    else if (total_kbytes < 1024 * 1024 * 1024)	//流量小于1TB时绘制红色
-        color = TRAFFIC_COLOR_RED;
-    else		//流量超过1TB时显示深红色
-        color = TRAFFIC_COLOR_DARK_RED;
-    m_history_list.SetDrawItemRangeData(index, range, color);
+void CHistoryTrafficListDlg::OnMaterialAppearanceChanged()
+{
+	if (m_table.GetSafeHwnd() != nullptr)
+	{
+		m_table.SetAppearance(MaterialAppearance());
+		m_table.SetSurfaceColor(MaterialSurfaceColor());
+	}
+}
+
+CString CHistoryTrafficListDlg::DateText(const HistoryRow& row) const
+{
+	const auto view_type = theApp.m_cfg_data.m_view_type;
+	CString date_str;
+	if (view_type == HistoryTrafficViewType::HV_DAY)
+	{
+		date_str.Format(_T("%.4d/%.2d/%.2d ("), row.year, row.month, row.day);
+		static const wchar_t* const week_days[7] = { IDS_SUNDAY, IDS_MONDAY, IDS_TUESDAY, IDS_WEDNESDAY, IDS_THURSDAY, IDS_FRIDAY, IDS_SATURDAY };
+		const int week_day = CCalendarHelper::CaculateWeekDay(row.year, row.month, row.day);
+		if (week_day >= 0 && week_day <= 6)
+			date_str += CCommon::LoadText(week_days[week_day]);
+		date_str += _T(')');
+	}
+	else if (view_type == HistoryTrafficViewType::HV_WEEK)
+	{
+		date_str.Format(_T("%.4d/"), row.year);
+		date_str += CCommon::LoadTextFormat(IDS_WEEK_NUM, { row.week });
+	}
+	else if (view_type == HistoryTrafficViewType::HV_MONTH)
+	{
+		date_str.Format(_T("%.4d/%.2d"), row.year, row.month);
+	}
+	else if (view_type == HistoryTrafficViewType::HV_QUARTER)
+	{
+		date_str.Format(_T("%.4d/"), row.year);
+		if (row.month <= 3)
+			date_str += _T("Q1");
+		else if (row.month <= 6)
+			date_str += _T("Q2");
+		else if (row.month <= 9)
+			date_str += _T("Q3");
+		else
+			date_str += _T("Q4");
+	}
+	else
+	{
+		date_str.Format(_T("%.4d"), row.year);
+	}
+	return date_str;
+}
+
+void CHistoryTrafficListDlg::BuildRows()
+{
+	m_rows.clear();
+	const auto view_type = theApp.m_cfg_data.m_view_type;
+	CString last_label;
+	for (const auto& traffic : m_history_traffics)
+	{
+		HistoryRow row;
+		row.year = traffic.year;
+		row.month = traffic.month;
+		row.day = traffic.day;
+		row.up_kBytes = traffic.up_kBytes;
+		row.down_kBytes = traffic.down_kBytes;
+		if (view_type == HistoryTrafficViewType::HV_DAY)
+		{
+			row.mixed = traffic.mixed;
+			m_rows.push_back(row);
+			continue;
+		}
+		// Week, month, quarter and year rows add up consecutive days that share the same label.
+		if (view_type == HistoryTrafficViewType::HV_WEEK)
+			row.week = traffic.week();
+		const CString label = DateText(row);
+		if (m_rows.empty() || label != last_label)
+		{
+			last_label = label;
+			m_rows.push_back(row);
+		}
+		else
+		{
+			m_rows.back().up_kBytes += traffic.up_kBytes;
+			m_rows.back().down_kBytes += traffic.down_kBytes;
+		}
+	}
+
+	m_max_traffic = 0;
+	for (const auto& row : m_rows)
+		m_max_traffic = (std::max)(m_max_traffic, row.up_kBytes + row.down_kBytes);
+
+	m_order.resize(m_rows.size());
+	std::iota(m_order.begin(), m_order.end(), 0);
+}
+
+void CHistoryTrafficListDlg::ApplySort()
+{
+	std::iota(m_order.begin(), m_order.end(), 0);
+	const int column = m_table.SortColumn();
+	const auto direction = m_table.SortOrder();
+	if (column < 0 || direction == NativeMaterial::SortDirection::None)
+		return;			// the natural order: newest first
+	auto key = [&](int index) -> unsigned __int64
+	{
+		const HistoryRow& row = m_rows[index];
+		switch (column)
+		{
+		case ColUpload: return row.mixed ? 0 : row.up_kBytes;
+		case ColDownload: return row.mixed ? 0 : row.down_kBytes;
+		case ColTotal: case ColFigure: return row.up_kBytes + row.down_kBytes;
+		default: return 0;
+		}
+	};
+	const bool ascending = direction == NativeMaterial::SortDirection::Ascending;
+	std::stable_sort(m_order.begin(), m_order.end(), [&](int a, int b)
+	{
+		if (column == ColDate)		// the natural order is newest first, so ascending dates run from the highest index down
+			return ascending ? a > b : a < b;
+		return ascending ? key(a) < key(b) : key(a) > key(b);
+	});
+}
+
+double CHistoryTrafficListDlg::BarFraction(unsigned __int64 total_kbytes) const
+{
+	if (m_max_traffic == 0)
+		return 0;
+	const double range = (std::min)(1000.0, static_cast<double>(total_kbytes) * 1000 / m_max_traffic);		// 0..1000
+	if (theApp.m_cfg_data.m_use_log_scale)		// logarithmic scale (y = ln(x + 1))
+		return std::log(range + 1) / std::log(1000 + 1);
+	return range / 1000;						// linear scale (y = x)
+}
+
+void CHistoryTrafficListDlg::FillCell(int row, int column, NativeMaterial::TableCell& cell) const
+{
+	if (row < 0 || row >= static_cast<int>(m_order.size()))
+		return;
+	const HistoryRow& data = m_rows[m_order[row]];
+	const unsigned __int64 total_kbytes = data.up_kBytes + data.down_kBytes;
+	switch (column)
+	{
+	case ColDate:
+		cell.text = DateText(data);
+		break;
+	case ColUpload:
+		cell.text = data.mixed ? CString(_T("-")) : CCommon::KBytesToString(data.up_kBytes);
+		break;
+	case ColDownload:
+		cell.text = data.mixed ? CString(_T("-")) : CCommon::KBytesToString(data.down_kBytes);
+		break;
+	case ColTotal:
+		cell.text = CCommon::KBytesToString(total_kbytes);
+		break;
+	case ColFigure:
+		cell.text = CCommon::KBytesToString(total_kbytes);		// accessible value of the bar
+		cell.hasBar = true;
+		cell.barFraction = static_cast<float>(BarFraction(total_kbytes));
+		cell.barColor = HistoryTrafficColor(total_kbytes);
+		break;
+	default:
+		break;
+	}
 }
 
 void CHistoryTrafficListDlg::ShowListData()
 {
-    m_history_list.DeleteAllItems();
-
-    //显示日视图
-    if(theApp.m_cfg_data.m_view_type == HistoryTrafficViewType::HV_DAY)
-    {
-        //获取历史流量列表中流量的最大值
-        unsigned __int64 max_traffic{};
-        for (const auto& traffic : m_history_traffics)
-        {
-            if (traffic.kBytes() > max_traffic)
-                max_traffic = traffic.kBytes();
-        }
-
-        for (size_t i{}; i < m_history_traffics.size(); i++)
-        {
-            CString date_str;
-            //CString k_bytes_str;
-            date_str.Format(_T("%.4d/%.2d/%.2d ("), m_history_traffics[i].year, m_history_traffics[i].month, m_history_traffics[i].day);
-
-            int week_day = CCalendarHelper::CaculateWeekDay(m_history_traffics[i].year, m_history_traffics[i].month, m_history_traffics[i].day);
-            switch (week_day)
-            {
-            case 0:
-                date_str += CCommon::LoadText(IDS_SUNDAY);
-                break;
-            case 1:
-                date_str += CCommon::LoadText(IDS_MONDAY);
-                break;
-            case 2:
-                date_str += CCommon::LoadText(IDS_TUESDAY);
-                break;
-            case 3:
-                date_str += CCommon::LoadText(IDS_WEDNESDAY);
-                break;
-            case 4:
-                date_str += CCommon::LoadText(IDS_THURSDAY);
-                break;
-            case 5:
-                date_str += CCommon::LoadText(IDS_FRIDAY);
-                break;
-            case 6:
-                date_str += CCommon::LoadText(IDS_SATURDAY);
-                break;
-            default:
-                break;
-            }
-            date_str += _T(')');
-
-            ListRowData data;
-            data.str = date_str;
-            data.up_kBytes = m_history_traffics[i].up_kBytes;
-            data.down_kBytes = m_history_traffics[i].down_kBytes;
-            data.mixed = m_history_traffics[i].mixed;
-            AddListRow(data, max_traffic);
-        }
-    }
-
-    //显示月/季/年视图
-    else
-    {
-        std::vector<ListRowData> list_data;
-        unsigned __int64 max_traffic{};
-        for (const auto& traffic : m_history_traffics)
-        {
-            CString date_str;
-            if (theApp.m_cfg_data.m_view_type == HistoryTrafficViewType::HV_WEEK)
-            {
-                date_str.Format(_T("%.4d/"), traffic.year);
-                date_str += CCommon::LoadTextFormat(IDS_WEEK_NUM, { traffic.week() });
-            }
-            else if (theApp.m_cfg_data.m_view_type == HistoryTrafficViewType::HV_MONTH)      //月视图
-            {
-                date_str.Format(_T("%.4d/%.2d"), traffic.year, traffic.month);
-            }
-            else if (theApp.m_cfg_data.m_view_type == HistoryTrafficViewType::HV_QUARTER)   //季视图
-            {
-                date_str.Format(_T("%.4d/"), traffic.year);
-                if (traffic.month <= 3)
-                    date_str += _T("Q1");
-                else if (traffic.month <= 6)
-                    date_str += _T("Q2");
-                else if (traffic.month <= 9)
-                    date_str += _T("Q3");
-                else
-                    date_str += _T("Q4");
-            }
-            else    //年视图
-            {
-                date_str.Format(_T("%.4d"), traffic.year);
-            }
-            if (list_data.empty() || list_data.back().str != date_str)
-            {
-                if(!list_data.empty())
-                {
-                    unsigned __int64 cur_traffic{ list_data.back().up_kBytes + list_data.back().down_kBytes };
-                    if (cur_traffic > max_traffic)
-                        max_traffic = cur_traffic;
-                }
-                ListRowData data;
-                data.str = date_str;
-                data.up_kBytes = traffic.up_kBytes;
-                data.down_kBytes = traffic.down_kBytes;
-                list_data.push_back(data);
-            }
-            else
-            {
-                list_data.back().up_kBytes += traffic.up_kBytes;
-                list_data.back().down_kBytes += traffic.down_kBytes;
-            }
-        }
-
-        for (const auto& data : list_data)
-        {
-            AddListRow(data, max_traffic);
-        }
-    }
+	BuildRows();
+	ApplySort();
+	m_table.SetVirtualRows(static_cast<int>(m_rows.size()), [this](int row, int column, NativeMaterial::TableCell& cell) { FillCell(row, column, cell); });
 }
 
 void CHistoryTrafficListDlg::DoDataExchange(CDataExchange* pDX)
 {
     CTabDlg::DoDataExchange(pDX);
-    DDX_Control(pDX, IDC_HISTORY_INFO_LIST, m_history_list);
-    DDX_Control(pDX, IDC_VIEW_TYPE_COMBO, m_view_type_combo);
-    DDX_Control(pDX, IDC_VIEW_SCALE_COMBO, m_view_scale_combo);
 }
 
 
 BEGIN_MESSAGE_MAP(CHistoryTrafficListDlg, CTabDlg)
 	ON_WM_INITMENU()
+	ON_WM_CONTEXTMENU()
 	ON_COMMAND(ID_USE_LINEAR_SCALE, &CHistoryTrafficListDlg::OnUseLinearScale)
 	ON_COMMAND(ID_USE_LOG_SCALE, &CHistoryTrafficListDlg::OnUseLogScale)
-    ON_WM_SIZE()
+	ON_CONTROL(NativeMaterial::TableSortChanged, IDC_HISTORY_INFO_LIST, &CHistoryTrafficListDlg::OnTableSortChanged)
     ON_CBN_SELCHANGE(IDC_VIEW_TYPE_COMBO, &CHistoryTrafficListDlg::OnCbnSelchangeViewTypeCombo)
     ON_CBN_SELCHANGE(IDC_VIEW_SCALE_COMBO, &CHistoryTrafficListDlg::OnCbnSelchangeViewScaleCombo)
 END_MESSAGE_MAP()
 
 
-// CHistoryTrafficListDlgDlg 消息处理程序
+// CHistoryTrafficListDlg message handlers
 
 
 BOOL CHistoryTrafficListDlg::OnInitDialog()
 {
 	CTabDlg::OnInitDialog();
 
-	// TODO:  在此添加额外的初始化
+	// CTabDlg paints its pages white; the Material surface color of the shared appearance wins.
+	SetBackgroundColor(MaterialSurfaceColor(), FALSE);
 
-	//初始化列表控件
-	m_history_list.SetExtendedStyle(LVS_EX_FULLROWSELECT | LVS_EX_LABELTIP);
-    std::vector<int> widths;
-    CalculateColumeWidth(widths);
-    m_history_list.InsertColumn(0, CCommon::LoadText(IDS_DATE), LVCFMT_LEFT, widths[0]);
-	m_history_list.InsertColumn(1, CCommon::LoadText(IDS_UPLOAD), LVCFMT_RIGHT, widths[1]);
-	m_history_list.InsertColumn(2, CCommon::LoadText(IDS_DOWNLOAD), LVCFMT_RIGHT, widths[2]);
-	m_history_list.InsertColumn(3, CCommon::LoadText(IDS_TRAFFIC_USED), LVCFMT_RIGHT, widths[3]);
-	m_history_list.InsertColumn(4, CCommon::LoadText(IDS_FIGURE), LVCFMT_LEFT, widths[4]);
+	// The two caption statics become the labels of the dropdowns that replace the combo boxes.
+	const std::vector<CString> captions = TakeCaptionStatics(*this);
+	m_view_type_combo = ReplaceWithDropdown(IDC_VIEW_TYPE_COMBO, captions.size() > 0 ? captions[0] : CString());
+	m_view_scale_combo = ReplaceWithDropdown(IDC_VIEW_SCALE_COMBO, captions.size() > 1 ? captions[1] : CString());
 
-    m_history_list.EnableDrawItemRange();
-    m_history_list.SetDrawItemRangeRow(4);
-    m_history_list.SetDrawItemRangMargin(theApp.DPI(4));
-    m_history_list.SetDrawItemRangInLogScale(theApp.m_cfg_data.m_use_log_scale);
+	m_view_type_combo->AddItem(CCommon::LoadText(IDS_DAY_VIEW));
+	m_view_type_combo->AddItem(CCommon::LoadText(IDS_WEEK_VIEW));
+	m_view_type_combo->AddItem(CCommon::LoadText(IDS_MONTH_VIEW));
+	m_view_type_combo->AddItem(CCommon::LoadText(IDS_QUARTER_VIEW));
+	m_view_type_combo->AddItem(CCommon::LoadText(IDS_YEAR_VIEW));
+	m_view_type_combo->SetCurSel(static_cast<int>(theApp.m_cfg_data.m_view_type));
 
-    //初始化控件
-    m_view_type_combo.AddString(CCommon::LoadText(IDS_DAY_VIEW));
-    m_view_type_combo.AddString(CCommon::LoadText(IDS_WEEK_VIEW));
-    m_view_type_combo.AddString(CCommon::LoadText(IDS_MONTH_VIEW));
-    m_view_type_combo.AddString(CCommon::LoadText(IDS_QUARTER_VIEW));
-    m_view_type_combo.AddString(CCommon::LoadText(IDS_YEAR_VIEW));
-    m_view_type_combo.SetCurSel(static_cast<int>(theApp.m_cfg_data.m_view_type));
+	m_view_scale_combo->AddItem(CCommon::LoadText(IDS_LINEAR_SCALE));
+	m_view_scale_combo->AddItem(CCommon::LoadText(IDS_LOG_SCALE));
+	m_view_scale_combo->SetCurSel(theApp.m_cfg_data.m_use_log_scale ? 1 : 0);
 
-    m_view_scale_combo.AddString(CCommon::LoadText(IDS_LINEAR_SCALE));
-    m_view_scale_combo.AddString(CCommon::LoadText(IDS_LOG_SCALE));
-    m_view_scale_combo.SetCurSel(theApp.m_cfg_data.m_use_log_scale ? 1 : 0);
+	// The Material data table takes the control ID of the list view.
+	CRect list_rect = GetControlRect(IDC_HISTORY_INFO_LIST);
+	RemoveStockControl(IDC_HISTORY_INFO_LIST);
+	m_table.Create(list_rect, this, IDC_HISTORY_INFO_LIST);
+	m_table.SetAccessibleName(CCommon::LoadText(IDS_LIST_VIEW));
+	m_table.SetColumns({
+		{ CCommon::LoadText(IDS_DATE), 200, NativeMaterial::ColumnAlign::Left, true },
+		{ CCommon::LoadText(IDS_UPLOAD), 120, NativeMaterial::ColumnAlign::Right, true },
+		{ CCommon::LoadText(IDS_DOWNLOAD), 120, NativeMaterial::ColumnAlign::Right, true },
+		{ CCommon::LoadText(IDS_TRAFFIC_USED), 120, NativeMaterial::ColumnAlign::Right, true },
+		{ CCommon::LoadText(IDS_FIGURE), 160, NativeMaterial::ColumnAlign::Left, true },
+	});
+	// Keyboard order: view type, scale, table.
+	::SetWindowPos(m_table.GetSafeHwnd(), m_view_scale_combo->GetSafeHwnd(), 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE);
+	OnMaterialAppearanceChanged();
 
-    //显示列表数据
-    ShowListData();
+	ShowListData();
 
-    CCommon::LoadMenuResource(m_menu, IDR_HISTORY_TRAFFIC_MENU);
+	CCommon::LoadMenuResource(m_menu, IDR_HISTORY_TRAFFIC_MENU);
 
+	FinishMaterialShell();
 	return TRUE;  // return TRUE unless you set the focus to a control
-				  // 异常: OCX 属性页应返回 FALSE
 }
 
 
-BOOL CHistoryTrafficListDlg::OnNotify(WPARAM wParam, LPARAM lParam, LRESULT* pResult)
+void CHistoryTrafficListDlg::OnContextMenu(CWnd* pWnd, CPoint point)
 {
-	// TODO: 在此添加专用代码和/或调用基类
-
-	LPNMHDR lpnmhdr = (LPNMHDR)lParam;
-	if (lpnmhdr->code == NM_RCLICK)
+	// The table sends WM_CONTEXTMENU with the screen position (or the focused row for Shift+F10).
+	if (pWnd != nullptr && pWnd->GetSafeHwnd() == m_table.GetSafeHwnd())
 	{
-		CPoint point;
-		GetCursorPos(&point);//获得光标的位置
-		m_history_list.ScreenToClient(&point);//获得list控件在窗口上的坐标
-		CWnd* pWnd = m_history_list.ChildWindowFromPoint(point);
-		CHeaderCtrl* pHeader = m_history_list.GetHeaderCtrl();//获取列表视图控件的标题控件
-		CRect item_rect;
-		pHeader->GetItemRect(4, item_rect);		//获取列表标题控件第2列的矩形区域，只有光标在第4列点击时才弹出右键菜单
-		if (pWnd && (pWnd->GetSafeHwnd() == pHeader->GetSafeHwnd()) && item_rect.PtInRect(point))
-		{
-			HDHITTESTINFO info{};
-			info.pt = point;
-			pHeader->SendMessage(HDM_HITTEST, 0, (LPARAM)&info);
-			CMenu * pMenu = m_menu.GetSubMenu(0);
-			GetCursorPos(&point);
+		CMenu* pMenu = m_menu.GetSubMenu(0);
+		if (pMenu != nullptr)
 			NativeMenus::Track(pMenu, TPM_RIGHTBUTTON, point.x, point.y, this);
-		}
+		return;
 	}
-	return CTabDlg::OnNotify(wParam, lParam, pResult);
+	CTabDlg::OnContextMenu(pWnd, point);
 }
 
 
@@ -299,7 +338,6 @@ void CHistoryTrafficListDlg::OnInitMenu(CMenu* pMenu)
 {
 	CTabDlg::OnInitMenu(pMenu);
 
-	// TODO: 在此处添加消息处理程序代码
 	if (theApp.m_cfg_data.m_use_log_scale)
 		pMenu->CheckMenuRadioItem(ID_USE_LINEAR_SCALE, ID_USE_LOG_SCALE, ID_USE_LOG_SCALE, MF_BYCOMMAND | MF_CHECKED);
 	else
@@ -309,50 +347,36 @@ void CHistoryTrafficListDlg::OnInitMenu(CMenu* pMenu)
 
 void CHistoryTrafficListDlg::OnUseLinearScale()
 {
-	// TODO: 在此添加命令处理程序代码
 	theApp.m_cfg_data.m_use_log_scale = false;
-	m_history_list.SetDrawItemRangInLogScale(theApp.m_cfg_data.m_use_log_scale);
+	m_view_scale_combo->SetCurSel(0);
+	m_table.Refresh();
 }
 
 
 void CHistoryTrafficListDlg::OnUseLogScale()
 {
-	// TODO: 在此添加命令处理程序代码
 	theApp.m_cfg_data.m_use_log_scale = true;
-	m_history_list.SetDrawItemRangInLogScale(theApp.m_cfg_data.m_use_log_scale);
+	m_view_scale_combo->SetCurSel(1);
+	m_table.Refresh();
 }
 
 
-void CHistoryTrafficListDlg::OnSize(UINT nType, int cx, int cy)
+void CHistoryTrafficListDlg::OnTableSortChanged()
 {
-    CTabDlg::OnSize(nType, cx, cy);
-
-    // TODO: 在此处添加消息处理程序代码
-    if (nType != SIZE_MINIMIZED)
-    {
-        std::vector<int> widths;
-        if(CalculateColumeWidth(widths))
-        {
-            for (size_t i{}; i < widths.size(); i++)
-            {
-                m_history_list.SetColumnWidth(i, widths[i]);
-            }
-        }
-    }
+	ApplySort();
+	m_table.Refresh();
 }
 
 
 void CHistoryTrafficListDlg::OnCbnSelchangeViewTypeCombo()
 {
-    // TODO: 在此添加控件通知处理程序代码
-    theApp.m_cfg_data.m_view_type = static_cast<HistoryTrafficViewType>(m_view_type_combo.GetCurSel());
+    theApp.m_cfg_data.m_view_type = static_cast<HistoryTrafficViewType>(m_view_type_combo->GetCurSel());
     ShowListData();
 }
 
 
 void CHistoryTrafficListDlg::OnCbnSelchangeViewScaleCombo()
 {
-    // TODO: 在此添加控件通知处理程序代码
-    theApp.m_cfg_data.m_use_log_scale = (m_view_scale_combo.GetCurSel() != 0);
-    m_history_list.SetDrawItemRangInLogScale(theApp.m_cfg_data.m_use_log_scale);
+    theApp.m_cfg_data.m_use_log_scale = (m_view_scale_combo->GetCurSel() != 0);
+    m_table.Refresh();
 }
