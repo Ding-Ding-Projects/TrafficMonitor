@@ -13,6 +13,10 @@ unfinished items below; this checklist records completed and unfinished work.
 - [x] Align documentation inventory checks with the 111-item inventory so documentation and companion builds succeed.
 - [x] Add saved-expression descriptions (collection schema 2, schema 1 still readable) and a distinct export success message.
 - [x] Check text-field rail republication after line scrolling, replacement and typed line breaks.
+- [x] Add the native update ready banner (Restart to install update on choice only, Later), visible manual check results and readable updater state; automatic restart now defaults to off.
+- [x] Add opt-in native action sounds (Off, Important, All) through one non-blocking system-sound dispatcher.
+- [ ] Apply the action-sound switch immediately instead of on Apply, and add import outcome cues once native personal-wording import exists.
+- [ ] Exercise the update banner, Restart flow and action sounds in the built application and record runtime receipts.
 - [ ] Give the documentation companion its own application icon instead of the framework default.
 - [ ] Let Rename edit a saved expression's description.
 
