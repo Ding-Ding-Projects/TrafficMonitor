@@ -20,6 +20,6 @@ export function settingsContract(inventory,sourceCommit){
   implementation:item.surfaces['hosted-documentation'].applicability==='NOT_APPLICABLE'?'NOT_APPLICABLE':consumers[item.id]?'PARTIAL':'UNFINISHED',
   missingConsumer:item.surfaces['hosted-documentation'].applicability==='NOT_APPLICABLE'?null:{requirement:item.requirement,reason:item.surfaces['hosted-documentation'].reason,acceptance:'The complete requirement still needs its own functional controls, persistence, reset, recovery and built interaction evidence beyond any partial consumer listed here'},
   ...(consumers[item.id]??{controls:[],consumer:null,keys:[],reset:null,recovery:item.surfaces['hosted-documentation'].applicability==='NOT_APPLICABLE'?'No documentation setting: '+item.surfaces['hosted-documentation'].reason:'No runtime consumer exists for this requirement. No placeholder preference is stored.'})}));
- if(items.length!==110||new Set(items.map(i=>i.id)).size!==110||items.some(i=>!i.group))throw Error('Settings identity mapping is incomplete');
+ if(items.length!==111||new Set(items.map(i=>i.id)).size!==111||items.some(i=>!i.group))throw Error('Settings identity mapping is incomplete');
  return {schemaVersion:1,sourceCommit,purpose:'Control and consumer mapping, not feature acceptance',items};
 }

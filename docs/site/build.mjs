@@ -53,7 +53,7 @@ const renderedArticles=new Map(),searchIndex=[];
 for(const article of manifest.articles){const rendered=await content.render(article);renderedArticles.set(article.id,rendered);const document=new JSDOM(rendered.html).window.document;searchIndex.push({id:article.id,title:article.title,route:article.route,text:document.body.textContent.replace(/\s+/g,' ').trim()});}
 await fs.writeFile(path.join(dist,'search-index.json'),JSON.stringify(searchIndex));
 const inventoryBytes=execFileSync('git',['show',`${manifest.sourceCommit}:docs/features/required-features/inventory.json`],{cwd:root,maxBuffer:8*1024*1024});
-const inventory=JSON.parse(inventoryBytes);if(inventory.schemaVersion!==1||inventory.inventoryCount!==110)throw Error('Unexpected capability inventory');
+const inventory=JSON.parse(inventoryBytes);if(inventory.schemaVersion!==1||inventory.inventoryCount!==111||!Array.isArray(inventory.items)||inventory.items.length!==inventory.inventoryCount)throw Error('Unexpected capability inventory');
 await fs.writeFile(path.join(dist,'settings-contract.json'),JSON.stringify(settingsContract(inventory,manifest.sourceCommit),null,2));
 await fs.writeFile(path.join(dist,'capability-provenance.json'),JSON.stringify({sourceCommit:manifest.sourceCommit,sha256:createHash('sha256').update(inventoryBytes).digest('hex'),identities:inventory.items.map(i=>i.id)}));
 const capabilities=capabilityPage(inventory.items,base,manifest.articles);
