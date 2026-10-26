@@ -3,6 +3,7 @@
 #include "../NativePreferences/Text.h"
 #include "../NativePreferences/Subscription.h"
 #include <map>
+#include <afxdlgs.h>
 #include "Collections.h"
 #include "../TrafficMonitor.h"
 #include "../NativeMaterial/Controls.h"
@@ -20,7 +21,7 @@ namespace NativeRegex
 struct EditorState { HWND window{}; };
 namespace
 {
-    enum : UINT { Pattern=55001, Subject, Replacement, Mode, Case, Run, Replace, Split, Apply, Cancel, Results, InsertAny, InsertDigit, InsertWord, InsertGroup, InsertStart, InsertEnd, SavedList, SavedName, SaveNew, LoadSaved, RenameSaved, DeleteSaved, RecoverSaved, RefreshSaved, TestPage, ReplacePage, ExplainPage, LibraryPage, OptionsToggle, Output };
+    enum : UINT { Pattern=55001, Subject, Replacement, Mode, Case, Run, Replace, Split, Apply, Cancel, Results, InsertAny, InsertDigit, InsertWord, InsertGroup, InsertStart, InsertEnd, SavedList, SavedName, SaveNew, LoadSaved, RenameSaved, DeleteSaved, RecoverSaved, RefreshSaved, ExportSaved, ImportSaved, TestPage, ReplacePage, ExplainPage, LibraryPage, OptionsToggle, Output };
     class Workbench final : public CDialog
     {
     public:
@@ -73,12 +74,12 @@ namespace
         void Layout();void Fonts();void Execute(Operation,bool);void Changed();Options Read();
         void Finish(bool commit);
         void CollectionStart(CollectionAction,const SavedExpression& = {},const std::wstring& = L"");
-        void CollectionPoll();void CollectionValidate(bool save);void CollectionControls(bool enabled);
+        void CollectionTransfer(bool import);void CollectionPoll();void CollectionValidate(bool save);void CollectionControls(bool enabled);
         SavedExpression pendingRecord;bool validatingCollection{},savingCollection{},confirmDelete{},confirmRecovery{};
         Operation operation{Operation::Search};
         std::vector<SavedExpression> savedRecords;std::future<CollectionResult> collectionWorker;Session collectionValidation;
         NativeMaterial::SearchSelector savedList;NativeMaterial::TextField savedName;CStatic savedLabel,nameLabel,collectionNote;
-        NativeMaterial::Button saveNew,loadSaved,renameSaved,deleteSaved,recoverSaved,refreshSaved;
+        NativeMaterial::Button saveNew,loadSaved,renameSaved,deleteSaved,recoverSaved,refreshSaved,exportSaved,importSaved;
         RECT previousAnchor{};
         UINT dpi{96};int scroll{};bool loading{true},applying{},ready{};
         CFont font,headingFont;CBrush background;
@@ -131,6 +132,8 @@ namespace
         renameSaved.Create(T(L"Rename",L"重新命名"),r,this,RenameSaved);
         deleteSaved.Create(T(L"Delete",L"刪除"),r,this,DeleteSaved);
         recoverSaved.Create(T(L"Recover backup",L"還原備份"),r,this,RecoverSaved);
+        exportSaved.Create(T(L"Export collection...",L"匯出收藏..."),r,this,ExportSaved);
+        importSaved.Create(T(L"Import collection...",L"匯入收藏..."),r,this,ImportSaved);
         heading.Create(T(L"Build a filter for this search",L"建立此搜尋專用篩選"),child,r,this);
         headingSecondary.Create(L"",child,r,this);
         engine.Create(L"TrafficMonitor bounded NFA v1 | UTF-16 | ASCII case folding | leftmost-longest",child,r,this);
@@ -159,7 +162,7 @@ namespace
         outputLabel.Create(L"",child,r,&panel);
         options.Create(L"",r,this,OptionsToggle);
         for(int index=0;index<4;++index)pages[index].Create(L"",r,this,TestPage+index);
-        for(CWnd* control:std::initializer_list<CWnd*>{&savedLabel,&savedList,&loadSaved,&refreshSaved,&nameLabel,&savedName,&saveNew,&renameSaved,&deleteSaved,&recoverSaved,&collectionNote,&engine,&mode,&caseButton,&any,&digit,&word,&group,&start,&end,&help,&subjectLabel,&subject,&replacementLabel,&replacement,&run,&replace,&split,&results,&output})control->SetParent(&panel);
+        for(CWnd* control:std::initializer_list<CWnd*>{&savedLabel,&savedList,&loadSaved,&refreshSaved,&nameLabel,&savedName,&saveNew,&renameSaved,&deleteSaved,&recoverSaved,&exportSaved,&importSaved,&collectionNote,&engine,&mode,&caseButton,&any,&digit,&word,&group,&start,&end,&help,&subjectLabel,&subject,&replacementLabel,&replacement,&run,&replace,&split,&results,&output})control->SetParent(&panel);
         Theme();
         Labels();Fonts();RECT size{0,0,Px(1280),Px(840)};AdjustWindowRectEx(&size,GetStyle(),FALSE,GetExStyle());
         MONITORINFO monitor{sizeof(monitor)};GetMonitorInfoW(MonitorFromWindow(anchor,MONITOR_DEFAULTTONEAREST),&monitor);
@@ -178,6 +181,8 @@ namespace
         renameSaved.SetLabel(T(L"Rename",L"重新命名"));
         deleteSaved.SetLabel(T(L"Delete",L"刪除"));
         recoverSaved.SetLabel(T(L"Recover backup",L"還原備份"));
+        exportSaved.SetLabel(T(L"Export collection...",L"匯出收藏..."));
+        importSaved.SetLabel(T(L"Import collection...",L"匯入收藏..."));
         const bool bilingual=NativePreferences::Current().values.language==NativePreferences::Language::Bilingual;
         heading.SetWindowText(bilingual?CString(L"Build a filter for this search"):T(L"Build a filter for this search",L"建立此搜尋專用篩選"));
         headingSecondary.SetWindowText(bilingual?L"建立此搜尋專用篩選":L"");
@@ -330,7 +335,7 @@ namespace
         bodyHeight=(std::max)(24,height-footer-y);
         move(viewport,0,y,width,bodyHeight);
         struct Box{CWnd* control;int x,y,w,h;};std::vector<Box> boxes;
-        std::vector<CWnd*> bodyControls{&savedLabel,&savedList,&loadSaved,&refreshSaved,&nameLabel,&savedName,&saveNew,&renameSaved,&deleteSaved,&recoverSaved,&collectionNote,&engine,&mode,&caseButton,&any,&digit,&word,&group,&start,&end,&help,&subjectLabel,&subject,&replacementLabel,&replacement,&run,&replace,&split,&results,&output,&resultsLabel,&outputLabel};
+        std::vector<CWnd*> bodyControls{&savedLabel,&savedList,&loadSaved,&refreshSaved,&nameLabel,&savedName,&saveNew,&renameSaved,&deleteSaved,&recoverSaved,&exportSaved,&importSaved,&collectionNote,&engine,&mode,&caseButton,&any,&digit,&word,&group,&start,&end,&help,&subjectLabel,&subject,&replacementLabel,&replacement,&run,&replace,&split,&results,&output,&resultsLabel,&outputLabel};
         const int left=36,available=width-88;
         int cursor=16;
         auto place=[&](CWnd& control,int minimum,bool fixed=false)
@@ -369,7 +374,7 @@ namespace
         else
         {
             place(savedLabel,20);place(savedList,buttonHeight,true);row({&loadSaved,&refreshSaved});
-            place(nameLabel,20);place(savedName,48,true);row({&saveNew,&renameSaved});row({&deleteSaved,&recoverSaved});place(collectionNote,36);
+            place(nameLabel,20);place(savedName,48,true);row({&saveNew,&renameSaved});row({&deleteSaved,&recoverSaved});row({&exportSaved,&importSaved});place(collectionNote,36);
         }
         contentHeight=cursor+16;
         scroll=(std::max)(0,(std::min)(scroll,(std::max)(0,contentHeight-bodyHeight)));
@@ -433,6 +438,8 @@ namespace
         case SaveNew:CollectionValidate(true);return TRUE;
         case LoadSaved:CollectionValidate(false);return TRUE;
         case RefreshSaved:CollectionStart(CollectionAction::Read);return TRUE;
+        case ExportSaved:CollectionTransfer(false);return TRUE;
+        case ImportSaved:CollectionTransfer(true);return TRUE;
         case RecoverSaved:
             if(!confirmRecovery){confirmRecovery=true;Note(collectionNote,L"Press Recover backup again to replace saved records with the previous file. Draft stays unchanged.",L"再次按還原備份，以之前版本取代儲存項目；草稿不變。");}
             else{confirmRecovery=false;CollectionStart(CollectionAction::Recover);}return TRUE;
@@ -460,7 +467,7 @@ namespace
     }
     void Workbench::CollectionControls(bool enabled)
     {
-        for(auto* button:{&saveNew,&loadSaved,&renameSaved,&deleteSaved,&recoverSaved,&refreshSaved})button->EnableWindow(enabled);
+        for(auto* button:{&saveNew,&loadSaved,&renameSaved,&deleteSaved,&recoverSaved,&refreshSaved,&exportSaved,&importSaved})button->EnableWindow(enabled);
         savedList.EnableWindow(enabled);savedName.EnableWindow(enabled);
     }
     void Workbench::CollectionStart(CollectionAction action,const SavedExpression& record,const std::wstring& newName)
@@ -470,6 +477,29 @@ namespace
         CollectionControls(false);const auto directory=theApp.m_config_dir;
         try{collectionWorker=std::async(std::launch::async,[directory,action,record,newName]{return UpdateCollection(directory,action,record,newName);});}
         catch(...){CollectionControls(true);Note(collectionNote,L"Cannot start collection storage. Draft is unchanged.",L"無法啟動儲存工作；草稿不變。");}
+    }
+    void Workbench::CollectionTransfer(bool import)
+    {
+        if(collectionWorker.valid())return;
+        confirmDelete=false;confirmRecovery=false;collectionValidation.Cancel();validatingCollection=false;
+        const CString filter=T(L"TrafficMonitor regex collection (*.tmregex)|*.tmregex|All files (*.*)|*.*||",L"TrafficMonitor 表示式收藏 (*.tmregex)|*.tmregex|所有檔案 (*.*)|*.*||");
+        CFileDialog dialog(import?TRUE:FALSE,L"tmregex",nullptr,import?(OFN_FILEMUSTEXIST|OFN_PATHMUSTEXIST|OFN_HIDEREADONLY):(OFN_OVERWRITEPROMPT|OFN_PATHMUSTEXIST|OFN_HIDEREADONLY),filter,this);
+        if(dialog.DoModal()!=IDOK)return;
+        const std::wstring path=dialog.GetPathName().GetString();
+        ImportMode importMode=ImportMode::Merge;
+        if(import)
+        {
+            const int choice=MessageBoxW(T(L"Merge into the saved collection? Yes merges (existing names stay; conflicting names are rejected). No replaces the whole saved collection. Cancel keeps everything unchanged.",L"是否併入已儲存收藏？「是」併入（現有名稱保留，名稱衝突會被拒絕）；「否」取代整個已儲存收藏；「取消」不作任何更改。"),T(L"Import collection",L"匯入收藏"),MB_YESNOCANCEL|MB_ICONQUESTION|MB_DEFBUTTON1);
+            if(choice==IDCANCEL)return;
+            if(choice==IDNO)
+            {
+                if(MessageBoxW(T(L"Replace overwrites every saved expression with the imported file. Replace the saved collection?",L"取代會以匯入檔案覆蓋所有已儲存表示式。確定取代？"),T(L"Confirm replace",L"確認取代"),MB_YESNO|MB_ICONWARNING|MB_DEFBUTTON2)!=IDYES)return;
+                importMode=ImportMode::Replace;
+            }
+        }
+        CollectionControls(false);const auto directory=theApp.m_config_dir;
+        try{collectionWorker=std::async(std::launch::async,[directory,path,import,importMode]{return import?ImportCollection(directory,path,importMode):ExportCollection(directory,path);});}
+        catch(...){CollectionControls(true);Note(collectionNote,L"Cannot start collection transfer. Draft is unchanged.",L"無法啟動收藏傳輸；草稿不變。");}
     }
     void Workbench::CollectionValidate(bool save)
     {
