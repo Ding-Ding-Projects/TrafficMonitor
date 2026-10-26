@@ -4,10 +4,13 @@
 namespace NativeMaterial
 {
     BOOL ScrollViewport::Create(CWnd* parent,UINT id)
-    {if(!CreateEx(WS_EX_CONTROLPARENT,AfxRegisterWndClass(0,::LoadCursor(nullptr,IDC_ARROW)),L"Settings controls",WS_CHILD|WS_VISIBLE|WS_CLIPCHILDREN,CRect(0,0,100,100),parent,id))return FALSE;if(!m_rail.Create(this,53998))return FALSE;m_rail.changed=[this](int value){m_position=value;if(scroll)scroll(SB_THUMBTRACK,value);};return TRUE;}
+    {if(!CreateEx(WS_EX_CONTROLPARENT,AfxRegisterWndClass(0,::LoadCursor(nullptr,IDC_ARROW)),L"Settings controls",WS_CHILD|WS_VISIBLE|WS_CLIPCHILDREN,CRect(0,0,100,100),parent,id))return FALSE;if(!m_rail.Create(this,53998))return FALSE;m_rail.changed=[this](int value){m_position=value;Observe();if(scroll)scroll(SB_THUMBTRACK,value);};return TRUE;}
     void ScrollViewport::SetAppearance(Appearance value){m_rail.SetAppearance(value);Invalidate();}
+    // Publishes the clamped state the rail itself holds, for the rail and the viewport owner.
+    void ScrollViewport::Observe()
+    {if(!NativeLayoutObservation::Enabled())return;NativeLayoutObservation::ObserveRail(m_rail.GetSafeHwnd(),m_content,m_page,m_position);NativeLayoutObservation::ObserveRail(m_hWnd,m_content,m_page,m_position);}
     void ScrollViewport::SetMetrics(int content,int page,int position)
-    {m_position=position;CRect r;GetClientRect(r);const int width=MulDiv(12,GetDpiForWindow(m_hWnd),96);m_rail.MoveWindow(r.right-width,0,width,r.Height());m_rail.SetMetrics(content,page,position);m_rail.BringWindowToTop();NativeLayoutObservation::ObserveRail(m_hWnd,content,page,m_position);}
+    {m_content=(std::max)(0,content);m_page=(std::max)(0,page);m_position=(std::max)(0,(std::min)(position,(std::max)(0,m_content-m_page)));CRect r;GetClientRect(r);const int width=MulDiv(12,GetDpiForWindow(m_hWnd),96);m_rail.MoveWindow(r.right-width,0,width,r.Height());m_rail.SetMetrics(content,page,position);m_rail.BringWindowToTop();Observe();}
     LRESULT ScrollViewport::WindowProc(UINT message,WPARAM w,LPARAM l)
     {
         if(message==WM_NCDESTROY)NativeLayoutObservation::Unregister(m_hWnd);

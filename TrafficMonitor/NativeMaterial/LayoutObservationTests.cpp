@@ -2,6 +2,7 @@
 #include "ButtonVisual.h"
 #include "LayoutObservations.h"
 #include "ScrollRail.h"
+#include "ScrollViewport.h"
 #include <aclapi.h>
 #include <cstdio>
 #include <memory>
@@ -107,6 +108,22 @@ int wmain(int argc,wchar_t**)
             Register(parent.GetSafeHwnd());ScrollRail rail;rail.Create(&parent,101);rail.SetMetrics(300,100,99);CopyStable(view,*snapshot);
             const Record* scroll=nullptr;for(std::uint32_t i=0;i<snapshot->header.count;++i)if(snapshot->records[i].hwnd==reinterpret_cast<std::uint64_t>(rail.GetSafeHwnd())&&snapshot->records[i].kind==Kind::RailMetrics)scroll=&snapshot->records[i];
             Check(scroll&&scroll->content==300&&scroll->page==100&&scroll->position==99&&scroll->font.source==FontSource::NotApplicable,"actual custom rail state has no invented font");
+            {
+                ScrollViewport viewport;viewport.Create(&parent,104);viewport.MoveWindow(0,0,200,100);Register(viewport.GetSafeHwnd());
+                auto railState=[&](HWND window){CopyStable(view,*snapshot);const Record* found=nullptr;for(std::uint32_t i=0;i<snapshot->header.count;++i)if(snapshot->records[i].hwnd==reinterpret_cast<std::uint64_t>(window)&&snapshot->records[i].kind==Kind::RailMetrics)found=&snapshot->records[i];return found;};
+                CWnd* inner=viewport.GetWindow(GW_CHILD);
+                viewport.SetMetrics(300,100,999);
+                const Record* clamped=inner?railState(inner->GetSafeHwnd()):nullptr;
+                Check(clamped&&clamped->content==300&&clamped->page==100&&clamped->position==200,"viewport publishes the clamped rail position after SetMetrics");
+                viewport.SetMetrics(300,100,50);
+                if(inner)inner->SendMessage(WM_KEYDOWN,VK_DOWN,0);
+                const Record* moved=inner?railState(inner->GetSafeHwnd()):nullptr;
+                Check(moved&&moved->content==300&&moved->page==100&&moved->position==82,"viewport republishes rail state after a keyboard scroll");
+                if(inner)inner->SendMessage(WM_KEYDOWN,VK_END,0);
+                moved=inner?railState(inner->GetSafeHwnd()):nullptr;
+                Check(moved&&moved->position==200,"viewport republishes rail state after scrolling to the end");
+                viewport.DestroyWindow();
+            }
             HANDLE writable=OpenFileMappingW(FILE_MAP_WRITE,FALSE,name.c_str());Check(!writable,"independent mapping handle cannot request write access");if(writable)CloseHandle(writable);
             PACL dacl{};PSECURITY_DESCRIPTOR descriptor{};const DWORD security=GetSecurityInfo(mapping,SE_KERNEL_OBJECT,DACL_SECURITY_INFORMATION,nullptr,nullptr,&dacl,nullptr,&descriptor);
             bool onlyCurrentUser=false;
