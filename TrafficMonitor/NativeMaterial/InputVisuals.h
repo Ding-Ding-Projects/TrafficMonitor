@@ -71,4 +71,12 @@ namespace NativeMaterial
     // underlineIndex marks the label character drawn underlined as a keyboard mnemonic (-1 for none).
 void DrawLabeledFieldChrome(ID2D1RenderTarget*, const Palette&, const CString& label, const CString& message, const InputState&, int underlineIndex = -1);
     void DrawClearButton(ID2D1RenderTarget*, const Palette&, bool fieldFocused, const InputState&);
+
+    // Text helpers shared with the feedback components (snackbar, progress, chips). Sizes are DIPs.
+    struct MeasuredText { float width{}, height{}; int lines{}; };
+    // maxWidth <= 0 measures one unbounded line; otherwise the text wraps at maxWidth.
+    MeasuredText MeasureMaterialText(const CString& text, float size, DWRITE_FONT_WEIGHT weight, float maxWidth = 0.f);
+    // maxLines <= 1 draws one ellipsized line centered vertically; more lines wrap and end with an ellipsis when they overflow.
+    void DrawMaterialText(ID2D1RenderTarget*, const Palette&, const CString& text, D2D1_RECT_F rect, float size, DWRITE_FONT_WEIGHT weight,
+        D2D1_COLOR_F color, DWRITE_TEXT_ALIGNMENT align = DWRITE_TEXT_ALIGNMENT_LEADING, int maxLines = 1);
 }

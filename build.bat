@@ -6,6 +6,7 @@ if /i "%~1"=="--verify-material-visuals" goto verifyMaterialVisuals
 if /i "%~1"=="--verify-material-inputs" goto verifyMaterialInputs
 if /i "%~1"=="--verify-material-tabs-tooltip" goto verifyMaterialTabsTooltip
 if /i "%~1"=="--verify-material-table" goto verifyMaterialTable
+if /i "%~1"=="--verify-material-feedback" goto verifyMaterialFeedback
 if /i "%~1"=="--uia-observer" goto uiaObserver
 if /i "%~1"=="--verify-readonly-text" goto verifyReadOnlyText
 if /i "%~1"=="--verify-title-bar" goto verifyTitleBar
@@ -107,6 +108,10 @@ exit /b %errorlevel%
 
 :verifyMaterialTable
 powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0scripts\test-native-tables.ps1"
+exit /b %errorlevel%
+
+:verifyMaterialFeedback
+powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0scripts\test-native-material-feedback.ps1"
 exit /b %errorlevel%
 
 :verifyLayoutObservations

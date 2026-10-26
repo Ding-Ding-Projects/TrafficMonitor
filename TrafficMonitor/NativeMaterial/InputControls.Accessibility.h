@@ -13,7 +13,7 @@
 // outstanding calls after the control is destroyed (the window is revoked).
 namespace NativeMaterial
 {
-    enum class InputKind { Switch, Checkbox, Radio, RadioGroup, Segmented, Stepper, Dropdown, TextField, Button, Slider, Table, List, Tabs };
+    enum class InputKind { Switch, Checkbox, Radio, RadioGroup, Segmented, Stepper, Dropdown, TextField, Button, Slider, Table, List, Tabs, Snackbar, Progress, Chip };
     enum class InputActionId : WPARAM { Toggle, Select, SetValue, Expand, Collapse };
     constexpr UINT InputAction = WM_APP + 0x540;
 
@@ -21,6 +21,9 @@ namespace NativeMaterial
     {
         InputKind kind{ InputKind::Switch };
         bool enabled{ true }, expanded{}, error{};
+        bool indeterminate{};    // Progress without a measured value: no RangeValue pattern is offered
+        bool toggleable{};       // Chip that is a selectable (filter) chip: Toggle instead of Invoke
+        std::wstring shortcut;   // accelerator key text, for example "Delete" on an input chip
         int toggle{};            // 0 off, 1 on, 2 indeterminate
         int value{}, minimum{}, maximum{}, step{ 1 }, page{};
         int selected{ -1 };      // selected item index, or -1
@@ -50,13 +53,13 @@ namespace NativeMaterial
             const bool root = m_item < 0;
             const bool list = kind == InputKind::RadioGroup || kind == InputKind::Segmented || kind == InputKind::Dropdown || kind == InputKind::Tabs;
             if (id == __uuidof(IUnknown) || id == __uuidof(IRawElementProviderSimple)) *out = static_cast<IRawElementProviderSimple*>(this);
-            else if (id == __uuidof(IToggleProvider) && root && (kind == InputKind::Switch || kind == InputKind::Checkbox)) *out = static_cast<IToggleProvider*>(this);
+            else if (id == __uuidof(IToggleProvider) && root && (kind == InputKind::Switch || kind == InputKind::Checkbox || (kind == InputKind::Chip && Flag(1)))) *out = static_cast<IToggleProvider*>(this);
             else if (id == __uuidof(ISelectionItemProvider) && ((root && kind == InputKind::Radio) || (!root && list))) *out = static_cast<ISelectionItemProvider*>(this);
             else if (id == __uuidof(ISelectionProvider) && root && list) *out = static_cast<ISelectionProvider*>(this);
-            else if (id == __uuidof(IRangeValueProvider) && root && (kind == InputKind::Stepper || kind == InputKind::Slider)) *out = static_cast<IRangeValueProvider*>(this);
+            else if (id == __uuidof(IRangeValueProvider) && root && (kind == InputKind::Stepper || kind == InputKind::Slider || (kind == InputKind::Progress && !Flag(0)))) *out = static_cast<IRangeValueProvider*>(this);
             else if (id == __uuidof(IExpandCollapseProvider) && root && kind == InputKind::Dropdown) *out = static_cast<IExpandCollapseProvider*>(this);
             else if (id == __uuidof(IValueProvider) && root && kind == InputKind::Dropdown) *out = static_cast<IValueProvider*>(this);
-            else if (id == __uuidof(IInvokeProvider) && root && kind == InputKind::Button) *out = static_cast<IInvokeProvider*>(this);
+            else if (id == __uuidof(IInvokeProvider) && root && (kind == InputKind::Button || kind == InputKind::Snackbar || (kind == InputKind::Chip && !Flag(1)))) *out = static_cast<IInvokeProvider*>(this);
             else return E_NOINTERFACE;
             AddRef();
             return S_OK;
@@ -98,18 +101,21 @@ namespace NativeMaterial
                     : d.kind == InputKind::Stepper ? UIA_SpinnerControlTypeId
                     : d.kind == InputKind::Slider ? UIA_SliderControlTypeId
                     : d.kind == InputKind::Dropdown ? UIA_ComboBoxControlTypeId
-                    : d.kind == InputKind::Button ? UIA_ButtonControlTypeId
-                    : d.kind == InputKind::Tabs ? UIA_TabControlTypeId : UIA_GroupControlTypeId;
+                    : d.kind == InputKind::Button || d.kind == InputKind::Chip ? UIA_ButtonControlTypeId
+                    : d.kind == InputKind::Tabs ? UIA_TabControlTypeId
+                    : d.kind == InputKind::Progress ? UIA_ProgressBarControlTypeId : UIA_GroupControlTypeId;
             }
-            else if (id == UIA_LocalizedControlTypePropertyId && root && (d.kind == InputKind::Switch || d.kind == InputKind::Segmented))
-                return Text(out, d.kind == InputKind::Switch ? L"switch" : L"segmented button");
+            else if (id == UIA_LocalizedControlTypePropertyId && root && (d.kind == InputKind::Switch || d.kind == InputKind::Segmented || d.kind == InputKind::Snackbar || d.kind == InputKind::Chip))
+                return Text(out, d.kind == InputKind::Switch ? L"switch" : d.kind == InputKind::Segmented ? L"segmented button" : d.kind == InputKind::Snackbar ? L"snackbar" : L"chip");
+            else if (id == UIA_LiveSettingPropertyId && root && d.kind == InputKind::Snackbar) { out->vt = VT_I4; out->lVal = Polite; }
+            else if (id == UIA_AcceleratorKeyPropertyId && root && !d.shortcut.empty()) return Text(out, d.shortcut);
             else if (id == UIA_NamePropertyId) return Text(out, !root ? m_itemName : d.name);
             else if (id == UIA_HelpTextPropertyId && root && !d.help.empty()) return Text(out, d.help);
             else if (id == UIA_IsEnabledPropertyId) { out->vt = VT_BOOL; out->boolVal = d.enabled ? VARIANT_TRUE : VARIANT_FALSE; }
-            else if (id == UIA_IsKeyboardFocusablePropertyId) { out->vt = VT_BOOL; out->boolVal = root ? VARIANT_TRUE : VARIANT_FALSE; }
+            else if (id == UIA_IsKeyboardFocusablePropertyId) { out->vt = VT_BOOL; out->boolVal = root && d.kind != InputKind::Progress ? VARIANT_TRUE : VARIANT_FALSE; }
             else if (id == UIA_IsControlElementPropertyId || id == UIA_IsContentElementPropertyId) { out->vt = VT_BOOL; out->boolVal = VARIANT_TRUE; }
             else if (id == UIA_IsRequiredForFormPropertyId && root) { out->vt = VT_BOOL; out->boolVal = VARIANT_FALSE; }
-            else if (id == UIA_ToggleToggleStatePropertyId && root && (d.kind == InputKind::Switch || d.kind == InputKind::Checkbox))
+            else if (id == UIA_ToggleToggleStatePropertyId && root && (d.kind == InputKind::Switch || d.kind == InputKind::Checkbox || (d.kind == InputKind::Chip && d.toggleable)))
             { out->vt = VT_I4; out->lVal = d.toggle == 1 ? ToggleState_On : d.toggle == 2 ? ToggleState_Indeterminate : ToggleState_Off; }
             return S_OK;
         }
@@ -185,12 +191,13 @@ namespace NativeMaterial
             std::lock_guard<std::mutex> lock(m_state->mutex);
             if (!Available()) return UIA_E_ELEMENTNOTAVAILABLE;
             const auto& d = m_state->data;
+            if (d.kind == InputKind::Progress) return UIA_E_INVALIDOPERATION;
             if (!std::isfinite(value) || value != std::floor(value) || value < d.minimum || value > d.maximum) return E_INVALIDARG;
             return Post(InputActionId::SetValue, static_cast<int>(value));
         }
         HRESULT STDMETHODCALLTYPE get_Value(double* out) override { return Number(out, 0); }
         HRESULT STDMETHODCALLTYPE get_IsReadOnly(BOOL* out) override
-        { if (!out) return E_POINTER; std::lock_guard<std::mutex> lock(m_state->mutex); if (!Available()) return UIA_E_ELEMENTNOTAVAILABLE; *out = FALSE; return S_OK; }
+        { if (!out) return E_POINTER; std::lock_guard<std::mutex> lock(m_state->mutex); if (!Available()) return UIA_E_ELEMENTNOTAVAILABLE; *out = m_state->data.kind == InputKind::Progress; return S_OK; }
         HRESULT STDMETHODCALLTYPE get_Maximum(double* out) override { return Number(out, 2); }
         HRESULT STDMETHODCALLTYPE get_Minimum(double* out) override { return Number(out, 1); }
         HRESULT STDMETHODCALLTYPE get_LargeChange(double* out) override { return Number(out, 4); }
@@ -232,6 +239,8 @@ namespace NativeMaterial
             if (item >= 0 && item < static_cast<int>(m_state->data.items.size())) m_itemName = m_state->data.items[item];
         }
         InputKind Kind() const { std::lock_guard<std::mutex> lock(m_state->mutex); return m_state->data.kind; }
+        // 0: indeterminate progress, 1: selectable chip.
+        bool Flag(int which) const { std::lock_guard<std::mutex> lock(m_state->mutex); return which == 0 ? m_state->data.indeterminate : m_state->data.toggleable; }
         bool Available() const
         {
             if (!m_state->window) return false;

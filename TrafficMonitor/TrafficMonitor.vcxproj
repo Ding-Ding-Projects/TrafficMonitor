@@ -1202,5 +1202,13 @@
     <ClCompile Include="NativeMaterial\TableVisuals.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
     <ClCompile Include="NativeMaterial\DataTable.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
     <ClCompile Include="NativeMaterial\MaterialList.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
+    <ClInclude Include="NativeMaterial\FeedbackVisuals.h" />
+    <ClInclude Include="NativeMaterial\Snackbar.h" />
+    <ClInclude Include="NativeMaterial\Progress.h" />
+    <ClInclude Include="NativeMaterial\Chip.h" />
+    <ClCompile Include="NativeMaterial\FeedbackVisuals.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
+    <ClCompile Include="NativeMaterial\Snackbar.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
+    <ClCompile Include="NativeMaterial\Progress.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
+    <ClCompile Include="NativeMaterial\Chip.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
   </ItemGroup>
 </Project>

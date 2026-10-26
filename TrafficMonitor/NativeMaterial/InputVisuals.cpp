@@ -435,4 +435,64 @@ namespace NativeMaterial
         target->DrawLine(D2D1::Point2F(m.x - 5, m.y + 5), D2D1::Point2F(m.x + 5, m.y - 5), k(ink), 2.f);
         if (s.focused) FocusRing(k, D2D1::RectF(m.x - 21, m.y - 21, m.x + 21, m.y + 21), 21.f);
     }
+
+    MeasuredText MeasureMaterialText(const CString& text, float size, DWRITE_FONT_WEIGHT weight, float maxWidth)
+    {
+        MeasuredText result;
+        ComPtr<IDWriteFactory> factory;
+        ComPtr<IDWriteTextFormat> format;
+        ComPtr<IDWriteTextLayout> layout;
+        if (text.IsEmpty() || FAILED(DWriteCreateFactory(DWRITE_FACTORY_TYPE_SHARED, __uuidof(IDWriteFactory), reinterpret_cast<IUnknown**>(factory.GetAddressOf())))) return result;
+        if (FAILED(factory->CreateTextFormat(L"Segoe UI", nullptr, weight, DWRITE_FONT_STYLE_NORMAL, DWRITE_FONT_STRETCH_NORMAL, size, L"", format.GetAddressOf()))) return result;
+        format->SetWordWrapping(maxWidth > 0 ? DWRITE_WORD_WRAPPING_WRAP : DWRITE_WORD_WRAPPING_NO_WRAP);
+        if (FAILED(factory->CreateTextLayout(text, text.GetLength(), format.Get(), maxWidth > 0 ? maxWidth : 4096.f, 4096.f, layout.GetAddressOf()))) return result;
+        DWRITE_TEXT_METRICS metrics{};
+        layout->GetMetrics(&metrics);
+        result.width = metrics.widthIncludingTrailingWhitespace;
+        result.height = metrics.height;
+        result.lines = static_cast<int>(metrics.lineCount);
+        return result;
+    }
+
+    void DrawMaterialText(ID2D1RenderTarget* target, const Palette& c, const CString& text, D2D1_RECT_F r, float size, DWRITE_FONT_WEIGHT weight,
+        D2D1_COLOR_F color, DWRITE_TEXT_ALIGNMENT align, int maxLines)
+    {
+        Ink k(target, c); if (!k.Ok()) return;
+        if (maxLines <= 1) { Text(k, text, r, size, weight, color, align, false, true); return; }
+        if (text.IsEmpty() || r.right - r.left < 2 || r.bottom - r.top < 2) return;
+        auto build = [&](const CString& s, ComPtr<IDWriteTextFormat>& format, ComPtr<IDWriteTextLayout>& layout) -> bool
+        {
+            format.Reset(); layout.Reset();
+            if (FAILED(k.text->CreateTextFormat(L"Segoe UI", nullptr, weight, DWRITE_FONT_STYLE_NORMAL, DWRITE_FONT_STRETCH_NORMAL, size, L"", format.GetAddressOf()))) return false;
+            format->SetTextAlignment(align);
+            format->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_CENTER);
+            format->SetWordWrapping(DWRITE_WORD_WRAPPING_WRAP);
+            return SUCCEEDED(k.text->CreateTextLayout(s, s.GetLength(), format.Get(), r.right - r.left, r.bottom - r.top, layout.GetAddressOf()));
+        };
+        ComPtr<IDWriteTextFormat> format;
+        ComPtr<IDWriteTextLayout> layout;
+        CString shown = text;
+        if (!build(shown, format, layout)) return;
+        DWRITE_TEXT_METRICS metrics{};
+        layout->GetMetrics(&metrics);
+        if (static_cast<int>(metrics.lineCount) > maxLines)
+        {
+            // Keep the longest prefix that still fits in maxLines once the ellipsis is appended.
+            int low = 0, high = text.GetLength();
+            while (low < high)
+            {
+                const int mid = (low + high + 1) / 2;
+                CString probe = text.Left(mid) + L"…";
+                ComPtr<IDWriteTextFormat> f; ComPtr<IDWriteTextLayout> l;
+                DWRITE_TEXT_METRICS m{};
+                if (build(probe, f, l)) l->GetMetrics(&m);
+                if (static_cast<int>(m.lineCount) <= maxLines) low = mid; else high = mid - 1;
+            }
+            shown = text.Left(low).TrimRight() + L"…";
+            if (!build(shown, format, layout)) return;
+        }
+        const auto origin = D2D1::Point2F(r.left, r.top);
+        k.target->DrawTextLayout(origin, layout.Get(), k(color), D2D1_DRAW_TEXT_OPTIONS_CLIP);
+        NativeLayoutObservation::ObserveDirectWrite(k.target, layout.Get(), format.Get(), origin);
+    }
 }
