@@ -1,6 +1,7 @@
 ﻿#include "../stdafx.h"
 #include "../NativeMaterial/ResponsivenessDiagnostics.h"
 #include "../NativeMaterial/LayoutObservations.h"
+#include "../NativeMaterial/TextExtent.h"
 #include "Settings.h"
 #include "../NativePreferences/Editor.h"
 #include "../NativeMaterial/ActionSounds.h"
@@ -128,7 +129,7 @@ namespace
         if(!m_body.Create(this)){EndDialog(-1);return TRUE;}
         if(!m_interface.Create(&m_body,this)){EndDialog(-1);return TRUE;}
         m_body.scroll=[this](UINT code,int pos){Scroll(code,pos);};m_body.background=[this]{return static_cast<HBRUSH>(m_background.GetSafeHandle());};
-        m_updateInfo.Create(L"",child,box,&m_body);
+        m_updateInfo.Create(L"",child|SS_NOPREFIX,box,&m_body);
         m_results.Create(box,&m_body,Results);
         m_navigation.SetWindowText(T(L"Settings sections",L"設定分類"));m_body.SetScrollName(T(L"Scroll settings",L"捲動設定"));m_results.SetWindowText(T(L"Settings in all groups; select a result and choose Open",L"所有組別設定；選擇結果後按開啟"));
         size_t index=0;
@@ -300,7 +301,7 @@ namespace
         headerDC.SelectObject(headerFont);measurements.Publish();
         auto& state=m_searches[m_page];state.filter.Request(Subjects());int y=0,count=0;bool showLanguage=false,showAppearance=false,showSounds=false;CRect body;m_body.GetClientRect(body);const int bw=MulDiv(body.Width(),96,m_dpi);
         CClientDC dc(&m_body);auto* old=dc.SelectObject(&m_font);
-        auto textHeight=[&](CWnd& c,int w){CString text;c.GetWindowText(text);CRect r(0,0,Px(w),0);dc.DrawText(text,&r,DT_CALCRECT|DT_WORDBREAK|DT_NOPREFIX);return (std::max)(24,(r.Height()*96+static_cast<int>(m_dpi)-1)/static_cast<int>(m_dpi));};
+        auto textHeight=[&](CWnd& c,int w){CString text;c.GetWindowText(text);return (std::max)(24,NativeMaterial::WrappedTextHeight(dc.GetSafeHdc(),text,Px(w),m_dpi));};
         for(size_t i=0;i<m_rows.size();++i)
         {
             auto& r=*m_rows[i];const auto& s=*r.setting;if(m_page==Interface&&s.group==Interface&&(state.filter.Visible(i)||m_reveal==s.id)){++count;if(std::wstring(s.id)==L"interface.appearance")showAppearance=true;else if(std::wstring(s.id)==L"interface.sounds")showSounds=true;else showLanguage=true;}r.visible=m_page!=Discovery&&m_page!=Interface&&s.group==m_page&&(state.filter.Visible(i)||m_reveal==s.id);
@@ -363,6 +364,19 @@ namespace
         }
         m_results.ShowWindow(m_page==Discovery?SW_SHOW:SW_HIDE);
         m_updateInfo.ShowWindow(m_page==0?SW_SHOW:SW_HIDE);if(m_page==0)Place(m_updateInfo,12,updateTop-state.scroll,bw-24,updateHeight);
+        if(m_page!=Discovery&&m_page!=Interface)
+        {
+            // The scrollable extent must reach the lowest placed control, whatever the estimates above said.
+            std::vector<int> bottoms;
+            for(CWnd* c=m_body.GetWindow(GW_CHILD);c;c=c->GetNextWindow())
+            {
+                if(!c->IsWindowVisible()||c->GetDlgCtrlID()==53998)continue;
+                CRect placed;c->GetWindowRect(placed);m_body.ScreenToClient(placed);
+                bottoms.push_back(MulDiv(placed.bottom,96,m_dpi)+state.scroll);
+            }
+            const int covered=NativeMaterial::CoveredContentHeight(y,bottoms);
+            if(covered!=y){y=covered;m_contentHeight=y;m_body.SetMetrics(y,m_viewHeight,state.scroll);}
+        }
         if(m_page==Discovery){Place(m_results,0,0,bw,m_viewHeight);UpdateResults();count=m_results.GetCount();m_body.SetMetrics(0,m_viewHeight,0);m_results.SyncScroll();}
         CString status;status=NativePreferences::Format(L"%s: %d settings shown",L"%s：顯示 %d 項設定",GroupName(m_page,m_chinese),count);
         if(NativePreferences::Current().values.language==NativePreferences::Language::Bilingual){CString en,zh;en.Format(L"%s: %d settings shown",GroupName(m_page,false),count);zh.Format(L"%s：顯示 %d 項設定",GroupName(m_page,true),count);status=en+L"\r\n"+zh;}

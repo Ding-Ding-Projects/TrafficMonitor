@@ -124,7 +124,7 @@ namespace
         collectionNote.Create(L"",child,r,this);
         savedLabel.Create(T(L"Saved expressions (local only)",L"已儲存表示式，只限本機"),child,r,this);
         savedList.Create(r,this,SavedList);
-        loadSaved.Create(T(L"&Load draft",L"載入草稿 (&L)"),r,this,LoadSaved);
+        loadSaved.Create(T(L"Load draft",L"載入草稿"),r,this,LoadSaved);
         refreshSaved.Create(T(L"Refresh",L"重新整理"),r,this,RefreshSaved);
         nameLabel.Create(T(L"Collection &name",L"儲存名稱 (&N)"),child,r,this);
         savedName.CreateEx(0,L"EDIT",L"",child|WS_TABSTOP|ES_AUTOHSCROLL,r,this,SavedName);savedName.SetLimitText(96);
@@ -176,7 +176,7 @@ namespace
     {
         SetWindowText(T(L"Search pattern workbench",L"搜尋表示式工作台"));
         savedLabel.SetWindowText(T(L"Saved expressions (local only)",L"已儲存表示式，只限本機"));
-        loadSaved.SetLabel(T(L"&Load draft",L"載入草稿 (&L)"));
+        loadSaved.SetLabel(T(L"Load draft",L"載入草稿"));
         refreshSaved.SetLabel(T(L"Refresh",L"重新整理"));
         nameLabel.SetWindowText(T(L"Collection &name",L"儲存名稱 (&N)"));
         descriptionLabel.SetWindowText(T(L"Collection &description (optional)",L"儲存說明，可留空 (&D)"));
