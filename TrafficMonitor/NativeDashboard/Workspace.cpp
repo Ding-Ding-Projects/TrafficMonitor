@@ -14,6 +14,7 @@
 #include "../NativeMaterial/Navigation.h"
 #include "../NativeMaterial/ScrollViewport.h"
 #include "../NativeMaterial/Panel.h"
+#include "../NativeMaterial/TitleBar.h"
 #include "../NativeMenus/SearchableMenu.h"
 #include "../NativeRegex/Workbench.h"
 #include "../TrafficMonitor.h"
@@ -66,6 +67,8 @@ namespace NativeDashboard
         private:
             CString T(const wchar_t* english, const wchar_t* chinese) const { return NativePreferences::Pair(english,chinese); }
             NativePreferences::Subscription m_preferences;
+            NativeMaterial::TitleBar m_titleBar;
+            NativeMaterial::TitleBar::Labels Captions() const{NativeMaterial::TitleBar::Labels l;l.minimize=T(L"Minimize",L"最小化");l.maximize=T(L"Maximize",L"最大化");l.restore=T(L"Restore",L"還原");l.close=T(L"Close",L"關閉");return l;}
             LRESULT OnPreferences(WPARAM,LPARAM);
             void Labels();
             LRESULT WindowProc(UINT message,WPARAM w,LPARAM l) override {if(message==WM_SETTINGCHANGE||message==WM_THEMECHANGED){NativeDiagnostics::Scope messageDiagnostic(message==WM_SETTINGCHANGE?NativeDiagnostics::Operation::WorkspaceSettingMessage:NativeDiagnostics::Operation::WorkspaceThemeMessage);NativePreferences::RefreshSystemAppearance();}return CWnd::WindowProc(message,w,l);}
@@ -177,12 +180,19 @@ namespace NativeDashboard
             m_search.SetLimitText(512);
             m_details.SetLimitText(65535);
             m_preferences.Attach(m_hWnd);
-            Labels(); SetFonts(); ApplyTheme(); Layout(); Start(); SetTimer(0x4E92,40,nullptr);
+            m_titleBar.Attach(this,m_appearance,Captions());
+            {
+                MONITORINFO monitor{ sizeof(monitor) };GetMonitorInfoW(MonitorFromWindow(m_hWnd, MONITOR_DEFAULTTONEAREST), &monitor);
+                const int workWidth=monitor.rcWork.right-monitor.rcWork.left,workHeight=monitor.rcWork.bottom-monitor.rcWork.top;
+                SIZE outer=m_titleBar.OuterSizeForContent(Px(1296),Px(879));
+                outer.cx=(std::min)(outer.cx,static_cast<LONG>(workWidth));outer.cy=(std::min)(outer.cy,static_cast<LONG>(workHeight));
+                SetWindowPos(nullptr,monitor.rcWork.left+(workWidth-outer.cx)/2,monitor.rcWork.top+(workHeight-outer.cy)/2,outer.cx,outer.cy,SWP_NOZORDER|SWP_NOACTIVATE);
+            }            Labels(); SetFonts(); ApplyTheme(); Layout(); Start(); SetTimer(0x4E92,40,nullptr);
             return 0;
         }
         void Workspace::Labels()
         {
-            SetWindowText(T(L"TrafficMonitor - Network workspace",L"TrafficMonitor - 網絡工作區"));
+            SetWindowText(T(L"TrafficMonitor - Network workspace",L"TrafficMonitor - 網絡工作區"));m_titleBar.SetLabels(Captions());
             m_heading.SetWindowText(T(L"Network overview",L"網絡總覽"));
             m_monitor.SetLabel(T(L"Monitor",L"監察"));
             m_history.SetLabel(T(L"History",L"流量記錄"));
@@ -227,7 +237,7 @@ namespace NativeDashboard
             const auto palette=NativeMaterial::Palette::Resolve(m_appearance);
             m_background.DeleteObject();m_background.CreateSolidBrush(Color(palette.surface));
             m_navigationFill.DeleteObject();m_navigationFill.CreateSolidBrush(Color(palette.container));
-            NativeMaterial::ApplyNativeFrameAppearance(m_hWnd,m_appearance);
+            NativeMaterial::ApplyNativeFrameAppearance(m_hWnd,m_appearance);m_titleBar.SetAppearance(m_appearance);
             for(auto* button:{&m_monitor,&m_history,&m_plugins,&m_settings,&m_setup,&m_floatButton,&m_theme,&m_pause,&m_refresh,&m_clear,&m_regex})
             {
                 button->SetAppearance(m_appearance);
@@ -249,7 +259,7 @@ namespace NativeDashboard
             NativeDiagnostics::Scope diagnostic(NativeDiagnostics::Operation::Layout);
             if(!m_search.GetSafeHwnd()||m_layout)return;
             m_layout=true;
-            CRect client;GetClientRect(client);
+            CRect client;GetClientRect(client);const int bar=m_titleBar.HeightPx();
             const int nav=Px(176),inset=Px(24),left=nav+inset,right=client.right-inset;
             const int width=(std::max)(Px(200),right-left);
             CClientDC dc(this);
@@ -259,16 +269,16 @@ namespace NativeDashboard
                 if(old)dc.SelectObject(old);return r.Height();
             };
             auto place=[](CWnd& control,int x,int y,int w,int h){control.MoveWindow(x,y,(std::max)(1,w),(std::max)(1,h));};
-            m_brand.MoveWindow(Px(16),Px(24),nav-Px(28),Px(32));
-            int y=Px(64);
+            m_brand.MoveWindow(Px(16),bar+Px(24),nav-Px(28),Px(32));
+            int y=bar+Px(64);
             for(auto* button:{&m_monitor,&m_history,&m_plugins,&m_settings,&m_setup,&m_theme})
             {
                 int h=(std::max)(Px(40),measure(*button,nav-Px(52))+Px(18));
                 place(*button,Px(12),y,nav-Px(24),h);y+=h+Px(8);
             }
             const int headingHeight=(std::max)(Px(32),measure(m_heading,width));
-            place(m_heading,left,Px(16),width,headingHeight);
-            y=Px(16)+headingHeight+Px(16);
+            place(m_heading,left,bar+Px(16),width,headingHeight);
+            y=bar+Px(16)+headingHeight+Px(16);
             const int searchHeight=Px(44),regexWidth=Px(96),clearWidth=Px(72);
             place(m_search,left,y,width-regexWidth-clearWidth-Px(16),searchHeight);
             place(m_regex,right-regexWidth-clearWidth-Px(8),y,regexWidth,searchHeight);
@@ -493,7 +503,7 @@ namespace NativeDashboard
             CPaintDC dc(this);CRect r;GetClientRect(r);
             const auto colors=NativeMaterial::Palette::Resolve(m_appearance);
             dc.FillSolidRect(r,Color(colors.surface));
-            dc.FillSolidRect(0,0,Px(176),r.Height(),Color(colors.container));
+            dc.FillSolidRect(0,m_titleBar.HeightPx(),Px(176),r.Height()-m_titleBar.HeightPx(),Color(colors.container));
         }
         void Workspace::OnSize(UINT type, int width, int height)
         {
@@ -503,8 +513,8 @@ namespace NativeDashboard
         void Workspace::OnGetMinMaxInfo(MINMAXINFO* info)
         {
             CWnd::OnGetMinMaxInfo(info);
-            RECT bounds{ 0, 0, Px(800), Px(600) }; AdjustWindowRectEx(&bounds, WS_OVERLAPPEDWINDOW, FALSE, WS_EX_CONTROLPARENT);
-            info->ptMinTrackSize = { bounds.right - bounds.left, bounds.bottom - bounds.top };
+            const SIZE outer = m_titleBar.OuterSizeForContent(Px(800), Px(600));
+            info->ptMinTrackSize = { outer.cx, outer.cy };
         }
         LRESULT Workspace::OnDpi(WPARAM dpi, LPARAM value)
         {

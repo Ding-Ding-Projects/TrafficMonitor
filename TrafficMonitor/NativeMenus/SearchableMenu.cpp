@@ -182,7 +182,7 @@ public:
     NativeRegex::Editor regexEditor;
     HFONT font{}, boldFont{};
     HBRUSH background{};
-    COLORREF surface{}, ink{}, muted{}, selected{}, accent{}, selectedInk{};
+    COLORREF surface{}, ink{}, muted{}, selected{}, accent{}, selectedInk{}, outline{};
     std::vector<Level> levels;
     std::vector<size_t> visible;
     std::shared_ptr<AccessibleState> accessibility{ std::make_shared<AccessibleState>() };
@@ -219,11 +219,11 @@ public:
         HIGHCONTRASTW hc{ sizeof(hc) }; SystemParametersInfoW(SPI_GETHIGHCONTRAST, sizeof(hc), &hc, 0);
         const bool light = !NativePreferences::Current().dark;
         if (hc.dwFlags & HCF_HIGHCONTRASTON)
-        { surface = GetSysColor(COLOR_WINDOW); ink = GetSysColor(COLOR_WINDOWTEXT); muted = GetSysColor(COLOR_GRAYTEXT); selected = GetSysColor(COLOR_HIGHLIGHT); accent = GetSysColor(COLOR_HIGHLIGHTTEXT); }
+        { surface = GetSysColor(COLOR_WINDOW); ink = GetSysColor(COLOR_WINDOWTEXT); muted = GetSysColor(COLOR_GRAYTEXT); selected = GetSysColor(COLOR_HIGHLIGHT); accent = GetSysColor(COLOR_HIGHLIGHTTEXT); outline = GetSysColor(COLOR_WINDOWTEXT); }
         else if (light)
-        { surface = RGB(245,247,250); ink = RGB(23,33,47); muted = RGB(82,97,116); selected = RGB(220,232,255); accent = RGB(36,95,200); }
+        { surface = RGB(245,247,250); ink = RGB(23,33,47); muted = RGB(82,97,116); selected = RGB(220,232,255); accent = RGB(36,95,200); outline = RGB(196,199,207); }
         else
-        { surface = RGB(16,20,25); ink = RGB(230,237,245); muted = RGB(168,183,200); selected = RGB(40,58,84); accent = RGB(145,184,255); }
+        { surface = RGB(16,20,25); ink = RGB(230,237,245); muted = RGB(168,183,200); selected = RGB(40,58,84); accent = RGB(145,184,255); outline = RGB(73,82,95); }
         selectedInk=(hc.dwFlags&HCF_HIGHCONTRASTON)?GetSysColor(COLOR_HIGHLIGHTTEXT):ink;
         if (background) DeleteObject(background);
         background = CreateSolidBrush(surface);
@@ -257,6 +257,7 @@ public:
         }
         scrollRail.SetMetrics(static_cast<int>(visible.size()), (std::max)(1, page), top);
     }
+    int Edge() const { return (std::max)(1, Px(1)); }
     void Layout()
     {
         if(externallySized){ReflowChildren();return;}
@@ -268,8 +269,8 @@ public:
         const int toolbar = NativePreferences::Current().values.language == NativePreferences::Language::Bilingual ? Px(56) : Px(44);
         const int listTop = padding + toolbar + Px(12);
         const int oldTop=static_cast<int>(SendMessageW(list,LB_GETTOPINDEX,0,0));
-        RECT frame{};AdjustWindowRectEx(&frame,static_cast<DWORD>(GetWindowLongPtrW(window,GWL_STYLE)),FALSE,static_cast<DWORD>(GetWindowLongPtrW(window,GWL_EXSTYLE)));
-        const int frameWidth=frame.right-frame.left,frameHeight=frame.bottom-frame.top;
+        // The Material outline is a thin non-client edge drawn by this popup, not a system border style.
+        const int frameWidth=Edge()*2,frameHeight=Edge()*2;
         MoveWindow(list, padding, listTop, (std::max)(1, width-frameWidth-padding*2-Px(16)), Px(100), FALSE);
         MeasureRows();
         int contentHeight = 0;
@@ -547,6 +548,22 @@ public:
         if(!self) return DefWindowProcW(hwnd,message,w,l);
         switch(message)
         {
+        case WM_NCCALCSIZE:
+            if(w) { auto* params=reinterpret_cast<NCCALCSIZE_PARAMS*>(l); const int edge=self->Edge(); InflateRect(&params->rgrc[0],-edge,-edge); return 0; }
+            break;
+        case WM_NCPAINT:
+            {
+                RECT outer{}; GetWindowRect(hwnd,&outer); OffsetRect(&outer,-outer.left,-outer.top);
+                HDC dc=GetWindowDC(hwnd);
+                if(dc)
+                {
+                    const int edge=self->Edge(); HBRUSH brush=CreateSolidBrush(self->outline);
+                    const RECT sides[4]={{0,0,outer.right,edge},{0,outer.bottom-edge,outer.right,outer.bottom},{0,edge,edge,outer.bottom-edge},{outer.right-edge,edge,outer.right,outer.bottom-edge}};
+                    for(const RECT& side:sides) FillRect(dc,&side,brush);
+                    DeleteObject(brush); ReleaseDC(hwnd,dc);
+                }
+            }
+            return 0;
         case WM_SIZE:
             if(!self->placing&&self->list&&w!=SIZE_MINIMIZED){self->externallySized=true;self->ReflowChildren();}
             return 0;
@@ -585,7 +602,7 @@ public:
         case WM_CLOSE: self->done=true; return 0;
         case WM_DPICHANGED: self->dpi=HIWORD(w); self->Fonts(); self->Layout(); return 0;
         case NativePreferences::ChangedMessage: if(!self->preferences.Accepts(w))return 0; self->PreferencesChanged(); InvalidateRect(hwnd,nullptr,TRUE); return 0;
-        case WM_SETTINGCHANGE: case WM_THEMECHANGED: NativePreferences::RefreshSystemAppearance(); self->Colors(); InvalidateRect(hwnd,nullptr,TRUE); return 0;
+        case WM_SETTINGCHANGE: case WM_THEMECHANGED: NativePreferences::RefreshSystemAppearance(); self->Colors(); RedrawWindow(hwnd,nullptr,nullptr,RDW_FRAME|RDW_INVALIDATE|RDW_ALLCHILDREN); return 0;
         case WM_NCDESTROY: self->preferences.Detach(); self->accessibility->popup=nullptr; self->accessibility->list=nullptr; self->window=nullptr; break;
         }
         return DefWindowProcW(hwnd,message,w,l);
@@ -614,7 +631,7 @@ public:
         WNDCLASSEXW cls{sizeof(cls)}; cls.lpfnWndProc=WindowProc; cls.hInstance=AfxGetInstanceHandle(); cls.lpszClassName=L"TrafficMonitor.NativeSearchMenu"; cls.hCursor=LoadCursorW(nullptr,IDC_ARROW); cls.style=CS_DROPSHADOW;
         if(!RegisterClassExW(&cls) && GetLastError()!=ERROR_CLASS_ALREADY_EXISTS) return false;
         Colors();
-        window=CreateWindowExW(WS_EX_TOOLWINDOW|WS_EX_TOPMOST,cls.lpszClassName,L"TrafficMonitor",WS_POPUP|WS_BORDER,anchor.x,anchor.y,1,1,owner,nullptr,cls.hInstance,this);
+        window=CreateWindowExW(WS_EX_TOOLWINDOW|WS_EX_TOPMOST,cls.lpszClassName,L"TrafficMonitor",WS_POPUP,anchor.x,anchor.y,1,1,owner,nullptr,cls.hInstance,this);
         if(!window) return false;
         preferences.Attach(window);
         using GetDpi=UINT(WINAPI*)(HWND); auto getDpi=reinterpret_cast<GetDpi>(GetProcAddress(GetModuleHandleW(L"user32.dll"),"GetDpiForWindow"));
@@ -652,6 +669,7 @@ public:
         SetWindowSubclass(edit,ChildProc,1,reinterpret_cast<DWORD_PTR>(this)); SetWindowSubclass(list,ChildProc,1,reinterpret_cast<DWORD_PTR>(this));
         Fonts();
         const DWORD rounded=2; DwmSetWindowAttribute(window,33,&rounded,sizeof(rounded));
+        SetWindowPos(window,nullptr,0,0,0,0,SWP_FRAMECHANGED|SWP_NOMOVE|SWP_NOSIZE|SWP_NOZORDER|SWP_NOACTIVATE);
         return true;
     }
 };

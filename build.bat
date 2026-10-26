@@ -6,6 +6,7 @@ if /i "%~1"=="--verify-material-visuals" goto verifyMaterialVisuals
 if /i "%~1"=="--uia-observer" goto uiaObserver
 if /i "%~1"=="--verify-readonly-text" goto verifyReadOnlyText
 if /i "%~1"=="--verify-title-bar" goto verifyTitleBar
+if /i "%~1"=="--verify-frameless-windows" goto verifyFramelessWindows
 if /i "%~1"=="--verify-result-list" goto verifyResultList
 if /i "%~1"=="--verify-preferences" goto verifyPreferences
 if /i "%~1"=="--verify-regex-collections" goto verifyRegexCollections
@@ -69,6 +70,10 @@ exit /b %errorlevel%
 
 :verifyTitleBar
 powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0scripts\test-native-title-bar.ps1"
+exit /b %errorlevel%
+
+:verifyFramelessWindows
+powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0scripts\test-native-frameless-windows.ps1"
 exit /b %errorlevel%
 
 :verifyReadOnlyText
