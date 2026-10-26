@@ -21,7 +21,8 @@ unfinished items below; this checklist records completed and unfinished work.
 - [x] Let a marker-gated diagnostic copy run beside the installed copy so runtime captures use the unmodified build.
 - [x] Fix the literal ampersand on the regex workbench Load draft button; a check rejects stray ampersands in Material button labels.
 - [x] Measure wrapped Settings text the way the static control breaks it, fixing the clipped Monitoring updater paragraph.
-- [ ] Replace every generic control and the system title bar with Material Design 3 components and a custom title bar across all owned surfaces.
+- [x] Add a custom Material title bar (frameless, Snap Layouts, DPI, dark, UI Automation) to Settings, the regex workbench and the setup wizard.
+- [ ] Follow design/native-mfc/material-conversion-plan.md until no stock control, system caption, message box, scrollbar or tooltip remains on an owned surface.
 - [ ] Refresh the README with a larger, categorized set of current captures and move superseded images to an archive page.
 - [ ] Let Rename edit a saved expression's description.
 
