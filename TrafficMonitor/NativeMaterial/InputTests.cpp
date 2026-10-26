@@ -583,6 +583,50 @@ int wmain()
         Check(named, "the inner edit carries the visible label as its accessible name");
     }
 
+    {
+        // Mnemonic: the ampersand marker is not part of the name, and Alt+letter focuses the field.
+        LabeledTextField marked;
+        Check(marked.Create(L"Collection &name", CRect(300, 600, 580, 690), &host, 161) != FALSE, "labeled text field with a mnemonic marker created");
+        Check(marked.Mnemonic() == L'n' && LabeledTextField::DisplayLabel(L"Collection &name") == L"Collection name" && LabeledTextField::DisplayLabel(L"R&&D &x") == L"R&D x",
+            "mnemonic character is parsed and the marker is stripped from the label");
+        Check(LabeledTextField::DisplayLabel(L"Name") == L"Name" && field.Mnemonic() == 0, "a label without a marker is unchanged and has no mnemonic");
+        Check(!marked.ActivateMnemonic(L'x'), "a different letter does not activate the mnemonic");
+        // Hidden or never-activated hosts cannot show or hold focus, so each outcome is asserted only where it applies.
+        const bool shown = marked.IsWindowVisible() && marked.IsWindowEnabled();
+        const bool activated = marked.ActivateMnemonic(L'N');
+        Check(activated == shown, "the mnemonic letter in either case is accepted exactly when the field is visible and enabled");
+        Check(!activated || ::GetFocus() == marked.Field().GetSafeHwnd() || ::GetActiveWindow() != host.GetSafeHwnd(), "an accepted mnemonic focuses the inner field when the host is active");
+        {
+            IAccessible* accessible = nullptr;
+            bool named = false;
+            if (SUCCEEDED(AccessibleObjectFromWindow(marked.Field().GetSafeHwnd(), OBJID_CLIENT, IID_IAccessible, reinterpret_cast<void**>(&accessible))) && accessible)
+            {
+                VARIANT self; self.vt = VT_I4; self.lVal = CHILDID_SELF;
+                BSTR name = nullptr;
+                named = SUCCEEDED(accessible->get_accName(self, &name)) && name && CString(name) == L"Collection name";
+                SysFreeString(name);
+                accessible->Release();
+            }
+            Check(named, "the accessible name omits the mnemonic marker");
+        }
+        // Clear buttons name the field they clear.
+        Microsoft::WRL::ComPtr<IRawElementProviderSimple> clearProvider;
+        Check(SUCCEEDED(marked.ClearControl().AutomationProvider(clearProvider.GetAddressOf())) && clearProvider && Name(clearProvider.Get()) == L"Clear Collection name",
+            "the clear button of a labeled field is named after that field");
+        ClearButton extra;
+        Check(extra.Create(CRect(300, 700, 340, 740), &host, 162) != FALSE, "stand-alone clear button created");
+        extra.SetAccessibleName(L"Clear example subject");
+        Microsoft::WRL::ComPtr<IRawElementProviderSimple> extraProvider;
+        Check(SUCCEEDED(extra.AutomationProvider(extraProvider.GetAddressOf())) && extraProvider && Name(extraProvider.Get()) == L"Clear example subject",
+            "a stand-alone clear button accepts a field-specific accessible name");
+        // Focus is reported to the parent so a scrolling host can reveal the field.
+        host.log.clear();
+        SendMessage(marked.GetSafeHwnd(), WM_COMMAND, MAKEWPARAM(1, EN_SETFOCUS), reinterpret_cast<LPARAM>(marked.Field().GetSafeHwnd()));
+        Check(host.Count(161, EN_SETFOCUS) == 1, "focusing the inner edit notifies the parent with EN_SETFOCUS");
+        extra.DestroyWindow();
+        marked.DestroyWindow();
+    }
+
     // ------------------------------------------------------ stock control scan
     {
         CString found;

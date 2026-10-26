@@ -9,6 +9,12 @@ namespace NativeMaterial
         const CString name = NativePreferences::Pair(L"Clear", L"清除");
         return CreateInput(InputKind::Button, name, WS_CHILD | WS_TABSTOP, 0, bounds, parent, id);
     }
+    void ClearButton::SetAccessibleName(const CString& name)
+    {
+        if (!m_hWnd) return;
+        SetWindowText(name);
+        Publish();
+    }
     void ClearButton::SetFieldFocused(bool focused)
     {
         if (m_fieldFocused == focused) return;
@@ -39,14 +45,15 @@ namespace NativeMaterial
     BOOL LabeledTextField::Create(const CString& label, const RECT& bounds, CWnd* parent, UINT id)
     {
         m_label = label;
-        if (!CreateInput(InputKind::TextField, label, WS_CHILD | WS_VISIBLE, WS_EX_CONTROLPARENT, bounds, parent, id)) return FALSE;
+        if (!CreateInput(InputKind::TextField, DisplayLabel(label), WS_CHILD | WS_VISIBLE, WS_EX_CONTROLPARENT, bounds, parent, id)) return FALSE;
         if (!m_field.Create(WS_CHILD | WS_VISIBLE | WS_TABSTOP | ES_AUTOHSCROLL, CRect(0, 0, 10, 10), this, FieldId)) return FALSE;
         if (!m_clear.Create(CRect(0, 0, 10, 10), this, ClearId)) return FALSE;
         CreateInputFont(m_font, Dpi());
         m_field.SetFont(&m_font);
         m_field.SetAppearance(GetAppearance());
         m_clear.SetAppearance(GetAppearance());
-        AnnotateAccessibleName(m_field.GetSafeHwnd(), label);
+        AnnotateAccessibleName(m_field.GetSafeHwnd(), DisplayLabel(label));
+        UpdateClearName();
         Layout();
         UpdateClear();
         Publish();
@@ -90,10 +97,57 @@ namespace NativeMaterial
     void LabeledTextField::SetLabel(const CString& label)
     {
         m_label = label;
-        SetWindowText(label);
-        AnnotateAccessibleName(m_field.GetSafeHwnd(), label);
+        SetWindowText(DisplayLabel(label));
+        AnnotateAccessibleName(m_field.GetSafeHwnd(), DisplayLabel(label));
+        UpdateClearName();
         Publish();
         Invalidate(FALSE);
+    }
+    CString LabeledTextField::DisplayLabel(const CString& label)
+    {
+        CString shown;
+        for (int i = 0; i < label.GetLength(); ++i)
+        {
+            if (label[i] == L'&' && i + 1 < label.GetLength()) ++i;   // "&x" keeps x, "&&" keeps one ampersand
+            else if (label[i] == L'&') continue;
+            shown += label[i];
+        }
+        return shown;
+    }
+    int LabeledTextField::MnemonicIndex() const
+    {
+        int shown = 0;
+        for (int i = 0; i < m_label.GetLength(); ++i)
+        {
+            if (m_label[i] == L'&' && i + 1 < m_label.GetLength())
+            {
+                ++i;
+                if (m_label[i] != L'&') return shown;
+            }
+            else if (m_label[i] == L'&') continue;
+            ++shown;
+        }
+        return -1;
+    }
+    wchar_t LabeledTextField::Mnemonic() const
+    {
+        const int index = MnemonicIndex();
+        if (index < 0) return 0;
+        const CString shown = DisplayLabel(m_label);
+        return index < shown.GetLength() ? shown[index] : 0;
+    }
+    bool LabeledTextField::ActivateMnemonic(wchar_t ch)
+    {
+        const wchar_t mnemonic = Mnemonic();
+        if (!mnemonic || !m_field.GetSafeHwnd() || !IsWindowVisible() || !IsWindowEnabled()) return false;
+        if (CharUpperW(reinterpret_cast<LPWSTR>(static_cast<ULONG_PTR>(ch))) != CharUpperW(reinterpret_cast<LPWSTR>(static_cast<ULONG_PTR>(mnemonic)))) return false;
+        m_field.SetFocus();
+        return true;
+    }
+    void LabeledTextField::UpdateClearName()
+    {
+        if (m_clear.GetSafeHwnd())
+            m_clear.SetAccessibleName(NativePreferences::Format(L"Clear %s", L"清除%s", DisplayLabel(m_label).GetString()));
     }
     void LabeledTextField::SetText(const CString& text)
     {
@@ -131,12 +185,14 @@ namespace NativeMaterial
 
     void LabeledTextField::Paint(ID2D1RenderTarget* target, const Palette& palette, const InputState& state)
     {
-        DrawLabeledFieldChrome(target, palette, m_label, !m_error.IsEmpty() ? m_error : m_supporting, state);
+        // Keyboard cues (the mnemonic underline) follow the shared Windows UI state, hidden until Alt or Tab is used.
+        const bool cues = (SendMessage(WM_QUERYUISTATE) & UISF_HIDEACCEL) == 0;
+        DrawLabeledFieldChrome(target, palette, DisplayLabel(m_label), !m_error.IsEmpty() ? m_error : m_supporting, state, cues ? MnemonicIndex() : -1);
     }
     CSize LabeledTextField::MinimumLogicalSize() const { return CSize(160, 86); }
     void LabeledTextField::FillAccess(InputData& data) const
     {
-        data.name = m_label.GetString();
+        data.name = DisplayLabel(m_label).GetString();
         data.help = (!m_error.IsEmpty() ? m_error : m_supporting).GetString();
     }
 
@@ -155,12 +211,15 @@ namespace NativeMaterial
             {
                 m_clear.SetFieldFocused(code == EN_SETFOCUS);
                 Invalidate(FALSE);
+                // Lets a scrolling host bring the field into view when it is focused by mouse as well as by Tab.
+                if (code == EN_SETFOCUS) Notify(EN_SETFOCUS);
                 return 0;
             }
             if (id == ClearId && code == BN_CLICKED) { Clear(); return 0; }
         }
         const auto result = InputWindow::WindowProc(message, w, l);
         if (message == WM_SIZE) Layout();
+        if (message == WM_UPDATEUISTATE) Invalidate(FALSE);
         if (message == WM_ENABLE && m_field.GetSafeHwnd()) { m_field.EnableWindow(w != 0); m_clear.EnableWindow(w != 0); UpdateClear(); }
         return result;
     }

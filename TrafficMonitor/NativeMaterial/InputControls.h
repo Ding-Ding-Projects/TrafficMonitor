@@ -373,6 +373,8 @@ namespace NativeMaterial
     {
     public:
         BOOL Create(const RECT& bounds, CWnd* parent, UINT id);
+        // Names the field this button clears (for example "Clear collection name"); the default is just "Clear".
+        void SetAccessibleName(const CString& name);
         void SetFieldFocused(bool focused);
     protected:
         void Paint(ID2D1RenderTarget*, const Palette&, const InputState&) override;
@@ -404,6 +406,13 @@ namespace NativeMaterial
         TextField& Field() { return m_field; }
         ClearButton& ClearControl() { return m_clear; }
         bool ClearVisible() const { return m_clearShown; }
+        // A label may mark one character with an ampersand ("Collection &name", "&&" is a literal ampersand).
+        // The marker is not drawn or announced; the character is underlined while keyboard cues are shown.
+        // Mnemonic returns that character (0 when none). ActivateMnemonic focuses the field when the character
+        // matches (case-insensitive) and the control is visible and enabled; the host dialog calls it for WM_SYSCHAR.
+        wchar_t Mnemonic() const;
+        bool ActivateMnemonic(wchar_t ch);
+        static CString DisplayLabel(const CString& label);
     protected:
         void Paint(ID2D1RenderTarget*, const Palette&, const InputState&) override;
         CSize MinimumLogicalSize() const override;
@@ -417,6 +426,8 @@ namespace NativeMaterial
         void Layout();
         void UpdateClear();
         bool m_clearShown{};
+        int MnemonicIndex() const;
+        void UpdateClearName();
         TextField m_field;
         ClearButton m_clear;
         CFont m_font;

@@ -51,7 +51,7 @@ namespace NativeMaterial
         }
 
         void Text(Ink& k, const CString& s, D2D1_RECT_F r, float size, DWRITE_FONT_WEIGHT weight, D2D1_COLOR_F color,
-            DWRITE_TEXT_ALIGNMENT align = DWRITE_TEXT_ALIGNMENT_LEADING, bool wrap = false, bool observe = false)
+            DWRITE_TEXT_ALIGNMENT align = DWRITE_TEXT_ALIGNMENT_LEADING, bool wrap = false, bool observe = false, int underlineIndex = -1)
         {
             if (s.IsEmpty() || r.right - r.left < 2 || r.bottom - r.top < 2) return;
             ComPtr<IDWriteTextFormat> format; ComPtr<IDWriteTextLayout> layout;
@@ -69,6 +69,7 @@ namespace NativeMaterial
                 }
             }
             if (FAILED(k.text->CreateTextLayout(s, s.GetLength(), format.Get(), r.right - r.left, r.bottom - r.top, layout.GetAddressOf()))) return;
+            if (underlineIndex >= 0 && underlineIndex < s.GetLength()) layout->SetUnderline(TRUE, DWRITE_TEXT_RANGE{ static_cast<UINT32>(underlineIndex), 1 });
             const auto origin = D2D1::Point2F(r.left, r.top);
             k.target->DrawTextLayout(origin, layout.Get(), k(color), D2D1_DRAW_TEXT_OPTIONS_CLIP);
             if (observe) NativeLayoutObservation::ObserveDirectWrite(k.target, layout.Get(), format.Get(), origin);
@@ -394,14 +395,14 @@ namespace NativeMaterial
         return l;
     }
 
-    void DrawLabeledFieldChrome(ID2D1RenderTarget* target, const Palette& c, const CString& label, const CString& message, const InputState& s)
+    void DrawLabeledFieldChrome(ID2D1RenderTarget* target, const Palette& c, const CString& label, const CString& message, const InputState& s, int underlineIndex)
     {
         Ink k(target, c); if (!k.Ok()) return;
         const auto size = target->GetSize();
         if (size.width < 60 || size.height < 40) return;
         const auto l = LayoutLabeledField(size.width, size.height);
         Text(k, label, l.label, 14.f, DWRITE_FONT_WEIGHT_MEDIUM, !s.enabled ? k.Dim() : s.error ? c.error : s.focused ? c.primary : c.onSurfaceVariant,
-            DWRITE_TEXT_ALIGNMENT_LEADING, false, true);
+            DWRITE_TEXT_ALIGNMENT_LEADING, false, true, underlineIndex);
         MessageLine(k, l.message, message, s);
     }
 

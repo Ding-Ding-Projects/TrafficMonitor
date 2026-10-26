@@ -40,6 +40,12 @@ namespace
         {
             if(msg->message==WM_KEYDOWN&&msg->wParam==VK_ESCAPE)
             {HIMC context=ImmGetContext(msg->hwnd);const bool composing=context&&ImmGetCompositionStringW(context,GCS_COMPSTR,nullptr,0)>0;if(context)ImmReleaseContext(msg->hwnd,context);if(composing)return FALSE;}
+            if(msg->message==WM_SYSCHAR)
+            {
+                // The labelled fields draw their own labels, so the dialog routes Alt+letter to them.
+                for(auto* field:{&pattern,&savedName,&replacement})
+                    if(field->ActivateMnemonic(static_cast<wchar_t>(msg->wParam))){RevealFocus();return TRUE;}
+            }
             if(msg->message==WM_KEYDOWN&&msg->wParam==VK_TAB)
             {
                 HWND next=::GetNextDlgTabItem(m_hWnd,::GetFocus(),(GetKeyState(VK_SHIFT)&0x8000)!=0);
@@ -100,7 +106,7 @@ namespace
         bool optionsVisible{};
         void Theme();void RevealFocus();
         CStatic heading,headingSecondary,engine,subjectLabel,note,help;
-        NativeMaterial::SegmentedButton mode;NativeMaterial::Switch caseButton;void SyncChoices();
+        NativeMaterial::SegmentedButton mode;NativeMaterial::Switch caseButton;void SyncChoices();void ClearNames(){clearSubject.SetAccessibleName(T(L"Clear example subject",L"清除範例文字"));clearDescription.SetAccessibleName(T(L"Clear collection description",L"清除儲存說明"));}
         NativeMaterial::Button run,replace,split,apply,cancel,any,digit,word,group,start,end;
         Session session;Result last;
     };
@@ -131,10 +137,10 @@ namespace
         savedList.Create(r,this,SavedList);
         loadSaved.Create(T(L"Load draft",L"載入草稿"),r,this,LoadSaved);
         refreshSaved.Create(T(L"Refresh",L"重新整理"),r,this,RefreshSaved);
-        savedName.Create(T(L"Collection name",L"儲存名稱"),r,this,SavedName);savedName.Field().SetLimitText(96);
+        savedName.Create(T(L"Collection &name",L"儲存名稱 (&N)"),r,this,SavedName);savedName.Field().SetLimitText(96);
         descriptionLabel.Create(T(L"Collection &description (optional)",L"儲存說明，可留空 (&D)"),child,r,this);
         savedDescription.CreateEx(0,L"EDIT",L"",child|WS_TABSTOP|ES_MULTILINE|ES_AUTOVSCROLL|ES_WANTRETURN,r,this,SavedDescription);savedDescription.SetLimitText(1024);
-        clearDescription.Create(r,this,ClearDescription);clearSubject.Create(r,this,ClearSubject);
+        clearDescription.Create(r,this,ClearDescription);clearSubject.Create(r,this,ClearSubject);ClearNames();
         saveNew.Create(T(L"Save new",L"儲存新項目"),r,this,SaveNew);
         renameSaved.Create(T(L"Rename",L"重新命名"),r,this,RenameSaved);
         deleteSaved.Create(T(L"Delete",L"刪除"),r,this,DeleteSaved);
@@ -144,7 +150,7 @@ namespace
         heading.Create(T(L"Build a filter for this search",L"建立此搜尋專用篩選"),child,r,this);
         headingSecondary.Create(L"",child,r,this);
         engine.Create(L"TrafficMonitor bounded NFA v1 | UTF-16 | ASCII case folding | leftmost-longest",child,r,this);
-        pattern.Create(T(L"Pattern / literal query",L"表示式／文字"),r,this,Pattern);pattern.SetText(draft.query.c_str());pattern.Field().SetLimitText(256);
+        pattern.Create(T(L"&Pattern / literal query",L"表示式／文字 (&P)"),r,this,Pattern);pattern.SetText(draft.query.c_str());pattern.Field().SetLimitText(256);
         mode.Create(r,this,Mode);mode.SetSegments({T(L"Literal",L"文字"),T(L"Regex",L"正規式")});mode.SetAccessibleName(T(L"Match mode",L"比對模式"));
         caseButton.Create(T(L"Ignore ASCII case",L"忽略 ASCII 大小寫"),r,this,Case);SyncChoices();
         any.Create(T(L"Any .",L"任意 ."),r,this,InsertAny);digit.Create(L"Digit [0-9]",r,this,InsertDigit);word.Create(L"Word \\w+",r,this,InsertWord);
@@ -153,7 +159,7 @@ namespace
             L"支援：文字、. [a-z] [^a] \\d \\w \\s ^ $ | (?:...) ? * +。跳脫：\\n \\r \\t 及標點。點號不包括換行。群組不擷取；暫不支援惰性／次數量詞、環視、反向參照、Unicode 屬性、其他引擎或偵錯。完整 RegexBuddy 功能仍未完成。"),child,r,this);
         subjectLabel.Create(T(L"&Example subject (local preview only)",L"範例文字，只供本機預覽 (&E)"),child,r,this);
         subject.CreateEx(0,L"EDIT",subjects.empty()?L"Ethernet 1\r\nWi-Fi 2":subjects.front().c_str(),child|WS_TABSTOP|ES_MULTILINE|ES_AUTOVSCROLL,r,this,Subject);subject.SetLimitText(8192);
-        replacement.Create(T(L"Replacement (literal text, no group substitution)",L"取代文字，不展開群組參照"),r,this,Replacement);replacement.Field().SetLimitText(4096);
+        replacement.Create(T(L"&Replacement (literal text, no group substitution)",L"取代文字，不展開群組參照 (&R)"),r,this,Replacement);replacement.Field().SetLimitText(4096);
         run.Create(T(L"Search",L"搜尋"),r,this,Run);replace.Create(T(L"Replace preview",L"取代預覽"),r,this,Replace);split.Create(T(L"Split preview",L"分割預覽"),r,this,Split);
         results.Create(r,this,Results);
         output.CreateEx(0,L"EDIT",L"",child|WS_TABSTOP|ES_MULTILINE|ES_READONLY|ES_AUTOVSCROLL,r,this,Output);
@@ -182,7 +188,8 @@ namespace
         savedLabel.SetWindowText(T(L"Saved expressions (local only)",L"已儲存表示式，只限本機"));
         loadSaved.SetLabel(T(L"Load draft",L"載入草稿"));
         refreshSaved.SetLabel(T(L"Refresh",L"重新整理"));
-        savedName.SetLabel(T(L"Collection name",L"儲存名稱"));
+        ClearNames();
+        savedName.SetLabel(T(L"Collection &name",L"儲存名稱 (&N)"));
         descriptionLabel.SetWindowText(T(L"Collection &description (optional)",L"儲存說明，可留空 (&D)"));
         saveNew.SetLabel(T(L"Save new",L"儲存新項目"));
         renameSaved.SetLabel(T(L"Rename",L"重新命名"));
@@ -193,11 +200,11 @@ namespace
         const bool bilingual=NativePreferences::Current().values.language==NativePreferences::Language::Bilingual;
         heading.SetWindowText(bilingual?CString(L"Build a filter for this search"):T(L"Build a filter for this search",L"建立此搜尋專用篩選"));
         headingSecondary.SetWindowText(bilingual?L"建立此搜尋專用篩選":L"");
-        pattern.SetLabel(T(L"Pattern / literal query",L"表示式／文字"));
+        pattern.SetLabel(T(L"&Pattern / literal query",L"表示式／文字 (&P)"));
         any.SetLabel(T(L"Any .",L"任意 ."));
         help.SetWindowText(T(L"Supported: literals, . [a-z] [^a] \\d \\w \\s ^ $ | (?:...) ? * +. Escapes: \\n \\r \\t and punctuation. Dot excludes CR/LF. Groups do not capture. No lazy/count quantifiers, lookaround, backreferences, Unicode properties, other flavors or debugger. Full RegexBuddy parity is unfinished.",L"支援：文字、. [a-z] [^a] \\d \\w \\s ^ $ | (?:...) ? * +。跳脫：\\n \\r \\t 及標點。點號不包括換行。群組不擷取；暫不支援惰性／次數量詞、環視、反向參照、Unicode 屬性、其他引擎或偵錯。完整 RegexBuddy 功能仍未完成。"));
         subjectLabel.SetWindowText(T(L"&Example subject (local preview only)",L"範例文字，只供本機預覽 (&E)"));
-        replacement.SetLabel(T(L"Replacement (literal text, no group substitution)",L"取代文字，不展開群組參照"));
+        replacement.SetLabel(T(L"&Replacement (literal text, no group substitution)",L"取代文字，不展開群組參照 (&R)"));
         run.SetLabel(T(L"Search",L"搜尋"));
         replace.SetLabel(T(L"Replace preview",L"取代預覽"));
         split.SetLabel(T(L"Split preview",L"分割預覽"));
