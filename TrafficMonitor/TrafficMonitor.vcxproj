@@ -1160,4 +1160,19 @@
   </ItemGroup>
   <ItemGroup><ClInclude Include="NativeMaterial\ScrollableTextField.h" /><ClCompile Include="NativeMaterial\ScrollableTextField.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile></ItemGroup>
   <ItemGroup><ClInclude Include="NativeMaterial\SearchSelector.h" /><ClCompile Include="NativeMaterial\SearchSelector.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile></ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="NativeMaterial\InputVisuals.h" />
+    <ClInclude Include="NativeMaterial\InputControls.h" />
+    <ClInclude Include="NativeMaterial\InputControls.Internal.h" />
+    <ClInclude Include="NativeMaterial\InputControls.Accessibility.h" />
+    <ClInclude Include="NativeMaterial\DropdownSearchableMenu.h" />
+    <ClCompile Include="NativeMaterial\InputVisuals.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
+    <ClCompile Include="NativeMaterial\InputWindow.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
+    <ClCompile Include="NativeMaterial\InputToggles.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
+    <ClCompile Include="NativeMaterial\InputSelection.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
+    <ClCompile Include="NativeMaterial\NumberStepper.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
+    <ClCompile Include="NativeMaterial\Dropdown.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
+    <ClCompile Include="NativeMaterial\LabeledTextField.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
+    <ClCompile Include="NativeMaterial\DropdownSearchableMenu.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
+  </ItemGroup>
 </Project>
