@@ -32,6 +32,8 @@ namespace NativeMaterial
 
     void DrawSwitch(ID2D1RenderTarget*, const Palette&, const CString& label, bool on, bool showIcon, const InputState&);
     void DrawCheckbox(ID2D1RenderTarget*, const Palette&, const CString& label, CheckState, const InputState&);
+    // Only the checkbox box, mark and state layer, centered on a point; used by list rows.
+    void DrawCheckGlyph(ID2D1RenderTarget*, const Palette&, D2D1_POINT_2F center, CheckState, const InputState&);
     void DrawRadio(ID2D1RenderTarget*, const Palette&, const CString& label, bool checked, const InputState&);
 
     // Rows of radio options drawn inside one window (one tab stop).

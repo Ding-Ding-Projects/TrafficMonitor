@@ -13,7 +13,7 @@
 // outstanding calls after the control is destroyed (the window is revoked).
 namespace NativeMaterial
 {
-    enum class InputKind { Switch, Checkbox, Radio, RadioGroup, Segmented, Stepper, Dropdown, TextField, Button };
+    enum class InputKind { Switch, Checkbox, Radio, RadioGroup, Segmented, Stepper, Dropdown, TextField, Button, Table, List };
     enum class InputActionId : WPARAM { Toggle, Select, SetValue, Expand, Collapse };
     constexpr UINT InputAction = WM_APP + 0x540;
 

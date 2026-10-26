@@ -80,6 +80,27 @@ namespace NativeMaterial
             k.target->FillEllipse(D2D1::Ellipse(c, StateLayer / 2, StateLayer / 2), k(k.Layer(color, s.pressed || s.focused ? .12f : .08f)));
         }
 
+        // The box, mark and state layer of a checkbox centered on a point (no label, no focus ring).
+        void CheckGlyph(Ink& k, D2D1_POINT_2F center, CheckState state, const InputState& s)
+        {
+            const auto& c = k.p;
+            const auto box = D2D1::RectF(center.x - CheckboxSize / 2, center.y - CheckboxSize / 2, center.x + CheckboxSize / 2, center.y + CheckboxSize / 2);
+            const D2D1_COLOR_F accent = s.error ? c.error : c.primary;
+            StateLayerCircle(k, center, state == CheckState::Unchecked ? (s.error ? c.error : c.onSurface) : accent, s);
+            if (state == CheckState::Unchecked)
+            {
+                const auto line = !s.enabled ? k.Dim() : s.error ? c.error : c.onSurfaceVariant;
+                k.target->DrawRoundedRectangle(D2D1::RoundedRect(D2D1::RectF(box.left + 1, box.top + 1, box.right - 1, box.bottom - 1), 2, 2), k(line), 2.f);
+            }
+            else
+            {
+                k.target->FillRoundedRectangle(D2D1::RoundedRect(box, 2, 2), k(s.enabled ? accent : k.Dim()));
+                const auto mark = s.enabled ? (s.error ? c.onError : c.onPrimary) : c.surface;
+                if (state == CheckState::Checked) Check(k, center, 18.f, mark, 2.f);
+                else k.target->DrawLine(D2D1::Point2F(center.x - 5, center.y), D2D1::Point2F(center.x + 5, center.y), k(mark), 2.f);
+            }
+        }
+
         void FocusRing(Ink& k, D2D1_RECT_F r, float radius)
         {
             k.target->DrawRoundedRectangle(D2D1::RoundedRect(r, radius, radius), k(k.p.primary), 2.f);
@@ -146,27 +167,19 @@ namespace NativeMaterial
             DWRITE_TEXT_ALIGNMENT_LEADING, false, true);
     }
 
+    void DrawCheckGlyph(ID2D1RenderTarget* target, const Palette& c, D2D1_POINT_2F center, CheckState state, const InputState& s)
+    {
+        Ink k(target, c); if (!k.Ok()) return;
+        CheckGlyph(k, center, state, s);
+    }
+
     void DrawCheckbox(ID2D1RenderTarget* target, const Palette& c, const CString& label, CheckState state, const InputState& s)
     {
         Ink k(target, c); if (!k.Ok()) return;
         const auto size = target->GetSize();
         if (size.width < 8 || size.height < 8) return;
         const auto center = D2D1::Point2F(4.f + StateLayer / 2, size.height / 2);
-        const auto box = D2D1::RectF(center.x - CheckboxSize / 2, center.y - CheckboxSize / 2, center.x + CheckboxSize / 2, center.y + CheckboxSize / 2);
-        const D2D1_COLOR_F accent = s.error ? c.error : c.primary;
-        StateLayerCircle(k, center, state == CheckState::Unchecked ? (s.error ? c.error : c.onSurface) : accent, s);
-        if (state == CheckState::Unchecked)
-        {
-            const auto line = !s.enabled ? k.Dim() : s.error ? c.error : c.onSurfaceVariant;
-            target->DrawRoundedRectangle(D2D1::RoundedRect(D2D1::RectF(box.left + 1, box.top + 1, box.right - 1, box.bottom - 1), 2, 2), k(line), 2.f);
-        }
-        else
-        {
-            target->FillRoundedRectangle(D2D1::RoundedRect(box, 2, 2), k(s.enabled ? accent : k.Dim()));
-            const auto mark = s.enabled ? (s.error ? c.onError : c.onPrimary) : c.surface;
-            if (state == CheckState::Checked) Check(k, center, 18.f, mark, 2.f);
-            else target->DrawLine(D2D1::Point2F(center.x - 5, center.y), D2D1::Point2F(center.x + 5, center.y), k(mark), 2.f);
-        }
+        CheckGlyph(k, center, state, s);
         if (s.focused) FocusRing(k, Inflate(D2D1::RectF(center.x - StateLayer / 2, center.y - StateLayer / 2, center.x + StateLayer / 2, center.y + StateLayer / 2), 1.f), 6.f);
         Text(k, label, D2D1::RectF(4.f + StateLayer + 8, 0, size.width - 4, size.height), 16.f, DWRITE_FONT_WEIGHT_NORMAL,
             s.enabled ? (s.error ? c.error : c.onSurface) : k.Dim(), DWRITE_TEXT_ALIGNMENT_LEADING, false, true);
