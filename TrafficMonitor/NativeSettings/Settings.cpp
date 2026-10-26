@@ -14,6 +14,9 @@
 #include "../NativeMaterial/Controls.h"
 #include "../NativeMaterial/TitleBar.h"
 #include "../NativeMaterial/SettingsControls.h"
+#include "../NativeMaterial/InputControls.h"
+#include "../NativeMaterial/AlertDialog.h"
+#include "RowControls.h"
 #include "../NativeMenus/SearchableMenu.h"
 #include "../NativeRegex/Workbench.h"
 #include <array>
@@ -28,18 +31,15 @@ namespace
     struct EditorLifetime { EditorLifetime(){++activeEditors;} ~EditorLifetime(){--activeEditors;} };
     enum : UINT { PageFirst=54001, Search=54010, Clear, Apply, Revert, Reset, Legacy, Theme, Regex, Results, OpenResult, ReturnFilter, FirstRow=54100 };
     constexpr int Notifications=3, Interface=4, Discovery=5;
-    struct Row
+    struct Row : RowControls
     {
         const Setting* setting{};
-        NativeMaterial::SettingsCheck check;
-        CStatic label,description,defaults,unavailable;
-        NativeMaterial::SettingsLabel numberLabel,unitText;
-        NativeMaterial::SettingsNumber number;
-        NativeMaterial::Button unit,details;
         bool expanded{},visible{};
         int top{},height{},labelHeight{},descriptionHeight{},defaultHeight{};
-        int detailsWidth{},detailsHeight{},thresholdLabelHeight{},thresholdHeight{},unavailableHeight{};
-        std::array<CWnd*,10> Controls(){return {&check,&label,&numberLabel,&number,&unit,&details,&description,&defaults,&unitText,&unavailable};}
+        int detailsWidth{},detailsHeight{},numberHeight{},unavailableHeight{};
+        std::array<CWnd*,8> Controls(){return All();}
+        // The window that carries the setting name: the switch, or plain text for number-only settings.
+        CWnd& Name(){return setting->enabled?static_cast<CWnd&>(toggle):static_cast<CWnd&>(label);}
     };
     struct SearchState { NativeRegex::Filter filter; int scroll{}; };
     class Editor final : public CDialog
@@ -94,7 +94,7 @@ namespace
         std::wstring m_reveal;Values m_values;
         std::function<void(const Values&)> m_apply;
         NativeMaterial::Appearance m_appearance{NativeMaterial::Appearance::Light};
-        CFont m_font,m_headingFont;CBrush m_background;CStatic m_title,m_note,m_status,m_updateInfo;NativeMaterial::TextField m_search;
+        CFont m_font,m_headingFont;CBrush m_background;CStatic m_title,m_note,m_status,m_updateInfo;NativeMaterial::LabeledTextField m_search;
         SettingsViewport m_body;NativeMaterial::ResultList m_results;
         NativeMaterial::Navigation m_navigation;
         NativeMaterial::Button m_clear,m_applyButton,m_revert,m_reset,m_legacy,m_theme,m_regex,m_open,m_return;
@@ -122,8 +122,8 @@ namespace
         m_title.Create(T(L"Settings",L"設定"),child,box,this);m_note.Create(L"",child,box,this);m_status.Create(L"",child,box,this);
         m_theme.Create(T(L"Appearance",L"外觀"),box,this,Theme);
         m_navigation.Create(box,this,PageFirst,true);
-        m_search.CreateEx(WS_EX_CLIENTEDGE,L"EDIT",L"",child|WS_TABSTOP|ES_AUTOHSCROLL,box,this,Search);m_search.SetLimitText(256);
-        m_search.SendMessage(EM_SETCUEBANNER,TRUE,reinterpret_cast<LPARAM>(m_chinese?L"搜尋名稱、解說同草稿數值":L"Search labels, explanations and draft values"));
+        m_search.Create(T(L"Find a setting",L"搜尋設定"),CRect(0,0,160,86),this,Search);m_search.Field().SetLimitText(256);
+        m_search.Field().SendMessage(EM_SETCUEBANNER,TRUE,reinterpret_cast<LPARAM>(m_chinese?L"搜尋名稱、解說同草稿數值":L"Search labels, explanations and draft values"));
         m_regex.Create(T(L"Regex",L"正規式"),box,this,Regex);m_clear.Create(T(L"Clear",L"清除"),box,this,Clear);
         m_applyButton.Create(T(L"Apply",L"套用"),box,this,Apply);m_revert.Create(T(L"Revert",L"還原"),box,this,Revert);m_reset.Create(T(L"Reset group draft",L"重設本組草稿"),box,this,Reset);
         m_legacy.Create(T(L"All settings (legacy)",L"所有設定（舊版）"),box,this,Legacy);m_open.Create(T(L"Open selected setting",L"開啟所選設定"),box,this,OpenResult);m_return.Create(T(L"Return to group filter",L"返回本組篩選"),box,this,ReturnFilter);
@@ -137,29 +137,20 @@ namespace
         for(const auto& setting:Catalog())
         {
             auto row=std::make_unique<Row>();row->setting=&setting;UINT id=FirstRow+static_cast<UINT>(index++)*8;
-            if(setting.enabled)row->check.Create(T(setting.english,setting.chinese),&m_body,id);else row->label.Create(T(setting.english,setting.chinese),child|SS_NOTIFY,box,&m_body,id);
-            if(setting.group==Notifications)row->check.SetGrouped(true);
-            if(setting.number)
-            {
-                CString label;label=NativePreferences::Format(L"Value (%d to %d)",L"數值（%d 至 %d）",setting.minimum,setting.maximum);row->numberLabel.Create(label,child|SS_NOTIFY,box,&m_body,id+1);
-                row->number.CreateEx(WS_EX_CLIENTEDGE,L"EDIT",L"",child|WS_TABSTOP|ES_AUTOHSCROLL,box,&m_body,id+2);row->number.SetLimitText(64);
-                row->number.SetGrouped(setting.group==Notifications);
-                row->numberLabel.SetGrouped(setting.group==Notifications);
-                if(setting.group==Notifications&&!setting.trafficUnits){row->unitText.Create(setting.unit,child,box,&m_body,id+3);row->unitText.SetGrouped(true);}
-                else row->unit.Create(setting.trafficUnits?L"MB":setting.unit,box,&m_body,id+3);
-            }
-            row->details.Create(T(L"Details",L"詳情"),box,&m_body,id+4);row->description.Create(L"",child|SS_NOTIFY,box,&m_body,id+5);row->defaults.Create(L"",child|SS_NOTIFY,box,&m_body,id+6);if(setting.group==Notifications)row->unavailable.Create(L"",child,box,&m_body,id+7);m_rows.push_back(std::move(row));
+            RowShape shape;shape.toggle=setting.enabled!=nullptr;shape.number=setting.number!=nullptr;shape.trafficUnits=setting.trafficUnits;shape.minimum=setting.minimum;shape.maximum=setting.maximum;shape.step=setting.step;shape.notification=setting.group==Notifications;
+            if(!row->Create(&m_body,id,shape,T(setting.english,setting.chinese),T(L"Details",L"詳情"))){EndDialog(-1);return TRUE;}
+            m_rows.push_back(std::move(row));
         }
         SetFonts();Labels();SetTheme();Reload();UpdateInfo();
-        const SIZE outer=m_titleBar.OuterSizeForContent(Px(1280),Px(840));SetWindowPos(nullptr,0,0,outer.cx,outer.cy,SWP_NOMOVE|SWP_NOZORDER);CenterWindow();Layout();SetTimer(0x4E92,40,nullptr);m_search.SetFocus();return FALSE;
+        const SIZE outer=m_titleBar.OuterSizeForContent(Px(1280),Px(840));SetWindowPos(nullptr,0,0,outer.cx,outer.cy,SWP_NOMOVE|SWP_NOZORDER);CenterWindow();Layout();SetTimer(0x4E92,40,nullptr);m_search.Field().SetFocus();return FALSE;
     }
     void Editor::Labels()
     {
         SetWindowText(T(L"TrafficMonitor settings",L"TrafficMonitor 設定"));m_titleBar.SetLabels(Captions());m_title.SetWindowText(T(L"Settings",L"設定"));m_theme.SetLabel(NativePreferences::Text(NativePreferences::TextId::Interface));
         m_loading=true;m_navigation.ResetContent();for(int i=0;i<6;++i)m_navigation.AddString(T(GroupName(i,false),GroupName(i,true)));m_navigation.SetCurSel(m_page);m_loading=false;
         m_clear.SetLabel(T(L"Clear",L"清除"));m_regex.SetLabel(T(L"Regex",L"正規式"));m_applyButton.SetLabel(T(L"Apply",L"套用"));m_revert.SetLabel(T(L"Revert",L"還原"));m_reset.SetLabel(T(L"Reset group draft",L"重設本組草稿"));m_legacy.SetLabel(T(L"All settings (legacy)",L"所有設定（舊版）"));m_open.SetLabel(T(L"Open selected setting",L"開啟所選設定"));m_return.SetLabel(T(L"Return to group filter",L"返回本組篩選"));
-        const auto mode=NativePreferences::Current().values.language;const CString cue=mode==NativePreferences::Language::Bilingual?L"Find a setting · 搜尋設定":mode==NativePreferences::Language::Cantonese?L"搜尋設定":L"Find a setting";m_search.SendMessage(EM_SETCUEBANNER,TRUE,reinterpret_cast<LPARAM>(cue.GetString()));
-        for(auto& r:m_rows){const auto& s=*r->setting;if(s.enabled)r->check.SetWindowText(T(s.english,s.chinese));else r->label.SetWindowText(T(s.english,s.chinese));r->description.SetWindowText(T(s.explanation,s.chineseExplanation));r->details.SetLabel(T(L"Details",L"詳情"));RefreshRowText(*r);}
+        const auto mode=NativePreferences::Current().values.language;const CString cue=mode==NativePreferences::Language::Bilingual?L"Find a setting · 搜尋設定":mode==NativePreferences::Language::Cantonese?L"搜尋設定":L"Find a setting";m_search.SetLabel(cue);m_search.Field().SendMessage(EM_SETCUEBANNER,TRUE,reinterpret_cast<LPARAM>(T(L"Search labels, explanations and draft values",L"搜尋名稱、解說同草稿數值").GetString()));
+        for(auto& r:m_rows){const auto& s=*r->setting;if(s.enabled)r->toggle.SetLabel(T(s.english,s.chinese));else r->label.SetWindowText(T(s.english,s.chinese));r->description.SetWindowText(T(s.explanation,s.chineseExplanation));r->details.SetLabel(T(L"Details",L"詳情"));RefreshRowText(*r);}
         m_navigation.SetWindowText(T(L"Settings sections",L"設定分類"));m_body.SetScrollName(T(L"Scroll settings",L"捲動設定"));RefreshNote();m_interface.Refresh();
     }
     LRESULT Editor::OnPreferences(WPARAM generation,LPARAM)
@@ -178,27 +169,34 @@ namespace
     {
         LOGFONT font{};NONCLIENTMETRICS metrics{sizeof(metrics)};if(SystemParametersInfoW(SPI_GETNONCLIENTMETRICS,sizeof(metrics),&metrics,0))font=metrics.lfMessageFont;else wcscpy_s(font.lfFaceName,L"Segoe UI");font.lfHeight=-Px(14);
         HFONT next=CreateFontIndirectW(&font);if(!next)return;HFONT old=static_cast<HFONT>(m_font.Detach());m_font.Attach(next);
-        ::EnumChildWindows(m_hWnd,[](HWND child,LPARAM font)->BOOL{::SendMessageW(child,WM_SETFONT,font,TRUE);return TRUE;},reinterpret_cast<LPARAM>(next));if(old)DeleteObject(old);m_interface.SetFont(&m_font);font.lfHeight=-Px(24);font.lfWeight=FW_SEMIBOLD;HFONT heading=CreateFontIndirectW(&font);if(heading){HFONT previous=static_cast<HFONT>(m_headingFont.Detach());m_headingFont.Attach(heading);m_title.SetFont(&m_headingFont);if(previous)DeleteObject(previous);}
+        ::EnumChildWindows(m_hWnd,[](HWND child,LPARAM font)->BOOL{auto* owner=CWnd::FromHandlePermanent(::GetParent(child));if(owner&&dynamic_cast<NativeMaterial::InputWindow*>(owner))return TRUE;::SendMessageW(child,WM_SETFONT,font,TRUE);return TRUE;},reinterpret_cast<LPARAM>(next));if(old)DeleteObject(old);m_interface.SetFont(&m_font);font.lfHeight=-Px(24);font.lfWeight=FW_SEMIBOLD;HFONT heading=CreateFontIndirectW(&font);if(heading){HFONT previous=static_cast<HFONT>(m_headingFont.Detach());m_headingFont.Attach(heading);m_title.SetFont(&m_headingFont);if(previous)DeleteObject(previous);}
     }
     void Editor::SetTheme()
     {
         NativeMaterial::ApplyNativeFrameAppearance(m_hWnd, m_appearance);m_titleBar.SetAppearance(m_appearance);
         const auto c=NativeMaterial::Palette::Resolve(m_appearance);m_background.DeleteObject();m_background.CreateSolidBrush(RGB(BYTE(c.surface.r*255),BYTE(c.surface.g*255),BYTE(c.surface.b*255)));
         m_navigation.SetAppearance(m_appearance);m_results.SetAppearance(m_appearance);m_body.SetAppearance(m_appearance);m_search.SetAppearance(m_appearance);m_revert.SetVariant(NativeMaterial::ButtonVariant::Tonal);m_reset.SetVariant(NativeMaterial::ButtonVariant::Text);m_clear.SetVariant(NativeMaterial::ButtonVariant::Text);m_regex.SetVariant(NativeMaterial::ButtonVariant::Outlined);m_legacy.SetVariant(NativeMaterial::ButtonVariant::Text);for(auto* b:{&m_clear,&m_applyButton,&m_revert,&m_reset,&m_legacy,&m_theme,&m_regex,&m_open,&m_return})b->SetAppearance(m_appearance);
-        for(auto& r:m_rows){if(r->check.GetSafeHwnd())r->check.SetAppearance(m_appearance);r->details.SetAppearance(m_appearance);if(r->setting->number){if(r->unit.GetSafeHwnd()){r->unit.SetAppearance(m_appearance);if(r->setting->group==Notifications)r->unit.SetVariant(NativeMaterial::ButtonVariant::Selector);}r->number.SetAppearance(m_appearance);r->numberLabel.SetAppearance(m_appearance);r->unitText.SetAppearance(m_appearance);}r->details.SetVariant(NativeMaterial::ButtonVariant::Text);}RedrawWindow(nullptr,nullptr,RDW_INVALIDATE|RDW_ALLCHILDREN);
+        for(auto& r:m_rows)r->SetAppearance(m_appearance);RedrawWindow(nullptr,nullptr,RDW_INVALIDATE|RDW_ALLCHILDREN);
     }
     void Editor::SyncRow(Row& r)
     {
         const auto& s=*r.setting;
-        if(s.enabled){r.check.SetCheck(m_values.*s.enabled?BST_CHECKED:BST_UNCHECKED);r.check.EnableWindow(s.Available());r.check.Invalidate();}
-        if(s.number){r.number.SetWindowText(std::to_wstring(m_values.*s.number).c_str());r.number.EnableWindow(s.Available());if(s.trafficUnits)r.unit.SetLabel(m_values.trafficUnit==0?CString(L"MB"):m_values.trafficUnit==1?CString(L"GB"):T(L"Invalid unit",L"無效單位"));if(r.unit.GetSafeHwnd())r.unit.EnableWindow(s.trafficUnits&&s.Available());if(s.group==Notifications){r.numberLabel.EnableWindow(s.Available());if(r.unitText.GetSafeHwnd())r.unitText.EnableWindow(s.Available());}}
+        if(s.enabled)r.ShowToggle(m_values.*s.enabled,s.Available());
+        if(s.number){r.ShowNumber(m_values.*s.number,s.Available());if(s.trafficUnits)r.ShowTrafficUnit(m_values.trafficUnit,s.Available());}
         RefreshRowText(r);
     }
     void Editor::RefreshRowText(Row& row)
     {
         const auto& setting = *row.setting;
         if (setting.number)
-            row.numberLabel.SetWindowText(setting.group==Notifications?NativePreferences::Format(L"Threshold (%d to %d)",L"門檻（%d 至 %d）",setting.minimum,setting.maximum):NativePreferences::Format(L"Value (%d to %d)", L"數值（%d 至 %d）", setting.minimum, setting.maximum));
+        {
+            // The stepper carries its label and unit inside one outlined field, so both stay on one line.
+            CString label=setting.group==Notifications?NativePreferences::Format(L"Threshold (%d to %d)",L"門檻（%d 至 %d）",setting.minimum,setting.maximum):NativePreferences::Format(L"Value (%d to %d)", L"數值（%d 至 %d）", setting.minimum, setting.maximum);
+            label.Replace(L"\r\n",L" / ");row.number.SetLabel(label);
+            CString unit;if(setting.unit&&*setting.unit&&!setting.trafficUnits){unit=NativePreferences::Format(L"Unit: %s",L"單位：%s",setting.unit);unit.Replace(L"\r\n",L" / ");}
+            row.number.SetSupportingText(unit);
+            if(row.unit.GetSafeHwnd())row.unit.SetAccessibleName(T(L"Traffic unit",L"流量單位"));
+        }
         const Values defaults;
         const CString english = L"Default: " + CString(FormatValue(setting, defaults, false).c_str()) + L". Current source: configuration/default provenance unavailable.";
         const CString chinese = L"預設：" + CString(FormatValue(setting, defaults, true).c_str()) + L"。目前來源：未能區分設定檔同預設來源。";
@@ -247,7 +245,7 @@ namespace
         const auto& s=*row.setting;std::wstring result;
         if(s.group==Interface){if(std::wstring(s.id)==L"interface.sounds"){const auto level=m_interface.draft.values.actionSounds;return level==NativePreferences::ActionSounds::Off?(chinese?L"關閉":L"Off"):level==NativePreferences::ActionSounds::Important?(chinese?L"只播放失敗同拒絕提示":L"Failures and refusals only"):(chinese?L"所有操作":L"All actions");}const bool appearance=std::wstring(s.id)==L"interface.appearance";const auto id=static_cast<NativePreferences::TextId>(static_cast<int>(appearance?NativePreferences::TextId::System:NativePreferences::TextId::English)+(appearance?static_cast<int>(m_interface.draft.values.appearance):static_cast<int>(m_interface.draft.values.language)));return NativePreferences::Text(id,chinese?NativePreferences::Language::Cantonese:NativePreferences::Language::English).GetString();}
         if(s.enabled)result=m_values.*s.enabled?(chinese?L"已啟用":L"Enabled"):(chinese?L"已停用":L"Disabled");
-        if(s.number){CString text;row.number.GetWindowText(text);if(!result.empty())result+=L"; ";result+=text.GetString();result+=L" ";if(s.trafficUnits)result+=m_values.trafficUnit==0?L"MB":m_values.trafficUnit==1?L"GB":(chinese?L"無效單位":L"Invalid unit");else if(s.unit)result+=s.unit;}
+        if(s.number){if(!result.empty())result+=L"; ";result+=std::to_wstring(m_values.*s.number);result+=L" ";if(s.trafficUnits)result+=m_values.trafficUnit==0?L"MB":m_values.trafficUnit==1?L"GB":(chinese?L"無效單位":L"Invalid unit");else if(s.unit)result+=s.unit;}
         return result;
     }
     std::vector<std::wstring> Editor::Subjects()const
@@ -283,12 +281,13 @@ namespace
         CRect client;GetClientRect(client);const int width=MulDiv(client.Width(),96,m_dpi),height=MulDiv(client.Height(),96,m_dpi)-NativeMaterial::TitleBar::HeightDp;auto PlaceTop=[&](CWnd& c,int x,int y,int w,int h){Place(c,x,y+NativeMaterial::TitleBar::HeightDp,w,h);};
         CClientDC headerDC(this);auto* headerFont=headerDC.SelectObject(&m_font);NativeLayoutObservation::MeasurementBatch measurements;
         auto extent=[&](CWnd& c,int w,int minimum){CString text;c.GetWindowText(text);CRect bounds(0,0,Px(w-32),0);const RECT area=bounds;headerDC.DrawText(text,bounds,DT_CALCRECT|DT_WORDBREAK|DT_NOPREFIX);measurements.Measure(c.GetSafeHwnd(),headerDC.GetSafeHdc(),area,bounds);return (std::max)(minimum,MulDiv(bounds.Height(),96,m_dpi)+20);};
-        const int left=200,cw=(std::min)(860,width-left-24);
+        const int areaLeft=200,area=(std::max)(120,width-areaLeft-24),cw=(std::min)(1120,area),left=areaLeft+(area-cw)/2;
         headerDC.SelectObject(&m_headingFont);const int titleHeight=extent(m_title,cw,40);headerDC.SelectObject(&m_font);const int searchY=20+titleHeight+16;
         PlaceTop(m_navigation,12,searchY,176,height-searchY-88);PlaceTop(m_legacy,12,height-80,176,64);m_theme.ShowWindow(SW_HIDE);
         PlaceTop(m_title,left,20,cw,titleHeight);
-        const int searchHeight=(std::max)(extent(m_regex,88,44),extent(m_clear,76,44));
-        PlaceTop(m_search,left,searchY,cw-180,searchHeight);PlaceTop(m_regex,left+cw-172,searchY,88,searchHeight);PlaceTop(m_clear,left+cw-76,searchY,76,searchHeight);
+        // The search component draws its label above a 40-unit field; the Regex and Clear buttons sit level with that field.
+        const int buttonHeight=(std::max)({40,extent(m_regex,88,44),extent(m_clear,76,44)}),searchHeight=22+buttonHeight+24;
+        PlaceTop(m_search,left,searchY,cw-180,searchHeight);PlaceTop(m_regex,left+cw-172,searchY+22,88,buttonHeight);PlaceTop(m_clear,left+cw-76,searchY+22,76,buttonHeight);
         const int statusY=searchY+searchHeight+8,statusHeight=(std::max)(extent(m_status,cw-184,32),extent(m_open,176,40));
         PlaceTop(m_status,left,statusY,cw-184,statusHeight);PlaceTop(m_open,left+cw-176,statusY,176,statusHeight);PlaceTop(m_return,left+cw-176,statusY,176,statusHeight);
         m_open.ShowWindow(m_page==Discovery?SW_SHOW:SW_HIDE);m_return.ShowWindow(!m_reveal.empty()?SW_SHOW:SW_HIDE);
@@ -303,6 +302,10 @@ namespace
         auto& state=m_searches[m_page];state.filter.Request(Subjects());int y=0,count=0;bool showLanguage=false,showAppearance=false,showSounds=false;CRect body;m_body.GetClientRect(body);const int bw=MulDiv(body.Width(),96,m_dpi);
         CClientDC dc(&m_body);auto* old=dc.SelectObject(&m_font);
         auto textHeight=[&](CWnd& c,int w){CString text;c.GetWindowText(text);return (std::max)(24,NativeMaterial::WrappedTextHeight(dc.GetSafeHdc(),text,Px(w),m_dpi));};
+        // Stepper width: label, field and buttons in one line; a traffic unit choice sits beside it when it fits.
+        const bool wideLabels=NativePreferences::Current().values.language==NativePreferences::Language::Bilingual;
+        auto numberWidth=[&](const Setting& setting){return (std::max)(168,(std::min)(wideLabels?420:280,bw-24-(setting.trafficUnits?148:0)));};
+        auto PlaceNumber=[&](Row& row,int at){const auto& setting=*row.setting;const int vw=numberWidth(setting);Place(row.number,12,at,vw,row.numberHeight-4);if(setting.trafficUnits){const int x=12+vw+12;Place(row.unit,x,at+12,(std::max)(120,(std::min)(176,bw-x-12)),48);}};
         for(size_t i=0;i<m_rows.size();++i)
         {
             auto& r=*m_rows[i];const auto& s=*r.setting;if(m_page==Interface&&s.group==Interface&&(state.filter.Visible(i)||m_reveal==s.id)){++count;if(std::wstring(s.id)==L"interface.appearance")showAppearance=true;else if(std::wstring(s.id)==L"interface.sounds")showSounds=true;else showLanguage=true;}r.visible=m_page!=Discovery&&m_page!=Interface&&s.group==m_page&&(state.filter.Visible(i)||m_reveal==s.id);
@@ -315,22 +318,20 @@ namespace
                     CString caption;r.details.GetWindowText(caption);CRect measured(0,0,Px(bw-24),0);dc.DrawText(caption,measured,DT_CALCRECT|DT_WORDBREAK|DT_NOPREFIX);
                     r.detailsWidth=(std::min)(bw/2,(std::max)(96,(measured.Width()*96+static_cast<int>(m_dpi)-1)/static_cast<int>(m_dpi)+32));
                     r.detailsHeight=(std::max)(48,textHeight(r.details,r.detailsWidth-32)+16);
-                    r.labelHeight=(std::max)({bilingual?80:56,textHeight(r.check,bw-r.detailsWidth-20-44)+24,r.detailsHeight});
-                    r.thresholdLabelHeight=textHeight(r.numberLabel,bw-24);
-                    r.thresholdHeight=s.trafficUnits?(std::max)(48,textHeight(r.unit,104-52)+16):48;
+                    r.labelHeight=(std::max)({bilingual?80:56,textHeight(r.Name(),bw-r.detailsWidth-20-76)+24,r.detailsHeight});
+                    r.numberHeight=88;
                     r.descriptionHeight=r.expanded?textHeight(r.description,bw-24):0;
                     r.defaultHeight=r.expanded?textHeight(r.defaults,bw-24):0;
                     r.unavailableHeight=s.Available()?0:textHeight(r.unavailable,bw-24);
-                    r.height=r.labelHeight+8+r.thresholdLabelHeight+4+r.thresholdHeight+12;
+                    r.height=r.labelHeight+8+r.numberHeight+12;
                     if(r.unavailableHeight)r.height+=r.unavailableHeight+12;
                     if(r.expanded)r.height+=r.descriptionHeight+8+r.defaultHeight+12;
-                    r.height=(std::max)(bilingual?208:152,r.height);
                 }
                 else
                 {
-                    r.labelHeight=(std::max)(52,textHeight(s.enabled?static_cast<CWnd&>(r.check):static_cast<CWnd&>(r.label),bw-170)+24);
+                    r.labelHeight=(std::max)(52,textHeight(r.Name(),bw-192)+24);r.numberHeight=88;
                     r.defaultHeight=textHeight(r.defaults,bw-24);r.descriptionHeight=r.expanded?textHeight(r.description,bw-24):0;
-                    r.height=r.labelHeight+8+(s.number?48:0)+r.defaultHeight+12+(r.expanded?r.descriptionHeight+12:0);
+                    r.height=r.labelHeight+8+(s.number?r.numberHeight:0)+r.defaultHeight+12+(r.expanded?r.descriptionHeight+12:0);
                 }
                 y+=r.height+12;++count;
             }
@@ -345,22 +346,19 @@ namespace
             if(s.group==Notifications)
             {
                 int at=r.top-state.scroll;
-                Place(r.check,0,at,bw-r.detailsWidth-20,r.labelHeight);
+                Place(r.Name(),0,at,bw-r.detailsWidth-20,r.labelHeight);
                 Place(r.details,bw-r.detailsWidth-12,at,r.detailsWidth,r.detailsHeight);
-                at+=r.labelHeight+8;Place(r.numberLabel,12,at,bw-24,r.thresholdLabelHeight);at+=r.thresholdLabelHeight+4;
-                const int valueWidth=(std::min)(180,bw-140);
-                Place(r.number,12,at,valueWidth,r.thresholdHeight);
-                if(s.trafficUnits)Place(r.unit,24+valueWidth,at,104,r.thresholdHeight);
-                else Place(r.unitText,24+valueWidth,at+12,bw-valueWidth-36,r.thresholdHeight-12);
-                at+=r.thresholdHeight+12;
+                at+=r.labelHeight+8;
+                PlaceNumber(r,at);
+                at+=r.numberHeight+12;
                 r.unavailable.ShowWindow(r.unavailableHeight?SW_SHOW:SW_HIDE);
                 if(r.unavailableHeight){Place(r.unavailable,12,at,bw-24,r.unavailableHeight);at+=r.unavailableHeight+12;}
                 r.description.ShowWindow(r.expanded?SW_SHOW:SW_HIDE);r.defaults.ShowWindow(r.expanded?SW_SHOW:SW_HIDE);
                 if(r.expanded){Place(r.description,12,at,bw-24,r.descriptionHeight);at+=r.descriptionHeight+8;Place(r.defaults,12,at,bw-24,r.defaultHeight);}
                 continue;
             }
-            const int top=r.top-state.scroll;Place(s.enabled?static_cast<CWnd&>(r.check):static_cast<CWnd&>(r.label),0,top,bw-116,r.labelHeight);Place(r.details,bw-108,top+4,96,40);int at=top+r.labelHeight+8;
-            if(s.number){Place(r.numberLabel,12,at+4,bw-280,36);Place(r.number,bw-264,at,136,36);Place(r.unit,bw-116,at-2,104,40);at+=48;}
+            const int top=r.top-state.scroll;Place(r.Name(),0,top,bw-116,r.labelHeight);Place(r.details,bw-108,top+4,96,40);int at=top+r.labelHeight+8;
+            if(s.number){PlaceNumber(r,at);at+=r.numberHeight;}
             if(r.expanded){Place(r.description,12,at,bw-24,r.descriptionHeight);at+=r.descriptionHeight+12;}else r.description.ShowWindow(SW_HIDE);Place(r.defaults,12,at,bw-24,r.defaultHeight);
         }
         m_results.ShowWindow(m_page==Discovery?SW_SHOW:SW_HIDE);
@@ -415,9 +413,9 @@ namespace
     void Editor::EnsureVisible(Row& r)
     {if(!r.visible)return;auto& offset=m_searches[m_page].scroll;int next=offset;if(r.top<offset)next=r.top;else if(r.top+r.height>offset+m_viewHeight)next=r.height>m_viewHeight?r.top:r.top+r.height-m_viewHeight;if(next!=offset){offset=next;Layout();}}
     void Editor::SwitchGroup(int group)
-    {if(group<0||group>Discovery)return;m_regexEditor.Close();m_binding.Invalidate();m_reveal.clear();m_page=group;m_navigation.SetCurSel(group);m_loading=true;m_search.SetWindowText(m_searches[group].filter.options.query.c_str());m_loading=false;Layout();m_search.SetFocus();}
+    {if(group<0||group>Discovery)return;m_regexEditor.Close();m_binding.Invalidate();m_reveal.clear();m_page=group;m_navigation.SetCurSel(group);m_loading=true;m_search.SetText(m_searches[group].filter.options.query.c_str());m_loading=false;Layout();m_search.Field().SetFocus();}
     void Editor::Reveal(const std::wstring& id)
-    {auto* r=Find(id);if(!r)return;SwitchGroup(r->setting->group);if(r->setting->group==Interface){m_reveal=id;Layout();if(id==L"interface.sounds")m_interface.FocusSounds();else m_interface.Focus(id==L"interface.appearance");return;}m_reveal=id;Layout();EnsureVisible(*r);if(r->setting->number&&r->number.IsWindowEnabled())r->number.SetFocus();else if(r->check.GetSafeHwnd()&&r->check.IsWindowEnabled())r->check.SetFocus();else r->details.SetFocus();}
+    {auto* r=Find(id);if(!r)return;SwitchGroup(r->setting->group);if(r->setting->group==Interface){m_reveal=id;Layout();if(id==L"interface.sounds")m_interface.FocusSounds();else m_interface.Focus(id==L"interface.appearance");return;}m_reveal=id;Layout();EnsureVisible(*r);if(r->setting->number&&r->number.IsWindowEnabled())::SetFocus(r->number.EditWindow());else if(r->toggle.GetSafeHwnd()&&r->toggle.IsWindowEnabled())r->toggle.SetFocus();else r->details.SetFocus();}
     void Editor::OpenSelected(){const int at=m_results.GetCurSel();if(at==LB_ERR)return;auto* s=static_cast<Setting*>(m_results.GetItemDataPtr(at));if(s)Reveal(s->id);}
     void Editor::SetRowFrom(Row& row,const Values& source){row.setting->Copy(m_values,source);m_loading=true;SyncRow(row);m_loading=false;m_dirty=true;Layout();EnsureVisible(row);}
     void Editor::ResetPage()
@@ -425,24 +423,32 @@ namespace
     void Editor::ApplyDraft()
     {
         if(m_page==Interface){m_interface.Command(NativePreferences::Editor::ApplyChoice);Layout();return;}
+        // Typed text in a stepper is committed first, through the same path as Enter; text that is not a whole
+        // number on the setting's step inside its range refuses the whole apply and nothing is submitted.
+        for(const auto& r:m_rows)
+        {
+            const auto& s=*r->setting;if(!s.number||!s.Available())continue;
+            if(!r->CommitNumber())
+            {NativeSounds::Notify(NativeSounds::Action::ActionRefused);Reveal(s.id);Note(NoteKind::InvalidNumber, &s);return;}
+        }
         Values candidate=m_values;
         for(const auto& r:m_rows)
         {
-            const auto& s=*r->setting;if(!s.number)continue;CString text;r->number.GetWindowText(text);int value=candidate.*s.number;
-            if(!ReadNumberDraft(text.GetString(),s.minimum,s.maximum,s.step,s.Available(),value)||(s.trafficUnits&&!ValidTrafficUnit(candidate.trafficUnit,s.Available())))
-            {NativeSounds::Notify(NativeSounds::Action::ActionRefused);Reveal(s.id);Note(NoteKind::InvalidNumber, &s);return;}candidate.*s.number=value;
+            const auto& s=*r->setting;if(!s.number)continue;
+            if(!ReadNumberDraft(std::to_wstring(candidate.*s.number),s.minimum,s.maximum,s.step,s.Available(),candidate.*s.number)||(s.trafficUnits&&!ValidTrafficUnit(candidate.trafficUnit,s.Available())))
+            {NativeSounds::Notify(NativeSounds::Action::ActionRefused);Reveal(s.id);Note(NoteKind::InvalidNumber, &s);return;}
         }
         if(candidate.automaticRestart!=NativeUpdate::AutomaticRestartEnabled()&&!NativeUpdate::SaveAutomaticRestart(candidate.automaticRestart))
         {NativeSounds::Notify(NativeSounds::Action::ActionRefused);m_dirty=true;Note(NoteKind::SaveFailed);return;}
         m_apply(candidate);Reload();Note(NoteKind::Submitted);NativeSounds::Notify(NativeSounds::Action::SettingsApplied);
     }
-    bool Editor::CanDiscard(){return (!m_dirty&&!m_interface.draft.dirty)||MessageBox(T(L"Discard unapplied settings changes?",L"捨棄未套用嘅設定修改？"),T(L"Settings",L"設定"),MB_YESNO|MB_ICONQUESTION|MB_DEFBUTTON2)==IDYES;}
+    bool Editor::CanDiscard(){return (!m_dirty&&!m_interface.draft.dirty)||NativeMaterial::Alert(m_hWnd,T(L"Discard unapplied settings changes?",L"捨棄未套用嘅設定修改？"),T(L"Settings",L"設定"),MB_YESNO|MB_ICONQUESTION|MB_DEFBUTTON2)==IDYES;}
     void Editor::OnCancel(){if(CanDiscard()){m_regexEditor.Close();m_binding.Invalidate();EndDialog(IDCANCEL);}}
     Row* Editor::Target(HWND window,CPoint point)
     {
         for(auto& r:m_rows)if(r->visible)
         {
-            for(auto* c:r->Controls())if(c->GetSafeHwnd()&&window==c->GetSafeHwnd())return r.get();
+            for(auto* c:r->Controls())if(c->GetSafeHwnd()&&(window==c->GetSafeHwnd()||::IsChild(c->GetSafeHwnd(),window)))return r.get();
             if(point!=CPoint(-1,-1)){CRect body;m_body.GetWindowRect(body);CRect bounds(body.left,body.top+Px(r->top-m_searches[m_page].scroll),body.right,body.top+Px(r->top+r->height-m_searches[m_page].scroll));CRect clipped;clipped.IntersectRect(bounds,body);if(clipped.PtInRect(point))return r.get();}
         }
         return nullptr;
@@ -459,22 +465,22 @@ namespace
     void Editor::OnContextMenu(CWnd* window,CPoint point){if(auto* row=Target(window?window->GetSafeHwnd():nullptr,point))Menu(*row,point);}
     BOOL Editor::OnCommand(WPARAM w,LPARAM l)
     {
-        const UINT id=LOWORD(w),code=HIWORD(w);if(code==BN_CLICKED&&m_interface.Command(id)){if(id==NativePreferences::Editor::InterfaceDetails)m_searches[Interface].scroll=0;Layout();return TRUE;}if(m_loading)return CDialog::OnCommand(w,l);
-        if(id==Search&&code==EN_CHANGE){m_regexEditor.Close();m_binding.Invalidate();m_reveal.clear();CString text;m_search.GetWindowText(text);m_searches[m_page].filter.options.query=text.GetString();m_searches[m_page].scroll=0;Layout();return TRUE;}
+        const UINT id=LOWORD(w),code=HIWORD(w);if((code==BN_CLICKED||code==CBN_SELCHANGE)&&m_interface.Command(id,code)){if(id==NativePreferences::Editor::InterfaceDetails)m_searches[Interface].scroll=0;Layout();return TRUE;}if(m_loading)return CDialog::OnCommand(w,l);
+        if(id==Search&&code==EN_CHANGE){m_regexEditor.Close();m_binding.Invalidate();m_reveal.clear();const CString text=m_search.GetText();m_searches[m_page].filter.options.query=text.GetString();m_searches[m_page].scroll=0;Layout();return TRUE;}
         if(id==PageFirst&&code==LBN_SELCHANGE){const int group=m_navigation.GetCurSel();if(group!=LB_ERR)SwitchGroup(group);return TRUE;}
         if(id==Results&&code==LBN_DBLCLK){OpenSelected();return TRUE;}
         if(id>=FirstRow&&id<FirstRow+m_rows.size()*8)
         {
             auto& r=*m_rows[(id-FirstRow)/8];const auto& s=*r.setting;const UINT part=(id-FirstRow)%8;
-            if(part==0&&s.enabled&&code==BN_CLICKED&&s.Available()){m_values.*s.enabled=r.check.GetCheck()==BST_CHECKED;m_dirty=true;r.check.Invalidate();Layout();return TRUE;}
-            if(part==2&&code==EN_CHANGE){m_dirty=true;Layout();return TRUE;}
-            if(part==2&&code==EN_SETFOCUS){EnsureVisible(r);return TRUE;}
-            if(part==4&&code==BN_CLICKED){if(s.group==Notifications){r.expanded=!r.expanded;RefreshRowText(r);Layout();EnsureVisible(r);r.details.SetFocus();}else Menu(r,CPoint(-1,-1));return TRUE;}
-            if(part==3&&code==BN_CLICKED&&s.trafficUnits&&s.Available())
-            {
-                const std::wstring identity=s.id;CMenu menu;menu.CreatePopupMenu();menu.AppendMenu(MF_STRING|(m_values.trafficUnit==0?MF_CHECKED:0),1,L"MB");menu.AppendMenu(MF_STRING|(m_values.trafficUnit==1?MF_CHECKED:0),2,L"GB");CRect rect;r.unit.GetWindowRect(rect);
-                const UINT value=NativeMenus::Track(&menu,TPM_RETURNCMD|TPM_RIGHTBUTTON,rect.left,rect.bottom,this);if((value==1||value==2)&&Find(identity)){m_values.trafficUnit=value-1;r.unit.SetLabel(value==1?L"MB":L"GB");m_dirty=true;Layout();}return TRUE;
-            }
+            bool* toggleDraft=s.enabled?&(m_values.*s.enabled):nullptr;int* numberDraft=s.number?&(m_values.*s.number):nullptr;int* unitDraft=s.trafficUnits?&m_values.trafficUnit:nullptr;
+            if(s.Available())
+                switch(r.Receive(part,code,toggleDraft,numberDraft,unitDraft))
+                {
+                case RowChange::Toggle:case RowChange::Number:case RowChange::Unit:m_dirty=true;Layout();return TRUE;
+                case RowChange::NumberRefused:NativeSounds::Notify(NativeSounds::Action::ActionRefused);Note(NoteKind::InvalidNumber,&s);return TRUE;
+                case RowChange::None:break;
+                }
+            if(part==PartDetails&&code==BN_CLICKED){if(s.group==Notifications){r.expanded=!r.expanded;RefreshRowText(r);Layout();EnsureVisible(r);r.details.SetFocus();}else Menu(r,CPoint(-1,-1));return TRUE;}
         }
         if(code!=BN_CLICKED)return CDialog::OnCommand(w,l);if(id>=PageFirst&&id<PageFirst+6){SwitchGroup(id-PageFirst);return TRUE;}
         switch(id)
@@ -485,11 +491,11 @@ namespace
             const int group=m_page;const auto generation=m_binding.Open(m_regexEditor.IsOpen());
             m_regexEditor.Open(m_hWnd,m_search.GetSafeHwnd(),m_searches[group].filter.options,
                 [this,group,generation]{return m_page==group&&m_binding.Accepts(generation)?Subjects():std::vector<std::wstring>{};},
-                [this,group,generation](const NativeRegex::Options& options){if(m_page!=group||!m_binding.Accepts(generation))return;m_searches[group].filter.options=options;m_loading=true;m_search.SetWindowText(options.query.c_str());m_loading=false;m_reveal.clear();Layout();},m_chinese,m_appearance);return TRUE;
+                [this,group,generation](const NativeRegex::Options& options){if(m_page!=group||!m_binding.Accepts(generation))return;m_searches[group].filter.options=options;m_loading=true;m_search.SetText(options.query.c_str());m_loading=false;m_reveal.clear();Layout();},m_chinese,m_appearance);return TRUE;
         }
-        case Clear:m_regexEditor.Close();m_binding.Invalidate();m_searches[m_page].filter.options.regex=false;m_searches[m_page].filter.options.query.clear();m_loading=true;m_search.SetWindowText(L"");m_loading=false;m_reveal.clear();Layout();m_search.SetFocus();return TRUE;
+        case Clear:m_regexEditor.Close();m_binding.Invalidate();m_searches[m_page].filter.options.regex=false;m_searches[m_page].filter.options.query.clear();m_loading=true;m_search.SetText(L"");m_loading=false;m_reveal.clear();Layout();m_search.Field().SetFocus();return TRUE;
         case Apply:ApplyDraft();return TRUE;case Revert:Reload();return TRUE;case Reset:ResetPage();return TRUE;case OpenResult:OpenSelected();return TRUE;
-        case ReturnFilter:m_reveal.clear();Layout();m_search.SetFocus();return TRUE;
+        case ReturnFilter:m_reveal.clear();Layout();m_search.Field().SetFocus();return TRUE;
         case Legacy:if(CanDiscard()){m_regexEditor.Close();m_binding.Invalidate();EndDialog(IDRETRY);}return TRUE;
         case Theme:SwitchGroup(Interface);return TRUE;
         default:return CDialog::OnCommand(w,l);
@@ -502,9 +508,9 @@ namespace
         {
             HIMC context=ImmGetContext(msg->hwnd);const bool composing=context&&ImmGetCompositionStringW(context,GCS_COMPSTR,nullptr,0)>0;if(context)ImmReleaseContext(msg->hwnd,context);if(composing)return CDialog::PreTranslateMessage(msg);
             if(msg->wParam==VK_APPS||(msg->wParam==VK_F10&&(GetKeyState(VK_SHIFT)&0x8000))){if(auto* field=DYNAMIC_DOWNCAST(NativeMaterial::TextField,CWnd::FromHandlePermanent(msg->hwnd))){field->SendMessage(WM_CONTEXTMENU,reinterpret_cast<WPARAM>(field->GetSafeHwnd()),-1);return TRUE;}if(auto* r=Target(::GetFocus(),CPoint(-1,-1))){Menu(*r,CPoint(-1,-1));return TRUE;}}
-            if(msg->wParam=='L'&&(GetKeyState(VK_CONTROL)&0x8000)){m_search.SetFocus();return TRUE;}
+            if(msg->wParam=='L'&&(GetKeyState(VK_CONTROL)&0x8000)){m_search.Field().SetFocus();return TRUE;}
             if(msg->wParam==VK_RETURN&&msg->hwnd==m_results.GetSafeHwnd()){OpenSelected();return TRUE;}
-            if(msg->wParam==VK_ESCAPE&&msg->hwnd==m_search.GetSafeHwnd()){CString query;m_search.GetWindowText(query);if(!query.IsEmpty()){m_search.SetWindowText(L"");return TRUE;}}
+            if(msg->wParam==VK_ESCAPE&&msg->hwnd==m_search.Field().GetSafeHwnd()){if(m_search.GetText().GetLength()){m_search.Clear();return TRUE;}}
         }
         return CDialog::PreTranslateMessage(msg);
     }
@@ -513,7 +519,6 @@ namespace
     void Editor::OnPaint(){CPaintDC dc(this);NativeLayoutObservation::PaintScope observation(m_hWnd,dc.GetSafeHdc(),NativeLayoutObservation::Route::WindowPaint);CRect r;GetClientRect(r);dc.FillRect(r,&m_background);}
     HBRUSH Editor::OnCtlColor(CDC* dc,CWnd* window,UINT)
     {
-        for(auto& row:m_rows)if(window->GetSafeHwnd()==row->number.GetSafeHwnd())return row->number.Color(dc);
         if(auto* field=DYNAMIC_DOWNCAST(NativeMaterial::TextField,window))return field->Color(dc);
         const auto c=NativeMaterial::Palette::Resolve(m_appearance);
         const auto foreground=window->IsWindowEnabled()?RGB(BYTE(c.onSurface.r*255),BYTE(c.onSurface.g*255),BYTE(c.onSurface.b*255)):NativeMaterial::SettingsDisabledColor(m_appearance);

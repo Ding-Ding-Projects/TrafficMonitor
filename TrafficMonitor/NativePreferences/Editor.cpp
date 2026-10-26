@@ -2,15 +2,24 @@
 #include "Editor.h"
 #include "../NativeMaterial/ActionSounds.h"
 #include "../NativeMaterial/LayoutObservations.h"
-#include "../NativeMenus/SearchableMenu.h"
 namespace NativePreferences
 {
     namespace
     {
+        // Segment captions stay on one line; the full wording of each level is in the section help text.
         CString SoundLabel(ActionSounds level)
         {
-            return level==ActionSounds::Off?Pair(L"Off",L"關閉"):level==ActionSounds::Important?Pair(L"Failures and refusals only",L"只播放失敗同拒絕提示"):Pair(L"All actions",L"所有操作");
+            return level==ActionSounds::Off?InlinePair(L"Off",L"關閉"):level==ActionSounds::Important?InlinePair(L"Important",L"重要"):InlinePair(L"All",L"全部");
         }
+        // Language names are written in their own language, whatever the interface language is.
+        CString LanguageLabel(Language language)
+        {
+            return Text(static_cast<TextId>(static_cast<int>(TextId::English)+static_cast<int>(language)),Language::Cantonese);
+        }
+        std::vector<CString> Segments(CString (*label)(int)){return {label(0),label(1),label(2)};}
+        CString AppearanceLabel(int index){return Text(static_cast<TextId>(static_cast<int>(TextId::System)+index));}
+        CString LanguageSegment(int index){return LanguageLabel(static_cast<Language>(index));}
+        CString SoundSegment(int index){return SoundLabel(static_cast<ActionSounds>(index));}
     }
     Editor::~Editor(){for(HWND window:m_observed)NativeLayoutObservation::Unregister(window);}
     bool Editor::Create(CWnd* parent,CWnd* actionsParent)
@@ -18,15 +27,15 @@ namespace NativePreferences
         m_parent=parent;m_actionsParent=actionsParent?actionsParent:parent;const CRect box(0,0,100,40);const DWORD child=WS_CHILD|WS_VISIBLE;
         if(!m_languagePanel.Create(parent,56220)||!m_appearancePanel.Create(parent,56221)||!m_previewPanel.Create(parent,56222)||!m_soundPanel.Create(parent,56223))return false;
         if(!m_languageHelp.Create(L"",child,box,&m_languagePanel)||!m_appearanceHelp.Create(L"",child,box,&m_appearancePanel)||!m_soundHelp.Create(L"",child,box,&m_soundPanel)||!m_sound.Create(L"",child,box,&m_soundPanel))return false;
-        if(!m_heading.Create(L"",child,box,parent)||!m_language.Create(L"",child,box,&m_languagePanel)||!m_appearance.Create(L"",child,box,&m_appearancePanel)||!m_scope.Create(L"",child,box,parent)||!m_preview.Create(box,&m_previewPanel,56210)||!m_note.Create(L"",child,box,m_actionsParent))return false;
-        if(!m_languageChoice.Create(L"",box,&m_languagePanel,LanguageChoice)||!m_appearanceChoice.Create(L"",box,&m_appearancePanel,AppearanceChoice)||!m_soundChoice.Create(L"",box,&m_soundPanel,SoundChoice)||!m_apply.Create(L"",box,m_actionsParent,ApplyChoice)||!m_revert.Create(L"",box,m_actionsParent,RevertChoice)||!m_reset.Create(L"",box,m_actionsParent,ResetChoice)||!m_reapply.Create(L"",box,m_actionsParent,ReapplyChoice))return false;
+        if(!m_heading.Create(L"",child,box,parent)||!m_language.Create(L"",child,box,&m_languagePanel)||!m_appearance.Create(L"",child,box,&m_appearancePanel)||!m_scope.Create(L"",child,box,parent)||!m_preview.Create(L"",child,box,&m_previewPanel,56210)||!m_note.Create(L"",child,box,m_actionsParent))return false;
+        if(!m_languageChoice.Create(box,&m_languagePanel,LanguageChoice)||!m_appearanceChoice.Create(box,&m_appearancePanel,AppearanceChoice)||!m_soundChoice.Create(box,&m_soundPanel,SoundChoice)||!m_apply.Create(L"",box,m_actionsParent,ApplyChoice)||!m_revert.Create(L"",box,m_actionsParent,RevertChoice)||!m_reset.Create(L"",box,m_actionsParent,ResetChoice)||!m_reapply.Create(L"",box,m_actionsParent,ReapplyChoice))return false;
         if(!m_details.Create(L"",box,parent,InterfaceDetails))return false;
         // Keep the disclosure before the nested form controls in native tab order.
         m_heading.SetWindowPos(&CWnd::wndTop,0,0,0,0,SWP_NOMOVE|SWP_NOSIZE|SWP_NOACTIVATE);
         m_details.SetWindowPos(&m_heading,0,0,0,0,SWP_NOMOVE|SWP_NOSIZE|SWP_NOACTIVATE);
-        m_languagePanel.SetFlat(true);m_appearancePanel.SetFlat(true);m_soundPanel.SetFlat(true);m_soundChoice.SetVariant(NativeMaterial::ButtonVariant::Selector);
+        m_languagePanel.SetFlat(true);m_appearancePanel.SetFlat(true);m_soundPanel.SetFlat(true);
         m_details.SetVariant(NativeMaterial::ButtonVariant::Text);
-        m_languageChoice.SetVariant(NativeMaterial::ButtonVariant::Selector);m_appearanceChoice.SetVariant(NativeMaterial::ButtonVariant::Selector);m_revert.SetVariant(NativeMaterial::ButtonVariant::Text);m_reset.SetVariant(NativeMaterial::ButtonVariant::Text);m_reapply.SetVariant(NativeMaterial::ButtonVariant::Outlined);m_preview.ModifyStyle(WS_VSCROLL,0,SWP_FRAMECHANGED);
+        m_revert.SetVariant(NativeMaterial::ButtonVariant::Text);m_reset.SetVariant(NativeMaterial::ButtonVariant::Text);m_reapply.SetVariant(NativeMaterial::ButtonVariant::Outlined);
         if(NativeLayoutObservation::Enabled())
         {
             const std::array<CWnd*,24> observed{m_parent,m_actionsParent,&m_heading,&m_language,&m_languageHelp,&m_languageChoice,&m_appearance,&m_appearanceHelp,&m_appearanceChoice,&m_scope,&m_preview,&m_languagePanel,&m_appearancePanel,&m_previewPanel,&m_details,&m_note,&m_apply,&m_revert,&m_reset,&m_reapply,&m_sound,&m_soundHelp,&m_soundChoice,&m_soundPanel};
@@ -40,14 +49,14 @@ namespace NativePreferences
         if(!m_parent)return;
         for(HWND window:m_observed)NativeLayoutObservation::Invalidate(window);
         if(!draft.dirty&&!Matches(draft.base,Current().base)){const auto current=Current();draft={current.values,current.base,false,false};m_status=current.protectedFile?TextId::Protected:current.persisted?TextId::Loaded:current.origin==Origin::Migrated?TextId::Migrated:TextId::Defaults;}
-        m_languagePanel.SetAppearance(EffectiveAppearance());m_appearancePanel.SetAppearance(EffectiveAppearance());m_previewPanel.SetAppearance(EffectiveAppearance());m_soundPanel.SetAppearance(EffectiveAppearance());
+        m_languagePanel.SetAppearance(EffectiveAppearance());m_appearancePanel.SetAppearance(EffectiveAppearance());m_soundPanel.SetAppearance(EffectiveAppearance());
         m_languageHelp.SetWindowText(Pair(L"Choose the language used throughout the native workspace.",L"選擇原生工作區使用嘅語言。"));m_appearanceHelp.SetWindowText(Pair(L"Follow your system, or keep a light or dark interface.",L"跟隨系統，或者固定使用淺色或深色介面。"));
         m_soundHelp.SetWindowText(Pair(L"Short Windows system sounds for meaningful actions. Windows volume and mute settings are respected and never changed.",L"為重要操作播放簡短嘅 Windows 系統音效。會跟從 Windows 嘅音量同靜音設定，亦不會更改。"));
         m_sound.SetWindowText(Pair(L"Action sounds",L"操作音效"));
-        m_soundChoice.SetLabel(SoundLabel(draft.values.actionSounds));
+        m_soundChoice.SetSegments(Segments(SoundSegment));m_soundChoice.SetSelected(static_cast<int>(draft.values.actionSounds));m_soundChoice.SetAccessibleName(Pair(L"Action sounds",L"操作音效"));
         m_heading.SetWindowText(Text(TextId::Interface));m_language.SetWindowText(Text(TextId::LanguageLabel));m_appearance.SetWindowText(Text(TextId::AppearanceLabel));
-        m_languageChoice.SetLabel(Text(static_cast<TextId>(static_cast<int>(TextId::English)+static_cast<int>(draft.values.language))));
-        m_appearanceChoice.SetLabel(Text(static_cast<TextId>(static_cast<int>(TextId::System)+static_cast<int>(draft.values.appearance))));
+        m_languageChoice.SetSegments(Segments(LanguageSegment));m_languageChoice.SetSelected(static_cast<int>(draft.values.language));m_languageChoice.SetAccessibleName(Text(TextId::LanguageLabel));
+        m_appearanceChoice.SetSegments(Segments(AppearanceLabel));m_appearanceChoice.SetSelected(static_cast<int>(draft.values.appearance));m_appearanceChoice.SetAccessibleName(Text(TextId::AppearanceLabel));
         const auto snapshot=Current();
         CString provenance;
         if(snapshot.protectedFile)provenance=Pair(L"Preference source is protected or invalid.",L"偏好來源受保護或無效。");
@@ -60,11 +69,12 @@ namespace NativePreferences
         m_scope.SetWindowText(details);
         m_details.SetLabel(Pair(L"Details",L"詳細資料"));
         m_details.SetDisclosure(m_detailsExpanded,Pair(L"Interface details",L"介面詳細資料"),details);
-        m_preview.SetWindowText(Pair(L"Preview: interface text",L"預覽：介面文字",draft.values.language));m_preview.SetAppearance(draft.values.appearance==Appearance::System?EffectiveAppearance():draft.values.appearance==Appearance::Dark?NativeMaterial::Appearance::Dark:NativeMaterial::Appearance::Light);
+        m_preview.SetWindowText(Pair(L"Preview: interface text",L"預覽：介面文字",draft.values.language));// The preview surface itself takes the drafted appearance, so its text shows how the choice will look.
+        m_previewPanel.SetAppearance(draft.values.appearance==Appearance::System?EffectiveAppearance():draft.values.appearance==Appearance::Dark?NativeMaterial::Appearance::Dark:NativeMaterial::Appearance::Light);
         m_apply.SetLabel(m_actionsParent==m_parent?Text(TextId::Apply):Pair(L"Apply",L"套用"));m_revert.SetLabel(Pair(L"Use saved",L"用已儲存值"));m_reset.SetLabel(Pair(L"Reset",L"重設"));m_reapply.SetLabel(Text(TextId::Reapply));
         if(draft.dirty&&!Matches(draft.base,Current().base)){draft.conflict=true;m_status=TextId::Conflict;}
         m_note.SetWindowText(m_status==TextId::Defaults?Pair(L"Using defaults",L"使用預設值"):m_status==TextId::Migrated?Pair(L"Using migrated choices",L"使用已轉移選項"):Text(m_status));
-        for(auto* b:{&m_languageChoice,&m_appearanceChoice,&m_soundChoice,&m_apply,&m_revert,&m_reset,&m_reapply,&m_details})b->SetAppearance(EffectiveAppearance());
+        for(auto* b:{&m_languageChoice,&m_appearanceChoice,&m_soundChoice})b->SetAppearance(EffectiveAppearance());for(auto* b:{&m_apply,&m_revert,&m_reset,&m_reapply,&m_details})b->SetAppearance(EffectiveAppearance());
         m_apply.EnableWindow(draft.dirty&&!Current().protectedFile);m_reapply.EnableWindow(draft.conflict&&!Current().protectedFile);
     }
     int Editor::Layout(int x,int y,int width,UINT dpi,bool visible)
@@ -77,7 +87,7 @@ namespace NativePreferences
         const int initial=y;auto px=[&](int n){return MulDiv(n,dpi,96);};CClientDC dc(m_parent);auto* old=dc.SelectObject(font);NativeLayoutObservation::MeasurementBatch measurements;
         auto height=[&](CWnd& c,int available,int minimum){CString t;c.GetWindowText(t);CRect r(0,0,px((std::max)(32,available)),0);const RECT area=r;dc.DrawText(t,r,DT_CALCRECT|DT_WORDBREAK|DT_NOPREFIX);measurements.Measure(c.GetSafeHwnd(),dc.GetSafeHdc(),area,r);return (std::max)(minimum,(r.Height()*96+static_cast<int>(dpi)-1)/static_cast<int>(dpi)+4);};
         auto place=[&](CWnd& c,int left,int top,int w,int h){c.MoveWindow(px(left),px(top),px(w),px(h));};
-        width=(std::min)(840,(std::max)(64,width));
+        width=(std::min)(1120,(std::max)(64,width));
         CString detailLabel;m_details.GetWindowText(detailLabel);CRect detailBounds(0,0,px(width-24),0);
         dc.DrawText(detailLabel,detailBounds,DT_CALCRECT|DT_WORDBREAK|DT_NOPREFIX);
         const int detailWidth=(std::min)(width,(std::max)(88,(detailBounds.Width()*96+static_cast<int>(dpi)-1)/static_cast<int>(dpi)+24));
@@ -95,14 +105,12 @@ namespace NativePreferences
         if(m_detailsExpanded){const int sh=height(m_scope,width,20);place(m_scope,x,y,width,sh);y+=sh+12;}
         m_languageHelp.ShowWindow(SW_HIDE);m_appearanceHelp.ShowWindow(SW_HIDE);m_soundHelp.ShowWindow(SW_HIDE);
         const bool bilingual=Current().values.language==Language::Bilingual;
-        auto row=[&](NativeMaterial::Panel& panel,CStatic& label,CStatic&,NativeMaterial::Button& choice,bool show)
+        auto row=[&](NativeMaterial::Panel& panel,CStatic& label,CStatic&,CWnd& choice,bool show)
         {
             panel.ShowWindow(show?SW_SHOW:SW_HIDE);if(!show)return;
-            const bool wide=width>=640;const int lw=wide?(width-16)*45/100:width,cw=wide?width-lw-16:width;
-            const int lh=height(label,lw,bilingual?40:24),ch=height(choice,cw-52,bilingual?48:32)+8;
-            int ph;
-            if(wide){ph=(std::max)(bilingual?88:64,(std::max)(lh,ch)+16);place(label,0,(ph-lh)/2,lw,lh);place(choice,lw+16,(ph-ch)/2,cw,ch);}
-            else{ph=(std::max)(bilingual?120:88,lh+8+ch+16);place(label,0,8,lw,lh);place(choice,0,8+lh+8,cw,ch);}
+            // Label above, segmented choice below at the available width up to a comfortable line length.
+            const int lh=height(label,width,bilingual?40:24),ch=48,cw=(std::min)(width,520);
+            const int ph=lh+8+ch+16;place(label,0,8,width,lh);place(choice,0,8+lh+8,cw,ch);
             place(panel,x,y,width,ph);y+=ph+8;
         };
         row(m_languagePanel,m_language,m_languageHelp,m_languageChoice,m_showLanguage);row(m_appearancePanel,m_appearance,m_appearanceHelp,m_appearanceChoice,m_showAppearance);row(m_soundPanel,m_sound,m_soundHelp,m_soundChoice,m_showSounds);
@@ -128,20 +136,18 @@ namespace NativePreferences
         else m_status=result==Result::Protected?TextId::Protected:result==Result::Uncertain?TextId::Uncertain:TextId::WriteFailed;
         Refresh();NativeSounds::Notify(NativeSounds::Action::ActionRefused);
     }
-    bool Editor::Command(UINT id)
+    bool Editor::Command(UINT id,UINT code)
     {
         if(id<LanguageChoice||id>SoundChoice)return false;
         if(id==InterfaceDetails){m_detailsExpanded=!m_detailsExpanded;CString details;m_scope.GetWindowText(details);m_details.SetDisclosure(m_detailsExpanded,Pair(L"Interface details",L"介面詳細資料"),details);m_details.SetFocus();return true;}
         if(id==RevertChoice){Reload();UseSaved();return true;}
         if(id==ResetChoice){const auto keptSounds=draft.values.actionSounds;draft.values=Defaults();if(!m_showSounds)draft.values.actionSounds=keptSounds;draft.dirty=draft.values!=draft.base.values;m_status=TextId::Draft;Refresh();return true;}
         if(id==ApplyChoice||id==ReapplyChoice){Save(id==ReapplyChoice);return true;}
-        const bool language=id==LanguageChoice,sounds=id==SoundChoice;auto& button=language?m_languageChoice:sounds?m_soundChoice:m_appearanceChoice;CMenu menu;menu.CreatePopupMenu();
-        const UINT base=sounds?56310:56300;
-        const int selected=language?static_cast<int>(draft.values.language):sounds?static_cast<int>(draft.values.actionSounds):static_cast<int>(draft.values.appearance);
-        for(int i=0;i<3;++i){const auto label=sounds?SoundLabel(static_cast<ActionSounds>(i)):Text(static_cast<TextId>(static_cast<int>(language?TextId::English:TextId::System)+i));menu.AppendMenu(MF_STRING|(i==selected?MF_CHECKED:0),base+i,label);MENUITEMINFOW info{sizeof(info)};info.fMask=MIIM_FTYPE;info.fType=MFT_RADIOCHECK;SetMenuItemInfoW(menu.GetSafeHmenu(),base+i,FALSE,&info);}
-        CRect bounds;button.GetWindowRect(bounds);
-        const auto choice=NativeMenus::Track(&menu,TPM_RETURNCMD|TPM_RIGHTBUTTON,bounds.left,bounds.bottom,m_parent,&m_searches[language?0:sounds?2:1]);
-        if(choice>=base&&choice<base+3){if(language)draft.values.language=static_cast<Language>(choice-base);else if(sounds)draft.values.actionSounds=static_cast<ActionSounds>(choice-base);else draft.values.appearance=static_cast<Appearance>(choice-base);draft.dirty=draft.values!=draft.base.values;m_status=TextId::Draft;Refresh();}
-        if(button.GetSafeHwnd())button.SetFocus();return true;
+        // The three choices are segmented buttons; only a changed selection matters.
+        if(code!=CBN_SELCHANGE)return true;
+        const bool language=id==LanguageChoice,sounds=id==SoundChoice;auto& choice=language?m_languageChoice:sounds?m_soundChoice:m_appearanceChoice;
+        const int index=choice.GetSelected();if(index<0||index>2)return true;
+        if(language)draft.values.language=static_cast<Language>(index);else if(sounds)draft.values.actionSounds=static_cast<ActionSounds>(index);else draft.values.appearance=static_cast<Appearance>(index);
+        draft.dirty=draft.values!=draft.base.values;m_status=TextId::Draft;Refresh();return true;
     }
 }

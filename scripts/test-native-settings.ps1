@@ -39,5 +39,8 @@ try {
     if([IO.File]::ReadAllText($header) -cne $original){throw 'Production header changed during mutation verification'}
     Write-Host 'Expected rejection: disposable repeated-open ownership mutation returned 1.'
     & $exe
+    if($LASTEXITCODE -ne 0){exit $LASTEXITCODE}
+    # The Material component audit of the rows and the Interface preferences editor, with its own mutation checks.
+    & (Join-Path $PSScriptRoot 'test-native-settings-material.ps1')
     exit $LASTEXITCODE
 } catch { Write-Error $_; exit 1 }
