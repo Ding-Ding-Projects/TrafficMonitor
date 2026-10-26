@@ -3,7 +3,9 @@
 #include "afxcmn.h"
 #include "AdapterCommon.h"
 #include "BaseDialog.h"
-#include "ListCtrlEx.h"
+#include <memory>
+
+namespace NativeMaterial { class DataTable; }
 
 // CNetworkInfoDlg 对话框
 
@@ -29,7 +31,11 @@ protected:
     int m_connection_selected;		//当前对话框显示的连接
     int m_current_connection;		//初始选择的连接
 
-    CListCtrlEx m_info_list;
+    std::unique_ptr<NativeMaterial::DataTable> m_info_list;     // item / value table
+    NativeMaterial::Button* m_previous_button{};
+    NativeMaterial::Button* m_next_button{};
+    NativeMaterial::Button* m_close_button{};
+    NativeMaterial::Label* m_index_label{};
     CMenu m_menu;
     CString m_selected_string;
     CFont m_font_bold;		//默认字体的粗体
@@ -47,6 +53,10 @@ protected:
     static UINT GetInternetIPThreadFunc(LPVOID lpParam);
 
     virtual CString GetDialogName() const override;
+    virtual int LayoutMaterialControls(const CRect& content, bool apply) override;
+    virtual void OnMaterialAppearanceChanged() override;
+    void SetInfoText(int row, const CString& text);   // main thread only
+    void PostInfoText(int row, const CString& text);  // any thread: forwards to SetInfoText on the dialog thread
 
     virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 支持
 
@@ -55,12 +65,13 @@ protected:
     virtual BOOL OnInitDialog();
 public:
     afx_msg void OnCopyText();
-    afx_msg void OnNMRClickInfoList1(NMHDR* pNMHDR, LRESULT* pResult);
+    afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
     afx_msg void OnClose();
     afx_msg void OnBnClickedPreviousButton();
     afx_msg void OnBnClickedNextButton();
     virtual BOOL PreTranslateMessage(MSG* pMsg);
     afx_msg void OnTimer(UINT_PTR nIDEvent);
     afx_msg BOOL OnMouseWheel(UINT nFlags, short zDelta, CPoint pt);
-    afx_msg void OnNMDblclkInfoList1(NMHDR* pNMHDR, LRESULT* pResult);
+    afx_msg void OnTableActivated();
+    afx_msg LRESULT OnSetInfoText(WPARAM row, LPARAM text);     // text of a row set by the IP address thread
 };

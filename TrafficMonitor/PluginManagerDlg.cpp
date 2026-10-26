@@ -3,9 +3,11 @@
 
 #include "stdafx.h"
 #include "NativeMaterial/AlertDialog.h"
+#include "NativeMaterial/Controls.h"
 #include "NativeMenus/SearchableMenu.h"
 #include "TrafficMonitor.h"
 #include "PluginManagerDlg.h"
+#include "LegacyMaterialTables.h"
 #include "FilePathHelper.h"
 #include "PluginInfoDlg.h"
 #include "WIC.h"
@@ -18,7 +20,7 @@ IMPLEMENT_DYNAMIC(CPluginManagerDlg, CBaseDialog)
 CPluginManagerDlg::CPluginManagerDlg(CWnd* pParent /*=nullptr*/)
     : CBaseDialog(IDD_PLUGIN_MANAGER_DIALOG, pParent)
 {
-
+    EnableMaterialShell();
 }
 
 CPluginManagerDlg::~CPluginManagerDlg()
@@ -28,10 +30,6 @@ CPluginManagerDlg::~CPluginManagerDlg()
 void CPluginManagerDlg::DoDataExchange(CDataExchange* pDX)
 {
     CBaseDialog::DoDataExchange(pDX);
-    DDX_Control(pDX, IDC_LIST1, m_list_ctrl);
-    DDX_Control(pDX, IDC_PLUGIN_DOWNLOAD_STATIC, m_plugin_download_lnk);
-    DDX_Control(pDX, IDC_PLUGIN_DEV_GUID_STATIC, m_plugin_dev_guide_lnk);
-    DDX_Control(pDX, IDC_OPEN_PLUGIN_DIR_STATIC, m_open_plugin_dir_lnk);
 }
 
 void CPluginManagerDlg::EnableControl()
@@ -64,32 +62,86 @@ CString CPluginManagerDlg::GetDialogName() const
     return _T("PluginManagerDlg");
 }
 
-bool CPluginManagerDlg::InitializeControls()
+int CPluginManagerDlg::LayoutMaterialControls(const CRect& content, bool apply)
 {
-    RepositionTextBasedControls({
-        { CtrlTextInfo::L4, IDC_PLUGIN_INFO_BUTTON, CtrlTextInfo::W32 },
-        { CtrlTextInfo::L3, IDC_OPTINS_BUTTON, CtrlTextInfo::W32 }
-    });
-    RepositionTextBasedControls({
-        { CtrlTextInfo::L4, IDC_PLUGIN_DOWNLOAD_STATIC },
-        { CtrlTextInfo::L3, IDC_PLUGIN_DEV_GUID_STATIC },
-        { CtrlTextInfo::L2, IDC_OPEN_PLUGIN_DIR_STATIC }
-    });
-    return true;
+    // The plugin table on top, a row of text buttons for the links, then the action row.
+    const int margin = DPI(16), gap = DPI(8), link_height = DPI(36), button_height = DPI(40), link_inset = DPI(12), link_gap = DPI(4);
+    const int width = (std::max)(1, static_cast<int>(content.Width()) - margin * 2);
+    const int left = content.left + margin;
+    const int minimum_table = DPI(240);
+    int table_height = minimum_table;
+    if (apply)
+        table_height = (std::max)(minimum_table, static_cast<int>(content.Height()) - (margin + gap + link_height + gap + button_height + margin));
+
+    int y = content.top + margin;
+    if (m_list_ctrl != nullptr && apply)
+        m_list_ctrl->MoveWindow(left, y, width, table_height);
+    y += table_height + gap;
+
+    // Links: text buttons whose label lines up with the table edge.
+    {
+        int x = left - link_inset;
+        for (auto* link : { m_plugin_download_lnk, m_plugin_dev_guide_lnk, m_open_plugin_dir_lnk })
+        {
+            if (link == nullptr)
+                continue;
+            CString label;
+            link->GetWindowText(label);
+            const int link_width = MeasureMaterialButtonWidth(label, NativeMaterial::ButtonVariant::Text, 48);
+            if (apply)
+                link->MoveWindow(x, y, link_width, link_height);
+            x += link_width + link_gap;
+        }
+        y += link_height + gap;
+    }
+
+    // Actions: details and options on the left, close on the right.
+    {
+        int x = left;
+        for (auto* action : { m_info_button, m_options_button })
+        {
+            if (action == nullptr)
+                continue;
+            CString label;
+            action->GetWindowText(label);
+            const int action_width = MeasureMaterialButtonWidth(label, NativeMaterial::ButtonVariant::Tonal, 88);
+            if (apply)
+                action->MoveWindow(x, y, action_width, button_height);
+            x += action_width + gap;
+        }
+        if (m_close_button != nullptr)
+        {
+            CString label;
+            m_close_button->GetWindowText(label);
+            const int close_width = MeasureMaterialButtonWidth(label, NativeMaterial::ButtonVariant::Text, 88);
+            if (apply)
+                m_close_button->MoveWindow(left + width - close_width, y, close_width, button_height);
+        }
+        y += button_height;
+    }
+    return y + margin - content.top;
+}
+
+void CPluginManagerDlg::OnMaterialAppearanceChanged()
+{
+    if (m_list_ctrl != nullptr && m_list_ctrl->GetSafeHwnd() != nullptr)
+    {
+        m_list_ctrl->SetAppearance(MaterialAppearance());
+        m_list_ctrl->SetSurfaceColor(MaterialSurfaceColor());
+    }
 }
 
 
 BEGIN_MESSAGE_MAP(CPluginManagerDlg, CBaseDialog)
-    ON_NOTIFY(NM_RCLICK, IDC_LIST1, &CPluginManagerDlg::OnNMRClickList1)
-    ON_NOTIFY(NM_CLICK, IDC_LIST1, &CPluginManagerDlg::OnNMClickList1)
+    ON_CONTROL(NativeMaterial::TableSelectionChanged, IDC_LIST1, &CPluginManagerDlg::OnTableSelectionChanged)
+    ON_CONTROL(NativeMaterial::TableActivated, IDC_LIST1, &CPluginManagerDlg::OnTableActivated)
+    ON_WM_CONTEXTMENU()
     ON_BN_CLICKED(IDC_OPTINS_BUTTON, &CPluginManagerDlg::OnBnClickedOptinsButton)
     ON_BN_CLICKED(IDC_PLUGIN_INFO_BUTTON, &CPluginManagerDlg::OnBnClickedPluginInfoButton)
-    ON_NOTIFY(NM_DBLCLK, IDC_LIST1, &CPluginManagerDlg::OnNMDblclkList1)
     ON_WM_INITMENU()
     ON_COMMAND(ID_PLUGIN_DETAIL, &CPluginManagerDlg::OnPluginDetail)
     ON_COMMAND(ID_PLUGIN_OPTIONS, &CPluginManagerDlg::OnPluginOptions)
     ON_COMMAND(ID_PLUGIN_DISABLE, &CPluginManagerDlg::OnPluginDisable)
-    ON_MESSAGE(WM_LINK_CLICKED, &CPluginManagerDlg::OnLinkClicked)
 END_MESSAGE_MAP()
 
 
@@ -103,24 +155,38 @@ BOOL CPluginManagerDlg::OnInitDialog()
     // TODO:  在此添加额外的初始化
     SetIcon(theApp.GetMenuIcon(IDI_PLUGINS), FALSE);
 
-    //初始化列表控件
-    CRect rect;
-    m_list_ctrl.GetClientRect(rect);
-    m_list_ctrl.SetExtendedStyle(LVS_EX_FULLROWSELECT | LVS_EX_LABELTIP);
-    int width0, width1, width2, width3;
-    width0 = width1 = rect.Width() * 3 / 10;
-    width3 = rect.Width() * 2 / 10;
-    width2 = rect.Width() - width0 - width1 - width3 - theApp.DPI(20) - 1;
-    m_list_ctrl.InsertColumn(COL_FILE_NAME, CCommon::LoadText(IDS_FILE_NAME), LVCFMT_LEFT, width0);
-    m_list_ctrl.InsertColumn(COL_NAME, CCommon::LoadText(IDS_PLUGIN_NAME), LVCFMT_LEFT, width1);
-    m_list_ctrl.InsertColumn(COL_VERSION, CCommon::LoadText(IDS_VERSION), LVCFMT_LEFT, width2);
-    m_list_ctrl.InsertColumn(COL_STATUS, CCommon::LoadText(IDS_STATUS), LVCFMT_LEFT, width3);
+    // Material components replace the stock controls: the list view becomes a data table (the plugin
+    // option dialogs themselves are drawn by the plugin libraries and stay outside this conversion) and
+    // the three link statics become text buttons that keep their control IDs.
+    CString title;
+    GetWindowText(title);
+    m_list_ctrl = LegacyMaterial::ReplaceWithTable<NativeMaterial::DataTable>(*this, IDC_LIST1, MaterialAppearance(), MaterialSurfaceColor(), title);
+    m_plugin_download_lnk = ReplaceWithButton(IDC_PLUGIN_DOWNLOAD_STATIC, NativeMaterial::ButtonVariant::Text);
+    m_plugin_dev_guide_lnk = ReplaceWithButton(IDC_PLUGIN_DEV_GUID_STATIC, NativeMaterial::ButtonVariant::Text);
+    m_open_plugin_dir_lnk = ReplaceWithButton(IDC_OPEN_PLUGIN_DIR_STATIC, NativeMaterial::ButtonVariant::Text);
+    m_info_button = ReplaceWithButton(IDC_PLUGIN_INFO_BUTTON, NativeMaterial::ButtonVariant::Tonal);
+    m_options_button = ReplaceWithButton(IDC_OPTINS_BUTTON, NativeMaterial::ButtonVariant::Tonal);
+    m_close_button = ReplaceWithButton(IDCANCEL, NativeMaterial::ButtonVariant::Text);
 
-    //添加图标
-    int item_num = theApp.m_plugins.GetPlugins().size();
-    m_plugin_icon_list.Create(theApp.DPI(16), theApp.DPI(16), ILC_COLOR32, item_num, item_num);
+    //初始化列表控件
+    using NativeMaterial::TableColumn;
+    TableColumn file_name_column, name_column, version_column, status_column;
+    file_name_column.title = CCommon::LoadText(IDS_FILE_NAME);
+    file_name_column.width = 170;
+    name_column.title = CCommon::LoadText(IDS_PLUGIN_NAME);
+    name_column.width = 150;
+    version_column.title = CCommon::LoadText(IDS_VERSION);
+    version_column.width = 130;
+    status_column.title = CCommon::LoadText(IDS_STATUS);
+    status_column.width = 220;
+    m_list_ctrl->SetColumns({ file_name_column, name_column, version_column, status_column });
+
+    //向列表中插入行
     for (const auto& plugin : theApp.m_plugins.GetPlugins())
     {
+        std::wstring file_name = CFilePathHelper(plugin.file_path).GetFileName();
+
+        //图标
         HICON hIcon{};
         if (plugin.plugin != nullptr && plugin.plugin->GetAPIVersion() >= 5)
         {
@@ -133,40 +199,42 @@ BOOL CPluginManagerDlg::OnInitDialog()
             else
                 hIcon = theApp.GetMenuIcon(IDI_PLUGINS);
         }
-        m_plugin_icon_list.Add(hIcon);
-    }
-    m_list_ctrl.SetImageList(&m_plugin_icon_list, LVSIL_SMALL);
 
-    //向列表中插入行
-    for (const auto& plugin : theApp.m_plugins.GetPlugins())
-    {
-        std::wstring file_name = CFilePathHelper(plugin.file_path).GetFileName();
         CString error_info;
         error_info.Format(_T("%u %s"), plugin.error_code, CCommon::GetErrorMessage(plugin.error_code).GetString());
         CString status;
+        // The status column shows a colored indicator in front of the text: green when loaded, grey when
+        // disabled, amber for an unsupported version and red for a load failure.
+        COLORREF status_color{ RGB(158, 158, 158) };
         switch (plugin.state)
         {
         case CPluginManager::PluginState::PS_SUCCEED:
             status = CCommon::LoadText(IDS_PLUGIN_LOAD_SUCCEED);
+            status_color = RGB(46, 160, 67);
             break;
         case CPluginManager::PluginState::PS_MUDULE_LOAD_FAILED:
             status = CCommon::LoadTextFormat(IDS_PLUGIN_MODULE_LOAD_FAILED, { error_info });
+            status_color = RGB(217, 48, 37);
             break;
         case CPluginManager::PluginState::PS_FUNCTION_GET_FAILED:
             status = CCommon::LoadTextFormat(IDS_PLUGIN_FUNCTION_GET_FAILED, { error_info });
+            status_color = RGB(217, 48, 37);
             break;
         case CPluginManager::PluginState::PS_DISABLE:
             status = CCommon::LoadText(IDS_DISABLED);
             break;
         case CPluginManager::PluginState::PS_VERSION_NOT_SUPPORT:
             status = CCommon::LoadText(IDS_PLUGIN_VERSION_NOT_SUPPORT);
+            status_color = RGB(240, 160, 0);
             break;
         default:
             break;
         }
-        int index = m_list_ctrl.GetItemCount();
-        m_list_ctrl.InsertItem(index, file_name.c_str(), m_list_ctrl.GetItemCount());
-        m_list_ctrl.SetItemText(index, COL_NAME, plugin.Property(ITMPlugin::TMI_NAME).c_str());
+
+        NativeMaterial::TableCell file_cell, name_cell, version_cell, status_cell;
+        file_cell.text = file_name.c_str();
+        file_cell.icon = hIcon;
+        name_cell.text = plugin.Property(ITMPlugin::TMI_NAME).c_str();
         if (plugin.state == CPluginManager::PluginState::PS_SUCCEED)
         {
             //如果插件有更新，在版本号后添加更新信息
@@ -179,22 +247,25 @@ BOOL CPluginManagerDlg::OnInitDialog()
                 version_text += L" (";
                 version_text += update_info;
                 version_text += L')';
-                m_list_ctrl.SetItemText(index, COL_VERSION, version_text.c_str());
+                version_cell.text = version_text.c_str();
             }
             else
             {
-                m_list_ctrl.SetItemText(index, COL_VERSION, plugin.Property(ITMPlugin::TMI_VERSION).c_str());
+                version_cell.text = plugin.Property(ITMPlugin::TMI_VERSION).c_str();
             }
         }
-        m_list_ctrl.SetItemText(index, COL_STATUS, status);
+        status_cell.text = status;
+        status_cell.hasSwatch = true;
+        status_cell.swatch = status_color;
+        m_list_ctrl->AddRow({ file_cell, name_cell, version_cell, status_cell }, static_cast<LPARAM>(m_list_ctrl->GetRowCount()));
     }
 
+    //超链接：按钮点击时在OnCommand中打开
     if (theApp.m_general_data.update_source == 1)   //更新源为Gitee，跳转到Gitee的链接
-        m_plugin_download_lnk.SetURL(L"https://gitee.com/zhongyang219/TrafficMonitorPlugins/blob/main/download/plugin_download.md");
+        m_urls[IDC_PLUGIN_DOWNLOAD_STATIC] = L"https://gitee.com/zhongyang219/TrafficMonitorPlugins/blob/main/download/plugin_download.md";
     else //更新源为Github
-        m_plugin_download_lnk.SetURL(L"https://github.com/zhongyang219/TrafficMonitorPlugins/blob/main/download/plugin_download.md");
-    m_plugin_dev_guide_lnk.SetURL(L"https://github.com/zhongyang219/TrafficMonitor/wiki/%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97");
-    m_open_plugin_dir_lnk.SetLinkIsURL(false);
+        m_urls[IDC_PLUGIN_DOWNLOAD_STATIC] = L"https://github.com/zhongyang219/TrafficMonitorPlugins/blob/main/download/plugin_download.md";
+    m_urls[IDC_PLUGIN_DEV_GUID_STATIC] = L"https://github.com/zhongyang219/TrafficMonitor/wiki/%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97";
 
     EnableControl();
 
@@ -204,20 +275,40 @@ BOOL CPluginManagerDlg::OnInitDialog()
     CMenuIcon::AddIconToMenuItem(m_menu.GetSubMenu(0)->GetSafeHmenu(), ID_PLUGIN_DETAIL, FALSE, theApp.GetMenuIcon(IDI_INFO));
     CMenuIcon::AddIconToMenuItem(m_menu.GetSubMenu(0)->GetSafeHmenu(), ID_PLUGIN_OPTIONS, FALSE, theApp.GetMenuIcon(IDI_SETTINGS));
 
-    //设置按钮图标
-    SetButtonIcon(IDC_PLUGIN_INFO_BUTTON, theApp.GetMenuIcon(IDI_INFO));
-    SetButtonIcon(IDC_OPTINS_BUTTON, theApp.GetMenuIcon(IDI_SETTINGS));
+    FitMaterialContent(640);
+    FinishMaterialShell();
 
     return TRUE;  // return TRUE unless you set the focus to a control
                   // 异常: OCX 属性页应返回 FALSE
 }
 
 
-void CPluginManagerDlg::OnNMRClickList1(NMHDR* pNMHDR, LRESULT* pResult)
+void CPluginManagerDlg::OnTableSelectionChanged()
 {
-    LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
-    // TODO: 在此添加控件通知处理程序代码
-    m_item_selected = pNMItemActivate->iItem;
+    const int row = m_list_ctrl != nullptr ? m_list_ctrl->GetSelectedRow() : -1;
+    m_item_selected = row >= 0 ? static_cast<int>(m_list_ctrl->GetRowData(row)) : -1;
+    EnableControl();
+}
+
+
+void CPluginManagerDlg::OnTableActivated()
+{
+    const int row = m_list_ctrl != nullptr ? m_list_ctrl->ActivatedRow() : -1;
+    m_item_selected = row >= 0 ? static_cast<int>(m_list_ctrl->GetRowData(row)) : -1;
+    OnBnClickedPluginInfoButton();
+}
+
+
+void CPluginManagerDlg::OnContextMenu(CWnd* pWnd, CPoint point)
+{
+    if (m_list_ctrl == nullptr || pWnd == nullptr || pWnd->GetSafeHwnd() != m_list_ctrl->GetSafeHwnd())
+    {
+        CBaseDialog::OnContextMenu(pWnd, point);
+        return;
+    }
+
+    const int row = m_list_ctrl->ContextRow();
+    m_item_selected = row >= 0 ? static_cast<int>(m_list_ctrl->GetRowData(row)) : -1;
     EnableControl();
 
     //弹出右键菜单
@@ -230,21 +321,7 @@ void CPluginManagerDlg::OnNMRClickList1(NMHDR* pNMHDR, LRESULT* pResult)
         theApp.UpdatePluginMenu(pContextMenu, plugin_info.plugin, 3);
     }
 
-    CPoint point1;	//定义一个用于确定光标位置的位置
-    GetCursorPos(&point1);	//获取当前光标的位置，以便使得菜单可以跟随光标
-    NativeMenus::Track(pContextMenu, TPM_LEFTALIGN | TPM_RIGHTBUTTON, point1.x, point1.y, this); //在指定位置显示弹出菜单
-
-    *pResult = 0;
-}
-
-
-void CPluginManagerDlg::OnNMClickList1(NMHDR* pNMHDR, LRESULT* pResult)
-{
-    LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
-    // TODO: 在此添加控件通知处理程序代码
-    m_item_selected = pNMItemActivate->iItem;
-    EnableControl();
-    *pResult = 0;
+    NativeMenus::Track(pContextMenu, TPM_LEFTALIGN | TPM_RIGHTBUTTON, point.x, point.y, this); //在指定位置显示弹出菜单
 }
 
 
@@ -256,6 +333,7 @@ void CPluginManagerDlg::OnBnClickedOptinsButton()
         auto plugin_info = theApp.m_plugins.GetPlugins()[m_item_selected];
         if (plugin_info.plugin != nullptr)
         {
+            // The options dialog is drawn by the plugin library itself (outside the Material conversion).
             ITMPlugin::OptionReturn rtn = plugin_info.plugin->ShowOptionsDialog(m_hWnd);
             if (rtn == ITMPlugin::OR_OPTION_NOT_PROVIDED)
                 NativeMaterial::Alert(m_hWnd, CCommon::LoadText(IDS_PLUGIN_NO_OPTIONS_INFO), MB_ICONINFORMATION | MB_OK);
@@ -274,16 +352,6 @@ void CPluginManagerDlg::OnBnClickedPluginInfoButton()
         CPluginInfoDlg dlg(m_item_selected);
         dlg.DoModal();
     }
-}
-
-
-void CPluginManagerDlg::OnNMDblclkList1(NMHDR* pNMHDR, LRESULT* pResult)
-{
-    LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
-    // TODO: 在此添加控件通知处理程序代码
-    m_item_selected = pNMItemActivate->iItem;
-    OnBnClickedPluginInfoButton();
-    *pResult = 0;
 }
 
 
@@ -334,24 +402,29 @@ void CPluginManagerDlg::OnPluginDisable()
 }
 
 
-afx_msg LRESULT CPluginManagerDlg::OnLinkClicked(WPARAM wParam, LPARAM lParam)
-{
-    CWnd* pCtrl = (CWnd*)wParam;
-    //点击了“打开插件目录”
-    if (pCtrl == &m_open_plugin_dir_lnk)
-    {
-        wstring plugin_dir = CCommon::GetModuleDir() + L"plugins";
-        CreateDirectory(plugin_dir.c_str(), NULL);       //如果plugins不存在，则创建它
-        ShellExecute(NULL, _T("open"), _T("explorer"), plugin_dir.c_str(), NULL, SW_SHOWNORMAL);
-    }
-
-    return 0;
-}
-
-
 BOOL CPluginManagerDlg::OnCommand(WPARAM wParam, LPARAM lParam)
 {
     UINT uMsg = LOWORD(wParam);
+
+    //点击了链接按钮
+    if (HIWORD(wParam) == BN_CLICKED)
+    {
+        const auto url = m_urls.find(uMsg);
+        if (url != m_urls.end() && !url->second.IsEmpty())
+        {
+            ShellExecute(NULL, _T("open"), url->second, NULL, NULL, SW_SHOW);
+            return TRUE;
+        }
+        //点击了“打开插件目录”
+        if (uMsg == IDC_OPEN_PLUGIN_DIR_STATIC)
+        {
+            wstring plugin_dir = CCommon::GetModuleDir() + L"plugins";
+            CreateDirectory(plugin_dir.c_str(), NULL);       //如果plugins不存在，则创建它
+            ShellExecute(NULL, _T("open"), _T("explorer"), plugin_dir.c_str(), NULL, SW_SHOWNORMAL);
+            return TRUE;
+        }
+    }
+
     //选择了插件命令
     if (uMsg >= ID_PLUGIN_COMMAND_START && uMsg <= ID_PLUGIN_COMMAND_MAX)
     {

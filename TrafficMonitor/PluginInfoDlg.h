@@ -1,8 +1,10 @@
 ﻿#pragma once
+#include <memory>
 #include "BaseDialog.h"
-#include "ListCtrlEx.h"
 
-// CPluginInfoDlg 对话框
+namespace NativeMaterial { class DataTable; }
+
+// CPluginInfoDlg 对话框 (Material shell: a two column data table of the plugin properties)
 
 class CPluginInfoDlg : public CBaseDialog
 {
@@ -19,9 +21,13 @@ public:
 
 private:
     int m_cur_index;        //初始显示的插件索引
-    CListCtrlEx m_info_list;
+    std::unique_ptr<NativeMaterial::DataTable> m_info_list;     // item / value table
     CMenu m_menu;
     CString m_selected_string;
+    NativeMaterial::Button* m_previous_button{};
+    NativeMaterial::Button* m_next_button{};
+    NativeMaterial::Button* m_close_button{};
+    NativeMaterial::Label* m_index_label{};
 
     //列表中的列
     enum RowIndex
@@ -48,13 +54,15 @@ protected:
 
     // 通过 CBaseDialog 继承
     virtual CString GetDialogName() const override;
+    virtual int LayoutMaterialControls(const CRect& content, bool apply) override;
+    virtual void OnMaterialAppearanceChanged() override;
 
 	DECLARE_MESSAGE_MAP()
 public:
     virtual BOOL OnInitDialog();
 
     afx_msg void OnCopyText();
-    afx_msg void OnNMRClickInfoList1(NMHDR* pNMHDR, LRESULT* pResult);
+    afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
     afx_msg void OnBnClickedPreviousButton();
     afx_msg void OnBnClickedNextButton();
     virtual BOOL PreTranslateMessage(MSG* pMsg);

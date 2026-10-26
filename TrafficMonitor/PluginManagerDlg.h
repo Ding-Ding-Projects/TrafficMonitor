@@ -1,9 +1,11 @@
 ﻿#pragma once
+#include <map>
+#include <memory>
 #include "BaseDialog.h"
-#include "LinkStatic.h"
-#include "ListCtrlEx.h"
 
-// CPluginManagerDlg 对话框
+namespace NativeMaterial { class DataTable; }
+
+// CPluginManagerDlg 对话框 (Material shell: data table with plugin icons and a status indicator)
 
 class CPluginManagerDlg : public CBaseDialog
 {
@@ -19,13 +21,17 @@ public:
 #endif
 
 private:
-    CListCtrlEx m_list_ctrl;
+    std::unique_ptr<NativeMaterial::DataTable> m_list_ctrl;     // replaces the list view; the row data is the plugin index
     int m_item_selected{ -1 };
     CMenu m_menu;
-    CLinkStatic m_plugin_download_lnk;
-    CLinkStatic m_plugin_dev_guide_lnk;
-    CLinkStatic m_open_plugin_dir_lnk;
-    CImageList m_plugin_icon_list;
+    // The former link statics are Material text buttons with the same control IDs.
+    NativeMaterial::Button* m_plugin_download_lnk{};
+    NativeMaterial::Button* m_plugin_dev_guide_lnk{};
+    NativeMaterial::Button* m_open_plugin_dir_lnk{};
+    NativeMaterial::Button* m_options_button{};
+    NativeMaterial::Button* m_info_button{};
+    NativeMaterial::Button* m_close_button{};
+    std::map<UINT, CString> m_urls;                             // control ID -> address opened by the link
 
 protected:
     virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 支持
@@ -46,20 +52,20 @@ protected:
 
     // 通过 CBaseDialog 继承
     virtual CString GetDialogName() const override;
-    virtual bool InitializeControls() override;
+    virtual int LayoutMaterialControls(const CRect& content, bool apply) override;
+    virtual void OnMaterialAppearanceChanged() override;
 
 public:
     virtual BOOL OnInitDialog();
-    afx_msg void OnNMRClickList1(NMHDR* pNMHDR, LRESULT* pResult);
-    afx_msg void OnNMClickList1(NMHDR* pNMHDR, LRESULT* pResult);
+    afx_msg void OnTableSelectionChanged();
+    afx_msg void OnTableActivated();
+    afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
     afx_msg void OnBnClickedOptinsButton();
     afx_msg void OnBnClickedPluginInfoButton();
-    afx_msg void OnNMDblclkList1(NMHDR* pNMHDR, LRESULT* pResult);
     afx_msg void OnInitMenu(CMenu* pMenu);
     afx_msg void OnPluginDetail();
     afx_msg void OnPluginOptions();
     afx_msg void OnPluginDisable();
 protected:
-    afx_msg LRESULT OnLinkClicked(WPARAM wParam, LPARAM lParam);
     virtual BOOL OnCommand(WPARAM wParam, LPARAM lParam);
 };

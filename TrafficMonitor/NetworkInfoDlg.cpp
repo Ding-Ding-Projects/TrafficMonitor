@@ -3,9 +3,11 @@
 
 #include "stdafx.h"
 #include "NativeMaterial/AlertDialog.h"
+#include "NativeMaterial/Controls.h"
 #include "NativeMenus/SearchableMenu.h"
 #include "TrafficMonitor.h"
 #include "NetworkInfoDlg.h"
+#include "LegacyMaterialTables.h"
 #include "afxdialogex.h"
 
 
@@ -13,9 +15,13 @@
 
 IMPLEMENT_DYNAMIC(CNetworkInfoDlg, CBaseDialog)
 
+// Posted by the IP address thread; the table may only be changed on the dialog thread.
+static constexpr UINT WM_NETWORK_INFO_SET_TEXT = WM_APP + 0x4E31;
+
 CNetworkInfoDlg::CNetworkInfoDlg(vector<NetWorkConection>& adapters, MIB_IFROW* pIfRow, int connection_selected, CWnd* pParent /*=NULL*/)
     : CBaseDialog(IDD_NETWORK_INFO_DIALOG, pParent), m_connections(adapters), m_pIfRow(pIfRow), m_connection_selected(connection_selected)
 {
+    EnableMaterialShell();
     m_current_connection = connection_selected;
 }
 
@@ -29,9 +35,9 @@ void CNetworkInfoDlg::ShowInfo()
     CString temp;
     MIB_IFROW& network_info = GetConnectIfTable(m_connection_selected);
     //接口名
-    m_info_list.SetItemText(0, 1, network_info.wszName);
+    SetInfoText(0, network_info.wszName);
     //接口描述
-    m_info_list.SetItemText(1, 1, CCommon::StrToUnicode((const char*)network_info.bDescr).c_str());
+    SetInfoText(1, CCommon::StrToUnicode((const char*)network_info.bDescr).c_str());
     //连接类型
     switch (network_info.dwType)
     {
@@ -50,10 +56,10 @@ void CNetworkInfoDlg::ShowInfo()
     case IF_TYPE_WWANPP2: temp = CCommon::LoadText(IDS_IF_TYPE_WWANPP2); break;
     default: temp = CCommon::LoadText(IDS_UNKNOW_CONNECTION); break;
     }
-    m_info_list.SetItemText(2, 1, temp);
+    SetInfoText(2, temp);
     //速度
     temp.Format(_T("%dMbps"), network_info.dwSpeed / 1000000);
-    m_info_list.SetItemText(3, 1, temp);
+    SetInfoText(3, temp);
     //适配器物理地址
     temp = _T("");
     char buff[3];
@@ -64,13 +70,13 @@ void CNetworkInfoDlg::ShowInfo()
         if (i != network_info.dwPhysAddrLen - 1)
             temp += _T('-');
     }
-    m_info_list.SetItemText(4, 1, temp);
+    SetInfoText(4, temp);
     //IP地址
-    m_info_list.SetItemText(5, 1, GetConnection(m_connection_selected).ip_address.c_str());
+    SetInfoText(5, GetConnection(m_connection_selected).ip_address.c_str());
     //子网掩码
-    m_info_list.SetItemText(6, 1, GetConnection(m_connection_selected).subnet_mask.c_str());
+    SetInfoText(6, GetConnection(m_connection_selected).subnet_mask.c_str());
     //默认网关
-    m_info_list.SetItemText(7, 1, GetConnection(m_connection_selected).default_gateway.c_str());
+    SetInfoText(7, GetConnection(m_connection_selected).default_gateway.c_str());
     //连接状态
     switch (network_info.dwOperStatus)
     {
@@ -97,34 +103,37 @@ void CNetworkInfoDlg::ShowInfo()
             //break;
     default: temp = CCommon::LoadText(IDS_UNKNOW_STATUS); break;
     }
-    m_info_list.SetItemText(8, 1, temp);
+    SetInfoText(8, temp);
     //已接收字节数
     temp.Format(_T("%s (%s)"), CCommon::IntToString(network_info.dwInOctets, true, true), CCommon::DataSizeToString(network_info.dwInOctets));
-    m_info_list.SetItemText(9, 1, temp);
+    SetInfoText(9, temp);
     //已发送字节数
     temp.Format(_T("%s (%s)"), CCommon::IntToString(network_info.dwOutOctets, true, true), CCommon::DataSizeToString(network_info.dwOutOctets));
-    m_info_list.SetItemText(10, 1, temp);
+    SetInfoText(10, temp);
     //自程序启动以来已接收字节数
     unsigned __int64 in_bytes_since_start;
     in_bytes_since_start = network_info.dwInOctets - GetConnection(m_connection_selected).in_bytes;
     temp.Format(_T("%s (%s)"), CCommon::IntToString(in_bytes_since_start, true, true), CCommon::DataSizeToString(in_bytes_since_start));
-    m_info_list.SetItemText(11, 1, temp);
+    SetInfoText(11, temp);
     //自程序启动以来已发送字节数
     unsigned __int64 out_bytes_since_start;
     out_bytes_since_start = network_info.dwOutOctets - GetConnection(m_connection_selected).out_bytes;
     temp.Format(_T("%s (%s)"), CCommon::IntToString(out_bytes_since_start, true, true), CCommon::DataSizeToString(out_bytes_since_start));
-    m_info_list.SetItemText(12, 1, temp);
+    SetInfoText(12, temp);
 
     //显示当前选择指示
     CString str;
     str.Format(_T("%d/%d"), m_connection_selected + 1, m_connections.size());
-    SetDlgItemText(IDC_INDEX_STATIC, str);
     CFont* font = GetFont();
-    CWnd* index_static = GetDlgItem(IDC_INDEX_STATIC);
-    if (m_current_connection == m_connection_selected && !theApp.m_cfg_data.m_select_all)
-        index_static->SetFont(&m_font_bold);
-    else
-        index_static->SetFont(font);
+    if (m_index_label != nullptr)
+    {
+        m_index_label->SetWindowText(str);
+        if (m_current_connection == m_connection_selected && !theApp.m_cfg_data.m_select_all)
+            m_index_label->SetFont(&m_font_bold);
+        else
+            m_index_label->SetFont(font);
+        m_index_label->Invalidate(FALSE);
+    }
 }
 
 void CNetworkInfoDlg::GetProgramElapsedTime()
@@ -135,7 +144,7 @@ void CNetworkInfoDlg::GetProgramElapsedTime()
     time = CCommon::CompareSystemTime(current_time, m_start_time);
     CString temp;
     temp.Format(CCommon::LoadText(IDS_HOUR_MINUTE_SECOND), time.wHour, time.wMinute, time.wSecond);
-    m_info_list.SetItemText(13, 1, temp);
+    SetInfoText(13, temp);
 }
 
 MIB_IFROW& CNetworkInfoDlg::GetConnectIfTable(int connection_index)
@@ -175,11 +184,11 @@ UINT CNetworkInfoDlg::GetInternetIPThreadFunc(LPVOID lpParam)
             info = ip_address.c_str();
         else
             info.Format(_T("%s (%s)"), ip_address.c_str(), ip_location.c_str());
-        p_instance->m_info_list.SetItemText(14, 1, info);
+        p_instance->PostInfoText(14, info);
     }
     else
     {
-        p_instance->m_info_list.SetItemText(14, 1, CCommon::LoadText(IDS_GET_FAILED));
+        p_instance->PostInfoText(14, CCommon::LoadText(IDS_GET_FAILED));
     }
 
     //IPV6
@@ -194,11 +203,11 @@ UINT CNetworkInfoDlg::GetInternetIPThreadFunc(LPVOID lpParam)
             info = ip_address.c_str();
         else
             info.Format(_T("%s (%s)"), ip_address.c_str(), ip_location.c_str());
-        p_instance->m_info_list.SetItemText(15, 1, info);
+        p_instance->PostInfoText(15, info);
     }
     else
     {
-        p_instance->m_info_list.SetItemText(15, 1, CCommon::LoadText(IDS_GET_FAILED));
+        p_instance->PostInfoText(15, CCommon::LoadText(IDS_GET_FAILED));
     }
 
     p_instance->m_ip_acquired = true;
@@ -213,19 +222,99 @@ CString CNetworkInfoDlg::GetDialogName() const
 void CNetworkInfoDlg::DoDataExchange(CDataExchange* pDX)
 {
     CBaseDialog::DoDataExchange(pDX);
-    DDX_Control(pDX, IDC_INFO_LIST1, m_info_list);
+}
+
+void CNetworkInfoDlg::SetInfoText(int row, const CString& text)
+{
+    if (m_info_list != nullptr)
+        m_info_list->SetCellText(row, 1, text);
+}
+
+void CNetworkInfoDlg::PostInfoText(int row, const CString& text)
+{
+    // The table is not thread safe: hand the text to the dialog thread.
+    HWND hwnd = GetSafeHwnd();
+    if (!::IsWindow(hwnd))
+        return;
+    auto* copy = new CString(text);
+    if (!::PostMessage(hwnd, WM_NETWORK_INFO_SET_TEXT, static_cast<WPARAM>(row), reinterpret_cast<LPARAM>(copy)))
+        delete copy;
+}
+
+LRESULT CNetworkInfoDlg::OnSetInfoText(WPARAM row, LPARAM text)
+{
+    std::unique_ptr<CString> owned(reinterpret_cast<CString*>(text));
+    if (owned != nullptr)
+        SetInfoText(static_cast<int>(row), *owned);
+    return 0;
+}
+
+int CNetworkInfoDlg::LayoutMaterialControls(const CRect& content, bool apply)
+{
+    // The table on top; below it the previous / next buttons with the position text, and close on the right.
+    const int margin = DPI(16), gap = DPI(8), button_height = DPI(40);
+    const int width = (std::max)(1, static_cast<int>(content.Width()) - margin * 2);
+    const int left = content.left + margin;
+    const int minimum_table = DPI(336);
+    int table_height = minimum_table;
+    if (apply)
+        table_height = (std::max)(minimum_table, static_cast<int>(content.Height()) - (margin + gap + button_height + margin));
+
+    int y = content.top + margin;
+    if (m_info_list != nullptr && apply)
+        m_info_list->MoveWindow(left, y, width, table_height);
+    y += table_height + gap;
+
+    int x = left;
+    const int arrow_width = DPI(64);
+    for (auto* arrow : { m_previous_button, m_next_button })
+    {
+        if (arrow == nullptr)
+            continue;
+        if (apply)
+            arrow->MoveWindow(x, y, arrow_width, button_height);
+        x += arrow_width + gap;
+    }
+    int close_width = 0;
+    if (m_close_button != nullptr)
+    {
+        CString label;
+        m_close_button->GetWindowText(label);
+        close_width = MeasureMaterialButtonWidth(label, NativeMaterial::ButtonVariant::Primary, 88);
+        if (apply)
+            m_close_button->MoveWindow(left + width - close_width, y, close_width, button_height);
+    }
+    if (m_index_label != nullptr)
+    {
+        const int label_width = (std::max)(DPI(48), left + width - close_width - gap - x);
+        const int label_height = (std::min)(button_height, m_index_label->MeasureHeight(label_width));
+        if (apply)
+            m_index_label->MoveWindow(x, y + (button_height - label_height) / 2, label_width, label_height);
+    }
+    y += button_height;
+    return y + margin - content.top;
+}
+
+void CNetworkInfoDlg::OnMaterialAppearanceChanged()
+{
+    if (m_info_list != nullptr && m_info_list->GetSafeHwnd() != nullptr)
+    {
+        m_info_list->SetAppearance(MaterialAppearance());
+        m_info_list->SetSurfaceColor(MaterialSurfaceColor());
+    }
 }
 
 
 BEGIN_MESSAGE_MAP(CNetworkInfoDlg, CBaseDialog)
     ON_COMMAND(ID_COPY_TEXT, &CNetworkInfoDlg::OnCopyText)
-    ON_NOTIFY(NM_RCLICK, IDC_INFO_LIST1, &CNetworkInfoDlg::OnNMRClickInfoList1)
+    ON_WM_CONTEXTMENU()
     ON_WM_CLOSE()
     ON_BN_CLICKED(IDC_PREVIOUS_BUTTON, &CNetworkInfoDlg::OnBnClickedPreviousButton)
     ON_BN_CLICKED(IDC_NEXT_BUTTON, &CNetworkInfoDlg::OnBnClickedNextButton)
     ON_WM_TIMER()
     ON_WM_MOUSEWHEEL()
-    ON_NOTIFY(NM_DBLCLK, IDC_INFO_LIST1, &CNetworkInfoDlg::OnNMDblclkInfoList1)
+    ON_CONTROL(NativeMaterial::TableActivated, IDC_INFO_LIST1, &CNetworkInfoDlg::OnTableActivated)
+    ON_MESSAGE(WM_NETWORK_INFO_SET_TEXT, &CNetworkInfoDlg::OnSetInfoText)
 END_MESSAGE_MAP()
 
 
@@ -242,42 +331,57 @@ BOOL CNetworkInfoDlg::OnInitDialog()
     //重新获取IP地址
     CAdapterCommon::RefreshIpAddress(m_connections);
 
+    // Material components replace the stock controls.
+    CString title;
+    GetWindowText(title);
+    m_info_list = LegacyMaterial::ReplaceWithTable<NativeMaterial::DataTable>(*this, IDC_INFO_LIST1, MaterialAppearance(), MaterialSurfaceColor(), title);
+    m_index_label = ReplaceWithLabel(IDC_INDEX_STATIC);
+    m_previous_button = ReplaceWithButton(IDC_PREVIOUS_BUTTON, NativeMaterial::ButtonVariant::Tonal);
+    m_next_button = ReplaceWithButton(IDC_NEXT_BUTTON, NativeMaterial::ButtonVariant::Tonal);
+    m_close_button = ReplaceWithButton(IDOK, NativeMaterial::ButtonVariant::Primary);
+
     //初始化列表控件
-    CRect rect;
-    m_info_list.GetClientRect(rect);
-    m_info_list.SetExtendedStyle(LVS_EX_FULLROWSELECT | LVS_EX_LABELTIP);
-    int width0, width1;
-    width0 = rect.Width() / 4;
-    width1 = rect.Width() - width0 - theApp.DPI(20) - 1;
-    m_info_list.InsertColumn(0, CCommon::LoadText(IDS_ITEM), LVCFMT_LEFT, width0);		//插入第0列
-    m_info_list.InsertColumn(1, CCommon::LoadText(IDS_VALUE), LVCFMT_LEFT, width1);		//插入第1列
+    NativeMaterial::TableColumn item_column, value_column;
+    item_column.title = CCommon::LoadText(IDS_ITEM);
+    item_column.width = 180;
+    value_column.title = CCommon::LoadText(IDS_VALUE);
+    value_column.width = 420;
+    m_info_list->SetColumns({ item_column, value_column });
 
     //向列表中插入行
-    m_info_list.InsertItem(0, CCommon::LoadText(IDS_INTERFACE_NAME));
-    m_info_list.InsertItem(1, CCommon::LoadText(IDS_INTERFACE_DESCRIPTION));
-    m_info_list.InsertItem(2, CCommon::LoadText(IDS_CONNECTION_TYPE));
-    m_info_list.InsertItem(3, CCommon::LoadText(IDS_SPEED));
-    m_info_list.InsertItem(4, CCommon::LoadText(IDS_ADAPTER_PHYSICAL_ADDRESS));
-    m_info_list.InsertItem(5, CCommon::LoadText(IDS_IP_ADDRESS));
-    m_info_list.InsertItem(6, CCommon::LoadText(IDS_SUBNET_MASK));
-    m_info_list.InsertItem(7, CCommon::LoadText(IDS_DEFAULT_GATEWAY));
-    m_info_list.InsertItem(8, CCommon::LoadText(IDS_OPERATIONAL_STATUS));
-    m_info_list.InsertItem(9, CCommon::LoadText(IDS_BYTES_RECEIVED));
-    m_info_list.InsertItem(10, CCommon::LoadText(IDS_BYTES_SENT));
-    m_info_list.InsertItem(11, CCommon::LoadText(IDS_BYTES_RECEIVED_SINCE_START));
-    m_info_list.InsertItem(12, CCommon::LoadText(IDS_BYTES_SENT_SINCE_START));
-    m_info_list.InsertItem(13, CCommon::LoadText(IDS_PROGRAM_ELAPSED_TIME));
-    m_info_list.InsertItem(14, CCommon::LoadText(IDS_INTERNET_IP_ADDRESS, _T(" (ipv4)")));
-    m_info_list.InsertItem(15, CCommon::LoadText(IDS_INTERNET_IP_ADDRESS, _T(" (ipv6)")));
+    const CString row_names[] = {
+        CCommon::LoadText(IDS_INTERFACE_NAME),
+        CCommon::LoadText(IDS_INTERFACE_DESCRIPTION),
+        CCommon::LoadText(IDS_CONNECTION_TYPE),
+        CCommon::LoadText(IDS_SPEED),
+        CCommon::LoadText(IDS_ADAPTER_PHYSICAL_ADDRESS),
+        CCommon::LoadText(IDS_IP_ADDRESS),
+        CCommon::LoadText(IDS_SUBNET_MASK),
+        CCommon::LoadText(IDS_DEFAULT_GATEWAY),
+        CCommon::LoadText(IDS_OPERATIONAL_STATUS),
+        CCommon::LoadText(IDS_BYTES_RECEIVED),
+        CCommon::LoadText(IDS_BYTES_SENT),
+        CCommon::LoadText(IDS_BYTES_RECEIVED_SINCE_START),
+        CCommon::LoadText(IDS_BYTES_SENT_SINCE_START),
+        CCommon::LoadText(IDS_PROGRAM_ELAPSED_TIME),
+        CCommon::LoadText(IDS_INTERNET_IP_ADDRESS, _T(" (ipv4)")),
+        CCommon::LoadText(IDS_INTERNET_IP_ADDRESS, _T(" (ipv6)")),
+    };
+    for (const auto& row_name : row_names)
+    {
+        NativeMaterial::TableCell name_cell;
+        name_cell.text = row_name;
+        m_info_list->AddRow({ name_cell, NativeMaterial::TableCell() });
+    }
     //if (theApp.m_cfg_data.m_show_internet_ip)
     //{
-    //	m_info_list.SetItemText(14, 1, CCommon::LoadText(IDS_ACQUIRING, _T("...")));
-    //	m_info_list.SetItemText(15, 1, CCommon::LoadText(IDS_ACQUIRING, _T("...")));
+    //	SetInfoText(14, CCommon::LoadText(IDS_ACQUIRING, _T("...")));
+    //	SetInfoText(15, CCommon::LoadText(IDS_ACQUIRING, _T("...")));
     //}
     //else
     //{
-    m_info_list.SetItemText(14, 1, CCommon::LoadText(IDS_DOUBLE_CLICK_TO_ACQUIRE));
-    m_info_list.SetItemText(15, 1, CCommon::LoadText(IDS_DOUBLE_CLICK_TO_ACQUIRE));
+    SetInfoText(14, CCommon::LoadText(IDS_DOUBLE_CLICK_TO_ACQUIRE));
+    SetInfoText(15, CCommon::LoadText(IDS_DOUBLE_CLICK_TO_ACQUIRE));
     //}
 
     //显示列表中的信息
@@ -292,10 +396,10 @@ BOOL CNetworkInfoDlg::OnInitDialog()
     //if (theApp.m_cfg_data.m_show_internet_ip)
  //       m_pGetIPThread = AfxBeginThread(GetInternetIPThreadFunc, this);		//启动获取外网IP的线程
 
-    //SetWindowPos(&wndNoTopMost, 0, 0, 0, 0, SWP_NOSIZE | SWP_NOMOVE);		//取消置顶
-    m_info_list.GetToolTips()->SetWindowPos(&wndTopMost, 0, 0, 0, 0, SWP_NOSIZE | SWP_NOMOVE);
-
     CCommon::LoadMenuResource(m_menu, IDR_INFO_MENU); //装载右键菜单
+
+    FitMaterialContent(640);
+    FinishMaterialShell();
 
     SetTimer(CONNECTION_DETAIL_TIMER, 1000, NULL);
 
@@ -312,24 +416,22 @@ void CNetworkInfoDlg::OnCopyText()
 }
 
 
-void CNetworkInfoDlg::OnNMRClickInfoList1(NMHDR* pNMHDR, LRESULT* pResult)
+void CNetworkInfoDlg::OnContextMenu(CWnd* pWnd, CPoint point)
 {
-    LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
-    // TODO: 在此添加控件通知处理程序代码
+    if (m_info_list == nullptr || pWnd == nullptr || pWnd->GetSafeHwnd() != m_info_list->GetSafeHwnd())
+    {
+        CBaseDialog::OnContextMenu(pWnd, point);
+        return;
+    }
 
     //获取鼠标点击处的文本
-    int item, sub_item;
-    item = pNMItemActivate->iItem;
-    sub_item = pNMItemActivate->iSubItem;
-    m_selected_string = m_info_list.GetItemText(item, sub_item);
+    const int item = m_info_list->ContextRow();
+    const int sub_item = LegacyMaterial::ColumnAtScreenPoint(*m_info_list, item, point);
+    m_selected_string = item >= 0 ? m_info_list->GetCellText(item, sub_item) : CString();
 
     //弹出右键菜单
     CMenu* pContextMenu = m_menu.GetSubMenu(0);	//获取第一个弹出菜单
-    CPoint point1;	//定义一个用于确定光标位置的位置
-    GetCursorPos(&point1);	//获取当前光标的位置，以便使得菜单可以跟随光标
-    NativeMenus::Track(pContextMenu, TPM_LEFTALIGN | TPM_RIGHTBUTTON, point1.x, point1.y, this); //在指定位置显示弹出菜单
-
-    *pResult = 0;
+    NativeMenus::Track(pContextMenu, TPM_LEFTALIGN | TPM_RIGHTBUTTON, point.x, point.y, this); //在指定位置显示弹出菜单
 }
 
 
@@ -415,15 +517,14 @@ BOOL CNetworkInfoDlg::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt)
 }
 
 
-void CNetworkInfoDlg::OnNMDblclkInfoList1(NMHDR* pNMHDR, LRESULT* pResult)
+void CNetworkInfoDlg::OnTableActivated()
 {
-    LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
     // TODO: 在此添加控件通知处理程序代码
-    if (/*!theApp.m_cfg_data.m_show_internet_ip && */!m_ip_acquired && (pNMItemActivate->iItem == 14 || pNMItemActivate->iItem == 15))		//双击了IP地址一行时
+    const int row = m_info_list != nullptr ? m_info_list->ActivatedRow() : -1;
+    if (/*!theApp.m_cfg_data.m_show_internet_ip && */!m_ip_acquired && (row == 14 || row == 15))		//双击了IP地址一行时
     {
-        m_info_list.SetItemText(14, 1, CCommon::LoadText(IDS_ACQUIRING, _T("...")));
-        m_info_list.SetItemText(15, 1, CCommon::LoadText(IDS_ACQUIRING, _T("...")));
+        SetInfoText(14, CCommon::LoadText(IDS_ACQUIRING, _T("...")));
+        SetInfoText(15, CCommon::LoadText(IDS_ACQUIRING, _T("...")));
         m_pGetIPThread = AfxBeginThread(GetInternetIPThreadFunc, this);
     }
-    *pResult = 0;
 }

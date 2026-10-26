@@ -15,7 +15,7 @@ namespace NativeMaterial
         HWND window{};
         std::wstring name{L"Scroll"};
         int maximum{}, page{}, position{}, step{32};
-        bool enabled{true}, visible{};
+        bool enabled{true}, visible{}, horizontal{};
     };
     class ScrollProvider final : public IRawElementProviderSimple, public IRangeValueProvider
     {
@@ -32,7 +32,7 @@ namespace NativeMaterial
         {
             if(!out)return E_POINTER;VariantInit(out);std::lock_guard<std::mutex> lock(state->mutex);if(!state->window)return UIA_E_ELEMENTNOTAVAILABLE;
             if(id==UIA_ControlTypePropertyId){out->vt=VT_I4;out->lVal=UIA_ScrollBarControlTypeId;}
-            else if(id==UIA_OrientationPropertyId){out->vt=VT_I4;out->lVal=OrientationType_Vertical;}
+            else if(id==UIA_OrientationPropertyId){out->vt=VT_I4;out->lVal=state->horizontal?OrientationType_Horizontal:OrientationType_Vertical;}
             else if(id==UIA_NamePropertyId){out->vt=VT_BSTR;out->bstrVal=SysAllocString(state->name.c_str());}
             else if (id == UIA_IsEnabledPropertyId || id == UIA_IsKeyboardFocusablePropertyId)
             {
@@ -87,6 +87,7 @@ namespace NativeMaterial
         const BOOL ok=CreateEx(0,AfxRegisterWndClass(CS_HREDRAW|CS_VREDRAW,::LoadCursor(nullptr,IDC_ARROW)),L"Scroll",WS_CHILD|WS_TABSTOP,CRect(0,0,12,100),parent,id);
         if(ok)m_access->window=m_hWnd;return ok;
     }
+    void ScrollRail::SetHorizontal(bool horizontal){m_horizontal=horizontal;if(m_access){std::lock_guard<std::mutex> lock(m_access->mutex);m_access->horizontal=horizontal;}if(m_hWnd)Invalidate(FALSE);}
     void ScrollRail::SetStep(int step){m_step=(std::max)(1,step);if(m_access){std::lock_guard<std::mutex> lock(m_access->mutex);m_access->step=m_step;}}
     void ScrollRail::SetMetrics(int content,int page,int position)
     {
@@ -99,10 +100,10 @@ namespace NativeMaterial
     }
     CRect ScrollRail::Thumb() const
     {
-        CRect r;GetClientRect(r);const int height=r.Height(),minimum=MulDiv(32,GetDpiForWindow(m_hWnd),96);
+        CRect r;GetClientRect(r);const int height=m_horizontal?r.Width():r.Height(),minimum=MulDiv(32,GetDpiForWindow(m_hWnd),96);
         const int length=(std::min)(height,(std::max)(minimum,m_content?MulDiv(height,m_page,m_content):height));
         const int top=m_content>m_page?MulDiv(height-length,m_position,m_content-m_page):0;
-        const int inset=m_hover||m_drag?2:3;return CRect(inset,top,(std::max)(inset+1,r.Width()-inset),top+length);
+        const int inset=m_hover||m_drag?2:3;if(m_horizontal)return CRect(top,inset,top+length,(std::max)(inset+1,r.Height()-inset));return CRect(inset,top,(std::max)(inset+1,r.Width()-inset),top+length);
     }
     void ScrollRail::Paint(HDC dc)
     {
@@ -131,14 +132,14 @@ namespace NativeMaterial
             if (IsWindowEnabled()) Move(static_cast<int>(w));
             return 0;
         }
-        if(message==WM_LBUTTONDOWN){SetFocus();const CPoint point(GET_X_LPARAM(l),GET_Y_LPARAM(l));auto thumb=Thumb();if(thumb.PtInRect(point)){m_drag=true;m_dragOrigin=point.y;m_dragPosition=m_position;SetCapture();}else Move(m_position+(point.y<thumb.top?-m_page:m_page));Invalidate();return 0;}
-        if(message==WM_MOUSEMOVE){m_hover=true;TRACKMOUSEEVENT track{sizeof(track),TME_LEAVE,m_hWnd,0};TrackMouseEvent(&track);if(m_drag){CRect r;GetClientRect(r);const int travel=r.Height()-Thumb().Height();if(travel>0)Move(m_dragPosition+MulDiv(GET_Y_LPARAM(l)-m_dragOrigin,m_content-m_page,travel));}Invalidate(FALSE);return 0;}
+        if(message==WM_LBUTTONDOWN){SetFocus();const CPoint point(GET_X_LPARAM(l),GET_Y_LPARAM(l));auto thumb=Thumb();if(thumb.PtInRect(point)){m_drag=true;m_dragOrigin=m_horizontal?point.x:point.y;m_dragPosition=m_position;SetCapture();}else Move(m_position+((m_horizontal?point.x<thumb.left:point.y<thumb.top)?-m_page:m_page));Invalidate();return 0;}
+        if(message==WM_MOUSEMOVE){m_hover=true;TRACKMOUSEEVENT track{sizeof(track),TME_LEAVE,m_hWnd,0};TrackMouseEvent(&track);if(m_drag){CRect r;GetClientRect(r);const int travel=m_horizontal?r.Width()-Thumb().Width():r.Height()-Thumb().Height();if(travel>0)Move(m_dragPosition+MulDiv((m_horizontal?GET_X_LPARAM(l):GET_Y_LPARAM(l))-m_dragOrigin,m_content-m_page,travel));}Invalidate(FALSE);return 0;}
         if(message==WM_MOUSELEAVE){m_hover=false;Invalidate(FALSE);return 0;}
         if(message==WM_LBUTTONUP){m_drag=false;if(GetCapture()==this)ReleaseCapture();Invalidate();return 0;}
         if(message==WM_CAPTURECHANGED){m_drag=false;Invalidate();}
         if(message==WM_SETFOCUS||message==WM_KILLFOCUS)Invalidate();
         if(message==WM_GETDLGCODE)return DLGC_WANTARROWS;
-        if(message==WM_KEYDOWN){switch(w){case VK_UP:Move(m_position-m_step);break;case VK_DOWN:Move(m_position+m_step);break;case VK_PRIOR:Move(m_position-m_page);break;case VK_NEXT:Move(m_position+m_page);break;case VK_HOME:Move(0);break;case VK_END:Move(m_content);break;default:return CWnd::WindowProc(message,w,l);}return 0;}
+        if(message==WM_KEYDOWN){switch(w){case VK_UP:Move(m_position-m_step);break;case VK_DOWN:Move(m_position+m_step);break;case VK_LEFT:if(!m_horizontal)return CWnd::WindowProc(message,w,l);Move(m_position-m_step);break;case VK_RIGHT:if(!m_horizontal)return CWnd::WindowProc(message,w,l);Move(m_position+m_step);break;case VK_PRIOR:Move(m_position-m_page);break;case VK_NEXT:Move(m_position+m_page);break;case VK_HOME:Move(0);break;case VK_END:Move(m_content);break;default:return CWnd::WindowProc(message,w,l);}return 0;}
         if(message==WM_MOUSEWHEEL){m_wheel+=GET_WHEEL_DELTA_WPARAM(w);while(abs(m_wheel)>=WHEEL_DELTA){const int direction=m_wheel>0?1:-1;Move(m_position-direction*m_step*3);m_wheel-=direction*WHEEL_DELTA;}return TRUE;}
         if(message==WM_NCDESTROY){NativeLayoutObservation::Unregister(m_hWnd);if(m_access){std::lock_guard<std::mutex> lock(m_access->mutex);m_access->window=nullptr;}}
         return CWnd::WindowProc(message,w,l);
