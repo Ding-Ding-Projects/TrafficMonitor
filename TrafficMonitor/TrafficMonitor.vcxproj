@@ -1182,6 +1182,11 @@
     <ClCompile Include="NativeMaterial\InputToggles.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
     <ClCompile Include="NativeMaterial\InputSelection.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
     <ClCompile Include="NativeMaterial\NumberStepper.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
+    <ClInclude Include="NativeMaterial\TextPainter.h" />
+    <ClInclude Include="NativeMaterial\Tabs.h" />
+    <ClCompile Include="NativeMaterial\Tabs.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
+    <ClInclude Include="NativeMaterial\Tooltip.h" />
+    <ClCompile Include="NativeMaterial\Tooltip.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
     <ClInclude Include="NativeMaterial\Slider.h" />
     <ClCompile Include="NativeMaterial\Slider.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
     <ClInclude Include="NativeMaterial\Label.h" />

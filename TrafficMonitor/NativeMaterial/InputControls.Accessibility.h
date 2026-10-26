@@ -13,7 +13,7 @@
 // outstanding calls after the control is destroyed (the window is revoked).
 namespace NativeMaterial
 {
-    enum class InputKind { Switch, Checkbox, Radio, RadioGroup, Segmented, Stepper, Dropdown, TextField, Button, Slider, Table, List };
+    enum class InputKind { Switch, Checkbox, Radio, RadioGroup, Segmented, Stepper, Dropdown, TextField, Button, Slider, Table, List, Tabs };
     enum class InputActionId : WPARAM { Toggle, Select, SetValue, Expand, Collapse };
     constexpr UINT InputAction = WM_APP + 0x540;
 
@@ -48,7 +48,7 @@ namespace NativeMaterial
             *out = nullptr;
             const auto kind = Kind();
             const bool root = m_item < 0;
-            const bool list = kind == InputKind::RadioGroup || kind == InputKind::Segmented || kind == InputKind::Dropdown;
+            const bool list = kind == InputKind::RadioGroup || kind == InputKind::Segmented || kind == InputKind::Dropdown || kind == InputKind::Tabs;
             if (id == __uuidof(IUnknown) || id == __uuidof(IRawElementProviderSimple)) *out = static_cast<IRawElementProviderSimple*>(this);
             else if (id == __uuidof(IToggleProvider) && root && (kind == InputKind::Switch || kind == InputKind::Checkbox)) *out = static_cast<IToggleProvider*>(this);
             else if (id == __uuidof(ISelectionItemProvider) && ((root && kind == InputKind::Radio) || (!root && list))) *out = static_cast<ISelectionItemProvider*>(this);
@@ -91,14 +91,15 @@ namespace NativeMaterial
             if (id == UIA_ControlTypePropertyId)
             {
                 out->vt = VT_I4;
-                out->lVal = !root ? (d.kind == InputKind::Dropdown ? UIA_ListItemControlTypeId : UIA_RadioButtonControlTypeId)
+                out->lVal = !root ? (d.kind == InputKind::Dropdown ? UIA_ListItemControlTypeId : d.kind == InputKind::Tabs ? UIA_TabItemControlTypeId : UIA_RadioButtonControlTypeId)
                     : d.kind == InputKind::Switch ? UIA_ButtonControlTypeId
                     : d.kind == InputKind::Checkbox ? UIA_CheckBoxControlTypeId
                     : d.kind == InputKind::Radio ? UIA_RadioButtonControlTypeId
                     : d.kind == InputKind::Stepper ? UIA_SpinnerControlTypeId
                     : d.kind == InputKind::Slider ? UIA_SliderControlTypeId
                     : d.kind == InputKind::Dropdown ? UIA_ComboBoxControlTypeId
-                    : d.kind == InputKind::Button ? UIA_ButtonControlTypeId : UIA_GroupControlTypeId;
+                    : d.kind == InputKind::Button ? UIA_ButtonControlTypeId
+                    : d.kind == InputKind::Tabs ? UIA_TabControlTypeId : UIA_GroupControlTypeId;
             }
             else if (id == UIA_LocalizedControlTypePropertyId && root && (d.kind == InputKind::Switch || d.kind == InputKind::Segmented))
                 return Text(out, d.kind == InputKind::Switch ? L"switch" : L"segmented button");

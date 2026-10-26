@@ -1064,6 +1064,11 @@
     <ClCompile Include="NativeMaterial\InputToggles.cpp" />
     <ClCompile Include="NativeMaterial\InputSelection.cpp" />
     <ClCompile Include="NativeMaterial\NumberStepper.cpp" />
+    <ClInclude Include="NativeMaterial\TextPainter.h" />
+    <ClInclude Include="NativeMaterial\Tabs.h" />
+    <ClCompile Include="NativeMaterial\Tabs.cpp" />
+    <ClInclude Include="NativeMaterial\Tooltip.h" />
+    <ClCompile Include="NativeMaterial\Tooltip.cpp" />
     <ClInclude Include="NativeMaterial\Slider.h" />
     <ClCompile Include="NativeMaterial\Slider.cpp" />
     <ClInclude Include="NativeMaterial\Label.h" />
