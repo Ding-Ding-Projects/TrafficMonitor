@@ -5,6 +5,7 @@
 #include "stdafx.h"
 #include "TrafficMonitor.h"
 #include "NativePreferences/Preferences.h"
+#include "DiagnosticInstance.h"
 #include "TrafficMonitorDlg.h"
 #include "crashtool.h"
 #include "UpdateHelper.h"
@@ -1048,13 +1049,17 @@ BOOL CTrafficMonitorApp::InitInstance()
     //检查是否已有实例正在运行
     CIniHelper ini{ m_config_path };
     m_no_multistart_warning = ini.GetBool(_T("other"), _T("no_multistart_warning"), false);
-    LPCTSTR mutex_name{};
+    std::wstring mutex_name;
 #ifdef _DEBUG
     mutex_name = _T("TrafficMonitor-e8Ahk24HP6JC8hDy");
 #else
     mutex_name = _T("TrafficMonitor-1419J3XLKL1w8OZc");
 #endif
-    HANDLE hMutex = ::CreateMutex(NULL, TRUE, mutex_name);
+    // Diagnostic-only: a portable copy with a regular marker file beside it gets its own mutex name.
+    const DWORD marker_attributes = ::GetFileAttributesW((m_module_path + DiagnosticInstance::MarkerSuffix).c_str());
+    const bool diagnostic_isolated = DiagnosticInstance::IsIsolated(DiagnosticInstance::IsRegularFileAttributes(marker_attributes), m_installed_mode);
+    mutex_name = DiagnosticInstance::MutexName(mutex_name, m_module_path, DiagnosticInstance::IsRegularFileAttributes(marker_attributes), m_installed_mode);
+    HANDLE hMutex = ::CreateMutex(NULL, TRUE, mutex_name.c_str());
     if (hMutex != NULL)
     {
         if (GetLastError() == ERROR_ALREADY_EXISTS)
@@ -1063,7 +1068,8 @@ BOOL CTrafficMonitorApp::InitInstance()
             //string cmd_line_str{ CCommon::UnicodeToStr(cmd_line.c_str()) };
             //sprintf_s(buff, "when_start=%d, m_no_multistart_warning=%d, cmd_line=%s", when_start, m_no_multistart_warning, cmd_line_str.c_str());
             //CCommon::WriteLog(buff, _T(".\\start.log"));
-            if (!m_no_multistart_warning)
+            // An isolated diagnostic copy never looks for or messages another instance.
+            if (!m_no_multistart_warning && !diagnostic_isolated)
             {
                 //查找已存在TrafficMonitor进程的主窗口的句柄
                 HWND exist_handel = ::FindWindow(APP_CLASS_NAME, NULL);

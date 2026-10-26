@@ -13,6 +13,7 @@ if /i "%~1"=="--verify-app-icons" goto verifyAppIcons
 if /i "%~1"=="--docs-companion" goto docsCompanion
 if /i "%~1"=="--verify-updater" goto verifyUpdater
 if /i "%~1"=="--verify-update-banner" goto verifyUpdateBanner
+if /i "%~1"=="--verify-diagnostic-instance" goto verifyDiagnosticInstance
 if /i "%~1"=="--site" goto site
 if /i "%~1"=="/s" goto silent
 if /i "%~1"=="--silent" goto silent
@@ -31,6 +32,9 @@ powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0scripts\te
 exit /b %errorlevel%
 :verifyUpdateBanner
 powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0scripts\test-native-update-banner.ps1"
+exit /b %errorlevel%
+:verifyDiagnosticInstance
+powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0scripts\test-native-diagnostic-instance.ps1"
 exit /b %errorlevel%
 :verifySettings
 powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0scripts\test-native-settings.ps1"
