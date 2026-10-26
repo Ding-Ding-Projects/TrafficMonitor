@@ -1,8 +1,11 @@
 ﻿#pragma once
+#include <memory>
 #include "CommonData.h"
 #include "BaseDialog.h"
 
-// CSelectConnectionsDlg 对话框
+namespace NativeMaterial { class MaterialList; }
+
+// CSelectConnectionsDlg 对话框 (Material shell: checkable list of the network connections)
 
 class CSelectConnectionsDlg : public CBaseDialog
 {
@@ -20,13 +23,17 @@ public:
 #endif
 
 private:
-    CCheckListBox m_list_ctrl;
+    std::unique_ptr<NativeMaterial::MaterialList> m_list_ctrl;      // replaces the check list box
     std::vector<std::wstring> m_all_connection_names;
     StringSet m_connections_hide;
+    NativeMaterial::Button* m_ok{};
+    NativeMaterial::Button* m_cancel{};
 
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 支持
     virtual CString GetDialogName() const override;
+    virtual int LayoutMaterialControls(const CRect& content, bool apply) override;
+    virtual void OnMaterialAppearanceChanged() override;
 
 	DECLARE_MESSAGE_MAP()
 

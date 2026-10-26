@@ -13,6 +13,9 @@ namespace NativeMaterial
         BOOL Create(CWnd* parent, UINT id);
         void SetMetrics(int content, int page, int position);
         void SetStep(int step);
+        // A horizontal rail scrolls along its width: the thumb, drag, click-to-page and the Left/Right keys use the x axis.
+        void SetHorizontal(bool horizontal);
+        bool IsHorizontal() const { return m_horizontal; }
         void SetAppearance(Appearance value) { m_appearance=value; if(m_hWnd)Invalidate(); }
         std::function<void(int)> changed;
     protected:
@@ -23,6 +26,6 @@ namespace NativeMaterial
         Appearance m_appearance{Appearance::Light};
         int m_step{32};
         int m_content{},m_page{},m_position{},m_dragOrigin{},m_dragPosition{},m_wheel{};
-        bool m_drag{},m_hover{};
+        bool m_drag{},m_hover{},m_horizontal{};
     };
 }

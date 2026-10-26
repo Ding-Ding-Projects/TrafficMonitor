@@ -823,6 +823,7 @@
     <ClInclude Include="IniHelper.h" />
     <ClInclude Include="HistoryTrafficColor.h" />
     <ClInclude Include="ListCtrlEx.h" />
+    <ClInclude Include="LegacyMaterialTables.h" />
     <ClInclude Include="MainWndColorDlg.h" />
     <ClInclude Include="MainWndSettingsDlg.h" />
     <ClInclude Include="MessageDlg.h" />

@@ -19,7 +19,10 @@ param(
 )
 $ErrorActionPreference = 'Stop'
 
-# class name, source base name, template id, documented stock allowances (none unless the conversion plan says so)
+# class name, source base name, template id, documented stock allowances (none unless the conversion plan says so).
+# Related names extra source files that belong to the dialog (scanned for stock types and system scroll bars).
+# Require lists constructs a conversion must keep (a list control becoming a Material table, a menu going through
+# NativeMenus::Track ...); each is checked against the comment-free source of the dialog.
 $Dialogs = @(
     @{ Class = 'CAboutDlg';                 File = 'AboutDlg';                 Allow = @('CToolTipCtrl') },
     @{ Class = 'CAppAlreadyRuningDlg';      File = 'AppAlreadyRuningDlg';      Allow = @() },
@@ -32,9 +35,51 @@ $Dialogs = @(
     # ---- History traffic dialogs: one entry each. The window is a Material shell; its two pages are embedded Material pages.
     @{ Class = 'CHistoryTrafficDlg';         File = 'HistoryTrafficDlg';         Allow = @(); Require = @('NativeMaterial::Tabs') },
     @{ Class = 'CHistoryTrafficListDlg';     File = 'HistoryTrafficListDlg';     Allow = @(); Embedded = $true; Require = @('NativeMaterial::DataTable', 'NativeMaterial::Dropdown') },
-    @{ Class = 'CHistoryTrafficCalendarDlg'; File = 'HistoryTrafficCalendarDlg'; Allow = @(); Embedded = $true; Require = @('NativeMaterial::Calendar', 'NativeMaterial::Tooltip') }
+    @{ Class = 'CHistoryTrafficCalendarDlg'; File = 'HistoryTrafficCalendarDlg'; Allow = @(); Embedded = $true; Require = @('NativeMaterial::Calendar', 'NativeMaterial::Tooltip') },
+    # ---- Plugin manager: list view -> Material data table with plugin icons and a status indicator, link statics -> text buttons.
+    # The plugin option dialogs (ShowOptionsDialog) are drawn by the plugin libraries and stay outside the conversion.
+    @{ Class = 'CPluginManagerDlg'; File = 'PluginManagerDlg'; Allow = @(); Related = @(); Require = @(
+        @{ Label = 'list view replaced by a data table'; Pattern = 'ReplaceWithTable<NativeMaterial::DataTable>\(\*this,\s*IDC_LIST1' },
+        @{ Label = 'plugin icons in the table cells'; Pattern = 'file_cell\.icon\s*=\s*hIcon' },
+        @{ Label = 'status indicator in the table'; Pattern = 'status_cell\.hasSwatch\s*=\s*true' },
+        @{ Label = 'download link is a text button'; Pattern = 'ReplaceWithButton\(IDC_PLUGIN_DOWNLOAD_STATIC,\s*NativeMaterial::ButtonVariant::Text' },
+        @{ Label = 'guide link is a text button'; Pattern = 'ReplaceWithButton\(IDC_PLUGIN_DEV_GUID_STATIC,\s*NativeMaterial::ButtonVariant::Text' },
+        @{ Label = 'plugin folder link is a text button'; Pattern = 'ReplaceWithButton\(IDC_OPEN_PLUGIN_DIR_STATIC,\s*NativeMaterial::ButtonVariant::Text' },
+        @{ Label = 'context menu goes through NativeMenus::Track'; Pattern = 'NativeMenus::Track\(' },
+        @{ Label = 'table selection reaches the dialog'; Pattern = 'ON_CONTROL\(NativeMaterial::TableSelectionChanged,\s*IDC_LIST1' } ) },
+    # ---- Network information: list view -> Material data table, info menu through NativeMenus::Track,
+    # the background IP address thread hands its text to the dialog thread.
+    @{ Class = 'CNetworkInfoDlg'; File = 'NetworkInfoDlg'; Allow = @(); Related = @(); Require = @(
+        @{ Label = 'list view replaced by a data table'; Pattern = 'ReplaceWithTable<NativeMaterial::DataTable>\(\*this,\s*IDC_INFO_LIST1' },
+        @{ Label = 'context menu goes through NativeMenus::Track'; Pattern = 'NativeMenus::Track\(' },
+        @{ Label = 'IP thread posts the IPv4 text'; Pattern = 'p_instance->PostInfoText\(14, info\)' },
+        @{ Label = 'IP thread posts the IPv6 text'; Pattern = 'p_instance->PostInfoText\(15, info\)' },
+        @{ Label = 'row activation reaches the dialog'; Pattern = 'ON_CONTROL\(NativeMaterial::TableActivated,\s*IDC_INFO_LIST1' } ) },
+    # ---- Plugin information (shares the network information template): same table conversion.
+    @{ Class = 'CPluginInfoDlg'; File = 'PluginInfoDlg'; Allow = @(); Related = @(); Require = @(
+        @{ Label = 'list view replaced by a data table'; Pattern = 'ReplaceWithTable<NativeMaterial::DataTable>\(\*this,\s*IDC_INFO_LIST1' },
+        @{ Label = 'context menu goes through NativeMenus::Track'; Pattern = 'NativeMenus::Track\(' },
+        @{ Label = 'previous and next are Material buttons'; Pattern = 'ReplaceWithButton\(IDC_NEXT_BUTTON' } ) },
+    # ---- Connection selection: check list box -> checkable Material list.
+    @{ Class = 'CSelectConnectionsDlg'; File = 'SelectConnectionsDlg'; Allow = @(); Related = @(); Require = @(
+        @{ Label = 'check list box replaced by a Material list'; Pattern = 'ReplaceWithTable<NativeMaterial::MaterialList>\(\*this,\s*IDC_LIST1' },
+        @{ Label = 'the list is checkable'; Pattern = 'SetCheckable\(true\)' },
+        @{ Label = 'check state is read from the Material list'; Pattern = 'GetItemChecked\(' } ) },
+    # ---- Skin chooser: list box -> single-select Material list, three link statics -> text buttons, check box -> Material
+    # check box, group box -> section heading, preview view (scroll view with system scroll bars) -> rail based scrolling.
+    @{ Class = 'CSkinDlg'; File = 'SkinDlg'; Allow = @(); Related = @('CSkinPreviewView'); Require = @(
+        @{ Label = 'list box replaced by a Material list'; Pattern = 'ReplaceWithTable<NativeMaterial::MaterialList>\(\*this,\s*IDC_LIST1' },
+        @{ Label = 'group box becomes a section heading'; Pattern = 'ReplaceGroupBoxWithHeading\(GetDlgItem\(IDC_PREVIEW_GROUP_STATIC' },
+        @{ Label = 'check box is a Material check box'; Pattern = 'ReplaceWithCheckbox\(IDC_SKIN_AUTO_ADAPT_CHECK' },
+        @{ Label = 'course link is a text button'; Pattern = 'ReplaceWithButton\(IDC_SKIN_COURSE_STATIC,\s*NativeMaterial::ButtonVariant::Text' },
+        @{ Label = 'download link is a text button'; Pattern = 'ReplaceWithButton\(IDC_SKIN_DOWNLOAD_STATIC,\s*NativeMaterial::ButtonVariant::Text' },
+        @{ Label = 'skin folder link is a text button'; Pattern = 'ReplaceWithButton\(IDC_OPEN_SKIN_DIR_STATIC,\s*NativeMaterial::ButtonVariant::Text' },
+        @{ Label = 'the preview scrolls with Material rails'; Pattern = 'NativeMaterial::ScrollRail m_vertical_rail' },
+        @{ Label = 'the preview has a horizontal rail'; Pattern = 'm_horizontal_rail\.SetHorizontal\(true\)' } ) }
 )
-$ForbiddenStock = 'CLinkStatic|CSpinEdit|CComboBox|CEdit|CButton|CStatic|CListCtrl|CListBox|CSliderCtrl|CSpinButtonCtrl|CPictureStatic|CTabCtrl|CMFCEditBrowseCtrl'
+$ForbiddenStock = 'CLinkStatic|CSpinEdit|CComboBox|CEdit|CButton|CStatic|CListCtrl|CListCtrlEx|CListBox|CCheckListBox|CSliderCtrl|CSpinButtonCtrl|CPictureStatic|CStaticEx|CTabCtrl|CMFCEditBrowseCtrl|CScrollView'
+# System scroll bars and the scroll view machinery that depends on them.
+$ForbiddenScroll = 'WS_VSCROLL|WS_HSCROLL|CScrollView|SetScrollSizes|SetScrollInfo|GetScrollInfo|SetScrollPos|ShowScrollBar|SB_VERT|SB_HORZ'
 
 function Get-DialogTemplate([string]$rcText, [string]$id)
 {
@@ -113,7 +158,7 @@ function Test-LegacyDialogs([string]$Root)
             if ($cpp -notmatch 'FitMaterialContent\(') { $failures.Add("$name.cpp: FitMaterialContent() is never called") }
         }
         if ($cpp -notmatch 'FinishMaterialShell\(\)') { $failures.Add("$name.cpp: FinishMaterialShell() is never called") }
-        foreach ($component in $d.Require) {
+        foreach ($component in @($d.Require | Where-Object { $_ -is [string] })) {
             if (($cpp + $h) -notmatch ([regex]::Escape($component) + '\b')) { $failures.Add("${name}: does not use the required Material component $component") }
         }
         if ($cpp -notmatch "$($d.Class)::LayoutMaterialControls") { $failures.Add("$name.cpp: LayoutMaterialControls is not implemented") }
@@ -121,8 +166,23 @@ function Test-LegacyDialogs([string]$Root)
 
         # 3. No stock control members or stock check box helpers.
         $combined = "$cpp`n$h"
-        $stripped = [regex]::Replace($combined, '(?s)/\*.*?\*/', '')
+        # Related files (for example a view that belongs to the dialog) follow the same stock control and scroll bar rules.
+        $relatedText = ''
+        foreach ($related in @($d.Related | Where-Object { $_ })) {
+            foreach ($ext in '.cpp', '.h') {
+                $relatedPath = Join-Path $src "$related$ext"
+                if (Test-Path $relatedPath) { $relatedText += "`n" + [IO.File]::ReadAllText($relatedPath) }
+                else { $failures.Add("${name}: related source $related$ext not found") }
+            }
+        }
+        $stripped = [regex]::Replace("$combined$relatedText", '(?s)/\*.*?\*/', '')
         $stripped = [regex]::Replace($stripped, '(?m)//.*$', '')
+        foreach ($m in [regex]::Matches($stripped, "\b($ForbiddenScroll)\b")) {
+            $failures.Add("${name}: uses a system scroll bar or scroll view ($($m.Groups[1].Value)); use the Material scroll rail")
+        }
+        foreach ($requirement in @($d.Require | Where-Object { $_ -is [hashtable] })) {
+            if ($stripped -notmatch $requirement.Pattern) { $failures.Add("${name}: required construct missing: $($requirement.Label)") }
+        }
         foreach ($m in [regex]::Matches($stripped, "\b($ForbiddenStock)\b")) {
             $failures.Add("${name}: declares or uses the stock control type $($m.Groups[1].Value)")
         }
@@ -200,7 +260,29 @@ try {
         @{ Name = 'history calendar loses the Material calendar'; File = 'HistoryTrafficCalendarDlg.h'; Find = 'NativeMaterial::Calendar m_calendar;'; Replace = 'int m_calendar;'; Expect = 'HistoryTrafficCalendarDlg: does not use the required Material component NativeMaterial::Calendar' },
         @{ Name = 'history calendar embedded opt-in removed'; File = 'HistoryTrafficCalendarDlg.cpp'; Find = 'EnableMaterialEmbedded();'; Replace = ''; Expect = 'HistoryTrafficCalendarDlg.cpp: constructor does not call EnableMaterialEmbedded' },
         @{ Name = 'base drops the embedded page mode'; File = 'BaseDialogMaterial.cpp'; Find = 'if (m_material_embedded)'; Replace = 'if (false)'; Expect = 'BaseDialogMaterial.cpp: the embedded page mode is not wired' },
-        @{ Name = 'base stops attaching the shell'; File = 'BaseDialog.cpp'; Find = 'AttachMaterialShell();      //'; Replace = ';      //'; Expect = 'BaseDialog.cpp: OnInitDialog does not attach the Material shell' }
+        @{ Name = 'base stops attaching the shell'; File = 'BaseDialog.cpp'; Find = 'AttachMaterialShell();      //'; Replace = ';      //'; Expect = 'BaseDialog.cpp: OnInitDialog does not attach the Material shell' },
+        # Plugin manager
+        @{ Name = 'plugin manager: list view replacement removed'; File = 'PluginManagerDlg.cpp'; Find = 'ReplaceWithTable<NativeMaterial::DataTable>(*this, IDC_LIST1'; Replace = 'MakeOtherTable<NativeMaterial::DataTable>(*this, IDC_LIST1'; Expect = 'PluginManagerDlg: required construct missing: list view replaced by a data table' },
+        @{ Name = 'plugin manager: link static reintroduced'; File = 'PluginManagerDlg.h'; Find = 'NativeMaterial::Button* m_options_button{};'; Replace = 'NativeMaterial::Button* m_options_button{}; CLinkStatic m_stock_link;'; Expect = 'PluginManagerDlg: declares or uses the stock control type CLinkStatic' },
+        @{ Name = 'plugin manager: context menu bypasses NativeMenus::Track'; File = 'PluginManagerDlg.cpp'; Find = 'NativeMenus::Track(pContextMenu'; Replace = 'TrackPopupMenu(pContextMenu'; Expect = 'PluginManagerDlg: required construct missing: context menu goes through NativeMenus::Track' },
+        @{ Name = 'plugin manager: status indicator removed'; File = 'PluginManagerDlg.cpp'; Find = 'status_cell.hasSwatch = true;'; Replace = ''; Expect = 'PluginManagerDlg: required construct missing: status indicator in the table' },
+        # Network information
+        @{ Name = 'network info: shell opt-in removed'; File = 'NetworkInfoDlg.cpp'; Find = 'EnableMaterialShell();'; Replace = ''; Expect = 'NetworkInfoDlg.cpp: constructor does not call EnableMaterialShell' },
+        @{ Name = 'network info: list control reintroduced'; File = 'NetworkInfoDlg.h'; Find = 'NativeMaterial::Button* m_close_button{};'; Replace = 'NativeMaterial::Button* m_close_button{}; CListCtrlEx m_stock_list;'; Expect = 'NetworkInfoDlg: declares or uses the stock control type CListCtrlEx' },
+        @{ Name = 'network info: IP thread touches the table directly'; File = 'NetworkInfoDlg.cpp'; Find = 'p_instance->PostInfoText(14, info);'; Replace = 'p_instance->SetInfoText(14, info);'; Expect = 'NetworkInfoDlg: required construct missing: IP thread posts the IPv4 text' },
+        # Plugin information
+        @{ Name = 'plugin info: list control reintroduced'; File = 'PluginInfoDlg.h'; Find = 'NativeMaterial::Button* m_close_button{};'; Replace = 'NativeMaterial::Button* m_close_button{}; CListCtrlEx m_stock_list;'; Expect = 'PluginInfoDlg: declares or uses the stock control type CListCtrlEx' },
+        @{ Name = 'plugin info: table replacement removed'; File = 'PluginInfoDlg.cpp'; Find = 'ReplaceWithTable<NativeMaterial::DataTable>(*this, IDC_INFO_LIST1'; Replace = 'MakeOtherTable<NativeMaterial::DataTable>(*this, IDC_INFO_LIST1'; Expect = 'PluginInfoDlg: required construct missing: list view replaced by a data table' },
+        # Connection selection
+        @{ Name = 'select connections: check list box reintroduced'; File = 'SelectConnectionsDlg.h'; Find = 'NativeMaterial::Button* m_ok{};'; Replace = 'NativeMaterial::Button* m_ok{}; CCheckListBox m_stock_list;'; Expect = 'SelectConnectionsDlg: declares or uses the stock control type CCheckListBox' },
+        @{ Name = 'select connections: list no longer checkable'; File = 'SelectConnectionsDlg.cpp'; Find = 'm_list_ctrl->SetCheckable(true);'; Replace = ''; Expect = 'SelectConnectionsDlg: required construct missing: the list is checkable' },
+        # Skin chooser
+        @{ Name = 'skin: system scroll bar on the preview'; File = 'CSkinPreviewView.cpp'; Find = 'WS_CHILD | WS_VISIBLE | WS_CLIPCHILDREN, rect, parent, id'; Replace = 'WS_CHILD | WS_VISIBLE | WS_VSCROLL | WS_CLIPCHILDREN, rect, parent, id'; Expect = 'SkinDlg: uses a system scroll bar or scroll view (WS_VSCROLL)' },
+        @{ Name = 'skin: scroll view base class returns'; File = 'CSkinPreviewView.h'; Find = 'class CSkinPreviewView : public CWnd'; Replace = 'class CSkinPreviewView : public CScrollView'; Expect = 'SkinDlg: uses a system scroll bar or scroll view (CScrollView)' },
+        @{ Name = 'skin: list box reintroduced'; File = 'SkinDlg.h'; Find = 'NativeMaterial::Button* m_ok{};'; Replace = 'NativeMaterial::Button* m_ok{}; CListBox m_stock_list;'; Expect = 'SkinDlg: declares or uses the stock control type CListBox' },
+        @{ Name = 'skin: link static reintroduced'; File = 'SkinDlg.h'; Find = 'NativeMaterial::Button* m_skin_course{};'; Replace = 'NativeMaterial::Button* m_skin_course{}; CLinkStatic m_stock_link;'; Expect = 'SkinDlg: declares or uses the stock control type CLinkStatic' },
+        @{ Name = 'skin: list replacement removed'; File = 'SkinDlg.cpp'; Find = 'ReplaceWithTable<NativeMaterial::MaterialList>(*this, IDC_LIST1'; Replace = 'MakeOtherTable<NativeMaterial::MaterialList>(*this, IDC_LIST1'; Expect = 'SkinDlg: required construct missing: list box replaced by a Material list' },
+        @{ Name = 'skin: horizontal rail dropped'; File = 'CSkinPreviewView.cpp'; Find = 'm_horizontal_rail.SetHorizontal(true);'; Replace = ''; Expect = 'SkinDlg: required construct missing: the preview has a horizontal rail' }
     )
     $srcFiles = Get-ChildItem (Join-Path $Root 'TrafficMonitor') -File | Where-Object { $_.Extension -in '.cpp', '.h', '.rc' }
     foreach ($mutation in $mutations) {
