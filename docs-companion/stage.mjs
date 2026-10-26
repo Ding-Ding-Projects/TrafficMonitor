@@ -11,6 +11,12 @@ if(receipt.sourceCommit!==source||receipt.articleCount<1)throw Error('Documentat
 const content=JSON.parse(await fs.readFile(path.join(root,'artifacts/documentation-content-manifest.json'),'utf8'));
 if(content.sourceCommit!==source)throw Error('Offline inventory source does not match HEAD');
 for(const article of content.articles)await fs.access(path.join(input,decodeURIComponent(article.route.replace(/^\//,''))+'index.html'));
+// The project mark is staged from the native application's master icon; the build never fetches an icon remotely.
+const masterIcon=await fs.readFile(path.join(root,'TrafficMonitor/res/TrafficMonitor.ico'));
+const iconCount=masterIcon.readUInt16LE(4),iconSizes=new Set();
+for(let i=0;i<iconCount;i++)iconSizes.add(masterIcon[6+i*16]||256);
+for(const size of [16,24,32,48,64,256])if(!iconSizes.has(size))throw Error('Master icon lacks '+size+'px image');
+await fs.writeFile(path.join(here,'project-mark.ico'),masterIcon);
 await fs.rm(output,{recursive:true,force:true});
 await fs.cp(input,output,{recursive:true,dereference:false});
 const files=[];
