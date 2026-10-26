@@ -18,9 +18,11 @@ unfinished items below; this checklist records completed and unfinished work.
 - [ ] Apply the action-sound switch immediately instead of on Apply, and add import outcome cues once native personal-wording import exists.
 - [ ] Exercise the update banner, Restart flow and action sounds in the built application and record runtime receipts.
 - [x] Give the documentation companion and its inner executable the project icon; `build.bat --verify-app-icons` checks all built executables.
-- [ ] Let a marker-gated diagnostic copy run beside the installed copy so runtime captures use the unmodified build.
-- [ ] Fix the literal ampersand on the regex workbench Load draft button.
-- [ ] Fix the clipped updater paragraph at the bottom of Settings > Monitoring.
+- [x] Let a marker-gated diagnostic copy run beside the installed copy so runtime captures use the unmodified build.
+- [x] Fix the literal ampersand on the regex workbench Load draft button; a check rejects stray ampersands in Material button labels.
+- [x] Measure wrapped Settings text the way the static control breaks it, fixing the clipped Monitoring updater paragraph.
+- [ ] Replace every generic control and the system title bar with Material Design 3 components and a custom title bar across all owned surfaces.
+- [ ] Refresh the README with a larger, categorized set of current captures and move superseded images to an archive page.
 - [ ] Let Rename edit a saved expression's description.
 
 ## Incomplete source preservation
