@@ -75,7 +75,8 @@ $Dialogs = @(
         @{ Label = 'download link is a text button'; Pattern = 'ReplaceWithButton\(IDC_SKIN_DOWNLOAD_STATIC,\s*NativeMaterial::ButtonVariant::Text' },
         @{ Label = 'skin folder link is a text button'; Pattern = 'ReplaceWithButton\(IDC_OPEN_SKIN_DIR_STATIC,\s*NativeMaterial::ButtonVariant::Text' },
         @{ Label = 'the preview scrolls with Material rails'; Pattern = 'NativeMaterial::ScrollRail m_vertical_rail' },
-        @{ Label = 'the preview has a horizontal rail'; Pattern = 'm_horizontal_rail\.SetHorizontal\(true\)' } ) }
+        @{ Label = 'the preview has a horizontal rail'; Pattern = 'm_horizontal_rail\.SetHorizontal\(true\)' } ) },
+    @{ Class = 'COptionsDlg';               File = 'OptionsDlg';               Allow = @() }
 )
 $ForbiddenStock = 'CLinkStatic|CSpinEdit|CComboBox|CEdit|CButton|CStatic|CListCtrl|CListCtrlEx|CListBox|CCheckListBox|CSliderCtrl|CSpinButtonCtrl|CPictureStatic|CStaticEx|CTabCtrl|CMFCEditBrowseCtrl|CScrollView'
 # System scroll bars and the scroll view machinery that depends on them.
@@ -115,6 +116,101 @@ function Get-DialogTemplate([string]$rcText, [string]$id)
         $pending = ''
     }
     return $controls
+}
+
+# ---- Options host, tab page base and tab pages (lane: Options, TabDlg, General) ----------------------------------------
+# A tab page is a child dialog of the Options dialog. It opts into the Material page mode instead of the shell, is laid out
+# by LayoutPage, and its host is the Material tab bar. Other lanes add their pages to this list.
+$TabPageDialogs = @(
+    @{ Class = 'CGeneralSettingsDlg'; File = 'GeneralSettingsDlg' }
+)
+
+function Remove-CppComments([string]$text)
+{
+    $t = [regex]::Replace($text, '(?s)/\*.*?\*/', '')
+    return [regex]::Replace($t, '(?m)//.*$', '')
+}
+
+function Test-OptionsHostAndTabBase([string]$src, $failures)
+{
+    # The scrolling page base: a Material scroll rail, no system scroll bar.
+    $tabCpp = Remove-CppComments ([IO.File]::ReadAllText((Join-Path $src 'TabDlg.cpp')))
+    $tabH = Remove-CppComments ([IO.File]::ReadAllText((Join-Path $src 'TabDlg.h')))
+    foreach ($m in [regex]::Matches("$tabCpp`n$tabH", '\b(SB_VERT|SetScrollInfo|GetScrollInfo|ON_WM_VSCROLL|OnVScroll|WS_VSCROLL|SB_THUMBTRACK)\b')) {
+        $failures.Add("TabDlg: still uses the system scroll bar ($($m.Groups[1].Value))")
+    }
+    if ($tabH -notmatch 'NativeMaterial::ScrollRail') { $failures.Add('TabDlg.h: the page base does not own a NativeMaterial::ScrollRail') }
+    if ($tabCpp -notmatch 'm_rail\.SetMetrics') { $failures.Add('TabDlg.cpp: the scroll rail never receives the content metrics') }
+    if ($tabCpp -notmatch 'm_rail\.Create') { $failures.Add('TabDlg.cpp: the scroll rail is never created') }
+    if ($tabH -notmatch 'virtual int LayoutPage') { $failures.Add('TabDlg.h: LayoutPage is not declared') }
+    if ($tabCpp -notmatch 'CTabDlg::FinishMaterialPage') { $failures.Add('TabDlg.cpp: FinishMaterialPage is not implemented') }
+
+    # The host: the Material tab bar replaces the system tab control.
+    $optCpp = Remove-CppComments ([IO.File]::ReadAllText((Join-Path $src 'OptionsDlg.cpp')))
+    $optH = Remove-CppComments ([IO.File]::ReadAllText((Join-Path $src 'OptionsDlg.h')))
+    foreach ($m in [regex]::Matches("$optCpp`n$optH", '\b(CTabCtrlEx|CTabCtrl|SysTabControl32)\b')) {
+        $failures.Add("OptionsDlg: still uses the system tab control ($($m.Groups[1].Value))")
+    }
+    if ($optH -notmatch 'NativeMaterial::Tabs\s+m_tab') { $failures.Add('OptionsDlg.h: the tab bar is not a NativeMaterial::Tabs') }
+    if ($optCpp -notmatch 'm_tab\.BindPage') { $failures.Add('OptionsDlg.cpp: the pages are not bound to the Material tab bar') }
+    if ($optCpp -notmatch 'm_tab\.AddTab') { $failures.Add('OptionsDlg.cpp: no tab is added to the Material tab bar') }
+    if ($optCpp -notmatch 'Create\(IDD_GENERAL_SETTINGS_DIALOG,\s*this\)') { $failures.Add('OptionsDlg.cpp: the pages are not children of the Options dialog') }
+    if ($optCpp -notmatch 'HandleTabNavigation') { $failures.Add('OptionsDlg.cpp: Ctrl+Tab navigation of the Material tab bar is not wired') }
+}
+
+function Test-TabPageDialogs([string]$Root, $failures, [string]$rcText)
+{
+    $src = Join-Path $Root 'TrafficMonitor'
+    Test-OptionsHostAndTabBase $src $failures
+    foreach ($d in $TabPageDialogs) {
+        $name = $d.File
+        $cpp = [IO.File]::ReadAllText((Join-Path $src "$name.cpp"))
+        $h = [IO.File]::ReadAllText((Join-Path $src "$name.h"))
+        $ctor = "(?ms)$($d.Class)::$($d.Class)\s*\(.*?^\s*\{(?<body>.*?)^\}"
+        $ctorBody = [regex]::Match($cpp, $ctor).Groups['body'].Value
+        if ($ctorBody -notmatch '\bEnableMaterialPage\(\)') { $failures.Add("$name.cpp: constructor does not call EnableMaterialPage()") }
+        if ($cpp -notmatch 'FinishMaterialPage\(\)') { $failures.Add("$name.cpp: FinishMaterialPage() is never called") }
+        if ($cpp -notmatch "$($d.Class)::LayoutPage") { $failures.Add("$name.cpp: LayoutPage is not implemented") }
+        if ($h -notmatch 'LayoutPage') { $failures.Add("$name.h: LayoutPage is not declared") }
+
+        $stripped = Remove-CppComments "$cpp`n$h"
+        foreach ($m in [regex]::Matches($stripped, "\b($ForbiddenStock|CToolTipCtrl|CComboBox2|CProgressCtrl)\b")) {
+            $failures.Add("${name}: declares or uses the stock control type $($m.Groups[1].Value)")
+        }
+        if ($stripped -match '\bDDX_Control\b') { $failures.Add("${name}: still subclasses a control with DDX_Control") }
+        if ($stripped -match '\b(CheckDlgButton|IsDlgButtonChecked|CheckRadioButton|GetCheckedRadioButton)\b') { $failures.Add("${name}: uses the stock check box helpers instead of SetDlgCheck / GetDlgCheck") }
+        if ($stripped -match '\b(AfxMessageBox|MessageBox|SHMessageBoxCheck)\s*\(') { $failures.Add("${name}: opens a system message box") }
+        if ($stripped -match '\bRelayEvent\b|\bWM_SPIN_EDIT_POS_CHANGED\b') { $failures.Add("${name}: still relays events to a stock tool tip or spin edit") }
+        if ($stripped -match '\b(SB_VERT|SetScrollInfo|GetScrollInfo)\b') { $failures.Add("${name}: uses the system scroll bar") }
+        if ($stripped -notmatch 'NativeMaterial::Tooltip\s+m_tooltip') { $failures.Add("${name}: tool tips do not use NativeMaterial::Tooltip") }
+
+        $idd = [regex]::Match($cpp, "$($d.Class)::$($d.Class)\s*\([^)]*\)\s*:\s*CTabDlg\(\s*(IDD_\w+)").Groups[1].Value
+        if (-not $idd) { $failures.Add("$name.cpp: cannot find the dialog template id"); continue }
+        $controls = Get-DialogTemplate $rcText $idd
+        if ($null -eq $controls) { $failures.Add("$name.cpp: template $idd not found in TrafficMonitor.rc"); continue }
+        $lines = $cpp -split "\r?\n"
+        foreach ($control in $controls) {
+            if ($control.Kind -eq 'generic') { continue }
+            $id = $control.Id
+            $handled = $false
+            for ($i = 0; $i -lt $lines.Count -and -not $handled; $i++) {
+                if ($lines[$i] -notmatch "\b$([regex]::Escape($id))\b") { continue }
+                $window = ($lines[[Math]::Max(0, $i - 1)..[Math]::Min($lines.Count - 1, $i + 4)]) -join ' '
+                if ($window -match 'ReplaceWith\w+|ReplaceGroupBoxWithHeading|RemoveStockControl|DestroyWindow') { $handled = $true }
+            }
+            if (-not $handled) { $failures.Add("$name.cpp: template control $id ($($control.Keyword)) is not replaced or removed") }
+        }
+        Write-Host ("  {0}: {1} template controls ({2} converted generically, {3} explicitly)" -f $d.Class, $controls.Count, @($controls | Where-Object Kind -eq 'generic').Count, @($controls | Where-Object Kind -eq 'special').Count)
+    }
+    # Only the listed pages opt into the page mode.
+    foreach ($file in Get-ChildItem $src -Filter *.cpp) {
+        if ($file.Name -in 'BaseDialog.cpp', 'BaseDialogMaterial.cpp') { continue }
+        $text = [IO.File]::ReadAllText($file.FullName)
+        if ($text -match 'EnableMaterialPage\(') {
+            $owner = $TabPageDialogs | Where-Object { $_.File + '.cpp' -eq $file.Name }
+            if (-not $owner) { $failures.Add("$($file.Name): opts into the Material page mode but is not in the tab page list of this check") }
+        }
+    }
 }
 
 function Test-LegacyDialogs([string]$Root)
@@ -222,6 +318,7 @@ function Test-LegacyDialogs([string]$Root)
             if (-not $owner) { $failures.Add("$($file.Name): opts into the Material shell but is not in the converted dialog list of this check") }
         }
     }
+    Test-TabPageDialogs $Root $failures $rcText
     return , $failures
 }
 
@@ -282,7 +379,22 @@ try {
         @{ Name = 'skin: list box reintroduced'; File = 'SkinDlg.h'; Find = 'NativeMaterial::Button* m_ok{};'; Replace = 'NativeMaterial::Button* m_ok{}; CListBox m_stock_list;'; Expect = 'SkinDlg: declares or uses the stock control type CListBox' },
         @{ Name = 'skin: link static reintroduced'; File = 'SkinDlg.h'; Find = 'NativeMaterial::Button* m_skin_course{};'; Replace = 'NativeMaterial::Button* m_skin_course{}; CLinkStatic m_stock_link;'; Expect = 'SkinDlg: declares or uses the stock control type CLinkStatic' },
         @{ Name = 'skin: list replacement removed'; File = 'SkinDlg.cpp'; Find = 'ReplaceWithTable<NativeMaterial::MaterialList>(*this, IDC_LIST1'; Replace = 'MakeOtherTable<NativeMaterial::MaterialList>(*this, IDC_LIST1'; Expect = 'SkinDlg: required construct missing: list box replaced by a Material list' },
-        @{ Name = 'skin: horizontal rail dropped'; File = 'CSkinPreviewView.cpp'; Find = 'm_horizontal_rail.SetHorizontal(true);'; Replace = ''; Expect = 'SkinDlg: required construct missing: the preview has a horizontal rail' }
+        @{ Name = 'skin: horizontal rail dropped'; File = 'CSkinPreviewView.cpp'; Find = 'm_horizontal_rail.SetHorizontal(true);'; Replace = ''; Expect = 'SkinDlg: required construct missing: the preview has a horizontal rail' },
+        # lane: Options, TabDlg, General
+        @{ Name = 'options tab control returns'; File = 'OptionsDlg.h'; Find = 'NativeMaterial::Tabs m_tab;'; Replace = 'CTabCtrl m_tab;'; Expect = 'OptionsDlg: still uses the system tab control' },
+        @{ Name = 'options pages not bound to the tab bar'; File = 'OptionsDlg.cpp'; Find = 'm_tab.BindPage('; Replace = 'm_tab.GetTabText('; Expect = 'OptionsDlg.cpp: the pages are not bound to the Material tab bar' },
+        @{ Name = 'options tab control not removed'; File = 'OptionsDlg.cpp'; Find = 'RemoveStockControl(IDC_TAB1);'; Replace = ''; Expect = 'OptionsDlg.cpp: template control IDC_TAB1' },
+        @{ Name = 'page base scrolls with the system bar'; File = 'TabDlg.cpp'; Find = 'm_rail.SetMetrics(m_content_height, m_viewport_height, m_scroll_pos);'; Replace = 'm_rail.SetMetrics(m_content_height, m_viewport_height, m_scroll_pos); SetScrollInfo(SB_VERT, nullptr, TRUE);'; Expect = 'TabDlg: still uses the system scroll bar' },
+        @{ Name = 'page base stops creating the rail'; File = 'TabDlg.cpp'; Find = 'if (!m_rail.Create(this, RailControlId))'; Replace = 'if (false)'; Expect = 'TabDlg.cpp: the scroll rail is never created' },
+        @{ Name = 'general page opt-in removed'; File = 'GeneralSettingsDlg.cpp'; Find = 'EnableMaterialPage();'; Replace = ''; Expect = 'GeneralSettingsDlg.cpp: constructor does not call EnableMaterialPage' },
+        @{ Name = 'general page never finished'; File = 'GeneralSettingsDlg.cpp'; Find = 'FinishMaterialPage();'; Replace = ''; Expect = 'GeneralSettingsDlg.cpp: FinishMaterialPage() is never called' },
+        @{ Name = 'general edit replacement removed'; File = 'GeneralSettingsDlg.cpp'; Find = 'ReplaceWithNumberStepper(IDC_MBD_TEMP_TIP_EDIT, threshold_label, unit_of(IDC_MBD_TEMP_STATIC))'; Replace = 'nullptr'; Expect = 'GeneralSettingsDlg.cpp: template control IDC_MBD_TEMP_TIP_EDIT' },
+        @{ Name = 'general radio replacement removed'; File = 'GeneralSettingsDlg.cpp'; Find = 'ReplaceWithRadioButton(IDC_USE_PDH_RADIO, false)'; Replace = 'nullptr'; Expect = 'GeneralSettingsDlg.cpp: template control IDC_USE_PDH_RADIO' },
+        @{ Name = 'general combo replacement removed'; File = 'GeneralSettingsDlg.cpp'; Find = 'ReplaceWithDropdown(IDC_SELECT_CPU_COMBO, cpu_caption)'; Replace = 'nullptr'; Expect = 'GeneralSettingsDlg.cpp: template control IDC_SELECT_CPU_COMBO' },
+        @{ Name = 'general stock tool tip returns'; File = 'GeneralSettingsDlg.h'; Find = 'NativeMaterial::Tooltip m_tooltip;'; Replace = 'NativeMaterial::Tooltip m_tooltip; CToolTipCtrl m_stock_tip;'; Expect = 'GeneralSettingsDlg: declares or uses the stock control type CToolTipCtrl' },
+        @{ Name = 'general stock spin edit returns'; File = 'GeneralSettingsDlg.h'; Find = 'NativeMaterial::Tooltip m_tooltip;'; Replace = 'NativeMaterial::Tooltip m_tooltip; CSpinEdit m_stock_spin;'; Expect = 'GeneralSettingsDlg: declares or uses the stock control type CSpinEdit' },
+        @{ Name = 'general check helper used'; File = 'GeneralSettingsDlg.cpp'; Find = 'GetDlgCheck(IDC_CPU_TEMP_TIP_CHECK)'; Replace = '(IsDlgButtonChecked(IDC_CPU_TEMP_TIP_CHECK) != 0)'; Expect = 'GeneralSettingsDlg: uses the stock check box helpers' },
+        @{ Name = 'general system message box returns'; File = 'GeneralSettingsDlg.cpp'; Find = 'return NativeMaterial::Alert(m_hWnd, CCommon::LoadText(IDS_HARDWARE_MONITOR_WARNING), APP_NAME, MB_OKCANCEL | MB_ICONWARNING) == IDOK;'; Replace = 'return SHMessageBoxCheck(m_hWnd, CCommon::LoadText(IDS_HARDWARE_MONITOR_WARNING), APP_NAME, MB_OKCANCEL, IDOK, L"x") == IDOK;'; Expect = 'GeneralSettingsDlg: opens a system message box' }
     )
     $srcFiles = Get-ChildItem (Join-Path $Root 'TrafficMonitor') -File | Where-Object { $_.Extension -in '.cpp', '.h', '.rc' }
     foreach ($mutation in $mutations) {

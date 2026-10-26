@@ -1,6 +1,13 @@
 ﻿#include "stdafx.h"
 #include "TabDlg.h"
 #include "TrafficMonitor.h"
+#include "NativePreferences/Text.h"
+
+namespace
+{
+    constexpr UINT RailControlId = 53990;
+    constexpr UINT EnsureFocusVisibleMessage = WM_APP + 0x610;
+}
 
 IMPLEMENT_DYNAMIC(CTabDlg, CBaseDialog)
 
@@ -33,7 +40,11 @@ BOOL CTabDlg::PreTranslateMessage(MSG* pMsg)
         return TRUE;
     }
 
-    return CBaseDialog::PreTranslateMessage(pMsg);
+    const BOOL handled = CBaseDialog::PreTranslateMessage(pMsg);
+    // Keyboard navigation can land on a control that the scrolled content hides: bring it into view afterwards.
+    if (pMsg->message == WM_KEYDOWN && pMsg->wParam == VK_TAB && m_scroll_enable)
+        PostMessage(EnsureFocusVisibleMessage);
+    return handled;
 }
 
 
@@ -42,11 +53,15 @@ BOOL CTabDlg::OnInitDialog()
     CBaseDialog::OnInitDialog();
 
     // TODO:  在此添加额外的初始化
-    //将窗口背景设置成白色
-    if (theApp.m_win_version.IsWindows11OrLater())
-        SetBackgroundColor(RGB(249, 249, 249));
-    else
-        SetBackgroundColor(RGB(255, 255, 255));
+    // A Material page already has the surface color of the appearance preference; a template page keeps the
+    // fixed light surface it always had.
+    if (!IsMaterialPage())
+    {
+        if (theApp.m_win_version.IsWindows11OrLater())
+            SetBackgroundColor(RGB(249, 249, 249));
+        else
+            SetBackgroundColor(RGB(255, 255, 255));
+    }
 
     return TRUE;  // return TRUE unless you set the focus to a control
                   // 异常: OCX 属性页应返回 FALSE
@@ -62,69 +77,161 @@ CWnd* CTabDlg::GetParentWindow()
     return nullptr;
 }
 
+void CTabDlg::EnsureRail()
+{
+    if (m_rail.GetSafeHwnd() != nullptr)
+        return;
+    if (!m_rail.Create(this, RailControlId))
+        return;
+    m_rail.SetAppearance(MaterialAppearance());
+    m_rail.SetStep(DPI(48));
+    m_rail.SetWindowText(NativePreferences::InlinePair(L"Scroll page", L"捲動頁面"));
+    // Last in z-order, so the rail is the last tab stop of the page and never overlaps the content (the content is
+    // laid out beside it).
+    m_rail.SetWindowPos(&CWnd::wndBottom, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE);
+    m_rail.changed = [this](int position)
+    {
+        ScrollContentTo(position);
+    };
+}
+
+void CTabDlg::SyncRail()
+{
+    if (m_rail.GetSafeHwnd() == nullptr)
+        return;
+    CRect client;
+    GetClientRect(client);
+    const int rail_width = DPI(12);
+    m_rail.MoveWindow(client.right - rail_width, 0, rail_width, client.Height());
+    m_rail.SetMetrics(m_content_height, m_viewport_height, m_scroll_pos);
+    // A template page has no room reserved for the rail, so the rail lies over its right edge.
+    m_rail.SetWindowPos(IsMaterialPage() ? &CWnd::wndBottom : &CWnd::wndTop, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE);
+}
+
+void CTabDlg::UpdatePageLayout()
+{
+    if (!IsMaterialPage() || !m_page_ready || GetSafeHwnd() == nullptr)
+        return;
+    CRect client;
+    GetClientRect(client);
+    if (client.Width() <= 0 || client.Height() <= 0)
+        return;
+    EnsureRail();
+
+    const int rail_width = DPI(12);
+    const int viewport = client.Height();
+    int width = client.Width();
+    int content = LayoutPage(CRect(0, 0, width, viewport), false);
+    if (content > viewport)
+    {
+        // The rail takes its width from the content; measure again for the narrower column.
+        width = (std::max)(1, width - rail_width);
+        content = LayoutPage(CRect(0, 0, width, viewport), false);
+    }
+    m_viewport_height = viewport;
+    m_content_height = content;
+    m_layout_width = width;
+    m_scroll_pos = (std::max)(0, (std::min)(m_scroll_pos, (std::max)(0, content - viewport)));
+    m_scroll_enable = true;
+    LayoutPage(CRect(0, -m_scroll_pos, width, -m_scroll_pos + viewport), true);
+    SyncRail();
+    SetControlMouseWheelEnable(!IsScrollBarVisible());
+}
+
+void CTabDlg::FinishMaterialPage()
+{
+    if (!IsMaterialPage())
+        return;
+    ConvertRemainingStockControls();
+    const CString remaining = RemainingStockControls();
+    if (!remaining.IsEmpty())
+        TRACE(L"Material page: stock controls remain: %s\n", remaining.GetString());
+    m_page_ready = true;
+    UpdatePageLayout();
+}
+
+void CTabDlg::OnMaterialAppearanceChanged()
+{
+    if (m_rail.GetSafeHwnd() != nullptr)
+        m_rail.SetAppearance(MaterialAppearance());
+}
+
 void CTabDlg::SetScrollbarInfo(int nPage, int nMax)
 {
-    // 获取滚动条状态
-    SCROLLINFO scrollinfo;
-    GetScrollInfo(SB_VERT, &scrollinfo, SIF_ALL);
-    if (m_scroll_enable)
-        m_last_pos = scrollinfo.nPos - scrollinfo.nMin;     // 如果已启用滚动则记录当前滚动位置
-    else
-        m_scroll_enable = true;                             // 否则启用滚动
-    int reset_pos = m_last_pos;
-    // 父窗口OnSize后的新滚动状态边界检查
+    if (IsMaterialPage())
+    {
+        // The page measures itself; only the host's area matters, and that is the client area of the page.
+        m_scroll_enable = true;
+        UpdatePageLayout();
+        return;
+    }
+
+    // Template page: the controls keep their template positions and are scrolled by moving the child windows.
+    EnsureRail();
+    m_scroll_enable = true;
+    const int reset_pos = m_scroll_pos;     // how far the controls are currently displaced
     if (nMax < 0) nMax = 0;
-    if (m_last_pos > nMax - nPage) m_last_pos = nMax - nPage;
-    if (m_last_pos < 0) m_last_pos = 0;
-    // 设置滚动条状态
-    scrollinfo.nMin = 0;                // 设置滚动内容起点在窗口中的pos
-    scrollinfo.nMax = nMax;             // 设置滚动内容终点在窗口中的pos
-    scrollinfo.nPage = nPage;           // 设置实际显示内容区域高度
-    scrollinfo.nPos = m_last_pos;       // 设置当前实际显示内容区域顶端pos
-    SetScrollInfo(SB_VERT, &scrollinfo, SIF_ALL);
+    if (nPage < 0) nPage = 0;
+    // 父窗口OnSize后的新滚动状态边界检查
+    m_content_height = nMax;
+    m_viewport_height = nPage;
+    m_scroll_pos = (std::max)(0, (std::min)(m_scroll_pos, (std::max)(0, nMax - nPage)));
     // 复位滚动
     if (reset_pos != 0)
         ScrollWindow(0, reset_pos);
-    // 代替框架做出OnSize的响应 (在SetScrollInfo决定并设置滚动条是否在新状态下显示之后)
+    // 代替框架做出OnSize的响应
     CBaseDialog::ResizeDynamicLayout(); // 这个方法会无视滚动更新控件位置导致控件错位，在滚动为0时调用避开这个问题
     // 执行滚动
-    if (m_last_pos != 0)
-        ScrollWindow(0, -m_last_pos);
+    if (m_scroll_pos != 0)
+        ScrollWindow(0, -m_scroll_pos);
+    SyncRail();
 }
 
-void CTabDlg::ScrollWindowSimple(int step, bool absolute)
+void CTabDlg::ScrollContentTo(int position)
 {
-    SCROLLINFO scrollinfo;
-    GetScrollInfo(SB_VERT, &scrollinfo, SIF_ALL);
-    if (step == INT_MAX)
-        step = scrollinfo.nPage;
-    if (step == INT_MIN)
-        step = -static_cast<int>(scrollinfo.nPage);
-    int offset_diff = scrollinfo.nMax - static_cast<int>(scrollinfo.nPage);
-    if (offset_diff < 0)    //nMax应该总是大于或等于nPage，当nMax等于nPage时没有滚动条
-        offset_diff = 0;
-    if (!absolute)
-        scrollinfo.nPos -= step;
+    const int most = (std::max)(0, m_content_height - m_viewport_height);
+    position = (std::max)(0, (std::min)(position, most));
+    if (position == m_scroll_pos)
+        return;
+    if (IsMaterialPage())
+    {
+        m_scroll_pos = position;
+        LayoutPage(CRect(0, -m_scroll_pos, m_layout_width, -m_scroll_pos + m_viewport_height), true);
+    }
     else
     {
-        if (step < 0)               // 绝对位置时step为-1表示滚动到底部
-            step = offset_diff;
-        scrollinfo.nPos = step;     // 此时的stpe为目标绝对位置
-        step = m_last_pos - step;   // 将参数的绝对位置转换为偏移量继续处理
+        ScrollWindow(0, m_scroll_pos - position);
+        m_scroll_pos = position;
     }
-    if (scrollinfo.nPos < scrollinfo.nMin)                                          // 限制nPos不小于最小值nMin
-    {
-        step -= scrollinfo.nMin - scrollinfo.nPos;
-        scrollinfo.nPos = scrollinfo.nMin;
-    }
-    if (scrollinfo.nPos > offset_diff)     // 限制nPos不大于最大值nMax - nPage
-    {
-        step += scrollinfo.nPos - offset_diff;
-        scrollinfo.nPos = offset_diff;
-    }
-    SetScrollInfo(SB_VERT, &scrollinfo, SIF_ALL);
-    m_last_pos = scrollinfo.nPos;
-    ScrollWindow(0, step);
+    if (m_rail.GetSafeHwnd() != nullptr)
+        m_rail.SetMetrics(m_content_height, m_viewport_height, m_scroll_pos);
+}
+
+void CTabDlg::EnsureFocusVisible()
+{
+    HWND focus = ::GetFocus();
+    if (focus == nullptr || focus == m_rail.GetSafeHwnd() || !::IsChild(m_hWnd, focus))
+        return;
+    // The direct child of the page that holds the focused window.
+    HWND child = focus;
+    while (child != nullptr && ::GetParent(child) != m_hWnd)
+        child = ::GetParent(child);
+    if (child == nullptr)
+        return;
+    CRect rect;
+    ::GetWindowRect(child, rect);
+    ScreenToClient(rect);
+    const int margin = DPI(8);
+    if (rect.top < 0)
+        ScrollContentTo(m_scroll_pos + rect.top - margin);
+    else if (rect.bottom > m_viewport_height)
+        ScrollContentTo(m_scroll_pos + rect.bottom - m_viewport_height + margin);
+}
+
+LRESULT CTabDlg::OnEnsureFocusVisible(WPARAM, LPARAM)
+{
+    EnsureFocusVisible();
+    return 0;
 }
 
 void CTabDlg::EnableDlgCtrl(UINT id, bool enable)
@@ -142,9 +249,9 @@ void CTabDlg::ShowDlgCtrl(UINT id, bool show)
 }
 
 BEGIN_MESSAGE_MAP(CTabDlg, CBaseDialog)
-    ON_WM_VSCROLL()
     ON_WM_MOUSEWHEEL()
     ON_WM_SIZE()
+    ON_MESSAGE(EnsureFocusVisibleMessage, &CTabDlg::OnEnsureFocusVisible)
 END_MESSAGE_MAP()
 
 
@@ -159,59 +266,14 @@ void CTabDlg::ResizeDynamicLayout()
         CBaseDialog::ResizeDynamicLayout();
 }
 
-void CTabDlg::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
-{
-    // TODO: 在此添加消息处理程序代码和/或调用默认值
-    //参考资料：https://www.cnblogs.com/ranjiewen/p/6013922.html
-
-    if (m_scroll_enable)
-    {
-        int step = theApp.DPI(16);
-        switch (nSBCode)
-        {
-        case SB_LINEUP:                         //Scroll one line up
-            ScrollWindowSimple(step);
-            break;
-        case SB_LINEDOWN:                       //Scroll one line down
-            ScrollWindowSimple(-step);
-            break;
-        case SB_PAGEUP:                         //Scroll one page up.
-            ScrollWindowSimple(INT_MAX);
-            break;
-        case SB_PAGEDOWN:                       //Scroll one page down
-            ScrollWindowSimple(INT_MIN);
-            break;
-        case SB_THUMBPOSITION:                  //Scroll to the absolute position. The current position is provided in nPos
-            break;
-        case SB_THUMBTRACK:                     //Drag scroll box to specified position. The current position is provided in nPos
-            ScrollWindowSimple(nPos, true);
-            break;
-        case SB_TOP:                            // 顶部
-            ScrollWindowSimple(0, true);
-            break;
-        case SB_BOTTOM:                         // 底部
-            ScrollWindowSimple(-1, true);
-            break;
-        case SB_ENDSCROLL:                      //End scroll
-            break;
-        default:
-            break;
-        }
-    }
-    CBaseDialog::OnVScroll(nSBCode, nPos, pScrollBar);
-}
-
 
 BOOL CTabDlg::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt)
 {
     // TODO: 在此添加消息处理程序代码和/或调用默认值
-    if (m_scroll_enable)
+    if (m_scroll_enable && m_content_height > m_viewport_height)
     {
-        int step = theApp.DPI(64) * zDelta / 120;
-        ScrollWindowSimple(step);
-        SCROLLINFO scrollinfo;
-        GetScrollInfo(SB_VERT, &scrollinfo, SIF_ALL);
-        m_last_pos = scrollinfo.nPos;
+        ScrollContentTo(m_scroll_pos - DPI(64) * zDelta / 120);
+        return TRUE;
     }
 
     return CBaseDialog::OnMouseWheel(nFlags, zDelta, pt);
@@ -228,10 +290,7 @@ void CTabDlg::OnOK()
 
 bool CTabDlg::IsScrollBarVisible()
 {
-    SCROLLINFO scrollinfo;
-    GetScrollInfo(SB_VERT, &scrollinfo, SIF_ALL);
-    bool visible = scrollinfo.nPage < scrollinfo.nMax;
-    return visible;
+    return m_content_height > m_viewport_height;
 }
 
 void CTabDlg::OnSize(UINT nType, int cx, int cy)
@@ -239,5 +298,7 @@ void CTabDlg::OnSize(UINT nType, int cx, int cy)
     CBaseDialog::OnSize(nType, cx, cy);
 
     // TODO: 在此处添加消息处理程序代码
+    if (IsMaterialPage() && nType != SIZE_MINIMIZED)
+        UpdatePageLayout();
     SetControlMouseWheelEnable(!IsScrollBarVisible());      //如果显示了滚动条，则禁止控件响应鼠标滚轮，此时鼠标滚轮用于滚动窗口
 }
