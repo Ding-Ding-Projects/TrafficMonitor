@@ -9,6 +9,9 @@
 #include "SetupFlowProgress.h"
 #include "../TrafficMonitorDlg.h"
 #include "../NativeMaterial/Controls.h"
+#include "../NativeMaterial/InputControls.h"
+#include "../NativeMaterial/Label.h"
+#include "../NativeMaterial/Slider.h"
 #include "../NativeMaterial/TitleBar.h"
 #include <afxcmn.h>
 #include <iphlpapi.h>
@@ -118,15 +121,8 @@ namespace NativeDashboard::Setup
         }
         bool StartupEnabled() { return theApp.GetAutoRun(nullptr, theApp.m_installed_mode ? false : theApp.m_general_data.auto_run_by_task_scheduler); }
         bool active{};
-        // Setup ranges notify their immediate parent, unlike the forwarded commands.
-        class StepViewport final : public NativeSettings::SettingsViewport
-        {
-            LRESULT WindowProc(UINT message, WPARAM w, LPARAM l) override
-            {
-                if(message==WM_HSCROLL)return GetParent()->SendMessage(message,w,l);
-                return NativeSettings::SettingsViewport::WindowProc(message,w,l);
-            }
-        };
+        // Positions of the drop-down fields. Language is chosen in the shared preference editor, so it has no field here.
+        enum : size_t { ModeField, AdapterField, TaskbarField, StartupField, FieldCount };
         class Wizard final : public CDialog
         {
         public:
@@ -143,12 +139,11 @@ namespace NativeDashboard::Setup
             afx_msg void OnGetMinMaxInfo(MINMAXINFO* info);
             afx_msg HBRUSH OnCtlColor(CDC*, CWnd*, UINT);
             afx_msg LRESULT OnDpi(WPARAM, LPARAM);
-            afx_msg void OnHScroll(UINT, UINT, CScrollBar*);
             DECLARE_MESSAGE_MAP()
         private:
             NativePreferences::Editor m_preferences;NativePreferences::Subscription m_subscription;NativeMaterial::TitleBar m_titleBar;
             NativeMaterial::TitleBar::Labels Captions() const{const int lang=m_draft.language;const auto pick=[&](const wchar_t* en,const wchar_t* zh){return lang==1?CString(zh):lang==2?CString(en)+L" / "+zh:CString(en);};NativeMaterial::TitleBar::Labels l;l.minimize=pick(L"Minimize",L"最小化");l.maximize=pick(L"Maximize",L"最大化");l.restore=pick(L"Restore",L"還原");l.close=pick(L"Close",L"關閉");return l;}
-            StepViewport m_body;int m_scroll{},m_contentHeight{},m_viewHeight{},m_layoutStep{-1};
+            NativeSettings::SettingsViewport m_body;int m_scroll{},m_contentHeight{},m_viewHeight{},m_layoutStep{-1};
             LRESULT OnPreferences(WPARAM generation,LPARAM);
             LRESULT WindowProc(UINT message,WPARAM w,LPARAM l) override {if(message==WM_NCDESTROY)m_subscription.Detach();if(message==WM_SETTINGCHANGE||message==WM_THEMECHANGED)NativePreferences::RefreshSystemAppearance();return CDialog::WindowProc(message,w,l);}
             CString T(Copy id) const { return Text(id, m_draft.language); }
@@ -159,11 +154,12 @@ namespace NativeDashboard::Setup
             UINT m_dpi{96}; bool m_loading{}, m_applying{}, m_changingDpi{};
             NativeMaterial::Appearance m_appearance{NativeMaterial::Appearance::Light};
             CFont m_font, m_titleFont, m_labelFont; CBrush m_background;
-            CStatic m_heading, m_info, m_note, m_styleScope;
+            NativeMaterial::Label m_heading, m_info, m_note, m_styleScope;
             NativeMaterial::ReadOnlyText m_review;
-            std::array<CStatic, 7> m_labels;
-            std::array<NativeMaterial::Choice, 7> m_choices;
-            std::array<NativeMaterial::RangeValue, 2> m_ranges;
+            // Self-drawn Material fields. No stock static, combo box or trackbar window exists in the wizard.
+            std::array<NativeMaterial::Label, 2> m_sliderLabels;
+            std::array<NativeMaterial::Slider, 2> m_sliders;
+            std::array<NativeMaterial::Dropdown, FieldCount> m_fields;
             NativeMaterial::Button m_back, m_next, m_save, m_refresh, m_keep;
         };
         BEGIN_MESSAGE_MAP(Wizard, CDialog)
@@ -172,7 +168,6 @@ namespace NativeDashboard::Setup
             ON_WM_SIZE()
             ON_WM_GETMINMAXINFO()
             ON_WM_CTLCOLOR()
-            ON_WM_HSCROLL()
             ON_MESSAGE(NativePreferences::ChangedMessage,&Wizard::OnPreferences)
             ON_MESSAGE(WM_DPICHANGED, &Wizard::OnDpi)
         END_MESSAGE_MAP()
@@ -190,11 +185,16 @@ namespace NativeDashboard::Setup
             m_heading.Create(L"", child, box, this); m_info.Create(L"", child, box, &m_body); m_note.Create(L"", child, box, this);
             m_styleScope.Create(L"",child,box,&m_body);
             m_review.Create(box, &m_body, 55030);m_review.ModifyStyle(WS_VSCROLL,0,SWP_FRAMECHANGED);m_review.SetAppearance(m_appearance);
-            for (size_t i = 0; i < m_choices.size(); ++i)
+            m_heading.SetAppearance(m_appearance);m_info.SetAppearance(m_appearance);m_note.SetAppearance(m_appearance);m_styleScope.SetAppearance(m_appearance);
+            for (size_t i = 0; i < m_sliders.size(); ++i)
             {
-                m_labels[i].Create(L"", child, box, &m_body);
-                if(i==1||i==2){m_ranges[i-1].Create(box,&m_body,Language+static_cast<UINT>(i));m_ranges[i-1].SetAppearance(m_appearance);}
-                else{m_choices[i].Create(child|WS_TABSTOP|CBS_DROPDOWNLIST|WS_VSCROLL, box, &m_body, Language + static_cast<UINT>(i));m_choices[i].SetAppearance(m_appearance);}
+                m_sliderLabels[i].Create(L"", child, box, &m_body);m_sliderLabels[i].SetAppearance(m_appearance);
+                m_sliders[i].Create(L"", box, &m_body, EnglishStyle + static_cast<UINT>(i));m_sliders[i].SetAppearance(m_appearance);
+                m_sliders[i].SetRange(1, 5);m_sliders[i].SetStep(1);m_sliders[i].SetPageStep(1);m_sliders[i].SetDiscrete(true);m_sliders[i].SetShowValue(true);
+            }
+            for (size_t i = 0; i < m_fields.size(); ++i)
+            {
+                m_fields[i].Create(L"", box, &m_body, ModeChoice + static_cast<UINT>(i));m_fields[i].SetAppearance(m_appearance);
             }
             m_back.Create(L"", box, this, Back); m_next.Create(L"", box, this, Next); m_save.Create(L"", box, this, SaveClose);
             m_refresh.Create(L"", box, &m_body, Refresh); m_keep.Create(L"", box, &m_body, KeepRemaining);
@@ -218,47 +218,46 @@ namespace NativeDashboard::Setup
             if(previous)DeleteObject(previous);
             m_titleFont.DeleteObject();font.lfHeight=-Px(22);font.lfWeight=FW_SEMIBOLD;m_titleFont.CreateFontIndirect(&font);m_heading.SetFont(&m_titleFont);
             m_labelFont.DeleteObject();font.lfHeight=-Px(14);font.lfWeight=FW_MEDIUM;m_labelFont.CreateFontIndirect(&font);
-            for(auto& label:m_labels)label.SetFont(&m_labelFont);
+            for(auto& label:m_sliderLabels)label.SetFont(&m_labelFont);
         }
         void Wizard::Labels()
         {
             m_loading=true; SetWindowText(T(Copy::Title));m_titleBar.SetLabels(Captions());
-            std::array<bool,7> dropped{};
-            for(int i:{0,3,4,5,6})dropped[i]=m_choices[i].GetDroppedState()!=FALSE;
-            const Copy labels[] = {Copy::Language,Copy::EnglishStyle,Copy::CantoneseStyle,Copy::ModeLabel,Copy::AdapterLabel,Copy::TaskbarLabel,Copy::StartupLabel};
-            for(size_t i=0;i<m_labels.size();++i)m_labels[i].SetWindowText(T(labels[i]));
-            for (int i : {0,3,5,6}) m_choices[i].ResetContent();
-            for(const auto* label:{L"English",L"廣東話",L"English / 廣東話"})m_choices[0].AddString(label);
-            m_ranges[0].SetWindowText(T(Copy::EnglishStyle));m_ranges[1].SetWindowText(T(Copy::CantoneseStyle));
-            for(auto label:{Copy::Automatic,Copy::All,Copy::One})m_choices[3].AddString(T(label));
-            for(int i:{5,6})for(auto label:{Copy::Keep,Copy::Enable,Copy::Disable})m_choices[i].AddString(T(label));
-            m_choices[0].SetCurSel(m_draft.language);m_ranges[0].SetPos(m_draft.english);m_ranges[1].SetPos(m_draft.cantonese);
-            m_choices[3].SetCurSel(static_cast<int>(m_draft.selection.mode));m_choices[5].SetCurSel(m_draft.taskbar);m_choices[6].SetCurSel(m_draft.startup);
+            std::array<bool,FieldCount> dropped{};
+            for(size_t i=0;i<FieldCount;++i)dropped[i]=i!=AdapterField&&m_fields[i].IsOpen();
+            m_fields[ModeField].SetLabel(T(Copy::ModeLabel));m_fields[AdapterField].SetLabel(T(Copy::AdapterLabel));
+            m_fields[TaskbarField].SetLabel(T(Copy::TaskbarLabel));m_fields[StartupField].SetLabel(T(Copy::StartupLabel));
+            m_sliderLabels[0].SetWindowText(T(Copy::EnglishStyle));m_sliderLabels[1].SetWindowText(T(Copy::CantoneseStyle));
+            m_sliders[0].SetLabel(T(Copy::EnglishStyle));m_sliders[1].SetLabel(T(Copy::CantoneseStyle));
+            for(size_t i:{ModeField,TaskbarField,StartupField})m_fields[i].ResetContent();
+            for(auto label:{Copy::Automatic,Copy::All,Copy::One})m_fields[ModeField].AddItem(T(label));
+            for(size_t i:{TaskbarField,StartupField})for(auto label:{Copy::Keep,Copy::Enable,Copy::Disable})m_fields[i].AddItem(T(label));
+            m_sliders[0].SetValue(m_draft.english);m_sliders[1].SetValue(m_draft.cantonese);
+            m_fields[ModeField].SetCurSel(static_cast<int>(m_draft.selection.mode));m_fields[TaskbarField].SetCurSel(m_draft.taskbar);m_fields[StartupField].SetCurSel(m_draft.startup);
             m_back.SetLabel(T(Copy::Back));m_save.SetLabel(T(m_draft.protectedSchema?Copy::CloseUnsaved:Copy::SaveClose));m_refresh.SetLabel(T(Copy::Refresh));m_keep.SetLabel(T(Copy::KeepRemaining));
-            for(int i:{0,3,4,5,6})if(dropped[i])m_choices[i].ShowDropDown(TRUE);
+            for(size_t i=0;i<FieldCount;++i)if(dropped[i])m_fields[i].Open();
             m_loading=false;
-        }
-        void Wizard::ReloadAdapters()
+        }        void Wizard::ReloadAdapters()
         {
-            m_discovery=Discover();m_choices[4].ResetContent();int selected=-1;
+            m_discovery=Discover();m_fields[AdapterField].ResetContent();int selected=-1;
             for(const auto& adapter:m_discovery.adapters)
             {
-                int row=m_choices[4].AddString((adapter.name+L" · "+adapter.guid).c_str());
+                int row=m_fields[AdapterField].AddItem((adapter.name+L" · "+adapter.guid).c_str());
                 if(adapter.guid==m_draft.selection.guid)selected=row;
             }
-            m_choices[4].SetCurSel(selected);
+            m_fields[AdapterField].SetCurSel(selected);
         }
         void Wizard::ReadControls()
         {
             if(m_loading)return;
             m_draft.preferences=m_preferences.draft;m_draft.language=static_cast<int>(m_preferences.draft.values.language);
-            m_draft.english=Bound(m_ranges[0].GetPos(),1,5);m_draft.cantonese=Bound(m_ranges[1].GetPos(),1,5);
-            const Mode mode=static_cast<Mode>(Bound(m_choices[3].GetCurSel(),0,2));
-            std::wstring guid=m_draft.selection.guid;const int row=m_choices[4].GetCurSel();
+            m_draft.english=Bound(m_sliders[0].GetValue(),1,5);m_draft.cantonese=Bound(m_sliders[1].GetValue(),1,5);
+            const Mode mode=static_cast<Mode>(Bound(m_fields[ModeField].GetCurSel(),0,2));
+            std::wstring guid=m_draft.selection.guid;const int row=m_fields[AdapterField].GetCurSel();
             if(row>=0&&static_cast<size_t>(row)<m_discovery.adapters.size())guid=m_discovery.adapters[row].guid;
             if(mode!=m_draft.selection.mode||guid!=m_draft.selection.guid)m_draft.results[0]=Result::Pending;
             m_draft.selection={mode,guid};
-            int taskbar=Bound(m_choices[5].GetCurSel(),0,2),startup=Bound(m_choices[6].GetCurSel(),0,2);
+            int taskbar=Bound(m_fields[TaskbarField].GetCurSel(),0,2),startup=Bound(m_fields[StartupField].GetCurSel(),0,2);
             if(taskbar!=m_draft.taskbar)m_draft.results[1]=Result::Pending;if(startup!=m_draft.startup)m_draft.results[2]=Result::Pending;
             m_draft.taskbar=taskbar;m_draft.startup=startup;
         }
@@ -273,8 +272,10 @@ namespace NativeDashboard::Setup
             const int bodyWidth=(std::min)(856,width-48),contentWidth=bodyWidth-24;
             auto place=[&](CWnd& child,int x,int y,int w,int h){child.MoveWindow(Px(x),Px(y),Px((std::max)(1,w)),Px((std::max)(1,h)));};
             auto placeTop=[&](CWnd& child,int x,int y,int w,int h){place(child,x,y+NativeMaterial::TitleBar::HeightDp,w,h);};
-            auto textHeight=[&](CWnd& control,int available,int minimum)
+            auto textHeight=[&](CWnd& control,int available,int minimum)->int
             {
+                if(auto* label=dynamic_cast<NativeMaterial::Label*>(&control))
+                    return (std::max)(minimum,(label->MeasureHeight(Px((std::max)(1,available)))*96+static_cast<int>(m_dpi)-1)/static_cast<int>(m_dpi)+4);
                 CClientDC dc(&control);auto old=dc.SelectObject(control.GetFont());
                 CString text;control.GetWindowText(text);CRect measured(0,0,Px((std::max)(1,available)),0);
                 dc.DrawText(text,measured,DT_CALCRECT|DT_WORDBREAK|DT_NOPREFIX);dc.SelectObject(old);
@@ -289,7 +290,7 @@ namespace NativeDashboard::Setup
             // Reserve the measured status and action region before allocating the body.
             const int buttonWidth=(width-72)/3;
             int buttonHeight=44;
-            for(auto* button:{&m_back,&m_save,&m_next})buttonHeight=(std::max)(buttonHeight,textHeight(*button,buttonWidth-32,24)+20);
+            for(auto* button:{&m_back,&m_save,&m_next})buttonHeight=(std::max)(buttonHeight,textHeight(*button,buttonWidth-56,24)+20);
             CString note;m_note.GetWindowText(note);
             const int noteHeight=note.IsEmpty()?0:textHeight(m_note,width-48,20);
             const int buttonTop=height-18-buttonHeight,noteTop=buttonTop-(noteHeight?noteHeight+12:0);
@@ -300,27 +301,32 @@ namespace NativeDashboard::Setup
             int y=-m_scroll;
             const int infoHeight=textHeight(m_info,contentWidth,20);place(m_info,0,y,contentWidth,infoHeight);y+=infoHeight+16;
             y+=m_preferences.Layout(0,y,contentWidth,m_dpi,m_draft.step==0);
-            for(int i=0;i<7;++i)
+            const int fieldWidth=(std::min)(contentWidth,560);
+            for(int i=0;i<2;++i)
             {
-                const bool visible=(m_draft.step==0&&i>0&&i<3)||(m_draft.step==1&&(i==3||i==4))||(m_draft.step==2&&i>=5);
-                CWnd& choice=(i==1||i==2)?static_cast<CWnd&>(m_ranges[i-1]):static_cast<CWnd&>(m_choices[i]);
-                m_labels[i].ShowWindow(visible?SW_SHOW:SW_HIDE);choice.ShowWindow(visible?SW_SHOW:SW_HIDE);
+                const bool visible=m_draft.step==0;
+                m_sliderLabels[i].ShowWindow(visible?SW_SHOW:SW_HIDE);m_sliders[i].ShowWindow(visible?SW_SHOW:SW_HIDE);
                 if(visible)
                 {
-                    const int labelHeight=textHeight(m_labels[i],contentWidth,24);
-                    place(m_labels[i],0,y,contentWidth,labelHeight);y+=labelHeight+8;
-                    place(choice,0,y,contentWidth,(i==1||i==2)?48:220);y+=48+16;
+                    const int labelHeight=textHeight(m_sliderLabels[i],fieldWidth,24);
+                    place(m_sliderLabels[i],0,y,fieldWidth,labelHeight);y+=labelHeight+4;
+                    place(m_sliders[i],0,y,fieldWidth,48);y+=48+16;
                 }
             }
-            m_styleScope.ShowWindow(m_draft.step==0?SW_SHOW:SW_HIDE);
+            for(size_t i=0;i<FieldCount;++i)
+            {
+                const bool visible=(m_draft.step==1&&i<=AdapterField)||(m_draft.step==2&&i>=TaskbarField);
+                m_fields[i].ShowWindow(visible?SW_SHOW:SW_HIDE);
+                if(visible){place(m_fields[i],0,y,fieldWidth,84);y+=84+8;}
+            }            m_styleScope.ShowWindow(m_draft.step==0?SW_SHOW:SW_HIDE);
             if(m_draft.step==0){const int h=textHeight(m_styleScope,contentWidth,20);place(m_styleScope,0,y,contentWidth,h);y+=h+12;}
-            m_choices[4].EnableWindow(m_draft.selection.mode==Mode::One&&!m_applying);
+            m_fields[AdapterField].EnableWindow(m_draft.selection.mode==Mode::One&&!m_applying);
             m_refresh.ShowWindow(m_draft.step==1?SW_SHOW:SW_HIDE);
-            if(m_draft.step==1){const int h=textHeight(m_refresh,contentWidth-32,24)+20;place(m_refresh,0,y,contentWidth,h);y+=h+12;}
+            if(m_draft.step==1){const int h=textHeight(m_refresh,contentWidth-56,24)+20;place(m_refresh,0,y,contentWidth,h);y+=h+12;}
             m_review.ShowWindow(m_draft.step>=2?SW_SHOW:SW_HIDE);
             if(m_draft.step>=2){Review();const int h=textHeight(m_review,contentWidth-24,120)+24;place(m_review,0,y,contentWidth,h);y+=h+16;}
             m_keep.ShowWindow(m_draft.step==3?SW_SHOW:SW_HIDE);
-            if(m_draft.step==3){const int h=textHeight(m_keep,contentWidth-32,24)+20;place(m_keep,0,y,contentWidth,h);y+=h+12;}
+            if(m_draft.step==3){const int h=textHeight(m_keep,contentWidth-56,24)+20;place(m_keep,0,y,contentWidth,h);y+=h+12;}
             m_contentHeight=y+m_scroll;
             int nextScroll=m_scroll;
             if(anchored){CRect after;::GetWindowRect(focus,&after);m_body.ScreenToClient(after);nextScroll+=MulDiv(after.top-before.top,96,m_dpi);}
@@ -350,15 +356,14 @@ namespace NativeDashboard::Setup
         }
         void Wizard::Review()
         {
-            CString summary=T(Copy::ModeLabel)+L": "+T(m_draft.selection.mode==Mode::Automatic?Copy::Automatic:m_draft.selection.mode==Mode::All?Copy::All:Copy::One);
+            // One line per item: what will be requested, the current state where it matters, then how far the operation got.
+            const auto result=[&](int i){return T(m_draft.results[i]==Result::Applied?Copy::Applied:m_draft.results[i]==Result::Applying?Copy::Applying:m_draft.results[i]==Result::Failed?Copy::Failed:Copy::NotStarted);};
+            CString summary=T(Copy::ModeLabel)+L": "+T(m_draft.selection.mode==Mode::Automatic?Copy::Automatic:m_draft.selection.mode==Mode::All?Copy::All:Copy::One)+L" · "+result(0);
             if(m_draft.selection.mode==Mode::One)summary+=L"\r\n"+CString(m_draft.selection.guid.c_str());
             summary+=L"\r\n"+T(Copy::TaskbarLabel)+L": "+T(m_draft.taskbar==0?Copy::Keep:m_draft.taskbar==1?Copy::Enable:Copy::Disable)
-                +L" ("+T(theApp.m_cfg_data.m_show_task_bar_wnd?Copy::CurrentOn:Copy::CurrentOff)+L")";
+                +L" ("+T(theApp.m_cfg_data.m_show_task_bar_wnd?Copy::CurrentOn:Copy::CurrentOff)+L") · "+result(1);
             summary+=L"\r\n"+T(Copy::StartupLabel)+L": "+T(m_draft.startup==0?Copy::Keep:m_draft.startup==1?Copy::Enable:Copy::Disable)
-                +L" ("+T(StartupEnabled()?Copy::CurrentOn:Copy::CurrentOff)+L")";
-            const Copy names[]={Copy::ModeLabel,Copy::TaskbarLabel,Copy::StartupLabel};
-            for(int i=0;i<3;++i)summary+=L"\r\n"+T(names[i])+L": "+T(m_draft.results[i]==Result::Applied?Copy::Applied:m_draft.results[i]==Result::Applying?Copy::Applying:m_draft.results[i]==Result::Failed?Copy::Failed:Copy::NotStarted);
-            CString previous;m_review.GetWindowText(previous);
+                +L" ("+T(StartupEnabled()?Copy::CurrentOn:Copy::CurrentOff)+L") · "+result(2);            CString previous;m_review.GetWindowText(previous);
             if(previous!=summary)
             {
                 int start{},end{};m_review.GetSel(start,end);m_review.SetWindowText(summary);
@@ -423,18 +428,17 @@ namespace NativeDashboard::Setup
             if(!Save(m_draft)){m_draft.complete=false;Layout();Note(Copy::SaveFailed);return;}
             if(m_draft.complete){NativeSounds::Notify(NativeSounds::Action::SetupCompleted);EndDialog(IDOK);}else{Layout();Note(Copy::Incomplete);}
         }
-        void Wizard::OnHScroll(UINT code,UINT position,CScrollBar* bar)
-        {
-            CDialog::OnHScroll(code,position,bar);
-            if(m_loading||m_applying)return;ReadControls();
-            m_note.SetWindowText(StyleNote(m_draft.language,m_draft.english,m_draft.cantonese));Layout();
-        }
         BOOL Wizard::OnCommand(WPARAM w,LPARAM l)
         {
             UINT id=LOWORD(w);if(m_applying)return TRUE;
             if(HIWORD(w)==BN_CLICKED&&m_preferences.Command(id)){ReadControls();Labels();Layout();RevealFocus();return TRUE;}
-            if(id>=Language&&id<=StartupChoice&&HIWORD(w)==CBN_SELCHANGE)
+            if(id>=ModeChoice&&id<=StartupChoice&&HIWORD(w)==CBN_SELCHANGE)
             {ReadControls();Labels();Layout();m_note.SetWindowText(StyleNote(m_draft.language,m_draft.english,m_draft.cantonese));Layout();return TRUE;}
+            if((id==EnglishStyle||id==CantoneseStyle)&&HIWORD(w)==EN_CHANGE)
+            {
+                if(m_loading||m_applying)return TRUE;ReadControls();
+                m_note.SetWindowText(StyleNote(m_draft.language,m_draft.english,m_draft.cantonese));Layout();return TRUE;
+            }
             if(HIWORD(w)!=BN_CLICKED)return CDialog::OnCommand(w,l);
             if(id==Next){Advance();return TRUE;}if(id==SaveClose){OnCancel();return TRUE;}
             if(id==Back){ReadControls();if(m_draft.step>0)--m_draft.step;Layout();return TRUE;}
@@ -460,8 +464,10 @@ namespace NativeDashboard::Setup
             m_preferences.Refresh();
             for(auto* button:{&m_back,&m_next,&m_save,&m_refresh,&m_keep})button->SetAppearance(m_appearance);
             m_review.SetAppearance(m_appearance);
-            for(auto& range:m_ranges)range.SetAppearance(m_appearance);
-            for(auto& choice:m_choices)if(choice.GetSafeHwnd())choice.SetAppearance(m_appearance);
+            for(auto* label:{&m_heading,&m_info,&m_note,&m_styleScope})label->SetAppearance(m_appearance);
+            for(auto& label:m_sliderLabels)label.SetAppearance(m_appearance);
+            for(auto& slider:m_sliders)slider.SetAppearance(m_appearance);
+            for(auto& field:m_fields)field.SetAppearance(m_appearance);
             ReadControls();Labels();Layout();
             if(edit&&::IsWindow(focus))::SendMessage(focus,EM_SETSEL,selectionStart,selectionEnd);
             RevealFocus();return 0;

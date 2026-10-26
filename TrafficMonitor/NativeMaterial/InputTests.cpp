@@ -2,6 +2,7 @@
 // never-shown parent and driven with window messages. Nothing here needs a visible desktop.
 #include "../stdafx.h"
 #include "InputControls.h"
+#include "Slider.h"
 #include "../NativePreferences/Text.h"
 #include "../NativeMenus/SearchableMenu.h"
 #include <cstdio>
@@ -26,6 +27,8 @@ namespace
     {
     public:
         std::vector<std::pair<UINT, UINT>> log;
+        std::vector<UINT> scrolls;   // WM_HSCROLL codes
+        int ScrollCount(UINT code) const { int n = 0; for (UINT c : scrolls) if (c == code) ++n; return n; }
         int Count(UINT id, UINT code) const
         {
             int n = 0;
@@ -37,6 +40,7 @@ namespace
         LRESULT WindowProc(UINT message, WPARAM w, LPARAM l) override
         {
             if (message == WM_COMMAND) log.emplace_back(LOWORD(w), HIWORD(w));
+            if (message == WM_HSCROLL) scrolls.push_back(LOWORD(w));
             return CWnd::WindowProc(message, w, l);
         }
     };
@@ -547,6 +551,82 @@ int wmain()
         Check(!dd.IsOpen() && dd.PopupWindow() == nullptr, "Close destroys the popup window");
     }
 
+    // ------------------------------------------------------------------ Slider
+    Slider slider;
+    Check(slider.Create(L"Message style", CRect(300, 640, 620, 688), &host, 170) != FALSE, "slider created");
+    slider.SetRange(1, 5);
+    slider.SetStep(1);
+    slider.SetDiscrete(true);
+    slider.SetShowValue(true);
+    slider.SetValue(3);
+    host.log.clear(); host.scrolls.clear();
+    Check(slider.GetValue() == 3 && slider.GetValueText() == L"3" && host.Total() == 0 && host.scrolls.empty(), "programmatic slider value is silent");
+    Check((slider.GetStyle() & WS_TABSTOP) != 0, "slider is a tab stop");
+    Key(slider.GetSafeHwnd(), VK_RIGHT);
+    Check(slider.GetValue() == 4 && host.Count(170, EN_CHANGE) == 1 && host.ScrollCount(SB_LINERIGHT) == 1 && host.ScrollCount(SB_ENDSCROLL) == 1, "slider Right arrow adds a step and notifies");
+    Key(slider.GetSafeHwnd(), VK_LEFT);
+    Key(slider.GetSafeHwnd(), VK_DOWN);
+    Check(slider.GetValue() == 2 && host.Count(170, EN_CHANGE) == 3 && host.ScrollCount(SB_LINELEFT) == 2, "slider Left and Down arrows subtract a step");
+    Key(slider.GetSafeHwnd(), VK_UP);
+    Check(slider.GetValue() == 3, "slider Up arrow adds a step");
+    Key(slider.GetSafeHwnd(), VK_END);
+    Check(slider.GetValue() == 5 && host.ScrollCount(SB_RIGHT) == 1, "slider End jumps to the maximum");
+    host.log.clear();
+    Key(slider.GetSafeHwnd(), VK_RIGHT);
+    Check(slider.GetValue() == 5 && host.Total() == 0, "slider Right arrow at the maximum keeps the value and notifies nothing");
+    Key(slider.GetSafeHwnd(), VK_HOME);
+    Check(slider.GetValue() == 1 && host.ScrollCount(SB_LEFT) == 1, "slider Home jumps to the minimum");
+    slider.SetPageStep(2);
+    Key(slider.GetSafeHwnd(), VK_PRIOR);
+    Check(slider.GetValue() == 3 && host.ScrollCount(SB_PAGERIGHT) == 1, "slider PageUp moves by the page step");
+    Key(slider.GetSafeHwnd(), VK_NEXT);
+    Key(slider.GetSafeHwnd(), VK_NEXT);
+    Check(slider.GetValue() == 1, "slider PageDown moves by the page step and clamps at the minimum");
+    {
+        Check(SliderSnap(3, 0, 10, 2) == 4 && SliderSnap(99, 0, 10, 2) == 10 && SliderSnap(-4, 0, 10, 2) == 0 && SliderSnap(9, 0, 9, 2) == 9, "slider snaps to the step grid inside the range");
+        CRect client;
+        slider.GetClientRect(client);
+        const auto layout = LayoutSlider(Dip(slider, client.Width()), Dip(slider, client.Height()), true);
+        auto at = [&](int value) { return Px(slider, SliderHandleX(layout, value, 1, 5)); };
+        const int y = client.CenterPoint().y;
+        host.log.clear(); host.scrolls.clear();
+        Click(slider.GetSafeHwnd(), at(4), y);
+        Check(slider.GetValue() == 4 && host.Count(170, EN_CHANGE) == 1, "clicking the track moves the handle to that value and notifies");
+        Check(host.ScrollCount(SB_THUMBPOSITION) == 1 && host.ScrollCount(SB_ENDSCROLL) == 1, "a click ends with thumb position and end scroll");
+        host.log.clear(); host.scrolls.clear();
+        SendMessage(slider.GetSafeHwnd(), WM_LBUTTONDOWN, MK_LBUTTON, Point(at(2), y));
+        SendMessage(slider.GetSafeHwnd(), WM_MOUSEMOVE, MK_LBUTTON, Point(at(3), y));
+        Check(slider.GetValue() == 3 && host.ScrollCount(SB_THUMBTRACK) >= 2, "dragging tracks the pointer and reports thumb tracking");
+        SendMessage(slider.GetSafeHwnd(), WM_MOUSEMOVE, MK_LBUTTON, Point(client.right + 200, y));
+        Check(slider.GetValue() == 5, "dragging beyond the end clamps at the maximum");
+        SendMessage(slider.GetSafeHwnd(), WM_LBUTTONUP, 0, Point(client.right + 200, y));
+        Check(slider.GetValue() == 5 && host.ScrollCount(SB_ENDSCROLL) == 1, "releasing the handle ends the drag once");
+        host.log.clear();
+        SendMessage(slider.GetSafeHwnd(), WM_MOUSEMOVE, 0, Point(at(1), y));
+        Check(slider.GetValue() == 5 && host.Total() == 0, "moving without a pressed button does not change the slider");
+        Check(slider.ValueAtClientX(at(1)) == 1 && slider.ValueAtClientX(-100) == 1 && slider.ValueAtClientX(client.right + 100) == 5, "pointer positions map to the nearest value inside the range");
+    }
+    slider.SetValue(3);
+    host.log.clear();
+    slider.EnableWindow(FALSE);
+    Key(slider.GetSafeHwnd(), VK_RIGHT);
+    ClickCenter(slider);
+    Check(slider.GetValue() == 3 && host.Total() == 0, "disabled slider ignores mouse and keyboard");
+    slider.EnableWindow(TRUE);
+    {
+        auto provider = Provider(slider);
+        auto range = Pattern<IRangeValueProvider>(provider.Get(), UIA_RangeValuePatternId);
+        double value = -1, minimum = -1, maximum = -1, smallChange = -1, largeChange = -1;
+        Check(range && SUCCEEDED(range->get_Value(&value)) && SUCCEEDED(range->get_Minimum(&minimum)) && SUCCEEDED(range->get_Maximum(&maximum))
+            && SUCCEEDED(range->get_SmallChange(&smallChange)) && SUCCEEDED(range->get_LargeChange(&largeChange))
+            && value == 3 && minimum == 1 && maximum == 5 && smallChange == 1 && largeChange == 2, "slider exposes RangeValue with its range, small and large change");
+        Check(Name(provider.Get()) == L"Message style" && ControlType(provider.Get()) == UIA_SliderControlTypeId, "slider exposes its name and a slider role");
+        host.log.clear();
+        Check(range && SUCCEEDED(range->SetValue(5.0)), "slider RangeValue accepts an in-range value");
+        Pump();
+        Check(slider.GetValue() == 5 && host.Count(170, EN_CHANGE) == 1, "automation SetValue moves the slider and notifies");
+        Check(range && range->SetValue(9.0) == E_INVALIDARG && range->SetValue(2.5) == E_INVALIDARG, "slider RangeValue rejects out-of-range and fractional values");
+    }
     // -------------------------------------------------------- LabeledTextField
     LabeledTextField field;
     Check(field.Create(L"Name", CRect(300, 470, 580, 590), &host, 160) != FALSE, "labeled text field created");
@@ -587,7 +667,7 @@ int wmain()
     {
         CString found;
         Check(!HasStockChild(host.GetSafeHwnd(), &found), "no component creates a stock Button, ComboBox, ComboLBox, up-down or trackbar child");
-        const HWND windows[] = { sw, cb, r1, r2, r3, r4, r5, group, seg, stepper, dd, field, field.ClearControl() };
+        const HWND windows[] = { sw, cb, r1, r2, r3, r4, r5, group, seg, stepper, slider, dd, field, field.ClearControl() };
         bool stock = false;
         for (const HWND w : windows) stock = stock || IsStockClass(w);
         Check(!stock, "no component window itself is a stock control class");
@@ -597,13 +677,13 @@ int wmain()
     {
         const UINT dpi = GetDpiForWindow(host.GetSafeHwnd());
         auto tall = [&](InputWindow& w) { return w.MinimumSize().cy * 96.0 / dpi >= 40 && w.MinimumSize().cx * 96.0 / dpi >= 40; };
-        Check(tall(sw) && tall(cb) && tall(r1) && tall(group) && tall(seg) && tall(stepper) && tall(dd) && tall(field) && tall(field.ClearControl()), "every component reports a minimum target of at least 40 logical pixels");
+        Check(tall(sw) && tall(cb) && tall(r1) && tall(group) && tall(seg) && tall(stepper) && tall(slider) && tall(dd) && tall(field) && tall(field.ClearControl()), "every component reports a minimum target of at least 40 logical pixels");
     }
 
     // ------------------------------------------------------------ real window paint
     for (auto appearance : { Appearance::Light, Appearance::Dark })
     {
-        InputWindow* all[] = { &sw, &cb, &r1, &group, &seg, &stepper, &dd, &field, &field.ClearControl() };
+        InputWindow* all[] = { &sw, &cb, &r1, &group, &seg, &stepper, &slider, &dd, &field, &field.ClearControl() };
         for (auto* component : all) component->SetAppearance(appearance);
         bool allInk = true;
         for (auto* component : all) allInk = allInk && WindowInk(*component) > 40;
@@ -646,6 +726,14 @@ int wmain()
         const auto stepperError = Render(dpi, 240, 84, appearance, [&](auto* t, const auto& p) { DrawStepper(t, p, L"Interval", L"Enter a value from 0 to 10.", true, true, StepperPart::None, StepperPart::None, bad); });
         const auto stepperHover = Render(dpi, 240, 84, appearance, [&](auto* t, const auto& p) { DrawStepper(t, p, L"Interval", L"", true, true, StepperPart::Plus, StepperPart::None, on); });
         Check(Ink(stepperPlain) > 500 && Difference(stepperPlain, stepperError) > 100 && Difference(stepperPlain, stepperHover) > 50, named("number stepper"));
+        const auto sliderLow = Render(dpi, 280, 48, appearance, [&](auto* t, const auto& p) { DrawSlider(t, p, 1, 1, 5, 1, true, true, L"1", on); });
+        const auto sliderHigh = Render(dpi, 280, 48, appearance, [&](auto* t, const auto& p) { DrawSlider(t, p, 5, 1, 5, 1, true, true, L"5", on); });
+        const auto sliderFocus = Render(dpi, 280, 48, appearance, [&](auto* t, const auto& p) { DrawSlider(t, p, 5, 1, 5, 1, true, true, L"5", focus); });
+        const auto sliderOff = Render(dpi, 280, 48, appearance, [&](auto* t, const auto& p) { DrawSlider(t, p, 5, 1, 5, 1, true, true, L"5", off); });
+        const auto sliderPlain = Render(dpi, 280, 48, appearance, [&](auto* t, const auto& p) { DrawSlider(t, p, 3, 1, 5, 1, false, true, L"3", on); });
+        const auto sliderStops = Render(dpi, 280, 48, appearance, [&](auto* t, const auto& p) { DrawSlider(t, p, 3, 1, 5, 1, true, true, L"3", on); });
+        Check(Ink(sliderLow) > 200 && Difference(sliderLow, sliderHigh) > 150 && Difference(sliderHigh, sliderFocus) > 40 && Difference(sliderHigh, sliderOff) > 100 && Difference(sliderPlain, sliderStops) > 10,
+            named("slider moves, focuses, disables and shows stops"));
         const auto fieldClosed = Render(dpi, 280, 84, appearance, [&](auto* t, const auto& p) { DrawDropdownField(t, p, L"Fruit", L"Alpha", L"", false, false, on); });
         const auto fieldOpen = Render(dpi, 280, 84, appearance, [&](auto* t, const auto& p) { DrawDropdownField(t, p, L"Fruit", L"Alpha", L"", false, true, on); });
         Check(Ink(fieldClosed) > 500 && Difference(fieldClosed, fieldOpen) > 50, named("dropdown field"));

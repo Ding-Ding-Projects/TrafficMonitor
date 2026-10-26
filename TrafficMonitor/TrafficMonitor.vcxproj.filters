@@ -1064,6 +1064,10 @@
     <ClCompile Include="NativeMaterial\InputToggles.cpp" />
     <ClCompile Include="NativeMaterial\InputSelection.cpp" />
     <ClCompile Include="NativeMaterial\NumberStepper.cpp" />
+    <ClInclude Include="NativeMaterial\Slider.h" />
+    <ClCompile Include="NativeMaterial\Slider.cpp" />
+    <ClInclude Include="NativeMaterial\Label.h" />
+    <ClCompile Include="NativeMaterial\Label.cpp" />
     <ClCompile Include="NativeMaterial\Dropdown.cpp" />
     <ClCompile Include="NativeMaterial\LabeledTextField.cpp" />
     <ClCompile Include="NativeMaterial\DropdownSearchableMenu.cpp" />

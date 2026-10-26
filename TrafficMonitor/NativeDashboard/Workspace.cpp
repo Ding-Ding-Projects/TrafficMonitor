@@ -9,6 +9,8 @@
 #include "SetupFlow.h"
 #include "../NativeDashboardController.h"
 #include "../NativeMaterial/Controls.h"
+#include "../NativeMaterial/AlertDialog.h"
+#include "../NativeMaterial/Label.h"
 #include "../NativeMaterial/TextField.h"
 #include "../NativeMaterial/ScrollableTextField.h"
 #include "../NativeMaterial/Navigation.h"
@@ -103,10 +105,10 @@ namespace NativeDashboard
             NativeMaterial::Button m_monitor, m_setup;
             std::array<NativeMaterial::Button,3> m_pages;
             int m_page{},m_bodyTop{},m_bodyHeight{};
-            CStatic m_heading,m_brand;
+            NativeMaterial::Label m_heading,m_brand;
             CFont m_headingFont;
             NativeRegex::Editor m_regexEditor;
-            CStatic m_status, m_summary;
+            NativeMaterial::Label m_status, m_summary;
             NativeMaterial::ResultList m_adapters, m_samples;
         };
         BEGIN_MESSAGE_MAP(Workspace, CWnd)
@@ -247,6 +249,8 @@ namespace NativeDashboard
             m_monitor.SetVariant(NativeMaterial::ButtonVariant::Tonal);
             m_pause.SetVariant(NativeMaterial::ButtonVariant::Tonal);
             m_regex.SetVariant(NativeMaterial::ButtonVariant::Tonal);
+            for(auto* label:{&m_heading,&m_brand,&m_status,&m_summary})label->SetAppearance(m_appearance);
+            m_brand.SetSurfaceColor(Color(palette.container));
             m_search.SetAppearance(m_appearance);m_details.SetAppearance(m_appearance);
             m_adapters.SetAppearance(m_appearance);m_samples.SetAppearance(m_appearance);
             m_viewport.SetAppearance(m_appearance);m_panel.SetAppearance(m_appearance);
@@ -263,10 +267,11 @@ namespace NativeDashboard
             const int nav=Px(176),inset=Px(24),left=nav+inset,right=client.right-inset;
             const int width=(std::max)(Px(200),right-left);
             CClientDC dc(this);
-            auto measure=[&](CWnd& control,int available){
+            auto measure=[&](CWnd& control,int available)->int{
+                if(auto* label=dynamic_cast<NativeMaterial::Label*>(&control))return label->MeasureHeight((std::max)(1,available));
                 CString text;control.GetWindowText(text);auto* font=control.GetFont();auto* old=font?dc.SelectObject(font):nullptr;
                 CRect r(0,0,(std::max)(1,available),0);dc.DrawText(text,r,DT_CALCRECT|DT_WORDBREAK|DT_NOPREFIX);
-                if(old)dc.SelectObject(old);return r.Height();
+                if(old)dc.SelectObject(old);return static_cast<int>(r.Height());
             };
             auto place=[](CWnd& control,int x,int y,int w,int h){control.MoveWindow(x,y,(std::max)(1,w),(std::max)(1,h));};
             m_brand.MoveWindow(Px(16),bar+Px(24),nav-Px(28),Px(32));
@@ -524,7 +529,6 @@ namespace NativeDashboard
         }
         HBRUSH Workspace::OnCtlColor(CDC* dc, CWnd* child, UINT)
         {
-            if(child==&m_brand){const auto colors=NativeMaterial::Palette::Resolve(m_appearance);dc->SetTextColor(Color(colors.onSurface));dc->SetBkColor(Color(colors.container));return static_cast<HBRUSH>(m_navigationFill.GetSafeHandle());}
             if(auto* field=DYNAMIC_DOWNCAST(NativeMaterial::TextField,child))return field->Color(dc);
             const auto colors = NativeMaterial::Palette::Resolve(m_appearance);
             dc->SetTextColor(Color(colors.onSurface)); dc->SetBkColor(Color(colors.surface));
@@ -557,7 +561,7 @@ namespace NativeDashboard
         if (!workspace->CreateWorkspace())
         {
             delete workspace;
-            owner->MessageBox(L"The monitoring workspace could not be created. Existing monitoring remains active.", L"TrafficMonitor", MB_OK | MB_ICONERROR);
+            NativeMaterial::Alert(owner->GetSafeHwnd(), L"The monitoring workspace could not be created. Existing monitoring remains active.", L"TrafficMonitor", MB_OK | MB_ICONERROR);
             return false;
         }
         workspace->Adopt(); windows[ownerHandle] = workspace;
