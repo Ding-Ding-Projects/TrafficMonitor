@@ -68,6 +68,7 @@ namespace NativeMaterial
 
     struct LabeledFieldLayout { D2D1_RECT_F label, edit, clear, message; };
     LabeledFieldLayout LayoutLabeledField(float width, float height);
-    void DrawLabeledFieldChrome(ID2D1RenderTarget*, const Palette&, const CString& label, const CString& message, const InputState&);
+    // underlineIndex marks the label character drawn underlined as a keyboard mnemonic (-1 for none).
+void DrawLabeledFieldChrome(ID2D1RenderTarget*, const Palette&, const CString& label, const CString& message, const InputState&, int underlineIndex = -1);
     void DrawClearButton(ID2D1RenderTarget*, const Palette&, bool fieldFocused, const InputState&);
 }
