@@ -1,5 +1,21 @@
 ﻿#pragma once
 #include <functional>
+#include <memory>
+#include <vector>
+#include "NativeMaterial/Theme.h"
+#include "NativeMaterial/TitleBar.h"
+#include "NativeMaterial/ButtonVisual.h"
+#include "NativeMaterial/Label.h"
+#include "NativePreferences/Subscription.h"
+
+namespace NativeMaterial
+{
+    class Button;
+    class Checkbox;
+    class Dropdown;
+    class NumberStepper;
+    class ScrollableTextField;
+}
 
 // CBaseDialog 对话框
 //用于实现记住对话框大小
@@ -44,8 +60,86 @@ private:
     CFont m_dlg_font;
     int m_dpi;              //窗口自己的DPI
 
+    // ---- Material shell (opt-in, see EnableMaterialShell) ----
+    bool m_material_shell{};                                // a derived dialog opts in from its constructor
+    bool m_material_ready{};                                // layout runs only after FinishMaterialShell
+    bool m_has_saved_size{};                                // the configuration remembers a window size
+    NativeMaterial::TitleBar m_title_bar;
+    NativePreferences::Subscription m_material_preferences;
+    std::vector<std::unique_ptr<CWnd>> m_material_controls; // owns the replacement Material controls
+    std::vector<std::function<void(NativeMaterial::Appearance, COLORREF)>> m_material_appliers;
+
+    void AttachMaterialShell();
+    void ApplyMaterialAppearance();
+    NativeMaterial::TitleBar::Labels MaterialCaptions() const;
+    CWnd* AdoptMaterialControl(std::unique_ptr<CWnd> control, std::function<void(NativeMaterial::Appearance, COLORREF)> applier, HWND insert_after, DWORD stock_style, bool visible, bool enabled);
+
 protected:
     int DPI(int pixel) const;
+
+    // ------------------------------------------------------------------
+    // Material shell. A dialog opts in by calling EnableMaterialShell() in its constructor.
+    // The shell attaches the Material custom title bar (the window keeps its resize, snap and
+    // system menu behavior), paints the client area with the Material surface color of the shared
+    // appearance preference, follows later preference changes, and lets the dialog replace each
+    // stock control with a Material component that keeps the same control ID, so WM_COMMAND
+    // handlers and ON_BN_CLICKED / ON_CBN_SELCHANGE / ON_EN_CHANGE map entries keep working.
+    // Dialogs that do not opt in are untouched.
+    // ------------------------------------------------------------------
+    void EnableMaterialShell(bool enable = true) { m_material_shell = enable; }
+    bool IsMaterialShell() const { return m_material_shell; }
+    NativeMaterial::Appearance MaterialAppearance() const;
+    COLORREF MaterialSurfaceColor() const;
+    NativeMaterial::TitleBar& MaterialTitleBar() { return m_title_bar; }
+    // Top of the content area (below the custom title bar) in client pixels.
+    int MaterialContentTop() const { return m_title_bar.IsAttached() ? m_title_bar.HeightPx() : 0; }
+    CRect MaterialContentRect() const;
+
+    // Replace a stock control by a Material component at the same rect, control ID, z-order slot (so tab
+    // order is kept), tab/group style, text, visibility and enabled state. The stock window is destroyed.
+    // Any dialog member that was subclassed onto it (DDX_Control) is detached and must no longer be used.
+    NativeMaterial::Label* ReplaceWithLabel(UINT id, NativeMaterial::LabelRole role = NativeMaterial::LabelRole::Primary);
+    NativeMaterial::Label* ReplaceWithLabel(CWnd* stock, NativeMaterial::LabelRole role = NativeMaterial::LabelRole::Primary);
+    NativeMaterial::Button* ReplaceWithButton(UINT id, NativeMaterial::ButtonVariant variant);
+    NativeMaterial::Button* ReplaceWithButton(CWnd* stock, NativeMaterial::ButtonVariant variant);
+    NativeMaterial::Checkbox* ReplaceWithCheckbox(UINT id);
+    NativeMaterial::Checkbox* ReplaceWithCheckbox(CWnd* stock);
+    NativeMaterial::Dropdown* ReplaceWithDropdown(UINT id, const CString& label);
+    NativeMaterial::NumberStepper* ReplaceWithNumberStepper(UINT id, const CString& label, const CString& supporting);
+    NativeMaterial::ScrollableTextField* ReplaceWithReadOnlyText(UINT id);
+    // A new Material label that has no stock counterpart in the template (appended after the last control).
+    NativeMaterial::Label* AddMaterialLabel(const CString& text, NativeMaterial::LabelRole role = NativeMaterial::LabelRole::Primary, UINT id = 0xFFFF);
+    // Group box -> section heading label at the top edge of the group.
+    NativeMaterial::Label* ReplaceGroupBoxWithHeading(CWnd* stock);
+    // Removes a stock control without replacement (its text was folded into another component).
+    void RemoveStockControl(UINT id);
+
+    // Converts every remaining stock static text, push button, check box and group box. Controls that
+    // cannot be converted generically (combo boxes, edits, owner-drawn or image statics, radio buttons)
+    // stay and are listed by RemainingStockControls().
+    void ConvertRemainingStockControls();
+    CString RemainingStockControls() const;
+
+    // Check box helpers that work for a Material Checkbox and for a stock check box.
+    void SetDlgCheck(UINT id, bool checked);
+    bool GetDlgCheck(UINT id) const;
+    // Width in pixels a Material push button needs for its label (minimum_dip is the lower bound).
+    int MeasureMaterialButtonWidth(const CString& label, NativeMaterial::ButtonVariant variant, int minimum_dip = 64) const;
+    // Updates the label of a converted control (also its accessible name).
+    void SetControlLabel(UINT id, const CString& label);
+
+    // Dialogs place their Material controls here. content is the area below the title bar in client pixels.
+    // With apply == false nothing is moved and the return value is the content height the layout needs for
+    // content.Width(); with apply == true the controls are positioned. Called on every size change.
+    virtual int LayoutMaterialControls(const CRect& content, bool apply) { UNREFERENCED_PARAMETER(content); UNREFERENCED_PARAMETER(apply); return 0; }
+    // Called after the appearance preference changed (colors of owned custom drawing).
+    virtual void OnMaterialAppearanceChanged() {}
+    // Sizes the window so the content is content_width_dip wide and as tall as LayoutMaterialControls needs;
+    // that size also becomes the minimum. A size the user saved earlier is kept when it is larger.
+    void FitMaterialContent(int content_width_dip);
+    // Call at the end of OnInitDialog once the dialog has replaced the controls it converts itself.
+    void FinishMaterialShell();
+    void RelayoutMaterial();
 
     // 仅在InitializeControls期间可用，测量控件文本长度
     CRect GetTextExtent(const CString& text);
@@ -78,7 +172,7 @@ protected:
     virtual CString GetDialogName() const { return CString(); }
     void EnableDlgCtrl(UINT id, bool enable);
     void SetButtonIcon(UINT id, HICON hIcon);
-    void SetRememberDlgSize(bool enable) { m_remember_dlg_size = enable; }
+    void SetRememberDlgSize(bool enable) { m_remember_dlg_size = enable; if (!enable) m_has_saved_size = false; }
     CRect GetControlRect(CWnd* pCtrl);
     CRect GetControlRect(UINT id);
 
@@ -96,4 +190,5 @@ public:
     virtual INT_PTR DoModal();
     afx_msg BOOL OnEraseBkgnd(CDC* pDC);
     afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
+    afx_msg LRESULT OnMaterialPreferences(WPARAM generation, LPARAM);
 };

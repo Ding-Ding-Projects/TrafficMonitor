@@ -1,23 +1,24 @@
-﻿// HelpDlg.cpp : 实现文件
+﻿// MessageDlg.cpp : implementation file
 //
 
 #include "stdafx.h"
 #include "TrafficMonitor.h"
 #include "MessageDlg.h"
 #include "DrawCommon.h"
+#include "NativeMaterial/Controls.h"
+#include "NativeMaterial/ScrollableTextField.h"
 
 
-// CMessageDlg 对话框
+// CMessageDlg dialog
 
-#define MESSAGE_DLG_ICON_SIZE (theApp.DPI(32))
-#define MESSAGE_DLG_ICON_VERTIAL_MARGIN (theApp.DPI(12))
+#define MESSAGE_DLG_ICON_SIZE (DPI(32))
 
 IMPLEMENT_DYNAMIC(CMessageDlg, CBaseDialog)
 
 CMessageDlg::CMessageDlg(CWnd* pParent /*=NULL*/)
 	: CBaseDialog(IDD_MESSAGE_DIALOG, pParent)
 {
-
+	EnableMaterialShell();
 }
 
 CMessageDlg::~CMessageDlg()
@@ -38,12 +39,6 @@ void CMessageDlg::SetMessageText(LPCTSTR str)
 {
 	m_message = str;
 }
-
-//void CMessageDlg::SetLinkInfo(LPCTSTR text, LPCTSTR url)
-//{
-//	m_link_text = text;
-//	m_link_url = url;
-//}
 
 void CMessageDlg::SetMessageIcon(HICON hIcon)
 {
@@ -74,131 +69,94 @@ void CMessageDlg::SetStandarnMessageIcon(StandardIcon standard_icon)
 void CMessageDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CBaseDialog::DoDataExchange(pDX);
-	DDX_Control(pDX, IDC_HELP_EDIT, m_message_edit);
-	DDX_Control(pDX, IDC_INFO_STATIC, m_info_static);
+}
+
+int CMessageDlg::LayoutMaterialControls(const CRect& content, bool apply)
+{
+	// Heading row (optional icon plus heading), the scrolling body and the OK button.
+	const int margin = DPI(20), gap = DPI(12), button_height = DPI(40), minimum_body = DPI(140);
+	const int width = (std::max)(1, static_cast<int>(content.Width()) - margin * 2);
+	const int left = content.left + margin;
+	int y = content.top + margin;
+
+	const bool has_heading = m_info_static != nullptr && (m_icon != NULL || !m_info.IsEmpty());
+	if (has_heading)
+	{
+		const int icon_space = m_icon != NULL ? MESSAGE_DLG_ICON_SIZE + DPI(12) : 0;
+		const int text_width = (std::max)(1, width - icon_space);
+		const int text_height = m_info_static->MeasureHeight(text_width);
+		const int row_height = (std::max)(text_height, m_icon != NULL ? static_cast<int>(MESSAGE_DLG_ICON_SIZE) : 0);
+		if (apply)
+		{
+			m_info_static->MoveWindow(left + icon_space, y + (row_height - text_height) / 2, text_width, text_height);
+			m_icon_pos = CPoint(left, y + (row_height - (m_icon != NULL ? MESSAGE_DLG_ICON_SIZE : 0)) / 2);
+		}
+		y += row_height + gap;
+	}
+
+	const int footer = button_height + gap;
+	const int body_height = (std::max)(minimum_body, static_cast<int>(content.Height()) - static_cast<int>(y - content.top) - footer - margin);
+	if (apply && m_message_edit != nullptr)
+		m_message_edit->MoveWindow(left, y, width, body_height);
+	y += body_height + gap;
+
+	if (m_ok != nullptr)
+	{
+		CString ok;
+		m_ok->GetWindowText(ok);
+		const int ok_width = MeasureMaterialButtonWidth(ok, NativeMaterial::ButtonVariant::Primary, 88);
+		if (apply)
+			m_ok->MoveWindow(left + width - ok_width, y, ok_width, button_height);
+		y += button_height;
+	}
+	if (apply)
+		Invalidate(FALSE);      // the icon is painted by the dialog itself
+	return y + margin - content.top;
 }
 
 
 BEGIN_MESSAGE_MAP(CMessageDlg, CBaseDialog)
-	ON_WM_GETMINMAXINFO()
-	//ON_NOTIFY(NM_CLICK, IDC_SYSLINK1, &CMessageDlg::OnNMClickSyslink1)
     ON_WM_PAINT()
-    ON_WM_SIZE()
 END_MESSAGE_MAP()
 
 
-// CMessageDlg 消息处理程序
+// CMessageDlg message handlers
 
 
 BOOL CMessageDlg::OnInitDialog()
 {
 	CBaseDialog::OnInitDialog();
 
-	// TODO:  在此添加额外的初始化
+	SetIcon(AfxGetApp()->LoadIcon(IDR_MAINFRAME), FALSE);		// small icon
 
-	SetIcon(AfxGetApp()->LoadIcon(IDR_MAINFRAME), FALSE);		// 设置小图标
-
-	//获取初始时窗口的大小
-	CRect rect;
-	GetWindowRect(rect);
-	m_min_size.cx = rect.Width();
-	m_min_size.cy = rect.Height();
+	// Material components replace the stock heading static, the read-only edit and the OK button.
+	m_info_static = ReplaceWithLabel(IDC_INFO_STATIC);
+	m_message_edit = ReplaceWithReadOnlyText(IDC_HELP_EDIT);
+	m_ok = ReplaceWithButton(IDOK, NativeMaterial::ButtonVariant::Primary);
 
 	SetWindowText(m_title);
-	m_info_static.SetWindowText(m_info);
-	m_message_edit.SetWindowText(m_message);
-
-	//CWnd* pLinkCtrl = GetDlgItem(IDC_SYSLINK1);
-	//if (pLinkCtrl != nullptr)
-	//{
-	//	pLinkCtrl->ShowWindow(m_show_link_ctrl);
-	//	pLinkCtrl->SetWindowText(_T("<a>") + m_link_text + _T("</a>"));
-	//}
-
-    //设置图标的位置
-    if (m_icon != NULL)
-    {
-		CRect rc_info = GetControlRect(&m_info_static);
-		//设置Static控件水平位置，为图标腾出空间
-		rc_info.left = rc_info.left + MESSAGE_DLG_ICON_SIZE + theApp.DPI(8);
-		//设置Static控件的垂直位置
-		rc_info.MoveToY(rc_info.top + MESSAGE_DLG_ICON_VERTIAL_MARGIN);
-		m_info_static.MoveWindow(rc_info);
-
-		CRect rc_edit = GetControlRect(&m_message_edit);
-		rc_edit.top += (MESSAGE_DLG_ICON_VERTIAL_MARGIN * 2);
-		m_icon_pos.x = rc_edit.left;
-		m_icon_pos.y = (rc_edit.top - MESSAGE_DLG_ICON_SIZE) / 2;
-		m_message_edit.MoveWindow(rc_edit);
-    }
-
-	//没有图标，且消息标题为空时，隐藏Static控件
+	m_info_static->SetWindowText(m_info);
+	m_message_edit->SetWindowText(m_message);
+	// No icon and no heading: the heading label stays hidden.
 	if (m_icon == NULL && m_info.IsEmpty())
-	{
-		CRect rc_info = GetControlRect(&m_info_static);
-		CRect rc_edit = GetControlRect(&m_message_edit);
-		rc_edit.top = rc_info.top;
-		m_message_edit.MoveWindow(rc_edit);
-		m_info_static.ShowWindow(SW_HIDE);
-	}
+		m_info_static->ShowWindow(SW_HIDE);
+
+	FitMaterialContent(440);
+	FinishMaterialShell();
 
 	return TRUE;  // return TRUE unless you set the focus to a control
-				  // 异常: OCX 属性页应返回 FALSE
+				  // exception: OCX property pages should return FALSE
 }
-
-
-void CMessageDlg::OnGetMinMaxInfo(MINMAXINFO* lpMMI)
-{
-	// TODO: 在此添加消息处理程序代码和/或调用默认值
-	//限制窗口最小大小
-	lpMMI->ptMinTrackSize.x = m_min_size.cx;		//设置最小宽度
-	lpMMI->ptMinTrackSize.y = m_min_size.cy;		//设置最小高度
-
-	CBaseDialog::OnGetMinMaxInfo(lpMMI);
-}
-
-
-//void CMessageDlg::OnNMClickSyslink1(NMHDR *pNMHDR, LRESULT *pResult)
-//{
-//	// TODO: 在此添加控件通知处理程序代码
-//	if(!m_link_url.IsEmpty())
-//		ShellExecute(NULL, _T("open"), m_link_url, NULL, NULL, SW_SHOW);	//打开超链接
-//
-//	*pResult = 0;
-//}
 
 
 void CMessageDlg::OnPaint()
 {
     CPaintDC dc(this); // device context for painting
-                       // TODO: 在此处添加消息处理程序代码
-                       // 不为绘图消息调用 CBaseDialog::OnPaint()
-
-    CDrawCommon draw;
-    draw.Create(&dc, this);
-    draw.DrawIcon(m_icon, m_icon_pos, CSize(MESSAGE_DLG_ICON_SIZE, MESSAGE_DLG_ICON_SIZE));
-}
-
-
-void CMessageDlg::OnSize(UINT nType, int cx, int cy)
-{
-    CBaseDialog::OnSize(nType, cx, cy);
-
-	if (m_info_static.GetSafeHwnd() != NULL && m_icon != NULL)
-	{
-		CRect rc_info = GetControlRect(&m_info_static);
-		rc_info.right = cx;
-		m_info_static.MoveWindow(rc_info);
-	}
-	if (m_message_edit.GetSafeHwnd() != NULL)
-	{
-		CRect rc_edit = GetControlRect(&m_message_edit);
-		//设置Edit控件的垂直位置
-		CRect rc_ok = GetControlRect(IDOK);
-		if (!rc_ok.IsRectEmpty())
-		{
-			rc_edit.bottom = rc_ok.top - theApp.DPI(6);
-			m_message_edit.MoveWindow(rc_edit);
-		}
-	}
+                       // The base class paint is intentionally not called: only the icon is drawn here.
+    if (m_icon != NULL)
+    {
+        CDrawCommon draw;
+        draw.Create(&dc, this);
+        draw.DrawIcon(m_icon, m_icon_pos, CSize(MESSAGE_DLG_ICON_SIZE, MESSAGE_DLG_ICON_SIZE));
+    }
 }

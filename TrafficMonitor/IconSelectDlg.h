@@ -1,16 +1,34 @@
 ﻿#pragma once
 #include "afxwin.h"
-#include "PictureStatic.h"
+#include <functional>
 #include "BaseDialog.h"
 
-// CIconSelectDlg 对话框
+// Self-painted preview surface: a stretched bitmap with an optional overlay (the notification icon).
+// It replaces the stock bitmap static of the original template.
+class CIconPreview : public CWnd
+{
+public:
+    BOOL Create(const CRect& rect, CWnd* parent, UINT id);
+    void SetPicture(HBITMAP bitmap);                    // takes ownership of the bitmap
+    void SetSurfaceColor(COLORREF color);
+    std::function<void(CDC&)> draw_overlay;
+protected:
+    CBitmap m_bitmap;
+    BITMAP m_info{};
+    COLORREF m_surface{ RGB(255, 255, 255) };
+    DECLARE_MESSAGE_MAP()
+    afx_msg void OnPaint();
+    afx_msg BOOL OnEraseBkgnd(CDC*) { return TRUE; }
+};
+
+// CIconSelectDlg dialog (Material shell)
 
 class CIconSelectDlg : public CBaseDialog
 {
     DECLARE_DYNAMIC(CIconSelectDlg)
 
 public:
-    CIconSelectDlg(int icon_selected, CWnd* pParent = NULL);   // 标准构造函数
+    CIconSelectDlg(int icon_selected, CWnd* pParent = NULL);   // standard constructor
     virtual ~CIconSelectDlg();
 
     int GetIconSelected() const;
@@ -18,40 +36,41 @@ public:
     void SetAutoAdaptNotifyIcon(bool val);
     bool AutoAdaptNotifyIcon() const;
 
-    // 对话框数据
+    // Dialog data
 #ifdef AFX_DESIGN_TIME
     enum { IDD = IDD_ICON_SELECT_DIALOG };
 #endif
 
-#define PREVIEW_WIDTH theApp.DPI(200)		//预览图的宽高
+#define PREVIEW_WIDTH theApp.DPI(200)		// preview width and height
 #define PREVIEW_HEIGHT theApp.DPI(40)
 
-#define ICON_X theApp.DPI(46)		//预览图中图标的位置
+#define ICON_X theApp.DPI(46)		// position of the icon inside the preview
 #define ICON_Y theApp.DPI(12)
 
 protected:
-    CPictureStatic m_preview_pic;
-    CComboBox m_icon_select_combo;
-    CButton m_auto_adapt_chk;
+    CIconPreview m_preview_pic;
+    NativeMaterial::Dropdown* m_icon_select_combo{};
+    NativeMaterial::Checkbox* m_auto_adapt_chk{};
+    NativeMaterial::Label* m_preview_heading{};
+    NativeMaterial::Button* m_ok{};
+    NativeMaterial::Button* m_cancel{};
 
     int m_icon_selected{};
 
     bool m_atuo_adapt_notify_icon;
 
 protected:
-    virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 支持
+    virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
     virtual CString GetDialogName() const override;
-    virtual bool InitializeControls() override;
+    virtual int LayoutMaterialControls(const CRect& content, bool apply) override;
+    virtual void OnMaterialAppearanceChanged() override;
 
     void DrawPreviewIcon(CDC* pDC);
+    void LoadPreviewPicture();
 
     DECLARE_MESSAGE_MAP()
 public:
     virtual BOOL OnInitDialog();
-    //afx_msg void OnTimer(UINT_PTR nIDEvent);
     afx_msg void OnCbnSelchangeCombo1();
-protected:
-    afx_msg LRESULT OnControlRepaint(WPARAM wParam, LPARAM lParam);
-public:
     afx_msg void OnBnClickedAutoAdaptCheck();
 };

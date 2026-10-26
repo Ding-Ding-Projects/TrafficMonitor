@@ -890,6 +890,7 @@
     <ClCompile Include="AppAlreadyRuningDlg.cpp" />
     <ClCompile Include="auto_start_helper.cpp" />
     <ClCompile Include="BaseDialog.cpp" />
+    <ClCompile Include="BaseDialogMaterial.cpp" />
     <ClCompile Include="CalendarHelper.cpp" />
     <ClCompile Include="CAutoAdaptSettingsDlg.cpp" />
     <ClCompile Include="ClassicalTaskbarDlg.cpp" />

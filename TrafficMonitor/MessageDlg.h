@@ -2,24 +2,22 @@
 #include "afxwin.h"
 #include "BaseDialog.h"
 
-// CMessageDlg 对话框
+// CMessageDlg dialog (Material shell)
 
 class CMessageDlg : public CBaseDialog
 {
 	DECLARE_DYNAMIC(CMessageDlg)
 
 public:
-	CMessageDlg(CWnd* pParent = NULL);   // 标准构造函数
+	CMessageDlg(CWnd* pParent = NULL);   // standard constructor
 	virtual ~CMessageDlg();
 
-	void SetWindowTitle(LPCTSTR str);	//设置窗口标题
-	void SetInfoText(LPCTSTR str);		//设置消息标题
-	void SetMessageText(LPCTSTR str);	//设置消息文本
-	//void ShowLinkStatic(bool show = true) { m_show_link_ctrl = show; }
-	//void SetLinkInfo(LPCTSTR text, LPCTSTR url);
+	void SetWindowTitle(LPCTSTR str);	// window title
+	void SetInfoText(LPCTSTR str);		// message heading
+	void SetMessageText(LPCTSTR str);	// message body
     void SetMessageIcon(HICON hIcon);
 
-	//消息对话框的系统标准图标
+	// Standard system icons of the message dialog
 	enum StandardIcon
 	{
 		SI_INFORMATION,
@@ -27,40 +25,33 @@ public:
 		SI_ERROR
 	};
 
-	//为消息对话框框设置系统标准图标
+	// Sets a standard system icon on the message dialog
 	void SetStandarnMessageIcon(StandardIcon standard_icon);
 
-// 对话框数据
+// Dialog data
 #ifdef AFX_DESIGN_TIME
 	enum { IDD = IDD_MESSAGE_DIALOG };
 #endif
 
 protected:
-	CEdit m_message_edit;
-	CSize m_min_size;		//窗口的最小大小
-	CStatic m_info_static;
+	NativeMaterial::ScrollableTextField* m_message_edit{};	// read-only body with the Material scroll rail
+	NativeMaterial::Label* m_info_static{};
+	NativeMaterial::Button* m_ok{};
 
 	CString m_title;
 	CString m_info;
 	CString m_message;
 
-	//CString m_link_text;
-	//CString m_link_url;
-
     HICON m_icon{};
-    CPoint m_icon_pos{};        //图标的位置
-
-	//bool m_show_link_ctrl{ false };
+    CPoint m_icon_pos{};        // icon position, set by the layout
 
 protected:
-	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 支持
+	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
+	virtual int LayoutMaterialControls(const CRect& content, bool apply) override;
 
 	DECLARE_MESSAGE_MAP()
 
 public:
 	virtual BOOL OnInitDialog();
-	afx_msg void OnGetMinMaxInfo(MINMAXINFO* lpMMI);
-	//afx_msg void OnNMClickSyslink1(NMHDR *pNMHDR, LRESULT *pResult);
     afx_msg void OnPaint();
-    afx_msg void OnSize(UINT nType, int cx, int cy);
 };
