@@ -3,10 +3,18 @@
 #include "LayoutObservations.h"
 #include "ScrollRail.h"
 #include "ScrollViewport.h"
+#include "ScrollableTextField.h"
+#include "../NativeMenus/SearchableMenu.h"
+#include "../NativePreferences/Preferences.h"
 #include <aclapi.h>
 #include <cstdio>
 #include <memory>
 namespace NativeMaterial {void DrawButtonLegacy(ID2D1RenderTarget*,const Palette&,const CString&,ButtonVariant,bool,bool,bool,bool);}
+// The text field links against the shared menu and preference services only for its context
+// menu and localized label; neither is exercised here, so minimal definitions keep this
+// focused check from linking the whole application.
+namespace NativeMenus {UINT Track(CMenu*,UINT,int,int,CWnd*,NativeRegex::Options*){return 0;}}
+namespace NativePreferences {Snapshot Current(){return Snapshot{};}}
 namespace {
 CWinApp application;int failures{};
 void Check(bool value,const char* name){std::printf("%s %s\n",value?"PASS":"FAIL",name);if(!value)++failures;}
@@ -124,7 +132,59 @@ int wmain(int argc,wchar_t**)
                 Check(moved&&moved->position==200,"viewport republishes rail state after scrolling to the end");
                 viewport.DestroyWindow();
             }
-            HANDLE writable=OpenFileMappingW(FILE_MAP_WRITE,FALSE,name.c_str());Check(!writable,"independent mapping handle cannot request write access");if(writable)CloseHandle(writable);
+            {
+                ScrollableTextField field;
+                Check(field.CreateEx(0,L"EDIT",L"",WS_CHILD|ES_MULTILINE|ES_AUTOVSCROLL|ES_WANTRETURN,CRect(0,0,200,90),&parent,105)!=FALSE,"hidden multiline text field created");
+                Register(field.GetSafeHwnd());
+                CFont fieldFont;fieldFont.CreatePointFont(100,L"Segoe UI");field.SetFont(&fieldFont);
+                field.SetAppearance(Appearance::Light);
+                CWnd* fieldRail=field.GetWindow(GW_CHILD);
+                auto fieldState=[&](){CopyStable(view,*snapshot);const Record* found=nullptr;if(fieldRail)for(std::uint32_t i=0;i<snapshot->header.count;++i)if(snapshot->records[i].hwnd==reinterpret_cast<std::uint64_t>(fieldRail->GetSafeHwnd())&&snapshot->records[i].kind==Kind::RailMetrics)found=&snapshot->records[i];return found;};
+                auto lines=[](int count){CString text;for(int i=0;i<count;++i){CString line;line.Format(L"line %d",i);text+=line;if(i+1<count)text+=L"\r\n";}return text;};
+                field.SetWindowText(lines(40));
+                const Record* initial=fieldState();
+                Check(initial&&initial->content==field.GetLineCount()&&initial->content==40&&initial->page>0&&initial->page<40&&initial->position==0,"text field publishes rail content and page after text is set");
+                field.SendMessage(EM_LINESCROLL,0,7);
+                const int scrolledTo=field.GetFirstVisibleLine();
+                const Record* scrolled=fieldState();
+                Check(scrolledTo==7&&scrolled&&scrolled->position==scrolledTo&&scrolled->content==40,"text field republishes rail position after EM_LINESCROLL");
+                field.SendMessage(EM_SETSEL,0,-1);
+                CString many=lines(120);
+                field.SendMessage(EM_REPLACESEL,TRUE,reinterpret_cast<LPARAM>(static_cast<LPCWSTR>(many)));
+                const Record* replaced=fieldState();
+                Check(field.GetLineCount()==120&&replaced&&replaced->content==120&&replaced->position==field.GetFirstVisibleLine(),"text field republishes rail content after EM_REPLACESEL");
+                field.SendMessage(EM_SETSEL,-1,-1);
+                for(int i=0;i<30;++i)field.SendMessage(WM_CHAR,L'\r',0);
+                const Record* typed=fieldState();
+                Check(field.GetLineCount()==150&&typed&&typed->content==150&&typed->position==field.GetFirstVisibleLine(),"text field republishes rail content after WM_CHAR line breaks");
+                field.DestroyWindow();
+            }            {
+                ScrollableTextField field;
+                Check(field.CreateEx(0,L"EDIT",L"",WS_CHILD|ES_MULTILINE|ES_AUTOVSCROLL|ES_WANTRETURN,CRect(0,0,200,90),&parent,105)!=FALSE,"hidden multiline text field created");
+                Register(field.GetSafeHwnd());
+                CFont fieldFont;fieldFont.CreatePointFont(100,L"Segoe UI");field.SetFont(&fieldFont);
+                field.SetAppearance(Appearance::Light);
+                CWnd* fieldRail=field.GetWindow(GW_CHILD);
+                auto fieldState=[&](){CopyStable(view,*snapshot);const Record* found=nullptr;if(fieldRail)for(std::uint32_t i=0;i<snapshot->header.count;++i)if(snapshot->records[i].hwnd==reinterpret_cast<std::uint64_t>(fieldRail->GetSafeHwnd())&&snapshot->records[i].kind==Kind::RailMetrics)found=&snapshot->records[i];return found;};
+                auto lines=[](int count){CString text;for(int i=0;i<count;++i){CString line;line.Format(L"line %d",i);text+=line;if(i+1<count)text+=L"\r\n";}return text;};
+                field.SetWindowText(lines(40));
+                const Record* initial=fieldState();
+                Check(initial&&initial->content==field.GetLineCount()&&initial->content==40&&initial->page>0&&initial->page<40&&initial->position==0,"text field publishes rail content and page after text is set");
+                field.SendMessage(EM_LINESCROLL,0,7);
+                const int scrolledTo=field.GetFirstVisibleLine();
+                const Record* scrolled=fieldState();
+                Check(scrolledTo==7&&scrolled&&scrolled->position==scrolledTo&&scrolled->content==40,"text field republishes rail position after EM_LINESCROLL");
+                field.SendMessage(EM_SETSEL,0,-1);
+                CString many=lines(120);
+                field.SendMessage(EM_REPLACESEL,TRUE,reinterpret_cast<LPARAM>(static_cast<LPCWSTR>(many)));
+                const Record* replaced=fieldState();
+                Check(field.GetLineCount()==120&&replaced&&replaced->content==120&&replaced->position==field.GetFirstVisibleLine(),"text field republishes rail content after EM_REPLACESEL");
+                field.SendMessage(EM_SETSEL,-1,-1);
+                for(int i=0;i<30;++i)field.SendMessage(WM_CHAR,L'\r',0);
+                const Record* typed=fieldState();
+                Check(field.GetLineCount()==150&&typed&&typed->content==150&&typed->position==field.GetFirstVisibleLine(),"text field republishes rail content after WM_CHAR line breaks");
+                field.DestroyWindow();
+            }            HANDLE writable=OpenFileMappingW(FILE_MAP_WRITE,FALSE,name.c_str());Check(!writable,"independent mapping handle cannot request write access");if(writable)CloseHandle(writable);
             PACL dacl{};PSECURITY_DESCRIPTOR descriptor{};const DWORD security=GetSecurityInfo(mapping,SE_KERNEL_OBJECT,DACL_SECURITY_INFORMATION,nullptr,nullptr,&dacl,nullptr,&descriptor);
             bool onlyCurrentUser=false;
             if(security==ERROR_SUCCESS&&dacl&&dacl->AceCount==1){void* ace{};GetAce(dacl,0,&ace);auto* allowed=static_cast<ACCESS_ALLOWED_ACE*>(ace);HANDLE token{};if(OpenProcessToken(GetCurrentProcess(),TOKEN_QUERY,&token)){DWORD needed{};GetTokenInformation(token,TokenUser,nullptr,0,&needed);std::vector<BYTE> user(needed);if(GetTokenInformation(token,TokenUser,user.data(),needed,&needed))onlyCurrentUser=allowed->Header.AceType==ACCESS_ALLOWED_ACE_TYPE&&EqualSid(&allowed->SidStart,reinterpret_cast<TOKEN_USER*>(user.data())->User.Sid);CloseHandle(token);}}
