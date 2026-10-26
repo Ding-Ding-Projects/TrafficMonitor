@@ -32,7 +32,8 @@ unfinished items below; this checklist records completed and unfinished work.
 - [ ] Convert the legacy upstream dialogs (Options tabs, history, plugins, skins, colors, display items, connections, item order, About, icon select, auto-adapt, Windows 11 taskbar) onto the Material components and retire the legacy Options fallback.
 - [x] Add Material tabs and tooltip components.
 - [x] Add an opt-in Material shell to the legacy dialog base and convert About, already running, message, icon select, both auto-adapt dialogs and the Windows 11 taskbar dialog.
-- [ ] Add Material snackbar, progress indicator, chips, and color, font and calendar pickers.
+- [x] Add Material snackbar, progress indicator, chips, and color, font and calendar pickers.
+- [ ] Use the new tabs, tooltip, table, list and picker components in the remaining legacy dialogs (Options tabs, history, plugins, skins, colors, display items, connections, item order) and replace the six color and two font dialog call sites.
 - [ ] Fix capture findings: clipped labels in legacy Options tabs and Change Skin; Settings content stops near x=1068 with an empty right gutter; setup step 3 repeats summary lines; "Apply interface preferences" wraps inside its button; white button backgrounds in the dark regex workbench; untranslated Cantonese menu items; misaligned menu icon baselines and a green focus outline in dark menus; localized accessible name for the banner dismiss button.
 - [ ] Retake every README capture after the title bar and component adoption land.
 - [ ] Let Rename edit a saved expression's description.
