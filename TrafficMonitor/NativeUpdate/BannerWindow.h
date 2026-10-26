@@ -12,7 +12,7 @@ namespace NativeUpdate
     class BannerWindow final : public CWnd
     {
     public:
-        enum : UINT { Primary = 61001, Secondary, ReleaseNotes };
+        enum : UINT { Primary = 61001, Secondary, ReleaseNotes, Dismiss };
         struct Content
         {
             CString headline, detail, primary, secondary, notes, url;
@@ -26,6 +26,7 @@ namespace NativeUpdate
     protected:
         BOOL PreTranslateMessage(MSG* message) override;
         BOOL OnCommand(WPARAM, LPARAM) override;
+        LRESULT WindowProc(UINT message, WPARAM wparam, LPARAM lparam) override;
         afx_msg void OnClose();
         DECLARE_MESSAGE_MAP()
     private:
@@ -36,7 +37,8 @@ namespace NativeUpdate
         CFont m_font, m_bold;
         NativeMaterial::Panel m_panel;
         CStatic m_headline, m_detail;
-        NativeMaterial::Button m_primary, m_secondary, m_notes;
+        NativeMaterial::Button m_primary, m_secondary, m_notes, m_dismiss;
+        COLORREF m_outline{ RGB(121, 116, 126) };
         CString m_url;
     };
 }
