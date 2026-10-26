@@ -9,6 +9,12 @@ unfinished items below; this checklist records completed and unfinished work.
 - [x] Build the combined renderer-observation source and pass every native focused check (layout observations, regex collections, preferences, settings, result list, read-only text, material visuals).
 - [x] Republish scroll rail observations after rail-driven viewport scrolls and text-field edits, undo, line scrolling and IME composition.
 - [ ] Run a live Settings/preference renderer observation on the built application.
+- [x] Publish normal release v1.0.70 from 868ef35 after the maintainer removed the release hold.
+- [x] Align documentation inventory checks with the 111-item inventory so documentation and companion builds succeed.
+- [x] Add saved-expression descriptions (collection schema 2, schema 1 still readable) and a distinct export success message.
+- [x] Check text-field rail republication after line scrolling, replacement and typed line breaks.
+- [ ] Give the documentation companion its own application icon instead of the framework default.
+- [ ] Let Rename edit a saved expression's description.
 
 ## Incomplete source preservation
 

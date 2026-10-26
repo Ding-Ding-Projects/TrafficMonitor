@@ -41,6 +41,20 @@ runtime.
 
 The combined source passes the full build and all seven native focused checks.
 
+Release v1.0.70-run40361842389-1 (source 868ef35) published as a normal release with Setup.exe,
+the full package, RELEASES and SHA256SUMS.txt. Its documentation step failed because the
+documentation build still expected 110 inventory items; that check now expects 111, requires the
+declared count to match the item list, and maps action sound effects. 1.0.70 therefore has no
+documentation companion assets; the next release run carries them. The documentation companion
+build reports the default Electron icon, so the application-icon requirement is still open there.
+
+Regex collections now use schema 2 with an optional description (at most 1024 UTF-16 units).
+Schema 1 files still load; the first save rewrites them as schema 2, which earlier builds such
+as 1.0.48 cannot read. Rename keeps the stored description. A successful export reports
+"Exported N saved expressions." `--verify-regex-collections` runs 52 checks with two required
+mutants. The layout observation check now also proves text-field rail republication after
+EM_LINESCROLL, EM_REPLACESEL and WM_CHAR, each mutation-checked. Runtime UI remains unexercised.
+
 Individual branches retain their earlier build/check results, including 320 old/new drawing
 comparisons and transport-v2 checks. They do not verify the stopped combined source. The last
 bounded product runtime result remains candidate 9050 below. Task worktrees and private
