@@ -9,6 +9,8 @@ namespace NativeRegex
         Options options;
         Operation operation{Operation::Search};
         std::wstring replacement;
+        // Optional note, at most 1024 UTF-16 units. Stored from collection schema 2 onward.
+        std::wstring description;
         bool operator==(const SavedExpression& other) const;
     };
     enum class CollectionAction { Read, Save, Rename, Delete, Recover };

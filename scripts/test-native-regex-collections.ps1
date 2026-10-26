@@ -19,24 +19,28 @@ try {
     if($compileExit -ne 0){exit $compileExit}
     & $exe
     if($LASTEXITCODE -ne 0){exit $LASTEXITCODE}
-    # Mutation check: a merge that overwrites a conflicting record must be caught by the regression.
+    # Mutation checks: each deliberate production break must be caught by its expected regression.
     $source=Join-Path $regex 'Collections.cpp'
     $original=[IO.File]::ReadAllText($source)
-    $needle='if(*it==item)continue;throw'
-    if(($original.Split([string[]]@($needle),[StringSplitOptions]::None)).Count -ne 2){throw 'Expected one merge conflict check'}
-    $mutated=Join-Path $work 'MutatedCollections.cpp'
-    # Keep relative includes resolvable by compiling the mutant beside the originals.
-    $mutantInSource=Join-Path $regex ('MutatedCollections-'+[guid]::NewGuid().ToString('N')+'.cpp')
-    try {
-        [IO.File]::WriteAllText($mutantInSource,$original.Replace($needle,'if(true)continue;throw'))
-        $mutant=Join-Path $work 'MutatedCollectionsTests.exe'
-        $compileExit=Build-Tests $mutantInSource $mutant
-    } finally { Remove-Item -LiteralPath $mutantInSource -Force -ErrorAction SilentlyContinue }
-    if($compileExit -ne 0){exit $compileExit}
-    $output=& $mutant
-    $result=$LASTEXITCODE
-    $output | ForEach-Object { Write-Host $_ }
-    if($result -ne 1 -or ($output -join "`n") -notmatch 'FAIL merge conflict rejected'){throw 'Conflict mutation was not rejected by the expected regression'}
+    function Test-Mutant($label,$needle,$replacement,$expected) {
+        if(($original.Split([string[]]@($needle),[StringSplitOptions]::None)).Count -ne 2){throw "Expected exactly one site for the $label mutation"}
+        # Keep relative includes resolvable by compiling the mutant beside the originals.
+        $mutantInSource=Join-Path $regex ('MutatedCollections-'+[guid]::NewGuid().ToString('N')+'.cpp')
+        try {
+            [IO.File]::WriteAllText($mutantInSource,$original.Replace($needle,$replacement))
+            $mutant=Join-Path $work ('Mutated-'+[guid]::NewGuid().ToString('N')+'.exe')
+            $compileExit=Build-Tests $mutantInSource $mutant
+        } finally { Remove-Item -LiteralPath $mutantInSource -Force -ErrorAction SilentlyContinue }
+        if($compileExit -ne 0){exit $compileExit}
+        $output=& $mutant
+        $result=$LASTEXITCODE
+        $output | ForEach-Object { Write-Host $_ }
+        if($result -ne 1 -or ($output -join "`n") -notmatch $expected){throw "The $label mutation was not rejected by the expected regression"}
+    }
+    # A merge that overwrites a conflicting record must be caught.
+    Test-Mutant 'conflict' 'if(*it==item)continue;throw' 'if(true)continue;throw' 'FAIL merge conflict rejected'
+    # A decoder that discards the stored description must be caught.
+    Test-Mutant 'description decode' 'if(schema>=2)item.description=r.Text(DescriptionLimit);' 'if(schema>=2)r.Text(DescriptionLimit);' 'FAIL description persists on disk'
     if([IO.File]::ReadAllText($source) -cne $original){throw 'Production source changed during mutation verification'}
     & $exe
     exit $LASTEXITCODE
