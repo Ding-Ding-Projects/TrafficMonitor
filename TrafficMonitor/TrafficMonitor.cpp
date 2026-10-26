@@ -635,7 +635,11 @@ void CTrafficMonitorApp::CheckUpdateInThread(bool message)
 {
     if (m_installed_mode)
     {
-        NativeUpdate::RequestCheck();
+        // A person-requested check shows its progress and result in the update banner.
+        if (message && m_pMainWnd && ::IsWindow(m_pMainWnd->GetSafeHwnd()))
+            static_cast<CTrafficMonitorDlg*>(m_pMainWnd)->BeginManualUpdateCheck();
+        else
+            NativeUpdate::RequestCheck();
         return;
     }
     AfxBeginThread(CheckUpdateThreadFunc, (LPVOID)message);

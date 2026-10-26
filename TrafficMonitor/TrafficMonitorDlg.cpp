@@ -6,6 +6,7 @@
 #include "NativeDashboard/Workspace.h"
 #include "NativeSettings/Settings.h"
 #include "NativeUpdate/SilentUpdater.h"
+#include "NativePreferences/Text.h"
 #include "TrafficMonitor.h"
 #include "TrafficMonitorDlg.h"
 #include "afxdialogex.h"
@@ -2558,29 +2559,139 @@ void CTrafficMonitorDlg::OnShowNotifyIcon()
 }
 
 
-LRESULT CTrafficMonitorDlg::OnSilentUpdatePulse(WPARAM, LPARAM)
+static std::wstring UpdateSystemMessage(DWORD code)
 {
-    if (m_updateUiClosing) return 0;
-    NativeUpdate::SetEnabled(theApp.m_general_data.check_update_when_start);
-    if (!theApp.m_general_data.check_update_when_start
-        || NativeUpdate::GetStatus().phase != NativeUpdate::Phase::Ready
-        || !NativeSettings::IsSafeToRestart() || !IsWindowEnabled() || m_menu_popuped)
-        return 0;
+    if (!code) return {};
+    wchar_t* buffer = nullptr;
+    const DWORD length = ::FormatMessageW(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
+        nullptr, code, 0, reinterpret_cast<LPWSTR>(&buffer), 0, nullptr);
+    CString text;
+    if (length && buffer) text = buffer;
+    if (buffer) ::LocalFree(buffer);
+    text.Trim();
+    return std::wstring(text.GetString());
+}
+
+void CTrafficMonitorDlg::BeginManualUpdateCheck()
+{
+    const auto status = NativeUpdate::GetStatus();
+    m_updateUi.manualActive = true;
+    m_updateUi.manualBaseline = status.completed;
+    m_updateUi.dismissed = false;
+    m_updateUi.deferred = false;      // A person-requested check brings a postponed update back.
+    m_updateUi.restartFailed = false;
+    m_updateManualTick = ::GetTickCount64();
+    NativeUpdate::RequestManualCheck();
+    RefreshUpdateBanner();
+}
+
+void CTrafficMonitorDlg::RefreshUpdateBanner()
+{
+    using namespace NativeUpdate;
+    auto status = GetStatus();
+    if (m_updateUi.manualActive)
+        m_updateUi.waitedMilliseconds = ::GetTickCount64() - m_updateManualTick;
+    const auto mode = Banner::ChooseMode(status, m_updateUi);
+    if (mode == Banner::Mode::Hidden)
+    {
+        if (m_updateBanner.GetSafeHwnd()) m_updateBanner.Hide();
+        m_updateBannerKey.Empty();
+        return;
+    }
+    if (mode == Banner::Mode::Failed && (status.phase == Phase::Disabled || status.phase == Phase::Stopped))
+    {
+        // The service never acknowledged the request; say so instead of waiting.
+        status.stage = L"updater-unavailable";
+        status.error = ERROR_NOT_SUPPORTED;
+    }
+    const auto pair = [](const Banner::Text& text) { return NativePreferences::Pair(text.english.c_str(), text.chinese.c_str()); };
+    const std::wstring systemMessage = UpdateSystemMessage(status.error);
+    NativeUpdate::BannerWindow::Content content;
+    content.headline = pair(Banner::Headline(mode, status));
+    content.detail = pair(Banner::Detail(mode, status, systemMessage));
+    const CString notes = NativePreferences::Pair(L"Release notes", L"發行說明");
+    switch (mode)
+    {
+    case Banner::Mode::Ready:
+        content.primary = NativePreferences::Pair(L"Restart to install update", L"重新啟動以安裝更新");
+        content.secondary = NativePreferences::Pair(L"Later", L"稍後");
+        content.notes = notes;
+        break;
+    case Banner::Mode::WaitingToRestart:
+        content.secondary = NativePreferences::Pair(L"Cancel restart", L"取消重新啟動");
+        content.notes = notes;
+        break;
+    case Banner::Mode::Failed:
+        content.primary = NativePreferences::Pair(L"Check again", L"再檢查");
+        content.secondary = NativePreferences::Pair(L"Dismiss", L"關閉");
+        break;
+    default:
+        content.secondary = NativePreferences::Pair(L"Dismiss", L"關閉");
+        break;
+    }
+    if (mode == Banner::Mode::Ready || mode == Banner::Mode::WaitingToRestart)
+        content.url = CString(status.releaseUrl.c_str());
+    // Present only when something changed, so a visible banner never flickers once a second.
+    const CString key = content.headline + L"|" + content.detail + L"|" + content.primary + L"|" + content.secondary
+        + L"|" + content.url + L"|" + (NativePreferences::EffectiveAppearance() == NativeMaterial::Appearance::Dark ? L"d" : L"l");
+    if (m_updateBanner.GetSafeHwnd() && m_updateBanner.IsShown() && key == m_updateBannerKey) return;
+    if (!m_updateBanner.GetSafeHwnd())
+    {
+        if (!m_updateBanner.Create()) return;
+        m_updateBanner.onCommand = [this](UINT id) { OnUpdateBannerCommand(id); };
+    }
+    m_updateBannerKey = key;
+    m_updateBanner.Present(content);
+}
+
+void CTrafficMonitorDlg::OnUpdateBannerCommand(UINT id)
+{
+    using namespace NativeUpdate;
+    const auto mode = Banner::ChooseMode(GetStatus(), m_updateUi);
+    if (id == BannerWindow::Primary)
+    {
+        if (mode == Banner::Mode::Failed)
+        {
+            BeginManualUpdateCheck();
+            return;
+        }
+        if (mode == Banner::Mode::Ready)
+        {
+            // The person's explicit choice. The pulse still waits for a quiet interface.
+            m_updateUi.restartRequested = true;
+            m_updateUi.restartFailed = false;
+        }
+    }
+    else
+    {
+        if (mode == Banner::Mode::Ready) m_updateUi.deferred = true;                 // Later: no restart this session.
+        else if (mode == Banner::Mode::WaitingToRestart) m_updateUi.restartRequested = false;
+        else { m_updateUi.dismissed = true; m_updateUi.restartFailed = false; }
+    }
+    RefreshUpdateBanner();
+    if (id == BannerWindow::Primary) PostMessage(WM_APP + 0x45A);
+}
+
+bool CTrafficMonitorDlg::IsUpdateInterfaceQuiet()
+{
+    if (!NativeSettings::IsSafeToRestart() || !IsWindowEnabled() || m_menu_popuped)
+        return false;
 
     GUITHREADINFO gui{ sizeof(gui) };
     if (!::GetGUIThreadInfo(::GetCurrentThreadId(), &gui) || gui.hwndCapture
         || (gui.flags & (GUI_INMENUMODE | GUI_INMOVESIZE | GUI_POPUPMENUMODE | GUI_SYSTEMMENUMODE)))
-        return 0;
+        return false;
     for (const auto& dialog : CBaseDialog::AllUniqueHandels())
-        if (::IsWindow(dialog.second)) return 0;
+        if (::IsWindow(dialog.second)) return false;
 
-    struct WindowState { HWND main; HWND taskbar; HWND mainTooltip; HWND taskbarTooltip; bool busy; } state{
-        m_hWnd, IsTaskbarWndValid() ? m_tBarDlg->GetSafeHwnd() : nullptr,
+    struct WindowState { HWND main; HWND taskbar; HWND banner; HWND mainTooltip; HWND taskbarTooltip; bool busy; } state{
+        m_hWnd, IsTaskbarWndValid() ? m_tBarDlg->GetSafeHwnd() : nullptr, m_updateBanner.GetSafeHwnd(),
         m_tool_tips.GetSafeHwnd(), IsTaskbarWndValid() ? m_tBarDlg->m_tool_tips.GetSafeHwnd() : nullptr, false };
     const BOOL enumerated = ::EnumThreadWindows(::GetCurrentThreadId(), [](HWND window, LPARAM parameter) -> BOOL
     {
         auto& current = *reinterpret_cast<WindowState*>(parameter);
-        if (window != current.main && window != current.taskbar && ::IsWindowVisible(window))
+        // The update banner itself is non-modal and must not count as open work.
+        if (window != current.main && window != current.taskbar && window != current.banner && ::IsWindowVisible(window))
         {
             // Only our two passive status tooltips are exempt, never arbitrary tool windows.
             const HWND expectedOwner = window == current.mainTooltip ? current.main
@@ -2593,9 +2704,32 @@ LRESULT CTrafficMonitorDlg::OnSilentUpdatePulse(WPARAM, LPARAM)
         }
         return TRUE;
     }, reinterpret_cast<LPARAM>(&state));
-    if (!enumerated || state.busy) return 0;
+    return enumerated && !state.busy;
+}
 
-    if (NativeUpdate::PrepareRestart())
+LRESULT CTrafficMonitorDlg::OnSilentUpdatePulse(WPARAM, LPARAM)
+{
+    using namespace NativeUpdate;
+    if (m_updateUiClosing) return 0;
+    SetEnabled(theApp.m_general_data.check_update_when_start);
+    RefreshUpdateBanner();
+    const auto status = GetStatus();
+    if (m_updateUi.restartRequested && status.phase == Phase::Failed)
+    {
+        // A chosen restart that could not be prepared keeps its exact error on screen.
+        m_updateUi.restartRequested = false;
+        m_updateUi.restartFailed = true;
+        RefreshUpdateBanner();
+        return 0;
+    }
+    if (status.phase != Phase::Ready) return 0;
+    // Restart is the person's choice. Only an explicitly enabled automatic-restart preference
+    // (off by default) may start it without a click, and never after Later.
+    const bool automatic = !m_updateUi.restartRequested && theApp.m_general_data.check_update_when_start && AutomaticRestartEnabled();
+    if (!m_updateUi.restartRequested && !automatic) return 0;
+    if (!Banner::ShouldPrepareRestart(status, m_updateUi, automatic, IsUpdateInterfaceQuiet())) return 0;
+
+    if (PrepareRestart(m_updateUi.restartRequested))
     {
         // Nested dispatch gives MFC an actual WM_CLOSE context without allowing
         // queued input between the cooperative safety decision and normal saves.
@@ -2611,6 +2745,7 @@ void CTrafficMonitorDlg::OnDestroy()
     m_updateUiClosing = true;
     ::KillTimer(m_hWnd, 0x7B51);
     NativeUpdate::Stop();
+    if (m_updateBanner.GetSafeHwnd()) m_updateBanner.DestroyWindow();
     CDialog::OnDestroy();
 
     //程序退出时删除通知栏图标

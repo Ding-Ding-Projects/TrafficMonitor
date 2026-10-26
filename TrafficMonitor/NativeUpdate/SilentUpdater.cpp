@@ -4,6 +4,7 @@
 #include "Json.h"
 #include "HelperProtocol.h"
 #include "../InstallerLifecycle.h"
+#include "BannerLogic.h"
 #include <filesystem>
 #include <thread>
 #include <mutex>
@@ -25,7 +26,7 @@ namespace NativeUpdate
         {
             std::atomic<bool> cancel{false}, networkCancel{false};
             std::mutex mutex;std::condition_variable wake;
-            bool enabled{},check{true};Status status;
+            bool enabled{},check{true},manual{},manualVisible{};Status status;std::wstring releaseUrl;
             DWORD httpStatus{};fs::path root;const wchar_t* stage{L"startup"};
         };
         std::mutex serviceMutex;
@@ -177,7 +178,12 @@ namespace NativeUpdate
         }
         void Publish(const std::shared_ptr<State>& state,Phase phase,const std::wstring& version={},DWORD error=0)
         {
-            {std::lock_guard<std::mutex> lock(state->mutex);state->status={phase,version,error};}
+            {
+                std::lock_guard<std::mutex> lock(state->mutex);
+                const bool finished=phase==Phase::Idle||phase==Phase::Ready||phase==Phase::Failed;
+                const auto completed=state->status.completed+(finished?1:0);
+                state->status={phase,version,error,state->stage?state->stage:L"",state->httpStatus,state->releaseUrl,completed};
+            }
             // Bounded local diagnostics contain fixed stage names and numeric results,
             // never response bodies, URLs, credentials or exception text. Diagnostics
             // are best effort and cannot turn a rejected update into success.
@@ -210,8 +216,8 @@ namespace NativeUpdate
                 {
                     auto attempts=Staging(root)/(Wide(pending.version)+L".attempts.ini");
                     if(GetPrivateProfileIntW(L"update",L"attempts",0,attempts.c_str())>=2)
-                        Publish(state,Phase::Failed,Wide(pending.version),GetPrivateProfileIntW(L"update",L"last_exit_code",ERROR_RETRY,attempts.c_str()));
-                    else Publish(state,Phase::Ready,Wide(pending.version));return;
+                        {state->stage=L"apply-attempts";Publish(state,Phase::Failed,Wide(pending.version),GetPrivateProfileIntW(L"update",L"last_exit_code",ERROR_RETRY,attempts.c_str()));}
+                    else {state->releaseUrl=Wide(Banner::ReleaseNotesUrl(pending.tag));Publish(state,Phase::Ready,Wide(pending.version));}return;
                 }
             }
             state->stage=L"release-metadata";Publish(state,Phase::Checking);
@@ -233,7 +239,7 @@ namespace NativeUpdate
             auto admission=Fetch(L"https://api.github.com/repos/Ding-Ding-Projects/TrafficMonitor/compare/"+Wide(release.source)+L"..."+Wide(mainSha),MetadataLimit,state->networkCancel,deadline);
             state->stage=L"admission-validation";
             ValidateAdmission(release,main,admission);
-            Publish(state,Phase::Downloading,Wide(release.version));
+            state->releaseUrl=Wide(Banner::ReleaseNotesUrl(release.tag));Publish(state,Phase::Downloading,Wide(release.version));
             const auto base=L"https://github.com/Ding-Ding-Projects/TrafficMonitor/releases/download/"+Wide(release.tag)+L"/";
             state->stage=L"release-feed";
             auto releases=Fetch(base+L"RELEASES",65536,state->networkCancel,deadline);
@@ -255,8 +261,8 @@ namespace NativeUpdate
             std::unique_lock<std::mutex> lock(state->mutex);
             while(!state->cancel)
             {
-                if(!state->enabled){state->status.phase=Phase::Disabled;state->wake.wait(lock,[&]{return state->cancel||state->enabled;});continue;}
-                state->check=false;state->networkCancel=false;state->httpStatus=0;auto started=GetTickCount64();lock.unlock();
+                if(!state->enabled&&!state->manual){state->status.phase=Phase::Disabled;state->wake.wait(lock,[&]{return state->cancel||state->enabled||state->manual;});continue;}
+                state->manual=false;state->check=false;state->networkCancel=false;state->httpStatus=0;auto started=GetTickCount64();lock.unlock();
                 try{Check(state,root);}catch(const ValidationError& error){state->stage=error.stage;if(!state->cancel)Publish(state,Phase::Failed,{},ERROR_INVALID_DATA);}catch(const TransportError& error){state->httpStatus=error.httpStatus;if(!state->cancel)Publish(state,Phase::Failed,{},error.code);}catch(...){if(!state->cancel)Publish(state,Phase::Failed,{},ERROR_INVALID_DATA);}
                 lock.lock();
                 auto elapsed=GetTickCount64()-started;
@@ -470,12 +476,17 @@ namespace NativeUpdate
     void SetEnabled(bool enabled)
     {
         std::lock_guard<std::mutex> guard(serviceMutex);if(!service)return;
-        std::lock_guard<std::mutex> lock(service->mutex);if(service->enabled==enabled)return;if(!enabled)CancelPreparation(ERROR_CANCELLED);service->enabled=enabled;service->networkCancel=!enabled;service->check=true;service->wake.notify_one();
+        std::lock_guard<std::mutex> lock(service->mutex);if(service->enabled==enabled)return;if(!enabled)CancelPreparation(ERROR_CANCELLED);service->enabled=enabled;service->manualVisible=false;service->networkCancel=!enabled;service->check=true;service->wake.notify_one();
     }
     void RequestCheck()
     {
         std::lock_guard<std::mutex> guard(serviceMutex);if(!service)return;
         std::lock_guard<std::mutex> lock(service->mutex);service->check=true;service->wake.notify_one();
+    }
+    void RequestManualCheck()
+    {
+        std::lock_guard<std::mutex> guard(serviceMutex);if(!service)return;
+        std::lock_guard<std::mutex> lock(service->mutex);service->manual=true;service->manualVisible=true;service->check=true;service->networkCancel=false;service->wake.notify_one();
     }
     void Stop()
     {
@@ -486,13 +497,13 @@ namespace NativeUpdate
     Status GetStatus()
     {
         std::lock_guard<std::mutex> guard(serviceMutex);if(!service)return {};
-        std::lock_guard<std::mutex> lock(service->mutex);auto status=service->status;if(!service->enabled)status.phase=Phase::Disabled;return status;
+        std::lock_guard<std::mutex> lock(service->mutex);auto status=service->status;if(!service->enabled&&!service->manualVisible)status.phase=Phase::Disabled;return status;
     }
-    bool PrepareRestart()
+    bool PrepareRestart(bool userChosen)
     {
         std::lock_guard<std::mutex> guard(serviceMutex);if(!service)return false;
         std::lock_guard<std::mutex> lock(service->mutex);
-        if(!service->enabled||service->status.phase!=Phase::Ready||!AutomaticRestartEnabled())
+        if((!service->enabled&&!userChosen)||service->status.phase!=Phase::Ready||(!userChosen&&!AutomaticRestartEnabled()))
         {CancelPreparation(ERROR_CANCELLED);return false;}
         try
         {
@@ -505,7 +516,7 @@ namespace NativeUpdate
                 // remain retryable without spending either real apply attempt.
                 service->status.phase=Phase::Ready;
                 nextPreparation=GetTickCount64()+HelperPreparationTimeout;
-                service->status.error=preparation->error?preparation->error:ERROR_GEN_FAILURE;
+                service->status.error=preparation->error?preparation->error:ERROR_GEN_FAILURE;service->status.stage=L"restart-readiness";
                 HelperDiagnostic(service->root,L"readiness",L"failed",service->status.error);
                 ReleaseFailedPreparation();return false;
             }
@@ -513,7 +524,7 @@ namespace NativeUpdate
             service->status.phase=Phase::Applying;service->cancel=true;service->networkCancel=true;service->wake.notify_one();return true;
         }
         catch(...)
-        {CancelPreparation(ERROR_INVALID_DATA);service->status.phase=Phase::Failed;service->status.error=ERROR_INVALID_DATA;ReleaseFailedPreparation();return false;}
+        {CancelPreparation(ERROR_INVALID_DATA);service->status.phase=Phase::Failed;service->status.error=ERROR_INVALID_DATA;service->status.stage=L"restart-preparation";ReleaseFailedPreparation();return false;}
     }
     bool ApplyPendingOnLaunch()
     {
@@ -540,7 +551,7 @@ namespace NativeUpdate
     }
     bool AutomaticRestartEnabled()
     {
-        try{return GetPrivateProfileIntW(L"update",L"automatic_restart",1,(Staging(Root())/L"preferences.ini").c_str())!=0;}catch(...){return false;}
+        try{return GetPrivateProfileIntW(L"update",L"automatic_restart",0,(Staging(Root())/L"preferences.ini").c_str())!=0;}catch(...){return false;}
     }
     bool SaveAutomaticRestart(bool enabled)
     {

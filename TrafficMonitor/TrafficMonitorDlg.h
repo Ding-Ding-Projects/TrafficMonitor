@@ -26,6 +26,8 @@
 #include "PdhHardwareQuery/DiskUsage.h"
 #include "HistoryTrafficFile.h"
 #include "NativeDashboard/SetupFlow.h"
+#include "NativeUpdate/BannerLogic.h"
+#include "NativeUpdate/BannerWindow.h"
 
 // CTrafficMonitorDlg 对话框
 class CTrafficMonitorDlg : public CDialog
@@ -80,6 +82,13 @@ protected:
     bool m_get_disk_usage_by_pdh{};
 
     bool m_updateUiClosing{ false };
+    NativeUpdate::BannerWindow m_updateBanner;
+    NativeUpdate::Banner::UiState m_updateUi;
+    ULONGLONG m_updateManualTick{};
+    CString m_updateBannerKey;
+    bool IsUpdateInterfaceQuiet();
+    void RefreshUpdateBanner();
+    void OnUpdateBannerCommand(UINT id);
     bool m_first_start{ true };     //初始时为true，在定时器第一次启动后置为flase
 
     // https://www.jianshu.com/p/9d4b68cdbd99
@@ -239,6 +248,8 @@ public:
     afx_msg void OnShowNotifyIcon();
     afx_msg void OnDestroy();
     afx_msg LRESULT OnSilentUpdatePulse(WPARAM, LPARAM);
+    // Person-requested Check for updates for an installed copy; the result is shown in the update banner.
+    void BeginManualUpdateCheck();
     afx_msg void OnShowCpuMemory();
     afx_msg void OnMousePenetrate();
     //afx_msg void OnTextColor();

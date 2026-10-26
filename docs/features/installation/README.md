@@ -17,9 +17,11 @@ An existing startup entry for a different installation is protected rather than 
 
 ## Updates and removal
 
-Installed builds provide [silent staged updates](silent-updates.md), checking every
-five minutes and restarting cooperatively when no active editing work would be lost.
-The independent automatic-restart preference can leave application until next launch.
+Installed builds provide [silent staged updates](silent-updates.md), checking at startup and every
+five minutes. A staged update is announced by a persistent [update banner](update-banner.md) with
+**Restart to install update** and **Later**; restart happens only on the person's choice (the
+automatic-restart preference is off by default) and waits while editing work is open. A manual
+**Check for updates** command and a visible updater state with exact error text are described there.
 See [preparation retry and staging validation](preparation-reliability.md) for the
 focused cancellation, trust-before-exit and bounded apply-attempt behavior.
 

@@ -1106,6 +1106,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="NativeUpdate\SilentUpdater.h" />
+    <ClInclude Include="NativeUpdate\BannerLogic.h" />
+    <ClInclude Include="NativeUpdate\BannerWindow.h" />
+    <ClCompile Include="NativeUpdate\BannerWindow.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
     <ClInclude Include="NativeUpdate\HelperProtocol.h" />
     <ClInclude Include="NativeUpdate\Transport.h" />
     <ClInclude Include="NativeUpdate\Json.h" />
