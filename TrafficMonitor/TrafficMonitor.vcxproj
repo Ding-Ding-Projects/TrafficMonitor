@@ -1069,6 +1069,10 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="NativeMaterial\AlertDialog.h" />
+    <ClCompile Include="NativeMaterial\AlertDialog.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClInclude Include="NativeMaterial\Controls.h" />
     <ClInclude Include="NativeMaterial\Controls.Accessibility.h" />
     <ClCompile Include="NativeMaterial\Controls.cpp">

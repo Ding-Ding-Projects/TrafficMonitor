@@ -10,13 +10,13 @@ namespace NativeMaterial
         auto color=[&](D2D1_COLOR_F value){brush->SetColor(value);return brush.Get();};
         const auto size=target->GetSize();
         if(size.width<=6||size.height<=6)return;
-        const bool selector=variant==ButtonVariant::Selector,primary=variant==ButtonVariant::Primary,tonal=variant==ButtonVariant::Tonal;
+        const bool selector=variant==ButtonVariant::Selector,destructive=variant==ButtonVariant::Destructive,primary=variant==ButtonVariant::Primary,tonal=variant==ButtonVariant::Tonal;
         const auto rect=D2D1::RectF(3,3,size.width-3,size.height-3);
         const float radius=selector?4.f:(rect.bottom-rect.top)/2;
         const auto shape=D2D1::RoundedRect(rect,radius,radius);
         const COLORREF gray=GetSysColor(COLOR_GRAYTEXT);
         const auto disabled=c.highContrast?D2D1::ColorF(GetRValue(gray)/255.f,GetGValue(gray)/255.f,GetBValue(gray)/255.f):BlendColor(c.onSurface,c.surface,.38f);
-        const auto ink=!enabled?disabled:primary?c.onPrimary:tonal?c.onSecondaryContainer:selector?c.onSurface:c.primary;
+        const auto ink=!enabled?disabled:primary?c.onPrimary:tonal?c.onSecondaryContainer:selector?c.onSurface:destructive?c.error:c.primary;
         if(primary||tonal)
             target->FillRoundedRectangle(shape,color(enabled?(primary?c.primary:c.secondaryContainer):c.highContrast?c.surface:BlendColor(c.onSurface,c.surface,.12f)));
         if(variant==ButtonVariant::Outlined||selector||c.highContrast)
@@ -33,11 +33,11 @@ namespace NativeMaterial
         {
             format->SetTextAlignment(selector?DWRITE_TEXT_ALIGNMENT_LEADING:DWRITE_TEXT_ALIGNMENT_CENTER);
             format->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_CENTER);
-            float inset=selector?16.f:variant==ButtonVariant::Text?12.f:24.f;
+            float inset=selector?16.f:(variant==ButtonVariant::Text||destructive)?12.f:24.f;
             const float rightInset=selector?36.f:inset;
             // Existing owners have not all adopted the larger horizontal inset.
             // Keep their former text width when the full label needs that space.
-            if(!selector&&variant!=ButtonVariant::Text)
+            if(!selector&&variant!=ButtonVariant::Text&&!destructive)
             {
                 Microsoft::WRL::ComPtr<IDWriteTextLayout> layout;
                 if(SUCCEEDED(factory->CreateTextLayout(label,label.GetLength(),format.Get(),(std::max)(1.f,size.width-inset-rightInset),(std::max)(1.f,size.height-10),layout.GetAddressOf())))

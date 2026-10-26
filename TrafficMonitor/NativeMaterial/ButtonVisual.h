@@ -3,6 +3,6 @@
 #include <afxstr.h>
 namespace NativeMaterial
 {
-    enum class ButtonVariant { Primary,Tonal,Outlined,Text,Selector };
+    enum class ButtonVariant { Primary,Tonal,Outlined,Text,Selector,Destructive };
     void DrawButton(ID2D1RenderTarget*,const Palette&,const CString&,ButtonVariant,bool enabled,bool pressed,bool hover,bool focused);
 }

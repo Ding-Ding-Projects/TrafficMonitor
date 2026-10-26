@@ -2,6 +2,7 @@
 //
 
 #include "stdafx.h"
+#include "NativeMaterial/AlertDialog.h"
 #include "NativeMenus/SearchableMenu.h"
 #include "TrafficMonitor.h"
 #include "TaskBarDlg.h"
@@ -84,7 +85,7 @@ void CTaskBarDlg::ShowInfo(CDC* pDC)
                 // 禁用D2D
                 theApp.m_taskbar_data.disable_d2d = true;
                 // 展示错误信息
-                ::MessageBox(NULL, CCommon::LoadText(IDS_UPDATE_TASKBARDLG_FAILED_TIP), NULL, MB_OK | MB_ICONWARNING);
+                NativeMaterial::Alert(nullptr, CCommon::LoadText(IDS_UPDATE_TASKBARDLG_FAILED_TIP), MB_OK | MB_ICONWARNING);
             }
         }
     }

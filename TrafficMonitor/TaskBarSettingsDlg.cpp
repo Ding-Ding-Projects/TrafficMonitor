@@ -2,6 +2,7 @@
 //
 
 #include "stdafx.h"
+#include "NativeMaterial/AlertDialog.h"
 #include "NativeMenus/SearchableMenu.h"
 #include "TrafficMonitor.h"
 #include "TaskBarSettingsDlg.h"
@@ -558,7 +559,7 @@ void CTaskBarSettingsDlg::OnOK()
     {
         CString info;
         info.Format(CCommon::LoadText(IDS_FONT_SIZE_WARNING), MIN_FONT_SIZE, MAX_FONT_SIZE);
-        MessageBox(info, NULL, MB_OK | MB_ICONWARNING);
+        NativeMaterial::Alert(m_hWnd, info, MB_OK | MB_ICONWARNING);
     }
     else
     {
@@ -623,7 +624,7 @@ afx_msg LRESULT CTaskBarSettingsDlg::OnStaticClicked(WPARAM wParam, LPARAM lPara
             {
                 m_data.text_colors.begin()->second.label = colorDlg.GetColor();
                 if (m_data.back_color == m_data.text_colors.begin()->second.label)
-                    MessageBox(CCommon::LoadText(IDS_SAME_TEXT_BACK_COLOR_WARNING), NULL, MB_ICONWARNING);
+                    NativeMaterial::Alert(m_hWnd, CCommon::LoadText(IDS_SAME_TEXT_BACK_COLOR_WARNING), MB_ICONWARNING);
                 DrawStaticColor();
                 m_style_modified = true;
             }
@@ -639,7 +640,7 @@ afx_msg LRESULT CTaskBarSettingsDlg::OnStaticClicked(WPARAM wParam, LPARAM lPara
             bool background_transparent = m_data.IsTaskbarTransparent();
             m_data.back_color = colorDlg.GetColor();
             if (m_data.back_color == m_data.text_colors.begin()->second.label)
-                MessageBox(CCommon::LoadText(IDS_SAME_BACK_TEXT_COLOR_WARNING), NULL, MB_ICONWARNING);
+                NativeMaterial::Alert(m_hWnd, CCommon::LoadText(IDS_SAME_BACK_TEXT_COLOR_WARNING), MB_ICONWARNING);
             if (background_transparent)
             {
                 CCommon::TransparentColorConvert(m_data.back_color);
@@ -895,7 +896,7 @@ BOOL CTaskBarSettingsDlg::OnCommand(WPARAM wParam, LPARAM lParam)
     if (cmd >= ID_MODIFY_DEFAULT_STYLE1 && cmd < ID_MODIFY_DEFAULT_STYLE_MAX)
     {
         int default_style = cmd - ID_MODIFY_DEFAULT_STYLE1;
-        if (MessageBox(CCommon::LoadTextFormat(IDS_SAVE_DEFAULT_STYLE_INQUIRY, { default_style + 1 }), NULL, MB_ICONQUESTION | MB_YESNO) == IDYES)
+        if (NativeMaterial::Alert(m_hWnd, CCommon::LoadTextFormat(IDS_SAVE_DEFAULT_STYLE_INQUIRY, { default_style + 1 }), MB_ICONQUESTION | MB_YESNO) == IDYES)
         {
             ModifyDefaultStyle(default_style);
         }

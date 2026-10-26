@@ -2,6 +2,7 @@
 //
 
 #include "stdafx.h"
+#include "NativeMaterial/AlertDialog.h"
 #include "NativeMenus/SearchableMenu.h"
 #include "TrafficMonitor.h"
 #include "PluginInfoDlg.h"
@@ -127,7 +128,7 @@ CString CPluginInfoDlg::GetDialogName() const
 void CPluginInfoDlg::OnCopyText()
 {
     if (!CCommon::CopyStringToClipboard(wstring(m_selected_string)))
-        MessageBox(CCommon::LoadText(IDS_COPY_TO_CLIPBOARD_FAILED), NULL, MB_ICONWARNING);
+        NativeMaterial::Alert(m_hWnd, CCommon::LoadText(IDS_COPY_TO_CLIPBOARD_FAILED), MB_ICONWARNING);
 }
 
 void CPluginInfoDlg::OnNMRClickInfoList1(NMHDR* pNMHDR, LRESULT* pResult)
