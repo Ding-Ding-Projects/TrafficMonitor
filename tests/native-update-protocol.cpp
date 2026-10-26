@@ -59,13 +59,43 @@ int main(int argc,char** argv)
         service=std::make_shared<State>();service->enabled=true;service->root=Root();service->status.phase=Phase::Ready;
         for(int i=0;i<2;++i)
         {
-            Expect(!PrepareRestart(),"initial preparation never exits parent");
+            Expect(!PrepareRestart(true),"initial preparation never exits parent");
             Sleep(HelperPreparationTimeout+200);
-            Expect(!PrepareRestart(),"expired permission never exits parent");
+            Expect(!PrepareRestart(true),"expired permission never exits parent");
             Expect(GetStatus().phase==Phase::Ready&&Attempts()==0,"expired preparation stays retryable without apply charge");
             if(preparation){Settle(*preparation);preparation.reset();}
             nextPreparation=0;
         }
+        service.reset();
+        // Restart is the person's choice: automatic restart is off by default and, while off,
+        // an unchosen restart never starts a helper or exits the parent.
+        Fixture();fs::remove(Staging(Root())/L"preferences.ini");
+        Expect(!AutomaticRestartEnabled(),"automatic restart is off by default");
+        service=std::make_shared<State>();service->enabled=true;service->root=Root();service->status.phase=Phase::Ready;
+        Expect(!PrepareRestart(),"unchosen restart is refused while automatic restart is off");
+        Expect(!preparation,"unchosen restart starts no helper");
+        service.reset();
+        // Feed and package mutations are rejected with their exact stage names.
+        Fixture();
+        {
+            auto candidate=Pending(Root());
+            auto feedBytes=Read(Staging(Root())/L"pending"/L"RELEASES",1024);
+            auto packageBytes=Read(Staging(Root())/L"pending"/L"TrafficMonitor-1.0.32-full.nupkg",1024);
+            auto stageOf=[&](const std::vector<unsigned char>& feed,const std::vector<unsigned char>& package)->std::wstring
+            {try{ValidateFeed(candidate,feed,package);return L"accepted";}catch(const ValidationError& error){return error.stage;}};
+            Expect(stageOf(feedBytes,packageBytes)==L"accepted","unchanged feed and package are accepted");
+            auto flippedPackage=packageBytes;flippedPackage[0]^=1;
+            Expect(stageOf(feedBytes,flippedPackage)==L"package-sha256","same-size package mutation is rejected by SHA-256");
+            auto shortPackage=packageBytes;shortPackage.pop_back();
+            Expect(stageOf(feedBytes,shortPackage)==L"package-size","truncated package is rejected by size");
+            auto flippedFeed=feedBytes;flippedFeed[0]^=1;
+            Expect(stageOf(flippedFeed,packageBytes)==L"feed-sha256","same-size feed mutation is rejected by SHA-256");
+        }
+        // A person-requested check is queued and visible even while automatic checks are off.
+        service=std::make_shared<State>();service->enabled=false;service->root=Root();service->status.phase=Phase::Idle;
+        Expect(GetStatus().phase==Phase::Disabled,"disabled updater reports Disabled");
+        RequestManualCheck();
+        Expect(GetStatus().phase==Phase::Idle&&service->manual&&service->check,"manual check is queued and visible while automatic checks are off");
         service.reset();
         Fixture();auto release=Pending(Root());int calls{};
         auto fail=[&]()->DWORD{++calls;return ERROR_GEN_FAILURE;};

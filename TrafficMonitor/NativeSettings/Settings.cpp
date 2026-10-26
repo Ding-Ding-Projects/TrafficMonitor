@@ -8,6 +8,7 @@
 #include "SettingsViewport.h"
 #include "../NativeMaterial/Navigation.h"
 #include "../NativeUpdate/SilentUpdater.h"
+#include "../NativeUpdate/BannerLogic.h"
 #include "../NativeMaterial/Controls.h"
 #include "../NativeMaterial/SettingsControls.h"
 #include "../NativeMenus/SearchableMenu.h"
@@ -381,12 +382,18 @@ namespace
         case NativeUpdate::Phase::Idle:phase=T(L"Waiting for next check",L"等候下次檢查");break;
         case NativeUpdate::Phase::Checking:phase=T(L"Checking",L"檢查中");break;
         case NativeUpdate::Phase::Downloading:phase=T(L"Downloading",L"下載中");break;
-        case NativeUpdate::Phase::Ready:phase=T(L"Ready; restart deferred while Settings is open",L"已就緒；設定開啟期間延後重新啟動");break;
+        case NativeUpdate::Phase::Ready:phase=NativePreferences::Format(L"Version %s is staged; choose Restart to install update in the update notice (restart waits while Settings is open)",L"版本 %s 已準備好；請喺更新通知揀「重新啟動以安裝更新」（設定開啟期間會等候）",status.version.c_str());break;
         case NativeUpdate::Phase::Applying:phase=T(L"Applying",L"套用中");break;
-        case NativeUpdate::Phase::Failed:phase=NativePreferences::Format(L"Update unavailable (code %lu)",L"更新暫時不可用（代碼 %lu）",status.error);break;
+        case NativeUpdate::Phase::Failed:
+            {
+                // The exact stage and code stay visible; a failure is never summarized away.
+                const auto failure=NativeUpdate::Banner::FailureDetail(status,L"");
+                phase=NativePreferences::Format(L"Update failed. %s",L"更新失敗。%s",NativePreferences::Pair(failure.english.c_str(),failure.chinese.c_str()).GetString());
+                break;
+            }
         default:phase=T(L"Stopped",L"已停止");break;
         }
-        CString text=T(L"Automatic checks run every five minutes. Disabling automatic restart still permits staging for next launch. Current service: ",L"自動檢查每五分鐘執行一次。關閉自動重新啟動仍可準備下次啟動嘅更新。目前狀態：");text+=phase;
+        CString text=T(L"Automatic checks run at startup and every five minutes. A staged update never restarts the app without your choice unless automatic restart is on; it is otherwise applied at the next launch. Use Check for updates in the monitor menu for a manual check. Current service: ",L"啟動時同每五分鐘自動檢查一次。除非開啟自動重新啟動，否則已準備嘅更新唔會未經你同意重新啟動，會喺下次啟動時套用。需要時可喺監察器選單用「檢查更新」。目前狀態：");text+=phase;
         CString old;m_updateInfo.GetWindowText(old);if(old!=text){m_updateInfo.SetWindowText(text);Layout();}
     }
     void Editor::EnsureVisible(Row& r)

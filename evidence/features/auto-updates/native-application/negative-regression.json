@@ -1,0 +1,13 @@
+{
+  "featureId": "auto-updates",
+  "surface": "native-application",
+  "sourceCommit": "89c0a42cd413415318aaf92167f4bbfc27e0fb15",
+  "sourceCommitNote": "Parent of the commit that adds this receipt; a commit cannot contain its own SHA. The checked source is that parent plus the working-tree changes committed together with this file.",
+  "verified": true,
+  "redObserved": true,
+  "restoredGreen": true,
+  "command": "build.bat --verify-update-banner (green build, then a disposable copy of NativeUpdate/BannerLogic.h in which 'return automaticRestartPreference && !ui.deferred;' became 'return !ui.deferred;'); build.bat --verify-updater",
+  "redOutput": "FAIL no restart without a choice when automatic restart is off\nBanner checks: 1 failed\nExpected rejection: disposable restart-without-choice mutation returned 1.",
+  "greenOutput": "PASS no restart without a choice when automatic restart is off\nBanner checks: 0 failed\nBanner results: green=0 mutation=1\nProtocol checks: 0 failed\nProtocol results: preparation=0 creation=0",
+  "notVerified": "The banner window, its buttons, focus behavior, DPI layout and the real Restart to install update flow were not exercised in a running installed copy."
+}
