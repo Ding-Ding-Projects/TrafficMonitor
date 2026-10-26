@@ -2,6 +2,7 @@
 //
 
 #include "stdafx.h"
+#include "NativeMaterial/AlertDialog.h"
 #include "TrafficMonitor.h"
 #include "MainWndSettingsDlg.h"
 #include "afxdialogex.h"
@@ -436,7 +437,7 @@ void CMainWndSettingsDlg::OnOK()
     {
         CString info;
         info.Format(CCommon::LoadText(IDS_FONT_SIZE_WARNING), MIN_FONT_SIZE, MAX_FONT_SIZE);
-        MessageBox(info, NULL, MB_OK | MB_ICONWARNING);
+        NativeMaterial::Alert(m_hWnd, info, MB_OK | MB_ICONWARNING);
     }
     else
     {

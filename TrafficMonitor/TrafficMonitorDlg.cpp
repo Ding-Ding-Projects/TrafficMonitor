@@ -3,6 +3,7 @@
 //
 
 #include "stdafx.h"
+#include "NativeMaterial/AlertDialog.h"
 #include "NativeDashboard/Workspace.h"
 #include "NativeSettings/Settings.h"
 #include "NativeUpdate/SilentUpdater.h"
@@ -841,7 +842,7 @@ void CTrafficMonitorDlg::ApplySettings(COptionsDlg& optionsDlg)
     if (optionsDlg.m_tab3_dlg.IsAutoRunModified())
     {
         if (!theApp.SetAutoRun(theApp.m_general_data.auto_run, theApp.m_general_data.auto_run_by_task_scheduler))
-            MessageBox(CCommon::LoadText(IDS_SET_AUTO_RUN_FAILED_WARNING), NULL, MB_ICONWARNING | MB_OK);
+            NativeMaterial::Alert(m_hWnd, CCommon::LoadText(IDS_SET_AUTO_RUN_FAILED_WARNING), MB_ICONWARNING | MB_OK);
     }
 
     if (optionsDlg.m_tab3_dlg.IsShowAllInterfaceModified() || is_connections_hide_changed)
@@ -1498,7 +1499,7 @@ void CTrafficMonitorDlg::DoMonitorAcquisition()
             }
             __except (EXCEPTION_EXECUTE_HANDLER)
             {
-                AfxMessageBox(error_info, MB_ICONERROR | MB_OK);
+                NativeMaterial::Alert(error_info, MB_ICONERROR | MB_OK);
             }
         };
 
@@ -1506,7 +1507,7 @@ void CTrafficMonitorDlg::DoMonitorAcquisition()
         auto monitor_error_message{ OpenHardwareMonitorApi::GetErrorMessage() };
         if (!monitor_error_message.empty())
         {
-            AfxMessageBox(monitor_error_message.c_str(), MB_ICONERROR | MB_OK);
+            NativeMaterial::Alert(monitor_error_message.c_str(), MB_ICONERROR | MB_OK);
         }
         //theApp.m_cpu_temperature = theApp.m_pMonitor->CpuTemperature();
         theApp.m_gpu_temperature = theApp.m_pMonitor->GpuTemperature();
@@ -1783,7 +1784,7 @@ void CTrafficMonitorDlg::OnTimer(UINT_PTR nIDEvent)
                         {
                             //弹出错误信息
                             m_cannot_insert_to_task_bar_warning = false;
-                            MessageBox(CCommon::LoadText(IDS_CONNOT_INSERT_TO_TASKBAR, CCommon::IntToString(m_tBarDlg->GetErrorCode())), NULL, MB_ICONWARNING);
+                            NativeMaterial::Alert(m_hWnd, CCommon::LoadText(IDS_CONNOT_INSERT_TO_TASKBAR, CCommon::IntToString(m_tBarDlg->GetErrorCode())), MB_ICONWARNING);
                         }
                     }
                 }
@@ -2824,7 +2825,7 @@ void CTrafficMonitorDlg::OnMousePenetrate()
     //设置鼠标穿透后，弹出消息提示用户如何关闭鼠标穿透
     if (theApp.m_main_wnd_data.m_mouse_penetrate && theApp.m_show_mouse_panetrate_tip)
     {
-        if (MessageBox(CCommon::LoadText(IDS_MOUSE_PENETRATE_TIP_INFO), NULL, MB_ICONINFORMATION | MB_OKCANCEL) == IDCANCEL)        //点击“取消”后不再提示
+        if (NativeMaterial::Alert(m_hWnd, CCommon::LoadText(IDS_MOUSE_PENETRATE_TIP_INFO), MB_ICONINFORMATION | MB_OKCANCEL) == IDCANCEL)        //点击“取消”后不再提示
         {
             theApp.m_show_mouse_panetrate_tip = false;
         }
@@ -3297,7 +3298,7 @@ void CTrafficMonitorDlg::OnPluginOptions()
             //显示插件的选项设置
             auto rtn = plugin->ShowOptionsDialog(GetSafeHwnd());
             if (rtn == ITMPlugin::OR_OPTION_NOT_PROVIDED)
-                MessageBox(CCommon::LoadText(IDS_PLUGIN_NO_OPTIONS_INFO), nullptr, MB_ICONINFORMATION | MB_OK);
+                NativeMaterial::Alert(m_hWnd, CCommon::LoadText(IDS_PLUGIN_NO_OPTIONS_INFO), MB_ICONINFORMATION | MB_OK);
         }
     }
 }
@@ -3337,7 +3338,7 @@ void CTrafficMonitorDlg::OnPluginOptionsTaksbar()
                 m_tBarDlg->WidthChanged();
             }
             if (rtn == ITMPlugin::OR_OPTION_NOT_PROVIDED)
-                MessageBox(CCommon::LoadText(IDS_PLUGIN_NO_OPTIONS_INFO), nullptr, MB_ICONINFORMATION | MB_OK);
+                NativeMaterial::Alert(m_hWnd, CCommon::LoadText(IDS_PLUGIN_NO_OPTIONS_INFO), MB_ICONINFORMATION | MB_OK);
         }
     }
 }

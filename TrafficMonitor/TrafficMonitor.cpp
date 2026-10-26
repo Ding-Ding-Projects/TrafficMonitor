@@ -3,6 +3,7 @@
 //
 
 #include "stdafx.h"
+#include "NativeMaterial/AlertDialog.h"
 #include "TrafficMonitor.h"
 #include "NativePreferences/Preferences.h"
 #include "DiagnosticInstance.h"
@@ -454,7 +455,7 @@ void CTrafficMonitorApp::SaveConfig()
         {
             CString info = CCommon::LoadText(IDS_CONNOT_SAVE_CONFIG_WARNING);
             info.Replace(_T("<%file_path%>"), m_config_path.c_str());
-            AfxMessageBox(info, MB_ICONWARNING);
+            NativeMaterial::Alert(info, MB_ICONWARNING);
         }
         m_cannot_save_config_warning = false;
         return;
@@ -514,7 +515,7 @@ void CTrafficMonitorApp::SaveGlobalConfig()
         //    CString info;
         //    info.LoadString(IDS_CONNOT_SAVE_CONFIG_WARNING);
         //    info.Replace(_T("<%file_path%>"), m_module_dir.c_str());
-        //    AfxMessageBox(info, MB_ICONWARNING);
+        //    NativeMaterial::Alert(info, MB_ICONWARNING);
         //}
         //m_cannot_save_global_config_warning = false;
         //return;
@@ -554,14 +555,14 @@ void CTrafficMonitorApp::CheckUpdate(bool message)
             const HRESULT initialized = CoInitializeEx(nullptr, COINIT_APARTMENTTHREADED | COINIT_DISABLE_OLE1DDE);
             if (FAILED(initialized))
             {
-                AfxMessageBox(CCommon::LoadText(IDS_CHECK_UPDATE_FAILD), MB_OK | MB_ICONWARNING);
+                NativeMaterial::Alert(CCommon::LoadText(IDS_CHECK_UPDATE_FAILD), MB_OK | MB_ICONWARNING);
                 return;
             }
             const auto result = reinterpret_cast<INT_PTR>(ShellExecuteW(nullptr, L"open",
                 L"https://github.com/Ding-Ding-Projects/TrafficMonitor/releases/latest", nullptr, nullptr, SW_SHOWNORMAL));
             CoUninitialize();
             if (result <= 32)
-                AfxMessageBox(CCommon::LoadText(IDS_CHECK_UPDATE_FAILD), MB_OK | MB_ICONWARNING);
+                NativeMaterial::Alert(CCommon::LoadText(IDS_CHECK_UPDATE_FAILD), MB_OK | MB_ICONWARNING);
         }
         return;
     }
@@ -577,7 +578,7 @@ void CTrafficMonitorApp::CheckUpdate(bool message)
     if (!update_helper.CheckForUpdate())
     {
         if (message)
-            AfxMessageBox(CCommon::LoadText(IDS_CHECK_UPDATE_FAILD), MB_OK | MB_ICONWARNING);
+            NativeMaterial::Alert(CCommon::LoadText(IDS_CHECK_UPDATE_FAILD), MB_OK | MB_ICONWARNING);
         return;
     }
     version = update_helper.GetVersion();
@@ -599,7 +600,7 @@ void CTrafficMonitorApp::CheckUpdate(bool message)
             info += _T("\r\nrow_data=");
             info += std::to_wstring(update_helper.IsRowData()).c_str();
 
-            AfxMessageBox(info, MB_OK | MB_ICONWARNING);
+            NativeMaterial::Alert(info, MB_OK | MB_ICONWARNING);
         }
         return;
     }
@@ -620,7 +621,7 @@ void CTrafficMonitorApp::CheckUpdate(bool message)
         else
             info.Format(CCommon::LoadText(IDS_UPDATE_AVLIABLE2), version.c_str(), contents_lan.c_str());
 
-        if (AfxMessageBox(info, MB_YESNO | MB_ICONQUESTION) == IDYES)
+        if (NativeMaterial::Alert(info, MB_YESNO | MB_ICONQUESTION) == IDYES)
         {
             ShellExecute(NULL, _T("open"), link.c_str(), NULL, NULL, SW_SHOW);      //转到下载链接
         }
@@ -628,7 +629,7 @@ void CTrafficMonitorApp::CheckUpdate(bool message)
     else
     {
         if (message)
-            AfxMessageBox(CCommon::LoadText(IDS_ALREADY_UPDATED), MB_OK | MB_ICONINFORMATION);
+            NativeMaterial::Alert(CCommon::LoadText(IDS_ALREADY_UPDATED), MB_OK | MB_ICONINFORMATION);
     }
 }
 
@@ -667,7 +668,7 @@ UINT CTrafficMonitorApp::InitOpenHardwareMonitorLibThreadFunc(LPVOID lpParam)
     theApp.m_pMonitor = OpenHardwareMonitorApi::CreateInstance();
     if (theApp.m_pMonitor == nullptr)
     {
-        AfxMessageBox(OpenHardwareMonitorApi::GetErrorMessage().c_str(), MB_ICONERROR | MB_OK);
+        NativeMaterial::Alert(OpenHardwareMonitorApi::GetErrorMessage().c_str(), MB_ICONERROR | MB_OK);
     }
     //设置硬件监控的启用状态
     theApp.UpdateOpenHardwareMonitorEnableState();
@@ -750,7 +751,7 @@ bool CTrafficMonitorApp::SetAutoRunByRegistry(bool auto_run)
     //打开注册表项
     if (key.Open(HKEY_CURRENT_USER, _T("Software\\Microsoft\\Windows\\CurrentVersion\\Run")) != ERROR_SUCCESS)
     {
-        AfxMessageBox(CCommon::LoadText(IDS_AUTORUN_FAILED_NO_KEY), MB_OK | MB_ICONWARNING);
+        NativeMaterial::Alert(CCommon::LoadText(IDS_AUTORUN_FAILED_NO_KEY), MB_OK | MB_ICONWARNING);
         return false;
     }
     if (auto_run)       //写入注册表项
@@ -760,7 +761,7 @@ bool CTrafficMonitorApp::SetAutoRunByRegistry(bool auto_run)
 
         if (key.SetStringValue(APP_NAME, m_module_path_reg.c_str()) != ERROR_SUCCESS)
         {
-            AfxMessageBox(CCommon::LoadText(IDS_AUTORUN_FAILED_NO_ACCESS), MB_OK | MB_ICONWARNING);
+            NativeMaterial::Alert(CCommon::LoadText(IDS_AUTORUN_FAILED_NO_ACCESS), MB_OK | MB_ICONWARNING);
             return false;
         }
     }
@@ -773,7 +774,7 @@ bool CTrafficMonitorApp::SetAutoRunByRegistry(bool auto_run)
             return false;
         if (key.DeleteValue(APP_NAME) != ERROR_SUCCESS)
         {
-            AfxMessageBox(CCommon::LoadText(IDS_AUTORUN_DELETE_FAILED), MB_OK | MB_ICONWARNING);
+            NativeMaterial::Alert(CCommon::LoadText(IDS_AUTORUN_DELETE_FAILED), MB_OK | MB_ICONWARNING);
             return false;
         }
     }
@@ -1081,7 +1082,7 @@ BOOL CTrafficMonitorApp::InitInstance()
                 }
                 else
                 {
-                    AfxMessageBox(CCommon::LoadText(IDS_AN_INSTANCE_RUNNING));
+                    NativeMaterial::Alert(CCommon::LoadText(IDS_AN_INSTANCE_RUNNING), MB_OK);
                 }
             }
             return FALSE;
@@ -1159,7 +1160,7 @@ BOOL CTrafficMonitorApp::InitInstance()
     {
         if (theApp.m_show_dot_net_notinstalled_tip)
         {
-            if (AfxMessageBox(CCommon::LoadText(IDS_DOTNET_NOT_INSTALLED_TIP), MB_OKCANCEL | MB_ICONWARNING) == IDCANCEL)       //点击“取消”不再提示
+            if (NativeMaterial::Alert(CCommon::LoadText(IDS_DOTNET_NOT_INSTALLED_TIP), MB_OKCANCEL | MB_ICONWARNING) == IDCANCEL)       //点击“取消”不再提示
             {
                 theApp.m_show_dot_net_notinstalled_tip = false;
                 SaveConfig();

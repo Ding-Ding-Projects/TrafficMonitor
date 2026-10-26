@@ -2,6 +2,7 @@
 //
 
 #include "stdafx.h"
+#include "NativeMaterial/AlertDialog.h"
 #include "TrafficMonitor.h"
 #include "TrafficMonitorDlg.h"
 #include "GeneralSettingsDlg.h"
@@ -538,7 +539,7 @@ void CGeneralSettingsDlg::OnOK()
     }
     if (m_data.language != theApp.m_general_data.language)
     {
-        MessageBox(CCommon::LoadText(IDS_LANGUAGE_CHANGE_INFO), NULL, MB_ICONINFORMATION | MB_OK);
+        NativeMaterial::Alert(m_hWnd, CCommon::LoadText(IDS_LANGUAGE_CHANGE_INFO), MB_ICONINFORMATION | MB_OK);
     }
     m_show_all_interface_modified = (m_data.show_all_interface != theApp.m_general_data.show_all_interface);
 
@@ -546,7 +547,7 @@ void CGeneralSettingsDlg::OnOK()
     m_data.portable_mode = (((CButton*)GetDlgItem(IDC_SAVE_TO_PROGRAM_DIR_RADIO))->GetCheck() != 0);
     if (m_data.portable_mode != theApp.m_general_data.portable_mode)
     {
-        MessageBox(CCommon::LoadText(IDS_CFG_DIR_CHANGED_INFO), NULL, MB_ICONINFORMATION | MB_OK);
+        NativeMaterial::Alert(m_hWnd, CCommon::LoadText(IDS_CFG_DIR_CHANGED_INFO), MB_ICONINFORMATION | MB_OK);
     }
 
     //m_taskbar_item_modified = (theApp.m_taskbar_data.display_item != taskbar_displat_item_ori);
@@ -830,7 +831,7 @@ void CGeneralSettingsDlg::OnBnClickedResetAutoRunButton()
     theApp.SetAutoRunByTaskScheduler(false);
     if (!theApp.SetAutoRun(true, m_data.auto_run_by_task_scheduler))    //重新设置开机自动运行
     {
-        MessageBox(CCommon::LoadText(IDS_SET_AUTO_RUN_FAILED_WARNING), NULL, MB_ICONWARNING | MB_OK);
+        NativeMaterial::Alert(m_hWnd, CCommon::LoadText(IDS_SET_AUTO_RUN_FAILED_WARNING), MB_ICONWARNING | MB_OK);
         return;
     }
     //获取开机自动运行的路径

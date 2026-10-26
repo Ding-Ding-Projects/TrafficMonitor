@@ -2,6 +2,7 @@
 //
 
 #include "stdafx.h"
+#include "NativeMaterial/AlertDialog.h"
 #include "NativeMenus/SearchableMenu.h"
 #include "TrafficMonitor.h"
 #include "NetworkInfoDlg.h"
@@ -307,7 +308,7 @@ void CNetworkInfoDlg::OnCopyText()
 {
     // TODO: 在此添加命令处理程序代码
     if (!CCommon::CopyStringToClipboard(wstring(m_selected_string)))
-        MessageBox(CCommon::LoadText(IDS_COPY_TO_CLIPBOARD_FAILED), NULL, MB_ICONWARNING);
+        NativeMaterial::Alert(m_hWnd, CCommon::LoadText(IDS_COPY_TO_CLIPBOARD_FAILED), MB_ICONWARNING);
 }
 
 

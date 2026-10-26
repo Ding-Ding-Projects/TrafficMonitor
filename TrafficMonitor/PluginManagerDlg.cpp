@@ -2,6 +2,7 @@
 //
 
 #include "stdafx.h"
+#include "NativeMaterial/AlertDialog.h"
 #include "NativeMenus/SearchableMenu.h"
 #include "TrafficMonitor.h"
 #include "PluginManagerDlg.h"
@@ -257,7 +258,7 @@ void CPluginManagerDlg::OnBnClickedOptinsButton()
         {
             ITMPlugin::OptionReturn rtn = plugin_info.plugin->ShowOptionsDialog(m_hWnd);
             if (rtn == ITMPlugin::OR_OPTION_NOT_PROVIDED)
-                MessageBox(CCommon::LoadText(IDS_PLUGIN_NO_OPTIONS_INFO), nullptr, MB_ICONINFORMATION | MB_OK);
+                NativeMaterial::Alert(m_hWnd, CCommon::LoadText(IDS_PLUGIN_NO_OPTIONS_INFO), MB_ICONINFORMATION | MB_OK);
             //else if (rtn == ITMPlugin::OR_OPTION_CHANGED)
             //    theApp.m_pMainWnd->SendMessage(WM_REOPEN_TASKBAR_WND);
         }
@@ -328,7 +329,7 @@ void CPluginManagerDlg::OnPluginDisable()
         std::wstring file_name = CFilePathHelper(plugin_info.file_path).GetFileName();
         bool disabled = theApp.m_cfg_data.plugin_disabled.Contains(file_name);
         theApp.m_cfg_data.plugin_disabled.SetStrContained(file_name, !disabled);
-        MessageBox(CCommon::LoadText(IDS_RESTART_TO_APPLY_CHANGE_INFO), nullptr, MB_OK | MB_ICONINFORMATION);
+        NativeMaterial::Alert(m_hWnd, CCommon::LoadText(IDS_RESTART_TO_APPLY_CHANGE_INFO), MB_OK | MB_ICONINFORMATION);
     }
 }
 

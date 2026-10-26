@@ -1,4 +1,5 @@
 ﻿#include "stdafx.h"
+#include "NativeMaterial/AlertDialog.h"
 #include <unordered_map>
 #include "TaskBarDlgDrawCommon.h"
 #include "D2D1Support.h"
@@ -142,7 +143,7 @@ void DrawCommonHelper::DefaultD2DDrawCommonExceptionHandler::HandleErrorCountInc
         m_error_count = 0;
         // 禁用D2D绘图
         theApp.m_taskbar_data.disable_d2d = true;
-        ::MessageBox(NULL, CCommon::LoadText(IDS_D2DDRAWCOMMON_ERROR_TIP), NULL, MB_OK | MB_ICONWARNING);
+        NativeMaterial::Alert(nullptr, CCommon::LoadText(IDS_D2DDRAWCOMMON_ERROR_TIP), MB_OK | MB_ICONWARNING);
     }
 }
 

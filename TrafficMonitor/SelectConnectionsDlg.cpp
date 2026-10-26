@@ -2,6 +2,7 @@
 //
 
 #include "stdafx.h"
+#include "NativeMaterial/AlertDialog.h"
 #include "TrafficMonitor.h"
 #include "SelectConnectionsDlg.h"
 #include "afxdialogex.h"
@@ -83,7 +84,7 @@ void CSelectConnectionsDlg::OnOK()
 
     if (is_empty)
     {
-        MessageBox(CCommon::LoadText(IDS_SELECT_AT_LEASE_ONE_WARNING), NULL, MB_ICONWARNING | MB_OK);
+        NativeMaterial::Alert(m_hWnd, CCommon::LoadText(IDS_SELECT_AT_LEASE_ONE_WARNING), MB_ICONWARNING | MB_OK);
         return;
     }
 
