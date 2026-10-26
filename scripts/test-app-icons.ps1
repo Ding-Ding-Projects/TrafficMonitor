@@ -12,7 +12,8 @@ try {
         if (!$latest) { throw 'Documentation companion is not built; run build-installer.bat --docs-companion first' }
         $Companion = $latest.FullName
     }
-    foreach ($file in @($Native, $Companion)) { if (!(Test-Path -LiteralPath $file)) { throw "Built executable is missing: $file" } }
+    $Inner = Join-Path $RepoRoot 'artifacts/docs-companion/win-unpacked/TrafficMonitor Documentation.exe'
+    foreach ($file in @($Native, $Companion, $Inner)) { if (!(Test-Path -LiteralPath $file)) { throw "Built executable is missing: $file" } }
     $arguments = @((Join-Path $PSScriptRoot 'test-app-icons.mjs'), '--ico', (Join-Path $RepoRoot 'TrafficMonitor/res/TrafficMonitor.ico'))
     # The pristine framework executable is read from the cached Electron archive that the build downloaded.
     $scratch = Join-Path ([IO.Path]::GetTempPath()) ('app-icons-' + [guid]::NewGuid().ToString('N'))
@@ -24,7 +25,7 @@ try {
         try { [IO.Compression.ZipFileExtensions]::ExtractToFile($zip.GetEntry('electron.exe'), (Join-Path $scratch 'electron.exe')) } finally { $zip.Dispose() }
         $arguments += @('--reject-default', (Join-Path $scratch 'electron.exe'))
     } else { Write-Host 'Cached framework archive not found; default-icon comparison skipped.' }
-    $arguments += @('--exe', "native=$Native", '--exe', "documentation-companion=$Companion")
+    $arguments += @('--exe', "native=$Native", '--exe', "documentation-companion=$Companion", '--exe', "documentation-companion-inner=$Inner")
     & $nodePath @arguments
     $code = $LASTEXITCODE
     if (Test-Path -LiteralPath $scratch) { Remove-Item -LiteralPath $scratch -Recurse -Force }

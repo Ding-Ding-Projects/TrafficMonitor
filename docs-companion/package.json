@@ -10,6 +10,7 @@
     "appId": "org.dingdingprojects.trafficmonitor.documentation",
     "productName": "TrafficMonitor Documentation",
     "asar": true,
+    "afterPack": "after-pack.cjs",
     "directories": { "output": "../artifacts/docs-companion" },
     "files": ["main.cjs", "policy.cjs", "project-mark.ico", "site/**/*", "package.json"],
     "win": { "icon": "project-mark.ico", "target": [{ "target": "portable", "arch": ["x64"] }], "signAndEditExecutable": false, "artifactName": "TrafficMonitor-Documentation-${version}-x64.exe" },
