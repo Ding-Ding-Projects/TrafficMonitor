@@ -1187,5 +1187,12 @@
     <ClCompile Include="NativeMaterial\Dropdown.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
     <ClCompile Include="NativeMaterial\LabeledTextField.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
     <ClCompile Include="NativeMaterial\DropdownSearchableMenu.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
+    <ClInclude Include="NativeMaterial\TableVisuals.h" />
+    <ClInclude Include="NativeMaterial\DataTable.h" />
+    <ClInclude Include="NativeMaterial\DataTable.Accessibility.h" />
+    <ClInclude Include="NativeMaterial\MaterialList.h" />
+    <ClCompile Include="NativeMaterial\TableVisuals.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
+    <ClCompile Include="NativeMaterial\DataTable.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
+    <ClCompile Include="NativeMaterial\MaterialList.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
   </ItemGroup>
 </Project>

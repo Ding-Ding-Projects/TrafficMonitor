@@ -4,6 +4,7 @@ if /i "%~1"=="--verify-layout-observations" goto verifyLayoutObservations
 if /i "%~1"=="--layout-observer" goto layoutObserver
 if /i "%~1"=="--verify-material-visuals" goto verifyMaterialVisuals
 if /i "%~1"=="--verify-material-inputs" goto verifyMaterialInputs
+if /i "%~1"=="--verify-material-table" goto verifyMaterialTable
 if /i "%~1"=="--uia-observer" goto uiaObserver
 if /i "%~1"=="--verify-readonly-text" goto verifyReadOnlyText
 if /i "%~1"=="--verify-title-bar" goto verifyTitleBar
@@ -92,6 +93,10 @@ exit /b %errorlevel%
 
 :verifyMaterialInputs
 powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0scripts\test-native-material-inputs.ps1"
+exit /b %errorlevel%
+
+:verifyMaterialTable
+powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0scripts\test-native-tables.ps1"
 exit /b %errorlevel%
 
 :verifyLayoutObservations

@@ -1071,5 +1071,12 @@
     <ClCompile Include="NativeMaterial\Dropdown.cpp" />
     <ClCompile Include="NativeMaterial\LabeledTextField.cpp" />
     <ClCompile Include="NativeMaterial\DropdownSearchableMenu.cpp" />
+    <ClInclude Include="NativeMaterial\TableVisuals.h" />
+    <ClInclude Include="NativeMaterial\DataTable.h" />
+    <ClInclude Include="NativeMaterial\DataTable.Accessibility.h" />
+    <ClInclude Include="NativeMaterial\MaterialList.h" />
+    <ClCompile Include="NativeMaterial\TableVisuals.cpp" />
+    <ClCompile Include="NativeMaterial\DataTable.cpp" />
+    <ClCompile Include="NativeMaterial\MaterialList.cpp" />
   </ItemGroup>
 </Project>
