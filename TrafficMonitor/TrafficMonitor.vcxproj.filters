@@ -1078,5 +1078,13 @@
     <ClCompile Include="NativeMaterial\TableVisuals.cpp" />
     <ClCompile Include="NativeMaterial\DataTable.cpp" />
     <ClCompile Include="NativeMaterial\MaterialList.cpp" />
+    <ClInclude Include="NativeMaterial\FeedbackVisuals.h" />
+    <ClInclude Include="NativeMaterial\Snackbar.h" />
+    <ClInclude Include="NativeMaterial\Progress.h" />
+    <ClInclude Include="NativeMaterial\Chip.h" />
+    <ClCompile Include="NativeMaterial\FeedbackVisuals.cpp" />
+    <ClCompile Include="NativeMaterial\Snackbar.cpp" />
+    <ClCompile Include="NativeMaterial\Progress.cpp" />
+    <ClCompile Include="NativeMaterial\Chip.cpp" />
   </ItemGroup>
 </Project>

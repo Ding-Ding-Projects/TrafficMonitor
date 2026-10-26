@@ -182,7 +182,7 @@ namespace NativeMaterial
             else raise(UIA_ToggleToggleStatePropertyId, integer(state(before.toggle)), integer(state(after.toggle)));
             ::NotifyWinEvent(EVENT_OBJECT_STATECHANGE, m_hWnd, OBJID_CLIENT, CHILDID_SELF);
         }
-        if (before.value != after.value && (after.kind == InputKind::Stepper || after.kind == InputKind::Slider))
+        if (before.value != after.value && (after.kind == InputKind::Stepper || after.kind == InputKind::Slider || (after.kind == InputKind::Progress && !after.indeterminate)))
         {
             VARIANT a{}, b{}; a.vt = b.vt = VT_R8; a.dblVal = before.value; b.dblVal = after.value;
             raise(UIA_RangeValueValuePropertyId, a, b);
