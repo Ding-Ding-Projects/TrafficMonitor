@@ -16,7 +16,7 @@ try {
         'TrafficMonitor/NativeMaterial/InputTests.cpp','TrafficMonitor/NativeMaterial/InputWindow.cpp','TrafficMonitor/NativeMaterial/InputToggles.cpp',
         'TrafficMonitor/NativeMaterial/InputSelection.cpp','TrafficMonitor/NativeMaterial/NumberStepper.cpp','TrafficMonitor/NativeMaterial/Dropdown.cpp',
         'TrafficMonitor/NativeMaterial/LabeledTextField.cpp','TrafficMonitor/NativeMaterial/InputVisuals.cpp','TrafficMonitor/NativeMaterial/TextField.cpp',
-        'TrafficMonitor/NativeMaterial/Theme.cpp','TrafficMonitor/NativeMaterial/LayoutObservations.cpp','TrafficMonitor/NativePreferences/Text.cpp')
+        'TrafficMonitor/NativeMaterial/Slider.cpp','TrafficMonitor/NativeMaterial/Theme.cpp','TrafficMonitor/NativeMaterial/LayoutObservations.cpp','TrafficMonitor/NativePreferences/Text.cpp')
     function Invoke-Cmd($command){
         $log=Join-Path $work 'step.log'
         & cmd.exe /d /c ($command+' > "'+$log+'" 2>&1')
@@ -56,9 +56,41 @@ try {
     if($result -ne 0){ Write-Host "Material input verification failed ($result)."; exit $result }
     Write-Host ("Material input checks passed: {0}" -f (@($output | Where-Object { $_ -like 'PASS *' }).Count))
 
+    # Source scan: the setup wizard and the workspace build no stock combo box, trackbar, static text or system message box.
+    # The wizard needs the application and a desktop session, so it cannot be created in this focused program; the
+    # window classes it can create are exactly the classes its sources name.
+    function Test-NoStockDashboardControls($sources) {
+        $failures=@()
+        foreach($name in $sources.Keys){
+            foreach($pattern in @('NativeMaterial::Choice\b','NativeMaterial::RangeValue\b','\bCComboBox\b','\bCSliderCtrl\b','\bCStatic\b','\bMessageBox\b','\bCBS_DROPDOWN','msctls_trackbar32','\bTBS_')){
+                if($sources[$name] -match $pattern){ $failures+=("{0} still uses {1}" -f $name,$pattern) }
+            }
+        }
+        if($sources['SetupFlow.cpp'] -notmatch 'NativeMaterial::Dropdown' -or $sources['SetupFlow.cpp'] -notmatch 'NativeMaterial::Slider' -or $sources['SetupFlow.cpp'] -notmatch 'NativeMaterial::Label'){ $failures+='SetupFlow.cpp does not use Dropdown, Slider and Label' }
+        if($sources['Workspace.cpp'] -notmatch 'NativeMaterial::Alert\(' -or $sources['Workspace.cpp'] -notmatch 'NativeMaterial::Label'){ $failures+='Workspace.cpp does not use Alert and Label' }
+        return ,$failures
+    }
+    $dashboardSources=@{}
+    foreach($file in Get-ChildItem -LiteralPath (Join-Path $RepoRoot 'TrafficMonitor/NativeDashboard') -Include *.cpp,*.h -Recurse){ $dashboardSources[$file.Name]=[IO.File]::ReadAllText($file.FullName) }
+    $scan=Test-NoStockDashboardControls $dashboardSources
+    if($scan.Count -gt 0){ $scan | ForEach-Object { Write-Host "FAIL $_" }; throw 'The setup wizard or workspace still uses a stock control.' }
+    Write-Host 'PASS setup wizard and workspace use no stock combo box, trackbar, static text or system message box'
+    foreach($probe in @(@{file='SetupFlow.cpp';text='NativeMaterial::Choice m_probe;'},@{file='SetupFlow.cpp';text='CSliderCtrl m_probe;'},@{file='Workspace.cpp';text='CStatic m_probe;'},@{file='Workspace.cpp';text='owner->MessageBox(L"x",L"y",MB_OK);'})){
+        $copy=@{}; foreach($key in $dashboardSources.Keys){ $copy[$key]=$dashboardSources[$key] }
+        $copy[$probe.file]=$copy[$probe.file]+"`n"+$probe.text
+        if((Test-NoStockDashboardControls $copy).Count -eq 0){ throw "The stock control scan did not reject: $($probe.text)" }
+        Write-Host "Expected rejection: stock control scan rejected '$($probe.text)'."
+    }
+
     # Mutation checks: break one rule at a time in a disposable copy, expect the named check to turn red.
     # Copies live in the work folder, so the production tree is never edited.
     $mutations=@(
+        @{ name='slider no longer clamps at the maximum'; file='TrafficMonitor/NativeMaterial/Slider.cpp';
+           needle='        value = Clamp(value, m_minimum, m_maximum);'; replacement='';
+           expected='FAIL slider Right arrow at the maximum keeps the value and notifies nothing' },
+        @{ name='slider stops notifying its parent'; file='TrafficMonitor/NativeMaterial/Slider.cpp';
+           needle="        Notify(EN_CHANGE);`r`n        NotifyScroll(scrollCode);"; replacement="        NotifyScroll(scrollCode);";
+           expected='FAIL slider Right arrow adds a step and notifies' },
         @{ name='stepper no longer clamps to the maximum'; file='TrafficMonitor/NativeMaterial/NumberStepper.cpp';
            needle='(std::max)(static_cast<long long>(m_minimum), (std::min)(static_cast<long long>(m_maximum), wanted))'; replacement='wanted';
            expected='FAIL stepping clamps at the maximum' },

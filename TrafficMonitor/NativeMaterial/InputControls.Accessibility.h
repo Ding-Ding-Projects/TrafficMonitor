@@ -13,7 +13,7 @@
 // outstanding calls after the control is destroyed (the window is revoked).
 namespace NativeMaterial
 {
-    enum class InputKind { Switch, Checkbox, Radio, RadioGroup, Segmented, Stepper, Dropdown, TextField, Button };
+    enum class InputKind { Switch, Checkbox, Radio, RadioGroup, Segmented, Stepper, Dropdown, TextField, Button, Slider };
     enum class InputActionId : WPARAM { Toggle, Select, SetValue, Expand, Collapse };
     constexpr UINT InputAction = WM_APP + 0x540;
 
@@ -22,7 +22,7 @@ namespace NativeMaterial
         InputKind kind{ InputKind::Switch };
         bool enabled{ true }, expanded{}, error{};
         int toggle{};            // 0 off, 1 on, 2 indeterminate
-        int value{}, minimum{}, maximum{}, step{ 1 };
+        int value{}, minimum{}, maximum{}, step{ 1 }, page{};
         int selected{ -1 };      // selected item index, or -1
         std::wstring name, text, help;
         std::vector<std::wstring> items;
@@ -53,7 +53,7 @@ namespace NativeMaterial
             else if (id == __uuidof(IToggleProvider) && root && (kind == InputKind::Switch || kind == InputKind::Checkbox)) *out = static_cast<IToggleProvider*>(this);
             else if (id == __uuidof(ISelectionItemProvider) && ((root && kind == InputKind::Radio) || (!root && list))) *out = static_cast<ISelectionItemProvider*>(this);
             else if (id == __uuidof(ISelectionProvider) && root && list) *out = static_cast<ISelectionProvider*>(this);
-            else if (id == __uuidof(IRangeValueProvider) && root && kind == InputKind::Stepper) *out = static_cast<IRangeValueProvider*>(this);
+            else if (id == __uuidof(IRangeValueProvider) && root && (kind == InputKind::Stepper || kind == InputKind::Slider)) *out = static_cast<IRangeValueProvider*>(this);
             else if (id == __uuidof(IExpandCollapseProvider) && root && kind == InputKind::Dropdown) *out = static_cast<IExpandCollapseProvider*>(this);
             else if (id == __uuidof(IValueProvider) && root && kind == InputKind::Dropdown) *out = static_cast<IValueProvider*>(this);
             else if (id == __uuidof(IInvokeProvider) && root && kind == InputKind::Button) *out = static_cast<IInvokeProvider*>(this);
@@ -96,6 +96,7 @@ namespace NativeMaterial
                     : d.kind == InputKind::Checkbox ? UIA_CheckBoxControlTypeId
                     : d.kind == InputKind::Radio ? UIA_RadioButtonControlTypeId
                     : d.kind == InputKind::Stepper ? UIA_SpinnerControlTypeId
+                    : d.kind == InputKind::Slider ? UIA_SliderControlTypeId
                     : d.kind == InputKind::Dropdown ? UIA_ComboBoxControlTypeId
                     : d.kind == InputKind::Button ? UIA_ButtonControlTypeId : UIA_GroupControlTypeId;
             }
@@ -247,7 +248,7 @@ namespace NativeMaterial
             std::lock_guard<std::mutex> lock(m_state->mutex);
             if (!Available()) return UIA_E_ELEMENTNOTAVAILABLE;
             const auto& d = m_state->data;
-            *out = field == 0 ? d.value : field == 1 ? d.minimum : field == 2 ? d.maximum : field == 3 ? d.step : (std::max)(d.step, d.step * 10);
+            *out = field == 0 ? d.value : field == 1 ? d.minimum : field == 2 ? d.maximum : field == 3 ? d.step : d.page > 0 ? d.page : (std::max)(d.step, d.step * 10);
             return S_OK;
         }
         static HRESULT Text(VARIANT* out, const std::wstring& text)
