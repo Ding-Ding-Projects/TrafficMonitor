@@ -9,6 +9,7 @@
 #include "SetupFlowProgress.h"
 #include "../TrafficMonitorDlg.h"
 #include "../NativeMaterial/Controls.h"
+#include "../NativeMaterial/TitleBar.h"
 #include <afxcmn.h>
 #include <iphlpapi.h>
 #include <algorithm>
@@ -145,7 +146,8 @@ namespace NativeDashboard::Setup
             afx_msg void OnHScroll(UINT, UINT, CScrollBar*);
             DECLARE_MESSAGE_MAP()
         private:
-            NativePreferences::Editor m_preferences;NativePreferences::Subscription m_subscription;
+            NativePreferences::Editor m_preferences;NativePreferences::Subscription m_subscription;NativeMaterial::TitleBar m_titleBar;
+            NativeMaterial::TitleBar::Labels Captions() const{const int lang=m_draft.language;const auto pick=[&](const wchar_t* en,const wchar_t* zh){return lang==1?CString(zh):lang==2?CString(en)+L" / "+zh:CString(en);};NativeMaterial::TitleBar::Labels l;l.minimize=pick(L"Minimize",L"最小化");l.maximize=pick(L"Maximize",L"最大化");l.restore=pick(L"Restore",L"還原");l.close=pick(L"Close",L"關閉");return l;}
             StepViewport m_body;int m_scroll{},m_contentHeight{},m_viewHeight{},m_layoutStep{-1};
             LRESULT OnPreferences(WPARAM generation,LPARAM);
             LRESULT WindowProc(UINT message,WPARAM w,LPARAM l) override {if(message==WM_NCDESTROY)m_subscription.Detach();if(message==WM_SETTINGCHANGE||message==WM_THEMECHANGED)NativePreferences::RefreshSystemAppearance();return CDialog::WindowProc(message,w,l);}
@@ -177,7 +179,7 @@ namespace NativeDashboard::Setup
         BOOL Wizard::OnInitDialog()
         {
             CDialog::OnInitDialog(); m_dpi = GetDpiForWindow(m_hWnd); if (!m_dpi) m_dpi = 96;
-            m_subscription.Attach(m_hWnd);m_appearance=NativePreferences::EffectiveAppearance();
+            m_subscription.Attach(m_hWnd);m_appearance=NativePreferences::EffectiveAppearance();SetWindowText(T(Copy::Title));m_titleBar.Attach(this,m_appearance,Captions());
             const auto palette = NativeMaterial::Palette::Resolve(m_appearance);
             m_background.CreateSolidBrush(RGB(BYTE(palette.surface.r*255), BYTE(palette.surface.g*255), BYTE(palette.surface.b*255)));
             CRect box(0, 0, 100, 40); DWORD child = WS_CHILD | WS_VISIBLE;
@@ -199,8 +201,8 @@ namespace NativeDashboard::Setup
             m_back.SetVariant(NativeMaterial::ButtonVariant::Text);m_save.SetVariant(NativeMaterial::ButtonVariant::Text);
             for (auto* button : {&m_back, &m_next, &m_save, &m_refresh, &m_keep}) button->SetAppearance(m_appearance);
             Fonts(); Labels(); ReloadAdapters();
-            RECT r{0,0,Px(760),Px(640)}; AdjustWindowRectEx(&r,GetStyle(),FALSE,GetExStyle());
-            SetWindowPos(nullptr,0,0,r.right-r.left,r.bottom-r.top,SWP_NOMOVE|SWP_NOZORDER); CenterWindow(); Layout();
+            const SIZE outer=m_titleBar.OuterSizeForContent(Px(760),Px(640));
+            SetWindowPos(nullptr,0,0,outer.cx,outer.cy,SWP_NOMOVE|SWP_NOZORDER); CenterWindow(); Layout();
             if(m_draft.protectedSchema){Note(Copy::Protected);m_save.SetFocus();}else m_next.SetFocus(); return FALSE;
         }
         void Wizard::Fonts()
@@ -220,7 +222,7 @@ namespace NativeDashboard::Setup
         }
         void Wizard::Labels()
         {
-            m_loading=true; SetWindowText(T(Copy::Title));
+            m_loading=true; SetWindowText(T(Copy::Title));m_titleBar.SetLabels(Captions());
             std::array<bool,7> dropped{};
             for(int i:{0,3,4,5,6})dropped[i]=m_choices[i].GetDroppedState()!=FALSE;
             const Copy labels[] = {Copy::Language,Copy::EnglishStyle,Copy::CantoneseStyle,Copy::ModeLabel,Copy::AdapterLabel,Copy::TaskbarLabel,Copy::StartupLabel};
@@ -267,9 +269,10 @@ namespace NativeDashboard::Setup
             const bool anchored=preserveAnchor&&m_layoutStep==m_draft.step&&focus&&::IsChild(m_body,focus)&&::IsWindowVisible(focus);
             if(anchored){::GetWindowRect(focus,&before);m_body.ScreenToClient(before);}
             if(m_layoutStep!=m_draft.step){m_scroll=0;m_layoutStep=m_draft.step;}
-            CRect r;GetClientRect(r);const int width=MulDiv(r.Width(),96,m_dpi),height=MulDiv(r.Height(),96,m_dpi);
+            CRect r;GetClientRect(r);const int width=MulDiv(r.Width(),96,m_dpi),height=MulDiv(r.Height(),96,m_dpi)-NativeMaterial::TitleBar::HeightDp;
             const int bodyWidth=(std::min)(856,width-48),contentWidth=bodyWidth-24;
             auto place=[&](CWnd& child,int x,int y,int w,int h){child.MoveWindow(Px(x),Px(y),Px((std::max)(1,w)),Px((std::max)(1,h)));};
+            auto placeTop=[&](CWnd& child,int x,int y,int w,int h){place(child,x,y+NativeMaterial::TitleBar::HeightDp,w,h);};
             auto textHeight=[&](CWnd& control,int available,int minimum)
             {
                 CClientDC dc(&control);auto old=dc.SelectObject(control.GetFont());
@@ -282,7 +285,7 @@ namespace NativeDashboard::Setup
             m_styleScope.SetWindowText(T(Copy::StyleScope));
             m_next.SetLabel(T(m_draft.step==3?Copy::Apply:Copy::Next));
             const int headingHeight=textHeight(m_heading,width-48,32),bodyTop=16+headingHeight+12;
-            place(m_heading,24,16,width-48,headingHeight);
+            placeTop(m_heading,24,16,width-48,headingHeight);
             // Reserve the measured status and action region before allocating the body.
             const int buttonWidth=(width-72)/3;
             int buttonHeight=44;
@@ -290,9 +293,9 @@ namespace NativeDashboard::Setup
             CString note;m_note.GetWindowText(note);
             const int noteHeight=note.IsEmpty()?0:textHeight(m_note,width-48,20);
             const int buttonTop=height-18-buttonHeight,noteTop=buttonTop-(noteHeight?noteHeight+12:0);
-            place(m_note,24,noteTop,width-48,noteHeight);m_note.ShowWindow(noteHeight?SW_SHOW:SW_HIDE);
-            place(m_back,24,buttonTop,buttonWidth,buttonHeight);place(m_save,36+buttonWidth,buttonTop,buttonWidth,buttonHeight);place(m_next,48+2*buttonWidth,buttonTop,buttonWidth,buttonHeight);
-            m_viewHeight=(std::max)(1,noteTop-12-bodyTop);place(m_body,24,bodyTop,bodyWidth,m_viewHeight);
+            placeTop(m_note,24,noteTop,width-48,noteHeight);m_note.ShowWindow(noteHeight?SW_SHOW:SW_HIDE);
+            placeTop(m_back,24,buttonTop,buttonWidth,buttonHeight);placeTop(m_save,36+buttonWidth,buttonTop,buttonWidth,buttonHeight);placeTop(m_next,48+2*buttonWidth,buttonTop,buttonWidth,buttonHeight);
+            m_viewHeight=(std::max)(1,noteTop-12-bodyTop);placeTop(m_body,24,bodyTop,bodyWidth,m_viewHeight);
             m_body.SetAppearance(m_appearance);m_body.SetScrollName(T(Copy::Title));
             int y=-m_scroll;
             const int infoHeight=textHeight(m_info,contentWidth,20);place(m_info,0,y,contentWidth,infoHeight);y+=infoHeight+16;
@@ -451,7 +454,7 @@ namespace NativeDashboard::Setup
             const bool edit=focus&&::IsChild(m_body,focus)&&GetClassNameW(focus,className,_countof(className))&&_wcsicmp(className,L"Edit")==0;
             DWORD selectionStart{},selectionEnd{};
             if(edit)::SendMessage(focus,EM_GETSEL,reinterpret_cast<WPARAM>(&selectionStart),reinterpret_cast<LPARAM>(&selectionEnd));
-            m_appearance=NativePreferences::EffectiveAppearance();
+            m_appearance=NativePreferences::EffectiveAppearance();m_titleBar.SetAppearance(m_appearance);m_titleBar.SetLabels(Captions());
             const auto colors=NativeMaterial::Palette::Resolve(m_appearance);m_background.DeleteObject();
             m_background.CreateSolidBrush(RGB(BYTE(colors.surface.r*255),BYTE(colors.surface.g*255),BYTE(colors.surface.b*255)));
             m_preferences.Refresh();
@@ -474,7 +477,7 @@ namespace NativeDashboard::Setup
             return handled;
         }
         void Wizard::OnGetMinMaxInfo(MINMAXINFO* info)
-        {CDialog::OnGetMinMaxInfo(info);RECT r{0,0,Px(760),Px(640)};AdjustWindowRectEx(&r,GetStyle(),FALSE,GetExStyle());info->ptMinTrackSize={r.right-r.left,r.bottom-r.top};}
+        {CDialog::OnGetMinMaxInfo(info);const SIZE outer=m_titleBar.OuterSizeForContent(Px(760),Px(640));info->ptMinTrackSize={outer.cx,outer.cy};}
         HBRUSH Wizard::OnCtlColor(CDC* dc,CWnd*,UINT)
         {const auto p=NativeMaterial::Palette::Resolve(m_appearance);dc->SetTextColor(RGB(BYTE(p.onSurface.r*255),BYTE(p.onSurface.g*255),BYTE(p.onSurface.b*255)));dc->SetBkColor(RGB(BYTE(p.surface.r*255),BYTE(p.surface.g*255),BYTE(p.surface.b*255)));return static_cast<HBRUSH>(m_background.GetSafeHandle());}
         LRESULT Wizard::OnDpi(WPARAM dpi,LPARAM value)
@@ -500,7 +503,7 @@ namespace NativeDashboard::Setup
         if(draft.complete){draft.complete=false;draft.step=0;draft.taskbar=draft.startup=0;draft.results={};if(auto* monitor=CTrafficMonitorDlg::Instance())draft.selection=monitor->SetupSelection();}
         struct ActiveScope { ActiveScope(){active=true;} ~ActiveScope(){active=false;} } activeScope;
         struct Template { DLGTEMPLATE dialog; WORD menu{},className{},title{}; } layout{};
-        layout.dialog.style=WS_POPUP|WS_CAPTION|WS_SYSMENU|WS_THICKFRAME|WS_CLIPCHILDREN|DS_MODALFRAME;
+        layout.dialog.style=WS_POPUP|WS_CAPTION|WS_SYSMENU|WS_THICKFRAME|WS_MAXIMIZEBOX|WS_CLIPCHILDREN|DS_MODALFRAME;
         layout.dialog.dwExtendedStyle=WS_EX_CONTROLPARENT;layout.dialog.cx=540;layout.dialog.cy=440;
         Wizard wizard(draft);if(!wizard.InitModalIndirect(&layout.dialog,owner))return false;
         return wizard.DoModal()==IDOK;

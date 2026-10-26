@@ -7,6 +7,7 @@
 #include "Collections.h"
 #include "../TrafficMonitor.h"
 #include "../NativeMaterial/Controls.h"
+#include "../NativeMaterial/TitleBar.h"
 #include "../NativeMaterial/TextField.h"
 #include "../NativeMaterial/ScrollableTextField.h"
 #include "../NativeMaterial/SearchSelector.h"
@@ -64,7 +65,8 @@ namespace
         DECLARE_MESSAGE_MAP()
     private:
         CString T(const wchar_t* en,const wchar_t* zh) const{return NativePreferences::Pair(en,zh);}
-        NativePreferences::Subscription preferences;
+        NativePreferences::Subscription preferences;NativeMaterial::TitleBar titleBar;
+        NativeMaterial::TitleBar::Labels Captions() const{NativeMaterial::TitleBar::Labels l;l.minimize=T(L"Minimize",L"最小化");l.maximize=T(L"Maximize",L"最大化");l.restore=T(L"Restore",L"還原");l.close=T(L"Close",L"關閉");return l;}
         std::map<HWND,std::pair<std::wstring,std::wstring>> messages;
         void Note(CStatic& control,const wchar_t* en,const wchar_t* zh){messages[control.GetSafeHwnd()]={en,zh};control.SetWindowText(T(en,zh));if(!loading)Layout();}
         void Labels();LRESULT OnPreferences(WPARAM,LPARAM);
@@ -117,7 +119,7 @@ namespace
     {
         CDialog::OnInitDialog();state->window=m_hWnd;dpi=GetDpiForWindow(m_hWnd);if(!dpi)dpi=96;
         preferences.Attach(m_hWnd);appearance=NativePreferences::EffectiveAppearance();
-        SetWindowText(T(L"Search pattern workbench",L"搜尋表示式工作台"));
+        SetWindowText(T(L"Search pattern workbench",L"搜尋表示式工作台"));titleBar.Attach(this,appearance,Captions());
         auto colors=NativeMaterial::Palette::Resolve(appearance);
         background.CreateSolidBrush(RGB(BYTE(colors.surface.r*255),BYTE(colors.surface.g*255),BYTE(colors.surface.b*255)));
         DWORD child=WS_CHILD|WS_VISIBLE;CRect r(0,0,100,32);
@@ -166,7 +168,7 @@ namespace
         for(int index=0;index<4;++index)pages[index].Create(L"",r,this,TestPage+index);
         for(CWnd* control:std::initializer_list<CWnd*>{&savedLabel,&savedList,&loadSaved,&refreshSaved,&nameLabel,&savedName,&descriptionLabel,&savedDescription,&saveNew,&renameSaved,&deleteSaved,&recoverSaved,&exportSaved,&importSaved,&collectionNote,&engine,&mode,&caseButton,&any,&digit,&word,&group,&start,&end,&help,&subjectLabel,&subject,&replacementLabel,&replacement,&run,&replace,&split,&results,&output})control->SetParent(&panel);
         Theme();
-        Labels();Fonts();RECT size{0,0,Px(1280),Px(840)};AdjustWindowRectEx(&size,GetStyle(),FALSE,GetExStyle());
+        Labels();Fonts();const SIZE outerSize=titleBar.OuterSizeForContent(Px(1280),Px(840));RECT size{0,0,outerSize.cx,outerSize.cy};
         MONITORINFO monitor{sizeof(monitor)};GetMonitorInfoW(MonitorFromWindow(anchor,MONITOR_DEFAULTTONEAREST),&monitor);
         int width=(std::min)(size.right-size.left,monitor.rcWork.right-monitor.rcWork.left),height=(std::min)(size.bottom-size.top,monitor.rcWork.bottom-monitor.rcWork.top);
         SetWindowPos(nullptr,0,0,width,height,SWP_NOMOVE|SWP_NOZORDER|SWP_NOACTIVATE);Reanchor();
@@ -174,7 +176,7 @@ namespace
     }
     void Workbench::Labels()
     {
-        SetWindowText(T(L"Search pattern workbench",L"搜尋表示式工作台"));
+        SetWindowText(T(L"Search pattern workbench",L"搜尋表示式工作台"));titleBar.SetLabels(Captions());
         savedLabel.SetWindowText(T(L"Saved expressions (local only)",L"已儲存表示式，只限本機"));
         loadSaved.SetLabel(T(L"Load draft",L"載入草稿"));
         refreshSaved.SetLabel(T(L"Refresh",L"重新整理"));
@@ -214,7 +216,7 @@ namespace
     }
     void Workbench::Theme()
     {
-        NativeMaterial::ApplyNativeFrameAppearance(m_hWnd,appearance);
+        NativeMaterial::ApplyNativeFrameAppearance(m_hWnd,appearance);titleBar.SetAppearance(appearance);
         for(auto* button:{&mode,&caseButton,&run,&replace,&split,&apply,&cancel,&any,&digit,&word,&group,&start,&end,&saveNew,&loadSaved,&renameSaved,&deleteSaved,&recoverSaved,&refreshSaved,&options})
         {
             button->SetAppearance(appearance);
@@ -294,7 +296,7 @@ namespace
     {
         if(!viewport.GetSafeHwnd())return;
         CRect bounds;GetClientRect(bounds);
-        const int width=MulDiv(bounds.Width(),96,dpi),height=MulDiv(bounds.Height(),96,dpi);
+        const int width=MulDiv(bounds.Width(),96,dpi),height=MulDiv(bounds.Height(),96,dpi)-NativeMaterial::TitleBar::HeightDp;
         CClientDC dc(this);auto* previous=dc.SelectObject(&font);
         auto measure=[&](CWnd& control,int available,int minimum)
         {
@@ -306,6 +308,7 @@ namespace
             return (std::max)(minimum,MulDiv(text.Height(),96,dpi));
         };
         auto move=[&](CWnd& control,int x,int y,int w,int h){control.MoveWindow(Px(x),Px(y),Px(w),Px(h));};
+        auto moveTop=[&](CWnd& control,int x,int y,int w,int h){move(control,x,y+NativeMaterial::TitleBar::HeightDp,w,h);};
         const bool compact=height<600;
         int y=compact?8:16;
         heading.ShowWindow(compact?SW_HIDE:SW_SHOW);
@@ -314,30 +317,30 @@ namespace
         int h=0;
         if(!compact)
         {
-            h=measure(heading,width-40,28);move(heading,20,y,width-40,h);y+=h+2;
-            if(bilingual){h=measure(headingSecondary,width-40,20);move(headingSecondary,20,y,width-40,h);y+=h;}
+            h=measure(heading,width-40,28);moveTop(heading,20,y,width-40,h);y+=h+2;
+            if(bilingual){h=measure(headingSecondary,width-40,20);moveTop(headingSecondary,20,y,width-40,h);y+=h;}
             y+=10;
         }
-        h=measure(patternLabel,width-40,20);move(patternLabel,20,y,width-40,h);y+=h+6;
+        h=measure(patternLabel,width-40,20);moveTop(patternLabel,20,y,width-40,h);y+=h+6;
         const int buttonHeight=(std::max)(44,measure(options,100,20)+20);
-        move(pattern,20,y,width-172,buttonHeight);move(options,width-140,y,120,buttonHeight);y+=buttonHeight+10;
+        moveTop(pattern,20,y,width-172,buttonHeight);moveTop(options,width-140,y,120,buttonHeight);y+=buttonHeight+10;
         const int tabWidth=(width-64)/4;
         int tabHeight=44;
         for(auto& button:pages)tabHeight=(std::max)(tabHeight,measure(button,tabWidth-24,20)+16);
         for(int index=0;index<4;++index)
         {
             pages[index].SetVariant(index==page?NativeMaterial::ButtonVariant::Tonal:NativeMaterial::ButtonVariant::Text);
-            move(pages[index],20+index*(tabWidth+8),y,tabWidth,tabHeight);
+            moveTop(pages[index],20+index*(tabWidth+8),y,tabWidth,tabHeight);
         }
         y+=tabHeight+(compact?6:12);
         const int actionHeight=(std::max)(44,measure(apply,180,20)+16);
         const int noteHeight=measure(note,width-40,20);
         const int footer=noteHeight+actionHeight+(compact?20:28);
-        move(note,20,height-footer+8,width-40,noteHeight);
-        move(cancel,width-360,height-actionHeight-12,140,actionHeight);
-        move(apply,width-208,height-actionHeight-12,188,actionHeight);
+        moveTop(note,20,height-footer+8,width-40,noteHeight);
+        moveTop(cancel,width-360,height-actionHeight-12,140,actionHeight);
+        moveTop(apply,width-208,height-actionHeight-12,188,actionHeight);
         bodyHeight=(std::max)(24,height-footer-y);
-        move(viewport,0,y,width,bodyHeight);
+        moveTop(viewport,0,y,width,bodyHeight);
         struct Box{CWnd* control;int x,y,w,h;};std::vector<Box> boxes;
         std::vector<CWnd*> bodyControls{&savedLabel,&savedList,&loadSaved,&refreshSaved,&nameLabel,&savedName,&descriptionLabel,&savedDescription,&saveNew,&renameSaved,&deleteSaved,&recoverSaved,&exportSaved,&importSaved,&collectionNote,&engine,&mode,&caseButton,&any,&digit,&word,&group,&start,&end,&help,&subjectLabel,&subject,&replacementLabel,&replacement,&run,&replace,&split,&results,&output,&resultsLabel,&outputLabel};
         const int left=36,available=width-88;
@@ -541,7 +544,7 @@ namespace
     {
         if(auto* field=DYNAMIC_DOWNCAST(NativeMaterial::TextField,control))return field->Color(dc);
         auto c=NativeMaterial::Palette::Resolve(appearance);dc->SetTextColor(RGB(BYTE(c.onSurface.r*255),BYTE(c.onSurface.g*255),BYTE(c.onSurface.b*255)));dc->SetBkColor(RGB(BYTE(c.surface.r*255),BYTE(c.surface.g*255),BYTE(c.surface.b*255)));return static_cast<HBRUSH>(background.GetSafeHandle());}
-    void Workbench::OnGetMinMaxInfo(MINMAXINFO* info){RECT r{0,0,Px(640),Px(400)};AdjustWindowRectEx(&r,GetStyle(),FALSE,GetExStyle());info->ptMinTrackSize={r.right-r.left,r.bottom-r.top};}
+    void Workbench::OnGetMinMaxInfo(MINMAXINFO* info){const SIZE outer=titleBar.OuterSizeForContent(Px(640),Px(400));info->ptMinTrackSize={outer.cx,outer.cy};}
     LRESULT Workbench::OnDpi(WPARAM w,LPARAM l){dpi=HIWORD(w);auto r=reinterpret_cast<RECT*>(l);SetWindowPos(nullptr,r->left,r->top,r->right-r->left,r->bottom-r->top,SWP_NOZORDER|SWP_NOACTIVATE);Fonts();Layout();return 0;}
 }
 Editor::Editor():m_state(std::make_shared<EditorState>()){}
@@ -561,7 +564,7 @@ bool Editor::Open(HWND owner,HWND anchor,const Options& accepted,std::function<s
     if(IsOpen()){::SetForegroundWindow(m_state->window);return true;}
     if(!::IsWindow(owner)||!::IsWindow(anchor))return false;
     struct Template {DLGTEMPLATE dialog;WORD menu{},className{},title{};} layout{};
-    layout.dialog.style=WS_POPUP|WS_CAPTION|WS_SYSMENU|WS_THICKFRAME|WS_CLIPCHILDREN;
+    layout.dialog.style=WS_POPUP|WS_CAPTION|WS_SYSMENU|WS_THICKFRAME|WS_MAXIMIZEBOX|WS_CLIPCHILDREN;
     layout.dialog.dwExtendedStyle=WS_EX_CONTROLPARENT|WS_EX_TOOLWINDOW;layout.dialog.cx=500;layout.dialog.cy=450;
     auto owned=std::make_unique<Workbench>();auto* editor=owned.get();editor->state=m_state;editor->draft=accepted;editor->subjects=subjects();editor->readSubjects=std::move(subjects);
     editor->accept=std::move(apply);editor->anchor=anchor;editor->owner=owner;editor->chinese=chinese;editor->appearance=appearance;
