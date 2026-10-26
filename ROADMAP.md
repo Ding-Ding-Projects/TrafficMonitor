@@ -227,7 +227,8 @@ with historical originals retained separately.
 ## Named native expression collections
 
 - [ ] Verify explicit save/reuse/rename/delete/recovery, Unicode persistence, concurrency, keyboard access and localization in the built editor. Source implemented; runtime acceptance remains unverified.
-- [ ] Complete collection import/export compatibility, descriptions, parameters and remaining RegexBuddy library topics.
+- [x] Add bounded collection export and all-or-nothing merge/replace import with `build.bat --verify-regex-collections` (31 checks, mutation-checked).
+- [ ] Expose collection export/import in the regex workbench, then complete descriptions, parameters and remaining RegexBuddy library topics.
 
 ## UTF-8 updater feed marker repair
 

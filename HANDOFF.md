@@ -16,6 +16,12 @@ publication fails two of them. The full `build.bat --silent` product build, `--v
 `--verify-settings` (46 passed) also succeed at this source. A live Settings/preference
 observation run has not been performed yet, so native layout acceptance remains unavailable.
 
+Regex collections gained `ExportCollection` and an all-or-nothing `ImportCollection`
+(merge skips identical records and rejects a differing case-insensitive name match; replace
+swaps the set). Imports keep the `.bak` used by Recover. `build.bat
+--verify-regex-collections` runs 31 checks and a built-in mutant that must fail. The regex
+workbench does not expose these actions yet. The merged source passes the full product build.
+
 Individual branches retain their earlier build/check results, including 320 old/new drawing
 comparisons and transport-v2 checks. They do not verify the stopped combined source. The last
 bounded product runtime result remains candidate 9050 below. Task worktrees and private
