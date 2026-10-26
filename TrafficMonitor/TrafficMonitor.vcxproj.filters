@@ -1094,5 +1094,15 @@
     <ClCompile Include="NativeMaterial\Snackbar.cpp" />
     <ClCompile Include="NativeMaterial\Progress.cpp" />
     <ClCompile Include="NativeMaterial\Chip.cpp" />
+    <ClInclude Include="NativeMaterial\PickerDraw.h" />
+    <ClInclude Include="NativeMaterial\PickerDialog.h" />
+    <ClInclude Include="NativeMaterial\ColorPicker.h" />
+    <ClInclude Include="NativeMaterial\FontPicker.h" />
+    <ClInclude Include="NativeMaterial\Calendar.Accessibility.h" />
+    <ClInclude Include="NativeMaterial\Calendar.h" />
+    <ClCompile Include="NativeMaterial\PickerDialog.cpp" />
+    <ClCompile Include="NativeMaterial\ColorPicker.cpp" />
+    <ClCompile Include="NativeMaterial\FontPicker.cpp" />
+    <ClCompile Include="NativeMaterial\Calendar.cpp" />
   </ItemGroup>
 </Project>

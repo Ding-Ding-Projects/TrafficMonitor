@@ -13,7 +13,7 @@
 // outstanding calls after the control is destroyed (the window is revoked).
 namespace NativeMaterial
 {
-    enum class InputKind { Switch, Checkbox, Radio, RadioGroup, Segmented, Stepper, Dropdown, TextField, Button, Slider, Table, List, Tabs, Snackbar, Progress, Chip };
+    enum class InputKind { Switch, Checkbox, Radio, RadioGroup, Segmented, Stepper, Dropdown, TextField, Button, Slider, Table, List, Tabs, Snackbar, Progress, Chip, ColorArea, Calendar };
     enum class InputActionId : WPARAM { Toggle, Select, SetValue, Expand, Collapse };
     constexpr UINT InputAction = WM_APP + 0x540;
 
@@ -58,7 +58,7 @@ namespace NativeMaterial
             else if (id == __uuidof(ISelectionProvider) && root && list) *out = static_cast<ISelectionProvider*>(this);
             else if (id == __uuidof(IRangeValueProvider) && root && (kind == InputKind::Stepper || kind == InputKind::Slider || (kind == InputKind::Progress && !Flag(0)))) *out = static_cast<IRangeValueProvider*>(this);
             else if (id == __uuidof(IExpandCollapseProvider) && root && kind == InputKind::Dropdown) *out = static_cast<IExpandCollapseProvider*>(this);
-            else if (id == __uuidof(IValueProvider) && root && kind == InputKind::Dropdown) *out = static_cast<IValueProvider*>(this);
+            else if (id == __uuidof(IValueProvider) && root && (kind == InputKind::Dropdown || kind == InputKind::ColorArea)) *out = static_cast<IValueProvider*>(this);
             else if (id == __uuidof(IInvokeProvider) && root && (kind == InputKind::Button || kind == InputKind::Snackbar || (kind == InputKind::Chip && !Flag(1)))) *out = static_cast<IInvokeProvider*>(this);
             else return E_NOINTERFACE;
             AddRef();
@@ -103,10 +103,11 @@ namespace NativeMaterial
                     : d.kind == InputKind::Dropdown ? UIA_ComboBoxControlTypeId
                     : d.kind == InputKind::Button || d.kind == InputKind::Chip ? UIA_ButtonControlTypeId
                     : d.kind == InputKind::Tabs ? UIA_TabControlTypeId
-                    : d.kind == InputKind::Progress ? UIA_ProgressBarControlTypeId : UIA_GroupControlTypeId;
+                    : d.kind == InputKind::Progress ? UIA_ProgressBarControlTypeId
+                    : d.kind == InputKind::ColorArea ? UIA_CustomControlTypeId : UIA_GroupControlTypeId;
             }
-            else if (id == UIA_LocalizedControlTypePropertyId && root && (d.kind == InputKind::Switch || d.kind == InputKind::Segmented || d.kind == InputKind::Snackbar || d.kind == InputKind::Chip))
-                return Text(out, d.kind == InputKind::Switch ? L"switch" : d.kind == InputKind::Segmented ? L"segmented button" : d.kind == InputKind::Snackbar ? L"snackbar" : L"chip");
+            else if (id == UIA_LocalizedControlTypePropertyId && root && (d.kind == InputKind::Switch || d.kind == InputKind::Segmented || d.kind == InputKind::Snackbar || d.kind == InputKind::Chip || d.kind == InputKind::ColorArea))
+                return Text(out, d.kind == InputKind::Switch ? L"switch" : d.kind == InputKind::Segmented ? L"segmented button" : d.kind == InputKind::Snackbar ? L"snackbar" : d.kind == InputKind::ColorArea ? L"color area" : L"chip");
             else if (id == UIA_LiveSettingPropertyId && root && d.kind == InputKind::Snackbar) { out->vt = VT_I4; out->lVal = Polite; }
             else if (id == UIA_AcceleratorKeyPropertyId && root && !d.shortcut.empty()) return Text(out, d.shortcut);
             else if (id == UIA_NamePropertyId) return Text(out, !root ? m_itemName : d.name);
@@ -197,7 +198,7 @@ namespace NativeMaterial
         }
         HRESULT STDMETHODCALLTYPE get_Value(double* out) override { return Number(out, 0); }
         HRESULT STDMETHODCALLTYPE get_IsReadOnly(BOOL* out) override
-        { if (!out) return E_POINTER; std::lock_guard<std::mutex> lock(m_state->mutex); if (!Available()) return UIA_E_ELEMENTNOTAVAILABLE; *out = m_state->data.kind == InputKind::Progress; return S_OK; }
+        { if (!out) return E_POINTER; std::lock_guard<std::mutex> lock(m_state->mutex); if (!Available()) return UIA_E_ELEMENTNOTAVAILABLE; *out = (m_state->data.kind == InputKind::Progress || m_state->data.kind == InputKind::ColorArea) ? TRUE : FALSE; return S_OK; }
         HRESULT STDMETHODCALLTYPE get_Maximum(double* out) override { return Number(out, 2); }
         HRESULT STDMETHODCALLTYPE get_Minimum(double* out) override { return Number(out, 1); }
         HRESULT STDMETHODCALLTYPE get_LargeChange(double* out) override { return Number(out, 4); }

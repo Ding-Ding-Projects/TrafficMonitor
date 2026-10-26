@@ -1210,5 +1210,15 @@
     <ClCompile Include="NativeMaterial\Snackbar.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
     <ClCompile Include="NativeMaterial\Progress.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
     <ClCompile Include="NativeMaterial\Chip.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
+    <ClInclude Include="NativeMaterial\PickerDraw.h" />
+    <ClInclude Include="NativeMaterial\PickerDialog.h" />
+    <ClInclude Include="NativeMaterial\ColorPicker.h" />
+    <ClInclude Include="NativeMaterial\FontPicker.h" />
+    <ClInclude Include="NativeMaterial\Calendar.Accessibility.h" />
+    <ClInclude Include="NativeMaterial\Calendar.h" />
+    <ClCompile Include="NativeMaterial\PickerDialog.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
+    <ClCompile Include="NativeMaterial\ColorPicker.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
+    <ClCompile Include="NativeMaterial\FontPicker.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
+    <ClCompile Include="NativeMaterial\Calendar.cpp"><PrecompiledHeader>NotUsing</PrecompiledHeader></ClCompile>
   </ItemGroup>
 </Project>
