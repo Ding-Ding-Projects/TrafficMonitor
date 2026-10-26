@@ -7,6 +7,7 @@ if /i "%~1"=="--uia-observer" goto uiaObserver
 if /i "%~1"=="--verify-readonly-text" goto verifyReadOnlyText
 if /i "%~1"=="--verify-result-list" goto verifyResultList
 if /i "%~1"=="--verify-preferences" goto verifyPreferences
+if /i "%~1"=="--verify-regex-collections" goto verifyRegexCollections
 if /i "%~1"=="--verify-settings" goto verifySettings
 if /i "%~1"=="--docs-companion" goto docsCompanion
 if /i "%~1"=="--verify-updater" goto verifyUpdater
@@ -38,6 +39,10 @@ exit /b %errorlevel%
 
 :verifyPreferences
 powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0scripts\test-native-preferences.ps1"
+exit /b %errorlevel%
+
+:verifyRegexCollections
+powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0scripts\test-native-regex-collections.ps1"
 exit /b %errorlevel%
 
 :verifyResultList
