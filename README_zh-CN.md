@@ -11,9 +11,7 @@
 及 [驗證進度](HANDOFF.md)。原生介面重製和其他必要功能會在安裝基礎完成後進行。
 以下保留上游文件及作者資訊。
 
-![已附加到目前 Explorer 工作列的真實監察畫面](evidence/installer/1.0.8/taskbar-current-desktop.png)
-
-此 1.0.8 真實畫面已配合 Explorer 附加及隱藏主視窗驗證。
+目前的畫面截圖請見[主 README 的截圖部分](README.md#screenshots)。較早的 1.0.8 Explorer 工作列畫面已列入[截圖封存](docs/screenshots-archive.md)；該畫面曾配合 Explorer 附加及隱藏主視窗驗證。
 [驗證記錄](evidence/installer/1.0.8/runtime.json) 列明安裝、更新及自動啟動結果。
 較早的隔離桌面證據保留於 [證據封存索引](evidence/installer/README.md)。
 
@@ -85,18 +83,25 @@ TrafficMonitor提供了标准版和Lite版两种版本可用。标准版包含�
 
 # 截图
 
+以下是应用自身窗口的当前截图（本地构建 1.0.9070，界面为英文）：
+
 主悬浮窗：
-![](./Screenshots/main1.png)
+
+![主悬浮窗，显示上传和下载速度](docs/images/current/main-window/floating-default.png)
 
 右键菜单：
-![](./Screenshots/main.png)
+
+![主悬浮窗右键菜单，英文界面，浅色主题](docs/images/current/menus/main-context-menu-open.png)
+
+右键菜单（粤语界面）：
+
+![主悬浮窗右键菜单，粤语界面，浅色主题](docs/images/current/menus/main-context-menu-open-cantonese-light.png)
 
 任务栏窗口：
 
-![](./Screenshots/taskbar.PNG)
+![任务栏监控窗口，显示上传和下载速度，在无头桌面上为独立窗口](docs/images/current/taskbar-window/taskbar-window-hidden-desktop.png)
 
-多彩皮肤：
-<img src="./Screenshots/skins.PNG" style="zoom:80%;" />
+更多截图见[主 README 的截图部分](README.md#screenshots)。原先放在这里的旧截图（包括多彩皮肤拼图）已移入[截图封存](docs/screenshots-archive.md)。
 
 # 如何使用
 程序启动后在会在屏幕中显示一个显示网速的悬浮窗。在悬浮窗上点击鼠标右键可以弹出右键菜单。
@@ -105,10 +110,10 @@ TrafficMonitor支持将信息显示到任务栏。但是TrafficMonitor默认只�
 
 任务栏窗口支持自定义显示项目，默认情况下只显示网速，如果需要显示CPU和内存利用率等其他信息，请在任务栏窗口右键菜单中选择“显示设置”，在弹出的“显示设置”对话框中勾选需要显示的项目，如下图所示：
 
-<img src="./Screenshots/taskbar_item_settings.png" style="zoom:80%;" />
+<img src="./docs/images/current/legacy-options/taskbar-display-settings-dialog.png" alt="任务栏显示设置对话框" style="zoom:80%;" />
 
 # 自定义皮肤
-<img src="./Screenshots/selecte_skin.png" style="zoom:80%;" />
+<img src="./docs/images/current/dialogs/change-skin.png" alt="更换皮肤对话框" style="zoom:80%;" />
 
 在主窗口或通知区图标右键菜单上选择“其他功能”——“更换皮肤”可以打开更换皮肤界面。[点击此处](https://github.com/zhongyang219/TrafficMonitorSkin/blob/master/皮肤下载.md)可以下载更多皮肤。用户还可以根据自己的需要编辑自己的皮肤。
 
@@ -125,7 +130,7 @@ TrafficMonitor支持将信息显示到任务栏。但是TrafficMonitor默认只�
 [皮肤制作教程 · zhongyang219/TrafficMonitor Wiki (github.com)](https://github.com/zhongyang219/TrafficMonitor/wiki/皮肤制作教程)
 
 # 选项设置
-<img src="./Screenshots/option.jpg" style="zoom:80%;" />
+<img src="./docs/images/current/legacy-options/main-window-settings-tab.png" alt="选项设置对话框的主窗口设置选项卡" style="zoom:80%;" />
 
 在右键菜单选择“选项...”可以进入选项设置。在选项设置对话框中，可以单独设置主窗口和任务栏窗口的文本颜色、字体、背景颜色、网速单位、显示的文本等。
 
