@@ -17,7 +17,10 @@ unfinished items below; this checklist records completed and unfinished work.
 - [x] Add opt-in native action sounds (Off, Important, All) through one non-blocking system-sound dispatcher.
 - [ ] Apply the action-sound switch immediately instead of on Apply, and add import outcome cues once native personal-wording import exists.
 - [ ] Exercise the update banner, Restart flow and action sounds in the built application and record runtime receipts.
-- [ ] Give the documentation companion its own application icon instead of the framework default.
+- [x] Give the documentation companion and its inner executable the project icon; `build.bat --verify-app-icons` checks all built executables.
+- [ ] Let a marker-gated diagnostic copy run beside the installed copy so runtime captures use the unmodified build.
+- [ ] Fix the literal ampersand on the regex workbench Load draft button.
+- [ ] Fix the clipped updater paragraph at the bottom of Settings > Monitoring.
 - [ ] Let Rename edit a saved expression's description.
 
 ## Incomplete source preservation
