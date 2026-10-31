@@ -13,6 +13,7 @@ if /i "%~1"=="--verify-readonly-text" goto verifyReadOnlyText
 if /i "%~1"=="--verify-title-bar" goto verifyTitleBar
 if /i "%~1"=="--verify-alert-dialog" goto verifyAlertDialog
 if /i "%~1"=="--verify-frameless-windows" goto verifyFramelessWindows
+if /i "%~1"=="--verify-taskbar-menu" goto verifyTaskbarMenu
 if /i "%~1"=="--verify-legacy-dialogs" goto verifyLegacyDialogs
 if /i "%~1"=="--verify-result-list" goto verifyResultList
 if /i "%~1"=="--verify-preferences" goto verifyPreferences
@@ -81,6 +82,10 @@ exit /b %errorlevel%
 
 :verifyAlertDialog
 powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0scripts\test-native-alert-dialog.ps1"
+exit /b %errorlevel%
+
+:verifyTaskbarMenu
+powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0scripts\test-native-taskbar-menu.ps1"
 exit /b %errorlevel%
 
 :verifyFramelessWindows

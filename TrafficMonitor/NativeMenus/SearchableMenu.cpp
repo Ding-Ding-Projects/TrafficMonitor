@@ -94,6 +94,25 @@ bool ReadItem(HMENU menu, UINT position, Item& item)
     return true;
 }
 
+// A taskbar-embedded owner is reparented into another process's window. A popup owned
+// through that foreign root cannot reliably take activation, so it is owned by an
+// in-process top-level window instead while menu notifications still reach the owner.
+bool ForeignHosted(HWND owner)
+{
+    HWND root = GetAncestor(owner, GA_ROOT);
+    DWORD process{};
+    if (!root || !GetWindowThreadProcessId(root, &process)) return false;
+    return process != GetCurrentProcessId();
+}
+
+HWND InProcessHost(HWND owner)
+{
+    CWnd* main = AfxGetMainWnd();
+    HWND candidate = main ? main->GetSafeHwnd() : nullptr;
+    if (candidate && IsWindow(candidate) && !ForeignHosted(candidate) && candidate != owner) return GetAncestor(candidate, GA_ROOT);
+    return nullptr;
+}
+
 bool HasOpaqueItems(HMENU menu, int depth = 0)
 {
     if (depth > 24) return true;
@@ -172,7 +191,7 @@ private:
 class Popup
 {
 public:
-    HWND window{}, owner{}, edit{}, list{}, back{}, empty{}, regex{}, previousFocus{};
+    HWND window{}, owner{}, host{}, edit{}, list{}, back{}, empty{}, regex{}, previousFocus{};
     NativePreferences::Subscription preferences;
     NativeMaterial::TextField searchField;
     NativeMaterial::Button backButton, regexButton;
@@ -631,7 +650,7 @@ public:
         WNDCLASSEXW cls{sizeof(cls)}; cls.lpfnWndProc=WindowProc; cls.hInstance=AfxGetInstanceHandle(); cls.lpszClassName=L"TrafficMonitor.NativeSearchMenu"; cls.hCursor=LoadCursorW(nullptr,IDC_ARROW); cls.style=CS_DROPSHADOW;
         if(!RegisterClassExW(&cls) && GetLastError()!=ERROR_CLASS_ALREADY_EXISTS) return false;
         Colors();
-        window=CreateWindowExW(WS_EX_TOOLWINDOW|WS_EX_TOPMOST,cls.lpszClassName,L"TrafficMonitor",WS_POPUP,anchor.x,anchor.y,1,1,owner,nullptr,cls.hInstance,this);
+        window=CreateWindowExW(WS_EX_TOOLWINDOW|WS_EX_TOPMOST,cls.lpszClassName,L"TrafficMonitor",WS_POPUP,anchor.x,anchor.y,1,1,host,nullptr,cls.hInstance,this);
         if(!window) return false;
         preferences.Attach(window);
         using GetDpi=UINT(WINAPI*)(HWND); auto getDpi=reinterpret_cast<GetDpi>(GetProcAddress(GetModuleHandleW(L"user32.dll"),"GetDpiForWindow"));
@@ -738,14 +757,22 @@ UINT Track(CMenu* menu,UINT flags,int x,int y,CWnd* ownerWindow,NativeRegex::Opt
     HWND owner=ownerWindow->GetSafeHwnd(); HMENU handle=menu->GetSafeHmenu();
     // Owner-drawn plugins without retrievable labels retain their native renderer.
     if(HasOpaqueItems(handle)) return static_cast<UINT>(menu->TrackPopupMenu(flags,x,y,ownerWindow));
-    Popup popup; popup.owner=owner; popup.anchor={x,y}; popup.previousFocus=GetFocus();
+    const bool hosted=ForeignHosted(owner);
+    Popup popup; popup.owner=owner; popup.host=hosted?InProcessHost(owner):owner; popup.anchor={x,y}; popup.previousFocus=GetFocus();
     SendMessageW(owner,WM_ENTERMENULOOP,TRUE,0); SendMessageW(owner,WM_INITMENU,reinterpret_cast<WPARAM>(handle),0);
     const bool created=popup.Create();
     if(created)
     {
         popup.Open(handle,0);
         if(retainedSearch&&!popup.levels.empty()){popup.levels.front().filter->options=*retainedSearch;SetWindowTextW(popup.edit,retainedSearch->query.c_str());popup.Filter();}
-        if(!popup.done) { ShowWindow(popup.window,SW_SHOW); SetForegroundWindow(popup.window); SetFocus(popup.edit); }
+        if(!popup.done)
+        {
+            ShowWindow(popup.window,SW_SHOW); SetForegroundWindow(popup.window);
+            // A hosted owner whose popup could not take the foreground would vanish on the
+            // first deactivation; use the system menu path, which handles that case.
+            if(hosted && GetForegroundWindow()!=popup.window) { popup.compatibility=true; popup.done=true; }
+            else SetFocus(popup.edit);
+        }
         MSG message{};
         while(!popup.done && IsWindow(owner) && IsWindow(popup.window))
         {
@@ -766,7 +793,16 @@ UINT Track(CMenu* menu,UINT flags,int x,int y,CWnd* ownerWindow,NativeRegex::Opt
         if(IsWindow(popup.window)) DestroyWindow(popup.window);
     }
     if(IsWindow(owner)) SendMessageW(owner,WM_EXITMENULOOP,TRUE,0);
-    if((!created || popup.compatibility) && IsWindow(owner)) return static_cast<UINT>(menu->TrackPopupMenu(flags,x,y,ownerWindow));
+    if((!created || popup.compatibility) && IsWindow(owner))
+    {
+        // Documented requirement for menus whose owner is not the foreground window:
+        // bring an owning top-level forward first and post a null message afterwards.
+        HWND front=hosted?(popup.host?popup.host:nullptr):GetAncestor(owner,GA_ROOT);
+        if(front) SetForegroundWindow(front);
+        const UINT result=static_cast<UINT>(menu->TrackPopupMenu(flags,x,y,ownerWindow));
+        if(front) PostMessageW(front,WM_NULL,0,0);
+        return result;
+    }
     if(popup.restoreFocus && IsWindow(owner))
     {
         HWND foreground=GetForegroundWindow(); HWND root=GetAncestor(owner,GA_ROOT);
