@@ -35,23 +35,25 @@ namespace NativeMaterial
         }
         else if(appearance==Appearance::Dark)
         {
-            c.surface=D2D1::ColorF(0x111318);c.surfaceContainerLow=D2D1::ColorF(0x1d2026);c.surfaceContainer=D2D1::ColorF(0x272a31);
-            c.onSurface=D2D1::ColorF(0xe1e2e9);c.onSurfaceVariant=D2D1::ColorF(0xc3c6cf);
-            c.outline=D2D1::ColorF(0x8d9199);c.outlineVariant=D2D1::ColorF(0x43474e);
-            c.primary=D2D1::ColorF(0xa8c8ff);c.onPrimary=D2D1::ColorF(0x003064);
-            c.primaryContainer=D2D1::ColorF(0x19467f);c.onPrimaryContainer=D2D1::ColorF(0xd6e3ff);
-            c.secondaryContainer=D2D1::ColorF(0x3e4759);c.onSecondaryContainer=D2D1::ColorF(0xdee6f9);
-            c.error=D2D1::ColorF(0xffb4ab);c.onError=D2D1::ColorF(0x690005);
+            // Signal redesign tokens (design/gui-redesign/HANDOFF.md).
+            c.surface=D2D1::ColorF(0x0e1116);c.surfaceContainerLow=D2D1::ColorF(0x161b22);c.surfaceContainer=D2D1::ColorF(0x1f2630);
+            c.onSurface=D2D1::ColorF(0xe6edf3);c.onSurfaceVariant=D2D1::ColorF(0x9aa7b4);
+            c.outline=D2D1::ColorF(0x7c8896);c.outlineVariant=D2D1::ColorF(0x3a4552);
+            c.primary=D2D1::ColorF(0x8ec0ff);c.onPrimary=D2D1::ColorF(0x0a2a55);
+            c.primaryContainer=D2D1::ColorF(0x22324a);c.onPrimaryContainer=D2D1::ColorF(0xdce9ff);
+            c.secondaryContainer=D2D1::ColorF(0x2a3442);c.onSecondaryContainer=D2D1::ColorF(0xe6edf3);
+            c.error=D2D1::ColorF(0xff9aa2);c.onError=D2D1::ColorF(0x4a0710);
         }
         else
         {
-            c.surface=D2D1::ColorF(0xf9f9ff);c.surfaceContainerLow=D2D1::ColorF(0xf0f3fa);c.surfaceContainer=D2D1::ColorF(0xe9edf5);
-            c.onSurface=D2D1::ColorF(0x191c20);c.onSurfaceVariant=D2D1::ColorF(0x43474e);
-            c.outline=D2D1::ColorF(0x73777f);c.outlineVariant=D2D1::ColorF(0xc3c6cf);
-            c.primary=D2D1::ColorF(0x345e9c);c.onPrimary=D2D1::ColorF(0xffffff);
-            c.primaryContainer=D2D1::ColorF(0xd6e3ff);c.onPrimaryContainer=D2D1::ColorF(0x001b3e);
-            c.secondaryContainer=D2D1::ColorF(0xdae2f9);c.onSecondaryContainer=D2D1::ColorF(0x151c2b);
-            c.error=D2D1::ColorF(0xba1a1a);c.onError=D2D1::ColorF(0xffffff);
+            // Signal redesign tokens (design/gui-redesign/HANDOFF.md).
+            c.surface=D2D1::ColorF(0xf4f6f8);c.surfaceContainerLow=D2D1::ColorF(0xffffff);c.surfaceContainer=D2D1::ColorF(0xebeff3);
+            c.onSurface=D2D1::ColorF(0x111820);c.onSurfaceVariant=D2D1::ColorF(0x46525f);
+            c.outline=D2D1::ColorF(0x7a8693);c.outlineVariant=D2D1::ColorF(0xc9d2dc);
+            c.primary=D2D1::ColorF(0x1d5fd1);c.onPrimary=D2D1::ColorF(0xffffff);
+            c.primaryContainer=D2D1::ColorF(0xd6e3fa);c.onPrimaryContainer=D2D1::ColorF(0x0f2f66);
+            c.secondaryContainer=D2D1::ColorF(0xe3ecfb);c.onSecondaryContainer=D2D1::ColorF(0x111820);
+            c.error=D2D1::ColorF(0xa3262f);c.onError=D2D1::ColorF(0xffffff);
         }
         // Existing owners keep their field names while shared components use
         // explicit semantic roles. No owner-local palette is introduced.

@@ -31,8 +31,8 @@ namespace NativeMaterial
         {
             if (p.highContrast) return { p.onSurface, p.surface, p.surface };
             if (Luminance(p.onSurface) < .5f)   // light theme: dark snackbar
-                return { D2D1::ColorF(0x2e3135), D2D1::ColorF(0xf0f0f7), D2D1::ColorF(0xa8c8ff) };
-            return { D2D1::ColorF(0xe1e2e9), D2D1::ColorF(0x2e3135), D2D1::ColorF(0x345e9c) };
+                return { D2D1::ColorF(0x1f2630), D2D1::ColorF(0xe6edf3), D2D1::ColorF(0x8ec0ff) };
+            return { D2D1::ColorF(0xe6edf3), D2D1::ColorF(0x1f2630), D2D1::ColorF(0x1d5fd1) };
         }
 
         D2D1_COLOR_F Dim(const Palette& p) { return p.highContrast ? D2D1::ColorF(GetRValue(GetSysColor(COLOR_GRAYTEXT)) / 255.f, GetGValue(GetSysColor(COLOR_GRAYTEXT)) / 255.f, GetBValue(GetSysColor(COLOR_GRAYTEXT)) / 255.f) : BlendColor(p.onSurface, p.surface, .38f); }

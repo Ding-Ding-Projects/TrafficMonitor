@@ -201,7 +201,7 @@ public:
     NativeRegex::Editor regexEditor;
     HFONT font{}, boldFont{};
     HBRUSH background{};
-    COLORREF surface{}, ink{}, muted{}, selected{}, accent{}, selectedInk{}, outline{};
+    COLORREF surface{}, ink{}, muted{}, selected{}, accent{}, selectedInk{}, outline{}, divider{}, selectedText{};
     std::vector<Level> levels;
     std::vector<size_t> visible;
     std::shared_ptr<AccessibleState> accessibility{ std::make_shared<AccessibleState>() };
@@ -240,10 +240,11 @@ public:
         if (hc.dwFlags & HCF_HIGHCONTRASTON)
         { surface = GetSysColor(COLOR_WINDOW); ink = GetSysColor(COLOR_WINDOWTEXT); muted = GetSysColor(COLOR_GRAYTEXT); selected = GetSysColor(COLOR_HIGHLIGHT); accent = GetSysColor(COLOR_HIGHLIGHTTEXT); outline = GetSysColor(COLOR_WINDOWTEXT); }
         else if (light)
-        { surface = RGB(245,247,250); ink = RGB(23,33,47); muted = RGB(82,97,116); selected = RGB(220,232,255); accent = RGB(36,95,200); outline = RGB(196,199,207); }
+        { surface = RGB(255,255,255); ink = RGB(17,24,32); muted = RGB(70,82,95); selected = RGB(214,227,250); accent = RGB(29,95,209); outline = RGB(201,210,220); divider = RGB(226,231,237); selectedText = RGB(15,47,102); }
         else
-        { surface = RGB(16,20,25); ink = RGB(230,237,245); muted = RGB(168,183,200); selected = RGB(40,58,84); accent = RGB(145,184,255); outline = RGB(73,82,95); }
-        selectedInk=(hc.dwFlags&HCF_HIGHCONTRASTON)?GetSysColor(COLOR_HIGHLIGHTTEXT):ink;
+        { surface = RGB(22,27,34); ink = RGB(230,237,243); muted = RGB(154,167,180); selected = RGB(34,50,74); accent = RGB(142,192,255); outline = RGB(58,69,82); divider = RGB(45,54,64); selectedText = RGB(220,233,255); }
+        selectedInk=(hc.dwFlags&HCF_HIGHCONTRASTON)?GetSysColor(COLOR_HIGHLIGHTTEXT):selectedText;
+        if(hc.dwFlags&HCF_HIGHCONTRASTON) divider=muted;
         if (background) DeleteObject(background);
         background = CreateSolidBrush(surface);
         const auto appearance = NativePreferences::EffectiveAppearance();
@@ -277,13 +278,15 @@ public:
         scrollRail.SetMetrics(static_cast<int>(visible.size()), (std::max)(1, page), top);
     }
     int Edge() const { return (std::max)(1, Px(1)); }
+    // Compact 40 px rows; bilingual labels keep the 48 px minimum for two measured lines.
+    int RowMinimum() const { return NativePreferences::Current().values.language == NativePreferences::Language::Bilingual ? Px(48) : Px(40); }
     void Layout()
     {
         if(externallySized){ReflowChildren();return;}
         MONITORINFO mi{sizeof(mi)};
         GetMonitorInfoW(MonitorFromPoint(anchor, MONITOR_DEFAULTTONEAREST), &mi);
-        width = (std::min)(Px(420), static_cast<int>(mi.rcWork.right - mi.rcWork.left));
-        rowHeight = Px(48);
+        width = (std::min)(Px(380), static_cast<int>(mi.rcWork.right - mi.rcWork.left));
+        rowHeight = RowMinimum();
         const int padding = Px(12);
         const int toolbar = NativePreferences::Current().values.language == NativePreferences::Language::Bilingual ? Px(56) : Px(44);
         const int listTop = padding + toolbar + Px(12);
@@ -340,7 +343,7 @@ public:
             const Item* item=Row(static_cast<int>(row));
             RECT text{0,0,(std::max)(Px(24),static_cast<int>(client.right)-Px(item->shortcut.empty()?92:200)),0};
             DrawTextW(dc,item->label.c_str(),-1,&text,DT_CALCRECT|DT_WORDBREAK|DT_NOPREFIX);
-            const int measured=item->Separator()?Px(12):(std::max)(Px(48),static_cast<int>(text.bottom)+Px(12));
+            const int measured=item->Separator()?Px(9):(std::max)(RowMinimum(),static_cast<int>(text.bottom)+Px(12));
             SendMessageW(list,LB_SETITEMHEIGHT,row,measured);
         }
         SelectObject(dc,old); ReleaseDC(list,dc);
@@ -496,12 +499,20 @@ public:
     {
         const Item* item=Row(static_cast<int>(draw.itemID));
         const bool active=(draw.itemState & ODS_SELECTED)!=0;
-        HBRUSH fill=CreateSolidBrush(active ? selected : surface); FillRect(draw.hDC,&draw.rcItem,fill); DeleteObject(fill);
+        HBRUSH fill=CreateSolidBrush(surface); FillRect(draw.hDC,&draw.rcItem,fill); DeleteObject(fill);
+        if(active)
+        {
+            // Selected rows are rounded 8 px pills inset from the list edge.
+            HBRUSH pill=CreateSolidBrush(selected); HPEN none=static_cast<HPEN>(GetStockObject(NULL_PEN));
+            auto oldBrush=SelectObject(draw.hDC,pill); auto oldPen=SelectObject(draw.hDC,none);
+            RoundRect(draw.hDC,draw.rcItem.left+Px(2),draw.rcItem.top+Px(1),draw.rcItem.right-Px(2)+1,draw.rcItem.bottom-Px(1)+1,Px(16),Px(16));
+            SelectObject(draw.hDC,oldPen); SelectObject(draw.hDC,oldBrush); DeleteObject(pill);
+        }
         if (!item) return;
         SetBkMode(draw.hDC,TRANSPARENT);
         if(item->Separator())
         {
-            HPEN pen=CreatePen(PS_SOLID,1,muted); auto old=SelectObject(draw.hDC,pen);
+            HPEN pen=CreatePen(PS_SOLID,1,divider); auto old=SelectObject(draw.hDC,pen);
             MoveToEx(draw.hDC,draw.rcItem.left+Px(12),(draw.rcItem.top+draw.rcItem.bottom)/2,nullptr);
             LineTo(draw.hDC,draw.rcItem.right-Px(12),(draw.rcItem.top+draw.rcItem.bottom)/2); SelectObject(draw.hDC,old); DeleteObject(pen); return;
         }
@@ -655,7 +666,7 @@ public:
         preferences.Attach(window);
         using GetDpi=UINT(WINAPI*)(HWND); auto getDpi=reinterpret_cast<GetDpi>(GetProcAddress(GetModuleHandleW(L"user32.dll"),"GetDpiForWindow"));
         if(getDpi) dpi=getDpi(window);
-        rowHeight=Px(48);
+        rowHeight=RowMinimum();
         CWnd* parent = CWnd::FromHandle(window);
         backButton.Create(backText.c_str(), CRect(0,0,1,1), parent, BackId);
         backButton.SetVariant(NativeMaterial::ButtonVariant::Text);
