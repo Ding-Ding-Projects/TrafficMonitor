@@ -31,7 +31,17 @@ void CTaskbarDefaultStyle::LoadConfig()
 
         bool specify_each_item_color_default = false;
         //为预设2和预设3设置默认的文本颜色
-        if (i == 1)
+        // Signal redesign: presets 1 (dark) and 4 (light) default to the Signal traffic colors,
+        // upload orange and download blue with muted labels. Saved preset colors still win.
+        if (i == 0 || i == TASKBAR_DEFAULT_LIGHT_STYLE_INDEX)
+        {
+            const wchar_t* str_default_text_color = (i == 0)
+                ? L"11839386,7650045,11839386,16760974,11839386,15986150,11839386,15986150,11839386,15986150,11839386,15986150,11839386,15986150,11839386,15986150,11839386,15986150,11839386,15986150,11839386,15986150,11839386,15986150,11839386,15986150,"
+                : L"6246982,1001908,6246982,13721373,6246982,2103313,6246982,2103313,6246982,2103313,6246982,2103313,6246982,2103313,6246982,2103313,6246982,2103313,6246982,2103313,6246982,2103313,6246982,2103313,6246982,2103313,";
+            ini.LoadTaskbarWndColors(L"taskbar_default_style", (key_name + L"text_color").c_str(), m_default_style[i].text_colors, str_default_text_color);
+            specify_each_item_color_default = true;
+        }
+        else if (i == 1)
         {
             const wchar_t* str_default_text_color = L"4574711,16777215,5107653,16777215,16632499,16777215,16494036,16777215,14601983,16777215,16760992,10221779,13425662,16777215,4574711,16777215,";
             ini.LoadTaskbarWndColors(L"taskbar_default_style", (key_name + L"text_color").c_str(), m_default_style[i].text_colors, str_default_text_color);

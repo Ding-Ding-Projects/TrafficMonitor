@@ -22,8 +22,8 @@ namespace NativeMaterial
     void ResultList::DrawItem(LPDRAWITEMSTRUCT item)
     {
         if(item->itemID==static_cast<UINT>(-1))return;CDC dc;dc.Attach(item->hDC);CRect r(item->rcItem);const auto c=Palette::Resolve(m_appearance);const bool selected=(item->itemState&ODS_SELECTED)!=0;const UINT dpi=GetDpiForWindow(m_hWnd);auto px=[&](int n){return MulDiv(n,dpi,96);};
-        dc.FillSolidRect(r,Rgb(c.surface));CRect shape=r;shape.DeflateRect(px(4),px(3));shape.right-=px(12);CBrush brush(Rgb(selected?c.primaryContainer:c.surface));auto* oldBrush=dc.SelectObject(&brush);auto* oldPen=dc.SelectStockObject(NULL_PEN);dc.RoundRect(shape,CPoint(px(16),px(16)));dc.SelectObject(oldBrush);dc.SelectObject(oldPen);
-        if(selected&&m_navigation)dc.FillSolidRect(shape.left,shape.top+px(8),px(3),shape.Height()-px(16),Rgb(c.primary));
+        const D2D1_COLOR_F rail=m_navigation?c.surfaceContainer:c.surface;dc.FillSolidRect(r,Rgb(rail));CRect shape=r;shape.DeflateRect(px(4),px(3));shape.right-=px(12);CBrush brush(Rgb(selected?c.primaryContainer:rail));auto* oldBrush=dc.SelectObject(&brush);auto* oldPen=dc.SelectStockObject(NULL_PEN);const int corner=m_navigation?(std::min)(shape.Height(),px(40)):px(16);dc.RoundRect(shape,CPoint(corner,corner));dc.SelectObject(oldBrush);dc.SelectObject(oldPen);
+        // Navigation selection is a full pill (Signal redesign); no separate indicator bar.
         CString label;GetText(item->itemID,label);CRect text=r;text.DeflateRect(px(m_navigation?36:12),px(10));text.right=r.right-px(24);auto* oldFont=GetFont()?dc.SelectObject(GetFont()):nullptr;dc.SetBkMode(TRANSPARENT);dc.SetTextColor(Rgb(selected?c.onPrimaryContainer:c.onSurface));dc.DrawText(label,text,DT_WORDBREAK|DT_NOPREFIX);if(oldFont)dc.SelectObject(oldFont);
         if(selected&&!m_navigation){CPen check(PS_SOLID,(std::max)(1,px(2)),Rgb(c.onPrimaryContainer));auto* previous=dc.SelectObject(&check);const int cy=r.CenterPoint().y;dc.MoveTo(r.right-px(22),cy);dc.LineTo(r.right-px(19),cy+px(3));dc.LineTo(r.right-px(14),cy-px(4));dc.SelectObject(previous);}
         if (m_navigation)
@@ -108,7 +108,7 @@ namespace NativeMaterial
     LRESULT ResultList::WindowProc(UINT message,WPARAM w,LPARAM l)
     {
         if(message==WM_MOUSEWHEEL){m_wheel+=GET_WHEEL_DELTA_WPARAM(w);while(abs(m_wheel)>=WHEEL_DELTA){const int direction=m_wheel>0?1:-1;SetTopIndex((std::max)(0,GetTopIndex()-direction*3));m_wheel-=direction*WHEEL_DELTA;}SyncScroll();return TRUE;}
-        if(message==WM_ERASEBKGND){CRect r;GetClientRect(r);CDC::FromHandle(reinterpret_cast<HDC>(w))->FillSolidRect(r,Rgb(Palette::Resolve(m_appearance).surface));return TRUE;}
+        if(message==WM_ERASEBKGND){CRect r;GetClientRect(r);CDC::FromHandle(reinterpret_cast<HDC>(w))->FillSolidRect(r,Rgb(m_navigation?Palette::Resolve(m_appearance).surfaceContainer:Palette::Resolve(m_appearance).surface));return TRUE;}
         const auto result=CListBox::WindowProc(message,w,l);
         if(message==WM_PAINT||message==WM_PRINTCLIENT||message==WM_SETFONT||message==WM_SIZE)NativeLayoutObservation::ObserveNativeText(m_hWnd);
         if(message==WM_NCDESTROY)NativeLayoutObservation::Unregister(m_hWnd);

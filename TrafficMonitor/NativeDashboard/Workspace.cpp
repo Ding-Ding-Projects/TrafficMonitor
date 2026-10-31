@@ -508,7 +508,7 @@ namespace NativeDashboard
             CPaintDC dc(this);CRect r;GetClientRect(r);
             const auto colors=NativeMaterial::Palette::Resolve(m_appearance);
             dc.FillSolidRect(r,Color(colors.surface));
-            dc.FillSolidRect(0,m_titleBar.HeightPx(),Px(176),r.Height()-m_titleBar.HeightPx(),Color(colors.container));
+            dc.FillSolidRect(0,m_titleBar.HeightPx(),Px(176),r.Height()-m_titleBar.HeightPx(),Color(colors.surfaceContainer));
         }
         void Workspace::OnSize(UINT type, int width, int height)
         {

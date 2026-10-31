@@ -39,18 +39,19 @@ The control outline is darker than the divider shown on the canvas so input boun
 
 Type: Segoe UI Variable; body 14/20, secondary 12/16, section 16/24 semibold, page 24/32 semibold, metric 28/36 semibold. Shape: menu and floating monitor 12, menu rows and fields 8, cards 16, pill buttons 18, navigation items 20.
 
-## Implemented in this change
+## Implemented
 
-- Shared `NativeMaterial::Palette` light and dark roles use the Signal tokens, so every component drawn through the shared palette picks them up.
-- Snackbar inverse colors follow the new palette.
-- Searchable menu: Signal colors, 380 px width, 40 px rows (48 px kept for bilingual labels), rounded selected rows, lighter dividers, selected text color.
+- Shared `NativeMaterial::Palette` light and dark roles use the Signal tokens, so every component drawn through the shared palette picks them up. Snackbar inverse colors follow.
+- Searchable menu: Signal colors, 380 px width, 40 px rows (48 px kept for bilingual labels), rounded selected rows, small caps section headings (Network, History, Windows, Tools, Help), Segoe Fluent Icons glyphs (Segoe MDL2 Assets fallback) in the accent color, Exit in the error color, and a keyboard hint footer.
 - Taskbar right-click menu: the popup is owned by an in-process window when the taskbar strip is embedded in the shell, with a system-menu fallback, so the menu appears.
+- Navigation rails (workspace and settings): tinted rail on the navigation container color, full pill selection without a separate indicator bar.
+- Taskbar presets 1 (dark) and 4 (light) default to the Signal traffic colors: upload orange, download blue, muted labels. Preset colors already saved in a configuration file are kept.
 
 ## Not yet implemented
 
-- Section headings, icons, the tool grid and the keyboard hint footer in the menu. The menu resources have no section metadata yet.
-- Floating monitor and taskbar strip defaults (upload and download colors, usage bars, sparkline). Existing saved colors and skins must be preserved, so new defaults need a migration rule first.
-- Workspace and Settings layout changes beyond the shared palette.
+- The three-button tool grid from the menu artboard; the menu stays a single searchable list so filtering and accessibility keep one model.
+- Floating monitor redesign: it is drawn by skin files, so the expanded layout with usage bars and sparkline needs a new default skin.
+- Workspace metric cards, pill toolbar buttons and the settings chip and segmented controls beyond the shared palette and navigation.
 
 ## Verification status
 
