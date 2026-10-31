@@ -1,0 +1,19 @@
+{
+  "v": 3,
+  "createdOnFiles": {"v": 1, "at": "2026-10-31T00:30:00Z"},
+  "title": "TrafficMonitor GUI Redesign",
+  "launch": {"view": "canvas"},
+  "pages": [],
+  "boards": {
+    "Main.dc.html": {"x": 0, "y": 0, "w": 1280, "h": 720, "title": "Taskbar strip and context menu"},
+    "FloatingMonitor.dc.html": {"x": 1360, "y": 0, "w": 1280, "h": 720, "title": "Floating monitor"},
+    "Workspace.dc.html": {"x": 0, "y": 840, "w": 1280, "h": 840, "title": "Network workspace"},
+    "Settings.dc.html": {"x": 1360, "y": 840, "w": 1280, "h": 840, "title": "Settings"},
+    "Tokens.dc.html": {"x": 0, "y": 1800, "w": 1280, "h": 900, "title": "Tokens for the native renderer"}
+  },
+  "order": ["Main.dc.html", "FloatingMonitor.dc.html", "Workspace.dc.html", "Settings.dc.html", "Tokens.dc.html"],
+  "notes": {
+    "heading": {"x": 0, "y": -300, "text": "TrafficMonitor: Signal redesign", "kind": "title1", "maxW": 2640}
+  },
+  "designSystems": []
+}

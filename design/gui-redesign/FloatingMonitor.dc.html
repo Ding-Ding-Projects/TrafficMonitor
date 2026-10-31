@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Floating monitor</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+a{color:#1D5FD1}a:hover{color:#164AA6}
+</style>
+</helmet>
+<div style="width: 1280px; height: 720px; box-sizing: border-box; padding: 48px; display: flex; flex-direction: column; gap: 32px; background: #EEF2F6; font-family: 'Segoe UI Variable Text', 'Segoe UI', system-ui, sans-serif; color: #111820; font-variant-numeric: tabular-nums">
+  <div style="display: flex; flex-direction: column; gap: 6px">
+    <h1 style="margin: 0; font-size: 28px; line-height: 36px; font-weight: 600">Floating monitor</h1>
+    <p style="margin: 0; font-size: 14px; line-height: 20px; color: #46525F; max-width: 640px">Frameless, rounded, draggable. Upload is orange, download is blue on every surface, and both also differ in arrow direction and lightness.</p>
+  </div>
+
+  <div style="display: flex; gap: 40px; align-items: flex-start; flex-wrap: wrap">
+    <div style="display: flex; flex-direction: column; gap: 10px">
+      <span style="font-size: 12px; font-weight: 600; letter-spacing: 0.04em; color: #5A6673">COMPACT · LIGHT</span>
+      <div style="width: 220px; box-sizing: border-box; padding: 12px 14px; background: #FFFFFF; border: 1px solid #D3DAE2; border-radius: 12px; box-shadow: 0 6px 18px rgba(17,24,32,0.12); display: flex; flex-direction: column; gap: 6px">
+        <div style="display: flex; align-items: baseline; gap: 8px"><span style="color: #B4490F; font-weight: 700; width: 14px">↑</span><span style="font-size: 20px; line-height: 26px; font-weight: 600">128.4</span><span style="font-size: 12px; color: #46525F">KB/s</span></div>
+        <div style="display: flex; align-items: baseline; gap: 8px"><span style="color: #1D5FD1; font-weight: 700; width: 14px">↓</span><span style="font-size: 20px; line-height: 26px; font-weight: 600">4.62</span><span style="font-size: 12px; color: #46525F">MB/s</span></div>
+      </div>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 10px">
+      <span style="font-size: 12px; font-weight: 600; letter-spacing: 0.04em; color: #5A6673">EXPANDED · LIGHT</span>
+      <div style="width: 300px; box-sizing: border-box; padding: 14px; background: #FFFFFF; border: 1px solid #D3DAE2; border-radius: 12px; box-shadow: 0 6px 18px rgba(17,24,32,0.12); display: flex; flex-direction: column; gap: 12px">
+        <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px">
+          <div style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 12px; color: #46525F">Upload</span><span style="font-size: 20px; line-height: 26px; font-weight: 600; color: #B4490F">128.4 <small style="font-size: 12px; font-weight: 400; color: #46525F">KB/s</small></span></div>
+          <div style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 12px; color: #46525F">Download</span><span style="font-size: 20px; line-height: 26px; font-weight: 600; color: #1D5FD1">4.62 <small style="font-size: 12px; font-weight: 400; color: #46525F">MB/s</small></span></div>
+        </div>
+        <svg width="272" height="48" viewBox="0 0 272 48" fill="none" role="img" aria-label="Last 60 seconds of download and upload speed"><path d="M0 40 L20 36 L40 38 L60 24 L80 28 L100 12 L120 18 L140 8 L160 16 L180 6 L200 14 L220 10 L240 20 L260 12 L272 14" stroke="#1D5FD1" stroke-width="2" stroke-linejoin="round"></path><path d="M0 44 L20 43 L40 44 L60 40 L80 42 L100 38 L120 40 L140 36 L160 40 L180 38 L200 41 L220 39 L240 42 L260 40 L272 41" stroke="#B4490F" stroke-width="1.6" stroke-linejoin="round"></path></svg>
+        <div style="display: flex; flex-direction: column; gap: 8px">
+          <div style="display: flex; align-items: center; gap: 10px; font-size: 12px"><span style="width: 32px; color: #46525F">CPU</span><div style="flex: 1; height: 6px; border-radius: 3px; background: #E2E7ED"><div style="width: 23%; height: 6px; border-radius: 3px; background: #2C6E49"></div></div><span style="width: 34px; text-align: right; font-weight: 600">23%</span></div>
+          <div style="display: flex; align-items: center; gap: 10px; font-size: 12px"><span style="width: 32px; color: #46525F">RAM</span><div style="flex: 1; height: 6px; border-radius: 3px; background: #E2E7ED"><div style="width: 61%; height: 6px; border-radius: 3px; background: #2C6E49"></div></div><span style="width: 34px; text-align: right; font-weight: 600">61%</span></div>
+          <div style="display: flex; align-items: center; gap: 10px; font-size: 12px"><span style="width: 32px; color: #46525F">GPU</span><div style="flex: 1; height: 6px; border-radius: 3px; background: #E2E7ED"><div style="width: 88%; height: 6px; border-radius: 3px; background: #A3262F"></div></div><span style="width: 34px; text-align: right; font-weight: 600">88%</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 10px">
+      <span style="font-size: 12px; font-weight: 600; letter-spacing: 0.04em; color: #5A6673">EXPANDED · DARK</span>
+      <div style="width: 300px; box-sizing: border-box; padding: 14px; background: #161B22; border: 1px solid #2D3640; border-radius: 12px; box-shadow: 0 6px 18px rgba(0,0,0,0.35); display: flex; flex-direction: column; gap: 12px; color: #E6EDF3">
+        <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px">
+          <div style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 12px; color: #9AA7B4">Upload</span><span style="font-size: 20px; line-height: 26px; font-weight: 600; color: #FDBA74">128.4 <small style="font-size: 12px; font-weight: 400; color: #9AA7B4">KB/s</small></span></div>
+          <div style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 12px; color: #9AA7B4">Download</span><span style="font-size: 20px; line-height: 26px; font-weight: 600; color: #8EC0FF">4.62 <small style="font-size: 12px; font-weight: 400; color: #9AA7B4">MB/s</small></span></div>
+        </div>
+        <svg width="272" height="48" viewBox="0 0 272 48" fill="none" role="img" aria-label="Last 60 seconds of download and upload speed"><path d="M0 40 L20 36 L40 38 L60 24 L80 28 L100 12 L120 18 L140 8 L160 16 L180 6 L200 14 L220 10 L240 20 L260 12 L272 14" stroke="#8EC0FF" stroke-width="2" stroke-linejoin="round"></path><path d="M0 44 L20 43 L40 44 L60 40 L80 42 L100 38 L120 40 L140 36 L160 40 L180 38 L200 41 L220 39 L240 42 L260 40 L272 41" stroke="#FDBA74" stroke-width="1.6" stroke-linejoin="round"></path></svg>
+        <div style="display: flex; flex-direction: column; gap: 8px">
+          <div style="display: flex; align-items: center; gap: 10px; font-size: 12px"><span style="width: 32px; color: #9AA7B4">CPU</span><div style="flex: 1; height: 6px; border-radius: 3px; background: #2D3640"><div style="width: 23%; height: 6px; border-radius: 3px; background: #7DD3A8"></div></div><span style="width: 34px; text-align: right; font-weight: 600">23%</span></div>
+          <div style="display: flex; align-items: center; gap: 10px; font-size: 12px"><span style="width: 32px; color: #9AA7B4">RAM</span><div style="flex: 1; height: 6px; border-radius: 3px; background: #2D3640"><div style="width: 61%; height: 6px; border-radius: 3px; background: #7DD3A8"></div></div><span style="width: 34px; text-align: right; font-weight: 600">61%</span></div>
+          <div style="display: flex; align-items: center; gap: 10px; font-size: 12px"><span style="width: 32px; color: #9AA7B4">GPU</span><div style="flex: 1; height: 6px; border-radius: 3px; background: #2D3640"><div style="width: 88%; height: 6px; border-radius: 3px; background: #FF9AA2"></div></div><span style="width: 34px; text-align: right; font-weight: 600">88%</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display: flex; gap: 24px; font-size: 13px; line-height: 20px; color: #46525F; max-width: 960px">
+    <p style="margin: 0; flex: 1">Usage bars switch to the error color at 85% and above; the value text never relies on color alone.</p>
+    <p style="margin: 0; flex: 1">Skins remain supported: these values are the default skin, and existing skin files keep their own layout.</p>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":720}}'>
+class Component extends DCLogic {
+renderVals() {
+return {};
+}
+}
+</script>
+</body>
+</html>

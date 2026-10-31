@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Settings</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+a{color:#1D5FD1}a:hover{color:#164AA6}
+</style>
+</helmet>
+<div style="min-height: 840px; box-sizing: border-box; display: flex; flex-direction: column; background: #F4F6F8; font-family: 'Segoe UI Variable Text', 'Segoe UI', system-ui, sans-serif; color: #111820">
+  <div style="display: flex; align-items: center; gap: 12px; height: 44px; padding: 0 0 0 16px; background: #FFFFFF; border-bottom: 1px solid #E2E7ED">
+    <span style="font-size: 13px; font-weight: 600">Settings</span>
+    <div style="flex: 1"></div>
+    <button type="button" aria-label="Close" style="width: 46px; height: 44px; border: 0; background: transparent; color: #46525F; font: inherit">✕</button>
+  </div>
+  <div style="flex: 1; display: flex; flex-wrap: wrap">
+    <nav aria-label="Settings sections" style="flex: 1 1 200px; max-width: 220px; box-sizing: border-box; padding: 16px 12px; display: flex; flex-direction: column; gap: 4px; background: #EBEFF3">
+      <label style="display: flex; align-items: center; gap: 8px; height: 40px; box-sizing: border-box; padding: 0 12px; margin-bottom: 8px; background: #FFFFFF; border: 1px solid #C9D2DC; border-radius: 8px">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#46525F" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>
+        <input type="text" placeholder="Search settings" aria-label="Search settings" style="flex: 1; min-width: 0; border: 0; background: transparent; font: inherit; font-size: 14px; outline: none">
+      </label>
+      <a href="#monitoring" style="display: flex; align-items: center; height: 40px; padding: 0 12px; border-radius: 20px; color: #111820; font-size: 14px; text-decoration: none">Monitoring</a>
+      <a href="#floating" style="display: flex; align-items: center; height: 40px; padding: 0 12px; border-radius: 20px; color: #111820; font-size: 14px; text-decoration: none">Floating monitor</a>
+      <a href="#taskbar" style="display: flex; align-items: center; height: 40px; padding: 0 12px; border-radius: 20px; background: #D6E3FA; color: #0F2F66; font-size: 14px; font-weight: 600; text-decoration: none">Taskbar</a>
+      <a href="#notifications" style="display: flex; align-items: center; height: 40px; padding: 0 12px; border-radius: 20px; color: #111820; font-size: 14px; text-decoration: none">Notifications</a>
+      <a href="#interface" style="display: flex; align-items: center; height: 40px; padding: 0 12px; border-radius: 20px; color: #111820; font-size: 14px; text-decoration: none">Interface</a>
+      <a href="#all" style="display: flex; align-items: center; height: 40px; padding: 0 12px; border-radius: 20px; color: #111820; font-size: 14px; text-decoration: none">All groups</a>
+    </nav>
+
+    <main style="flex: 999 1 560px; min-width: 0; box-sizing: border-box; padding: 24px; display: flex; flex-direction: column; gap: 16px">
+      <h1 style="margin: 0; font-size: 24px; line-height: 32px; font-weight: 600">Taskbar</h1>
+
+      <section style="background: #FFFFFF; border: 1px solid #E2E7ED; border-radius: 16px; display: flex; flex-direction: column">
+        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 16px; padding: 16px">
+          <div style="flex: 1 1 280px; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 14px; font-weight: 600">Show taskbar strip</span><span style="font-size: 13px; color: #46525F">Embed live speeds next to the clock.</span></div>
+          <button type="button" role="switch" aria-checked="true" aria-label="Show taskbar strip" style="width: 52px; height: 32px; border: 0; border-radius: 16px; background: #1D5FD1; position: relative; padding: 0"><span style="position: absolute; right: 4px; top: 4px; width: 24px; height: 24px; border-radius: 12px; background: #FFFFFF"></span></button>
+        </div>
+        <div style="height: 1px; background: #E2E7ED; margin: 0 16px"></div>
+        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 16px; padding: 16px">
+          <div style="flex: 1 1 280px; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 14px; font-weight: 600">Items</span><span style="font-size: 13px; color: #46525F">Choose what the strip shows, in order.</span></div>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px">
+            <button type="button" style="height: 32px; padding: 0 12px; border: 0; border-radius: 8px; background: #D6E3FA; color: #0F2F66; font: inherit; font-size: 13px">✓ Upload</button>
+            <button type="button" style="height: 32px; padding: 0 12px; border: 0; border-radius: 8px; background: #D6E3FA; color: #0F2F66; font: inherit; font-size: 13px">✓ Download</button>
+            <button type="button" style="height: 32px; padding: 0 12px; border: 0; border-radius: 8px; background: #D6E3FA; color: #0F2F66; font: inherit; font-size: 13px">✓ CPU</button>
+            <button type="button" style="height: 32px; padding: 0 12px; border: 0; border-radius: 8px; background: #D6E3FA; color: #0F2F66; font: inherit; font-size: 13px">✓ Memory</button>
+            <button type="button" style="height: 32px; padding: 0 12px; border: 1px solid #C9D2DC; border-radius: 8px; background: #FFFFFF; color: #111820; font: inherit; font-size: 13px">GPU</button>
+            <button type="button" style="height: 32px; padding: 0 12px; border: 1px solid #C9D2DC; border-radius: 8px; background: #FFFFFF; color: #111820; font: inherit; font-size: 13px">Temperature</button>
+          </div>
+        </div>
+        <div style="height: 1px; background: #E2E7ED; margin: 0 16px"></div>
+        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 16px; padding: 16px">
+          <div style="flex: 1 1 280px; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 14px; font-weight: 600">Graph</span><span style="font-size: 13px; color: #46525F">Mini history next to the values.</span></div>
+          <div role="radiogroup" aria-label="Graph" style="display: flex; border: 1px solid #C9D2DC; border-radius: 18px; overflow: hidden">
+            <button type="button" role="radio" aria-checked="false" style="height: 36px; padding: 0 16px; border: 0; background: #FFFFFF; font: inherit; font-size: 13px">Off</button>
+            <button type="button" role="radio" aria-checked="true" style="height: 36px; padding: 0 16px; border: 0; border-left: 1px solid #C9D2DC; background: #D6E3FA; color: #0F2F66; font: inherit; font-size: 13px; font-weight: 600">Line</button>
+            <button type="button" role="radio" aria-checked="false" style="height: 36px; padding: 0 16px; border: 0; border-left: 1px solid #C9D2DC; background: #FFFFFF; font: inherit; font-size: 13px">Bars</button>
+          </div>
+        </div>
+      </section>
+
+      <section style="padding: 16px; background: #FFFFFF; border: 1px solid #E2E7ED; border-radius: 16px; display: flex; flex-direction: column; gap: 12px">
+        <span style="font-size: 12px; font-weight: 600; letter-spacing: 0.04em; color: #5A6673">PREVIEW</span>
+        <div style="display: flex; align-items: center; gap: 14px; height: 40px; padding: 0 12px; border-radius: 8px; background: #F1F4F7; align-self: flex-start; font-size: 12px; line-height: 16px; font-variant-numeric: tabular-nums">
+          <div style="display: flex; flex-direction: column"><span><b style="color: #B4490F">↑</b> 128.4 KB/s</span><span><b style="color: #1D5FD1">↓</b> 4.62 MB/s</span></div>
+          <div style="display: flex; flex-direction: column"><span>CPU 23%</span><span>RAM 61%</span></div>
+        </div>
+      </section>
+
+      <div style="flex: 1"></div>
+      <div style="display: flex; justify-content: flex-end; gap: 8px; padding-top: 8px; border-top: 1px solid #E2E7ED">
+        <button type="button" style="height: 36px; padding: 0 16px; border: 0; border-radius: 18px; background: transparent; color: #1D5FD1; font: inherit; font-size: 14px; font-weight: 600">Restore defaults</button>
+        <button type="button" style="height: 36px; padding: 0 16px; border: 1px solid #C9D2DC; border-radius: 18px; background: #FFFFFF; font: inherit; font-size: 14px">Cancel</button>
+        <button type="button" style="height: 36px; padding: 0 20px; border: 0; border-radius: 18px; background: #1D5FD1; color: #FFFFFF; font: inherit; font-size: 14px; font-weight: 600">Apply</button>
+      </div>
+    </main>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":840}}'>
+class Component extends DCLogic {
+renderVals() {
+return {};
+}
+}
+</script>
+</body>
+</html>

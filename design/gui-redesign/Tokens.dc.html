@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Tokens for the native renderer</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+a{color:#1D5FD1}a:hover{color:#164AA6}
+</style>
+</helmet>
+<div style="width: 1280px; height: 900px; box-sizing: border-box; padding: 48px; display: flex; flex-direction: column; gap: 24px; background: #FFFFFF; font-family: 'Segoe UI Variable Text', 'Segoe UI', system-ui, sans-serif; color: #111820">
+  <div style="display: flex; flex-direction: column; gap: 6px">
+    <h1 style="margin: 0; font-size: 28px; line-height: 36px; font-weight: 600">Signal tokens</h1>
+    <p style="margin: 0; font-size: 14px; line-height: 20px; color: #46525F">One palette for menus, floating monitor, taskbar strip, workspace and settings. High contrast mode keeps system colors.</p>
+  </div>
+  <table style="border-collapse: collapse; font-size: 13px; width: 100%">
+    <thead><tr style="text-align: left; color: #46525F; font-size: 12px"><th style="padding: 8px 12px; font-weight: 600">Role</th><th style="padding: 8px 12px; font-weight: 600">Light</th><th style="padding: 8px 12px; font-weight: 600">Dark</th><th style="padding: 8px 12px; font-weight: 600">Used for</th></tr></thead>
+    <tbody>
+      <tr style="border-top: 1px solid #E2E7ED"><td style="padding: 8px 12px">Canvas</td><td style="padding: 8px 12px"><span style="display: inline-block; width: 14px; height: 14px; vertical-align: middle; border: 1px solid #C9D2DC; background: #F4F6F8"></span> #F4F6F8</td><td style="padding: 8px 12px"><span style="display: inline-block; width: 14px; height: 14px; vertical-align: middle; background: #0E1116"></span> #0E1116</td><td style="padding: 8px 12px">Window background</td></tr>
+      <tr style="border-top: 1px solid #E2E7ED"><td style="padding: 8px 12px">Surface</td><td style="padding: 8px 12px"><span style="display: inline-block; width: 14px; height: 14px; vertical-align: middle; border: 1px solid #C9D2DC; background: #FFFFFF"></span> #FFFFFF</td><td style="padding: 8px 12px"><span style="display: inline-block; width: 14px; height: 14px; vertical-align: middle; background: #161B22"></span> #161B22</td><td style="padding: 8px 12px">Menus, cards, floating monitor</td></tr>
+      <tr style="border-top: 1px solid #E2E7ED"><td style="padding: 8px 12px">Text</td><td style="padding: 8px 12px"><span style="display: inline-block; width: 14px; height: 14px; vertical-align: middle; background: #111820"></span> #111820</td><td style="padding: 8px 12px"><span style="display: inline-block; width: 14px; height: 14px; vertical-align: middle; border: 1px solid #C9D2DC; background: #E6EDF3"></span> #E6EDF3</td><td style="padding: 8px 12px">Primary text</td></tr>
+      <tr style="border-top: 1px solid #E2E7ED"><td style="padding: 8px 12px">Secondary text</td><td style="padding: 8px 12px"><span style="display: inline-block; width: 14px; height: 14px; vertical-align: middle; background: #46525F"></span> #46525F</td><td style="padding: 8px 12px"><span style="display: inline-block; width: 14px; height: 14px; vertical-align: middle; background: #9AA7B4"></span> #9AA7B4</td><td style="padding: 8px 12px">Labels, units, hints</td></tr>
+      <tr style="border-top: 1px solid #E2E7ED"><td style="padding: 8px 12px">Outline</td><td style="padding: 8px 12px"><span style="display: inline-block; width: 14px; height: 14px; vertical-align: middle; background: #C9D2DC"></span> #C9D2DC</td><td style="padding: 8px 12px"><span style="display: inline-block; width: 14px; height: 14px; vertical-align: middle; background: #3A4552"></span> #3A4552</td><td style="padding: 8px 12px">Menu edge, fields</td></tr>
+      <tr style="border-top: 1px solid #E2E7ED"><td style="padding: 8px 12px">Selected</td><td style="padding: 8px 12px"><span style="display: inline-block; width: 14px; height: 14px; vertical-align: middle; background: #D6E3FA"></span> #D6E3FA</td><td style="padding: 8px 12px"><span style="display: inline-block; width: 14px; height: 14px; vertical-align: middle; background: #22324A"></span> #22324A</td><td style="padding: 8px 12px">Highlighted row, active nav</td></tr>
+      <tr style="border-top: 1px solid #E2E7ED"><td style="padding: 8px 12px">Accent / Download</td><td style="padding: 8px 12px"><span style="display: inline-block; width: 14px; height: 14px; vertical-align: middle; background: #1D5FD1"></span> #1D5FD1</td><td style="padding: 8px 12px"><span style="display: inline-block; width: 14px; height: 14px; vertical-align: middle; background: #8EC0FF"></span> #8EC0FF</td><td style="padding: 8px 12px">Primary actions, download series</td></tr>
+      <tr style="border-top: 1px solid #E2E7ED"><td style="padding: 8px 12px">Upload</td><td style="padding: 8px 12px"><span style="display: inline-block; width: 14px; height: 14px; vertical-align: middle; background: #B4490F"></span> #B4490F</td><td style="padding: 8px 12px"><span style="display: inline-block; width: 14px; height: 14px; vertical-align: middle; background: #FDBA74"></span> #FDBA74</td><td style="padding: 8px 12px">Upload series</td></tr>
+      <tr style="border-top: 1px solid #E2E7ED"><td style="padding: 8px 12px">Positive / Error</td><td style="padding: 8px 12px">#2C6E49 / #A3262F</td><td style="padding: 8px 12px">#7DD3A8 / #FF9AA2</td><td style="padding: 8px 12px">Usage bars, status, Exit</td></tr>
+    </tbody>
+  </table>
+  <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; font-size: 13px; line-height: 20px">
+    <div style="padding: 16px; border: 1px solid #E2E7ED; border-radius: 16px"><b style="display: block; margin-bottom: 6px">Type</b>Segoe UI Variable. Body 14/20, secondary 12/16, section 16/24 semibold, page 24/32 semibold, metric 28/36 semibold, tabular figures for every number.</div>
+    <div style="padding: 16px; border: 1px solid #E2E7ED; border-radius: 16px"><b style="display: block; margin-bottom: 6px">Shape</b>Menu and floating monitor 12, menu rows and fields 8, cards 16, pill buttons 18, nav items 20. One-pixel outline, soft shadow.</div>
+    <div style="padding: 16px; border: 1px solid #E2E7ED; border-radius: 16px"><b style="display: block; margin-bottom: 6px">Menu</b>380 wide, 8 inset, 40 rows, 12 icon gap, search field 40 tall with adjacent regex button, keyboard hint footer.</div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":900}}'>
+class Component extends DCLogic {
+renderVals() {
+return {};
+}
+}
+</script>
+</body>
+</html>
