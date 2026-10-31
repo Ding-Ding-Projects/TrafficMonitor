@@ -14,6 +14,7 @@
 #include <oleacc.h>
 #include <memory>
 #include <cwctype>
+#include <limits>
 
 #pragma comment(lib, "dwmapi.lib")
 #pragma comment(lib, "imm32.lib")
@@ -32,7 +33,8 @@ struct Item
     UINT id{}, type{}, state{}, position{};
     HMENU submenu{};
     HBITMAP bitmap{};
-    std::wstring text, label, shortcut;
+    std::wstring text, label, shortcut, heading;
+    bool Synthetic() const { return position == (std::numeric_limits<UINT>::max)(); }
     bool Separator() const { return (type & MFT_SEPARATOR) != 0; }
     bool Enabled() const { return !Separator() && !(state & (MFS_DISABLED | MFS_GRAYED)); }
 };
@@ -113,6 +115,83 @@ HWND InProcessHost(HWND owner)
     return nullptr;
 }
 
+// Identity of an item for icon and section lookup: a submenu is identified by its first command.
+UINT CommandIdentity(const Item& item)
+{
+    if (!item.submenu) return item.id;
+    const UINT first = GetMenuItemID(item.submenu, 0);
+    return first == static_cast<UINT>(-1) ? 0 : first;
+}
+
+// Segoe Fluent Icons / Segoe MDL2 Assets code points; 0 means no icon.
+wchar_t IconFor(const Item& item)
+{
+    switch (CommandIdentity(item))
+    {
+    case ID_SELETE_CONNECTION: case ID_SELECT_ALL_CONNECTION: return item.submenu ? 0xE701 : (item.id == ID_SELECT_ALL_CONNECTION ? 0xE8A9 : 0xE895);
+    case ID_NETWORK_INFO: return 0xE946;
+    case ID_TRAFFIC_HISTORY: return 0xE9D2;
+    case ID_DISPLAY_SETTINGS: return 0xE7F4;
+    case ID_SHOW_MAIN_WND: return 0xE8A7;
+    case ID_SHOW_TASK_BAR_WND: return 0xE7C4;
+    case ID_OPEN_TASK_MANAGER: return 0xE9D9;
+    case ID_PLUGIN_MANAGE: return 0xEA86;
+    case ID_OPTIONS: case ID_OPTIONS2: return 0xE713;
+    case ID_ALWAYS_ON_TOP: return 0xE718;
+    case ID_MOUSE_PENETRATE: return 0xE8B0;
+    case ID_LOCK_WINDOW_POS: return 0xE72E;
+    case ID_SHOW_CPU_MEMORY: return 0xE950;
+    case ID_TRANSPARENCY_100: return 0xE790;
+    case ID_CHANGE_SKIN: return item.submenu ? 0xE712 : 0xE771;
+    case ID_CHANGE_NOTIFY_ICON: return 0xEA8F;
+    case ID_HELP: return item.submenu ? 0xE897 : 0xE8F1;
+    case ID_FREQUENTY_ASKED_QUESTIONS: return 0xE897;
+    case ID_UPDATE_LOG: return 0xE81C;
+    case ID_APP_ABOUT: return 0xE946;
+    case ID_CHECK_UPDATE: return 0xE895;
+    case ID_APP_EXIT: return 0xE7E8;
+    default: return 0;
+    }
+}
+
+// Section heading for a group that starts with this item, or nullptr.
+const wchar_t* SectionFor(const Item& item, const wchar_t** chinese)
+{
+    switch (CommandIdentity(item))
+    {
+    case ID_SELETE_CONNECTION: case ID_NETWORK_INFO: *chinese = L"網絡"; return L"Network";
+    case ID_TRAFFIC_HISTORY: *chinese = L"記錄"; return L"History";
+    case ID_ALWAYS_ON_TOP: case ID_DISPLAY_SETTINGS: case ID_SHOW_MAIN_WND: case ID_SHOW_TASK_BAR_WND: *chinese = L"視窗"; return L"Windows";
+    case ID_CHANGE_SKIN: case ID_OPEN_TASK_MANAGER: case ID_PLUGIN_MANAGE: case ID_OPTIONS: case ID_OPTIONS2: *chinese = L"工具"; return L"Tools";
+    case ID_HELP: *chinese = L"說明"; return L"Help";
+    default: return nullptr;
+    }
+}
+
+// Turns group separators into labelled section headings and adds one before the first group.
+// Heading rows are separators: never selectable, never activated, hidden while filtering.
+void AddHeadings(std::vector<Item>& items)
+{
+    const wchar_t* previous = nullptr;
+    for (size_t i = 0; i < items.size(); ++i)
+    {
+        if (items[i].Separator()) continue;
+        if (i > 0 && !items[i - 1].Separator()) continue;
+        const wchar_t* chinese = nullptr;
+        const wchar_t* english = SectionFor(items[i], &chinese);
+        if (!english || english == previous) continue;
+        previous = english;
+        std::wstring heading = NativePreferences::Pair(english, chinese).GetString();
+        if (i > 0) { items[i - 1].heading = heading; items[i - 1].label = heading; continue; }
+        Item synthetic;
+        synthetic.type = MFT_SEPARATOR;
+        synthetic.position = (std::numeric_limits<UINT>::max)();
+        synthetic.heading = synthetic.label = heading;
+        items.insert(items.begin(), std::move(synthetic));
+        ++i;
+    }
+}
+
 bool HasOpaqueItems(HMENU menu, int depth = 0)
 {
     if (depth > 24) return true;
@@ -191,7 +270,7 @@ private:
 class Popup
 {
 public:
-    HWND window{}, owner{}, host{}, edit{}, list{}, back{}, empty{}, regex{}, previousFocus{};
+    HWND window{}, owner{}, host{}, edit{}, list{}, back{}, empty{}, regex{}, hint{}, previousFocus{};
     NativePreferences::Subscription preferences;
     NativeMaterial::TextField searchField;
     NativeMaterial::Button backButton, regexButton;
@@ -199,14 +278,14 @@ public:
     bool done{}, composing{}, rebuilding{}, restoreFocus{}, compatibility{}, chinese{}, noResultCueSent{};
     UINT command{}, dpi{96};
     NativeRegex::Editor regexEditor;
-    HFONT font{}, boldFont{};
+    HFONT font{}, boldFont{}, headingFont{}, iconFont{}, hintFont{};
     HBRUSH background{};
-    COLORREF surface{}, ink{}, muted{}, selected{}, accent{}, selectedInk{}, outline{}, divider{}, selectedText{};
+    COLORREF surface{}, ink{}, muted{}, selected{}, accent{}, selectedInk{}, outline{}, divider{}, selectedText{}, danger{};
     std::vector<Level> levels;
     std::vector<size_t> visible;
     std::shared_ptr<AccessibleState> accessibility{ std::make_shared<AccessibleState>() };
     MenuAccessible* accessible{};
-    std::wstring searchText, backText, emptyText, invokeText, expandText, radioText;
+    std::wstring searchText, backText, emptyText, invokeText, expandText, radioText, hintText;
     POINT anchor{};
     int rowHeight{}, width{}, height{};
     bool placing{},reflowing{},externallySized{};
@@ -225,6 +304,7 @@ public:
         if (accessible) accessible->Release();
         if (font) DeleteObject(font);
         if (boldFont) DeleteObject(boldFont);
+        for (HFONT owned : { headingFont, iconFont, hintFont }) if (owned) DeleteObject(owned);
         if (background) DeleteObject(background);
     }
     int Px(int n) const { return MulDiv(n, dpi, 96); }
@@ -240,11 +320,11 @@ public:
         if (hc.dwFlags & HCF_HIGHCONTRASTON)
         { surface = GetSysColor(COLOR_WINDOW); ink = GetSysColor(COLOR_WINDOWTEXT); muted = GetSysColor(COLOR_GRAYTEXT); selected = GetSysColor(COLOR_HIGHLIGHT); accent = GetSysColor(COLOR_HIGHLIGHTTEXT); outline = GetSysColor(COLOR_WINDOWTEXT); }
         else if (light)
-        { surface = RGB(255,255,255); ink = RGB(17,24,32); muted = RGB(70,82,95); selected = RGB(214,227,250); accent = RGB(29,95,209); outline = RGB(201,210,220); divider = RGB(226,231,237); selectedText = RGB(15,47,102); }
+        { surface = RGB(255,255,255); ink = RGB(17,24,32); muted = RGB(70,82,95); selected = RGB(214,227,250); accent = RGB(29,95,209); outline = RGB(201,210,220); divider = RGB(226,231,237); selectedText = RGB(15,47,102); danger = RGB(163,38,47); }
         else
-        { surface = RGB(22,27,34); ink = RGB(230,237,243); muted = RGB(154,167,180); selected = RGB(34,50,74); accent = RGB(142,192,255); outline = RGB(58,69,82); divider = RGB(45,54,64); selectedText = RGB(220,233,255); }
+        { surface = RGB(22,27,34); ink = RGB(230,237,243); muted = RGB(154,167,180); selected = RGB(34,50,74); accent = RGB(142,192,255); outline = RGB(58,69,82); divider = RGB(45,54,64); selectedText = RGB(220,233,255); danger = RGB(255,154,162); }
         selectedInk=(hc.dwFlags&HCF_HIGHCONTRASTON)?GetSysColor(COLOR_HIGHLIGHTTEXT):selectedText;
-        if(hc.dwFlags&HCF_HIGHCONTRASTON) divider=muted;
+        if(hc.dwFlags&HCF_HIGHCONTRASTON) { divider=muted; danger=ink; }
         if (background) DeleteObject(background);
         background = CreateSolidBrush(surface);
         const auto appearance = NativePreferences::EffectiveAppearance();
@@ -253,13 +333,33 @@ public:
         if (regex) regexButton.SetAppearance(appearance);
         if (scrollRail.GetSafeHwnd()) scrollRail.SetAppearance(appearance);
     }
+    // Windows 11 ships Segoe Fluent Icons; Windows 10 ships Segoe MDL2 Assets with the same code points.
+    static HFONT IconFont(int height)
+    {
+        for (const wchar_t* face : { L"Segoe Fluent Icons", L"Segoe MDL2 Assets" })
+        {
+            HFONT candidate = CreateFontW(-height,0,0,0,FW_NORMAL,FALSE,FALSE,FALSE,DEFAULT_CHARSET,OUT_DEFAULT_PRECIS,CLIP_DEFAULT_PRECIS,CLEARTYPE_QUALITY,DEFAULT_PITCH,face);
+            if (!candidate) continue;
+            HDC dc = GetDC(nullptr); auto old = SelectObject(dc, candidate);
+            wchar_t actual[LF_FACESIZE]{}; GetTextFaceW(dc, LF_FACESIZE, actual);
+            SelectObject(dc, old); ReleaseDC(nullptr, dc);
+            if (_wcsicmp(actual, face) == 0) return candidate;
+            DeleteObject(candidate);
+        }
+        return nullptr;
+    }
     void Fonts()
     {
         if (font) DeleteObject(font);
         if (boldFont) DeleteObject(boldFont);
         font = CreateFontW(-Px(14),0,0,0,FW_NORMAL,FALSE,FALSE,FALSE,DEFAULT_CHARSET,OUT_DEFAULT_PRECIS,CLIP_DEFAULT_PRECIS,CLEARTYPE_QUALITY,DEFAULT_PITCH,L"Segoe UI");
         boldFont = CreateFontW(-Px(14),0,0,0,FW_SEMIBOLD,FALSE,FALSE,FALSE,DEFAULT_CHARSET,OUT_DEFAULT_PRECIS,CLIP_DEFAULT_PRECIS,CLEARTYPE_QUALITY,DEFAULT_PITCH,L"Segoe UI");
+        for (HFONT owned : { headingFont, iconFont, hintFont }) if (owned) DeleteObject(owned);
+        headingFont = CreateFontW(-Px(12),0,0,0,FW_SEMIBOLD,FALSE,FALSE,FALSE,DEFAULT_CHARSET,OUT_DEFAULT_PRECIS,CLIP_DEFAULT_PRECIS,CLEARTYPE_QUALITY,DEFAULT_PITCH,L"Segoe UI");
+        hintFont = CreateFontW(-Px(12),0,0,0,FW_NORMAL,FALSE,FALSE,FALSE,DEFAULT_CHARSET,OUT_DEFAULT_PRECIS,CLIP_DEFAULT_PRECIS,CLEARTYPE_QUALITY,DEFAULT_PITCH,L"Segoe UI");
+        iconFont = IconFont(Px(16));
         for (HWND control : { edit, list, back, empty, regex }) SendMessageW(control, WM_SETFONT, reinterpret_cast<WPARAM>(font), TRUE);
+        if (hint) SendMessageW(hint, WM_SETFONT, reinterpret_cast<WPARAM>(hintFont), TRUE);
     }
     void SyncScroll()
     {
@@ -278,6 +378,8 @@ public:
         scrollRail.SetMetrics(static_cast<int>(visible.size()), (std::max)(1, page), top);
     }
     int Edge() const { return (std::max)(1, Px(1)); }
+    // Keyboard hint footer below the list.
+    int Footer() const { return Px(32); }
     // Compact 40 px rows; bilingual labels keep the 48 px minimum for two measured lines.
     int RowMinimum() const { return NativePreferences::Current().values.language == NativePreferences::Language::Bilingual ? Px(48) : Px(40); }
     void Layout()
@@ -298,7 +400,7 @@ public:
         int contentHeight = 0;
         for (size_t row = 0; row < visible.size(); ++row)
             contentHeight += static_cast<int>(SendMessageW(list, LB_GETITEMHEIGHT, row, 0));
-        height = (std::min)((std::min)(Px(480), static_cast<int>(mi.rcWork.bottom - mi.rcWork.top)), listTop + (std::max)(Px(72), contentHeight) + padding+frameHeight);
+        height = (std::min)((std::min)(Px(520), static_cast<int>(mi.rcWork.bottom - mi.rcWork.top)), listTop + (std::max)(Px(72), contentHeight) + Footer() + padding+frameHeight);
         const int x = (std::max)(static_cast<int>(mi.rcWork.left), (std::min)(static_cast<int>(anchor.x), static_cast<int>(mi.rcWork.right) - width));
         const int y = (std::max)(static_cast<int>(mi.rcWork.top), (std::min)(static_cast<int>(anchor.y), static_cast<int>(mi.rcWork.bottom) - height));
         placing=true;
@@ -310,7 +412,7 @@ public:
     }
     void ReflowChildren()
     {
-        if(reflowing||!list||!edit||!back||!regex||!scrollRail.GetSafeHwnd())return;
+        if(reflowing||!list||!edit||!back||!regex||!hint||!scrollRail.GetSafeHwnd())return;
         reflowing=true;
         RECT client{};GetClientRect(window,&client);
         const int clientWidth=client.right-client.left,clientHeight=client.bottom-client.top;
@@ -323,7 +425,8 @@ public:
         MoveWindow(back, padding, padding, backWidth, toolbar, TRUE);
         MoveWindow(edit, padding + backWidth, padding, (std::max)(1, clientWidth - padding * 2 - backWidth - Px(96)), toolbar, TRUE);
         MoveWindow(regex, clientWidth - padding - Px(88), padding, Px(88), toolbar, TRUE);
-        const int pageHeight = (std::max)(1, clientHeight - listTop - padding);
+        const int pageHeight = (std::max)(1, clientHeight - listTop - padding - Footer());
+        MoveWindow(hint, padding + Px(12), listTop + pageHeight + Px(8), (std::max)(1, clientWidth - padding * 2 - Px(24)), Px(20), TRUE);
         MoveWindow(list, padding, listTop, (std::max)(1, clientWidth - padding * 2 - Px(16)), pageHeight, TRUE);
         scrollRail.MoveWindow(clientWidth - padding - Px(12), listTop, Px(12), pageHeight);
         MoveWindow(empty, padding + Px(12), listTop + Px(12), (std::max)(1,clientWidth-padding*2-Px(24)), (std::min)(Px(64),(std::max)(1,pageHeight-Px(24))), TRUE);
@@ -343,7 +446,7 @@ public:
             const Item* item=Row(static_cast<int>(row));
             RECT text{0,0,(std::max)(Px(24),static_cast<int>(client.right)-Px(item->shortcut.empty()?92:200)),0};
             DrawTextW(dc,item->label.c_str(),-1,&text,DT_CALCRECT|DT_WORDBREAK|DT_NOPREFIX);
-            const int measured=item->Separator()?Px(9):(std::max)(RowMinimum(),static_cast<int>(text.bottom)+Px(12));
+            const int measured=item->Separator()?(item->heading.empty()?Px(9):Px(30)):(std::max)(RowMinimum(),static_cast<int>(text.bottom)+Px(12));
             SendMessageW(list,LB_SETITEMHEIGHT,row,measured);
         }
         SelectObject(dc,old); ReleaseDC(list,dc);
@@ -353,6 +456,7 @@ public:
         auto& level = levels.back(); level.items.clear();
         const int count = GetMenuItemCount(level.menu);
         for (int i = 0; i < count; ++i) { Item item; if (ReadItem(level.menu,i,item)) level.items.push_back(std::move(item)); }
+        AddHeadings(level.items);
     }
     void Filter()
     {
@@ -375,7 +479,9 @@ public:
             visible.push_back(i);
             SendMessageW(list,LB_ADDSTRING,0,reinterpret_cast<LPARAM>(items[i].label.c_str()));
         }
-        SendMessageW(list,LB_SETCURSEL,visible.empty() ? -1 : 0,0);
+        int firstEnabled=-1;
+        for(size_t row=0;row<visible.size();++row) if(items[visible[row]].Enabled()){firstEnabled=static_cast<int>(row);break;}
+        SendMessageW(list,LB_SETCURSEL,firstEnabled,0);
         SetWindowTextW(empty,filter.status.empty()?emptyText.c_str():filter.status.c_str());
         ShowWindow(empty,visible.empty()?SW_SHOW:SW_HIDE);
         // Cue only on the transition into an empty result for a typed query, never on every keystroke.
@@ -500,7 +606,7 @@ public:
         const Item* item=Row(static_cast<int>(draw.itemID));
         const bool active=(draw.itemState & ODS_SELECTED)!=0;
         HBRUSH fill=CreateSolidBrush(surface); FillRect(draw.hDC,&draw.rcItem,fill); DeleteObject(fill);
-        if(active)
+        if(active && item && !item->Separator())
         {
             // Selected rows are rounded 8 px pills inset from the list edge.
             HBRUSH pill=CreateSolidBrush(selected); HPEN none=static_cast<HPEN>(GetStockObject(NULL_PEN));
@@ -512,11 +618,38 @@ public:
         SetBkMode(draw.hDC,TRANSPARENT);
         if(item->Separator())
         {
+            if(!item->heading.empty())
+            {
+                // Section heading: divider on top (except the first row), small muted caps label below.
+                if(draw.itemID>0)
+                {
+                    HPEN pen=CreatePen(PS_SOLID,1,divider); auto old=SelectObject(draw.hDC,pen);
+                    MoveToEx(draw.hDC,draw.rcItem.left+Px(12),draw.rcItem.top+Px(4),nullptr);
+                    LineTo(draw.hDC,draw.rcItem.right-Px(12),draw.rcItem.top+Px(4)); SelectObject(draw.hDC,old); DeleteObject(pen);
+                }
+                std::wstring caps=item->heading; for(auto& c:caps) c=static_cast<wchar_t>(std::towupper(c));
+                RECT label=draw.rcItem; label.left+=Px(12); label.top+=Px(10); label.bottom-=Px(2);
+                SetTextColor(draw.hDC,muted); auto oldFont=SelectObject(draw.hDC,headingFont?headingFont:font);
+                DrawTextW(draw.hDC,caps.c_str(),-1,&label,DT_LEFT|DT_BOTTOM|DT_SINGLELINE|DT_NOPREFIX);
+                SelectObject(draw.hDC,oldFont); return;
+            }
             HPEN pen=CreatePen(PS_SOLID,1,divider); auto old=SelectObject(draw.hDC,pen);
             MoveToEx(draw.hDC,draw.rcItem.left+Px(12),(draw.rcItem.top+draw.rcItem.bottom)/2,nullptr);
             LineTo(draw.hDC,draw.rcItem.right-Px(12),(draw.rcItem.top+draw.rcItem.bottom)/2); SelectObject(draw.hDC,old); DeleteObject(pen); return;
         }
-        SetTextColor(draw.hDC,item->Enabled() ? (active?selectedInk:ink) : muted);
+        const bool destructive=item->id==ID_APP_EXIT;
+        SetTextColor(draw.hDC,item->Enabled() ? (active?selectedInk:(destructive?danger:ink)) : muted);
+        const wchar_t glyph=IconFor(*item);
+        if(glyph && iconFont && !(item->bitmap && reinterpret_cast<INT_PTR>(item->bitmap)>12))
+        {
+            const COLORREF textColor=GetTextColor(draw.hDC);
+            SetTextColor(draw.hDC,item->Enabled()?(active?selectedInk:(destructive?danger:accent)):muted);
+            RECT icon=draw.rcItem; icon.left+=Px(32); icon.right=icon.left+Px(24);
+            auto oldIcon=SelectObject(draw.hDC,iconFont);
+            const wchar_t glyphText[2]={glyph,0};
+            DrawTextW(draw.hDC,glyphText,1,&icon,DT_CENTER|DT_VCENTER|DT_SINGLELINE|DT_NOPREFIX);
+            SelectObject(draw.hDC,oldIcon); SetTextColor(draw.hDC,textColor);
+        }
         auto oldFont=SelectObject(draw.hDC,(item->state&MFS_DEFAULT) ? boldFont : font);
         RECT text=draw.rcItem; text.left+=Px(64); text.right-=Px(28); text.top+=Px(4); text.bottom-=Px(4);
         if(!item->shortcut.empty())
@@ -625,7 +758,7 @@ public:
             if (reinterpret_cast<HWND>(l) == self->edit) return reinterpret_cast<LRESULT>(self->searchField.Color(CDC::FromHandle(reinterpret_cast<HDC>(w))));
             break;
         case WM_CTLCOLORLISTBOX: case WM_CTLCOLORSTATIC:
-            SetTextColor(reinterpret_cast<HDC>(w),self->ink); SetBkColor(reinterpret_cast<HDC>(w),self->surface); return reinterpret_cast<LRESULT>(self->background);
+            SetTextColor(reinterpret_cast<HDC>(w),reinterpret_cast<HWND>(l)==self->hint?self->muted:self->ink); SetBkColor(reinterpret_cast<HDC>(w),self->surface); return reinterpret_cast<LRESULT>(self->background);
         case WM_ERASEBKGND:
             { RECT rect; GetClientRect(hwnd,&rect); FillRect(reinterpret_cast<HDC>(w),&rect,self->background); return TRUE; }
         case WM_ACTIVATE: if(LOWORD(w)==WA_INACTIVE && !self->regexEditor.Contains(reinterpret_cast<HWND>(l))) self->done=true; return 0;
@@ -644,6 +777,8 @@ public:
         if (NativePreferences::Current().values.language == NativePreferences::Language::Bilingual) searchText=L"Search menu · 搜尋選單";
         backText=NativePreferences::Pair(L"Back",L"返回").GetString();
         emptyText=NativePreferences::Pair(L"No matching commands",L"沒有符合的指令").GetString();
+        hintText=NativePreferences::Pair(L"Type to filter    Enter to run    Esc to close",L"輸入以篩選    Enter 執行    Esc 關閉").GetString();
+        if(hint)SetWindowTextW(hint,hintText.c_str());
         invokeText=NativePreferences::Pair(L"Invoke",L"執行").GetString();
         expandText=NativePreferences::Pair(L"Open submenu",L"開啟子選單").GetString();
         radioText=NativePreferences::Pair(L"Radio option",L"單選選項").GetString();
@@ -675,6 +810,7 @@ public:
         edit = searchField.GetSafeHwnd();
         list=CreateWindowExW(0,L"LISTBOX",searchText.c_str(),WS_CHILD|WS_VISIBLE|WS_TABSTOP|LBS_NOTIFY|LBS_OWNERDRAWVARIABLE|LBS_HASSTRINGS|LBS_NOINTEGRALHEIGHT,0,0,1,1,window,reinterpret_cast<HMENU>(static_cast<UINT_PTR>(ListId)),cls.hInstance,nullptr);
         empty=CreateWindowExW(0,L"STATIC",emptyText.c_str(),WS_CHILD|SS_LEFT,0,0,1,1,window,nullptr,cls.hInstance,nullptr);
+        hint=CreateWindowExW(0,L"STATIC",hintText.c_str(),WS_CHILD|WS_VISIBLE|SS_LEFT|SS_NOPREFIX|SS_ENDELLIPSIS,0,0,1,1,window,nullptr,cls.hInstance,nullptr);
         regexButton.Create(NativePreferences::Pair(L"Regex",L"正規式"), CRect(0,0,1,1), parent, RegexId);
         regexButton.SetVariant(NativeMaterial::ButtonVariant::Tonal);
         regex = regexButton.GetSafeHwnd();
@@ -686,7 +822,7 @@ public:
             InvalidateRect(list, nullptr, TRUE);
         };
         Colors();
-        if(!edit || !list || !back || !empty || !regex) return false;
+        if(!edit || !list || !back || !empty || !regex || !hint) return false;
         SetTimer(window,1,40,nullptr);
         SendMessageW(edit,EM_SETCUEBANNER,TRUE,reinterpret_cast<LPARAM>(searchText.c_str()));
         SendMessageW(edit,EM_SETLIMITTEXT,512,0);
